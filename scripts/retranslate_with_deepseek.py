@@ -14,18 +14,18 @@ if not DS_KEY:
 DS_URL = "https://api.deepseek.com/v1/chat/completions"
 MODEL = "deepseek-chat"
 
-# 优先重译列表（按小班指示：民盟/罗隆基/张澜/张君劢/章伯钧/政协/第三方面）
+# 第二批：剩余 10 个核心文献页面
 TARGETS = [
-    83,   # Chou En-lai/Marshall 会谈，Generalissimo 误译
-    109,  # Marshall/Hsu 会谈，Generalissimo
-    117,  # Marshall/Chou En-lai 会谈，Generalissimo
-    155,  # Marshall/Chou/Stuart 会谈，Generalissimo
-    206,  # Marshall to Truman，Generalissimo
-    328,  # Ludden Memorandum，Generalissimo
-    128,  # 新华社七七九周年宣言草案，english_residue
-    281,  # Stuart 政府改组报告，english_residue
-    337,  # 驻广州领事 Burke 报告
-    415,  # 驻沪总领事 McConaughy 报告
+    75,   # Marshall 系列会谈纪要
+    91,   # Marshall 系列会谈纪要
+    94,   # State-War-Navy Coordinating Committee 备忘录
+    97,   # Marshall 系列会谈纪要
+    125,  # Marshall 系列会谈纪要
+    146,  # Marshall 系列会谈纪要
+    174,  # Marshall 系列会谈纪要
+    237,  # Marshall Notes on Meetings With Generalissimo
+    330,  # 弗里曼致司徒雷登
+    413,  # 国务院政策声明
 ]
 
 # 读术语表
