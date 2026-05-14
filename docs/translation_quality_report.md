@@ -1,7 +1,7 @@
 # 译文质量检查报告
 
 - 检查片段：416
-- 风险提示：61
+- 风险提示：57
 - CSV：`/Users/cheer/Documents/New project/data/translation_quality_issues.csv`
 
 ## 按问题类型
@@ -9,15 +9,15 @@
 | 问题类型 | 严重度 | 数量 |
 |---|---:|---:|
 | glossary_miss | 2 | 13 |
-| english_residue | 2 | 7 |
-| core_machine_draft | 1 | 33 |
-| english_residue | 1 | 8 |
+| english_residue | 2 | 6 |
+| core_machine_draft | 1 | 31 |
+| english_residue | 1 | 7 |
 
 ## 按文献等级
 
 | 等级 | 数量 |
 |---|---:|
-| 核心文献 | 61 |
+| 核心文献 | 57 |
 
 ## 前 30 个高优先级问题
 
@@ -27,7 +27,6 @@
 | 254 | 核心文献 | glossary_miss | 2 | 原文含 Generalissimo，译文未见统一译名“委员长” |
 | 155 | 核心文献 | glossary_miss | 2 | 原文含 Generalissimo，译文未见统一译名“委员长” |
 | 168 | 核心文献 | glossary_miss | 2 | 原文含 Yu Ta-wei，译文未见统一译名“俞大维” |
-| 331 | 核心文献 | english_residue | 2 | 译文仍保留英文词：Chung、Chi-jou、David、Colonel、Copy、Ante |
 | 253 | 核心文献 | glossary_miss | 2 | 原文含 Madame Chiang，译文未见统一译名“蒋夫人” |
 | 337 | 核心文献 | english_residue | 2 | 译文仍保留英文词：Joseph、Yager、Kung-、Gordon、Burke |
 | 415 | 核心文献 | english_residue | 2 | 译文仍保留英文词：Bequest、Polad、Chase、Claire |
@@ -53,3 +52,4 @@
 | 168 | 核心文献 | core_machine_draft | 1 | 核心文献仍为机器初稿，建议优先抽查 |
 | 330 | 核心文献 | core_machine_draft | 1 | 核心文献仍为机器初稿，建议优先抽查 |
 | 330 | 核心文献 | english_residue | 1 | 译文仍保留英文词：Chronicle |
+| 253 | 核心文献 | core_machine_draft | 1 | 核心文献仍为机器初稿，建议优先抽查 |
