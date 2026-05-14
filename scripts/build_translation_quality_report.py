@@ -117,7 +117,7 @@ ACCEPTABLE_TRANSLATIONS = {
     "Ye Tu-yi": ["叶笃义"],
     "Yenan": ["延安"],
     "Mukden": ["沈阳", "奉天", "满洲"],
-    "Manchuria": ["满洲"],
+    "Manchuria": ["东北", "满洲"],  # 中共党史/民盟史标准译"东北"；保留"满洲"兼容旧译
     "Peiping": ["北平"],
     "Nanking": ["南京"],
     "Chungking": ["重庆"],
