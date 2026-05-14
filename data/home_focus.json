@@ -1,0 +1,34 @@
+{
+  "title": "今日继续研究",
+  "description": "优先从罗隆基、昆明暗杀、政协、马歇尔调处和核心文献入口继续推进。",
+  "event_scope_slugs": [
+    "lo-lung-chi",
+    "kunming-assassinations",
+    "pcc-1946",
+    "marshall-mediation"
+  ],
+  "event_grade": "核心文献",
+  "event_limit": 8,
+  "links": [
+    {
+      "label": "罗隆基 · 民盟",
+      "href": "/events?person=lo-lung-chi&tag=民盟"
+    },
+    {
+      "label": "南京核心",
+      "href": "/places/南京?grade=core"
+    },
+    {
+      "label": "民盟核心",
+      "href": "/organizations/中国民主同盟?grade=core"
+    },
+    {
+      "label": "罗隆基卡片",
+      "href": "/events/cards?person=lo-lung-chi"
+    },
+    {
+      "label": "核心校订",
+      "href": "/tasks?queue=core"
+    }
+  ]
+}
