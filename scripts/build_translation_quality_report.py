@@ -183,6 +183,11 @@ def expected_translations(term: str, glossary_translation: str) -> list[str]:
     return ACCEPTABLE_TRANSLATIONS.get(term, [glossary_translation])
 
 
+def source_contains_term(source: str, term: str) -> bool:
+    pattern = re.compile(rf"(?<![A-Za-z]){re.escape(term)}(?![A-Za-z-])", re.IGNORECASE)
+    return bool(pattern.search(source))
+
+
 def insert_issue(
     conn: sqlite3.Connection,
     page_id: int,
@@ -241,11 +246,10 @@ def analyze_row(conn: sqlite3.Connection, row: sqlite3.Row, glossary: list[tuple
         )
         count += 1
 
-    source_lower = source.lower()
     for term, translation in glossary:
         if len(term) < 5:
             continue
-        if term.lower() in source_lower and not any(expected in zh for expected in expected_translations(term, translation)):
+        if source_contains_term(source, term) and not any(expected in zh for expected in expected_translations(term, translation)):
             insert_issue(
                 conn,
                 page_id,
