@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.swp
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Editor
+.*.swp
+.*.swo
+
+# Local OCR / large scratch
+data/ocr_smoke_test/
+data/frus_epub_tmp/
