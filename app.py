@@ -326,6 +326,28 @@ def layout(title: str, body: str, query: str = "") -> bytes:
     .stat {{ background: var(--panel); padding: 13px 15px; }}
     .stat strong {{ display: block; font-size: 22px; line-height: 1.2; }}
     .stat span {{ color: var(--muted); font-size: 13px; }}
+    .platforms {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }}
+    .platform-card {{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+      transition: border-color 0.15s;
+    }}
+    .platform-card:hover {{ border-color: var(--accent); }}
+    .platform-card.active {{ border-left: 3px solid var(--accent); }}
+    .platform-card.upcoming {{ opacity: 0.55; border-style: dashed; }}
+    .platform-card h3 {{ margin: 0 0 4px; font-size: 16px; }}
+    .platform-card .pmeta {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
+    .platform-card .pdesc {{ font-size: 13px; line-height: 1.5; color: var(--text); }}
+    .platform-card .pstatus {{ display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 11px; margin-top: 8px; }}
+    .platform-card .pstatus.ok {{ background: rgba(34,166,79,0.16); color: #2c7c43; }}
+    .platform-card .pstatus.todo {{ background: rgba(170,170,170,0.18); color: var(--muted); }}
     .result-list {{
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -539,6 +561,88 @@ def layout(title: str, body: str, query: str = "") -> bytes:
   <main>{body}</main>
 </body>
 </html>""".encode("utf-8")
+
+
+def platforms_panel_html(c: sqlite3.Connection) -> str:
+    """海外民盟资料平台入口面板。FRUS 已上线，其余平台显示路线图。"""
+    frus_docs = c.execute("SELECT count(*) FROM documents").fetchone()[0]
+    frus_pages = c.execute("SELECT count(*) FROM pages").fetchone()[0]
+    frus_zh = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN'").fetchone()[0]
+    frus_human = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN' AND status='human-reviewed'").fetchone()[0]
+    frus_pct = (frus_human * 100 // frus_zh) if frus_zh else 0
+    platforms = [
+        {
+            "key": "frus",
+            "name": "FRUS",
+            "subtitle": "美国对外关系文件集 1941-1950 中国卷",
+            "desc": f"已收 {frus_docs} 篇民盟相关文档 / {frus_pages} 个页面 / {frus_zh} 个中文译文片段，人工复核覆盖率 {frus_pct}%。",
+            "status": "已上线",
+            "status_class": "ok",
+            "href": "/docs",
+            "active": True,
+        },
+        {
+            "key": "wilson",
+            "name": "Wilson Center",
+            "subtitle": "数字伍德罗·威尔逊中心档案",
+            "desc": "中共/苏联/东欧档案对民盟的内部记述，FRUS 不可替代的「另一面」。Phase 2 重点平台。",
+            "status": "Phase 2 待开发",
+            "status_class": "todo",
+            "href": "#",
+            "active": False,
+        },
+        {
+            "key": "cia",
+            "name": "CIA FOIA",
+            "subtitle": "美国中央情报局已解密文件",
+            "desc": "1947-1950 民盟政治评估、罗隆基/张君劢人物档案、第三方面情报评估。",
+            "status": "Phase 3 待开发",
+            "status_class": "todo",
+            "href": "#",
+            "active": False,
+        },
+        {
+            "key": "hoover",
+            "name": "Hoover Institution",
+            "subtitle": "胡佛档案馆个人卷宗",
+            "desc": "罗隆基档案、章伯钧档案、张君劢档案、王世杰档案等民盟核心人物个人卷宗。",
+            "status": "Phase 4 待开发",
+            "status_class": "todo",
+            "href": "#",
+            "active": False,
+        },
+        {
+            "key": "nara",
+            "name": "NARA",
+            "subtitle": "美国国家档案馆 RG59 国务院全本",
+            "desc": "FRUS 是节选,NARA 是全本。补遗 + 缩微胶片资料。",
+            "status": "Phase 5 待开发",
+            "status_class": "todo",
+            "href": "#",
+            "active": False,
+        },
+        {
+            "key": "hathitrust",
+            "name": "HathiTrust / IA",
+            "subtitle": "数字图书馆",
+            "desc": "民盟二手研究、《再生》《观察》《大公报》《文汇报》等当时报刊。",
+            "status": "Phase 2.5 并行",
+            "status_class": "todo",
+            "href": "#",
+            "active": False,
+        },
+    ]
+    cards = []
+    for p in platforms:
+        cls = "platform-card" + (" active" if p["active"] else " upcoming")
+        cards.append(f'''
+<a class="{cls}" href="{h(p["href"])}">
+  <h3>{h(p["name"])}</h3>
+  <div class="pmeta">{h(p["subtitle"])}</div>
+  <div class="pdesc">{h(p["desc"])}</div>
+  <div class="pstatus {p["status_class"]}">{h(p["status"])}</div>
+</a>''')
+    return '<h2 style="font-size:18px;margin:18px 0 10px;">📚 海外民盟资料平台</h2>\n<section class="platforms">' + "".join(cards) + "</section>"
 
 
 def stats_html(c: sqlite3.Connection) -> str:
@@ -1215,7 +1319,8 @@ def home() -> bytes:
             LIMIT 12
             """
         ).fetchall()
-        body = stats_html(c)
+        body = platforms_panel_html(c)
+        body += stats_html(c)
         focus_links = focus_config.get("links", [])
         focus_buttons = ""
         if isinstance(focus_links, list):
