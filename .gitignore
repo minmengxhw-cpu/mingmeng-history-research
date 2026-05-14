@@ -15,3 +15,5 @@ venv/
 # Local OCR / large scratch
 data/ocr_smoke_test/
 data/frus_epub_tmp/
+retranslate.log
+retranslate.stdout
