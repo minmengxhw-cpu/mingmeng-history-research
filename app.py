@@ -1182,86 +1182,232 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
 </html>""".encode("utf-8")
 
 
+PLATFORM_META = {
+    "frus": {
+        "name": "FRUS",
+        "long_name": "Foreign Relations of the United States",
+        "cn_name": "《美国对外关系文件集》",
+        "subtitle": "美国对外关系文件集 1941-1950 中国卷",
+        "intro": "美国国务院公开编辑、按外交决策线索精选的官方文献年鉴。1861 年至今由 Office of the Historian 主持，是研究美国外交史最权威的一手史料丛书。本平台聚焦其 1941-1950 年中国卷册中与民盟相关的部分。",
+        "perspective": "美方驻华外交官视角 —— 大使馆/领事馆给国务院的报告 + 马歇尔来华使团与民盟领袖的会谈记录",
+        "coverage": "1941.3 民盟成立 — 1947.10 民盟被取缔 — 1949.10 新中国成立 — 1950 内战收尾",
+        "highlights": [
+            "马歇尔与张澜、罗隆基、张君劢、周恩来等的逐字会谈记录",
+            "司徒雷登大使关于民盟政治处境的连续报告（特别是 1947 取缔前后）",
+            "罗隆基 1947.10.28 在使馆软禁期间的亲历对话备忘录（page 316）",
+            "张君劢 1947.11.1 致马歇尔函（page 333）—— 民盟取缔后第 5 天的民盟人士陈情",
+            "12 位民盟政协代表 1946 联名声明（page 228）",
+        ],
+        "status": "已上线",
+        "status_class": "ok",
+        "active": True,
+    },
+    "wilson": {
+        "name": "Wilson Center",
+        "long_name": "Wilson Center Digital Archive",
+        "cn_name": "威尔逊中心数字档案",
+        "subtitle": "数字伍德罗·威尔逊中心档案",
+        "intro": "美国伍德罗·威尔逊国际学者中心（Woodrow Wilson International Center for Scholars）建立的数字档案，聚焦冷战及国际关系一手史料。最大特点是收录大量来自苏联档案、东欧档案、中国共产党档案的解密文件。",
+        "perspective": "苏联档案 + 中共内部档案 + 东欧档案视角 —— FRUS 美方视角不可替代的「另一面」",
+        "coverage": "1945-1950 中共与苏联高层互动 / 1949 米高扬西柏坡密访 / 1949.7 刘少奇访苏 / 苏联驻华大使彼得罗夫、罗申会谈记录",
+        "highlights": [
+            "米高扬访华回忆录（1949.1.31 - 2.7 西柏坡密访）⭐⭐⭐",
+            "刘少奇 ↔ 斯大林会谈备忘录 1949.7.11（中苏分工框架）⭐⭐⭐",
+            "民主党派与政协预备委员会（苏联档案分类下的民盟代表人物名单）",
+            "国民党 1945.5.1 关于中共近十年秘密小册子（民盟与中共关系评估）",
+            "彼得罗夫大使 ↔ 周恩来 / 毛泽东 / 王若飞 多次会谈",
+            "罗申大使 ↔ 蒋介石 1948.6.2 / ↔ 周恩来 1949.11.10",
+        ],
+        "status": "Phase 2 待上线",
+        "status_class": "todo",
+        "active": False,
+        "todo_note": "已搜集 25 篇 1941-1951 民盟相关档案 URL 清单（见 docs/wilson-1941-1951-targets.md）。Cloudflare 对数据中心 IP 反爬，由小班 Mac 端跑 fetch_wilson.sh 抓取后回传 zip，小C 接手解析+翻译+入库。",
+    },
+    "cia": {
+        "name": "CIA FOIA",
+        "long_name": "CIA FOIA Reading Room",
+        "cn_name": "美国中央情报局已解密文件阅览室",
+        "subtitle": "美国中央情报局已解密文件",
+        "intro": "美国中央情报局根据《信息自由法》（FOIA）公开的已解密文件全文检索系统。",
+        "perspective": "美方情报系统视角 —— 与 FRUS 外交部门视角形成互补",
+        "coverage": "1947-1950 民盟政治评估 / 罗隆基/张君劢人物档案 / 第三方面情报评估",
+        "highlights": [
+            "CIA-RDP82-00457R003000670005-4：1947.8 民盟会籍改革计划——罗隆基、张澜（民盟两位领袖）由上海赴北平",
+            "Directory of CCP Government Personnel：列出罗隆基（民盟成员）、张澜（中国民主同盟主席）",
+        ],
+        "status": "Phase 3 待开发",
+        "status_class": "todo",
+        "active": False,
+        "todo_note": "CIA 站点对数据中心 IP 反爬（与 Wilson Center 类似）。可通过 WebSearch 间接索引获取部分文档 URL，由 Mac 端代抓。",
+    },
+    "hoover": {
+        "name": "Hoover Institution",
+        "long_name": "Hoover Institution Library & Archives",
+        "cn_name": "斯坦福大学胡佛档案馆",
+        "subtitle": "胡佛档案馆个人卷宗",
+        "intro": "斯坦福大学胡佛研究所档案馆，收藏 20 世纪政治、军事、外交人物的私人档案。",
+        "perspective": "人物个人卷宗视角 —— 私人通信、日记、未刊文稿等",
+        "coverage": "民盟核心人物个人档案",
+        "highlights": [
+            "罗隆基档案（Lo Lung-chi Papers）",
+            "章伯钧档案（Chang Po-chun Papers）",
+            "张君劢档案（Carsun Chang Papers）",
+            "王世杰档案（Wang Shih-chieh Papers）",
+        ],
+        "status": "Phase 4 待开发",
+        "status_class": "todo",
+        "active": False,
+        "todo_note": "大部分需现场调阅或专业数字化合作。在线公开部分有限，但极为珍贵。",
+    },
+    "nara": {
+        "name": "NARA",
+        "long_name": "National Archives and Records Administration",
+        "cn_name": "美国国家档案馆",
+        "subtitle": "美国国家档案馆 RG59 国务院全本",
+        "intro": "美国国家档案馆 RG59 (Record Group 59) 是美国国务院档案的官方全本，FRUS 是从中精选的版本。",
+        "perspective": "国务院档案全本视角 —— FRUS 是节选，NARA 是源头",
+        "coverage": "893.00 decimal file（中国相关国务院档案 1910-1963）",
+        "highlights": [
+            "893.00/xxxx 系列：中国政治形势综合报告",
+            "893.00B/xxxx 系列：中共相关",
+            "数十万页档案（绝大多数未数字化）",
+        ],
+        "status": "Phase 5 待开发",
+        "status_class": "todo",
+        "active": False,
+        "todo_note": "工程难度最大。NARA Catalog API 已废弃；大部分档案需现场调阅 College Park, MD 的缩微胶片。与 FRUS 重复度高。建议留作中长期目标。",
+    },
+    "hathitrust": {
+        "name": "HathiTrust / IA",
+        "long_name": "HathiTrust / Internet Archive",
+        "cn_name": "数字图书馆联盟",
+        "subtitle": "数字图书馆 / 二手研究",
+        "intro": "HathiTrust 由美国大学图书馆联盟建立的数字图书馆；Internet Archive 是开放的全球数字资源平台。",
+        "perspective": "二手研究 + 当时报刊 + 公开出版物视角",
+        "coverage": "民盟相关二手研究、《再生》《观察》《大公报》《文汇报》等当时报刊",
+        "highlights": [
+            "IA 收 5132 份 1946-49 香港华文报扫描件（OCR 质量差需重做）",
+            "民盟史相关学术著作",
+        ],
+        "status": "Phase 2.5 并行",
+        "status_class": "todo",
+        "active": False,
+        "todo_note": "民盟核心刊物（《观察》《再生》《大公报》《文汇报》）需通过国内 CNKI 民国期刊数据库或上海图书馆数字人文获取，由小班单位订阅访问权限直接导出。",
+    },
+}
+
+
 def platforms_panel_html(c: sqlite3.Connection) -> str:
     """海外民盟资料平台入口面板。FRUS 已上线，其余平台显示路线图。"""
-    frus_docs = c.execute("SELECT count(*) FROM documents").fetchone()[0]
+    # 动态计算每个平台的数据规模
+    plat_counts = {}
+    try:
+        for r in c.execute("SELECT COALESCE(source_platform,'frus') AS p, count(*) AS n FROM documents GROUP BY p"):
+            plat_counts[r['p']] = r['n']
+    except sqlite3.OperationalError:
+        plat_counts = {}
+    frus_docs = plat_counts.get('frus', 0)
     frus_pages = c.execute("SELECT count(*) FROM pages").fetchone()[0]
     frus_zh = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN'").fetchone()[0]
     frus_human = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN' AND status='human-reviewed'").fetchone()[0]
     frus_pct = (frus_human * 100 // frus_zh) if frus_zh else 0
-    platforms = [
-        {
-            "key": "frus",
-            "name": "FRUS",
-            "subtitle": "美国对外关系文件集 1941-1950 中国卷",
-            "desc": f"已收 {frus_docs} 篇民盟相关文档 / {frus_pages} 个页面 / {frus_zh} 个中文译文片段，人工复核覆盖率 {frus_pct}%。",
-            "status": "已上线",
-            "status_class": "ok",
-            "href": "/docs",
-            "active": True,
-        },
-        {
-            "key": "wilson",
-            "name": "Wilson Center",
-            "subtitle": "数字伍德罗·威尔逊中心档案",
-            "desc": "中共/苏联/东欧档案对民盟的内部记述，FRUS 不可替代的「另一面」。Phase 2 重点平台。",
-            "status": "Phase 2 待开发",
-            "status_class": "todo",
-            "href": "#",
-            "active": False,
-        },
-        {
-            "key": "cia",
-            "name": "CIA FOIA",
-            "subtitle": "美国中央情报局已解密文件",
-            "desc": "1947-1950 民盟政治评估、罗隆基/张君劢人物档案、第三方面情报评估。",
-            "status": "Phase 3 待开发",
-            "status_class": "todo",
-            "href": "#",
-            "active": False,
-        },
-        {
-            "key": "hoover",
-            "name": "Hoover Institution",
-            "subtitle": "胡佛档案馆个人卷宗",
-            "desc": "罗隆基档案、章伯钧档案、张君劢档案、王世杰档案等民盟核心人物个人卷宗。",
-            "status": "Phase 4 待开发",
-            "status_class": "todo",
-            "href": "#",
-            "active": False,
-        },
-        {
-            "key": "nara",
-            "name": "NARA",
-            "subtitle": "美国国家档案馆 RG59 国务院全本",
-            "desc": "FRUS 是节选,NARA 是全本。补遗 + 缩微胶片资料。",
-            "status": "Phase 5 待开发",
-            "status_class": "todo",
-            "href": "#",
-            "active": False,
-        },
-        {
-            "key": "hathitrust",
-            "name": "HathiTrust / IA",
-            "subtitle": "数字图书馆",
-            "desc": "民盟二手研究、《再生》《观察》《大公报》《文汇报》等当时报刊。",
-            "status": "Phase 2.5 并行",
-            "status_class": "todo",
-            "href": "#",
-            "active": False,
-        },
-    ]
+
     cards = []
-    for p in platforms:
-        cls = "platform-card" + (" active" if p["active"] else " upcoming")
+    for key, meta in PLATFORM_META.items():
+        cls = "platform-card" + (" active" if meta["active"] else " upcoming")
+        if key == "frus":
+            desc = f"已收 {frus_docs} 篇民盟相关文档 / {frus_pages} 个页面 / {frus_zh} 个中文译文片段，人工复核覆盖率 {frus_pct}%。"
+        else:
+            n = plat_counts.get(key, 0)
+            if n > 0:
+                desc = f"已收 {n} 篇文档。{meta['intro'][:60]}…"
+            else:
+                desc = meta['intro'][:120] + "…" if len(meta['intro']) > 120 else meta['intro']
         cards.append(f'''
-<a class="{cls}" href="{h(p["href"])}">
-  <h3>{h(p["name"])}</h3>
-  <div class="pmeta">{h(p["subtitle"])}</div>
-  <div class="pdesc">{h(p["desc"])}</div>
-  <div class="pstatus {p["status_class"]}">{h(p["status"])}</div>
+<a class="{cls}" href="/sources/{key}">
+  <h3>{h(meta["name"])}</h3>
+  <div class="pmeta">{h(meta["subtitle"])}</div>
+  <div class="pdesc">{h(desc)}</div>
+  <div class="pstatus {meta["status_class"]}">{h(meta["status"])}</div>
 </a>''')
     return '<h2 style="font-size:18px;margin:18px 0 10px;">📚 海外民盟资料平台</h2>\n<section class="platforms">' + "".join(cards) + "</section>"
+
+
+def source_page(platform_key: str) -> bytes:
+    """单个海外档案平台的专属栏目页。"""
+    meta = PLATFORM_META.get(platform_key)
+    if not meta:
+        return layout("未知平台", '<div class="notice">未知的平台。可选：' + " / ".join(PLATFORM_META.keys()) + "</div>")
+
+    with conn() as c:
+        # 取此平台的文档清单（如果数据库里有这个 source_platform）
+        try:
+            docs_rows = c.execute("""
+                SELECT documents.*, dc.grade
+                FROM documents
+                LEFT JOIN document_classifications dc ON dc.document_id=documents.id
+                WHERE COALESCE(source_platform, 'frus')=?
+                ORDER BY documents.volume_id, CAST(documents.doc_number AS INTEGER)
+            """, (platform_key,)).fetchall()
+        except sqlite3.OperationalError:
+            docs_rows = []
+        # 文档统计
+        n_docs = len(docs_rows)
+
+    highlights_html = "".join(f"<li>{h(item)}</li>" for item in meta.get("highlights", []))
+
+    body = breadcrumb_html([("/", "首页"), (None, f"海外档案平台 · {meta['name']}")]) + f"""
+<section class="hero" style="padding:32px 36px;">
+  <h1>{h(meta['name'])} <span style="font-size:18px;color:var(--muted);font-weight:400;">· {h(meta['cn_name'])}</span></h1>
+  <p class="hero-sub">{h(meta['intro'])}</p>
+  <div class="hero-meta">
+    <span><b>视角</b> {h(meta['perspective'])}</span>
+    <span><b>时间覆盖</b> {h(meta['coverage'])}</span>
+    <span><b>状态</b> <span class="pstatus {meta['status_class']}" style="margin-left:4px;">{h(meta['status'])}</span></span>
+  </div>
+</section>
+
+<div class="section-head">
+  <h2><svg class="ico"><use href="#i-archive"/></svg>核心档案亮点</h2>
+</div>
+<section class="notice archival" style="margin-bottom:22px;">
+  <ul style="margin:0;padding-left:22px;font-family:var(--serif);line-height:1.85;">{highlights_html}</ul>
+</section>
+"""
+
+    if meta["active"] and n_docs > 0:
+        body += f"""
+<div class="section-head">
+  <h2><svg class="ico"><use href="#i-book"/></svg>本平台收录文档 ({n_docs} 篇)</h2>
+  <a class="more" href="/docs">完整列表 →</a>
+</div>
+<section class="result-list">
+"""
+        for r in docs_rows[:20]:
+            body += f"""
+<article class="result">
+  <div>
+    {title_block(r["title"], f"/doc/{quote(r['doc_key'])}")}
+    <div class="meta">{h(r["volume_id"])}/{h(r["doc_id"])} · {h(r["date_guess"])} {grade_badge(r)}</div>
+    <div class="tagline">{''.join(f'<span class="tag">{h(t.strip())}</span>' for t in (r["matched_terms"] or "").split(";") if t.strip())}</div>
+  </div>
+  <div class="cite"><a href="{h(r["url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
+</article>"""
+        if n_docs > 20:
+            body += f'<div style="padding:14px 22px;text-align:center;border-top:1px solid var(--line-soft);"><a class="button" href="/docs">查看全部 {n_docs} 篇 →</a></div>'
+        body += "</section>"
+    elif meta["active"]:
+        body += '<div class="notice">本平台已上线，但当前数据库中尚无文档。</div>'
+    else:
+        body += f'''
+<div class="section-head">
+  <h2><svg class="ico"><use href="#i-clock"/></svg>开发路线</h2>
+</div>
+<section class="notice archival">
+  <p style="margin:0;font-family:var(--serif);line-height:1.85;">{h(meta.get("todo_note", "暂无说明。"))}</p>
+</section>
+'''
+    return layout(f"{meta['name']} · 海外档案平台", body)
 
 
 def stats_html(c: sqlite3.Connection) -> str:
@@ -3762,6 +3908,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = docs(qs.get("grade", [""])[0], qs.get("translation", [""])[0])
         elif parsed.path == "/glossary":
             payload = glossary_page()
+        elif parsed.path.startswith("/sources/"):
+            payload = source_page(unquote(parsed.path.removeprefix("/sources/")))
         elif parsed.path == "/quality":
             payload = quality(qs.get("severity", [""])[0], qs.get("issue", [""])[0])
         elif parsed.path == "/tasks":
