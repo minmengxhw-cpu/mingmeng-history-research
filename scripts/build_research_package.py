@@ -108,18 +108,16 @@ d.add_paragraph()
 p = d.add_paragraph()
 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 r = p.add_run("民盟海外史料研究专集")
-r.font.size = Pt(36); r.font.bold = True; r.font.name = '宋体'
-r.element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
+_set_run_font(r, serif=True, size=36, bold=True)
 
 p = d.add_paragraph()
 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 r = p.add_run("FRUS 1941–1950 卷 · 第一辑")
-r.font.size = Pt(20); r.font.name = '宋体'
-r.element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
+_set_run_font(r, serif=True, size=20)
 
 d.add_paragraph(); d.add_paragraph(); d.add_paragraph()
-para(f"基于 FRUS（Foreign Relations of the United States）1941–1950 年中国卷册", center=True, size=12, italic=True)
-para(f"系统抓取、翻译与研究整理", center=True, size=12, italic=True)
+para(f"基于 FRUS（Foreign Relations of the United States）1941–1950 年中国卷册", center=True, size=12)
+para(f"系统抓取、翻译与研究整理", center=True, size=12)
 d.add_paragraph(); d.add_paragraph()
 
 # 统计数据
@@ -229,7 +227,7 @@ for slug, name, intro in TOPIC_INFO:
         para(f"[{r['volume_id']}/{r['doc_id']} · {date_s}] {r['event_title']}", size=10.5)
         if r['event_summary']:
             summary = r['event_summary'][:160]
-            para(f"　　{summary}", size=10, italic=True)
+            para(f"　　{summary}", size=10)
     pagebreak()
     chap_num += 1
 
@@ -270,7 +268,7 @@ for slug, name, intro in PERSONS[:4]:  # 前 4 位深度展开
         date_s = r['event_date'] or r['date_guess'] or ''
         para(f"[{r['volume_id']}/{r['doc_id']} · {date_s}] {r['event_title']}", size=10.5)
         if r['event_summary']:
-            para(f"　　{r['event_summary'][:140]}", size=10, italic=True)
+            para(f"　　{r['event_summary'][:140]}", size=10)
     pagebreak()
     chap_num += 1
 
@@ -279,7 +277,7 @@ heading("第十章　其他民盟先贤", level=2)
 for slug, name, intro in PERSONS[4:]:
     para(f"【{name}】 {intro}", indent=0.74)
     n_events = conn.execute("SELECT count(*) FROM research_events WHERE scope_slug=?", (slug,)).fetchone()[0]
-    para(f"　FRUS 命中事件：{n_events} 条", size=10, italic=True)
+    para(f"　FRUS 命中事件：{n_events} 条", size=10)
     para("", size=6)
 pagebreak()
 
@@ -321,7 +319,7 @@ for r in docs:
         para("", size=8)
         para(f"【{current_vol}】", bold=True, size=11)
     para(f"  · 文件 {r['doc_id']} · {r['date_guess']} · {r['title'][:80]}", size=10)
-    para(f"    {r['url']}", size=9, italic=True)
+    para(f"    {r['url']}", size=9)
 
 # 保存
 d.save(OUT)
