@@ -5,9 +5,13 @@ import html
 import json
 import re
 import sqlite3
+import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, quote, unquote, urlparse
+
+# 当前请求路径的 thread-local 容器，layout() 用来自动 highlight 当前导航
+_request = threading.local()
 
 
 ROOT = Path(__file__).resolve().parent
@@ -243,231 +247,467 @@ def conn() -> sqlite3.Connection:
     return c
 
 
-def layout(title: str, body: str, query: str = "") -> bytes:
+ICONS_SVG = """
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="5" rx="1"/><path d="M5 8v11a1 1 0 001 1h12a1 1 0 001-1V8M10 12h4"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20a5.5 5.5 0 0111 0M16 11a3 3 0 100-6M21 20a4.5 4.5 0 00-7.5-3.4"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12.5L12.5 20a2 2 0 01-2.8 0L3 13.3V4h9.3L20 11.7a.6.6 0 010 .8z"/><circle cx="8" cy="9" r="1.4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-checks" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 13 7 18 13 8"/><polyline points="11 13 16 18 22 8"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 113 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-4 3 3 5-7"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 016.5 2H20v17H6.5A2.5 2.5 0 014 21.5v-17z"/><path d="M4 19.5h16"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M3 21h18M9 12h6M9 16h6M9 21v-5h6v5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h13l-3 4 3 4H5"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l4-2 4 2 4-2 4 2v16M4 21h16M9 7v14M15 7v14"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h4v4a4 4 0 01-4 4M14 7h4v4a4 4 0 01-4 4"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+""".strip()
+
+
+NAV_GROUPS = [
+    ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/timeline", "年表")]),
+    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/dashboard", "进度仪表盘")]),
+    ("topics", "i-tag", "专题与人物", [("/topics", "专题"), ("/people", "人物"), ("/places", "地点"), ("/organizations", "机构"), ("/events", "事件")]),
+]
+
+
+def nav_active(path: str) -> str:
+    """根据当前 path 推断激活的主导航分组。"""
+    if path in ("/", "/focus"):
+        return "library"
+    for group_key, _, _, items in NAV_GROUPS:
+        for href, _ in items:
+            if path == href or (href != "/" and path.startswith(href + "/")):
+                return group_key
+    if path.startswith("/doc/") or path.startswith("/cite/"):
+        return "library"
+    if path.startswith("/review/"):
+        return "workbench"
+    if path.startswith(("/people/", "/places/", "/organizations/", "/topics/")):
+        return "topics"
+    return ""
+
+
+def layout(title: str, body: str, query: str = "", active_path: str = "") -> bytes:
+    # 优先使用调用方明确传的 active_path；否则从 thread-local 取（do_GET 设置）
+    if not active_path:
+        active_path = getattr(_request, "path", "/") or "/"
+    active_group = nav_active(active_path)
+    nav_html = ""
+    for group_key, icon_id, group_label, items in NAV_GROUPS:
+        is_active = group_key == active_group
+        cls = "nav-group active" if is_active else "nav-group"
+        sub = "".join(
+            f'<a class="nav-sub{" current" if href == active_path else ""}" href="{href}">{h(label)}</a>'
+            for href, label in items
+        )
+        nav_html += f'''
+        <div class="{cls}">
+          <button class="nav-main"><svg class="ico"><use href="#{icon_id}"/></svg>{h(group_label)}</button>
+          <div class="nav-flyout">{sub}</div>
+        </div>'''
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{h(title)}</title>
+  <title>{h(title)} · 民盟历史文献研究库</title>
   <style>
     :root {{
-      --bg: #f7f8fa;
+      --bg: #f3eee2;
+      --bg-paper: #fdfbf6;
       --panel: #ffffff;
-      --line: #d9dee7;
-      --text: #1f2933;
-      --muted: #627083;
+      --panel-warm: #fbf7ee;
+      --line: #d9d2bf;
+      --line-soft: #ece6d6;
+      --text: #2a2820;
+      --muted: #6b6356;
+      --muted-soft: #918979;
       --accent: #0f6b5b;
+      --accent-deep: #0a4a3f;
+      --accent-soft: #d8ebe4;
       --accent-ink: #ffffff;
-      --warn: #8a5a00;
-      --mark: #fff0a6;
+      --archival: #8b5e34;
+      --archival-soft: #f0e3d4;
+      --warn: #a86b1a;
+      --warn-soft: #fbecd0;
+      --mark: #ffeea0;
+      --shadow-sm: 0 1px 2px rgba(60, 50, 30, 0.05);
+      --shadow-md: 0 4px 12px rgba(60, 50, 30, 0.07);
+      --serif: "Source Han Serif SC", "Noto Serif CJK SC", "STSongti SC", "Songti SC", "STSong", SimSun, "Source Serif Pro", "EB Garamond", Cambria, Georgia, serif;
+      --sans: "Source Han Sans SC", "Noto Sans CJK SC", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
     }}
     * {{ box-sizing: border-box; }}
+    html, body {{ height: 100%; }}
     body {{
       margin: 0;
       background: var(--bg);
       color: var(--text);
-      font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Arial, sans-serif;
+      font: 15.5px/1.7 var(--sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }}
     a {{ color: var(--accent); text-decoration: none; }}
-    a:hover {{ text-decoration: underline; }}
+    a:hover {{ text-decoration: underline; text-underline-offset: 3px; }}
+    h1, h2, h3, h4 {{ font-family: var(--serif); font-weight: 600; letter-spacing: 0.01em; }}
+    h1 {{ font-size: 28px; line-height: 1.3; margin: 0 0 14px; }}
+    h2 {{ font-size: 20px; line-height: 1.35; margin: 0 0 12px; }}
+    h3 {{ font-size: 17px; line-height: 1.4; margin: 0 0 8px; }}
+    .ico {{ width: 16px; height: 16px; flex: 0 0 16px; vertical-align: -3px; stroke: currentColor; }}
+    .ico-lg {{ width: 22px; height: 22px; flex: 0 0 22px; }}
+
+    /* === Topbar === */
     .topbar {{
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      position: sticky; top: 0; z-index: 50;
       display: grid;
-      grid-template-columns: minmax(170px, 260px) minmax(280px, 1fr) auto;
-      gap: 12px;
-      align-items: center;
-      padding: 12px 18px;
+      grid-template-columns: minmax(220px, auto) minmax(260px, 1fr) auto;
+      gap: 22px; align-items: center;
+      padding: 14px 28px;
+      background: rgba(253, 251, 246, 0.94);
+      backdrop-filter: saturate(140%) blur(8px);
       border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,.96);
     }}
-    .brand {{ font-weight: 700; letter-spacing: 0; white-space: nowrap; }}
-    .search {{ display: flex; min-width: 0; }}
+    .brand {{
+      display: flex; align-items: baseline; gap: 10px;
+      font-family: var(--serif); font-weight: 600; font-size: 18px; color: var(--text);
+      white-space: nowrap;
+    }}
+    .brand .brand-mark {{ color: var(--accent); font-size: 22px; line-height: 1; }}
+    .brand .brand-sub {{ font-size: 12px; color: var(--muted); font-family: var(--sans); font-weight: 400; letter-spacing: 0.05em; }}
+    .search {{ display: flex; min-width: 0; max-width: 540px; }}
     .search input {{
-      width: 100%;
-      min-width: 0;
-      border: 1px solid var(--line);
-      border-right: 0;
+      width: 100%; min-width: 0;
+      border: 1px solid var(--line); border-right: 0;
       border-radius: 6px 0 0 6px;
-      padding: 9px 11px;
-      font: inherit;
-      background: #fff;
+      padding: 9px 14px;
+      font: 14px var(--sans);
+      background: var(--bg-paper);
+      color: var(--text);
     }}
+    .search input::placeholder {{ color: var(--muted-soft); }}
+    .search input:focus {{ outline: none; border-color: var(--accent); }}
     .search button {{
-      min-width: 72px;
-      flex: 0 0 72px;
+      min-width: 76px;
       border: 1px solid var(--accent);
       border-radius: 0 6px 6px 0;
-      padding: 0 14px;
-      background: var(--accent);
-      color: var(--accent-ink);
-      font: inherit;
-      white-space: nowrap;
-      word-break: keep-all;
-      overflow-wrap: normal;
-      text-wrap: nowrap;
-      line-height: 1;
+      padding: 0 16px;
+      background: var(--accent); color: var(--accent-ink);
+      font: 14px var(--sans);
+      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px;
+    }}
+    .search button:hover {{ background: var(--accent-deep); }}
+
+    /* === Nav === */
+    nav.mainnav {{ display: flex; gap: 4px; align-items: center; }}
+    .nav-group {{ position: relative; }}
+    .nav-main {{
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 6px;
+      background: transparent; border: 1px solid transparent;
+      color: var(--muted); font: 14px var(--sans);
       cursor: pointer;
     }}
-    .navlink {{ color: var(--muted); font-size: 14px; }}
-    main {{ padding: 18px; }}
+    .nav-main:hover {{ background: var(--panel-warm); color: var(--text); }}
+    .nav-group.active .nav-main {{ background: var(--accent-soft); color: var(--accent-deep); border-color: rgba(15, 107, 91, 0.25); }}
+    .nav-flyout {{
+      position: absolute; top: 100%; right: 0; margin-top: 6px;
+      min-width: 160px; padding: 6px;
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 8px; box-shadow: var(--shadow-md);
+      display: none; flex-direction: column;
+      z-index: 100;
+    }}
+    .nav-group:hover .nav-flyout {{ display: flex; }}
+    .nav-sub {{
+      padding: 7px 12px; border-radius: 5px;
+      color: var(--text); font: 14px var(--sans);
+    }}
+    .nav-sub:hover {{ background: var(--panel-warm); text-decoration: none; }}
+    .nav-sub.current {{ background: var(--accent-soft); color: var(--accent-deep); font-weight: 500; }}
+
+    main {{ padding: 28px 32px; max-width: 1320px; margin: 0 auto; }}
+    /* === 封面区（首页） === */
+    .hero {{
+      background: linear-gradient(180deg, var(--bg-paper) 0%, var(--panel-warm) 100%);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 36px 40px 32px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-sm);
+    }}
+    .hero h1 {{
+      font-size: 32px; line-height: 1.25;
+      margin: 0 0 10px;
+      color: var(--text);
+    }}
+    .hero .hero-sub {{
+      font-family: var(--serif);
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0 0 22px;
+      line-height: 1.7;
+      max-width: 720px;
+    }}
+    .hero .hero-meta {{
+      display: flex; flex-wrap: wrap; gap: 18px;
+      font-size: 13px; color: var(--muted);
+      padding-top: 18px;
+      border-top: 1px dashed var(--line);
+    }}
+    .hero .hero-meta b {{ color: var(--accent-deep); font-weight: 600; }}
+
+    /* === Section 标题 === */
+    .section-head {{
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin: 32px 0 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line-soft);
+    }}
+    .section-head h2 {{
+      margin: 0;
+      display: inline-flex; align-items: center; gap: 8px;
+    }}
+    .section-head .ico {{ color: var(--accent); }}
+    .section-head .more {{ font-size: 13px; color: var(--muted); }}
+    .section-head .more:hover {{ color: var(--accent); }}
+
+    /* === Stats === */
     .stats {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 1px;
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 10px;
       background: var(--line);
-      margin-bottom: 18px;
-    }}
-    .stat {{ background: var(--panel); padding: 13px 15px; }}
-    .stat strong {{ display: block; font-size: 22px; line-height: 1.2; }}
-    .stat span {{ color: var(--muted); font-size: 13px; }}
-    .platforms {{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
       margin-bottom: 22px;
     }}
+    .stat {{
+      background: var(--panel);
+      padding: 16px 18px;
+      transition: background 0.15s;
+    }}
+    .stat:hover {{ background: var(--bg-paper); }}
+    .stat strong {{
+      display: block;
+      font-family: var(--serif);
+      font-size: 26px; font-weight: 600; line-height: 1.1;
+      color: var(--accent-deep);
+      margin-bottom: 4px;
+    }}
+    .stat span {{ color: var(--muted); font-size: 12.5px; letter-spacing: 0.02em; }}
+
+    /* === 平台卡片 === */
+    .platforms {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-bottom: 8px;
+    }}
     .platform-card {{
+      position: relative;
+      display: block;
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px 16px;
-      transition: border-color 0.15s;
+      border-radius: 10px;
+      padding: 18px 18px 16px;
+      color: var(--text);
+      transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+      overflow: hidden;
     }}
-    .platform-card:hover {{ border-color: var(--accent); }}
-    .platform-card.active {{ border-left: 3px solid var(--accent); }}
-    .platform-card.upcoming {{ opacity: 0.55; border-style: dashed; }}
-    .platform-card h3 {{ margin: 0 0 4px; font-size: 16px; }}
-    .platform-card .pmeta {{ color: var(--muted); font-size: 12px; margin-bottom: 6px; }}
-    .platform-card .pdesc {{ font-size: 13px; line-height: 1.5; color: var(--text); }}
-    .platform-card .pstatus {{ display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 11px; margin-top: 8px; }}
-    .platform-card .pstatus.ok {{ background: rgba(34,166,79,0.16); color: #2c7c43; }}
-    .platform-card .pstatus.todo {{ background: rgba(170,170,170,0.18); color: var(--muted); }}
+    .platform-card::before {{
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: var(--line);
+      transition: background 0.18s;
+    }}
+    .platform-card:hover {{
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }}
+    .platform-card:hover::before {{ background: var(--accent); }}
+    .platform-card.active::before {{ background: var(--accent); }}
+    .platform-card.upcoming {{ opacity: 0.7; background: var(--panel-warm); }}
+    .platform-card.upcoming::before {{ background: var(--archival); }}
+    .platform-card .phead {{ display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }}
+    .platform-card .phead svg {{ width: 22px; height: 22px; color: var(--accent); flex-shrink: 0; }}
+    .platform-card.upcoming .phead svg {{ color: var(--archival); }}
+    .platform-card h3 {{ margin: 0; font-size: 16.5px; font-family: var(--serif); }}
+    .platform-card .pmeta {{ color: var(--muted); font-size: 12.5px; margin: 0 0 8px 32px; font-family: var(--serif); font-style: italic; }}
+    .platform-card .pdesc {{ font-size: 13.5px; line-height: 1.65; color: var(--text); margin-top: 6px; }}
+    .platform-card .pstatus {{
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 9px; border-radius: 4px;
+      font-size: 11.5px; font-weight: 500; margin-top: 12px;
+      letter-spacing: 0.02em;
+    }}
+    .platform-card .pstatus.ok {{ background: var(--accent-soft); color: var(--accent-deep); }}
+    .platform-card .pstatus.todo {{ background: var(--archival-soft); color: var(--archival); }}
+    /* === 文献条目列表 === */
     .result-list {{
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
       background: var(--panel);
+      box-shadow: var(--shadow-sm);
     }}
     .result {{
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 150px;
-      gap: 16px;
-      padding: 14px 16px;
-      border-top: 1px solid var(--line);
+      grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 18px;
+      padding: 18px 22px;
+      border-top: 1px solid var(--line-soft);
+      transition: background 0.12s;
     }}
     .result:first-child {{ border-top: 0; }}
-    .result h2 {{ margin: 0 0 6px; font-size: 16px; line-height: 1.35; }}
+    .result:hover {{ background: var(--bg-paper); }}
+    .result h2 {{
+      margin: 0 0 6px;
+      font-size: 16.5px; line-height: 1.4;
+      font-family: var(--serif); font-weight: 600;
+    }}
     .title-en {{
-      margin: -2px 0 7px;
+      margin: -2px 0 8px;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
+      font-size: 13px; line-height: 1.45;
+      font-family: var(--serif); font-style: italic;
     }}
     .meta {{ color: var(--muted); font-size: 13px; }}
-    .snippet {{ margin-top: 8px; color: #34404f; }}
-    .zh {{ margin-top: 8px; color: #243b35; }}
-    .tagline {{ display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }}
-    .tag {{ border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; font-size: 12px; color: var(--muted); }}
-    .grade {{
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 12px;
-      background: #eef7f4;
-      color: var(--accent);
-      border: 1px solid #c9e4dc;
+    .snippet {{ margin-top: 10px; color: var(--text); font-size: 14px; line-height: 1.7; }}
+    .zh {{
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--bg-paper);
+      border-left: 3px solid var(--accent-soft);
+      color: var(--text); font-size: 14px; line-height: 1.75;
+      border-radius: 0 4px 4px 0;
     }}
-    .grade.context {{ background: #f4f6f8; color: var(--muted); border-color: var(--line); }}
-    .issue {{
-      display: inline-flex;
-      align-items: center;
+    .zh.empty {{ color: var(--muted); font-style: italic; background: transparent; border-left-color: var(--line); }}
+    .tagline {{ display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; align-items: center; }}
+    .tag {{
+      border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 12px;
-      border: 1px solid #ead4a2;
-      color: #7a5200;
-      background: #fff8e8;
+      padding: 2px 9px;
+      font-size: 12px; color: var(--muted);
+      background: var(--bg-paper);
+    }}
+    .grade {{
+      display: inline-flex; align-items: center; gap: 4px;
+      border-radius: 4px;
+      padding: 3px 9px;
+      font-size: 12px; font-weight: 500;
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      border: 1px solid rgba(15, 107, 91, 0.2);
+    }}
+    .grade.context {{ background: var(--archival-soft); color: var(--archival); border-color: rgba(139, 94, 52, 0.25); }}
+    .issue {{
+      display: inline-flex; align-items: center; gap: 4px;
+      border-radius: 4px;
+      padding: 3px 9px;
+      font-size: 12px; font-weight: 500;
+      border: 1px solid rgba(168, 107, 26, 0.3);
+      color: var(--warn); background: var(--warn-soft);
     }}
     .issue.high {{
-      border-color: #e4b5aa;
+      border-color: rgba(168, 50, 32, 0.35);
       color: #8a2d1f;
-      background: #fff1ee;
+      background: #fbe3df;
     }}
-    .cite {{ text-align: right; font-size: 13px; color: var(--muted); }}
+    .cite {{
+      text-align: right;
+      font-size: 13px;
+      color: var(--muted);
+      font-family: var(--serif);
+    }}
+    .cite a {{ display: block; padding: 2px 0; }}
     .doc-head {{
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 16px;
+      gap: 18px;
       align-items: start;
-      padding: 16px 18px;
+      padding: 22px 24px;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 10px;
       background: var(--panel);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       scroll-margin-top: 82px;
+      box-shadow: var(--shadow-sm);
     }}
-    .doc-head h1 {{ margin: 0 0 5px; font-size: 21px; line-height: 1.3; }}
+    .doc-head h1 {{ margin: 0 0 6px; font-size: 22px; line-height: 1.35; font-family: var(--serif); }}
     .doc-tools {{ display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }}
     .button {{
-      display: inline-flex;
-      align-items: center;
-      min-height: 32px;
-      padding: 5px 10px;
+      display: inline-flex; align-items: center; gap: 5px;
+      min-height: 34px;
+      padding: 6px 12px;
       border: 1px solid var(--line);
       border-radius: 6px;
-      background: #fff;
+      background: var(--panel);
       color: var(--text);
-      font-size: 13px;
+      font: 13px var(--sans);
+      transition: all 0.12s;
     }}
+    .button:hover {{ border-color: var(--accent); color: var(--accent); text-decoration: none; }}
     .button.active {{
       border-color: var(--accent);
-      color: var(--accent);
-      background: #eef7f4;
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+      font-weight: 500;
     }}
     .filters {{
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 0 0 14px;
+      margin: 0 0 18px;
+      padding: 12px 14px;
+      background: var(--panel-warm);
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
     }}
     .reader {{
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 14px;
+      gap: 16px;
     }}
-    .segment {{
-      display: contents;
-    }}
+    .segment {{ display: contents; }}
     .pane {{
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 10px;
       background: var(--panel);
       min-width: 0;
       scroll-margin-top: 76px;
+      box-shadow: var(--shadow-sm);
     }}
     .pane-head {{
       display: flex;
       justify-content: space-between;
       gap: 10px;
-      padding: 9px 12px;
-      border-bottom: 1px solid var(--line);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line-soft);
       color: var(--muted);
-      font-size: 13px;
-      background: #fbfcfd;
-      border-radius: 8px 8px 0 0;
+      font: 13px var(--serif);
+      font-style: italic;
+      background: var(--panel-warm);
+      border-radius: 10px 10px 0 0;
     }}
     .pane-body {{
-      padding: 13px 14px;
+      padding: 18px 20px;
       white-space: pre-wrap;
       overflow-wrap: anywhere;
+      font-size: 15px; line-height: 1.85;
     }}
+    /* 中文译文区用衬线，呼应学术阅读体例 */
+    .pane.zh-pane .pane-body {{ font-family: var(--serif); }}
     textarea.review-text {{
       width: 100%;
       min-height: 460px;
@@ -520,43 +760,68 @@ def layout(title: str, body: str, query: str = "") -> bytes:
       resize: vertical;
     }}
     .empty {{ color: var(--muted); font-style: italic; }}
-    mark {{ background: var(--mark); padding: 0 2px; border-radius: 2px; }}
+    mark {{ background: var(--mark); padding: 0 3px; border-radius: 2px; }}
     .notice {{
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 10px;
       background: var(--panel);
-      padding: 16px;
+      padding: 18px 22px;
       color: var(--muted);
+      font: 14px var(--sans);
     }}
-    @media (max-width: 820px) {{
-      .topbar {{ grid-template-columns: 1fr; }}
-      main {{ padding: 12px; }}
+    .notice.archival {{
+      background: var(--panel-warm);
+      border-color: var(--archival-soft);
+      color: var(--text);
+    }}
+    /* 学术引用块 */
+    blockquote, .quote {{
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--text);
+      border-left: 3px solid var(--archival);
+      padding: 6px 18px;
+      margin: 14px 0;
+      background: var(--panel-warm);
+      border-radius: 0 4px 4px 0;
+    }}
+    /* 长文阅读优化：限制行宽 */
+    .reader-doc {{ max-width: 760px; margin: 0 auto; font-family: var(--serif); font-size: 16px; line-height: 1.9; }}
+
+    @media (max-width: 980px) {{
+      .topbar {{ grid-template-columns: 1fr; gap: 12px; padding: 12px 18px; }}
+      nav.mainnav {{ overflow-x: auto; padding-bottom: 4px; }}
+      main {{ padding: 18px 16px; }}
       .stats {{ grid-template-columns: repeat(2, minmax(120px, 1fr)); }}
-      .result {{ grid-template-columns: 1fr; }}
-      .cite {{ text-align: left; }}
-      .doc-head {{ grid-template-columns: 1fr; }}
+      .result {{ grid-template-columns: 1fr; padding: 16px 18px; }}
+      .cite {{ text-align: left; padding-top: 10px; border-top: 1px dashed var(--line-soft); }}
+      .doc-head {{ grid-template-columns: 1fr; padding: 18px; }}
       .doc-tools {{ justify-content: flex-start; }}
       .reader {{ grid-template-columns: 1fr; }}
+      .hero {{ padding: 24px 22px; }}
+      .hero h1 {{ font-size: 24px; }}
+    }}
+    @media (max-width: 540px) {{
+      .stats {{ grid-template-columns: 1fr 1fr; }}
+      .platforms {{ grid-template-columns: 1fr; }}
     }}
   </style>
 </head>
 <body>
+  {ICONS_SVG}
   <header class="topbar">
-    <a class="brand" href="/">民盟历史文献研究库</a>
-    <form class="search" method="get" action="/search">
-      <input name="q" value="{h(query)}" placeholder="搜索原文或中文译文">
-      <button type="submit">搜索</button>
+    <a class="brand" href="/">
+      <span class="brand-mark">中</span>
+      <span>民盟历史文献研究库</span>
+      <span class="brand-sub">FRUS / Wilson / CIA</span>
+    </a>
+    <form class="search" method="get" action="/search" role="search">
+      <input name="q" value="{h(query)}" placeholder="搜索英文原文或中文译文，例如「罗隆基」「Marshall」「政协」">
+      <button type="submit"><svg class="ico"><use href="#i-search"/></svg>搜索</button>
     </form>
-    <div style="display:flex;gap:12px;justify-content:flex-end;white-space:nowrap;">
-      <a class="navlink" href="/docs">全部文档</a>
-      <a class="navlink" href="/tasks">校订任务</a>
-      <a class="navlink" href="/people">人物索引</a>
-      <a class="navlink" href="/topics">专题</a>
-      <a class="navlink" href="/timeline">年表</a>
-      <a class="navlink" href="/events">事件</a>
-      <a class="navlink" href="/dashboard">进度</a>
-      <a class="navlink" href="/quality">质量检查</a>
-    </div>
+    <nav class="mainnav">
+      {nav_html}
+    </nav>
   </header>
   <main>{body}</main>
 </body>
@@ -1294,6 +1559,7 @@ def home() -> bytes:
             focus_rows = home_focus_rows(c, focus_config)
         except sqlite3.OperationalError:
             focus_rows = []
+        # 改：取"最近人工校订过的 8 条"替代旧的"按 volume 顺序最新 12 条"
         latest = c.execute(
             """
             SELECT
@@ -1310,17 +1576,53 @@ def home() -> bytes:
                 pages.page_url,
                 pages.text AS original_text,
                 translations.text AS zh_text,
-                translations.status AS zh_status
-            FROM pages
+                translations.status AS zh_status,
+                translations.translator AS zh_translator,
+                translations.id AS tid
+            FROM translations
+            JOIN pages ON pages.id = translations.page_id
             JOIN documents ON documents.id = pages.document_id
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
-            LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
-            ORDER BY documents.volume_id, CAST(documents.doc_number AS INTEGER), pages.id
-            LIMIT 12
+            WHERE translations.language='zh-CN' AND translations.status='human-reviewed'
+            ORDER BY translations.id DESC
+            LIMIT 8
             """
         ).fetchall()
-        body = platforms_panel_html(c)
-        body += stats_html(c)
+
+        # 顶部 Hero 封面区
+        platforms_html_block = platforms_panel_html(c)
+        # 关键指标摘要
+        n_docs = c.execute("SELECT count(*) FROM documents").fetchone()[0]
+        n_pages = c.execute("SELECT count(*) FROM pages").fetchone()[0]
+        n_zh = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN'").fetchone()[0]
+        n_human = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN' AND status='human-reviewed'").fetchone()[0]
+        n_events = c.execute("SELECT count(*) FROM research_events").fetchone()[0]
+        cov_pct = (n_human * 100 // n_zh) if n_zh else 0
+
+        body = f"""
+<section class="hero">
+  <h1>海外民盟历史文献研究库</h1>
+  <p class="hero-sub">系统整理 1941–1950 年代海外档案中关于<strong>中国民主同盟</strong>的一手史料 ——
+  抓取、校验、翻译、引用、事件梳理、研究输出。以
+  <em>FRUS</em>（美国对外关系文件集）为基础，逐步扩展至 Wilson Center、CIA FOIA、
+  Hoover、NARA 等海外档案系统。</p>
+  <div class="hero-meta">
+    <span><b>{n_docs}</b> 篇文档</span>
+    <span><b>{n_pages}</b> 个页面/段落</span>
+    <span><b>{n_zh}</b> 个中文译文</span>
+    <span><b>{cov_pct}%</b> 人工复核覆盖率</span>
+    <span><b>{n_events}</b> 条事件线索</span>
+  </div>
+</section>
+
+<div class="section-head">
+  <h2><svg class="ico"><use href="#i-globe"/></svg>海外档案平台</h2>
+  <a class="more" href="/dashboard">研究进度仪表盘 →</a>
+</div>
+{platforms_html_block}
+"""
+
+        # focus 区
         focus_links = focus_config.get("links", [])
         focus_buttons = ""
         if isinstance(focus_links, list):
@@ -1328,19 +1630,19 @@ def home() -> bytes:
                 if isinstance(link, dict):
                     focus_buttons += f'<a class="button" href="{h(link.get("href", "#"))}">{h(link.get("label", "入口"))}</a>'
         body += f"""
-<section class="doc-head">
+<div class="section-head">
+  <h2><svg class="ico"><use href="#i-clock"/></svg>{h(focus_config.get("title", "今日继续研究"))}</h2>
+  <a class="more" href="/focus">管理清单 →</a>
+</div>
+<section class="doc-head" style="margin-bottom:14px;">
   <div>
-    <h1>{h(focus_config.get("title", "今日继续研究"))}</h1>
-    <div class="meta">{h(focus_config.get("description", ""))}</div>
+    <div class="meta" style="font-size:14px;line-height:1.7;">{h(focus_config.get("description", ""))}</div>
   </div>
-  <div class="doc-tools">
-    {focus_buttons}
-    <a class="button" href="/focus">管理清单</a>
-  </div>
+  <div class="doc-tools">{focus_buttons}</div>
 </section>
 """
         if focus_rows:
-            body += '<h2 style="font-size:18px;margin:18px 0 8px;">高价值事件</h2><section class="result-list">'
+            body += '<section class="result-list">'
             for row in focus_rows:
                 page = source_page_label(row)
                 doc_href = f"/doc/{quote(row['doc_key'])}?page_id={row['page_id']}"
@@ -1356,14 +1658,21 @@ def home() -> bytes:
     <div class="zh">{h(compact(row["event_summary"], 300))}</div>
     <div class="tagline">{chips}<span class="tag">重要度 {h(row["importance"])}</span></div>
   </div>
-  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">FRUS</a></div>
+  <div class="cite"><a href="/cite/{h(row["page_id"])}"><svg class="ico"><use href="#i-quote"/></svg>摘录卡片</a><a href="{h(doc_href)}"><svg class="ico"><use href="#i-book"/></svg>并排阅读</a><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer"><svg class="ico"><use href="#i-arrow-right"/></svg>FRUS 原文</a></div>
 </article>"""
             body += "</section>"
-        body += '<h2 style="font-size:18px;margin:18px 0 8px;">资料入口</h2>'
-        body += '<section class="result-list">'
+
+        # 最近人工校订
+        body += """
+<div class="section-head">
+  <h2><svg class="ico"><use href="#i-checks"/></svg>最近人工校订（8 条）</h2>
+  <a class="more" href="/docs">查看全部文档 →</a>
+</div>
+<section class="result-list">
+"""
         body += "".join(result_html(row) for row in latest)
         body += "</section>"
-    return layout("民盟历史文献研究库", body)
+    return layout("首页", body, active_path="/")
 
 
 def search(query: str) -> bytes:
@@ -2951,6 +3260,7 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
         qs = parse_qs(parsed.query)
+        _request.path = parsed.path  # 让 layout() 知道当前页面，自动 highlight 导航
         if parsed.path == "/":
             payload = home()
         elif parsed.path == "/focus":
