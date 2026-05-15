@@ -17,43 +17,82 @@ GLOSSARY = ROOT / "data" / "translation_glossary.csv"
 OUT = ROOT / "exports" / "research-package" / "民盟海外史料研究专集_FRUS_v1.docx"
 OUT.parent.mkdir(parents=True, exist_ok=True)
 
+# ===== 字体策略 =====
+# 主体 East-Asian 字体：思源宋体（开源版 Noto Serif CJK SC = Source Han Serif SC）
+#   Mac 没装思源也无妨——Word 会按 east-asian fallback 自动用 Songti SC（系统自带的"宋体-简"）
+#   Windows fallback 到 SimSun
+#   Linux 用 Noto Serif CJK SC（本机已装）
+# 标题用同字体 Bold；强调用思源黑体（Source Han Sans SC = Noto Sans CJK SC）
+FONT_SERIF = "Source Han Serif SC"   # 思源宋体（学术阅读标准）
+FONT_SANS  = "Source Han Sans SC"    # 思源黑体（机关现代风）
+FONT_ASCII = "EB Garamond"            # 英文衬线（与思源宋搭配）
+
 conn = sqlite3.connect(DB)
 conn.row_factory = sqlite3.Row
 
 # ===== 创建文档 =====
 d = Document()
-# 默认中文字体设置
-style = d.styles['Normal']
-style.font.name = '宋体'
-style.element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
-style.font.size = Pt(11)
 
-def heading(text, level=1, center=False):
-    p = d.add_paragraph()
-    p.style = d.styles[f'Heading {level}']
-    if center: p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = p.add_run(text)
-    run.font.name = '黑体'
-    run.element.rPr.rFonts.set(qn('w:eastAsia'), '黑体')
-    if level == 1:
-        run.font.size = Pt(20)
-    elif level == 2:
-        run.font.size = Pt(16)
+# 页面大小（A4）+ 边距（学术阅读体例）
+for section in d.sections:
+    section.page_width = Cm(21.0)
+    section.page_height = Cm(29.7)
+    section.top_margin = Cm(2.54)
+    section.bottom_margin = Cm(2.54)
+    section.left_margin = Cm(3.0)
+    section.right_margin = Cm(3.0)
+
+# Normal 样式（正文默认）
+style = d.styles['Normal']
+style.font.name = FONT_ASCII
+style.font.size = Pt(11)
+rpr = style.element.rPr
+rpr.rFonts.set(qn('w:eastAsia'), FONT_SERIF)
+rpr.rFonts.set(qn('w:hAnsi'), FONT_ASCII)
+rpr.rFonts.set(qn('w:cs'), FONT_ASCII)
+ppr = style.paragraph_format
+ppr.line_spacing = 1.6
+ppr.space_after = Pt(6)
+
+def _set_run_font(run, *, serif=True, size=11, bold=False, italic=False, color=None):
+    """统一设置中英文字体，强制 East-Asian fallback"""
+    if serif:
+        run.font.name = FONT_ASCII
+        run.element.rPr.rFonts.set(qn('w:eastAsia'), FONT_SERIF)
+        run.element.rPr.rFonts.set(qn('w:hAnsi'), FONT_ASCII)
     else:
-        run.font.size = Pt(13)
+        run.font.name = "Helvetica"
+        run.element.rPr.rFonts.set(qn('w:eastAsia'), FONT_SANS)
+        run.element.rPr.rFonts.set(qn('w:hAnsi'), "Helvetica")
+    run.font.size = Pt(size)
+    run.font.bold = bold
+    run.font.italic = italic
+    if color:
+        run.font.color.rgb = color
+
+def heading(text, level=1, center=False, color=None):
+    p = d.add_paragraph()
+    if center: p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    sizes = {1: 22, 2: 16, 3: 13}
+    size = sizes.get(level, 11)
+    run = p.add_run(text)
+    _set_run_font(run, serif=True, size=size, bold=True,
+                  color=color or RGBColor(0x1a, 0x1a, 0x1a))
+    p.paragraph_format.space_before = Pt(20 if level == 1 else 14)
+    p.paragraph_format.space_after = Pt(10 if level == 1 else 8)
+    p.paragraph_format.line_spacing = 1.35
     return p
 
-def para(text, italic=False, bold=False, size=11, center=False, indent=0):
+def para(text, italic=False, bold=False, size=11, center=False, indent=0, sans=False, color=None):
     p = d.add_paragraph()
     if center: p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     if indent:
-        p.paragraph_format.first_line_indent = Cm(indent)
+        # 首行缩进 2 个汉字 ≈ size * 2 pt
+        p.paragraph_format.first_line_indent = Pt(size * 2)
     run = p.add_run(text)
-    run.font.size = Pt(size)
-    run.font.italic = italic
-    run.font.bold = bold
-    run.font.name = '宋体'
-    run.element.rPr.rFonts.set(qn('w:eastAsia'), '宋体')
+    _set_run_font(run, serif=(not sans), size=size, bold=bold, italic=italic, color=color)
+    p.paragraph_format.line_spacing = 1.6
+    p.paragraph_format.space_after = Pt(6)
     return p
 
 def hr():
