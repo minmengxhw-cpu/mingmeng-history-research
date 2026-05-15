@@ -30,26 +30,50 @@ def compact(text: str, limit: int = 260) -> str:
 
 PERSON_ZH = {
     "Atcheson": "艾奇逊",
+    "Burke": "伯克",
     "Cabot": "卡伯特",
-    "Clubb": "柯乐博",
     "Caughey": "考吉",
+    "Charlton Ogburn": "查尔顿·奥格本",
+    "Chiang Kai-shek": "蒋介石",
+    "Chou En-lai": "周恩来",
+    "Chang Chun": "张群",
+    "Chang Lan": "张澜",
+    "Carsun Chang": "张君劢",
     "Clark": "克拉克",
+    "Clubb": "柯乐博",
     "Dams": "达姆斯",
+    "Freeman": "弗里曼",
+    "Fulton Freeman": "弗里曼",
     "Gauss": "高斯",
+    "Generalissimo Chiang Kai-shek": "蒋介石委员长",
     "Hopper": "霍珀",
+    "Hsu Yung-chang": "徐永昌",
     "Hurley": "赫尔利",
+    "James R. Shepley": "詹姆斯·R·谢普利",
+    "John Service": "约翰·谢伟思",
+    "John S. Service": "约翰·S·谢伟思",
     "Langdon": "兰登",
+    "Lo Lung-chi": "罗隆基",
+    "Ludden": "卢登",
     "Marshall": "马歇尔",
     "McConaughy": "麦康纳",
     "McKenna": "麦肯纳",
+    "Mo Teh-hui": "莫德惠",
     "Myers": "迈尔斯",
     "Penfield": "彭菲尔德",
     "Rice": "赖斯",
     "Ringwalt": "林沃尔特",
     "Service": "谢伟思",
+    "Shepley": "谢普利",
     "Smyth": "史密斯",
     "Sprouse": "斯普劳斯",
     "Stuart": "司徒雷登",
+    "T. V. Soong": "宋子文",
+    "Truman": "杜鲁门",
+    "Wang Shihchieh": "王世杰",
+    "Wang Shih-chieh": "王世杰",
+    "Wedemeyer": "魏德迈",
+    "Yu Ta-wei": "俞大维",
 }
 
 
@@ -60,16 +84,31 @@ ROLE_ZH = {
     "The Chargé in China": "驻华代办",
     "The Counselor of Embassy in China": "驻华使馆参赞",
     "The Minister-Counselor of Embassy in China": "驻华使馆公使衔参赞",
+    "The First Secretary of Embassy in China": "驻华使馆一等秘书",
+    "The Second Secretary of Embassy in China": "驻华使馆第二书记",
+    "The Consul at Canton": "驻广州领事",
     "The Consul at Kweilin": "驻桂林领事",
+    "The Consul at Peiping": "驻北平领事",
+    "The Consul at Shanghai": "驻沪领事",
+    "The Consul at Tientsin": "驻天津领事",
     "The Consul General at Kunming": "驻昆明总领事",
     "The Consul General at Shanghai": "驻上海总领事",
     "The Consul General at Hong Kong": "驻香港总领事",
     "The Consul General at Peiping": "驻北平总领事",
     "The Consul General at Tientsin": "驻天津总领事",
     "The Vice Consul at Chengtu": "驻成都副领事",
-    "The Second Secretary of Embassy in China": "驻华使馆第二书记",
     "The Acting Secretary of State": "代理国务卿",
     "The Secretary of State": "国务卿",
+    "The President": "总统",
+    "President Truman": "杜鲁门总统",
+    "the Bureau of Far Eastern Affairs": "远东事务司",
+    "Bureau of Far Eastern Affairs": "远东事务司",
+    "the State-War-Navy Coordinating Committee": "国务院-陆军部-海军部协调委员会",
+    "State-War-Navy Coordinating Committee": "国务院-陆军部-海军部协调委员会",
+    "the Department of State": "国务院",
+    "Department of State": "国务院",
+    "the Chinese Ministry of Information": "中国新闻局",
+    "Chinese Ministry of Information": "中国新闻局",
 }
 
 
@@ -81,6 +120,19 @@ EXACT_TITLE_ZH = {
     "Chinese National Government’s Reply to Communist Party’s Counterproposals": "中国国民政府对共产党反建议的答复",
     "General Marshall’s Notes on a Conference With Dr. Wang Shihchieh, at Nanking, January 7, 1947, 5 p.m.": "马歇尔将军关于1947年1月7日下午5时在南京同王世杰博士会谈的记录",
     "Memorandum Concerning United States Post-War Military Policies With Respect to China": "关于美国战后对华军事政策的备忘录",
+    "Charter for the Interim Government of the Republic of China": "中华民国临时政府宪章",
+    "General Marshall to President Truman": "马歇尔将军致杜鲁门总统",
+    "Memorandum by General Chou En-lai to General Marshall": "周恩来将军致马歇尔将军备忘录",
+    "Memorandum by General Marshall to Generalissimo Chiang Kai-shek": "马歇尔将军致蒋介石委员长备忘录",
+    "Lieutenant General Albert C. Wedemeyer to General Marshall": "魏德迈中将致马歇尔将军",
+    "Policy Statement Prepared in the Department of State": "国务院起草的政策声明",
+    "Draft of New China News Agency": "新华社草案",
+    "Memorandum by the State–War–Navy Coordinating Committee to the Secretary of State": "国务院-陆军部-海军部协调委员会致国务卿备忘录",
+    "Report by the State-War-Navy Coordinating Committee": "国务院-陆军部-海军部协调委员会报告",
+    "Memorandum by Mr. Charlton Ogburn of the Bureau of Far Eastern Affairs": "远东事务司查尔顿·奥格本备忘录",
+    "Memorandum by Mr. James R. Shepley to General Marshall": "詹姆斯·R·谢普利致马歇尔将军备忘录",
+    "Memorandum Prepared in the Chinese Ministry of Information Concerning the Chinese Communist Party": "中国新闻局起草的关于中国共产党的备忘录",
+    "Notes on General Marshall’s First Conference With the Democratic League, 1600, 26 December": "马歇尔将军与中国民主同盟首次会谈记录，1945年12月26日下午4时",
 }
 
 
@@ -105,32 +157,139 @@ def role_with_person(role: str, person: str) -> str:
     return f"{role_zh(role)}（{person_zh(person)}）"
 
 
+RANK_TITLES = {
+    "General": "将军",
+    "Lieutenant General": "中将",
+    "Major General": "少将",
+    "Colonel": "上校",
+    "Admiral": "海军上将",
+    "President": "总统",
+    "Premier": "总理",
+    "Generalissimo": "委员长",
+    "Mr.": "先生",
+    "Mrs.": "夫人",
+    "Madame": "夫人",
+    "Dr.": "博士",
+    "Professor": "教授",
+}
+
+_RANK_RE = r"(General|Lieutenant General|Major General|Colonel|Admiral|President|Premier|Generalissimo|Mr\.|Mrs\.|Madame|Dr\.|Professor)"
+
+
+def _rank_with_name(rank: str, name: str) -> str:
+    """把 'General Chou En-lai' 转成 '周恩来将军'；'President Truman' → '杜鲁门总统'。"""
+    name = name.strip()
+    rank_zh = RANK_TITLES.get(rank, rank)
+    name_zh = PERSON_ZH.get(name, name)
+    # Mr./Mrs./Dr. 这种放后面（如 Mr. 谢普利）；其他放后面（如 周恩来将军）
+    return f"{name_zh}{rank_zh}"
+
+
 def translate_title(title: str) -> str:
     title = title or ""
     if title in EXACT_TITLE_ZH:
         return EXACT_TITLE_ZH[title]
 
+    # 1. "X (P) to Y (Q)" → "X(P)致Y(Q)"
     m = re.match(r"(.+?) \(([^)]+)\) to (.+?) \(([^)]+)\)$", title)
     if m:
         src_role, src_person, dst_role, dst_person = m.groups()
         return f"{role_with_person(src_role, src_person)}致{role_with_person(dst_role, dst_person)}"
 
+    # 2. "X (P) to Y" → "X(P)致Y"
     m = re.match(r"(.+?) \(([^)]+)\) to (.+)$", title)
     if m:
         src_role, src_person, dst_role = m.groups()
         return f"{role_with_person(src_role, src_person)}致{role_zh(dst_role)}"
 
+    # 3. "Memorandum by X (P) to Y" → "X(P)致Y 备忘录"
+    m = re.match(r"Memorandum by (.+?) \(([^)]+)\) to (.+)$", title)
+    if m:
+        role, person, dst = m.groups()
+        return f"{role_with_person(role, person)}致{role_zh(dst)}备忘录"
+
+    # 4. "Memorandum by X (P)" → "X(P)备忘录"
     m = re.match(r"Memorandum by (.+?) \(([^)]+)\)$", title)
     if m:
         role, person = m.groups()
         return f"{role_with_person(role, person)}备忘录"
 
+    # 5. "Memorandum by RANK Name to RANK Name" → "X 致 Y 备忘录"
+    m = re.match(rf"Memorandum by {_RANK_RE} (.+?) to {_RANK_RE} (.+?)$", title)
+    if m:
+        return f"{_rank_with_name(m.group(1), m.group(2))}致{_rank_with_name(m.group(3), m.group(4))}备忘录"
+
+    # 6. "Memorandum by RANK Name of/in <body>" → "<body>之 RANK Name 备忘录"
+    m = re.match(rf"Memorandum by {_RANK_RE} (.+?) (?:of|in) (?:the )?(.+?)$", title)
+    if m:
+        return f"{role_zh(m.group(3))}{_rank_with_name(m.group(1), m.group(2))}备忘录"
+
+    # 7. "Memorandum by RANK Name" → "RANK Name 备忘录"
+    m = re.match(rf"Memorandum by {_RANK_RE} (.+?)$", title)
+    if m:
+        return f"{_rank_with_name(m.group(1), m.group(2))}备忘录"
+
+    # 8. "RANK Name to RANK Name" → "X 致 Y"
+    m = re.match(rf"^{_RANK_RE} (.+?) to {_RANK_RE} (.+?)$", title)
+    if m:
+        return f"{_rank_with_name(m.group(1), m.group(2))}致{_rank_with_name(m.group(3), m.group(4))}"
+
+    # 9. "RANK Name to <role>" → "X 致 <role>"
+    m = re.match(rf"^{_RANK_RE} (.+?) to (.+?)$", title)
+    if m:
+        return f"{_rank_with_name(m.group(1), m.group(2))}致{role_zh(m.group(3))}"
+
+    # 10. "Minutes/Notes of/on Meeting/Conference Between A and B[, at C][, date]"
+    m = re.match(r"(?:Minutes|Notes) (?:of|on) (?:Meeting|Conference) Between (.+?) and (.+?)(?:, at (.+?))?(?:, .+)?$", title)
+    if m:
+        a, b, place = m.groups()
+        a_zh = _translate_party(a)
+        b_zh = _translate_party(b)
+        place_zh = f"在{m.group(3)}" if place else ""
+        return f"{a_zh}与{b_zh}{place_zh}会谈纪要"
+
+    # 11. "Notes/Minutes of Conference Between A and B and C, ..."
+    m = re.match(r"(?:Minutes|Notes) (?:of|on) (?:Meeting|Conference) Between (.+?), (.+?),? and (.+?)(?:, at (.+?))?(?:, .+)?$", title)
+    if m:
+        return f"{_translate_party(m.group(1))}、{_translate_party(m.group(2))}、{_translate_party(m.group(3))}会谈纪要"
+
+    # 12. "Charter for X" → "X 宪章"
+    m = re.match(r"Charter for (?:the )?(.+?)$", title)
+    if m:
+        return f"{role_zh(m.group(1))}宪章"
+
+    # 13. "Report by X" → "X 报告"
+    m = re.match(r"Report by (?:the )?(.+?)$", title)
+    if m:
+        return f"{role_zh(m.group(1))}报告"
+
+    # 14. "Draft Prepared by X for Y" → "X 起草的 Y 草案"
+    m = re.match(r"Draft Prepared by (?:the )?(.+?) for (?:the )?(.+?)$", title)
+    if m:
+        return f"{role_zh(m.group(1))}起草的{role_zh(m.group(2))}草案"
+
+    # 15. "Statement by X" → "X 声明"
+    m = re.match(r"Statement by (?:the )?(.+?)$", title)
+    if m:
+        return f"{role_zh(m.group(1))}声明"
+
+    # 16. "X (P)" → "X(P)"（旧规则保留）
     m = re.match(r"(.+?) \(([^)]+)\)$", title)
     if m:
         role, person = m.groups()
         return role_with_person(role, person)
 
     return title
+
+
+def _translate_party(party: str) -> str:
+    """会谈纪要中的'某将军'/'某博士'/'某主席'类参与方翻译"""
+    party = party.strip()
+    # Dr./General/Mr. + name
+    m = re.match(rf"^{_RANK_RE} (.+?)$", party)
+    if m:
+        return _rank_with_name(m.group(1), m.group(2))
+    return PERSON_ZH.get(party, party)
 
 
 def title_block(title: str, href: str | None = None, level: str = "h2") -> str:
@@ -811,7 +970,6 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
   {ICONS_SVG}
   <header class="topbar">
     <a class="brand" href="/">
-      <span class="brand-mark">中</span>
       <span>民盟历史文献研究库</span>
       <span class="brand-sub">FRUS / Wilson / CIA</span>
     </a>
