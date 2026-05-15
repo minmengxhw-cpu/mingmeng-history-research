@@ -109,6 +109,15 @@ ROLE_ZH = {
     "Department of State": "国务院",
     "the Chinese Ministry of Information": "中国新闻局",
     "Chinese Ministry of Information": "中国新闻局",
+    "the Embassy in China": "驻华使馆",
+    "Embassy in China": "驻华使馆",
+    "The British Embassy": "英国大使馆",
+    "British Embassy": "英国大使馆",
+    "the Department of State": "国务院",
+    "Chinese Communist Party": "中国共产党",
+    "the Chinese Communist Party": "中国共产党",
+    "the Democratic League": "中国民主同盟",
+    "Democratic League": "中国民主同盟",
 }
 
 
@@ -132,7 +141,9 @@ EXACT_TITLE_ZH = {
     "Memorandum by Mr. Charlton Ogburn of the Bureau of Far Eastern Affairs": "远东事务司查尔顿·奥格本备忘录",
     "Memorandum by Mr. James R. Shepley to General Marshall": "詹姆斯·R·谢普利致马歇尔将军备忘录",
     "Memorandum Prepared in the Chinese Ministry of Information Concerning the Chinese Communist Party": "中国新闻局起草的关于中国共产党的备忘录",
-    "Notes on General Marshall’s First Conference With the Democratic League, 1600, 26 December": "马歇尔将军与中国民主同盟首次会谈记录，1945年12月26日下午4时",
+    "Notes on General Marshall’s First Conference With the Democratic League, 1600, 26 December 1945": "马歇尔将军与中国民主同盟首次会谈记录，1945年12月26日下午4时",
+    "Notes on General Marshall's First Conference With the Democratic League, 1600, 26 December 1945": "马歇尔将军与中国民主同盟首次会谈记录，1945年12月26日下午4时",
+    "Public Statement by General Marshall and Ambassador Stuart": "马歇尔将军与司徒雷登大使联合公开声明",
 }
 
 
@@ -273,6 +284,65 @@ def translate_title(title: str) -> str:
     if m:
         return f"{role_zh(m.group(1))}声明"
 
+    # 15a. "Public Statement by RANK Name and RANK Name" → "X 与 Y 公开声明"
+    m = re.match(rf"Public Statement by {_RANK_RE} (.+?) and {_RANK_RE} (.+?)$", title)
+    if m:
+        return f"{_rank_with_name(m.group(1), m.group(2))}与{_rank_with_name(m.group(3), m.group(4))}公开声明"
+
+    # 15b. "Memorandum Prepared in/by (the) X[ Concerning Y]" → "X 起草的备忘录[关于 Y]"
+    m = re.match(r"Memorandum Prepared (?:in|by) (?:the )?(.+?)(?: Concerning (?:the )?(.+?))?$", title)
+    if m:
+        body = role_zh(m.group(1))
+        topic = m.group(2)
+        if topic:
+            return f"{body}起草的关于{role_zh(topic)}的备忘录"
+        return f"{body}起草的备忘录"
+
+    # 15c. "Notes/Minutes of Interview Between A and B[ at C][, date]"
+    m = re.match(r"(?:Notes|Minutes) (?:of|on) Interview Between (.+?) and (.+?)(?: at (.+?))?(?:, .+)?$", title)
+    if m:
+        a, b, place = m.groups()
+        place_zh = f"在{place}" if place else ""
+        return f"{_translate_party(a)}与{_translate_party(b)}{place_zh}访谈纪要"
+
+    # 15d. "Notes of Meeting of A With B[ at C][, date]"
+    m = re.match(r"Notes of Meeting of (.+?) With (.+?)(?: at (.+?))?(?:, .+)?$", title)
+    if m:
+        a, b, place = m.groups()
+        place_zh = f"在{place}" if place else ""
+        return f"{_translate_party(a)}与{_translate_party(b)}{place_zh}会议记录"
+
+    # 15e. "Extracts of Minutes of Meeting Between A and B[ at C]"
+    m = re.match(r"Extracts of Minutes of (?:Meeting|Conference) Between (.+?) and (.+?)(?: at (.+?))?(?:, .+)?$", title)
+    if m:
+        a, b, place = m.groups()
+        place_zh = f"在{place}" if place else ""
+        return f"{_translate_party(a)}与{_translate_party(b)}{place_zh}会谈纪要摘录"
+
+    # 15f. "X's Notes on a Conference With Y[, at Z][, date]"
+    m = re.match(r"(.+?)['’]s Notes on (?:a |an |the )?(?:Conference|Meeting) With (.+?)(?:, at (.+?))?(?:, .+)?$", title)
+    if m:
+        a, b, place = m.groups()
+        place_zh = f"在{place}" if place else ""
+        return f"{_translate_party(a)}与{_translate_party(b)}{place_zh}会谈记录"
+
+    # 15g. "X's Notes on a Series of Meetings With Y[, date]"
+    m = re.match(r"(.+?)['’]s Notes on a Series of Meetings With (.+?)(?:, .+)?$", title)
+    if m:
+        a, b = m.group(1), m.group(2)
+        return f"{_translate_party(a)}与{_translate_party(b)}系列会议记录"
+
+    # 15h. "Second/First/Third Draft Statement for X Prepared by RANK Name and ..."
+    m = re.match(r"(First|Second|Third|Fourth) Draft Statement for (.+?) Prepared by (.+?)(?: and .+?)?$", title)
+    if m:
+        nth = {"First": "第一稿", "Second": "第二稿", "Third": "第三稿", "Fourth": "第四稿"}[m.group(1)]
+        return f"由{_translate_party(m.group(3))}等起草的{_translate_party(m.group(2))}声明{nth}"
+
+    # 15i. "The X to the Y" → 机构对机构（如 "The British Embassy to the Department of State"）
+    m = re.match(r"The (.+?) to the (.+?)$", title)
+    if m:
+        return f"{role_zh('The ' + m.group(1))}致{role_zh('the ' + m.group(2))}"
+
     # 16. "X (P)" → "X(P)"（旧规则保留）
     m = re.match(r"(.+?) \(([^)]+)\)$", title)
     if m:
@@ -297,6 +367,21 @@ def title_block(title: str, href: str | None = None, level: str = "h2") -> str:
     main = f'<a href="{h(href)}">{h(zh)}</a>' if href else h(zh)
     english = "" if zh == title else f'<div class="title-en">{h(title)}</div>'
     return f"<{level}>{main}</{level}>{english}"
+
+
+def breadcrumb_html(crumbs: list[tuple[str | None, str]]) -> str:
+    """生成面包屑导航。crumbs = [(href|None, label), ...]，None 表示当前页（不渲染链接）"""
+    if not crumbs:
+        return ""
+    parts = []
+    for i, (href, label) in enumerate(crumbs):
+        if href:
+            parts.append(f'<a href="{h(href)}">{h(label)}</a>')
+        else:
+            parts.append(f'<span class="current">{h(label)}</span>')
+        if i < len(crumbs) - 1:
+            parts.append('<span class="sep">›</span>')
+    return f'<nav class="breadcrumb">{"".join(parts)}</nav>'
 
 
 def source_page_label(row: sqlite3.Row) -> str:
@@ -431,7 +516,7 @@ ICONS_SVG = """
 
 
 NAV_GROUPS = [
-    ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/timeline", "年表")]),
+    ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/dashboard", "进度仪表盘")]),
     ("topics", "i-tag", "专题与人物", [("/topics", "专题"), ("/people", "人物"), ("/places", "地点"), ("/organizations", "机构"), ("/events", "事件")]),
 ]
@@ -946,6 +1031,117 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     }}
     /* 长文阅读优化：限制行宽 */
     .reader-doc {{ max-width: 760px; margin: 0 auto; font-family: var(--serif); font-size: 16px; line-height: 1.9; }}
+
+    /* === 学术元数据卡 === */
+    .meta-card {{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+    }}
+    .meta-card-head {{
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+      margin-bottom: 12px;
+    }}
+    .meta-card-head h3 {{
+      margin: 0;
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--archival);
+    }}
+    .meta-card-head .ico {{ color: var(--archival); }}
+    .cite-tabs {{ display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }}
+    .cite-tab {{
+      border: 1px solid var(--line); background: var(--bg-paper);
+      padding: 5px 12px; border-radius: 5px;
+      font: 13px var(--sans); color: var(--muted);
+      cursor: pointer;
+    }}
+    .cite-tab:hover {{ color: var(--archival); border-color: var(--archival); }}
+    .cite-tab.active {{ background: var(--archival-soft); color: var(--archival); border-color: var(--archival); font-weight: 500; }}
+    .cite-content {{
+      font-family: var(--mono);
+      font-size: 13px; line-height: 1.7;
+      background: var(--bg-paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin: 0 0 12px;
+      color: var(--text);
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }}
+    .meta-card-foot {{
+      display: flex; flex-wrap: wrap; gap: 18px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--line-soft);
+      font-size: 13px; color: var(--muted);
+    }}
+    .meta-card-foot strong {{ color: var(--text); font-weight: 500; margin-right: 4px; }}
+
+    /* === 面包屑 === */
+    .breadcrumb {{
+      display: flex; align-items: center; flex-wrap: wrap;
+      gap: 8px;
+      font-size: 13px; color: var(--muted);
+      margin-bottom: 16px;
+      font-family: var(--serif);
+    }}
+    .breadcrumb a {{ color: var(--muted); }}
+    .breadcrumb a:hover {{ color: var(--accent); }}
+    .breadcrumb .sep {{ color: var(--muted-soft); }}
+    .breadcrumb .current {{ color: var(--text); }}
+
+    /* === 术语表 === */
+    .glossary-letters {{
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 22px;
+      padding: 14px 18px;
+      background: var(--panel-warm);
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
+      position: sticky; top: 80px; z-index: 5;
+    }}
+    .glossary-letters a {{
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 30px; height: 30px;
+      border-radius: 4px;
+      color: var(--accent-deep);
+      font-family: var(--serif); font-weight: 600;
+      transition: all 0.12s;
+    }}
+    .glossary-letters a:hover {{ background: var(--accent-soft); text-decoration: none; }}
+    .glossary-letters a.disabled {{ color: var(--muted-soft); pointer-events: none; }}
+    .glossary-section {{ margin-bottom: 26px; scroll-margin-top: 140px; }}
+    .glossary-section h2 {{
+      font-size: 22px; color: var(--archival);
+      border-bottom: 2px solid var(--archival-soft);
+      padding-bottom: 6px; margin-bottom: 12px;
+    }}
+    .glossary-table {{
+      width: 100%; border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--line-soft); border-radius: 8px;
+      overflow: hidden;
+    }}
+    .glossary-table th, .glossary-table td {{
+      padding: 10px 14px; text-align: left;
+      border-bottom: 1px solid var(--line-soft);
+      font-size: 14px;
+    }}
+    .glossary-table th {{
+      background: var(--panel-warm); color: var(--muted);
+      font-family: var(--serif); font-weight: 500;
+      font-size: 13px; letter-spacing: 0.04em;
+    }}
+    .glossary-table tr:last-child td {{ border-bottom: 0; }}
+    .glossary-table .term {{ font-family: var(--serif); font-style: italic; color: var(--text); }}
+    .glossary-table .zh-term {{ font-weight: 500; color: var(--accent-deep); }}
+    .glossary-table .note {{ color: var(--muted); font-size: 13px; }}
+    .glossary-table .lookup {{ font-size: 12px; }}
 
     @media (max-width: 980px) {{
       .topbar {{ grid-template-columns: 1fr; gap: 12px; padding: 12px 18px; }}
@@ -1574,7 +1770,7 @@ def dashboard() -> bytes:
     export_files = sorted((ROOT / "exports").glob("*.md")) if (ROOT / "exports").exists() else []
     recent_exports = sorted(export_files, key=lambda path: path.stat().st_mtime, reverse=True)[:8]
 
-    body = f"""
+    body = breadcrumb_html([("/", "首页"), ("/tasks", "研究工作台"), (None, "进度仪表盘")]) + f"""
 <section class="doc-head">
   <div>
     <h1>研究进度仪表盘</h1>
@@ -1845,6 +2041,45 @@ def search(query: str) -> bytes:
     return layout(f"搜索 {query}", body, query)
 
 
+def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
+    """生成 BibTeX / Chicago / GB/T 7714 三种引用格式"""
+    title_zh = translate_title(doc["title"])
+    title_en = doc["title"]
+    vol = doc["volume_id"] or ""
+    docnum = doc["doc_id"] or ""
+    date = doc["date_guess"] or ""
+    url = doc["url"] or ""
+    year = ""
+    m = re.search(r"\b(19\d{2}|20\d{2})\b", date)
+    if m:
+        year = m.group(1)
+    elif vol:
+        m = re.search(r"\b(19\d{2})\b", vol)
+        if m:
+            year = m.group(1)
+    bibkey = f"FRUS_{vol}_{docnum}".replace(".", "_").replace("-", "_")
+    bibtex = (
+        f"@incollection{{{bibkey},\n"
+        f"  title  = {{{title_en}}},\n"
+        f"  booktitle = {{Foreign Relations of the United States ({vol})}},\n"
+        f"  publisher = {{U.S. Department of State, Office of the Historian}},\n"
+        f"  year   = {{{year}}},\n"
+        f"  note   = {{Document {docnum}, {date}}},\n"
+        f"  url    = {{{url}}},\n"
+        f"  urldate = {{2026-05-15}}\n"
+        f"}}"
+    )
+    chicago = (
+        f'"{title_en}." In *Foreign Relations of the United States* ({vol}), document {docnum}, {date}. '
+        f'Washington, D.C.: U.S. Department of State, Office of the Historian. {url}.'
+    )
+    gb = (
+        f"美国国务院历史档案办公室. {title_zh}: {title_en}[EB/OL]. ({date}) [2026-05-15]. {url}. "
+        f"载《美国对外关系文件集》{vol}号文件 {docnum}."
+    )
+    return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
+
+
 def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
     with conn() as c:
         doc = c.execute(
@@ -1876,18 +2111,44 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         ).fetchall()
 
     source_link = h(doc["url"] or "")
-    body = f"""
+    citations = _build_citations(doc)
+    matched_chips = "".join(
+        f'<a class="tag" href="/search?q={quote(t.strip())}">{h(t.strip())}</a>'
+        for t in (doc["matched_terms"] or "").split(";") if t.strip()
+    )
+    body = breadcrumb_html([("/", "首页"), ("/docs", "全部文档"), (None, translate_title(doc["title"])[:36])]) + f"""
 <section class="doc-head">
   <div>
     {title_block(doc["title"], None, "h1")}
-    <div class="meta">{h(doc["volume_id"])}/{h(doc["doc_id"])} · {h(doc["date_guess"])} · {h(doc["matched_terms"])} {grade_badge(doc)}</div>
-    <div class="meta">{h(doc["reason"] or "")}</div>
+    <div class="meta">{h(doc["volume_id"])}/{h(doc["doc_id"])} · {h(doc["date_guess"])} {grade_badge(doc)}</div>
+    <div class="tagline" style="margin-top:8px;">{matched_chips}</div>
+    <div class="meta" style="margin-top:8px;">{h(doc["reason"] or "")}</div>
   </div>
   <div class="doc-tools">
-    <a class="button" href="{source_link}" target="_blank" rel="noreferrer">原始来源</a>
-    <a class="button" href="/search?q={quote(doc["matched_terms"] or doc["title"])}">相关搜索</a>
+    <a class="button" href="{source_link}" target="_blank" rel="noreferrer"><svg class="ico"><use href="#i-globe"/></svg>FRUS 原文</a>
+    <a class="button" href="/search?q={quote(doc["matched_terms"] or doc["title"])}"><svg class="ico"><use href="#i-search"/></svg>相关搜索</a>
   </div>
 </section>
+
+<section class="meta-card" id="cite-card">
+  <div class="meta-card-head">
+    <h3><svg class="ico"><use href="#i-quote"/></svg>学术引用</h3>
+    <div class="cite-tabs">
+      <button type="button" class="cite-tab active" data-fmt="bibtex">BibTeX</button>
+      <button type="button" class="cite-tab" data-fmt="chicago">Chicago</button>
+      <button type="button" class="cite-tab" data-fmt="gb">GB/T 7714</button>
+      <button type="button" class="button cite-copy" id="cite-copy-btn"><svg class="ico"><use href="#i-check"/></svg>复制</button>
+    </div>
+  </div>
+  <pre class="cite-content" id="cite-content" data-bibtex="{h(citations['bibtex'])}" data-chicago="{h(citations['chicago'])}" data-gb="{h(citations['gb'])}">{h(citations['bibtex'])}</pre>
+  <div class="meta-card-foot">
+    <span><strong>FRUS 卷号</strong> {h(doc["volume_id"])}</span>
+    <span><strong>文件号</strong> {h(doc["doc_id"])}</span>
+    <span><strong>日期</strong> {h(doc["date_guess"])}</span>
+    <span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>
+  </div>
+</section>
+
 <section class="reader">"""
     for row in rows:
         page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
@@ -1898,20 +2159,41 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         body += f"""
   <div class="segment">
     <article class="pane"{selected}>
-      <div class="pane-head"><span>原文 · {h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">引用</a></span></div>
+      <div class="pane-head"><span>原文 · {h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">FRUS 段落</a></span></div>
       <div class="pane-body">{h(row["original_text"])}</div>
     </article>
-    <article class="pane">
-      <div class="pane-head"><span>中文 · {h(status)}</span><a href="/review/{h(row["page_id"])}">校订</a></div>
+    <article class="pane zh-pane">
+      <div class="pane-head"><span>中文译文 · {h(status)}</span><a href="/review/{h(row["page_id"])}"><svg class="ico"><use href="#i-edit"/></svg>校订</a></div>
       <div class="pane-body{zh_class}">{h(zh)}</div>
     </article>
   </div>"""
     body += "</section>"
+    body += """
+<script>
+(function(){
+  const tabs = document.querySelectorAll('.cite-tab');
+  const content = document.getElementById('cite-content');
+  const btn = document.getElementById('cite-copy-btn');
+  if (!content || !btn) return;
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    const fmt = tab.dataset.fmt;
+    content.textContent = content.dataset[fmt] || '';
+  }));
+  btn.addEventListener('click', () => {
+    navigator.clipboard.writeText(content.textContent).then(() => {
+      const oldHTML = btn.innerHTML;
+      btn.innerHTML = '<svg class="ico"><use href="#i-check"/></svg>已复制';
+      setTimeout(() => { btn.innerHTML = oldHTML; }, 1500);
+    });
+  });
+})();
+</script>
+"""
     if page_id:
         body += "<script>document.getElementById('selected')?.scrollIntoView({block:'center'});</script>"
-    else:
-        body += "<script>window.scrollTo({top: 0});</script>"
-    return layout(doc["title"], body)
+    return layout(translate_title(doc["title"]), body)
 
 
 def docs(active_grade: str = "", active_translation: str = "") -> bytes:
@@ -1951,7 +2233,8 @@ def docs(active_grade: str = "", active_translation: str = "") -> bytes:
             """,
             tuple(params),
         ).fetchall()
-    body = grade_filters(active_grade, active_translation)
+    body = breadcrumb_html([("/", "首页"), (None, "全部文档")])
+    body += grade_filters(active_grade, active_translation)
     body += '<section class="result-list">'
     for row in rows:
         page = f"{row['translated_pages']}/{row['page_count']} 已译"
@@ -1966,6 +2249,54 @@ def docs(active_grade: str = "", active_translation: str = "") -> bytes:
 </article>"""
     body += "</section>"
     return layout("全部文档", body)
+
+
+def glossary_page() -> bytes:
+    """术语表页面，从 data/translation_glossary.csv 读 109 条标准译名。"""
+    import csv as _csv
+    glossary_path = ROOT / "data" / "translation_glossary.csv"
+    entries = []
+    if glossary_path.exists():
+        with open(glossary_path, encoding="utf-8") as f:
+            for row in _csv.DictReader(f):
+                term = (row.get("term") or "").strip()
+                trans = (row.get("translation") or "").strip()
+                note = (row.get("note") or "").strip()
+                if term and trans:
+                    entries.append((term, trans, note))
+    # 按首字母分组
+    from collections import defaultdict
+    groups = defaultdict(list)
+    for term, trans, note in entries:
+        first = term[0].upper() if term[0].isascii() and term[0].isalpha() else "#"
+        groups[first].append((term, trans, note))
+    letters_used = sorted(groups.keys())
+
+    body = breadcrumb_html([("/", "首页"), (None, "术语表")])
+    body += f"""
+<section class="hero" style="padding:24px 28px;">
+  <h1 style="font-size:26px;">标准译名表</h1>
+  <p class="hero-sub">本平台中英文术语对照表，共 <strong>{len(entries)}</strong> 条。
+  按英文首字母分组排序。所有人工校订与机器翻译均以此表为准；译文质量复核脚本
+  亦根据此表生成 <code>glossary_miss</code> 提示。</p>
+</section>
+<nav class="glossary-letters">"""
+    full_alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ#")
+    for letter in full_alphabet:
+        if letter in groups:
+            body += f'<a href="#g-{letter}">{letter}</a>'
+        else:
+            body += f'<a class="disabled">{letter}</a>'
+    body += "</nav>"
+
+    for letter in letters_used:
+        body += f'<section class="glossary-section" id="g-{letter}"><h2>{letter} ({len(groups[letter])})</h2>'
+        body += '<table class="glossary-table"><thead><tr><th style="width:32%;">英文术语</th><th style="width:24%;">标准中文</th><th style="width:32%;">备注</th><th style="width:12%;">查看</th></tr></thead><tbody>'
+        for term, trans, note in sorted(groups[letter], key=lambda x: x[0].lower()):
+            body += f'<tr><td class="term">{h(term)}</td><td class="zh-term">{h(trans)}</td><td class="note">{h(note)}</td><td class="lookup"><a href="/search?q={quote(term)}">查文档 →</a></td></tr>'
+        body += "</tbody></table></section>"
+
+    return layout("术语表", body)
 
 
 def quality(active_severity: str = "", active_issue: str = "") -> bytes:
@@ -2175,7 +2506,7 @@ def tasks(active_queue: str = "") -> bytes:
             """
         ).fetchone()
 
-    body = f"""
+    body = breadcrumb_html([("/", "首页"), (None, "校订任务")]) + f"""
 <section class="doc-head">
   <div>
     <h1>校订任务队列</h1>
@@ -2249,7 +2580,7 @@ def people() -> bytes:
             ).fetchone()
             cards.append((person, row))
 
-    body = """
+    body = breadcrumb_html([("/", "首页"), ("/topics", "专题与人物"), (None, "人物索引")]) + """
 <section class="doc-head">
   <div>
     <h1>人物索引</h1>
@@ -3429,6 +3760,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = search(qs.get("q", [""])[0])
         elif parsed.path == "/docs":
             payload = docs(qs.get("grade", [""])[0], qs.get("translation", [""])[0])
+        elif parsed.path == "/glossary":
+            payload = glossary_page()
         elif parsed.path == "/quality":
             payload = quality(qs.get("severity", [""])[0], qs.get("issue", [""])[0])
         elif parsed.path == "/tasks":
