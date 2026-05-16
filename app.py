@@ -429,8 +429,8 @@ ISSUE_LABELS = {
 }
 
 
-# 人物档案数据从 person_archive.py 独立模块加载（31 人，含 profile 传记摘要）
-# 数据来源：docs/民盟人物档案.md（民盟中央官网 / 维基百科 / 全国政协官网等公开资料）
+# 人物档案数据从 person_archive.py 独立模块加载（AI 内部研究参考）
+# 本研究平台只收录国外一手原始档案；人物档案仅用于档案翻译人名标准化和上下文理解
 from person_archive import PEOPLE, PERSON_GROUPS  # noqa: E402
 
 
@@ -2789,8 +2789,8 @@ def people() -> bytes:
       点击姓名查看该人物所有原文、译文、来源链接和事件年表。
     </div>
     <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
-      数据来源：<a href="/docs/民盟人物档案.md" style="color:var(--accent);">docs/民盟人物档案.md</a>
-      （民盟中央官网、维基百科、全国政协官网、各大学统战部公开资料）
+      本平台只收录 <b>国外一手原始档案</b>（FRUS / Wilson / CIA / Hoover / NARA / HathiTrust）。
+      下方人物索引是档案翻译过程中用于规范人名、提供历史上下文的内部研究编排，<b>不构成资料库收录内容</b>。
     </div>
   </div>
   <div class="doc-tools">
@@ -2932,8 +2932,8 @@ def person_page(slug: str) -> bytes:
     </div>
     <div style="font-family:var(--serif);font-size:16px;line-height:1.8;color:var(--text);">{h(profile_text)}</div>
     <div class="meta" style="margin-top:10px;font-size:12.5px;color:var(--muted-soft);">
-      数据依据：<a href="/docs/民盟人物档案.md" style="color:var(--accent);">民盟人物档案</a>
-      （民盟中央官网 / 维基百科 / 全国政协官网 / 各大学统战部公开资料）
+      本卡为内部研究编排参考，便于理解下方档案译文的人物上下文；
+      本平台资料库本身只收录 <b>国外一手原始档案</b>（FRUS / Wilson / CIA / Hoover / NARA / HathiTrust）。
     </div>
   </div>
 </section>
