@@ -1036,6 +1036,37 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       margin-bottom: 22px;
       box-shadow: var(--shadow-sm);
     }}
+
+    /* === CIA 档案专属版式（情报蓝色调，与 FRUS 外交褐区分）=== */
+    .doc-head.cia-doc {{
+      border-left: 4px solid #1f4d7a;
+      background: linear-gradient(90deg, rgba(31, 77, 122, 0.045), var(--panel) 35%);
+    }}
+    .meta-card.cia-cite {{
+      border-color: rgba(31, 77, 122, 0.35);
+      background: rgba(31, 77, 122, 0.025);
+    }}
+    .meta-card.cia-cite .meta-card-head h3,
+    .meta-card.cia-cite .meta-card-head .ico {{ color: #1f4d7a; }}
+    .src-badge {{
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 9px; border-radius: 4px;
+      font-size: 12px; font-weight: 500;
+      vertical-align: 2px;
+      letter-spacing: 0.04em;
+    }}
+    .src-badge .ico {{ width: 13px; height: 13px; }}
+    .src-badge.cia {{
+      background: #1f4d7a; color: #ffffff;
+    }}
+    .cia-ocr-notice {{
+      border-left: 3px solid #1f4d7a !important;
+      background: rgba(31, 77, 122, 0.04) !important;
+      font-size: 13.5px;
+      color: var(--muted);
+    }}
+    .cia-ocr-notice .ico {{ color: #1f4d7a; vertical-align: -2px; margin-right: 4px; }}
+    .cia-ocr-notice a {{ color: #1f4d7a; }}
     .meta-card-head {{
       display: flex; align-items: center; justify-content: space-between;
       gap: 12px; flex-wrap: wrap;
@@ -2300,13 +2331,14 @@ def search(query: str) -> bytes:
 
 
 def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
-    """生成 BibTeX / Chicago / GB/T 7714 三种引用格式"""
+    """生成 BibTeX / Chicago / GB/T 7714 三种引用格式（按 source_platform 分支）"""
     title_zh = translate_title(doc["title"])
     title_en = doc["title"]
     vol = doc["volume_id"] or ""
     docnum = doc["doc_id"] or ""
     date = doc["date_guess"] or ""
     url = doc["url"] or ""
+    platform = (doc["source_platform"] if "source_platform" in doc.keys() else None) or "frus"
     year = ""
     m = re.search(r"\b(19\d{2}|20\d{2})\b", date)
     if m:
@@ -2315,6 +2347,33 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
         m = re.search(r"\b(19\d{2})\b", vol)
         if m:
             year = m.group(1)
+
+    if platform == "cia":
+        # CIA Records Reading Room 解密档案
+        rdp_id = docnum  # 即 archive.org identifier，含 RDP 编号
+        bibkey = f"CIA_{rdp_id}".replace(".", "_").replace("-", "_")
+        bibtex = (
+            f"@misc{{{bibkey},\n"
+            f"  title  = {{{title_en}}},\n"
+            f"  author = {{Central Intelligence Agency}},\n"
+            f"  howpublished = {{CIA Records Reading Room, declassified report}},\n"
+            f"  year   = {{{year}}},\n"
+            f"  note   = {{Document ID: {rdp_id}; declassified, mirrored at Internet Archive}},\n"
+            f"  url    = {{{url}}},\n"
+            f"  urldate = {{2026-05-16}}\n"
+            f"}}"
+        )
+        chicago = (
+            f'Central Intelligence Agency. "{title_en}." Declassified report, {date}. '
+            f'Document ID {rdp_id}. CIA Records Reading Room (mirrored at Internet Archive). {url}.'
+        )
+        gb = (
+            f"美国中央情报局. {title_zh}: {title_en}[R/OL]. ({date}) [2026-05-16]. {url}. "
+            f"CIA 解密档案，档案编号 {rdp_id}（Internet Archive 镜像）."
+        )
+        return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
+
+    # FRUS 默认格式
     bibkey = f"FRUS_{vol}_{docnum}".replace(".", "_").replace("-", "_")
     bibtex = (
         f"@incollection{{{bibkey},\n"
@@ -2374,21 +2433,63 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         f'<a class="tag" href="/search?q={quote(t.strip())}">{h(t.strip())}</a>'
         for t in (doc["matched_terms"] or "").split(";") if t.strip()
     )
+
+    # 按 source_platform 决定头部按钮和元数据卡片
+    platform = doc["source_platform"] or "frus"
+    is_cia = (platform == "cia")
+    if is_cia:
+        rdp_id = doc["doc_id"] or ""
+        archive_detail_url = doc["url"] or f"https://archive.org/details/{rdp_id}"
+        pdf_url = f"https://archive.org/download/{rdp_id}/{rdp_id}.pdf"
+        ocr_text_url = f"https://archive.org/download/{rdp_id}/{rdp_id}_djvu.txt"
+        tools_html = (
+            f'<a class="button" href="{archive_detail_url}" target="_blank" rel="noreferrer">'
+            f'<svg class="ico"><use href="#i-archive"/></svg>archive.org 详情</a>'
+            f'<a class="button" href="{pdf_url}" target="_blank" rel="noreferrer">'
+            f'<svg class="ico"><use href="#i-book"/></svg>下载 PDF 原档</a>'
+            f'<a class="button" href="{ocr_text_url}" target="_blank" rel="noreferrer">'
+            f'<svg class="ico"><use href="#i-globe"/></svg>OCR 英文原文</a>'
+            f'<a class="button" href="/search?q={quote(doc["matched_terms"] or doc["title"])}">'
+            f'<svg class="ico"><use href="#i-search"/></svg>相关搜索</a>'
+        )
+        platform_badge = (
+            '<span class="src-badge cia">'
+            '<svg class="ico"><use href="#i-lock"/></svg>CIA · 已解密 · archive.org 镜像'
+            '</span>'
+        )
+        meta_card_foot = (
+            f'<span><strong>档案集</strong> CIA Records Reading Room</span>'
+            f'<span><strong>RDP 编号</strong> {h(rdp_id)}</span>'
+            f'<span><strong>解密日期</strong> {h(doc["date_guess"])}</span>'
+            f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
+        )
+    else:
+        tools_html = (
+            f'<a class="button" href="{source_link}" target="_blank" rel="noreferrer">'
+            f'<svg class="ico"><use href="#i-globe"/></svg>FRUS 原文</a>'
+            f'<a class="button" href="/search?q={quote(doc["matched_terms"] or doc["title"])}">'
+            f'<svg class="ico"><use href="#i-search"/></svg>相关搜索</a>'
+        )
+        platform_badge = ''
+        meta_card_foot = (
+            f'<span><strong>FRUS 卷号</strong> {h(doc["volume_id"])}</span>'
+            f'<span><strong>文件号</strong> {h(doc["doc_id"])}</span>'
+            f'<span><strong>日期</strong> {h(doc["date_guess"])}</span>'
+            f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
+        )
+
     body = breadcrumb_html([("/", "首页"), ("/docs", "全部文档"), (None, translate_title(doc["title"])[:36])]) + f"""
-<section class="doc-head">
+<section class="doc-head{' cia-doc' if is_cia else ''}">
   <div>
     {title_block(doc["title"], None, "h1")}
-    <div class="meta">{h(doc["volume_id"])}/{h(doc["doc_id"])} · {h(doc["date_guess"])} {grade_badge(doc)}</div>
+    <div class="meta">{platform_badge} {h(doc["volume_id"])}/{h(doc["doc_id"])} · {h(doc["date_guess"])} {grade_badge(doc)}</div>
     <div class="tagline" style="margin-top:8px;">{matched_chips}</div>
     <div class="meta" style="margin-top:8px;">{h(doc["reason"] or "")}</div>
   </div>
-  <div class="doc-tools">
-    <a class="button" href="{source_link}" target="_blank" rel="noreferrer"><svg class="ico"><use href="#i-globe"/></svg>FRUS 原文</a>
-    <a class="button" href="/search?q={quote(doc["matched_terms"] or doc["title"])}"><svg class="ico"><use href="#i-search"/></svg>相关搜索</a>
-  </div>
+  <div class="doc-tools">{tools_html}</div>
 </section>
 
-<section class="meta-card" id="cite-card">
+<section class="meta-card{' cia-cite' if is_cia else ''}" id="cite-card">
   <div class="meta-card-head">
     <h3><svg class="ico"><use href="#i-quote"/></svg>学术引用</h3>
     <div class="cite-tabs">
@@ -2399,13 +2500,14 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
     </div>
   </div>
   <pre class="cite-content" id="cite-content" data-bibtex="{h(citations['bibtex'])}" data-chicago="{h(citations['chicago'])}" data-gb="{h(citations['gb'])}">{h(citations['bibtex'])}</pre>
-  <div class="meta-card-foot">
-    <span><strong>FRUS 卷号</strong> {h(doc["volume_id"])}</span>
-    <span><strong>文件号</strong> {h(doc["doc_id"])}</span>
-    <span><strong>日期</strong> {h(doc["date_guess"])}</span>
-    <span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>
-  </div>
+  <div class="meta-card-foot">{meta_card_foot}</div>
 </section>
+
+{('<div class="notice cia-ocr-notice" style="margin-bottom:14px;">'
+  '<svg class="ico"><use href="#i-globe"/></svg>'
+  '本档案为 CIA 解密报告的 <b>archive.org OCR 文本</b>，可能含扫描识别噪声（页眉/水印残留）。'
+  '正式引用请以 <a href="' + archive_detail_url + '" target="_blank">archive.org 原始 PDF</a> 为准。'
+  '</div>') if is_cia else ''}
 
 <section class="reader">"""
     for row in rows:
@@ -2414,10 +2516,11 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         zh = row["zh_text"] or "尚未翻译"
         zh_class = "" if row["zh_text"] else " empty"
         status = row["zh_status"] or "needs-translation"
+        source_label = "archive.org 原档" if is_cia else "FRUS 段落"
         body += f"""
   <div class="segment">
     <article class="pane"{selected}>
-      <div class="pane-head"><span>原文 · {h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">FRUS 段落</a></span></div>
+      <div class="pane-head"><span>原文 · {h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
       <div class="pane-body">{h(row["original_text"])}</div>
     </article>
     <article class="pane zh-pane">
