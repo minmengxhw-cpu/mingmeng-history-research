@@ -81,6 +81,16 @@ def main() -> None:
         old = cur.execute("SELECT id FROM documents WHERE doc_key=?", (record["doc_key"],)).fetchone()
         if old:
             document_id = old["id"]
+            old_page_ids = [row["id"] for row in cur.execute("SELECT id FROM pages WHERE document_id=?", (document_id,))]
+            for page_id in old_page_ids:
+                translation_ids = [
+                    row["id"]
+                    for row in cur.execute("SELECT id FROM translations WHERE page_id=?", (page_id,))
+                ]
+                for translation_id in translation_ids:
+                    cur.execute("DELETE FROM translation_fts WHERE rowid=?", (translation_id,))
+                cur.execute("DELETE FROM translations WHERE page_id=?", (page_id,))
+                cur.execute("DELETE FROM page_fts WHERE rowid=?", (page_id,))
             cur.execute("DELETE FROM pages WHERE document_id=?", (document_id,))
             cur.execute("DELETE FROM document_classifications WHERE document_id=?", (document_id,))
             cur.execute(
