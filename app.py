@@ -1370,14 +1370,15 @@ def source_page(platform_key: str) -> bytes:
         return layout("未知平台", '<div class="notice">未知的平台。可选：' + " / ".join(PLATFORM_META.keys()) + "</div>")
 
     with conn() as c:
-        # 取此平台的文档清单（如果数据库里有这个 source_platform）
+        # 取此平台的文档清单（前台过滤 grade='前台不展示'）
         try:
             docs_rows = c.execute("""
                 SELECT documents.*, dc.grade
                 FROM documents
                 LEFT JOIN document_classifications dc ON dc.document_id=documents.id
                 WHERE COALESCE(source_platform, 'frus')=?
-                ORDER BY documents.volume_id, CAST(documents.doc_number AS INTEGER)
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                ORDER BY documents.date_guess, documents.volume_id, CAST(documents.doc_number AS INTEGER)
             """, (platform_key,)).fetchall()
         except sqlite3.OperationalError:
             docs_rows = []
@@ -1618,6 +1619,7 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50) -> list[
         LEFT JOIN document_classifications dc ON dc.document_id = documents.id
         LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
         WHERE page_fts MATCH ?
+          AND (dc.grade IS NULL OR dc.grade != '前台不展示')
         LIMIT ?
     """
     seen: set[int] = set()
@@ -1648,7 +1650,8 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50) -> list[
             JOIN documents ON documents.id = pages.document_id
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
             LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
-            WHERE pages.text LIKE ? OR documents.title LIKE ? OR documents.matched_terms LIKE ?
+            WHERE (pages.text LIKE ? OR documents.title LIKE ? OR documents.matched_terms LIKE ?)
+              AND (dc.grade IS NULL OR dc.grade != '前台不展示')
             LIMIT ?
         """
         for row in c.execute(fallback, (like, like, like, limit)):
@@ -1677,6 +1680,7 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50) -> list[
             JOIN documents ON documents.id = pages.document_id
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
             WHERE translations.language='zh-CN' AND translations.text LIKE ?
+              AND (dc.grade IS NULL OR dc.grade != '前台不展示')
             LIMIT ?
         """
         for row in c.execute(zh_sql, (f"%{query}%", limit)):
@@ -2207,7 +2211,9 @@ def home() -> bytes:
                 FROM pages
                 JOIN documents ON documents.id = pages.document_id
                 LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
                 WHERE {where_p}
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
                 """,
                 tuple(params_p),
             ).fetchone()
@@ -2262,7 +2268,9 @@ def home() -> bytes:
                 FROM pages
                 JOIN documents ON documents.id = pages.document_id
                 LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
                 WHERE {where_e}
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
                 """,
                 tuple(params_e),
             ).fetchone()
@@ -2561,6 +2569,8 @@ def docs(active_grade: str = "", active_translation: str = "") -> bytes:
     with conn() as c:
         where_parts = []
         params: list[str] = []
+        # 前台默认过滤 grade='前台不展示' 的档案
+        where_parts.append("(dc.grade IS NULL OR dc.grade != '前台不展示')")
         if active_grade:
             where_parts.append("dc.grade = ?")
             params.append(active_grade)
@@ -2937,6 +2947,7 @@ def people() -> bytes:
                 LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
                 LEFT JOIN document_classifications dc ON dc.document_id = documents.id
                 WHERE {where}
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
                 """,
                 tuple(params),
             ).fetchone()
@@ -3060,6 +3071,7 @@ def person_page(slug: str) -> bytes:
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
             LEFT JOIN translation_quality_issues q ON q.page_id = pages.id
             WHERE {where}
+              AND (dc.grade IS NULL OR dc.grade != '前台不展示')
             GROUP BY pages.id
             ORDER BY documents.date_guess, documents.volume_id, CAST(documents.doc_number AS INTEGER), pages.id
             LIMIT 300
@@ -4205,7 +4217,7 @@ def _key_event_match_clause(event: dict) -> tuple[str, list[str]]:
 
 
 def _key_event_hit_stats(event: dict) -> dict[str, int]:
-    """返回某事件在 FRUS 库的命中统计。"""
+    """返回某事件在 FRUS 库的命中统计（过滤 grade='前台不展示'）。"""
     where, params = _key_event_match_clause(event)
     if where == "0":
         return {"doc_count": 0, "page_count": 0}
@@ -4218,7 +4230,9 @@ def _key_event_hit_stats(event: dict) -> dict[str, int]:
             FROM pages
             JOIN documents ON documents.id = pages.document_id
             LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+            LEFT JOIN document_classifications dc ON dc.document_id = documents.id
             WHERE {where}
+              AND (dc.grade IS NULL OR dc.grade != '前台不展示')
             """,
             tuple(params),
         ).fetchone()
@@ -4339,6 +4353,7 @@ def key_event_page(slug: str) -> bytes:
                 LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
                 LEFT JOIN document_classifications dc ON dc.document_id = documents.id
                 WHERE {where}
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
                 GROUP BY pages.id
                 ORDER BY documents.date_guess, documents.volume_id, CAST(documents.doc_number AS INTEGER), pages.id
                 LIMIT 300
