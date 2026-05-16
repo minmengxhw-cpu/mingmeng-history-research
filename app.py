@@ -429,18 +429,9 @@ ISSUE_LABELS = {
 }
 
 
-PEOPLE = [
-    {"slug": "lo-lung-chi", "name": "罗隆基", "aliases": ["Lo Lung-chi", "Lo Lung Chi", "Lo Lung", "罗隆基", "罗龙基", "罗龙志", "洛龙芝"]},
-    {"slug": "chang-lan", "name": "张澜", "aliases": ["Chang Lan", "Chang Piao-fang", "张澜"]},
-    {"slug": "liang-shu-ming", "name": "梁漱溟", "aliases": ["Liang Shu-ming", "梁漱溟"]},
-    {"slug": "shen-chun-ju", "name": "沈钧儒", "aliases": ["Shen Chun-ju", "沈钧儒"]},
-    {"slug": "huang-yen-pei", "name": "黄炎培", "aliases": ["Huang Yen-pei", "黄炎培", "黄延培"]},
-    {"slug": "chang-po-chun", "name": "章伯钧", "aliases": ["Chang Po-chun", "章伯钧"]},
-    {"slug": "shih-liang", "name": "史良", "aliases": ["Shih Liang", "史良"]},
-    {"slug": "carsun-chang", "name": "张君劢", "aliases": ["Carsun Chang", "Chang Chun-mai", "张君劢", "嘉善昌"]},
-    {"slug": "chang-tung-sun", "name": "张东荪", "aliases": ["Chang Tung-sun", "Chang Tung Sun", "张东荪", "张敦善"]},
-    {"slug": "chou-en-lai", "name": "周恩来", "aliases": ["Chou En-lai", "Chou Enlai", "周恩来", "周将军"]},
-]
+# 人物档案数据从 person_archive.py 独立模块加载（31 人，含 profile 传记摘要）
+# 数据来源：docs/民盟人物档案.md（民盟中央官网 / 维基百科 / 全国政协官网等公开资料）
+from person_archive import PEOPLE, PERSON_GROUPS  # noqa: E402
 
 
 TOPICS = [
@@ -2162,6 +2153,61 @@ def home() -> bytes:
 </article>"""
             body += "</section>"
 
+        # 民盟人物索引入口（按分组各取最热 1-2 人作为预览，余略）
+        # 统计每位人物在 FRUS 命中数，按片段数倒序取前 8 张作为首页缩略卡片
+        person_hits = []
+        for person in PEOPLE:
+            where_p, params_p = alias_where(
+                ["documents.matched_terms", "documents.title", "pages.text", "translations.text"],
+                person["aliases"],
+            )
+            row_p = c.execute(
+                f"""
+                SELECT count(DISTINCT documents.id) AS doc_count,
+                       count(DISTINCT pages.id) AS page_count
+                FROM pages
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+                WHERE {where_p}
+                """,
+                tuple(params_p),
+            ).fetchone()
+            person_hits.append((person, row_p["doc_count"] or 0, row_p["page_count"] or 0))
+        person_hits.sort(key=lambda x: (-x[2], -x[1]))
+        top_persons = person_hits[:8]
+        body += f"""
+<div class="section-head" style="margin-top:28px;">
+  <h2><svg class="ico"><use href="#i-people"/></svg>民盟人物索引</h2>
+  <a class="more" href="/people">全部 {len(PEOPLE)} 位人物 →</a>
+</div>
+<section class="doc-head" style="margin-bottom:14px;background:var(--panel-warm);">
+  <div>
+    <div class="meta" style="font-size:14px;line-height:1.7;">
+      按民盟历史角色（创立期主席团 / 上海支部创始人 / 烈士 / 救国会七君子 / 文化界 / 历任主席）
+      分组索引 <b>{len(PEOPLE)}</b> 位核心人物，每位人物可查所有 FRUS 原文片段、中文译文、事件年表和来源链接。
+      下方按 FRUS 命中片段数列出前 8 位。
+    </div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/people">进入人物索引</a>
+  </div>
+</section>
+<section class="result-list">
+"""
+        for person, dc, pc in top_persons:
+            profile_snip = compact(person.get("profile", ""), 110) if person.get("profile") else ""
+            body += f"""
+<article class="result">
+  <div>
+    <h2><a href="/people/{h(person["slug"])}">{h(person["name"])}</a></h2>
+    <div class="title-en">{h(' / '.join(person["aliases"][:3]))}</div>
+    <div class="meta">{dc} 篇文档 · {pc} 个片段</div>
+    <div class="zh" style="font-size:13.5px;color:var(--muted);">{h(profile_snip)}</div>
+  </div>
+  <div class="cite"><a href="/people/{h(person['slug'])}">人物页</a><br><a href="/timeline?person={h(person['slug'])}">年表</a></div>
+</article>"""
+        body += "</section>"
+
         # 最近人工校订
         body += """
 <div class="section-head">
@@ -2701,7 +2747,8 @@ def tasks(active_queue: str = "") -> bytes:
 
 
 def people() -> bytes:
-    cards = []
+    # 第一步：扫描每位人物在 FRUS 库中的命中统计
+    stats: dict[str, sqlite3.Row] = {}
     with conn() as c:
         for person in PEOPLE:
             where, params = alias_where(
@@ -2724,32 +2771,89 @@ def people() -> bytes:
                 """,
                 tuple(params),
             ).fetchone()
-            cards.append((person, row))
+            stats[person["slug"]] = row
 
-    body = breadcrumb_html([("/", "首页"), ("/topics", "专题与人物"), (None, "人物索引")]) + """
+    # 全库命中总览
+    total_hit_persons = sum(1 for r in stats.values() if (r["doc_count"] or 0) > 0)
+    total_docs = sum((r["doc_count"] or 0) for r in stats.values())
+    total_pages = sum((r["page_count"] or 0) for r in stats.values())
+
+    body = breadcrumb_html([("/", "首页"), ("/topics", "专题与人物"), (None, "人物索引")])
+    body += f"""
 <section class="doc-head">
   <div>
-    <h1>人物索引</h1>
-    <div class="meta">按民盟人物、第三方面人物和关键谈判人物汇总 FRUS 命中文档。每个人物页都保留原文、译文、页码和来源链接。</div>
+    <h1>民盟人物索引</h1>
+    <div class="meta">
+      按民盟历史角色分 {len(PERSON_GROUPS)} 组共 <b>{len(PEOPLE)}</b> 位人物，
+      其中 <b>{total_hit_persons}</b> 位在 FRUS 档案中已有命中（覆盖 {total_docs} 篇文档 / {total_pages} 个片段）。
+      点击姓名查看该人物所有原文、译文、来源链接和事件年表。
+    </div>
+    <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
+      数据来源：<a href="/docs/民盟人物档案.md" style="color:var(--accent);">docs/民盟人物档案.md</a>
+      （民盟中央官网、维基百科、全国政协官网、各大学统战部公开资料）
+    </div>
   </div>
   <div class="doc-tools">
     <a class="button" href="/tasks?queue=people">人物校订任务</a>
+    <a class="button" href="/timeline">人物年表</a>
   </div>
+</section>
+"""
+
+    # 第二步：按 PERSON_GROUPS 顺序分组渲染
+    for group_key, group_label, group_brief in PERSON_GROUPS:
+        members = [p for p in PEOPLE if p.get("group") == group_key]
+        if not members:
+            continue
+        # 组内按命中片段数倒序，无命中的按 slug 字母序排到末尾
+        members.sort(
+            key=lambda p: (
+                -(stats[p["slug"]]["page_count"] or 0),
+                -(stats[p["slug"]]["doc_count"] or 0),
+                p["slug"],
+            )
+        )
+        group_doc_total = sum((stats[p["slug"]]["doc_count"] or 0) for p in members)
+        group_page_total = sum((stats[p["slug"]]["page_count"] or 0) for p in members)
+        body += f"""
+<div class="section-head" style="margin-top:28px;">
+  <h2 style="margin:0;">{h(group_label)}</h2>
+  <span class="meta" style="color:var(--muted);font-size:13px;">{len(members)} 人 · FRUS 共 {group_doc_total} 篇 / {group_page_total} 段</span>
+</div>
+<section class="doc-head" style="margin-bottom:10px;background:var(--panel-warm);">
+  <div><div class="meta" style="line-height:1.7;">{h(group_brief)}</div></div>
 </section>
 <section class="result-list">
 """
-    for person, row in sorted(cards, key=lambda item: (item[1]["doc_count"] or 0, item[1]["page_count"] or 0), reverse=True):
-        body += f"""
-<article class="result">
+        for person in members:
+            row = stats[person["slug"]]
+            doc_count = row["doc_count"] or 0
+            page_count = row["page_count"] or 0
+            core_hits = row["core_hits"] or 0
+            no_hit_cls = "" if doc_count > 0 else ' style="opacity:.6;"'
+            hit_meta = (
+                f'{doc_count} 篇文档 · {page_count} 个片段 · 核心命中 {core_hits}'
+                if doc_count > 0
+                else '<span style="color:var(--muted-soft);">FRUS 暂无命中（待 Wilson / CIA 等档案补充）</span>'
+            )
+            profile_snip = compact(person.get("profile", ""), 120) if person.get("profile") else ""
+            profile_html = (
+                f'<div class="zh" style="font-size:13.5px;color:var(--muted);">{h(profile_snip)}</div>'
+                if profile_snip
+                else ""
+            )
+            body += f"""
+<article class="result"{no_hit_cls}>
   <div>
     <h2><a href="/people/{h(person["slug"])}">{h(person["name"])}</a></h2>
     <div class="title-en">{h(' / '.join(person["aliases"][:4]))}</div>
-    <div class="meta">{row["doc_count"] or 0} 篇文档 · {row["page_count"] or 0} 个片段 · 核心命中 {row["core_hits"] or 0}</div>
+    <div class="meta">{hit_meta}</div>
+    {profile_html}
     <div class="tagline">{''.join(f'<span class="tag">{h(alias)}</span>' for alias in person["aliases"][:5])}</div>
   </div>
   <div class="cite"><a href="/people/{h(person["slug"])}">查看人物页</a><br><a href="/search?q={quote(person["name"])}">中文搜索</a></div>
 </article>"""
-    body += "</section>"
+        body += "</section>"
     return layout("人物索引", body)
 
 
@@ -2812,8 +2916,30 @@ def person_page(slug: str) -> bytes:
   </div>
 </section>
 """
+    # 人物传记摘要卡片（如有 profile 字段）
+    profile_text = person.get("profile", "")
+    if profile_text:
+        group_label = ""
+        for g_key, g_label, _ in PERSON_GROUPS:
+            if person.get("group") == g_key:
+                group_label = g_label
+                break
+        body += f"""
+<section class="doc-head" style="background:var(--panel-warm);border-left:4px solid var(--accent);margin-bottom:16px;">
+  <div style="max-width:none;">
+    <div class="meta" style="color:var(--accent-deep);font-size:13px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;">
+      人物档案 {('· ' + h(group_label)) if group_label else ''}
+    </div>
+    <div style="font-family:var(--serif);font-size:16px;line-height:1.8;color:var(--text);">{h(profile_text)}</div>
+    <div class="meta" style="margin-top:10px;font-size:12.5px;color:var(--muted-soft);">
+      数据依据：<a href="/docs/民盟人物档案.md" style="color:var(--accent);">民盟人物档案</a>
+      （民盟中央官网 / 维基百科 / 全国政协官网 / 各大学统战部公开资料）
+    </div>
+  </div>
+</section>
+"""
     if not rows:
-        body += '<div class="notice">暂无匹配材料。</div>'
+        body += '<div class="notice">FRUS 档案中暂无命中。待 Wilson Center / CIA FOIA / NARA 等海外档案补充后会自动出现。</div>'
     else:
         body += '<section class="result-list">'
         for row in rows:
