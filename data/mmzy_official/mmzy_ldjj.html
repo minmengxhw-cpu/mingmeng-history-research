@@ -1,0 +1,787 @@
+
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <title>中国民主同盟</title>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+            <link rel="stylesheet" type="text/css" href="/gaiban/css/base.css" />
+            <link rel="stylesheet" type="text/css" href="/gaiban/css/css.css" />
+            <link rel="stylesheet" type="text/css" href="/gaiban/css/leader.css" />
+            <script type="text/javascript" src="/gaiban/js/jquery.js"></script>
+            <!--<script type="text/javascript" src="js/js.js"></script> -->
+        </head>
+        <body>
+            <!-- 二维码 -->
+            <!-- header-nav和banner开始 -->
+            
+<script type="text/javascript">
+    $(function () { });   
+
+    function heardSearch() {
+        var key = $("#Tsearchkey").val(); //关键字
+        var Thsearch = $("#Thsearch").val();
+        window.location.href = "/gaiban/search.aspx?search=" + key + "&Thsearch=" + Thsearch;
+
+    }
+</script>
+<!-- header部分开始 -->
+<div class="header-top">
+	<div class="layout header-search">
+		<a href="/" onclick="this.style.behavior='url(#default#homepage)'; 
+this.setHomePage('http://mmzycms2009.ccw.lab/');">设为首页</a> | 
+		<a href="/about/contacts.aspx">网站信箱</a> 
+		<!-- <a href="http://www1.mmzy.org.cn/">旧版入口</a> -->
+		<input type="text" value="搜索关键字" onfocus="javascript:if(this.value=='搜索关键字')this.value='';" id="Tsearchkey" />
+		<select name="Thsearch" id="Thsearch">
+			<option value="title">搜索标题</option>
+            <option value="content">搜索内容</option>
+           <option value="title&content">搜索标题和内容</option>
+		</select>
+		<a onclick="heardSearch()" id="Hsearch" style="cursor:pointer;">搜索</a>
+	</div>
+</div>
+<div class="header-banner">
+	<img src="/gaiban/images/banner.png" alt="" />
+</div>
+<div class="header-nav">
+	<ul class="nav layout clearfix">
+		<li ><a  href="/index.aspx">首页</a></li>
+		<li ><a class='navcurrent' href="/mmgk/default.aspx">民盟概况</a></li>
+		<li ><a  href="/mmyw/default.aspx">民盟要闻</a></li>
+		
+		<li ><a  href="/czyz/default.aspx">参政议政</a></li>
+		<li ><a  href="/shfw/default.aspx">社会服务</a></li>
+		<li ><a  href="/sxjs/default.aspx">思想建设</a></li>
+		<li ><a  href="/1161/default.aspx">组织建设</a></li>
+		<li ><a  href="/llxc/default.aspx">理论研究</a></li>
+		<li ><a  href="/1167/default.aspx">机关建设</a></li>
+		<li ><a  href="/dfdt/default.aspx">地方要闻</a></li>
+		<li ><a  href="/dfmw/default.aspx">基层动态</a></li>
+		<li ><a  href="/mmfc/default.aspx">盟员风采</a></li>
+	</ul>
+</div>
+<script type="text/javascript">
+    document.onkeydown = function (event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+
+        if (e && e.keyCode == 13) { // enter 键
+            heardSearch();
+        }
+    }; 
+
+    $(document).ready(function () {
+        //focusblur 
+        jQuery.focusblur = function (focusid) {
+            var focusblurid = $(focusid);
+            var defval = focusblurid.val();
+            focusblurid.focus(function () {
+                var thisval = $(this).val();
+                if (thisval == defval) {
+                    $(this).val("");
+                }
+            });
+            focusblurid.blur(function () {
+                var thisval = $(this).val();
+                if (thisval == "") {
+                    $(this).val(defval);
+                }
+            });
+        };
+        /*下面是调用方法*/
+        $.focusblur("#Tsearch");
+        $.focusblur("#Thsearch");
+    }); 
+</script> 
+<!--<script type="text/javascript">
+$(document).ready(function() {
+	$(".header-nav a").click(function(event) {
+		$(this).addClass("navcurrent").parent("li").siblings().children('a').removeClass("navcurrent");
+		//var navhref=$("a.navcurrent").attr("href");
+		//setTimeout(function(){window.location.href=navhref;}, 400)
+	});
+});
+</script>-->
+
+            <!-- main部分开始 -->
+            <div class="main">
+                <div class="layout clearfix">
+                    <h4>
+                        当前位置：<a href="/index.aspx">首页</a> &gt; <a href="/mmgk/default.aspx">民盟概况</a> &gt;
+                        <span>领导人简介</span></h4>
+                    <!-- Local-news -->
+                    <div class="survey clearfix">
+                        <div class="bigleft clearfix">
+                            <div class="bigleft_left">
+                                <div class="surveynav">
+                                    <ul>
+                                        
+<li><a href="/mmgk/jianjie/default.aspx">
+    中国民主同盟简介</a></li>
+
+<li><a href="/mmgk/zhangcheng/default.aspx">
+    中国民主同盟章程</a></li>
+
+<li class="surveycurrent"><a href="/mmgk/1186/default.aspx">
+    领导人简介</a></li>
+
+<li><a href="/mmgk/1193/default.aspx">
+    历届中央委员会</a></li>
+
+<li><a href="/mmgk/1190/default.aspx">
+    历届全国人大任职</a></li>
+
+<li><a href="/mmgk/1191/default.aspx">
+    历届全国政协任职</a></li>
+
+<li><a href="/mmgk/yuanshi/default.aspx">
+    两院院士</a></li>
+
+<li><a href="/mmgk/member/default.aspx">
+    担任实职的盟员</a></li>
+
+<li><a href="/mmgk/1214/default.aspx">
+    中央机关机构</a></li>
+
+<li><a href="/mmgk/zmwyh/default.aspx">
+    专门委员会</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="title-header">
+                                中国民主同盟第十三届中央委员会</div>
+                            <div class="surveycontent">
+                                <div class="leader">
+                                    <div>
+                                        <p>
+                                            主席</p>
+                                    </div>
+                                </div>
+                                <div class="ldader_logo">
+                                    
+<a href="/mmgk/1186/1205/136373.aspx">
+    <img src="/upload/pictures/24/2458446d-2473-49f9-934f-55b7c9bd7b9d/1dingzhongli.jpg" alt="" /></a> <a href="/mmgk/1186/1205/136373.aspx">
+        <p>
+            丁仲礼 主席</p>
+    </a>
+
+                                </div>
+                                <div class="leader">
+                                    <div>
+                                        <p>
+                                            副主席</p>
+                                    </div>
+                                </div>
+                                <div class="vice-chairman-box">
+                                    
+                                    <ul class="vice-chairman">
+                                        
+<li>
+    
+            <a href="/mmgk/1186/1206/136374.aspx">
+                <img src="/upload/pictures/d8/d8505bc0-6e7e-47d0-a9cd-aff67640d446/王--蓝底_副本.jpg" alt="" /></a>
+            <p>
+                王光谦 常务副主席</p>
+            </a></li>
+        
+        <li>
+            
+            <a href="/mmgk/1186/1206/136376.aspx">
+                <img src="/upload/pictures/7b/7b76ab80-821d-4cf0-892c-1d7cfd592ed9/4tiangang.jpg" alt="" /></a>
+            <p>
+                田　刚 副主席</p>
+            </a></li>
+        
+        <li>
+            
+            <a href="/mmgk/1186/1206/136378.aspx">
+                <img src="/upload/pictures/a6/a61ad0a1-d93b-4ae0-82ba-f194e1e99318/微信图片_20260116142439_70_253.jpg" alt="" /></a>
+            <p>
+                程　红 副主席</p>
+            </a></li>
+        
+        <li>
+            
+            <a href="/mmgk/1186/1206/136379.aspx">
+                <img src="/upload/pictures/5d/5d1e32f2-f47b-4409-99cc-4a45a9b91f8d/7zhangdaohong.jpg" alt="" /></a>
+            <p>
+                张道宏 副主席</p>
+            </a></li>
+        
+        <li>
+            
+            <a href="/mmgk/1186/1206/136380.aspx">
+                <img src="/upload/pictures/dd/dd9e9605-314c-41f4-a64f-9db2a9a9315b/8chenqun.jpg" alt="" /></a>
+            <p>
+                陈　群 副主席</p>
+            </a></li>
+        
+    <li class="vice-chairman_l">
+        
+            <a href="/mmgk/1186/1206/136381.aspx">
+                <img src="/upload/pictures/63/63801497-61dc-44f6-b446-517c0c363e29/9dengxiuxin.jpg" alt="" /></a>
+            <p>
+                邓秀新 副主席</p>
+            </a></li>
+        
+        <li>
+            
+            <a href="/mmgk/1186/1206/136382.aspx">
+                <img src="/upload/pictures/2a/2a027d6d-7f7c-4e9c-9ecd-493fd56bad65/10zhenggongcheng.jpg" alt="" /></a>
+            <p>
+                郑功成 副主席</p>
+            </a></li>
+        
+        <li>
+            
+            <a href="/mmgk/1186/1206/136383.aspx">
+                <img src="/upload/pictures/50/50fe148b-60c2-49f2-abf0-ec0c901f2346/11xiejingrong.jpg" alt="" /></a>
+            <p>
+                谢经荣 副主席</p>
+            </a></li>
+        
+        <li>
+            
+            <a href="/mmgk/1186/1206/136384.aspx">
+                <img src="/upload/pictures/ae/aef8264c-289f-4583-b4de-567b00d5ce70/12huojinhua.jpg" alt="" /></a>
+            <p>
+                霍金花 副主席</p>
+            </a></li>
+        
+        <li>
+            
+            <a href="/mmgk/1186/1206/136385.aspx">
+                <img src="/upload/pictures/cd/cda49c0a-30fb-4b38-aad6-9eb90c8af331/13wangxuecheng.jpg" alt="" /></a>
+            <p>
+                王学成 副主席</p>
+            </a></li>
+        
+    <li class="vice-chairman_l">
+        
+            <a href="/mmgk/1186/1206/136386.aspx">
+                <img src="/upload/pictures/f1/f1788d73-e58c-489c-8499-3719eb47785f/微信图片_20230619140301.jpg" alt="" /></a>
+            <p>
+                吴为山 副主席</p>
+            </a></li>
+        
+                                        
+                                    </ul>
+                                </div>
+                                
+                                <div class="leader btn1">
+                                    <div class="img01">
+                                        <p>
+                                            常务委员名单<span>( 70名，按姓氏笔画为序）</span></p>
+                                    </div>
+                                </div>
+                                <div class="list_name">
+                                    <ul>
+    <li>丁&nbsp;洪</li>
+    <li>丁&nbsp;梅(女)</li>
+    <li>丁光宏</li>
+    <li>丁仲礼</li>
+    <li>马宗保</li>
+    <li>王&nbsp;绚(女)</li>
+    <li>王书红</li>
+    <li>王光谦</li>
+    <li>王学成</li>
+    <li>王荣彬</li>
+    <li>王修林</li>
+    <li>王雪华</li>
+    <li>毛国典</li>
+    <li>方精云</li>
+    <li>邓长球</li>
+    <li>邓秀新</li>
+    <li>田&nbsp;刚</li>
+    <li>田沁鑫(女)</li>
+    <li>史&nbsp;琳(女)</li>
+    <li>冉&nbsp;霞(女)</li>
+    <li>成岳冲</li>
+    <li>吕小兵</li>
+    <li>刘中民</li>
+    <li>刘仲奎</li>
+    <li>刘旭光</li>
+    <li>刘艳玲(女)</li>
+    <li>许亚南(女)</li>
+    <li>阮诗玮</li>
+    <li>杜惠平</li>
+    <li>李&nbsp;玮(女)</li>
+    <li>李成贵</li>
+    <li>李剑萍</li>
+    <li>杨云彦</li>
+    <li>杨安娣(女)</li>
+    <li>吴&nbsp;德</li>
+    <li>吴为山</li>
+    <li>吴以环(女)</li>
+    <li>吴立新</li>
+    <li>何寄华</li>
+    <li>汪鹏飞</li>
+    <li>沈维孝</li>
+    <li>张&nbsp;慧(女)</li>
+    <li>张振军</li>
+    <li>张道宏</li>
+    <li>张福成</li>
+    <li>陆桂华</li>
+    <li>陈&nbsp;群</li>
+    <li>范九伦</li>
+    <li>季加孚</li>
+    <li>金&nbsp;石</li>
+    <li>郑功成</li>
+    <li>郑永飞</li>
+    <li>赵&nbsp;吉</li>
+    <li>胡&nbsp;刚</li>
+    <li>昝林森</li>
+    <li>顾祥林</li>
+    <li>钱克明</li>
+    <li>钱福永</li>
+    <li>徐&nbsp;彬</li>
+    <li>常&nbsp;凯</li>
+    <li>董&nbsp;瑞</li>
+    <li>辜&nbsp;清</li>
+    <li>程&nbsp;红(女)</li>
+    <li>焦念志</li>
+    <li>谢经荣</li>
+    <li>谢素原</li>
+    <li>靳&nbsp;东</li>
+    <li>蒙格丽(女)</li>
+    <li>熊方军</li>
+    <li>霍金花(女)</li>
+</ul>
+<!-- <a style="font-size:14px;color:#2f72b6;display:block;clear:both;line-height: 40px;text-decoration:none" href="/mobile/Profile.aspx?id=85793&amp;swiper=王荣彬"><b>秘书长 : 王荣彬</b></a> <br />
+<a style="font-size:14px;color:#2f72b6;display:block;clear:both;line-height: 50px;text-decoration:none" href="/mobile/Profile.aspx?id=85793&amp;swiper=王荣彬">秘书长 : 王荣彬</a> -->
+<div style="clear:both;line-height:1px;height:1px;font-size:1px;">&nbsp;</div>
+<!--<div class="beCareful leader-zhu clearfix">
+<div class="zhu">注：</div>
+<div class="text">
+<p>蒋华良同志于2022年12月去世。</p> -->
+                                </div>
+                                
+                                <script>
+                                    $(function () {
+                                        $('.btn1').click(function () {
+                                            $('.btn1>div').toggleClass("img02");
+                                            $('.list_name').fadeToggle(1000);
+
+                                        })
+                                        $('.btn2').click(function () {
+                                            $('.btn2>div').toggleClass("img02");
+                                            $('.list_name1').fadeToggle(1000);
+
+                                        })
+
+
+                                    })
+                                </script>
+                                
+                                <div class="leader btn2" style="margin-top: 0">
+                                    <div class="img01">
+                                        <p>
+                                            中央委员名单<span>( 281名，按姓氏笔画为序）</span></p>
+                                    </div>
+                                </div>
+                                <div class="list_name1">
+                                    <ul>
+    <li>丁&nbsp;洪</li>
+    <li>丁&nbsp;梅(女)</li>
+    <li>丁邦晗</li>
+    <li>丁光宏</li>
+    <li>丁仲礼</li>
+    <li>丁显廷</li>
+    <li>于&nbsp;龙</li>
+    <li>于&nbsp;华(女)</li>
+    <li>于&nbsp;黎(女)</li>
+    <li>于春海</li>
+    <li>万师强</li>
+    <li>马&nbsp;杰</li>
+    <li>马三喜</li>
+    <li>马宗保</li>
+    <li>马清林</li>
+    <li>王&nbsp;正(女)</li>
+    <li>王&nbsp;林</li>
+    <li>王&nbsp;荣(女)</li>
+    <li>王&nbsp;绚(女)</li>
+    <li>王中良</li>
+    <li>王书红</li>
+    <li>王正祥</li>
+    <li>王亚愚</li>
+    <li>王光谦</li>
+    <li>王传越</li>
+    <li>王志新</li>
+    <li>王芙蓉(女)</li>
+    <li>王顶明</li>
+    <li>王学川</li>
+    <li>王学成</li>
+    <li>王建国</li>
+    <li>王荣彬</li>
+    <li>王修林</li>
+    <li>王海燕(女)</li>
+    <li>王雪华</li>
+    <li>王蓉蓉(女)</li>
+    <li>尤江斌</li>
+    <li>毛国典</li>
+    <li>仓&nbsp;平(女)</li>
+    <li>勾永阶</li>
+    <li>卞留念</li>
+    <li>文玉莲(女)</li>
+    <li>方精云</li>
+    <li>尹中立</li>
+    <li>孔令伟</li>
+    <li>邓长球</li>
+    <li>邓秀新</li>
+    <li>邓曙光</li>
+    <li>古俊彦(女)</li>
+    <li>厉震林</li>
+    <li>石倚洁</li>
+    <li>卢宇荣(女)</li>
+    <li>申金升</li>
+    <li>叶颖江</li>
+    <li>田&nbsp;刚</li>
+    <li>田&nbsp;华</li>
+    <li>田玉山</li>
+    <li>田沁鑫(女)</li>
+    <li>史&nbsp;琳(女)</li>
+    <li>冉&nbsp;霞(女)</li>
+    <li>白成君</li>
+    <li>冯艺东</li>
+    <li>冯玉红(女)</li>
+    <li>冯俊生</li>
+    <li>宁泽逵</li>
+    <li>邢吉华</li>
+    <li>成岳冲</li>
+    <li>吕小兵</li>
+    <li>朱&nbsp;梅(女)</li>
+    <li>朱&nbsp;翎(女)</li>
+    <li>朱&nbsp;晶(女)</li>
+    <li>朱广山</li>
+    <li>朱同玉</li>
+    <li>伍学焱</li>
+    <li>刘&nbsp;京</li>
+    <li>刘&nbsp;宝</li>
+    <li>刘&nbsp;铭</li>
+    <li>刘&nbsp;博</li>
+    <li>刘万鸣</li>
+    <li>刘中民</li>
+    <li>刘中秋</li>
+    <li>刘丹艳(女)</li>
+    <li>刘玉栋</li>
+    <li>刘正先(女)</li>
+    <li>刘加胜</li>
+    <li>刘仲奎</li>
+    <li>刘旭光</li>
+    <li>刘金星</li>
+    <li>刘思德</li>
+    <li>刘艳玲(女)</li>
+    <li>刘恩梅(女)</li>
+    <li>刘海潮</li>
+    <li>刘雅玲(女)</li>
+    <li>刘新农</li>
+    <li>齐伟民</li>
+    <li>江智涛</li>
+    <li>安&nbsp;晖</li>
+    <li>许亚南(女)</li>
+    <li>许艳芳(女)</li>
+    <li>阮诗玮</li>
+    <li>孙凤玲(女)</li>
+    <li>孙书存</li>
+    <li>孙秀云(女)</li>
+    <li>严建兵</li>
+    <li>苏&nbsp;炜</li>
+    <li>苏&nbsp;斌</li>
+    <li>苏海佳(女)</li>
+    <li>杜&nbsp;勇(女)</li>
+    <li>杜伟岸</li>
+    <li>杜伯军</li>
+    <li>杜惠平</li>
+    <li>李&nbsp;玮(女)</li>
+    <li>李&nbsp;忠</li>
+    <li>李&nbsp;娜(女)</li>
+    <li>李&nbsp;萍(女)</li>
+    <li>李小雁</li>
+    <li>李成贵</li>
+    <li>李江虹(女)</li>
+    <li>李军乔(女)</li>
+    <li>李英杰</li>
+    <li>李奇霖</li>
+    <li>李宝聚</li>
+    <li>李相合</li>
+    <li>李剑萍</li>
+    <li>李根生</li>
+    <li>李骏虎</li>
+    <li>李清资</li>
+    <li>李雄耀</li>
+    <li>杨&nbsp;莉(女)</li>
+    <li>杨云彦</li>
+    <li>杨文悦(女)</li>
+    <li>杨安娣(女)</li>
+    <li>杨志峰</li>
+    <li>杨君武</li>
+    <li>杨金奎</li>
+    <li>连家明</li>
+    <li>吴&nbsp;皓</li>
+    <li>吴&nbsp;瑕(女)</li>
+    <li>吴&nbsp;靖(女)</li>
+    <li>吴&nbsp;德</li>
+    <li>吴为山</li>
+    <li>吴以环(女)</li>
+    <li>吴立新</li>
+    <li>吴兴刚</li>
+    <li>吴胜兴</li>
+    <li>何&nbsp;军</li>
+    <li>何贞树</li>
+    <li>何建祥</li>
+    <li>何寄华</li>
+    <li>佟立志(女)</li>
+    <li>佟瑞欣</li>
+    <li>冷金花(女)</li>
+    <li>汪昌云</li>
+    <li>汪鹏飞</li>
+    <li>沈维孝</li>
+    <li>宋正已</li>
+    <li>张&nbsp;红(女)</li>
+    <li>张&nbsp;建</li>
+    <li>张&nbsp;晗</li>
+    <li>张&nbsp;慧(女)</li>
+    <li>张&nbsp;磊</li>
+    <li>张兴民</li>
+    <li>张红春(女)</li>
+    <li>张志辽</li>
+    <li>张纬东</li>
+    <li>张岩波</li>
+    <li>张金龙</li>
+    <li>张振军</li>
+    <li>张焕明</li>
+    <li>张雯松</li>
+    <li>张道宏</li>
+    <li>张福成</li>
+    <li>张韶维</li>
+    <li>张德森</li>
+    <li>陆桂华</li>
+    <li>陈&nbsp;文</li>
+    <li>陈&nbsp;芸(女)</li>
+    <li>陈&nbsp;琼(女)</li>
+    <li>陈&nbsp;雯(女)</li>
+    <li>陈&nbsp;群</li>
+    <li>陈&nbsp;霖</li>
+    <li>陈礼辉</li>
+    <li>陈淑芳(女)</li>
+    <li>武秀峰</li>
+    <li>范九伦</li>
+    <li>林治良</li>
+    <li>季&nbsp;节(女)</li>
+    <li>季加孚</li>
+    <li>岳喜庆</li>
+    <li>金&nbsp;石</li>
+    <li>金&nbsp;波</li>
+    <li>金光泽</li>
+    <li>金婷婷(女)</li>
+    <li>郑功成</li>
+    <li>郑永飞</li>
+    <li>郑庆禄</li>
+    <li>孟令军</li>
+    <li>封雪梅(女)</li>
+    <li>项&nbsp;鹏</li>
+    <li>赵&nbsp;吉</li>
+    <li>赵国锋</li>
+    <li>胡&nbsp;刚</li>
+    <li>胡&nbsp;颖(女)</li>
+    <li>胡良剑</li>
+    <li>柳学全</li>
+    <li>柳锋波</li>
+    <li>钟祖荣</li>
+    <li>段纯刚</li>
+    <li>侯宇虹(女)</li>
+    <li>俞祝良</li>
+    <li>昝林森</li>
+    <li>施&nbsp;蕾</li>
+    <li>姜孝萌</li>
+    <li>姚卓匀(女)</li>
+    <li>袁&nbsp;宁</li>
+    <li>袁伟平(女)</li>
+    <li>袁晓瑭(女)</li>
+    <li>夏&nbsp;飞</li>
+    <li>夏月星(女)</li>
+    <li>夏群科</li>
+    <li>顾春笋</li>
+    <li>顾洁燕(女)</li>
+    <li>顾祥林</li>
+    <li>钱克明</li>
+    <li>钱福永</li>
+    <li>倪怀玮</li>
+    <li>徐&nbsp;星</li>
+    <li>徐&nbsp;娜(女)</li>
+    <li>徐&nbsp;彬</li>
+    <li>徐爱俊</li>
+    <li>徐雪红(女)</li>
+    <li>徐燕峰(女)</li>
+    <li>殷&nbsp;刚</li>
+    <li>郭&nbsp;翀(女)</li>
+    <li>郭小卫</li>
+    <li>郭红梅(女)</li>
+    <li>唐加福</li>
+    <li>唐浩漩</li>
+    <li>唐睿康</li>
+    <li>黄&nbsp;琳(女)</li>
+    <li>黄飞建</li>
+    <li>黄世喆</li>
+    <li>黄学雄</li>
+    <li>曹阿民</li>
+    <li>常&nbsp;昊</li>
+    <li>常&nbsp;凯</li>
+    <li>崔海洋</li>
+    <li>阎奋民</li>
+    <li>阎美蓉(女)</li>
+    <li>梁&nbsp;群(女)</li>
+    <li>彭&nbsp;军</li>
+    <li>董&nbsp;卫</li>
+    <li>董&nbsp;瑞</li>
+    <li>董祚继</li>
+    <li>蒋澄宇(女)</li>
+    <li>韩汉君</li>
+    <li>辜&nbsp;清</li>
+    <li>景&nbsp;鸿</li>
+    <li>程&nbsp;红(女)</li>
+    <li>程&nbsp;昆</li>
+    <li>焦念志</li>
+    <li>舒晓刚</li>
+    <li>温&nbsp;涛</li>
+    <li>谢&nbsp;军(女)</li>
+    <li>谢永平</li>
+    <li>谢经荣</li>
+    <li>谢素原</li>
+    <li>靳&nbsp;东</li>
+    <li>蒙格丽(女)</li>
+    <li>窦&nbsp;非</li>
+    <li>臧卫东</li>
+    <li>裴成荣(女)</li>
+    <li>鲜新莲(女)</li>
+    <li>谭建国</li>
+    <li>熊方军</li>
+    <li>滕&nbsp;飞</li>
+    <li>潘&nbsp;波</li>
+    <li>燕&nbsp;琴(女)</li>
+    <li>薛德胜</li>
+    <li>霍金花(女)</li>
+    <li>霍晓丽(女)</li>
+</ul>
+<div style="clear:both;line-height:1px;height:1px;font-size:1px;">&nbsp;</div>
+<div class="beCareful leader-zhu clearfix">
+<div class="zhu">注：</div>
+<div class="text">
+<p>1.	民盟中央常委蒋华良同志于2022年12月去世。<br />
+2.	2025年3月，民盟十三届十次中常会撤销任伯平中央委员职务。2026年1月，民盟十三届四中全会予以确认。<br />
+3.	2026年1月，民盟十三届四中全会接受徐辉、曹卫星同志辞去中央副主席、常务委员、委员，刘泓同志辞去中央委员职务的请求。<br />
+4.	2026年1月，民盟十三届四中全会补选丁洪、吕小兵、沈维孝等3名同志为中央常务委员，补选王亚愚、王海燕（女）、刘丹艳（女）、苏海佳（女）、佟立志（女）、张志辽、陈霖、顾洁燕（女）、黄学雄、常昊、窦非等11名同志为中央委员。</p>
+</div>
+</div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- main部分结束 -->
+            </div>
+            <!-- footer部分开始 -->
+            <!--  footer部分开始 -->
+  <!-- <a href="http://www.chinaql.org/" target="_blank">中国侨联</a>				
+			<a href="http://www.women.org.cn/" target="_blank">全国妇联</a>	
+			<a href="http://www.tailian.org.cn/" target="_blank">全国台联</a> -->
+<div class="footer">
+	<div class="layout clearfix">
+		<div class="Friend-link">
+			<h6>友情链接：</h6>
+			<div>
+				<a href="http://www.npc.gov.cn/" target="_blank">全国人大</a>
+				<a href="http://www.mj.org.cn/" target="_blank">中国民主促进会</a>
+				<a href="http://www.acfic.org.cn/" target="_blank">中华全国工商业联合会</a>
+				<a href="http://www.xinhuanet.com/" target="_blank">新华网</a>	
+			</div>
+			<div style="width:246px;">
+				<a href="http://www.cppcc.gov.cn/" target="_blank">全国政协</a>
+				<a href="http://www.ngd.org.cn/" target="_blank">中国农工民主党</a>
+				<a href="http://www.zysy.org.cn/" target="_blank">中央社会主义学院</a>
+				<a href="http://www.rmzxb.com.cn/" target="_blank">人民政协报</a>
+			</div> 
+			<div>
+				<a href="http://www.zytzb.gov.cn/" target="_blank">中央统战部</a>
+				<a href="http://www.zg.org.cn/" target="_blank">中国致公党</a>
+				<a href="http://www.wrsa.net/" target="_blank">欧美同学会</a>
+				<a href="http://www.tuanjiebao.com/" target="_blank">团结报</a>				
+			</div>
+			<div>
+				<a href="http://www.minge.gov.cn/" target="_blank">中国国民党革命委员会</a>
+				<a href="http://www.93.gov.cn/" target="_blank">九三学社</a>
+				<a href="http://www.zhzjs.org.cn/" target="_blank">中华职教社</a>
+			</div> 
+			<div style="width:164px;">
+				<a href="http://www.cndca.org.cn/" target="_blank">中国民主建国会</a>
+				<a href="http://www.taimeng.org.cn/" target="_blank">台湾民主自治同盟</a>				
+				<a href="http://www.people.com.cn/" target="_blank">人民网</a>	
+			</div>			
+		</div>
+		<div class="Local-organization">
+			<h6>地方组织：</h6>
+			<div>
+				<a href="https://www.bjmm.org.cn/" target="_blank">北京</a>
+				<a href="https://www.tjmm.gov.cn/" target="_blank">天津</a>
+				<a href="http://www.hebmm.org.cn/" target="_blank">河北</a>
+				
+				<a href="http://www.minmengln.cn/" target="_blank">辽宁</a>
+				<a href="http://www.jlmm.net.cn/" target="_blank">吉林</a>
+				<a href="http://www.hljmm.gov.cn" target="_blank">黑龙江</a>
+				<a href="http://www.minmengsh.gov.cn/" target="_blank">上海</a>
+				<a href="http://www.jsmm.org.cn/" target="_blank">江苏</a>
+				
+
+				<a href="http://www.zjmm.org.cn/" target="_blank">浙江</a>
+				<a href="http://www.ahmm.gov.cn/" target="_blank">安徽</a>
+				<a href="http://www.fjmm.gov.cn" target="_blank">福建</a>
+				<a href="https://www.jxmmw.org.cn/" target="_blank">江西</a>
+				
+				<a href="http://www.sdmm.org.cn/" target="_blank">山东</a>
+				<a href="http://www.hnmm.org.cn/" target="_blank">河南</a>
+				<a href="http://www.hubeimm.gov.cn/" target="_blank">湖北</a>
+				<a href="https://www.hnmm.gov.cn/" target="_blank">湖南</a>
+				<a href="http://www.gdmm.org.cn/" target="_blank">广东</a>
+				<a href="http://www.gxmm.gov.cn/" target="_blank">广西</a>
+				<a href="http://www.hainanmm.org.cn/" target="_blank">海南</a>
+				<a href="http://www.cqmm.org.cn/" target="_blank">重庆</a>
+				<a href="http://mmscsw.gov.cn" target="_blank">四川</a>
+				<a href="http://www.mmgzsw.org.cn" target="_blank">贵州</a>
+				<a href="http://www.ynmm.gov.cn/" target="_blank">云南</a>
+				<a href="http://www.mmsxsw.org.cn/" target="_blank">陕西</a>
+				<a href="http://www.mmgs.org.cn/" target="_blank">甘肃</a>
+				
+				<a href="http://www.mmqhsw.cn/" target="_blank">青海</a>
+				
+				<a href="http://www.mmxj.org.cn" target="_blank">新疆</a>
+			</div>
+		</div>
+	</div>
+	<div class="layout footer-copy" style="font-family:arial">
+
+		<p>中国民主同盟版权所有&nbsp;&nbsp;&nbsp;Copyright&nbsp;© 2003 - <span id="now"></span></p>
+		<p>地址：北京东城区东厂胡同北巷1号&nbsp;&nbsp;&nbsp;传真：010-65232852&nbsp;&nbsp;&nbsp;电子信箱：<a href="mailto:webmaster@mmzy.org.cn">webmaster@mmzy.org.cn</a></p>
+		<p style="font-family:arial"><a href="https://beian.miit.gov.cn" target="_blank" style="line-height:10px;text-underline:none;font-family:arial">京ICP备20003101号-1</a>&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102005941" style="display: inline-block;text-decoration: none;height: 20px;line-height: 10px;padding-left: 22px;position: relative;"><img src="/images/hui.png" style="float:left;position: absolute;left: 0;top: -5px;"/>&nbsp;京公网安备 11010102005941号</a></p>
+	</div>
+	
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        getYear();
+    };
+    function getYear(){
+    
+        function getEle(id){
+            return document.getElementById(id);
+        } 
+        inputNow = getEle("now"),
+        d = new Date(),
+        nowYear = +d.getFullYear();
+        inputNow = nowYear;
+        $("#now").text(inputNow);
+    }
+</script>
+        </body>
+        </html>
