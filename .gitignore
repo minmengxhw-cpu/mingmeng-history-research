@@ -17,3 +17,6 @@ data/ocr_smoke_test/
 data/frus_epub_tmp/
 retranslate.log
 retranslate.stdout
+
+# 自动导出的研究卡片副产品（数据源在 data/research_index.sqlite）
+exports/
