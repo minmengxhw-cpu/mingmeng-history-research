@@ -21,3 +21,4 @@ retranslate.stdout
 # 自动导出的研究卡片副产品（数据源在 data/research_index.sqlite）
 exports/
 translate_cia.log
+retranslate_cia_qc.log

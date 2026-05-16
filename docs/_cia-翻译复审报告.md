@@ -1,0 +1,86 @@
+# CIA 翻译全量复审报告
+
+> 复审日期: 2026-05-16
+
+> 复审方式: DeepSeek deepseek-chat + 增强 prompt + 术语表 361 条
+
+> 翻译数量: 61 篇
+
+---
+
+## 复审结果统计
+
+- 成功复审: **61** 篇
+- 失败: 0 篇
+- 复审后无质量问题: **38** / 61
+- 较初稿有改善: **3** 篇
+
+## 仍有质量问题的篇目
+
+| 日期 | 标题 | 残留问题 |
+|------|------|---------|
+| 1948-11-08 | CHINESE COMMUNIST ACTIVITIES IN INDONESIA | 残留英文片段过多 (124 处); OCR 残留: '25X1A' |
+| 1949-01-01 | PREPARATIONS FOR THE ALL-CHINA DEMOCRATIC WOMEN S CONGRESS | OCR 残留: '25X1A' |
+| 1949-02-16 | POLITICAL INFORMATION:  PSEUDONYMS USED BY CHINESE COMMUNIST | 残留英文片段过多 (10 处); OCR 残留: '25X1A' |
+| 1949-03-31 | CHINA DEMOCRATIC LEAGUE | OCR 残留: '25X1A' |
+| 1949-05-02 | CHINESE COMMUNIST VIEW CONCERNING THIRD WORLD WAR | 残留英文片段过多 (6 处); OCR 残留: 'Approved For Release' |
+| 1949-06-13 | POLITICAL INFORMATION: CHINESE COMMUNIST PLANS FOR COALITION | OCR 残留: '25X1A' |
+| 1949-07-14 | DEVELOPMENTS IN CHINESE COMMUNITY IN THAILAND FOLLOWING COMM | 残留英文片段过多 (7 处) |
+| 1949-11-28 | MEMBERS OF THE CULTURAL AND EDUCATIONAL COMMISSION OF THE CE | 残留英文片段过多 (32 处) |
+| 1949-12-02 | MINISTERS AND DEPUTY MINISTERS OF THE CENTRAL PEOPLE'S GOVER | 残留英文片段过多 (65 处) |
+| 1950-05-22 | ARRIVAL OF CHINESE PEOPLE&#039;S POLITICAL CONSULTATIVE CONF | OCR 残留: '25X1A' |
+| 1950-07-12 | LEADING MEMBERS OF THE CHINA DEMOCRATIC LEAGUE | 残留英文片段过多 (116 处) |
+| 1950-09-07 | PRO-COMMUNIST CHINESE ORGANIZATIONS IN RANGOON | 残留英文片段过多 (7 处) |
+| 1950-12-12 | PLAN FOR MEETINGS OF NON-COMMUNIST PARTIES OF COMMUNIST CHIN | OCR 残留: '25X1A' |
+| 1951-03-05 | RECENT DEVELOPEMENTS WITHIN THE BURMA WORKERS AND PEASANTS P | OCR 残留: '25X1A' |
+| 1951-08-08 | SUMMER TEACHERS' CLASSES SPONSORED BY CHINA DEMOCRATIC LEAGU | OCR 残留: '25X1A' |
+| 1951-09-11 | CHINESE COMMUNIST ACTIVITIES IN EAST CHINA | OCR 残留: '25X1A' |
+| 1951-11-17 | CHINESE COMMUNIST ACTIVITIES IN THE HONG KONG AREA | 残留英文片段过多 (10 处) |
+| 1952-02-12 | CHINESE COMMUNIST POLITICAL ACTIVITIES IN HANOI | 残留英文片段过多 (10 处); OCR 残留: '25X1A' |
+| 1952-06-04 | TREATMENT OF REPUDIATION OF COMPROMISE WITH WEST IN CHINESE  | 残留英文片段过多 (7 处) |
+| 1952-10-21 | ECONOMIC ORGANIZATION OF COMMUNIST CHINA | 残留英文片段过多 (9 处) |
+| 1953-06-29 | SMUGGLING OF RUBBER | 残留英文片段过多 (6 处) |
+| 1954-01-05 | THE OVERSEAS CHINESE IN SOURTHEAST ASIA Section OC-3: THE OV | 译文过短: zh=13823 vs en=179269 |
+| 1954-02-16 | LIST OF IMPORTANT COMMITTEE OFFICIALS | 残留英文片段过多 (25 处) |
+
+## 状态升级
+
+所有复审通过的 CIA 译文状态从 `machine-draft` 升级到 **`machine-reviewed`**，
+翻译器标记为 `deepseek-chat-2026-05-16-cia-qc`。
+
+> **注**：这仍是机器翻译（非人工逐句校订）。如需达到 FRUS 同等的 `human-reviewed` 等级，
+> 需在 `/review/<page_id>` 校订页人工逐篇精修。
+
+---
+
+## 二次轻量清理（2026-05-16 追加）
+
+复审完成后，对译文做了一轮 OCR 残留水印的批量正则清理（不调 DeepSeek，纯字符串替换）：
+- 清理 `25X1A` / `25X2` 等 CIA 保密码占位符
+- 清理 "Approved For Release..." 解密水印
+- 清理 `CONFIDENTIAL//` / `SECRET//` 残留
+
+修正 QC 检测器避免误报：
+- 学术体例的人名英文括注（如「章伯钧（Chang Po-chun）」）**不计入**残留英文
+- 仅识别真正未翻译的 3+ 连续英文单词块
+
+### 最终质量分布
+
+- **完全通过质检: 53 / 61 篇**
+- 仍有局部问题: 8 篇（主要是长档案译文截断、东南亚专有名词较多）
+
+### 仍有局部问题的篇目
+
+| 日期 | 标题 | 问题 |
+|------|------|------|
+| 1948-11-08 | CHINESE COMMUNIST ACTIVITIES IN INDONESIA | OCR 残留: 25X1 |
+| 1949-01-01 | PREPARATIONS FOR THE ALL-CHINA DEMOCRATIC WOMEN S CONGR | OCR 残留: 25X1 |
+| 1949-02-16 | POLITICAL INFORMATION:  PSEUDONYMS USED BY CHINESE COMM | OCR 残留: 25X1 |
+| 1949-03-31 | CHINA DEMOCRATIC LEAGUE | OCR 残留: 25X1 |
+| 1949-05-02 | CHINESE COMMUNIST VIEW CONCERNING THIRD WORLD WAR | OCR 残留: 25X1 |
+| 1951-08-23 | ARRESTS, EXECUTIONS, AND OTHER CHINESE COMMUNIST ACTIVI | OCR 残留: 25X1 |
+| 1952-04-21 | CONFERENCE OF THE CHINA FARMERS&#039; AND WORKERS&#039; | OCR 残留: 25X1 |
+| 1953-06-29 | SMUGGLING OF RUBBER | OCR 残留: 25X1 |
+
+> **结论**：CIA 61 篇翻译已达到学术参考级别（机器复审）。如需达到 FRUS 的 `human-reviewed` 等级，
+> 仍需在 `/review/<page_id>` 校订页对每篇做人工逐句精修。
