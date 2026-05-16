@@ -1067,6 +1067,114 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     }}
     .cia-ocr-notice .ico {{ color: #1f4d7a; vertical-align: -2px; margin-right: 4px; }}
     .cia-ocr-notice a {{ color: #1f4d7a; }}
+
+    /* FRUS 来源徽章（外交褐配色，与 CIA 蓝徽章呼应）*/
+    .src-badge.frus {{
+      background: var(--archival); color: #ffffff;
+    }}
+
+    /* === 年表月度密度热力图 === */
+    .density-card {{
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+    }}
+    .density-title {{
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }}
+    .density-grid {{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-family: var(--mono);
+      font-size: 11px;
+    }}
+    .density-row {{
+      display: grid;
+      grid-template-columns: 56px repeat(12, 1fr);
+      gap: 2px;
+    }}
+    .density-cell {{
+      min-height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 3px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 11px;
+    }}
+    .density-axis {{
+      color: var(--muted-soft);
+      background: transparent;
+      font-size: 10.5px;
+    }}
+    .density-ylabel {{
+      justify-content: flex-end;
+      padding-right: 6px;
+    }}
+    .density-mlabel {{
+      font-weight: 500;
+    }}
+    .density-empty {{
+      background: var(--line-soft);
+    }}
+    .density-hot {{
+      color: #ffffff;
+      font-weight: 500;
+    }}
+    .density-hot:hover {{
+      outline: 2px solid var(--accent-deep);
+      outline-offset: -1px;
+      text-decoration: none;
+    }}
+    .tl-year {{
+      scroll-margin-top: 20px;
+    }}
+
+    /* === 关键事件页 对比视图（FRUS↔CIA 并排）=== */
+    .compare-grid {{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 12px;
+    }}
+    .compare-col {{
+      min-width: 0;
+    }}
+    .compare-head {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      background: var(--panel-warm);
+      border-radius: 6px;
+      border-left: 3px solid var(--line);
+    }}
+    .compare-col:first-child .compare-head {{ border-left-color: var(--archival); }}
+    .compare-col:last-child .compare-head {{ border-left-color: #1f4d7a; }}
+    .compare-list .result {{ font-size: 14px; }}
+    .compare-list .result .pane-body,
+    .compare-list .result .snippet,
+    .compare-list .result .zh {{ font-size: 13.5px; }}
+    /* 窄屏退化为单列 */
+    @media (max-width: 1100px) {{
+      .compare-grid {{ grid-template-columns: 1fr; }}
+    }}
+    /* button.active 高亮 */
+    .button.active {{
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent-deep);
+    }}
     .meta-card-head {{
       display: flex; align-items: center; justify-content: space-between;
       gap: 12px; flex-wrap: wrap;
@@ -1592,6 +1700,35 @@ def year_from_row(row: sqlite3.Row) -> str:
     text = f"{row['date_guess'] or ''} {row['volume_id'] or ''} {row['doc_key'] or ''}"
     m = re.search(r"\b(19[4-5][0-9])\b", text)
     return m.group(1) if m else "未注明"
+
+
+def yearmonth_from_row(row: sqlite3.Row) -> str:
+    """返回 YYYY-MM 格式（如 "1946-07"），用于按月分组的年表。"""
+    d = (row['date_guess'] or '').strip()
+    # 优先匹配 YYYY-MM-DD 或 YYYY-MM
+    m = re.match(r"(19[4-5][0-9])-(\d{1,2})", d)
+    if m:
+        return f"{m.group(1)}-{int(m.group(2)):02d}"
+    # 次选：YYYY only
+    m2 = re.search(r"\b(19[4-5][0-9])\b", d)
+    if m2:
+        return f"{m2.group(1)}-00"  # "00" 表示该年内未注明月份
+    # fallback: volume_id 中的年份
+    text = f"{row['volume_id'] or ''} {row['doc_key'] or ''}"
+    m3 = re.search(r"\b(19[4-5][0-9])\b", text)
+    if m3:
+        return f"{m3.group(1)}-00"
+    return "未注明"
+
+
+def format_yearmonth(ym: str) -> str:
+    """1946-07 → 1946 年 7 月；1946-00 → 1946 年（未注明月份）；未注明 → 未注明"""
+    if ym == "未注明":
+        return "未注明"
+    if ym.endswith("-00"):
+        return f"{ym[:4]} 年（月份未注明）"
+    y, m = ym.split("-", 1)
+    return f"{y} 年 {int(m)} 月"
 
 
 def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50) -> list[sqlite3.Row]:
@@ -3615,6 +3752,9 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
             where = "WHERE " + where
 
     with conn() as c:
+        # 前台展示边界：过滤 grade='前台不展示'
+        prefix = "WHERE " if not where else where + " AND "
+        full_where = (prefix + "(dc.grade IS NULL OR dc.grade != '前台不展示')") if (where or True) else ""
         rows = c.execute(
             f"""
             SELECT
@@ -3628,6 +3768,7 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
                 documents.title,
                 documents.date_guess,
                 documents.matched_terms,
+                documents.source_platform,
                 COALESCE(dc.grade, '') AS grade,
                 translations.text AS zh_text,
                 translations.status AS zh_status,
@@ -3638,16 +3779,52 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
             LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
             LEFT JOIN translation_quality_issues q ON q.page_id = pages.id
-            {where}
+            {full_where}
             GROUP BY pages.id
             ORDER BY documents.date_guess, documents.volume_id, CAST(documents.doc_number AS INTEGER), pages.id
-            LIMIT 500
+            LIMIT 600
             """,
             tuple(params),
         ).fetchall()
-    years: dict[str, list[sqlite3.Row]] = {}
+    # 按月（YYYY-MM）和年（YYYY）双重分组
+    months: dict[str, list[sqlite3.Row]] = {}
+    years_for_density: dict[str, int] = {}
     for row in rows:
-        years.setdefault(year_from_row(row), []).append(row)
+        ym = yearmonth_from_row(row)
+        months.setdefault(ym, []).append(row)
+        yr = ym[:4] if ym != "未注明" else "未注明"
+        years_for_density[yr] = years_for_density.get(yr, 0) + 1
+
+    # 月度密度热力图（CSS 网格）：1941-1955 × 12 月
+    density_html = ""
+    month_counts = {ym: len(rs) for ym, rs in months.items()}
+    max_n = max(month_counts.values()) if month_counts else 1
+    years_range = list(range(1941, 1956))
+    rows_html = ['<div class="density-row"><div class="density-cell density-axis"></div>'
+                 + ''.join(f'<div class="density-cell density-axis density-mlabel">{m}</div>' for m in range(1, 13))
+                 + '</div>']
+    for yr in years_range:
+        cells = [f'<div class="density-cell density-axis density-ylabel">{yr}</div>']
+        for mo in range(1, 13):
+            key = f"{yr}-{mo:02d}"
+            n = month_counts.get(key, 0)
+            if n == 0:
+                cells.append('<div class="density-cell density-empty"></div>')
+            else:
+                # 强度 0.15 - 1.0
+                intensity = 0.15 + 0.85 * (n / max_n)
+                cells.append(
+                    f'<a class="density-cell density-hot" href="#m-{key}" '
+                    f'style="background:rgba(15,107,91,{intensity:.2f});" '
+                    f'title="{yr} 年 {mo} 月 · {n} 个片段">{n}</a>'
+                )
+        rows_html.append('<div class="density-row">' + ''.join(cells) + '</div>')
+    density_html = (
+        '<div class="density-card">'
+        '<div class="density-title">月度密度热力图（点击跳转到对应月份）</div>'
+        '<div class="density-grid">' + ''.join(rows_html) + '</div>'
+        '</div>'
+    )
 
     filter_links.append('<a class="button" href="/timeline">全部年表</a>')
     filter_links.extend(f'<a class="button" href="/timeline?topic={h(topic["slug"])}">{h(topic["name"])}</a>' for topic in TOPICS[:5])
@@ -3656,37 +3833,58 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
   <div>
     <h1>{h(title)}</h1>
     <div class="meta">{h(subtitle)}</div>
-    <div class="meta">{len({row["doc_key"] for row in rows})} 篇文档 · {len(rows)} 个片段</div>
+    <div class="meta">{len({row["doc_key"] for row in rows})} 篇文档 · {len(rows)} 个片段 · 按月细化</div>
   </div>
   <div class="doc-tools">
     <a class="button" href="/topics">专题</a>
     <a class="button" href="/people">人物</a>
     <a class="button" href="/events">事件线索</a>
+    <a class="button" href="/events/key">关键事件</a>
   </div>
 </section>
 <div class="filters">{''.join(filter_links)}</div>
+{density_html}
 """
     if not rows:
         body += '<div class="notice">暂无匹配年表材料。</div>'
     else:
-        for year in sorted(years.keys(), key=lambda y: (y == "未注明", y)):
-            body += f'<h2 style="font-size:18px;margin:18px 0 8px;">{h(year)}</h2><section class="result-list">'
-            for row in years[year]:
+        # 按 YYYY-MM 排序，未注明放最后
+        cur_year = None
+        for ym in sorted(months.keys(), key=lambda x: (x == "未注明", x)):
+            yr = ym[:4] if ym != "未注明" else "未注明"
+            if yr != cur_year:
+                body += f'<h2 class="tl-year" style="font-size:22px;margin:28px 0 4px;color:var(--accent-deep);border-bottom:2px solid var(--accent-soft);padding-bottom:4px;">{h(yr)} 年</h2>'
+                cur_year = yr
+            month_label = format_yearmonth(ym)
+            anchor = f'm-{ym}' if ym != '未注明' else 'm-unknown'
+            body += (
+                f'<h3 id="{anchor}" style="font-size:16px;margin:14px 0 6px;color:var(--archival);'
+                f'font-weight:500;">{h(month_label)} '
+                f'<span style="color:var(--muted);font-size:13px;font-weight:400;">'
+                f'· {len(months[ym])} 个片段</span></h3>'
+            )
+            body += '<section class="result-list">'
+            for row in months[ym]:
                 page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
                 href = f"/doc/{quote(row['doc_key'])}?page_id={row['page_id']}"
                 issue = ""
                 if row["issue_count"]:
                     issue = f'<span class="issue{" high" if (row["max_severity"] or 0) >= 3 else ""}">{row["issue_count"]} 个校订提示</span>'
+                # source 徽章
+                src_platform = row["source_platform"] if "source_platform" in row.keys() else None
+                src_badge = ('<span class="src-badge cia" style="font-size:11px;">CIA</span> '
+                             if src_platform == 'cia'
+                             else '<span class="src-badge frus" style="font-size:11px;">FRUS</span> ')
                 body += f"""
 <article class="result">
   <div>
     {title_block(row["title"], href)}
-    <div class="meta">{h(row["date_guess"])} · {h(row["volume_id"])}/{h(row["doc_id"])} · {h(page)} {grade_badge(row)}</div>
+    <div class="meta">{src_badge}{h(row["date_guess"])} · {h(row["volume_id"])}/{h(row["doc_id"])} · {h(page)} {grade_badge(row)}</div>
     <div class="snippet">原文: {h(compact(row["original_text"], 230))}</div>
     <div class="zh">中文: {h(compact(row["zh_text"], 230))}</div>
     <div class="tagline">{''.join(f'<span class="tag">{h(tag)}</span>' for tag in topic_tags(row))}{issue}</div>
   </div>
-  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">FRUS</a></div>
+  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">来源</a></div>
 </article>"""
             body += "</section>"
     return layout(title, body)
@@ -4315,8 +4513,11 @@ def key_events_index() -> bytes:
     return layout("民盟史关键事件", body)
 
 
-def key_event_page(slug: str) -> bytes:
-    """单个关键事件详情页 /events/key/<slug>"""
+def key_event_page(slug: str, view: str = "mixed") -> bytes:
+    """单个关键事件详情页 /events/key/<slug>
+
+    view: "mixed"（默认，按年份混合）/ "compare"（FRUS 左 + CIA 右并排对比）
+    """
     evt = event_by_slug(slug)
     if not evt:
         return layout("未找到事件", '<div class="notice">未找到对应的关键事件。</div>')
@@ -4327,7 +4528,7 @@ def key_event_page(slug: str) -> bytes:
             phase_label = p_label
             break
 
-    # 查 FRUS 命中片段
+    # 查 FRUS + CIA 命中片段（含 source_platform 字段）
     where, params = _key_event_match_clause(evt)
     rows: list[sqlite3.Row] = []
     if where != "0":
@@ -4345,6 +4546,7 @@ def key_event_page(slug: str) -> bytes:
                     documents.title,
                     documents.date_guess,
                     documents.matched_terms,
+                    documents.source_platform,
                     COALESCE(dc.grade, '') AS grade,
                     translations.text AS zh_text,
                     translations.status AS zh_status
@@ -4363,6 +4565,8 @@ def key_event_page(slug: str) -> bytes:
 
     doc_count = len({r["doc_key"] for r in rows})
     core_count = sum(1 for r in rows if r["grade"] == "核心文献")
+    n_frus = sum(1 for r in rows if (r["source_platform"] or "frus") == "frus")
+    n_cia = sum(1 for r in rows if r["source_platform"] == "cia")
 
     # 关联人物详情
     related_persons_html = ""
@@ -4381,6 +4585,13 @@ def key_event_page(slug: str) -> bytes:
         (None, str(evt["name"])),
     ])
 
+    # 视图模式切换链接
+    base_path = f"/events/key/{slug}"
+    mixed_link = base_path
+    compare_link = base_path + "?view=compare"
+    mixed_class = "button" + (" active" if view != "compare" else "")
+    compare_class = "button" + (" active" if view == "compare" else "")
+
     body += f"""
 <section class="doc-head">
   <div>
@@ -4388,9 +4599,15 @@ def key_event_page(slug: str) -> bytes:
     <div class="title-en" style="color:var(--archival);font-size:16px;margin-top:4px;">
       {h(evt["date_label"])} · {h(phase_label)}
     </div>
-    <div class="meta">{doc_count} 篇 FRUS 文档 · {len(rows)} 个命中片段 · 核心片段 {core_count}</div>
+    <div class="meta">
+      <span class="src-badge frus" style="font-size:11px;">FRUS</span> {n_frus} 段 ·
+      <span class="src-badge cia" style="font-size:11px;">CIA</span> {n_cia} 段 ·
+      合计 {doc_count} 篇文档 / {len(rows)} 片段 · 核心 {core_count}
+    </div>
   </div>
   <div class="doc-tools">
+    <a class="{mixed_class}" href="{mixed_link}">混合视图（按时间）</a>
+    <a class="{compare_class}" href="{compare_link}">对比视图（FRUS↔CIA 并排）</a>
     <a class="button" href="/events/key">关键事件索引</a>
     <a class="button" href="/people">人物索引</a>
   </div>
@@ -4430,27 +4647,69 @@ def key_event_page(slug: str) -> bytes:
                 f'</div>'
             )
 
-        # 按文档年份分组
-        years_map: dict[str, list[sqlite3.Row]] = {}
-        for r in display_rows:
-            yr = (r["date_guess"] or "")[:4] if r["date_guess"] else "未注明"
-            years_map.setdefault(yr or "未注明", []).append(r)
-        for year in sorted(years_map.keys(), key=lambda y: (y == "未注明", y)):
-            body += f'<h2 style="font-size:18px;margin:22px 0 8px;">{h(year)}</h2><section class="result-list">'
-            for row in years_map[year]:
-                page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
-                href = f"/doc/{quote(row['doc_key'])}?page_id={row['page_id']}"
-                body += f"""
+        def render_card(row, compact_zh: int = 260) -> str:
+            page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
+            href = f"/doc/{quote(row['doc_key'])}?page_id={row['page_id']}"
+            sp = row["source_platform"] or "frus"
+            badge = (
+                '<span class="src-badge cia" style="font-size:11px;">CIA</span> '
+                if sp == "cia"
+                else '<span class="src-badge frus" style="font-size:11px;">FRUS</span> '
+            )
+            return f"""
 <article class="result">
   <div>
     {title_block(row["title"], href)}
-    <div class="meta">{h(row["volume_id"])}/{h(row["doc_id"])} · {h(row["date_guess"])} · {h(page)} {grade_badge(row)}</div>
-    <div class="snippet">原文: {h(compact(row["original_text"], 260))}</div>
-    <div class="zh">中文: {h(compact(row["zh_text"], 260))}</div>
+    <div class="meta">{badge}{h(row["volume_id"])}/{h(row["doc_id"])} · {h(row["date_guess"])} · {h(page)} {grade_badge(row)}</div>
+    <div class="snippet">原文: {h(compact(row["original_text"], 220))}</div>
+    <div class="zh">中文: {h(compact(row["zh_text"], compact_zh))}</div>
   </div>
   <div class="cite"><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
 </article>"""
-            body += "</section>"
+
+        if view == "compare":
+            # 双列并排：FRUS 左 / CIA 右，按 source_platform 分组
+            frus_rows = [r for r in display_rows if (r["source_platform"] or "frus") == "frus"]
+            cia_rows = [r for r in display_rows if r["source_platform"] == "cia"]
+
+            body += f"""
+<div style="margin:18px 0 8px;font-size:14px;color:var(--muted);">
+  对比视图：左列展示 <span class="src-badge frus" style="font-size:11px;">FRUS</span> 美国外交档案的命中片段，
+  右列展示 <span class="src-badge cia" style="font-size:11px;">CIA</span> 中央情报局解密档案的命中片段，
+  便于研究者跨数据源对比两类视角对同一事件的不同记述。
+</div>
+<div class="compare-grid">
+  <div class="compare-col">
+    <div class="compare-head"><span class="src-badge frus">FRUS · 美国外交档案</span> <span class="meta">{len(frus_rows)} 段</span></div>
+    <section class="result-list compare-list">
+"""
+            if not frus_rows:
+                body += '<div class="notice" style="margin:8px;">FRUS 暂无命中片段。</div>'
+            else:
+                for r in frus_rows:
+                    body += render_card(r, compact_zh=200)
+            body += '</section></div>\n<div class="compare-col">'
+            body += f"""
+    <div class="compare-head"><span class="src-badge cia">CIA · 中央情报局解密</span> <span class="meta">{len(cia_rows)} 段</span></div>
+    <section class="result-list compare-list">
+"""
+            if not cia_rows:
+                body += '<div class="notice" style="margin:8px;">CIA 暂无命中片段（待后续档案补充）。</div>'
+            else:
+                for r in cia_rows:
+                    body += render_card(r, compact_zh=200)
+            body += '</section></div></div>'
+        else:
+            # 混合视图：按文档年份分组
+            years_map: dict[str, list[sqlite3.Row]] = {}
+            for r in display_rows:
+                yr = (r["date_guess"] or "")[:4] if r["date_guess"] else "未注明"
+                years_map.setdefault(yr or "未注明", []).append(r)
+            for year in sorted(years_map.keys(), key=lambda y: (y == "未注明", y)):
+                body += f'<h2 style="font-size:18px;margin:22px 0 8px;">{h(year)}</h2><section class="result-list">'
+                for row in years_map[year]:
+                    body += render_card(row)
+                body += "</section>"
     return layout(str(evt["name"]), body)
 
 
@@ -4509,7 +4768,10 @@ class Handler(BaseHTTPRequestHandler):
         elif parsed.path == "/events/key":
             payload = key_events_index()
         elif parsed.path.startswith("/events/key/"):
-            payload = key_event_page(unquote(parsed.path.removeprefix("/events/key/")))
+            payload = key_event_page(
+                unquote(parsed.path.removeprefix("/events/key/")),
+                view=qs.get("view", ["mixed"])[0],
+            )
         elif parsed.path.startswith("/review/"):
             try:
                 page_id_int = int(parsed.path.removeprefix("/review/"))
