@@ -433,6 +433,10 @@ ISSUE_LABELS = {
 # 本研究平台只收录国外一手原始档案；人物档案仅用于档案翻译人名标准化和上下文理解
 from person_archive import PEOPLE, PERSON_GROUPS  # noqa: E402
 
+# 关键历史事件骨架（AI 内部研究参考）
+# 用于把档案碎片化命中聚合到学术意义上的历史事件节点
+from key_events import KEY_EVENTS, EVENT_PHASES, event_by_slug  # noqa: E402
+
 
 TOPICS = [
     {
@@ -509,7 +513,7 @@ ICONS_SVG = """
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/dashboard", "进度仪表盘")]),
-    ("topics", "i-tag", "专题与人物", [("/topics", "专题"), ("/people", "人物"), ("/places", "地点"), ("/organizations", "机构"), ("/events", "事件")]),
+    ("topics", "i-tag", "专题与人物", [("/topics", "专题"), ("/people", "人物"), ("/events/key", "关键事件"), ("/places", "地点"), ("/organizations", "机构"), ("/events", "事件线索")]),
 ]
 
 
@@ -2205,6 +2209,64 @@ def home() -> bytes:
     <div class="zh" style="font-size:13.5px;color:var(--muted);">{h(profile_snip)}</div>
   </div>
   <div class="cite"><a href="/people/{h(person['slug'])}">人物页</a><br><a href="/timeline?person={h(person['slug'])}">年表</a></div>
+</article>"""
+        body += "</section>"
+
+        # 民盟史关键事件入口
+        # 取 FRUS 命中片段数 Top 5 的事件作为首页快览
+        event_hits = []
+        for evt in KEY_EVENTS:
+            where_e, params_e = _key_event_match_clause(evt)
+            if where_e == "0":
+                event_hits.append((evt, 0, 0))
+                continue
+            row_e = c.execute(
+                f"""
+                SELECT count(DISTINCT documents.id) AS doc_count,
+                       count(DISTINCT pages.id) AS page_count
+                FROM pages
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+                WHERE {where_e}
+                """,
+                tuple(params_e),
+            ).fetchone()
+            event_hits.append((evt, row_e["doc_count"] or 0, row_e["page_count"] or 0))
+        event_hits.sort(key=lambda x: (-x[2], -x[1], x[0].get("sort_date", "")))
+        top_events = event_hits[:5]
+        total_event_with_hit = sum(1 for _, _, pc in event_hits if pc > 0)
+
+        body += f"""
+<div class="section-head" style="margin-top:28px;">
+  <h2><svg class="ico"><use href="#i-clock"/></svg>民盟史关键事件</h2>
+  <a class="more" href="/events/key">全部 {len(KEY_EVENTS)} 个事件 →</a>
+</div>
+<section class="doc-head" style="margin-bottom:14px;background:var(--panel-warm);">
+  <div>
+    <div class="meta" style="font-size:14px;line-height:1.7;">
+      按民盟史 5 阶段（创立期 / 政协斡旋期 / 受难期 / 香港复盘新政协期 / 建国后）
+      整理 <b>{len(KEY_EVENTS)}</b> 个关键历史事件，
+      <b>{total_event_with_hit}</b> 个已有 FRUS 档案命中。
+      点击事件查看简介、关联人物与所有原文片段。下方按 FRUS 命中片段数列出前 5 件。
+    </div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/events/key">进入事件索引</a>
+  </div>
+</section>
+<section class="result-list">
+"""
+        for evt, dc, pc in top_events:
+            summary_snip = compact(evt.get("summary", ""), 130)
+            body += f"""
+<article class="result">
+  <div>
+    <h2><a href="/events/key/{h(evt["slug"])}">{h(evt["name"])}</a></h2>
+    <div class="title-en" style="color:var(--archival);">{h(evt["date_label"])}</div>
+    <div class="meta">{dc} 篇文档 · {pc} 个片段</div>
+    <div class="zh" style="font-size:13.5px;color:var(--muted);">{h(summary_snip)}</div>
+  </div>
+  <div class="cite"><a href="/events/key/{h(evt['slug'])}">事件页</a></div>
 </article>"""
         body += "</section>"
 
@@ -4017,6 +4079,259 @@ def event_cards(topic_slug: str = "", person_slug: str = "") -> bytes:
     return layout(f"{scope_name}研究卡片", body)
 
 
+# ---------- 民盟史关键事件视图（/events/key/...） ----------
+
+def _key_event_match_clause(event: dict) -> tuple[str, list[str]]:
+    """构造 SQL WHERE 子句，匹配该事件的 search_terms 命中 FRUS 库的相关 page。"""
+    terms = event.get("search_terms", []) or []
+    if not terms:
+        return "0", []
+    parts: list[str] = []
+    params: list[str] = []
+    columns = ["documents.matched_terms", "documents.title", "pages.text", "translations.text"]
+    for term in terms:
+        like = f"%{term}%"
+        for col in columns:
+            parts.append(f"{col} LIKE ?")
+            params.append(like)
+    return "(" + " OR ".join(parts) + ")", params
+
+
+def _key_event_hit_stats(event: dict) -> dict[str, int]:
+    """返回某事件在 FRUS 库的命中统计。"""
+    where, params = _key_event_match_clause(event)
+    if where == "0":
+        return {"doc_count": 0, "page_count": 0}
+    with conn() as c:
+        row = c.execute(
+            f"""
+            SELECT
+                count(DISTINCT documents.id) AS doc_count,
+                count(DISTINCT pages.id) AS page_count
+            FROM pages
+            JOIN documents ON documents.id = pages.document_id
+            LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+            WHERE {where}
+            """,
+            tuple(params),
+        ).fetchone()
+    return {"doc_count": row["doc_count"] or 0, "page_count": row["page_count"] or 0}
+
+
+def key_events_index() -> bytes:
+    """民盟史关键事件总览 /events/key —— 按 6 阶段分组 + 时间序展示。"""
+    # 收集每个事件的 FRUS 命中统计
+    stats: dict[str, dict[str, int]] = {evt["slug"]: _key_event_hit_stats(evt) for evt in KEY_EVENTS}
+    total_with_hit = sum(1 for s in stats.values() if s["page_count"] > 0)
+    total_docs = sum(s["doc_count"] for s in stats.values())
+    total_pages = sum(s["page_count"] for s in stats.values())
+
+    body = breadcrumb_html([("/", "首页"), ("/events", "事件线索"), (None, "民盟史关键事件")])
+    body += f"""
+<section class="doc-head">
+  <div>
+    <h1>民盟史关键事件</h1>
+    <div class="meta">
+      按民盟历史 5 个阶段共整理 <b>{len(KEY_EVENTS)}</b> 个关键事件节点，
+      其中 <b>{total_with_hit}</b> 个事件在 FRUS 档案中已有命中。
+      点击事件名称查看简介、关联人物和所有 FRUS 命中片段。
+    </div>
+    <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
+      本平台只收录 <b>国外一手原始档案</b>。
+      事件清单与时间标注是档案聚合的内部研究编排，<b>不构成资料库收录内容</b>。
+    </div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/events">事件线索总览</a>
+    <a class="button" href="/people">人物索引</a>
+    <a class="button" href="/timeline">文档年表</a>
+  </div>
+</section>
+"""
+    # 按 phase 分组渲染，组内按 sort_date 升序
+    for phase_slug, phase_label in EVENT_PHASES:
+        members = [evt for evt in KEY_EVENTS if evt.get("phase") == phase_slug]
+        if not members:
+            continue
+        members.sort(key=lambda e: e.get("sort_date", ""))
+        phase_doc_total = sum(stats[e["slug"]]["doc_count"] for e in members)
+        phase_page_total = sum(stats[e["slug"]]["page_count"] for e in members)
+        body += f"""
+<div class="section-head" style="margin-top:28px;">
+  <h2 style="margin:0;">{h(phase_label)}</h2>
+  <span class="meta" style="color:var(--muted);font-size:13px;">{len(members)} 件 · FRUS 共 {phase_doc_total} 篇 / {phase_page_total} 段</span>
+</div>
+<section class="result-list">
+"""
+        for evt in members:
+            st = stats[evt["slug"]]
+            no_hit = (st["page_count"] == 0)
+            no_hit_cls = ' style="opacity:.6;"' if no_hit else ""
+            hit_meta = (
+                f'{st["doc_count"]} 篇文档 · {st["page_count"]} 个片段'
+                if not no_hit
+                else '<span style="color:var(--muted-soft);">FRUS 暂无命中（待 Wilson / CIA 等档案补充）</span>'
+            )
+            summary_snip = compact(evt.get("summary", ""), 200)
+            related = evt.get("related_persons", [])
+            person_chips = ""
+            for ps in related[:6]:
+                p = next((x for x in PEOPLE if x["slug"] == ps), None)
+                if p:
+                    person_chips += f'<a class="tag" href="/people/{h(ps)}" style="text-decoration:none;">{h(p["name"])}</a>'
+            body += f"""
+<article class="result"{no_hit_cls}>
+  <div>
+    <h2><a href="/events/key/{h(evt["slug"])}">{h(evt["name"])}</a></h2>
+    <div class="title-en" style="color:var(--archival);">{h(evt["date_label"])}</div>
+    <div class="meta">{hit_meta}</div>
+    <div class="zh" style="font-size:13.5px;color:var(--muted);">{h(summary_snip)}</div>
+    <div class="tagline">{person_chips}</div>
+  </div>
+  <div class="cite"><a href="/events/key/{h(evt['slug'])}">查看事件页</a></div>
+</article>"""
+        body += "</section>"
+    return layout("民盟史关键事件", body)
+
+
+def key_event_page(slug: str) -> bytes:
+    """单个关键事件详情页 /events/key/<slug>"""
+    evt = event_by_slug(slug)
+    if not evt:
+        return layout("未找到事件", '<div class="notice">未找到对应的关键事件。</div>')
+
+    phase_label = ""
+    for p_slug, p_label in EVENT_PHASES:
+        if evt.get("phase") == p_slug:
+            phase_label = p_label
+            break
+
+    # 查 FRUS 命中片段
+    where, params = _key_event_match_clause(evt)
+    rows: list[sqlite3.Row] = []
+    if where != "0":
+        with conn() as c:
+            rows = c.execute(
+                f"""
+                SELECT
+                    pages.id AS page_id,
+                    pages.page_label,
+                    pages.page_url,
+                    pages.text AS original_text,
+                    documents.volume_id,
+                    documents.doc_id,
+                    documents.doc_key,
+                    documents.title,
+                    documents.date_guess,
+                    documents.matched_terms,
+                    COALESCE(dc.grade, '') AS grade,
+                    translations.text AS zh_text,
+                    translations.status AS zh_status
+                FROM pages
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+                WHERE {where}
+                GROUP BY pages.id
+                ORDER BY documents.date_guess, documents.volume_id, CAST(documents.doc_number AS INTEGER), pages.id
+                LIMIT 300
+                """,
+                tuple(params),
+            ).fetchall()
+
+    doc_count = len({r["doc_key"] for r in rows})
+    core_count = sum(1 for r in rows if r["grade"] == "核心文献")
+
+    # 关联人物详情
+    related_persons_html = ""
+    for ps in evt.get("related_persons", []):
+        p = next((x for x in PEOPLE if x["slug"] == ps), None)
+        if p:
+            related_persons_html += (
+                f'<a class="tag" href="/people/{h(ps)}" '
+                f'style="text-decoration:none;font-size:13px;">{h(p["name"])}</a>'
+            )
+
+    body = breadcrumb_html([
+        ("/", "首页"),
+        ("/events", "事件线索"),
+        ("/events/key", "民盟史关键事件"),
+        (None, str(evt["name"])),
+    ])
+
+    body += f"""
+<section class="doc-head">
+  <div>
+    <h1>{h(evt["name"])}</h1>
+    <div class="title-en" style="color:var(--archival);font-size:16px;margin-top:4px;">
+      {h(evt["date_label"])} · {h(phase_label)}
+    </div>
+    <div class="meta">{doc_count} 篇 FRUS 文档 · {len(rows)} 个命中片段 · 核心片段 {core_count}</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/events/key">关键事件索引</a>
+    <a class="button" href="/people">人物索引</a>
+  </div>
+</section>
+
+<section class="doc-head" style="background:var(--panel-warm);border-left:4px solid var(--accent);margin-bottom:16px;">
+  <div style="max-width:none;">
+    <div class="meta" style="color:var(--accent-deep);font-size:13px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;">
+      事件简介
+    </div>
+    <div style="font-family:var(--serif);font-size:16px;line-height:1.9;color:var(--text);">{h(evt.get("summary", ""))}</div>
+    {('<div style="margin-top:14px;"><div class="meta" style="font-size:12.5px;color:var(--muted);margin-bottom:6px;">关联人物：</div><div class="tagline">' + related_persons_html + '</div></div>') if related_persons_html else ''}
+    <div class="meta" style="margin-top:12px;font-size:12.5px;color:var(--muted-soft);">
+      本卡为内部研究编排参考；下方 FRUS 命中片段为本平台收录的国外一手档案原文与中译。
+    </div>
+  </div>
+</section>
+"""
+
+    if not rows:
+        body += (
+            '<div class="notice">FRUS 档案中暂无与本事件直接命中的片段。'
+            '待 Wilson Center / CIA FOIA / NARA 等海外档案补充后会自动出现。</div>'
+        )
+    else:
+        # 渲染上限：宽搜事件（如政协、民盟成立）容易命中数百段，单页渲染过大
+        RENDER_LIMIT = 50
+        total_rows = len(rows)
+        truncated = total_rows > RENDER_LIMIT
+        display_rows = rows[:RENDER_LIMIT]
+        if truncated:
+            body += (
+                f'<div class="notice" style="background:var(--warn-soft);border-left-color:var(--warn);">'
+                f'共命中 <b>{total_rows}</b> 个片段，本页仅展示前 <b>{RENDER_LIMIT}</b> 段（按文档年份排序）。'
+                f'完整结果可用 <a href="/search?q={quote(evt["name"])}">站内搜索</a> 或'
+                f' <a href="/timeline">文档年表</a> 进一步浏览。'
+                f'</div>'
+            )
+
+        # 按文档年份分组
+        years_map: dict[str, list[sqlite3.Row]] = {}
+        for r in display_rows:
+            yr = (r["date_guess"] or "")[:4] if r["date_guess"] else "未注明"
+            years_map.setdefault(yr or "未注明", []).append(r)
+        for year in sorted(years_map.keys(), key=lambda y: (y == "未注明", y)):
+            body += f'<h2 style="font-size:18px;margin:22px 0 8px;">{h(year)}</h2><section class="result-list">'
+            for row in years_map[year]:
+                page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
+                href = f"/doc/{quote(row['doc_key'])}?page_id={row['page_id']}"
+                body += f"""
+<article class="result">
+  <div>
+    {title_block(row["title"], href)}
+    <div class="meta">{h(row["volume_id"])}/{h(row["doc_id"])} · {h(row["date_guess"])} · {h(page)} {grade_badge(row)}</div>
+    <div class="snippet">原文: {h(compact(row["original_text"], 260))}</div>
+    <div class="zh">中文: {h(compact(row["zh_text"], 260))}</div>
+  </div>
+  <div class="cite"><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
+</article>"""
+            body += "</section>"
+    return layout(str(evt["name"]), body)
+
+
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
@@ -4069,6 +4384,10 @@ class Handler(BaseHTTPRequestHandler):
             )
         elif parsed.path == "/events/cards":
             payload = event_cards(qs.get("topic", [""])[0], qs.get("person", [""])[0])
+        elif parsed.path == "/events/key":
+            payload = key_events_index()
+        elif parsed.path.startswith("/events/key/"):
+            payload = key_event_page(unquote(parsed.path.removeprefix("/events/key/")))
         elif parsed.path.startswith("/review/"):
             try:
                 page_id_int = int(parsed.path.removeprefix("/review/"))
