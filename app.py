@@ -722,12 +722,23 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     .nav-main:hover {{ background: var(--panel-warm); color: var(--text); }}
     .nav-group.active .nav-main {{ background: var(--accent-soft); color: var(--accent-deep); border-color: rgba(15, 107, 91, 0.25); }}
     .nav-flyout {{
-      position: absolute; top: 100%; right: 0; margin-top: 6px;
+      position: absolute; top: 100%; right: 0;
       min-width: 160px; padding: 6px;
-      background: var(--panel); border: 1px solid var(--line);
-      border-radius: 8px; box-shadow: var(--shadow-md);
+      padding-top: 12px;   /* 6px 视觉间距 + 6px 内容间距 */
+      background: transparent;
       display: none; flex-direction: column;
       z-index: 100;
+    }}
+    .nav-flyout::before {{
+      /* 透明桥：覆盖按钮与菜单之间的间隙，防止 hover 中断 */
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    }}
+    .nav-flyout::after {{
+      /* 实际可见的菜单背景 */
+      content: ""; position: absolute; top: 6px; left: 0; right: 0; bottom: 0;
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: 8px; box-shadow: var(--shadow-md);
+      z-index: -1;
     }}
     .nav-group:hover .nav-flyout {{ display: flex; }}
     .nav-sub {{
