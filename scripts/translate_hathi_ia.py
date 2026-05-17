@@ -81,7 +81,7 @@ def main():
         SELECT p.id AS pid, p.text AS en, d.title, d.date_guess
         FROM pages p JOIN documents d ON d.id=p.document_id
         LEFT JOIN translations t ON t.page_id=p.id AND t.language='zh-CN'
-        WHERE d.source_platform='hathi_ia' AND t.id IS NULL
+        WHERE d.source_platform IN ('hathi_ia','hathitrust') AND t.id IS NULL
         ORDER BY d.date_guess
     """).fetchall()
     print(f'待翻译 HathiTrust/IA: {len(rows)} 段')

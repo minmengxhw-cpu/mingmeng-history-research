@@ -19,7 +19,10 @@ def extract_meng_paragraphs(full_ocr: str) -> str:
     KW = re.compile(
         r'Democratic\s+League|Communist|Kuomintang|KMT|'
         r'Lo\s+Lung-?chi|Chang\s+Lan|Shen\s+Chun-?ju|'
-        r'Carsun\s+Chang|third\s+party|coalition\s+government|'
+        r'Carsun\s+Chang|Chang\s+Po-?chun|Liang\s+Shu-?ming|'
+        r'Wen\s+I-?tuo|Li\s+Kung-?pu|Huang\s+Yen-?pei|'
+        r'third\s+(party|force|group)|coalition\s+government|'
+        r'minority\s+parties|liberal\s+(middle|party)|'
         r'Political\s+Consultative',
         re.I,
     )
@@ -118,7 +121,7 @@ def main():
         print(f'  ✓ [{d.get("date","")[:10]}] {ident} | extracted {len(extracted)} chars | grade={grade}')
 
     conn.commit()
-    cur.execute("SELECT COUNT(*) FROM documents WHERE source_platform='hathi_ia'")
+    cur.execute("SELECT COUNT(*) FROM documents WHERE source_platform IN ('hathi_ia','hathitrust')")
     print(f'\n入库 {inserted} 篇，HathiTrust/IA 总数: {cur.fetchone()[0]}')
     conn.close()
 
