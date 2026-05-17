@@ -350,5 +350,37 @@
     "local_raw": "data/wilson_center/pdfs/roshchin-zhou-1949-11-10.pdf",
     "local_txt": "data/wilson_center/text/roshchin-zhou-1949-11-10.txt",
     "text_chars": 3542
+  },
+  {
+    "doc_key": "wilson:119300",
+    "title": "On the People's Democratic Dictatorship: In Commemoration of the Twenty-eighth Anniversary of the Communist Party of China",
+    "date": "1949-06-30",
+    "original_url": "https://digitalarchive.wilsoncenter.org/document/119300",
+    "mirror_url": "https://www.commonprogram.science/documents/ON%20THE%20PEOPLE's%20dictatorship.pdf",
+    "kind": "pdf",
+    "grade": "相关文献",
+    "score": 78,
+    "reason": "毛泽东 1949 年论人民民主专政文本，说明民主党派、新政协与新政权合法性框架的政治语境。",
+    "status": "ok",
+    "error": "",
+    "local_raw": "data/wilson_center/pdfs/119300.pdf",
+    "local_txt": "data/wilson_center/text/119300.txt",
+    "text_chars": 37267
+  },
+  {
+    "doc_key": "wilson:117031",
+    "title": "Report, Peng Dehuai to Mao Zedong and the CCP Central Committee (Excerpt)",
+    "date": "1958-06-05",
+    "original_url": "https://digitalarchive.wilsoncenter.org/document/117031",
+    "mirror_url": "https://docslib.org/doc/2763319/june-05-1958-report-peng-dehuai-to-mao-zedong-and-the-ccp-central-committee-excerpt",
+    "kind": "html",
+    "grade": "相关文献",
+    "score": 62,
+    "reason": "1958 年国防报告摘录中回顾新政协、民主党派和中央人民政府组成，可作为民盟早期建政语境的延伸材料。",
+    "status": "ok",
+    "error": "",
+    "local_raw": "data/wilson_center/mirrors/117031.html",
+    "local_txt": "data/wilson_center/text/117031.txt",
+    "text_chars": 2802
   }
 ]

@@ -260,6 +260,28 @@ DOCS = [
         "score": 76,
         "reason": "新政协后周恩来与苏联大使罗申会谈，反映建国初期外交与政治安排背景。",
     },
+    {
+        "doc_key": "wilson:119300",
+        "title": "On the People's Democratic Dictatorship: In Commemoration of the Twenty-eighth Anniversary of the Communist Party of China",
+        "date": "1949-06-30",
+        "original_url": "https://digitalarchive.wilsoncenter.org/document/119300",
+        "mirror_url": "https://www.commonprogram.science/documents/ON%20THE%20PEOPLE's%20dictatorship.pdf",
+        "kind": "pdf",
+        "grade": "相关文献",
+        "score": 78,
+        "reason": "毛泽东 1949 年论人民民主专政文本，说明民主党派、新政协与新政权合法性框架的政治语境。",
+    },
+    {
+        "doc_key": "wilson:117031",
+        "title": "Report, Peng Dehuai to Mao Zedong and the CCP Central Committee (Excerpt)",
+        "date": "1958-06-05",
+        "original_url": "https://digitalarchive.wilsoncenter.org/document/117031",
+        "mirror_url": "https://docslib.org/doc/2763319/june-05-1958-report-peng-dehuai-to-mao-zedong-and-the-ccp-central-committee-excerpt",
+        "kind": "html",
+        "grade": "相关文献",
+        "score": 62,
+        "reason": "1958 年国防报告摘录中回顾新政协、民主党派和中央人民政府组成，可作为民盟早期建政语境的延伸材料。",
+    },
 ]
 
 

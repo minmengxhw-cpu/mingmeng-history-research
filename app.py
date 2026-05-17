@@ -1123,11 +1123,11 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       font-weight: 500;
     }}
     .density-empty {{
-      background: var(--line-soft);
+      background: #f0eee8;
     }}
     .density-hot {{
-      color: #ffffff;
-      font-weight: 500;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
     }}
     .density-hot:hover {{
       outline: 2px solid var(--accent-deep);
@@ -1352,10 +1352,10 @@ PLATFORM_META = {
             "毛泽东、刘少奇、科瓦廖夫、斯大林之间 1949 年建政前后密电",
             "罗申大使 ↔ 周恩来 1949.11.10 会谈记录",
         ],
-        "status": "已上线 · 22 篇",
+        "status": "已上线 · 24 篇",
         "status_class": "ok",
         "active": True,
-        "todo_note": "Wilson 高价值文档已通过可验证镜像抓取全文并入库：22 篇文档、111 个页段，均保留 Wilson Digital Archive 原始引用链接；中文译文为本地机器初稿，下一步进入术语复审和精校。",
+        "todo_note": "Wilson 高价值文档已通过可验证镜像抓取全文并入库：24 篇文档，均保留 Wilson Digital Archive 原始引用链接；中文译文为本地机器初稿，下一步进入术语复审和精校。",
     },
     "cia": {
         "name": "CIA FOIA",
@@ -3811,11 +3811,16 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
             if n == 0:
                 cells.append('<div class="density-cell density-empty"></div>')
             else:
-                # 强度 0.15 - 1.0
-                intensity = 0.15 + 0.85 * (n / max_n)
+                # 5 档离散色阶（仿 GitHub 贡献图）：低密度也能一眼看清
+                # 阈值按经验值：1 / 2-3 / 4-7 / 8-15 / 16+
+                if   n >= 16: bg, fg = "#0f6b5b", "#ffffff"   # 最深
+                elif n >= 8:  bg, fg = "#2f8a76", "#ffffff"
+                elif n >= 4:  bg, fg = "#6ab09a", "#ffffff"
+                elif n >= 2:  bg, fg = "#a8d0c1", "#0a3d34"
+                else:         bg, fg = "#d4e8de", "#0a3d34"   # 最浅（n=1）
                 cells.append(
                     f'<a class="density-cell density-hot" href="#m-{key}" '
-                    f'style="background:rgba(15,107,91,{intensity:.2f});" '
+                    f'style="background:{bg};color:{fg};" '
                     f'title="{yr} 年 {mo} 月 · {n} 个片段">{n}</a>'
                 )
         rows_html.append('<div class="density-row">' + ''.join(cells) + '</div>')
