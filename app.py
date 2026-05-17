@@ -122,6 +122,7 @@ ROLE_ZH = {
 
 
 EXACT_TITLE_ZH = {
+    # --- FRUS 专用 ---
     "Memorandum by the Second Secretary of Embassy in China (Sprouse)": "驻华使馆第二书记斯普劳斯备忘录",
     "Memorandum by the Second Secretary of Embassy in China (Sprouse) to General Marshall": "驻华使馆第二书记斯普劳斯致马歇尔将军备忘录",
     "Minutes of Conference Between General Marshall and Dr. Lo Lung-chi at General Marshall’s House, June 1, 1946, 10 a.m.": "马歇尔将军与罗隆基博士会谈纪要，1946年6月1日上午10时",
@@ -144,6 +145,69 @@ EXACT_TITLE_ZH = {
     "Notes on General Marshall’s First Conference With the Democratic League, 1600, 26 December 1945": "马歇尔将军与中国民主同盟首次会谈记录，1945年12月26日下午4时",
     "Notes on General Marshall's First Conference With the Democratic League, 1600, 26 December 1945": "马歇尔将军与中国民主同盟首次会谈记录，1945年12月26日下午4时",
     "Public Statement by General Marshall and Ambassador Stuart": "马歇尔将军与司徒雷登大使联合公开声明",
+    # --- CIA 全部 61 篇 ---
+    "POLITICAL INFORMATION: WENG SHIH-LIANG, SOUTH CHINA DEMOCRATIC LEAGUE CHAIRMAN, HONGKONG": "政治情报：华南民盟主席翁世亮，香港",
+    "POLITICAL INFORMATION: SOUTH CHINA DEMOCRATIC LEAGUE ANTI-AMERICAN ACTIVITY . HONGKONG": "政治情报：华南民盟反美活动，香港",
+    "PREPARATIONS FOR THE ALL-CHINA DEMOCRATIC WOMEN S CONGRESS": "全国民主妇女大会筹备",
+    "POLITICAL INFORMATION:  PSEUDONYMS USED BY CHINESE COMMUNISTS IN REFERRING TO VARIOUS PUBLIC FIGURES": "政治情报：中共指称各公众人物所使用的化名",
+    "CHINA DEMOCRATIC LEAGUE": "中国民主同盟",
+    "POLITICAL INFORMATION: CHINA DEMOCRATIC LEAGUE MEMBERS' ESCAPE FROM SHANGHAI TO HONG KONG": "政治情报：民盟成员从上海出逃至香港",
+    "PLAN FOR CHANGE IN POLICY FOR MEMBERSHIP IN DEMOCRATIC LEAGUE - LO LUNG-CHI AND CHANG LAN": "民盟成员政策变更方案——罗隆基与张澜",
+    "WHO'S WHO - - CHINESE LEFTIST PERSONALITIES": "人物志——中国左翼人物",
+    "MEMBERS OF THE CULTURAL AND EDUCATIONAL COMMISSION OF THE CENTRAL PEOPLE'S GOVERNMENT": "中央人民政府文化教育委员会委员名单",
+    "LO LUNG-CHI": "罗隆基",
+    "CHANG LAN": "张澜",
+    "1.  POSITION OF SHEN CHUN-JU 1.  CRITICISM OF MAO TSE-TUNG": "一、沈钧儒的立场　二、对毛泽东的批评",
+    "ARRIVAL OF CHINESE PEOPLE&#039;S POLITICAL CONSULTATIVE CONFERENCE DELEGATES IN CANTON": "中国人民政治协商会议代表抵达广州",
+    "LEADING MEMBERS OF THE CHINA DEMOCRATIC LEAGUE": "中国民主同盟主要领导成员",
+    "ROLE OF NON-COMMUNIST POLITICAL PARTIES IN PEIPING": "非共产党政党在北平的作用",
+    "PLAN FOR MEETINGS OF NON-COMMUNIST PARTIES OF COMMUNIST CHINA": "共产党中国非共产党政党会议方案",
+    "SUMMER TEACHERS' CLASSES SPONSORED BY CHINA DEMOCRATIC LEAGUE": "民盟主办的暑期教师讲习班",
+    "MEMBERS OF THE EXECUTIVE COMMITTEE OF THE CHINESE CHAMBER OF COMMERCE": "中华商会执行委员会委员名单",
+    "LIST OF IMPORTANT COMMITTEE OFFICIALS": "重要委员会官员名单",
+    "ROSTER OF PRESIDIUM OF FIRST CONGRESS": "第一届全国人大主席团名册",
+    "POLITICAL INFORMATION: SENIOR MEMBERS OF EXECUTIVE HEADQUARTERS FIELD TEAMS": "政治情报：军事调处执行部驻地小组高级成员",
+    "CHINESE VIEWS ON AMERICAN ASSISTANCE TO CHINA": "中国各方对美国援华的看法",
+    "SELANGOR CHINESE IN SUPPORT OF TAN KAH KEE": "雪兰莪华人声援陈嘉庚",
+    "POLITICAL INFORMATION; PROVINCIAL GOVERNMENT PERSONNEL, KWANGSI": "政治情报：广西省政府人员",
+    "CHINESE COMMUNIST ACTIVITIES IN INDONESIA": "中共在印度尼西亚的活动",
+    "POLITICAL INFORMATION: CHINESE COMMUNIST PERSONALITIES IN SOUTH CHINA": "政治情报：华南中共人物",
+    "CHINESE COMMUNIST VIEW CONCERNING THIRD WORLD WAR": "中共关于第三次世界大战的看法",
+    "CHINESE COMMUNIST WOMEN CONNECTED WITH THE WORLD FEDERATION OF DEMOCRATIC WOMEN": "与世界民主妇女联合会有关联的中共女性",
+    "POLITICAL INFORMATION: CHINESE COMMUNIST PLANS FOR COALITION GOVERNMENT": "政治情报：中共的联合政府方案",
+    "DEVELOPMENTS IN CHINESE COMMUNITY IN THAILAND FOLLOWING COMMUNIST VICTORY IN CHINA": "中共胜利后泰国华人社会的新动态",
+    "COMMUNIST IMFLUENCE IN BURMA": "共产势力在缅甸的影响",
+    "ADMINISTRATIVE DIVISIONS OF CHINA": "中国行政区划",
+    "CURRENT SITUATION IN MALAYA": "马来亚现状",
+    "MINISTERS AND DEPUTY MINISTERS OF THE CENTRAL PEOPLE'S GOVERNMENT": "中央人民政府部长与副部长名单",
+    "COMMUNIST INFLUENCE IN BURMA": "共产势力在缅甸的影响",
+    "OFFICIALS OF THE EAST CHINA MILITARY AND POLITICAL COUNCIL": "华东军政委员会官员名单",
+    "DIRECTORY OF CCP GOVERNMENT PERSONNEL": "中共政府人员名录",
+    "PRO-COMMUNIST CHINESE ORGANIZATIONS IN RANGOON": "仰光亲共华人组织",
+    "RECEPTION FOR THE NEW CHINESE COMMUNIST AMBASSADOR TO BURMA": "欢迎新任中共驻缅甸大使",
+    "1. NUMBER OF BCSEA MEMBERS   2. DECLINE OF BCSEA IN MANDALAY": "一、缅甸华侨教育会会员人数　二、曼德勒缅华教育会的衰落",
+    "RECENT DEVELOPEMENTS WITHIN THE BURMA WORKERS AND PEASANTS PARTY": "缅甸工农党近况",
+    "ARRESTS, EXECUTIONS, AND OTHER CHINESE COMMUNIST ACTIVITIES": "逮捕、处决及其他中共活动",
+    "CHINESE COMMUNIST ACTIVITIES IN EAST CHINA": "中共在华东的活动",
+    "COMMUNISTS PUSH CONSTRUCTION OF T'ANG-KU HARBOR, STOP WORK ON HUANG-P'U HARBOR": "共产党推进塘沽港建设、停建黄浦港",
+    "CHINESE COMMUNIST ACTIVITIES IN THE HONG KONG AREA": "中共在香港地区的活动",
+    "DEVELOPMENTS IN THE CHINESE SCHOOL CONTROVERSY IN RANGOON": "仰光华校争议的新进展",
+    "ORGANIZATION AND PERSONNEL OF UNITED FRONT DEPARTMENT OF SOUTH CHINA BUREAU": "中共华南局统战部组织与人员",
+    "CHINESE COMMUNIST POLITICAL ACTIVITIES IN HANOI": "中共在河内的政治活动",
+    "GOVERNMENT ADMINISTRATION COUNCIL APPROVES PERSONNEL CHANGES": "政务院批准人事变动",
+    "CONFERENCE OF THE CHINA FARMERS&#039; AND WORKERS&#039; DEMOCRATIC PARTY": "中国农工民主党会议",
+    "TREATMENT OF REPUDIATION OF COMPROMISE WITH WEST IN CHINESE COMMUNIST PRESS, PERIODICALS, FIRST QUARTER 1952": "1952年第一季度中共报刊中对拒绝与西方妥协的处理",
+    "ECONOMIC ORGANIZATION OF COMMUNIST CHINA": "共产党中国的经济组织",
+    "SMUGGLING OF RUBBER": "橡胶走私",
+    "OUTLINE OF NEW ECONOMICS (REVISED LIBERATION EDITION)": "新经济学大纲（修订解放版）",
+    "OUTLINE OF PUBLIC FINANCE": "公共财政概论",
+    "SURVEY OF CHINA'S FOOD INDUSTRY, 1950": "1950年中国食品工业概况",
+    "THE OVERSEAS CHINESE IN SOURTHEAST ASIA Section OC-3: THE OVERSEAS CHINESE IN BURMA": "东南亚华侨 第OC-3节：缅甸华侨",
+    "COMMUNIST CHINA'S POWER POTENTIAL THROUGH 1957": "至1957年共产党中国的力量潜力",
+    "COMMUNIST FIRMS, AND PARTY AND MILITARY ORGANIZATIONS IN FOOCHOW": "福州的共产党企业与党军组织",
+    # --- Wilson Center ---
+    "On the People's Democratic Dictatorship: In Commemoration of the Twenty-eighth Anniversary of the Communist Party of China, June 30, 1949": "论人民民主专政——纪念中国共产党二十八周年，1949年6月30日",
+    "Report, Peng Dehuai to Mao Zedong and the CCP Central Committee (Excerpt)": "彭德怀致毛泽东及中共中央报告（节选）",
 }
 
 
@@ -790,7 +854,11 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       font-size: 11.5px; font-weight: 500; margin-top: 12px;
       letter-spacing: 0.02em;
     }}
-    .platform-card .pstatus.ok {{ background: var(--accent-soft); color: var(--accent-deep); }}
+    .platform-card .pstatus.ok {{
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      border: 1px solid rgba(15, 107, 91, 0.25);
+    }}
     .platform-card .pstatus.todo {{ background: var(--archival-soft); color: var(--archival); }}
     /* === 文献条目列表 === */
     .result-list {{
@@ -1332,7 +1400,7 @@ PLATFORM_META = {
             "张君劢 1947.11.1 致马歇尔函（page 333）—— 民盟取缔后第 5 天的民盟人士陈情",
             "12 位民盟政协代表 1946 联名声明（page 228）",
         ],
-        "status": "已上线",
+        "status": None,
         "status_class": "ok",
         "active": True,
     },
@@ -1352,7 +1420,7 @@ PLATFORM_META = {
             "毛泽东、刘少奇、科瓦廖夫、斯大林之间 1949 年建政前后密电",
             "罗申大使 ↔ 周恩来 1949.11.10 会谈记录",
         ],
-        "status": "已上线 · 24 篇",
+        "status": None,
         "status_class": "ok",
         "active": True,
         "todo_note": "Wilson 高价值文档已通过可验证镜像抓取全文并入库：24 篇文档，均保留 Wilson Digital Archive 原始引用链接；中文译文为本地机器初稿，下一步进入术语复审和精校。",
@@ -1373,8 +1441,8 @@ PLATFORM_META = {
             "1950-11-09 ROLE OF NON-COMMUNIST POLITICAL PARTIES IN PEIPING（第三方面政党在北平的作用）",
             "1954-09-16 ROSTER OF PRESIDIUM OF FIRST CONGRESS（一届人大主席团名单）",
         ],
-        "status": "已上线（核心 21 篇）",
-        "status_class": "active",
+        "status": None,
+        "status_class": "ok",
         "active": True,
         "todo_note": "",
     },
@@ -1453,20 +1521,29 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
     cards = []
     for key, meta in PLATFORM_META.items():
         cls = "platform-card" + (" active" if meta["active"] else " upcoming")
+        n = plat_counts.get(key, 0)
         if key == "frus":
             desc = f"已收 {frus_docs} 篇民盟相关文档 / {frus_pages} 个页面 / {frus_zh} 个中文译文片段，人工复核覆盖率 {frus_pct}%。"
         else:
-            n = plat_counts.get(key, 0)
             if n > 0:
                 desc = f"已收 {n} 篇文档。{meta['intro'][:60]}…"
             else:
                 desc = meta['intro'][:120] + "…" if len(meta['intro']) > 120 else meta['intro']
+        # 动态生成状态文本：已上线平台显示文档数
+        if meta["status"] is not None:
+            status_text = meta["status"]
+        elif meta["active"] and n > 0:
+            status_text = f"已上线 · {n} 篇"
+        elif meta["active"]:
+            status_text = "已上线"
+        else:
+            status_text = meta.get("status", "待开发")
         cards.append(f'''
 <a class="{cls}" href="/sources/{key}">
   <h3>{h(meta["name"])}</h3>
   <div class="pmeta">{h(meta["subtitle"])}</div>
   <div class="pdesc">{h(desc)}</div>
-  <div class="pstatus {meta["status_class"]}">{h(meta["status"])}</div>
+  <div class="pstatus {meta["status_class"]}">{h(status_text)}</div>
 </a>''')
     return '<h2 style="font-size:18px;margin:18px 0 10px;">📚 海外民盟资料平台</h2>\n<section class="platforms">' + "".join(cards) + "</section>"
 
