@@ -1431,10 +1431,10 @@ PLATFORM_META = {
             "毛泽东、刘少奇、科瓦廖夫、斯大林之间 1949 年建政前后密电",
             "罗申大使 ↔ 周恩来 1949.11.10 会谈记录",
         ],
-        "status": None,
-        "status_class": "ok",
+        "status": "已上线（24 篇 / 121 段，全 human-reviewed）",
+        "status_class": "active",
         "active": True,
-        "todo_note": "Wilson 高价值文档已通过可验证镜像抓取全文并入库：24 篇文档，均保留 Wilson Digital Archive 原始引用链接；中文译文为本地机器初稿，下一步进入术语复审和精校。",
+        "todo_note": "",
     },
     "cia": {
         "name": "CIA FOIA",
