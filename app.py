@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import html
+import sys
 import json
 import re
 import sqlite3
@@ -4896,7 +4897,17 @@ def key_event_page(slug: str, view: str = "mixed") -> bytes:
     return layout(str(evt["name"]), body)
 
 
+class ReusableThreadingHTTPServer(ThreadingHTTPServer):
+    allow_reuse_address = True
+
+
 class Handler(BaseHTTPRequestHandler):
+    def do_HEAD(self) -> None:
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
         qs = parse_qs(parsed.query)
@@ -5026,11 +5037,15 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(payload)
 
     def log_message(self, fmt: str, *args: object) -> None:
-        print(fmt % args)
+        try:
+            sys.stderr.write((fmt % args) + "\n")
+            sys.stderr.flush()
+        except (BrokenPipeError, OSError):
+            pass
 
 
 def main() -> None:
-    server = ThreadingHTTPServer(("127.0.0.1", 8765), Handler)
+    server = ReusableThreadingHTTPServer(("127.0.0.1", 8765), Handler)
     print("Serving http://127.0.0.1:8765")
     server.serve_forever()
 
