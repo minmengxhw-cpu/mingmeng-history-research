@@ -91,7 +91,7 @@ def main():
              '', str(ocr_path.relative_to(ROOT)),
              'core' if n_hits >= 2 else 'related',
              'Democratic League; KMT; Communist',
-             'hathi_ia'),
+             'hathitrust'),
         )
         document_id = cur.lastrowid
 
