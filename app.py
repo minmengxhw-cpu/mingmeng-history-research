@@ -849,8 +849,9 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     }}
     .hero::before {{
       content: "";
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--accent) 0%, var(--archival) 50%, var(--accent-deep) 100%);
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+      opacity: 0.85;
     }}
     .hero h1 {{
       font-size: 32px; line-height: 1.25;
@@ -882,46 +883,42 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     /* === 精简版 Hero（首页专用） === */
     .hero.hero-compact {{
       text-align: center;
-      padding: 36px 44px 30px;
+      padding: 38px 44px 30px;
       margin: 0 auto 32px;
-      max-width: 880px;
+      max-width: 720px;
     }}
     .hero.hero-compact h1 {{
-      font-size: 30px;
-      margin: 0 0 12px;
-      letter-spacing: 0.02em;
-    }}
-    .hero-eyebrow {{
-      font-family: var(--serif);
-      font-size: 12px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-      opacity: 0.85;
+      font-size: 27px;
+      margin: 0 0 14px;
+      letter-spacing: 0.04em;
+      font-weight: 600;
     }}
     .hero.hero-compact .hero-sub {{
-      font-size: 15px;
-      line-height: 1.8;
-      margin: 0 auto 22px;
-      max-width: 680px;
+      font-family: var(--serif);
+      font-size: 14.5px;
+      line-height: 1.85;
+      margin: 0 auto 26px;
+      max-width: 580px;
+      color: var(--muted);
+      letter-spacing: 0.01em;
     }}
     .hero.hero-compact .hero-sub strong {{
       color: var(--accent-deep); font-weight: 600;
     }}
     .hero-chips {{
-      display: inline-flex; flex-wrap: wrap; gap: 10px;
+      display: inline-flex; flex-wrap: wrap; gap: 8px;
       justify-content: center;
-      padding-top: 20px;
-      border-top: 1px dashed var(--line);
+      padding-top: 22px;
+      border-top: 1px dashed var(--line-soft);
     }}
     .hero-chips span {{
-      background: rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.7);
       border: 1px solid var(--line-soft);
       border-radius: 999px;
-      padding: 6px 16px;
-      font-size: 12.5px;
+      padding: 5px 14px;
+      font-size: 12px;
       color: var(--muted);
+      letter-spacing: 0.02em;
       transition: transform 0.2s, border-color 0.2s, background 0.2s;
     }}
     .hero-chips span:hover {{
@@ -932,7 +929,8 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     .hero-chips b {{
       color: var(--accent-deep); font-weight: 600;
       font-family: var(--serif);
-      margin-right: 5px;
+      margin-right: 4px;
+      font-size: 13px;
     }}
 
     /* === Section 标题 === */
@@ -1564,10 +1562,8 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       .hero {{ padding: 24px 22px; }}
       .hero h1 {{ font-size: 24px; }}
       .hero.hero-compact {{ padding: 28px 22px 24px; }}
-      .hero.hero-compact h1 {{ font-size: 22px; }}
-      .hero-eyebrow {{ font-size: 11px; letter-spacing: 0.18em; margin-bottom: 12px; }}
-      .hero.hero-compact .hero-sub {{ font-size: 13.5px; line-height: 1.7; }}
-      .hero.hero-compact .hero-sub br {{ display: none; }}
+      .hero.hero-compact h1 {{ font-size: 21px; letter-spacing: 0.03em; }}
+      .hero.hero-compact .hero-sub {{ font-size: 13.5px; line-height: 1.75; }}
       .footer-top {{ flex-direction: column; align-items: flex-start; gap: 16px; }}
       .footer-links {{ width: 100%; }}
     }}
@@ -2610,9 +2606,8 @@ def home() -> bytes:
 
         body = f"""
 <section class="hero hero-compact">
-  <div class="hero-eyebrow">1941 — 1950 · 海外一手档案</div>
   <h1>海外民盟历史文献研究库</h1>
-  <p class="hero-sub">系统整理中国民主同盟筹建、参政与重大转折时期的<strong>海外一手档案</strong>，<br>汇聚 FRUS、Wilson、CIA、Hoover、HathiTrust 五源同代史料。</p>
+  <p class="hero-sub">系统整理中国民主同盟筹建、参政与重大转折时期的<strong>海外一手档案</strong>，汇聚 FRUS、Wilson、CIA、Hoover、HathiTrust 五源同代史料。</p>
   <div class="hero-chips">
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_zh}</b> 条中文译文</span>
