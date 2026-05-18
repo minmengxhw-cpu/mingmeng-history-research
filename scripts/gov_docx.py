@@ -53,8 +53,8 @@ SIZE_META5 = Pt(10.5)       # 五号
 
 # 行距：28 磅固定值
 LINE_SPACING_PT = 28
-# 首行缩进 2 字符 ≈ 0.74 cm（三号字 16 pt × 2 ≈ 32 pt ≈ 0.83 cm）
-FIRST_LINE_INDENT_CM = 0.74
+# 首行缩进 2 字符：三号字 16 pt × 2 = 32 pt。32 pt × (2.54 cm / 72 pt) ≈ 1.13 cm
+FIRST_LINE_INDENT_CM = 1.13
 
 
 def _set_run_font(run, east_asia: str = FONT_FANGSONG, ascii_font: str = FONT_ASCII,
@@ -107,6 +107,7 @@ class GovDoc:
         st = self.doc.styles['Normal']
         st.font.name = FONT_ASCII
         st.font.size = SIZE_BODY
+        st.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         rPr = st.element.get_or_add_rPr()
         rFonts = rPr.find(qn('w:rFonts'))
         if rFonts is None:
@@ -155,12 +156,12 @@ class GovDoc:
         _set_run_font(r, east_asia=FONT_FANGSONG, size=SIZE_BODY, bold=False)
 
     def h1(self, text: str):
-        """一级标题：黑体三号，左对齐，无缩进"""
+        """一级标题：黑体三号，两端对齐，首行缩进 2 字符"""
         # 一级标题前空一行
         empty = self.doc.add_paragraph()
         _set_para_line_spacing(empty)
         p = self.doc.add_paragraph()
-        _set_para_line_spacing(p)
+        _set_para_line_spacing(p, first_indent_cm=FIRST_LINE_INDENT_CM)
         r = p.add_run(text)
         _set_run_font(r, east_asia=FONT_HEITI, size=SIZE_H1, bold=False)
 
