@@ -647,7 +647,7 @@ ICONS_SVG = """
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/dashboard", "进度仪表盘")]),
-    ("topics", "i-tag", "专题与人物", [("/topics", "专题"), ("/people", "人物"), ("/events/key", "关键事件"), ("/places", "地点"), ("/organizations", "机构"), ("/events", "事件线索")]),
+    ("topics", "i-tag", "专题与人物", [("/topics", "专题"), ("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
 
 
@@ -4510,7 +4510,7 @@ def key_events_index() -> bytes:
     total_docs = sum(s["doc_count"] for s in stats.values())
     total_pages = sum(s["page_count"] for s in stats.values())
 
-    body = breadcrumb_html([("/", "首页"), ("/events", "事件线索"), (None, "民盟史关键事件")])
+    body = breadcrumb_html([("/", "首页"), (None, "民盟史关键事件")])
     body += f"""
 <section class="doc-head">
   <div>
