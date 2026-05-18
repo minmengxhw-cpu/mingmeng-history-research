@@ -1467,7 +1467,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     <div class="footer-inner">
       <div class="footer-brand">
         <span class="footer-title">民盟历史文献研究库</span>
-        <span class="footer-desc">系统整理 1941–1950 年代海外档案中关于中国民主同盟的一手史料</span>
+        <span class="footer-desc">系统整理 1941—1950 年中国民主同盟海外一手档案 · 五源多视角同代史料体系</span>
       </div>
       <div class="footer-links">
         <a href="/">首页</a>
@@ -1588,24 +1588,6 @@ PLATFORM_META = {
         "status_class": "active",
         "active": True,
         "todo_note": "",
-    },
-    "nara": {
-        "name": "NARA",
-        "long_name": "National Archives and Records Administration",
-        "cn_name": "美国国家档案馆",
-        "subtitle": "美国国家档案馆 RG59 国务院全本",
-        "intro": "美国国家档案馆 RG59 (Record Group 59) 是美国国务院档案的官方全本，FRUS 是从中精选的版本。",
-        "perspective": "国务院档案全本视角 —— FRUS 是节选，NARA 是源头",
-        "coverage": "893.00 decimal file（中国相关国务院档案 1910-1963）",
-        "highlights": [
-            "893.00/xxxx 系列：中国政治形势综合报告",
-            "893.00B/xxxx 系列：中共相关",
-            "数十万页档案（绝大多数未数字化）",
-        ],
-        "status": "Phase 5 待开发",
-        "status_class": "todo",
-        "active": False,
-        "todo_note": "工程难度最大。NARA Catalog API 仍可用但需要 API key；大部分 RG59 中国 decimal file 仍未数字化，需现场调阅或缩微胶片。建议先做 FRUS → NARA locator 索引。",
     },
 }
 
@@ -2457,10 +2439,11 @@ def home() -> bytes:
         body = f"""
 <section class="hero">
   <h1>海外民盟历史文献研究库</h1>
-  <p class="hero-sub">系统整理 1941–1950 年代海外档案中关于<strong>中国民主同盟</strong>的一手史料 ——
-  抓取、校验、翻译、引用、事件梳理、研究输出。以
-  <em>FRUS</em>（美国对外关系文件集）为基础，逐步扩展至 Wilson Center、CIA FOIA、
-  Hoover、NARA 等海外档案系统。</p>
+  <p class="hero-sub">本研究库聚焦 1941—1950 年<strong>中国民主同盟</strong>筹建、参政、重大转折与香港复盘时期之海外一手档案系统整理。
+  以美国国务院《美国对外关系文件集》（<em>FRUS</em>）为骨干，整合美国中央情报局解密文件库（CIA Reading Room）、
+  威尔逊国际学者中心数字档案（Wilson Center Digital Archive）、斯坦福大学胡佛档案馆现场调档卷宗（Hoover Institution Archives）
+  及 HathiTrust / Internet Archive 所收当时香港英文报刊五大海外档案源，构建多视角、跨语种、可交叉印证的同代史料体系，
+  并按学术规范完成抓取、清洗、校译、引用著录与事件叙事整合，输出可供学术研究引用的专题成果。</p>
   <div class="hero-meta">
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_pages}</b> 个页面/段落</span>
