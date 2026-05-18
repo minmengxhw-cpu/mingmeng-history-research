@@ -879,11 +879,67 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       transform: translateY(-1px);
     }}
 
+    /* === 精简版 Hero（首页专用） === */
+    .hero.hero-compact {{
+      text-align: center;
+      padding: 36px 44px 30px;
+      margin: 0 auto 32px;
+      max-width: 880px;
+    }}
+    .hero.hero-compact h1 {{
+      font-size: 30px;
+      margin: 0 0 12px;
+      letter-spacing: 0.02em;
+    }}
+    .hero-eyebrow {{
+      font-family: var(--serif);
+      font-size: 12px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      opacity: 0.85;
+    }}
+    .hero.hero-compact .hero-sub {{
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0 auto 22px;
+      max-width: 680px;
+    }}
+    .hero.hero-compact .hero-sub strong {{
+      color: var(--accent-deep); font-weight: 600;
+    }}
+    .hero-chips {{
+      display: inline-flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center;
+      padding-top: 20px;
+      border-top: 1px dashed var(--line);
+    }}
+    .hero-chips span {{
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--line-soft);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 12.5px;
+      color: var(--muted);
+      transition: transform 0.2s, border-color 0.2s, background 0.2s;
+    }}
+    .hero-chips span:hover {{
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      background: var(--panel);
+    }}
+    .hero-chips b {{
+      color: var(--accent-deep); font-weight: 600;
+      font-family: var(--serif);
+      margin-right: 5px;
+    }}
+
     /* === Section 标题 === */
     .section-head {{
       display: flex; align-items: baseline; justify-content: space-between;
-      margin: 32px 0 14px;
-      padding-bottom: 8px;
+      margin: 32px 0 16px;
+      padding-bottom: 10px;
       border-bottom: 1px solid var(--line-soft);
     }}
     .section-head h2 {{
@@ -893,24 +949,35 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     .section-head .ico {{ color: var(--accent); }}
     .section-head .more {{ font-size: 13px; color: var(--muted); }}
     .section-head .more:hover {{ color: var(--accent); }}
+    .section-head .section-meta {{
+      font-size: 12.5px; color: var(--muted-soft);
+      font-family: var(--serif); font-style: italic;
+    }}
+
+    /* stats-card 已合并入默认 .stats 样式，保留 class 兼容 */
+    .stats.stats-card {{ gap: 16px; }}
+    .stats.stats-card .stat {{ padding: 22px 24px; }}
 
     /* === Stats === */
     .stats {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--line);
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
       margin-bottom: 22px;
     }}
     .stat {{
       background: var(--panel);
-      padding: 16px 18px;
-      transition: background 0.2s, transform 0.2s;
+      border: 1px solid var(--line-soft);
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
     }}
-    .stat:hover {{ background: var(--bg-paper); transform: scale(1.02); }}
+    .stat:hover {{
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent);
+    }}
     .stat strong {{
       display: block;
       font-family: var(--serif);
@@ -988,10 +1055,15 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       gap: 18px;
       padding: 18px 22px;
       border-top: 1px solid var(--line-soft);
-      transition: background 0.15s, padding-left 0.2s;
+      border-left: 3px solid transparent;
+      transition: background 0.18s, padding-left 0.2s, border-left-color 0.2s;
     }}
     .result:first-child {{ border-top: 0; }}
-    .result:hover {{ background: var(--bg-paper); padding-left: 26px; }}
+    .result:hover {{
+      background: var(--bg-paper);
+      padding-left: 24px;
+      border-left-color: var(--accent);
+    }}
     .result h2 {{
       margin: 0 0 6px;
       font-size: 16.5px; line-height: 1.4;
@@ -1057,28 +1129,42 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 18px;
       align-items: start;
-      padding: 22px 24px;
+      padding: 22px 24px 22px 28px;
       border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
       border-radius: 10px;
       background: var(--panel);
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       scroll-margin-top: 82px;
       box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.25s;
     }}
-    .doc-head h1 {{ margin: 0 0 6px; font-size: 22px; line-height: 1.35; font-family: var(--serif); }}
+    .doc-head:hover {{ box-shadow: var(--shadow-md); }}
+    .doc-head h1 {{
+      margin: 0 0 8px;
+      font-size: 23px; line-height: 1.35;
+      font-family: var(--serif);
+      letter-spacing: 0.01em;
+    }}
     .doc-tools {{ display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }}
     .button {{
       display: inline-flex; align-items: center; gap: 5px;
       min-height: 34px;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 8px;
       background: var(--panel);
       color: var(--text);
       font: 13px var(--sans);
-      transition: all 0.12s;
+      transition: all 0.18s;
     }}
-    .button:hover {{ border-color: var(--accent); color: var(--accent); text-decoration: none; }}
+    .button:hover {{
+      border-color: var(--accent);
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }}
     .button.active {{
       border-color: var(--accent);
       color: var(--accent-deep);
@@ -1089,11 +1175,13 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 0 0 18px;
-      padding: 12px 14px;
+      align-items: center;
+      margin: 0 0 20px;
+      padding: 12px 16px;
       background: var(--panel-warm);
       border: 1px solid var(--line-soft);
-      border-radius: 8px;
+      border-radius: 10px;
+      box-shadow: var(--shadow-sm);
     }}
     .reader {{
       display: grid;
@@ -1400,16 +1488,20 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
 
     /* === 面包屑 === */
     .breadcrumb {{
-      display: flex; align-items: center; flex-wrap: wrap;
+      display: inline-flex; align-items: center; flex-wrap: wrap;
       gap: 8px;
-      font-size: 13px; color: var(--muted);
-      margin-bottom: 16px;
+      font-size: 12.5px; color: var(--muted);
+      margin-bottom: 18px;
+      padding: 6px 14px;
+      background: var(--panel-warm);
+      border: 1px solid var(--line-soft);
+      border-radius: 999px;
       font-family: var(--serif);
     }}
-    .breadcrumb a {{ color: var(--muted); }}
-    .breadcrumb a:hover {{ color: var(--accent); }}
-    .breadcrumb .sep {{ color: var(--muted-soft); }}
-    .breadcrumb .current {{ color: var(--text); }}
+    .breadcrumb a {{ color: var(--muted); transition: color 0.15s; }}
+    .breadcrumb a:hover {{ color: var(--accent-deep); text-decoration: none; }}
+    .breadcrumb .sep {{ color: var(--muted-soft); font-weight: 300; }}
+    .breadcrumb .current {{ color: var(--text); font-weight: 500; }}
 
     /* === 术语表 === */
     .glossary-letters {{
@@ -1471,8 +1563,13 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       .reader {{ grid-template-columns: 1fr; }}
       .hero {{ padding: 24px 22px; }}
       .hero h1 {{ font-size: 24px; }}
-      .footer-inner {{ grid-template-columns: 1fr; gap: 18px; }}
-      .footer-meta {{ text-align: left; }}
+      .hero.hero-compact {{ padding: 28px 22px 24px; }}
+      .hero.hero-compact h1 {{ font-size: 22px; }}
+      .hero-eyebrow {{ font-size: 11px; letter-spacing: 0.18em; margin-bottom: 12px; }}
+      .hero.hero-compact .hero-sub {{ font-size: 13.5px; line-height: 1.7; }}
+      .hero.hero-compact .hero-sub br {{ display: none; }}
+      .footer-top {{ flex-direction: column; align-items: flex-start; gap: 16px; }}
+      .footer-links {{ width: 100%; }}
     }}
     @media (max-width: 540px) {{
       .stats {{ grid-template-columns: 1fr 1fr; }}
@@ -1488,10 +1585,16 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     }}
     .footer-inner {{
       max-width: 1320px; margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 32px;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }}
+    .footer-top {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
     }}
     .footer-title {{
       font-family: var(--serif); font-weight: 600;
@@ -1503,17 +1606,28 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       line-height: 1.6;
     }}
     .footer-links {{
-      display: flex; flex-direction: column; gap: 6px;
+      display: flex; flex-direction: row; flex-wrap: wrap;
+      gap: 8px 4px; align-items: center;
     }}
     .footer-links a {{
-      font-size: 13px; color: var(--muted);
-      transition: color 0.15s;
+      font-size: 13.5px; color: var(--text);
+      font-weight: 500;
+      padding: 4px 14px;
+      border-radius: 999px;
+      transition: color 0.15s, background 0.15s;
     }}
-    .footer-links a:hover {{ color: var(--accent); text-decoration: none; }}
+    .footer-links a:hover {{
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+      text-decoration: none;
+    }}
     .footer-meta {{
-      font-size: 11.5px; color: var(--muted-soft);
+      font-size: 12px; color: var(--muted-soft);
       line-height: 1.7;
-      text-align: right;
+      text-align: left;
+      border-top: 1px solid var(--line-soft);
+      padding-top: 16px;
+      margin-top: 4px;
     }}
   </style>
 </head>
@@ -1535,16 +1649,18 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
   <main>{body}</main>
   <footer class="site-footer">
     <div class="footer-inner">
-      <div class="footer-brand">
-        <span class="footer-title">民盟历史文献研究库</span>
-        <span class="footer-desc">系统整理 1941—1950 年中国民主同盟海外一手档案 · 五源多视角同代史料体系</span>
-      </div>
-      <div class="footer-links">
-        <a href="/">首页</a>
-        <a href="/docs">全部文档</a>
-        <a href="/people">人物索引</a>
-        <a href="/timeline">文献年表</a>
-        <a href="/dashboard">研究仪表盘</a>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-title">民盟历史文献研究库</span>
+          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟海外一手档案 · 五源多视角同代史料体系</span>
+        </div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/docs">全部文档</a>
+          <a href="/people">人物索引</a>
+          <a href="/timeline">文献年表</a>
+          <a href="/dashboard">研究仪表盘</a>
+        </div>
       </div>
       <div class="footer-meta">
         数据来源：FRUS · Wilson Center · CIA FOIA<br>
@@ -2493,27 +2609,34 @@ def home() -> bytes:
         cov_pct = (n_human * 100 // n_zh) if n_zh else 0
 
         body = f"""
-<section class="hero">
+<section class="hero hero-compact">
+  <div class="hero-eyebrow">1941 — 1950 · 海外一手档案</div>
   <h1>海外民盟历史文献研究库</h1>
-  <p class="hero-sub">本研究库聚焦 1941—1950 年<strong>中国民主同盟</strong>筹建、参政、重大转折与香港复盘时期之海外一手档案系统整理。
-  以美国国务院《美国对外关系文件集》（<em>FRUS</em>）为骨干，整合美国中央情报局解密文件库（CIA Reading Room）、
-  威尔逊国际学者中心数字档案（Wilson Center Digital Archive）、斯坦福大学胡佛档案馆现场调档卷宗（Hoover Institution Archives）
-  及 HathiTrust / Internet Archive 所收当时香港英文报刊五大海外档案源，构建多视角、跨语种、可交叉印证的同代史料体系，
-  并按学术规范完成抓取、清洗、校译、引用著录与事件叙事整合，输出可供学术研究引用的专题成果。</p>
-  <div class="hero-meta">
+  <p class="hero-sub">系统整理中国民主同盟筹建、参政与重大转折时期的<strong>海外一手档案</strong>，<br>汇聚 FRUS、Wilson、CIA、Hoover、HathiTrust 五源同代史料。</p>
+  <div class="hero-chips">
     <span><b>{n_docs}</b> 篇文档</span>
-    <span><b>{n_pages}</b> 个页面/段落</span>
-    <span><b>{n_zh}</b> 个中文译文</span>
-    <span><b>{cov_pct}%</b> 人工复核覆盖率</span>
-    <span><b>{n_events}</b> 条事件线索</span>
+    <span><b>{n_zh}</b> 条中文译文</span>
+    <span><b>{cov_pct}%</b> 人工复核</span>
   </div>
 </section>
 
 <div class="section-head">
-  <h2><svg class="ico"><use href="#i-globe"/></svg>海外档案平台</h2>
-  <a class="more" href="/dashboard">研究进度仪表盘 →</a>
+  <h2><svg class="ico"><use href="#i-globe"/></svg>海外研究平台</h2>
+  <span class="section-meta">五源多视角 · 持续更新</span>
 </div>
 {platforms_html_block}
+
+<div class="section-head" style="margin-top:48px;">
+  <h2><svg class="ico"><use href="#i-edit"/></svg>海外平台档案研究仪表盘</h2>
+  <a class="more" href="/dashboard">查看完整仪表盘 →</a>
+</div>
+<section class="stats stats-card">
+  <div class="stat"><strong>{n_docs}</strong><span>篇源文档</span></div>
+  <div class="stat"><strong>{n_pages}</strong><span>个页面 / 段落</span></div>
+  <div class="stat"><strong>{n_zh}</strong><span>中文译文片段</span></div>
+  <div class="stat"><strong>{cov_pct}%</strong><span>人工复核率</span></div>
+  <div class="stat"><strong>{n_events}</strong><span>条事件线索</span></div>
+</section>
 """
 
 
