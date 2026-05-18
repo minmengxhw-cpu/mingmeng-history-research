@@ -274,6 +274,10 @@ EXACT_TITLE_ZH = {
     "On the People's Democratic Dictatorship: In Commemoration of the Twenty-eighth Anniversary of the Communist Party of China": "论人民民主专政：纪念中国共产党二十八周年",
     "On the People's Democratic Dictatorship: In Commemoration of the Twenty-eighth Anniversary of the Communist Party of China, June 30, 1949": "论人民民主专政：纪念中国共产党二十八周年，1949年6月30日",
     "Report, Peng Dehuai to Mao Zedong and the CCP Central Committee (Excerpt)": "彭德怀致毛泽东及中共中央报告（节选）",
+    
+    # --- Hoover Institution ---
+    "Carsun Chang to Albert C. Wedemeyer · 1947-07-26": "张君劢致魏德迈将军 · 1947-07-26",
+    "Carsun Chang to George C. Marshall · 1947-11-01": "张君劢致马歇尔将军 · 1947-11-01",
 }
 
 
