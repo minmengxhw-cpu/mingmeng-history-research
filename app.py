@@ -207,7 +207,27 @@ EXACT_TITLE_ZH = {
     "COMMUNIST CHINA'S POWER POTENTIAL THROUGH 1957": "至1957年共产党中国的力量潜力",
     "COMMUNIST FIRMS, AND PARTY AND MILITARY ORGANIZATIONS IN FOOCHOW": "福州的共产党企业与党军组织",
     # --- Wilson Center ---
-    "On the People's Democratic Dictatorship: In Commemoration of the Twenty-eighth Anniversary of the Communist Party of China, June 30, 1949": "论人民民主专政——纪念中国共产党二十八周年，1949年6月30日",
+    "Democratic Parties and Groups in the Preparatory Committee to Convene a Political Consultative Conference": "召开政治协商会议筹备委员会中的民主党派与团体",
+    "Record of Conversation between Soviet Ambassador in China Apollon Petrov and Zhou Enlai and Wang Ruofei": "苏联驻华大使彼得罗夫与周恩来、王若飞会谈记录",
+    "Record of Conversation between Soviet Ambassador in China Apollon Petrov and Mao Zedong, Zhou Enlai and Wang Ruofei": "苏联驻华大使彼得罗夫与毛泽东、周恩来、王若飞会谈记录",
+    "Anastas Mikoyan's Recollections of his Trip to China": "米高扬中国之行回忆录",
+    "Memorandum of Conversation between Anastas Mikoyan and Mao Zedong": "米高扬与毛泽东会谈备忘录",
+    "Cable, Mao Zedong [via Kovalev] to Stalin": "毛泽东[经科瓦廖夫]致斯大林密电",
+    "Cable, Filippov [Stalin] to Mao Zedong [via Kovalev]": "菲利波夫[斯大林]致毛泽东[经科瓦廖夫]密电",
+    "Kovalev reports to Stalin advice on running a communist government": "科瓦廖夫向斯大林报告关于运作共产主义政府的建议",
+    "Memorandum of Conversation between Liu Shaoqi and Stalin": "刘少奇与斯大林会谈备忘录",
+    "Liu Shaoqi about his meeting with Stalin": "刘少奇关于其与斯大林会谈的报告",
+    "Kovalev reports to Stalin on conversation with Mao Zedong": "科瓦廖夫向斯大林报告与毛泽东的会谈",
+    "Telegram Mao Zedong to Liu Shaoqi about meeting with Stalin": "毛泽东致刘少奇关于与斯大林会面的密电",
+    "Record of conversation between Stalin and Mao Zedong": "斯大林与毛泽东会谈记录",
+    "Roshchin Memorandum of Conversation with Prime Minister and Foreign Minister Zhou Enlai": "罗申与周恩来总理兼外长会谈备忘录",
+    "Cable, Mao Zedong to Stalin": "毛泽东致斯大林密电",
+    "Cable, Terebin to Stalin [via Kuznetsov]": "特列宾致斯大林[经库兹涅佐夫]密电",
+    "Report from the Head of the Delegation of the CC of the Chinese Communist Party, 'The Current State of the Chinese Revolution'": "中共代表团团长报告《中国革命现状》",
+    "Report from the Head of the Delegation of the Chinese Communist Party CC to Stalin": "中共代表团团长致斯大林报告",
+    "Report, Kovalev to Stalin": "科瓦廖夫致斯大林报告",
+    "On the People's Democratic Dictatorship: In Commemoration of the Twenty-eighth Anniversary of the Communist Party of China": "论人民民主专政：纪念中国共产党二十八周年",
+    "On the People's Democratic Dictatorship: In Commemoration of the Twenty-eighth Anniversary of the Communist Party of China, June 30, 1949": "论人民民主专政：纪念中国共产党二十八周年，1949年6月30日",
     "Report, Peng Dehuai to Mao Zedong and the CCP Central Committee (Excerpt)": "彭德怀致毛泽东及中共中央报告（节选）",
 }
 
@@ -1497,11 +1517,11 @@ PLATFORM_META = {
         "perspective": "美方驻华外交官视角 —— 大使馆/领事馆给国务院的报告 + 马歇尔来华使团与民盟领袖的会谈记录",
         "coverage": "1941.3 民盟成立 — 1947.10 民盟被取缔 — 1949.10 新中国成立 — 1950 内战收尾",
         "highlights": [
-            '<a href="/search?q=Marshall+%E4%BC%9A%E8%B0%88+%E5%BC%A0%E6%BE%9C+%E7%BD%97%E9%9A%86%E5%9F%BA">马歇尔与张澜、罗隆基、张君劢、周恩来等的逐字会谈记录</a>',
-            '<a href="/search?q=Stuart+Democratic+League+1947">司徒雷登大使关于民盟政治处境的连续报告（特别是 1947 取缔前后）</a>',
-            '<a href="/search?q=Lo+Lung-chi+October+28+1947+memorandum">罗隆基 1947.10.28 在使馆软禁期间的亲历对话备忘录（page 316）</a>',
-            '<a href="/search?q=Carsun+Chang+Marshall+November+1+1947">张君劢 1947.11.1 致马歇尔函（page 333）—— 民盟取缔后第 5 天的民盟人士陈情</a>',
-            '<a href="/search?q=Democratic+League+PCC+representatives+statement">12 位民盟政协代表 1946 联名声明（page 228）</a>',
+            '<a href="/search?q=Marshall+%E4%BC%9A%E8%B0%88+%E5%BC%A0%E6%BE%9C+%E7%BD%97%E9%9A%86%E5%9F%BA&platform=frus">马歇尔与张澜、罗隆基、张君劢、周恩来等的逐字会谈记录</a>',
+            '<a href="/search?q=Stuart+Democratic+League+1947&platform=frus">司徒雷登大使关于民盟政治处境的连续报告（特别是 1947 取缔前后）</a>',
+            '<a href="/search?q=Lo+Lung-chi+October+28+1947+memorandum&platform=frus">罗隆基 1947.10.28 在使馆软禁期间的亲历对话备忘录（page 316）</a>',
+            '<a href="/search?q=Carsun+Chang+Marshall+November+1+1947&platform=frus">张君劢 1947.11.1 致马歇尔函（page 333）—— 民盟取缔后第 5 天的民盟人士陈情</a>',
+            '<a href="/search?q=Democratic+League+PCC+representatives+statement&platform=frus">12 位民盟政协代表 1946 联名声明（page 228）</a>',
         ],
         "status": None,
         "status_class": "ok",
@@ -1516,12 +1536,12 @@ PLATFORM_META = {
         "perspective": "苏联档案 + 中共内部档案 + 东欧档案视角 —— FRUS 美方视角不可替代的「另一面」",
         "coverage": "1945-1950 中共与苏联高层互动 / 1949 米高扬西柏坡密访 / 1949.7 刘少奇访苏 / 苏联驻华大使彼得罗夫、罗申会谈记录",
         "highlights": [
-            '<a href="/search?q=Mikoyan">米高扬访华回忆录（1949.1.31 - 2.7 西柏坡密访）⭐⭐⭐</a>',
-            '<a href="/search?q=Liu+Shaoqi+Stalin">刘少奇 ↔ 斯大林会谈备忘录（1949 年 7 月访苏，中苏分工框架）⭐⭐⭐</a>',
-            '<a href="/search?q=Democratic+parties+CPPCC">民主党派与政协预备委员会（苏联档案分类下的民盟代表人物名单）</a>',
-            '<a href="/search?q=Petrov">彼得罗夫大使 ↔ 周恩来 / 毛泽东 / 王若飞 多次会谈</a>',
-            '<a href="/search?q=Mao+Stalin+Kovalev">毛泽东、刘少奇、科瓦廖夫、斯大林之间 1949 年建政前后密电</a>',
-            '<a href="/search?q=Roshchin">罗申大使 ↔ 周恩来 1949.11.10 会谈记录</a>',
+            '<a href="/search?q=Mikoyan&platform=wilson">米高扬访华回忆录（1949.1.31 - 2.7 西柏坡密访）⭐⭐⭐</a>',
+            '<a href="/search?q=Liu+Shaoqi+Stalin&platform=wilson">刘少奇 ↔ 斯大林会谈备忘录（1949 年 7 月访苏，中苏分工框架）⭐⭐⭐</a>',
+            '<a href="/search?q=Democratic+parties+CPPCC&platform=wilson">民主党派与政协预备委员会（苏联档案分类下的民盟代表人物名单）</a>',
+            '<a href="/search?q=Petrov&platform=wilson">彼得罗夫大使 ↔ 周恩来 / 毛泽东 / 王若飞 多次会谈</a>',
+            '<a href="/search?q=Mao+Stalin+Kovalev&platform=wilson">毛泽东、刘少奇、科瓦廖夫、斯大林之间 1949 年建政前后密电</a>',
+            '<a href="/search?q=Roshchin&platform=wilson">罗申大使 ↔ 周恩来 1949.11.10 会谈记录</a>',
         ],
         "status": None,
         "status_class": "ok",
@@ -1907,10 +1927,14 @@ def format_yearmonth(ym: str) -> str:
     return f"{y} 年 {int(m)} 月"
 
 
-def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50) -> list[sqlite3.Row]:
+def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50, platform: str = None) -> list[sqlite3.Row]:
     if not query.strip():
         return []
-    base = """
+    
+    where_extra = " AND COALESCE(documents.source_platform, 'frus') = ? " if platform else ""
+    params_base = (query, platform, limit) if platform else (query, limit)
+    
+    base = f"""
         SELECT
             pages.id AS page_id,
             documents.volume_id,
@@ -1933,17 +1957,20 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50) -> list[
         LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
         WHERE page_fts MATCH ?
           AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+          {where_extra}
         LIMIT ?
     """
     seen: set[int] = set()
     out: list[sqlite3.Row] = []
     try:
-        for row in c.execute(base, (query, limit)):
+        for row in c.execute(base, params_base):
             out.append(row)
             seen.add(row["page_id"])
     except sqlite3.OperationalError:
         like = f"%{query}%"
-        fallback = """
+        where_extra_fb = " AND COALESCE(documents.source_platform, 'frus') = ? " if platform else ""
+        params_fb = (like, like, like, platform, limit) if platform else (like, like, like, limit)
+        fallback = f"""
             SELECT
                 pages.id AS page_id,
                 documents.volume_id,
@@ -2640,11 +2667,14 @@ def home() -> bytes:
     return layout("首页", body, active_path="/")
 
 
-def search(query: str) -> bytes:
+def search(query: str, platform: str = None) -> bytes:
     with conn() as c:
-        rows = rows_for_search(c, query)
+        rows = rows_for_search(c, query, platform=platform)
         body = stats_html(c)
-        body += f'<h1 style="font-size:20px;margin:0 0 12px;">搜索：{h(query)}</h1>'
+        if platform:
+            body += f'<h1 style="font-size:20px;margin:0 0 12px;">搜索：{h(query)} <span style="font-size:14px;color:var(--muted);">[{h(platform)}]</span></h1>'
+        else:
+            body += f'<h1 style="font-size:20px;margin:0 0 12px;">搜索：{h(query)}</h1>'
         if rows:
             body += '<section class="result-list">' + "".join(result_html(row) for row in rows) + "</section>"
         else:
@@ -4917,7 +4947,7 @@ class Handler(BaseHTTPRequestHandler):
         elif parsed.path == "/dashboard":
             payload = dashboard()
         elif parsed.path == "/search":
-            payload = search(qs.get("q", [""])[0])
+            payload = search(qs.get("q", [""])[0], qs.get("platform", [""])[0] if "platform" in qs else None)
         elif parsed.path == "/docs":
             payload = docs(qs.get("grade", [""])[0], qs.get("translation", [""])[0])
         elif parsed.path == "/glossary":
