@@ -565,7 +565,7 @@ ISSUE_LABELS = {
 
 
 # 人物档案数据从 person_archive.py 独立模块加载（AI 内部研究参考）
-# 本研究平台只收录国外一手原始档案；人物档案仅用于档案翻译人名标准化和上下文理解
+# 本研究平台只收录中国大陆境外一手原始档案；人物档案仅用于档案翻译人名标准化和上下文理解
 from person_archive import PEOPLE, PERSON_GROUPS  # noqa: E402
 
 # 关键历史事件骨架（AI 内部研究参考）
@@ -1649,7 +1649,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       <div class="footer-top">
         <div class="footer-brand">
           <span class="footer-title">民盟历史文献研究库</span>
-          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟海外一手档案 · 五源多视角同代史料体系</span>
+          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟中国大陆境外一手档案 · 五源多视角同代史料体系</span>
         </div>
         <div class="footer-links">
           <a href="/">首页</a>
@@ -1821,7 +1821,7 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
 
 
 def source_page(platform_key: str) -> bytes:
-    """单个海外档案平台的专属栏目页。"""
+    """单个境外档案平台的专属栏目页。"""
     meta = PLATFORM_META.get(platform_key)
     if not meta:
         return layout("未知平台", '<div class="notice">未知的平台。可选：' + " / ".join(PLATFORM_META.keys()) + "</div>")
@@ -1853,7 +1853,7 @@ def source_page(platform_key: str) -> bytes:
     else:
         status_text = "待开发"
 
-    body = breadcrumb_html([("/", "首页"), (None, f"海外档案平台 · {meta['name']}")]) + f"""
+    body = breadcrumb_html([("/", "首页"), (None, f"境外档案平台 · {meta['name']}")]) + f"""
 <section class="hero" style="padding:32px 36px;">
   <h1>{h(meta['name'])} <span style="font-size:18px;color:var(--muted);font-weight:400;">· {h(meta['cn_name'])}</span></h1>
   <p class="hero-sub">{h(meta['intro'])}</p>
@@ -1904,7 +1904,7 @@ def source_page(platform_key: str) -> bytes:
   <p style="margin:0;font-family:var(--serif);line-height:1.85;">{h(meta.get("todo_note", "暂无说明。"))}</p>
 </section>
 '''
-    return layout(f"{meta['name']} · 海外档案平台", body)
+    return layout(f"{meta['name']} · 境外档案平台", body)
 
 
 def stats_html(c: sqlite3.Connection) -> str:
@@ -2608,7 +2608,7 @@ def home() -> bytes:
         body = f"""
 <section class="hero hero-compact">
   <h1>海外民盟历史文献研究库</h1>
-  <p class="hero-sub">系统整理中国民主同盟筹建、参政与重大转折时期的<strong>海外一手档案</strong>，汇聚 FRUS、Wilson、CIA、Hoover、HathiTrust 五源同代史料。</p>
+  <p class="hero-sub">系统整理中国民主同盟筹建、参政与重大转折时期的<strong>中国大陆境外一手档案</strong>，汇聚 FRUS、Wilson、CIA、Hoover、HathiTrust 五源同代史料。</p>
   <div class="hero-chips">
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_zh}</b> 条中文译文</span>
@@ -3399,7 +3399,7 @@ def people() -> bytes:
       点击姓名查看该人物所有原文、译文、来源链接和事件年表。
     </div>
     <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
-      本平台只收录 <b>国外一手原始档案</b>（FRUS / Wilson / CIA / Hoover / NARA / HathiTrust）。
+      本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust，扩展中：Kew / 国史馆 / 近史所）。
       下方人物索引是档案翻译过程中用于规范人名、提供历史上下文的内部研究编排，<b>不构成资料库收录内容</b>。
     </div>
   </div>
@@ -3544,13 +3544,13 @@ def person_page(slug: str) -> bytes:
     <div style="font-family:var(--serif);font-size:16px;line-height:1.8;color:var(--text);">{h(profile_text)}</div>
     <div class="meta" style="margin-top:10px;font-size:12.5px;color:var(--muted-soft);">
       本卡为内部研究编排参考，便于理解下方档案译文的人物上下文；
-      本平台资料库本身只收录 <b>国外一手原始档案</b>（FRUS / Wilson / CIA / Hoover / NARA / HathiTrust）。
+      本平台资料库本身只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust，扩展中：Kew / 国史馆 / 近史所）。
     </div>
   </div>
 </section>
 """
     if not rows:
-        body += '<div class="notice">FRUS 档案中暂无命中。待 Wilson Center / CIA FOIA / NARA 等海外档案补充后会自动出现。</div>'
+        body += '<div class="notice">FRUS 档案中暂无命中。待 Wilson Center / CIA FOIA / Kew 等境外档案补充后会自动出现。</div>'
     else:
         body += '<section class="result-list">'
         for row in rows:
@@ -4754,7 +4754,7 @@ def key_events_index() -> bytes:
       点击事件名称查看简介、关联人物和所有 FRUS 命中片段。
     </div>
     <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
-      本平台只收录 <b>国外一手原始档案</b>。
+      本平台只收录 <b>中国大陆境外一手原始档案</b>。
       事件清单与时间标注是档案聚合的内部研究编排，<b>不构成资料库收录内容</b>。
     </div>
   </div>
@@ -4919,7 +4919,7 @@ def key_event_page(slug: str, view: str = "mixed") -> bytes:
     <div style="font-family:var(--serif);font-size:16px;line-height:1.9;color:var(--text);">{h(evt.get("summary", ""))}</div>
     {('<div style="margin-top:14px;"><div class="meta" style="font-size:12.5px;color:var(--muted);margin-bottom:6px;">关联人物：</div><div class="tagline">' + related_persons_html + '</div></div>') if related_persons_html else ''}
     <div class="meta" style="margin-top:12px;font-size:12.5px;color:var(--muted-soft);">
-      本卡为内部研究编排参考；下方 FRUS 命中片段为本平台收录的国外一手档案原文与中译。
+      本卡为内部研究编排参考；下方 FRUS 命中片段为本平台收录的中国大陆境外一手档案原文与中译。
     </div>
   </div>
 </section>
@@ -4928,7 +4928,7 @@ def key_event_page(slug: str, view: str = "mixed") -> bytes:
     if not rows:
         body += (
             '<div class="notice">FRUS 档案中暂无与本事件直接命中的片段。'
-            '待 Wilson Center / CIA FOIA / NARA 等海外档案补充后会自动出现。</div>'
+            '待 Wilson Center / CIA FOIA / Kew 等境外档案补充后会自动出现。</div>'
         )
     else:
         # 渲染上限：宽搜事件（如政协、民盟成立）容易命中数百段，单页渲染过大
