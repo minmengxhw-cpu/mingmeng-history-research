@@ -862,7 +862,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     }}
     .platform-card {{
       position: relative;
-      display: block;
+      display: flex; flex-direction: column;
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 10px;
@@ -895,7 +895,8 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     .platform-card .pstatus {{
       display: inline-flex; align-items: center; gap: 4px;
       padding: 3px 9px; border-radius: 4px;
-      font-size: 11.5px; font-weight: 500; margin-top: 12px;
+      font-size: 11.5px; font-weight: 500; margin-top: auto;
+      align-self: flex-start;
       letter-spacing: 0.02em;
     }}
     .platform-card .pstatus.ok {{
@@ -1496,11 +1497,11 @@ PLATFORM_META = {
         "perspective": "美方驻华外交官视角 —— 大使馆/领事馆给国务院的报告 + 马歇尔来华使团与民盟领袖的会谈记录",
         "coverage": "1941.3 民盟成立 — 1947.10 民盟被取缔 — 1949.10 新中国成立 — 1950 内战收尾",
         "highlights": [
-            "马歇尔与张澜、罗隆基、张君劢、周恩来等的逐字会谈记录",
-            "司徒雷登大使关于民盟政治处境的连续报告（特别是 1947 取缔前后）",
-            "罗隆基 1947.10.28 在使馆软禁期间的亲历对话备忘录（page 316）",
-            "张君劢 1947.11.1 致马歇尔函（page 333）—— 民盟取缔后第 5 天的民盟人士陈情",
-            "12 位民盟政协代表 1946 联名声明（page 228）",
+            '<a href="/search?q=Marshall+%E4%BC%9A%E8%B0%88+%E5%BC%A0%E6%BE%9C+%E7%BD%97%E9%9A%86%E5%9F%BA">马歇尔与张澜、罗隆基、张君劢、周恩来等的逐字会谈记录</a>',
+            '<a href="/search?q=Stuart+Democratic+League+1947">司徒雷登大使关于民盟政治处境的连续报告（特别是 1947 取缔前后）</a>',
+            '<a href="/search?q=Lo+Lung-chi+October+28+1947+memorandum">罗隆基 1947.10.28 在使馆软禁期间的亲历对话备忘录（page 316）</a>',
+            '<a href="/search?q=Carsun+Chang+Marshall+November+1+1947">张君劢 1947.11.1 致马歇尔函（page 333）—— 民盟取缔后第 5 天的民盟人士陈情</a>',
+            '<a href="/search?q=Democratic+League+PCC+representatives+statement">12 位民盟政协代表 1946 联名声明（page 228）</a>',
         ],
         "status": None,
         "status_class": "ok",
@@ -1515,12 +1516,12 @@ PLATFORM_META = {
         "perspective": "苏联档案 + 中共内部档案 + 东欧档案视角 —— FRUS 美方视角不可替代的「另一面」",
         "coverage": "1945-1950 中共与苏联高层互动 / 1949 米高扬西柏坡密访 / 1949.7 刘少奇访苏 / 苏联驻华大使彼得罗夫、罗申会谈记录",
         "highlights": [
-            "米高扬访华回忆录（1949.1.31 - 2.7 西柏坡密访）⭐⭐⭐",
-            "刘少奇 ↔ 斯大林会谈备忘录（1949 年 7 月访苏，中苏分工框架）⭐⭐⭐",
-            "民主党派与政协预备委员会（苏联档案分类下的民盟代表人物名单）",
-            "彼得罗夫大使 ↔ 周恩来 / 毛泽东 / 王若飞 多次会谈",
-            "毛泽东、刘少奇、科瓦廖夫、斯大林之间 1949 年建政前后密电",
-            "罗申大使 ↔ 周恩来 1949.11.10 会谈记录",
+            '<a href="/search?q=Mikoyan">米高扬访华回忆录（1949.1.31 - 2.7 西柏坡密访）⭐⭐⭐</a>',
+            '<a href="/search?q=Liu+Shaoqi+Stalin">刘少奇 ↔ 斯大林会谈备忘录（1949 年 7 月访苏，中苏分工框架）⭐⭐⭐</a>',
+            '<a href="/search?q=Democratic+parties+CPPCC">民主党派与政协预备委员会（苏联档案分类下的民盟代表人物名单）</a>',
+            '<a href="/search?q=Petrov">彼得罗夫大使 ↔ 周恩来 / 毛泽东 / 王若飞 多次会谈</a>',
+            '<a href="/search?q=Mao+Stalin+Kovalev">毛泽东、刘少奇、科瓦廖夫、斯大林之间 1949 年建政前后密电</a>',
+            '<a href="/search?q=Roshchin">罗申大使 ↔ 周恩来 1949.11.10 会谈记录</a>',
         ],
         "status": None,
         "status_class": "ok",
@@ -1536,12 +1537,12 @@ PLATFORM_META = {
         "perspective": "美方情报系统视角 —— 与 FRUS 外交部门视角形成互补",
         "coverage": "1946-1954 民盟相关档案 21 篇（核心专题）",
         "highlights": [
-            "1949-05-23 CHINA DEMOCRATIC LEAGUE MEMBERS' ESCAPE FROM SHANGHAI（民盟成员上海撤离香港）",
-            "1949-12-20 LO LUNG-CHI（罗隆基专档）",
-            "1950-04-04 CHANG LAN（张澜专档）",
-            "1950-07-12 LEADING MEMBERS OF THE CHINA DEMOCRATIC LEAGUE（民盟领导成员名单）",
-            "1950-11-09 ROLE OF NON-COMMUNIST POLITICAL PARTIES IN PEIPING（第三方面政党在北平的作用）",
-            "1954-09-16 ROSTER OF PRESIDIUM OF FIRST CONGRESS（一届人大主席团名单）",
+            '<a href="/doc/cia-meng:CIA-RDP82-00457R002800130003-8">1949-05-23 CHINA DEMOCRATIC LEAGUE MEMBERS\' ESCAPE FROM SHANGHAI（民盟成员上海撤离香港）</a>',
+            '<a href="/doc/cia-meng:cia-readingroom-document-cia-rdp82-00457r004000340003-1">1949-12-20 LO LUNG-CHI（罗隆基专档）</a>',
+            '<a href="/doc/cia-meng:CIA-RDP82-00457R004600450010-5">1950-04-04 CHANG LAN（张澜专档）</a>',
+            '<a href="/doc/cia-meng:CIA-RDP82-00457R005200480001-5">1950-07-12 LEADING MEMBERS OF THE CHINA DEMOCRATIC LEAGUE（民盟领导成员名单）</a>',
+            '<a href="/doc/cia-meng:cia-readingroom-document-cia-rdp82-00457r006100780010-2">1950-11-09 ROLE OF NON-COMMUNIST POLITICAL PARTIES IN PEIPING（第三方面政党在北平的作用）</a>',
+            '<a href="/doc/cia-meng:cia-readingroom-document-cia-rdp61s00527a000200010065-4">1954-09-16 ROSTER OF PRESIDIUM OF FIRST CONGRESS（一届人大主席团名单）</a>',
         ],
         "status": None,
         "status_class": "ok",
@@ -1557,12 +1558,12 @@ PLATFORM_META = {
         "perspective": "人物个人卷宗视角 —— 私人通信、未刊文稿、信件原件等无法从公网获得的一手实物",
         "coverage": "张君劢档案（Carsun Chang Papers, 1946-1962, 2 oversize boxes）—— 联合政府前景、军事改编协议、与第三方面联络通信等",
         "highlights": [
-            "Carsun Chang Papers（张君劢档案）· 1946-1962 · 2 oversize boxes · 现场调档实物",
-            "民盟筹建期、政协会议期间张君劢与第三方面人物私人通信",
-            "1946-1947 联合政府讨论手稿与未刊文献",
+            '<a href="/search?q=Carsun+Chang+Papers">Carsun Chang Papers（张君劢档案）· 1946-1962 · 2 oversize boxes · 现场调档实物</a>',
+            '<a href="/search?q=Carsun+Chang+Marshall">民盟筹建期、政协会议期间张君劢与第三方面人物私人通信</a>',
+            '<a href="/search?q=Carsun+Chang+coalition">1946-1947 联合政府讨论手稿与未刊文献</a>',
         ],
-        "status": "现场调档 · 实物拍照入库",
-        "status_class": "active",
+        "status": None,
+        "status_class": "ok",
         "active": True,
         "todo_note": "区别于公网批量抓取——所有资料系研究者赴斯坦福现场调阅、拍照、整理为 PDF 后入库。下一步：扫描件 OCR + 翻译 + 入库。",
     },
@@ -1575,17 +1576,17 @@ PLATFORM_META = {
         "perspective": "1940s 香港英文报刊视角 —— 民盟从政协参与、国大缺席、被宣布「非法」到响应五一口号、张澜软禁的当时舆论现场记录",
         "coverage": "1946-1949 香港 China Mail / Hong Kong Telegraph 共 42 期，覆盖民盟史关键节点：1946 政协会议 → 1946 国民大会 → 1947 联合政府讨论 → 1947 民盟「非法」 → 1948 民盟香港一届三中全会 → 1948 响应五一口号 → 1949 张澜上海软禁 → 1949 解放战争南下",
         "highlights": [
-            "1946-01-11 / 01-28 / 01-29 / 02-01 / 02-26 China Mail：政协会议召开期间到决议落幕（共 5 期连续追踪）",
-            "1946-08-23 / 10-22 / 10-30 / 11-26 / 11-27 港媒:张澜动向 + 第三方面对国民大会的拒绝立场",
-            "1947-03-10 / 03-24 / 04-14 / 04-26 / 05-26 / 06-05 / 06-19 / 06-27 / 07-31 China Mail：1947 上半年联合政府讨论、政府改组、学生运动到内战全面化（9 期高密度报道）",
-            "1947-08-04 / 08-29 港媒：内战阶段民盟动向",
-            "1947-10-06 / 10-24 / 10-29 / 10-30 / 11-05 China Mail：民盟被宣布「非法」+ 总部解散全过程港媒 5 期系列报道",
-            "1947-12-23 / 12-31 / 1948-01-06 / 02-03 / 03-02 / 03-09 China Mail：民盟解散后到香港一届三中全会前后港媒持续追踪（6 期）",
-            "1948-04-23 / 05-19 / 08-30 / 09-04 / 12-02 China Mail：响应中共「五一口号」+ 解放战争战略反攻期（5 期）",
-            "1949-01-07 / 01-12 / 01-17 / 06-03 / 06-20 港媒：张澜上海软禁期 + 联合政府筹建讨论（5 期）",
+            '<a href="/search?q=China+Mail+PCC">1946-01-11 / 01-28 / 01-29 / 02-01 / 02-26 China Mail：政协会议召开期间到决议落幕（共 5 期连续追踪）</a>',
+            '<a href="/search?q=China+Mail+Chang+Lan">1946-08-23 / 10-22 / 10-30 / 11-26 / 11-27 港媒:张澜动向 + 第三方面对国民大会的拒绝立场</a>',
+            '<a href="/search?q=China+Mail+1947+coalition">1947-03-10 / 03-24 / 04-14 / 04-26 / 05-26 / 06-05 / 06-19 / 06-27 / 07-31 China Mail：1947 上半年联合政府讨论、政府改组、学生运动到内战全面化（9 期高密度报道）</a>',
+            '<a href="/search?q=China+Mail+Civil+War">1947-08-04 / 08-29 港媒：内战阶段民盟动向</a>',
+            '<a href="/search?q=China+Mail+outlaw+Democratic+League">1947-10-06 / 10-24 / 10-29 / 10-30 / 11-05 China Mail：民盟被宣布「非法」+ 总部解散全过程港媒 5 期系列报道</a>',
+            '<a href="/search?q=China+Mail+Hong+Kong+Plenary">1947-12-23 / 12-31 / 1948-01-06 / 02-03 / 03-02 / 03-09 China Mail：民盟解散后到香港一届三中全会前后港媒持续追踪（6 期）</a>',
+            '<a href="/search?q=China+Mail+May+Day">1948-04-23 / 05-19 / 08-30 / 09-04 / 12-02 China Mail：响应中共「五一口号」+ 解放战争战略反攻期（5 期）</a>',
+            '<a href="/search?q=China+Mail+Shanghai+Chang+Lan">1949-01-07 / 01-12 / 01-17 / 06-03 / 06-20 港媒：张澜上海软禁期 + 联合政府筹建讨论（5 期）</a>',
         ],
-        "status": "已上线（42 期港媒 · 1946-1949）",
-        "status_class": "active",
+        "status": None,
+        "status_class": "ok",
         "active": True,
         "todo_note": "",
     },
@@ -1659,7 +1660,16 @@ def source_page(platform_key: str) -> bytes:
         # 文档统计
         n_docs = len(docs_rows)
 
-    highlights_html = "".join(f"<li>{h(item)}</li>" for item in meta.get("highlights", []))
+    highlights_html = "".join(f"<li>{item}</li>" for item in meta.get("highlights", []))
+
+    if meta.get("status") is not None:
+        status_text = meta["status"]
+    elif meta.get("active") and n_docs > 0:
+        status_text = f"已上线 · {n_docs} 篇"
+    elif meta.get("active"):
+        status_text = "已上线"
+    else:
+        status_text = "待开发"
 
     body = breadcrumb_html([("/", "首页"), (None, f"海外档案平台 · {meta['name']}")]) + f"""
 <section class="hero" style="padding:32px 36px;">
@@ -1668,7 +1678,7 @@ def source_page(platform_key: str) -> bytes:
   <div class="hero-meta">
     <span><b>视角</b> {h(meta['perspective'])}</span>
     <span><b>时间覆盖</b> {h(meta['coverage'])}</span>
-    <span><b>状态</b> <span class="pstatus {meta['status_class']}" style="margin-left:4px;">{h(meta['status'])}</span></span>
+    <span><b>状态</b> <span class="pstatus {meta['status_class']}" style="margin-left:4px;">{h(status_text)}</span></span>
   </div>
 </section>
 
@@ -2805,13 +2815,13 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   <div class="meta-card-head">
     <h3><svg class="ico"><use href="#i-quote"/></svg>学术引用</h3>
     <div class="cite-tabs">
-      <button type="button" class="cite-tab active" data-fmt="bibtex">BibTeX</button>
+      <button type="button" class="cite-tab active" data-fmt="gb">GB/T 7714</button>
+      <button type="button" class="cite-tab" data-fmt="bibtex">BibTeX</button>
       <button type="button" class="cite-tab" data-fmt="chicago">Chicago</button>
-      <button type="button" class="cite-tab" data-fmt="gb">GB/T 7714</button>
       <button type="button" class="button cite-copy" id="cite-copy-btn"><svg class="ico"><use href="#i-check"/></svg>复制</button>
     </div>
   </div>
-  <pre class="cite-content" id="cite-content" data-bibtex="{h(citations['bibtex'])}" data-chicago="{h(citations['chicago'])}" data-gb="{h(citations['gb'])}">{h(citations['bibtex'])}</pre>
+  <pre class="cite-content" id="cite-content" data-bibtex="{h(citations['bibtex'])}" data-chicago="{h(citations['chicago'])}" data-gb="{h(citations['gb'])}">{h(citations['gb'])}</pre>
   <div class="meta-card-foot">{meta_card_foot}</div>
 </section>
 
