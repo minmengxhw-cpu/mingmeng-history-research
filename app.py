@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import datetime
 import html
 import sys
 import json
@@ -2654,7 +2655,13 @@ def search(query: str, platform: str = None) -> bytes:
 
 
 def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
-    """生成 BibTeX / Chicago / GB/T 7714 三种引用格式（按 source_platform 分支）"""
+    """生成 GB/T 7714-2015 / BibTeX / Chicago 三种引用格式（按 source_platform 分支）。
+
+    文献类型代码（GB/T 7714-2015）：
+    - G/OL 汇编/在线 → FRUS 等政府汇编出版物
+    - A/OL 档案/在线 → CIA 解密档案、Wilson Center 数字档案、Hoover 卷宗
+    - N/OL 报纸/在线 → HathiTrust 港媒
+    """
     title_zh = translate_title(doc["title"])
     title_en = doc["title"]
     vol = doc["volume_id"] or ""
@@ -2662,6 +2669,7 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
     date = doc["date_guess"] or ""
     url = doc["url"] or ""
     platform = (doc["source_platform"] if "source_platform" in doc.keys() else None) or "frus"
+    today = datetime.date.today().isoformat()  # 引用日期 = 当天
     year = ""
     m = re.search(r"\b(19\d{2}|20\d{2})\b", date)
     if m:
@@ -2671,51 +2679,158 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
         if m:
             year = m.group(1)
 
+    # ============ CIA Records Reading Room 解密档案 ============
     if platform == "cia":
-        # CIA Records Reading Room 解密档案
-        rdp_id = docnum  # 即 archive.org identifier，含 RDP 编号
+        rdp_id = docnum  # archive.org identifier，含 RDP 编号
         bibkey = f"CIA_{rdp_id}".replace(".", "_").replace("-", "_")
         bibtex = (
             f"@misc{{{bibkey},\n"
             f"  title  = {{{title_en}}},\n"
             f"  author = {{Central Intelligence Agency}},\n"
-            f"  howpublished = {{CIA Records Reading Room, declassified report}},\n"
+            f"  howpublished = {{CIA Records Reading Room (declassified), mirrored at Internet Archive}},\n"
             f"  year   = {{{year}}},\n"
-            f"  note   = {{Document ID: {rdp_id}; declassified, mirrored at Internet Archive}},\n"
+            f"  note   = {{Document ID: {rdp_id}}},\n"
             f"  url    = {{{url}}},\n"
-            f"  urldate = {{2026-05-16}}\n"
+            f"  urldate = {{{today}}}\n"
             f"}}"
         )
         chicago = (
             f'Central Intelligence Agency. "{title_en}." Declassified report, {date}. '
-            f'Document ID {rdp_id}. CIA Records Reading Room (mirrored at Internet Archive). {url}.'
+            f'Document ID {rdp_id}. CIA Records Reading Room (mirrored at Internet Archive). '
+            f'Accessed {today}. {url}.'
         )
         gb = (
-            f"美国中央情报局. {title_zh}: {title_en}[R/OL]. ({date}) [2026-05-16]. {url}. "
-            f"CIA 解密档案，档案编号 {rdp_id}（Internet Archive 镜像）."
+            f"美国中央情报局. {title_zh}: {title_en}[A/OL]. 解密档案, "
+            f"档案编号 {rdp_id}, {date}. CIA Records Reading Room（Internet Archive 镜像）"
+            f"[{today}]. {url}."
         )
         return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
-    # FRUS 默认格式
+    # ============ Wilson Center Digital Archive ============
+    if platform == "wilson":
+        wid = docnum or doc["doc_id"] or ""
+        bibkey = f"Wilson_{wid}".replace(".", "_").replace("-", "_")[:80]
+        bibtex = (
+            f"@misc{{{bibkey},\n"
+            f"  title  = {{{title_en}}},\n"
+            f"  author = {{Wilson Center Digital Archive}},\n"
+            f"  howpublished = {{Woodrow Wilson International Center for Scholars, Digital Archive}},\n"
+            f"  year   = {{{year}}},\n"
+            f"  note   = {{Document date: {date}}},\n"
+            f"  url    = {{{url}}},\n"
+            f"  urldate = {{{today}}}\n"
+            f"}}"
+        )
+        chicago = (
+            f'"{title_en}." {date}. Wilson Center Digital Archive, Woodrow Wilson '
+            f'International Center for Scholars. Accessed {today}. {url}.'
+        )
+        gb = (
+            f"威尔逊国际学者中心数字档案 编. {title_zh}: {title_en}[A/OL]. "
+            f"({date}). 华盛顿: Woodrow Wilson International Center for Scholars[{today}]. {url}."
+        )
+        return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
+
+    # ============ Hoover Institution Archives 现场调档 ============
+    if platform == "hoover":
+        hid = docnum or ""
+        # title 形如 "Carsun Chang to Albert C. Wedemeyer · 1947-07-26"
+        # 抽出作者：第一个 " to " 前的部分
+        author_en = ""
+        author_zh = ""
+        mt = re.match(r"^([^·]+?)\s+to\s+", title_en)
+        if mt:
+            author_en = mt.group(1).strip()
+            if "Carsun Chang" in author_en:
+                author_zh = "张君劢"
+        # 卷宗名：从 volume_title 抽 "Carsun Chang Papers (1946-1962)"
+        vol_clean = (doc["volume_title"] or "").replace("Hoover Institution · ", "").strip()
+        bibkey = f"Hoover_{hid}".replace(".", "_").replace("-", "_")[:80]
+        author_bib = author_en or "Hoover Institution Archives"
+        bibtex = (
+            f"@misc{{{bibkey},\n"
+            f"  title  = {{{title_en}}},\n"
+            f"  author = {{{author_bib}}},\n"
+            f"  howpublished = {{Manuscript, {vol_clean}, Hoover Institution Archives, Stanford University}},\n"
+            f"  year   = {{{year}}},\n"
+            f"  note   = {{Onsite consultation; folder: {vol_clean}}},\n"
+            f"  url    = {{{url}}},\n"
+            f"  urldate = {{{today}}}\n"
+            f"}}"
+        )
+        chicago = (
+            f'{author_bib}. "{title_en}." {date}. {vol_clean}, '
+            f'Hoover Institution Archives, Stanford University. Accessed {today}. {url}.'
+        )
+        author_gb = (f"{author_zh}（{author_en}）" if author_zh else author_en) or "胡佛档案馆藏"
+        gb = (
+            f"{author_gb}. {title_zh}: {title_en}[A]. {vol_clean}, "
+            f"({date}). 斯坦福: Stanford University, Hoover Institution Archives"
+            f"[{today}]. {url}."
+        )
+        return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
+
+    # ============ HathiTrust / Internet Archive 港媒 ============
+    if platform == "hathitrust":
+        # title 形如 "China Mail 1946-01-28 · 政协会议召开期间"
+        # 报刊名 = title 中日期前的部分；事件标签 = " · " 后部分
+        paper_en = "China Mail"
+        paper_zh = "香港中国邮报"
+        mt = re.match(r"^(China Mail|Hong Kong Telegraph)\s+(\d{4}-\d{2}-\d{2})(?:\s+·\s+(.+))?$", title_en)
+        event_tag = ""
+        if mt:
+            paper_en = mt.group(1)
+            event_tag = (mt.group(3) or "").strip()
+            paper_zh = "香港中国邮报" if paper_en == "China Mail" else "香港电讯报"
+        nid = doc["doc_id"] or ""
+        bibkey = f"HK_{nid}".replace(".", "_").replace("-", "_")[:80]
+        bibtex = (
+            f"@misc{{{bibkey},\n"
+            f"  title  = {{{paper_en}, {date} (full issue scan)}},\n"
+            f"  author = {{{paper_en}}},\n"
+            f"  howpublished = {{{paper_en} (Hong Kong), full-issue scan, Internet Archive mirror}},\n"
+            f"  year   = {{{year}}},\n"
+            f"  note   = {{Identifier: {nid}}},\n"
+            f"  url    = {{{url}}},\n"
+            f"  urldate = {{{today}}}\n"
+            f"}}"
+        )
+        chicago = (
+            f'{paper_en}. "{date} (full issue scan)." Hong Kong, {date}. '
+            f'Internet Archive mirror, identifier {nid}. Accessed {today}. {url}.'
+        )
+        event_suffix = f"（覆盖{event_tag}相关报道）" if event_tag else ""
+        gb = (
+            f"{paper_en}（{paper_zh}）. {date} 整期扫描档{event_suffix}[N/OL]. "
+            f"香港: {paper_en}, ({date}). Internet Archive 镜像, 标识号 {nid}[{today}]. {url}."
+        )
+        return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
+
+    # ============ FRUS 美国对外关系文件集（默认） ============
     bibkey = f"FRUS_{vol}_{docnum}".replace(".", "_").replace("-", "_")
     bibtex = (
         f"@incollection{{{bibkey},\n"
         f"  title  = {{{title_en}}},\n"
         f"  booktitle = {{Foreign Relations of the United States ({vol})}},\n"
         f"  publisher = {{U.S. Department of State, Office of the Historian}},\n"
+        f"  address = {{Washington, D.C.}},\n"
         f"  year   = {{{year}}},\n"
         f"  note   = {{Document {docnum}, {date}}},\n"
         f"  url    = {{{url}}},\n"
-        f"  urldate = {{2026-05-15}}\n"
+        f"  urldate = {{{today}}}\n"
         f"}}"
     )
     chicago = (
-        f'"{title_en}." In *Foreign Relations of the United States* ({vol}), document {docnum}, {date}. '
-        f'Washington, D.C.: U.S. Department of State, Office of the Historian. {url}.'
+        f'"{title_en}." In *Foreign Relations of the United States* ({vol}), '
+        f'document {docnum}, {date}. Washington, D.C.: U.S. Department of State, '
+        f'Office of the Historian. Accessed {today}. {url}.'
     )
+    # FRUS volume_title 更完整：例如 "Foreign Relations of the United States, Diplomatic Papers, 1943, China"
+    vol_full = doc["volume_title"] or f"Foreign Relations of the United States ({vol})"
     gb = (
-        f"美国国务院历史档案办公室. {title_zh}: {title_en}[EB/OL]. ({date}) [2026-05-15]. {url}. "
-        f"载《美国对外关系文件集》{vol}号文件 {docnum}."
+        f"美国国务院历史档案办公室 编. {title_zh}: {title_en}[G/OL]. "
+        f"// {vol_full}, 文件 {docnum}, ({date}). "
+        f"华盛顿: 美国国务院[{today}]. {url}."
     )
     return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
