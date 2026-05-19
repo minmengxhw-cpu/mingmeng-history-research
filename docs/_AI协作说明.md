@@ -1,4 +1,4 @@
-# AGENTS.md — 海外民盟历史文献研究库
+# AGENTS.md — 民盟历史文献研究库
 
 > 这是给 Codex / Claude / 其他 AI agent 接手本项目时的入口文件。
 > 先读这个，再读 `README.md`，最后读 `docs/research_workbench_progress.md`。

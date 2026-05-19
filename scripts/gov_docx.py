@@ -12,7 +12,7 @@
     from gov_docx import GovDoc
 
     doc = GovDoc()
-    doc.title('民盟海外史料研究简报')
+    doc.title('民盟史料研究简报')
     doc.subtitle('2026 年第 5 期')
     doc.recipient('民盟上海市委各级组织：')
     doc.paragraph('为深入推进上海民盟组织建立 80 周年研究工作……')
@@ -20,7 +20,7 @@
     doc.paragraph('截至 2026 年 5 月，FRUS 数据库已完成入库 416 段……')
     doc.h2('（一）核心档案')
     doc.h3('1. 民盟成立至 1944 年改名')
-    doc.signature(org='民盟海外史料研究项目组', date='2026 年 5 月 16 日')
+    doc.signature(org='民盟史料研究项目组', date='2026 年 5 月 16 日')
     doc.save('exports/output_公文版.docx')
 """
 from __future__ import annotations
@@ -262,20 +262,20 @@ class GovDoc:
 def _demo():
     """生成一份示范公文 docx，用于验证字体字号样式正确"""
     doc = GovDoc()
-    doc.title('海外民盟历史文献研究')
+    doc.title('民盟历史文献研究')
     doc.subtitle('2026 年第 1 期 · 简报样本')
 
     doc.recipient('民盟上海市委各级组织：')
     doc.paragraph(
         '为深入推进上海民盟组织建立 80 周年（1946—2026）研究工作，'
-        '本项目组系统收集整理了 1941 年至 1955 年期间海外一手原始档案中与中国民主同盟相关的史料。'
+        '本项目组系统收集整理了 1941 年至 1955 年期间中国大陆境外一手原始档案中与中国民主同盟相关的史料。'
         '截至 2026 年 5 月，已完成 FRUS（美国对外关系文件集）与 CIA Reading Room 两大数据源的'
         '全量入库与中文翻译，共计 477 段史料，全部达到学术引用等级。现将研究进展简要汇报如下。'
     )
 
     doc.h1('一、研究范围与原则')
     doc.paragraph(
-        '本项目严格遵循「只收录国外一手原始档案」的原则，目前已覆盖：'
+        '本项目严格遵循「只收录中国大陆境外一手原始档案」的原则，目前已覆盖：'
         'FRUS 1941—1950 中国卷册（299 篇文档、416 段史料）；'
         'CIA Reading Room 1946—1954 民盟相关解密档案（62 篇文档、61 段史料）。'
         '所有史料均提供英文原文与人工校订的中文译文，附学术引用（BibTeX / Chicago / GB/T 7714）。'
@@ -285,7 +285,7 @@ def _demo():
     doc.h2('（一）人物索引')
     doc.paragraph(
         '按民盟史 6 个阶段整理 34 位核心人物（含上海民盟支部创始人王绍鏊、沈志远、施复亮、'
-        '彭文应等），每位人物配 100—300 字简介与所有海外档案命中片段。'
+        '彭文应等），每位人物配 100—300 字简介与所有境外档案命中片段。'
     )
     doc.h2('（二）关键事件')
     doc.paragraph(
@@ -317,18 +317,18 @@ def _demo():
         '三是按需出具上海民盟 80 周年系列专题研究包。'
     )
 
-    doc.attachment_line('附件：1. 海外档案数据源探勘报告')
+    doc.attachment_line('附件：1. 境外档案数据源探勘报告')
     doc.attachment_line('      2. 民盟历史人物档案对照表')
 
     doc.signature(
-        org='海外民盟历史文献研究项目组',
+        org='民盟历史文献研究项目组',
         date_str='2026 年 5 月 16 日',
     )
 
     doc.horizontal_line()
     doc.cc('抄送：相关项目负责人。')
     doc.horizontal_line()
-    doc.issuer('海外民盟历史文献研究项目组印发        2026 年 5 月 16 日')
+    doc.issuer('民盟历史文献研究项目组印发        2026 年 5 月 16 日')
 
     out_path = Path(__file__).parent.parent / 'exports' / '党政公文格式示例_v1.docx'
     return doc.save(out_path)
