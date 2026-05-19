@@ -1839,7 +1839,7 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
   <div class="pdesc">{h(desc)}</div>
   <div class="pstatus {meta["status_class"]}">{h(status_text)}</div>
 </a>''')
-    return '<h2 style="font-size:18px;margin:18px 0 10px;">📚 民盟档案研究平台</h2>\n<section class="platforms">' + "".join(cards) + "</section>"
+    return '<section class="platforms">' + "".join(cards) + "</section>"
 
 
 def source_page(platform_key: str) -> bytes:
@@ -2638,10 +2638,6 @@ def home() -> bytes:
   </div>
 </section>
 
-<div class="section-head">
-  <h2><svg class="ico"><use href="#i-globe"/></svg>档案研究平台</h2>
-  <span class="section-meta">六源多视角 · 持续更新</span>
-</div>
 {platforms_html_block}
 
 <div class="section-head" style="margin-top:48px;">
