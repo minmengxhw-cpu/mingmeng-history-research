@@ -1629,9 +1629,19 @@ def home() -> bytes:
         n_docs = c.execute("SELECT count(*) FROM documents").fetchone()[0]
         n_pages = c.execute("SELECT count(*) FROM pages").fetchone()[0]
         n_zh = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN'").fetchone()[0]
-        n_human = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN' AND status='human-reviewed'").fetchone()[0]
+        # 「人工复核率」只统计需要翻译的档案（外语原文 → 中文译文）；
+        # drnh 等中文原档（status='auto-converted'，仅做繁→简自动转换）不算翻译，
+        # 应从分母排除，否则比例会被稀释。
+        n_translatable = c.execute(
+            "SELECT count(*) FROM translations WHERE language='zh-CN' "
+            "AND status != 'auto-converted'"
+        ).fetchone()[0]
+        n_human = c.execute(
+            "SELECT count(*) FROM translations WHERE language='zh-CN' "
+            "AND status='human-reviewed'"
+        ).fetchone()[0]
         n_events = c.execute("SELECT count(*) FROM research_events").fetchone()[0]
-        cov_pct = (n_human * 100 // n_zh) if n_zh else 0
+        cov_pct = (n_human * 100 // n_translatable) if n_translatable else 0
 
         body = f"""
 <section class="hero hero-compact">
