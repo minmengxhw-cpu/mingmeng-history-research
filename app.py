@@ -2112,105 +2112,130 @@ def format_yearmonth(ym: str) -> str:
 
 
 def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50, platform: str = None) -> list[sqlite3.Row]:
+    """统一搜索：FTS5 trigram + LIKE 兜底 + 繁简自动展开 + 多词 AND 分词。
+
+    问题修复历史：
+    - FTS5 默认 unicode61 不切中文 → 已改 trigram tokenizer（rebuild_fts_trigram.py）
+    - trigram 要求 query 至少 3 个 Unicode 字符，2 字符短词（戴笠/张澜/民盟）走 LIKE 兜底
+    - 多词 query（如「保密局 魏德邁」）原来用 LIKE 整段必 0 命中，现在按空格拆 + AND 合取
+    - 繁简自动展开：搜简体「魏德迈」时自动也搜繁体「魏德邁」
+    """
     if not query.strip():
         return []
-    
-    where_extra = " AND COALESCE(documents.source_platform, 'frus') = ? " if platform else ""
-    params_base = (query, platform, limit) if platform else (query, limit)
-    
-    base = f"""
+
+    SELECT_BASE = """
         SELECT
             pages.id AS page_id,
-            documents.volume_id,
-            documents.doc_id,
-            documents.doc_key,
-            documents.date_guess,
-            documents.title,
-            documents.matched_terms,
-            dc.grade,
-            dc.score,
-            pages.page_label,
-            pages.page_url,
+            documents.volume_id, documents.doc_id, documents.doc_key,
+            documents.date_guess, documents.title, documents.matched_terms,
+            dc.grade, dc.score,
+            pages.page_label, pages.page_url,
             pages.text AS original_text,
             translations.text AS zh_text,
             translations.status AS zh_status
-        FROM page_fts
-        JOIN pages ON pages.id = page_fts.rowid
-        JOIN documents ON documents.id = pages.document_id
-        LEFT JOIN document_classifications dc ON dc.document_id = documents.id
-        LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
-        WHERE page_fts MATCH ?
-          AND (dc.grade IS NULL OR dc.grade != '前台不展示')
-          {where_extra}
-        LIMIT ?
     """
+
+    # 拆词（空格/逗号分隔）
+    tokens = [t for t in re.split(r"[\s,，、;；]+", query.strip()) if t]
+    # 繁简双向展开：尝试导入 zhconv
+    expanded_tokens = []
+    for tok in tokens:
+        variants = {tok}
+        try:
+            import zhconv
+            variants.add(zhconv.convert(tok, "zh-cn"))
+            variants.add(zhconv.convert(tok, "zh-tw"))
+        except Exception:
+            pass
+        expanded_tokens.append(list(variants))
+
+    plat_clause = " AND COALESCE(documents.source_platform, 'frus') = ? " if platform else ""
+    plat_params: tuple = (platform,) if platform else ()
+
     seen: set[int] = set()
     out: list[sqlite3.Row] = []
-    try:
-        for row in c.execute(base, params_base):
-            out.append(row)
-            seen.add(row["page_id"])
-    except sqlite3.OperationalError:
-        like = f"%{query}%"
-        where_extra_fb = " AND COALESCE(documents.source_platform, 'frus') = ? " if platform else ""
-        params_fb = (like, like, like, platform, limit) if platform else (like, like, like, limit)
-        fallback = f"""
-            SELECT
-                pages.id AS page_id,
-                documents.volume_id,
-                documents.doc_id,
-                documents.doc_key,
-                documents.date_guess,
-                documents.title,
-                documents.matched_terms,
-                dc.grade,
-                dc.score,
-                pages.page_label,
-                pages.page_url,
-                pages.text AS original_text,
-                translations.text AS zh_text,
-                translations.status AS zh_status
-            FROM pages
-            JOIN documents ON documents.id = pages.document_id
-            LEFT JOIN document_classifications dc ON dc.document_id = documents.id
-            LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
-            WHERE (pages.text LIKE ? OR documents.title LIKE ? OR documents.matched_terms LIKE ?)
-              AND (dc.grade IS NULL OR dc.grade != '前台不展示')
-            LIMIT ?
-        """
-        for row in c.execute(fallback, (like, like, like, limit)):
+
+    def _add_rows(sql: str, params: tuple):
+        for row in c.execute(sql, params):
+            if row["page_id"] in seen:
+                continue
             out.append(row)
             seen.add(row["page_id"])
 
-    if has_cjk(query):
-        zh_sql = """
-            SELECT
-                pages.id AS page_id,
-                documents.volume_id,
-                documents.doc_id,
-                documents.doc_key,
-                documents.date_guess,
-                documents.title,
-                documents.matched_terms,
-                dc.grade,
-                dc.score,
-                pages.page_label,
-                pages.page_url,
-                pages.text AS original_text,
-                translations.text AS zh_text,
-                translations.status AS zh_status
-            FROM translations
-            JOIN pages ON pages.id = translations.page_id
-            JOIN documents ON documents.id = pages.document_id
-            LEFT JOIN document_classifications dc ON dc.document_id = documents.id
-            WHERE translations.language='zh-CN' AND translations.text LIKE ?
-              AND (dc.grade IS NULL OR dc.grade != '前台不展示')
-            LIMIT ?
-        """
-        for row in c.execute(zh_sql, (f"%{query}%", limit)):
-            if row["page_id"] not in seen:
-                out.insert(0, row)
-                seen.add(row["page_id"])
+    # 路径 1: FTS5 trigram（适合 3+ 字符词），把 tokens 用 AND 组合
+    # FTS5 query 语法: token1 AND token2，trigram 至少 3 字符才能命中
+    try:
+        # 任一变体满足即可（OR），多 token 之间 AND
+        fts_parts = []
+        for variants in expanded_tokens:
+            valid = [v for v in variants if len(v) >= 3]
+            if valid:
+                # FTS5 quote: "..."
+                quoted = " OR ".join(f'"{v}"' for v in valid)
+                fts_parts.append(f"({quoted})")
+        if fts_parts:
+            fts_q = " AND ".join(fts_parts)
+            sql = f"""
+                {SELECT_BASE}
+                FROM page_fts
+                JOIN pages ON pages.id = page_fts.rowid
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+                LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+                WHERE page_fts MATCH ?
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                  {plat_clause}
+                LIMIT ?
+            """
+            _add_rows(sql, (fts_q,) + plat_params + (limit,))
+            # 同样查 translation_fts（简体翻译里搜）
+            sql2 = f"""
+                {SELECT_BASE}
+                FROM translation_fts
+                JOIN translations ON translations.id = translation_fts.rowid
+                JOIN pages ON pages.id = translations.page_id
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+                WHERE translation_fts MATCH ?
+                  AND translations.language='zh-CN'
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                  {plat_clause}
+                LIMIT ?
+            """
+            _add_rows(sql2, (fts_q,) + plat_params + (limit,))
+    except sqlite3.OperationalError:
+        pass
+
+    # 路径 2: LIKE 兜底（处理短词 < 3 字符 + 中文模糊匹配）
+    # 每个 token 用任一变体 LIKE 都算命中（OR），多 token 用 AND 取交
+    if not out or any(len(t) < 3 for t in tokens):
+        like_conds_parts = []
+        like_params: list = []
+        for variants in expanded_tokens:
+            # 对单 token 的多变体：在 (text OR title OR matched_terms OR translations.text) 任一字段 LIKE
+            sub_parts = []
+            for v in variants:
+                like_v = f"%{v}%"
+                sub_parts.append(
+                    "(pages.text LIKE ? OR documents.title LIKE ? OR documents.matched_terms LIKE ? OR IFNULL(translations.text,'') LIKE ?)"
+                )
+                like_params.extend([like_v, like_v, like_v, like_v])
+            if sub_parts:
+                like_conds_parts.append("(" + " OR ".join(sub_parts) + ")")
+        if like_conds_parts:
+            like_where = " AND ".join(like_conds_parts)
+            sql = f"""
+                {SELECT_BASE}
+                FROM pages
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+                LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+                WHERE {like_where}
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                  {plat_clause}
+                LIMIT ?
+            """
+            _add_rows(sql, tuple(like_params) + plat_params + (limit,))
     return out[:limit]
 
 
@@ -5143,7 +5168,14 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self) -> None:
-        parsed = urlparse(self.path)
+        # 修复：BaseHTTPRequestHandler 把 self.path 按 ISO-8859-1 解码，
+        # 中文 URL 参数会变成乱码。这里重新按 UTF-8 解一遍。
+        raw_path = self.path
+        try:
+            raw_path = raw_path.encode("latin-1").decode("utf-8")
+        except (UnicodeDecodeError, UnicodeEncodeError):
+            pass
+        parsed = urlparse(raw_path)
         qs = parse_qs(parsed.query)
         _request.path = parsed.path  # 让 layout() 知道当前页面，自动 highlight 导航
         if parsed.path == "/":
