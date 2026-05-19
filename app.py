@@ -1756,7 +1756,9 @@ PLATFORM_META = {
         "subtitle": "民国政府最高层视角 · 蒋中正档案 · 戴笠/保密局呈件",
         "intro": "本平台台北方面所藏中国大陆时期民国政府、总统府、行政院及党国要员档案文物。「档案史料文物查询系统」（ahonline.drnh.gov.tw）目录与元数据全开放，本平台按 1941—1950 年时间线整理民盟相关核心档案。",
         "perspective": "国民政府决策视角 + 军事情报视角 —— 与 FRUS（美方外交）、CIA（美方情报）、Wilson Center（苏方）、HathiTrust 港媒（公开舆论）构成多方视角下的民盟完整图景",
-        "coverage": "1941-1950 民盟相关核心档案 223 篇（已严格逐条审视，剔除同名异人与擦边命中）。蒋中正档案 + 国民政府档案为主体，含戴笠/保密局呈件、蒋介石作战会报对民盟指示、三省参议会反驳张澜系列等。",
+        # 注：coverage 数字（如「核心 X 篇」「共 Y 篇」）在 source_page() 里动态填入，
+        # 这里用 {n_a}、{n_total} 占位，避免硬编码导致数据更新后过时
+        "coverage": "1941-1950 民盟相关核心档案 {n_a} 篇（已严格逐条审视，剔除同名异人与擦边命中）。蒋中正档案 + 国民政府档案为主体，含戴笠/保密局呈件、蒋介石作战会报对民盟指示、三省参议会反驳张澜系列等。",
         "highlights": [
             '<a href="/search?q=%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F+%E5%B7%A6%E8%88%9C%E7%94%9F+%E5%BC%A0%E5%90%9B%E5%8A%A2&platform=drnh">1945 戴笠呈蒋中正民盟分子左舜生张君劢拟从事调解国共纠纷（最高密件）⭐⭐⭐⭐⭐</a>',
             '<a href="/search?q=%E8%B5%AB%E5%B0%94%E5%88%A9+%E5%BC%A0%E7%94%B3%E5%BA%9C+%E8%91%A3%E6%97%B6%E8%BF%9B&platform=drnh">1945 戴笠呈蒋中正赫尔利曾召民主同盟张申府董时进谈话要点</a>',
@@ -1769,7 +1771,7 @@ PLATFORM_META = {
         "status": None,
         "status_class": "ok",
         "active": True,
-        "todo_note": "元数据 100% 访客可达；档案原图原档系统要求注册会员（访客版含水印）。本平台已入库 364 条元数据（默认显示 A 档 223 条核心，按时间线排序），原文图像请点击「原档系统」按钮在原系统查看。",
+        "todo_note": "元数据 100% 访客可达；档案原图原档系统要求注册会员（访客版含水印）。本平台已入库 {n_total} 条元数据（默认显示 A 档 {n_a} 条核心，按时间线排序），原文图像请点击「原档系统」按钮在原系统查看。",
     },
     "hathitrust": {
         "name": "HathiTrust / IA",
@@ -1875,6 +1877,33 @@ def source_page(platform_key: str) -> bytes:
             docs_rows = []
         # 文档统计
         n_docs = len(docs_rows)
+        # 取该平台 A/B 档分布（用于动态填入 coverage/todo_note 占位符，避免数据更新后过时）
+        try:
+            stat_rows = c.execute("""
+                SELECT COALESCE(dc.grade, '-') AS g, COUNT(*) AS n
+                FROM documents
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+                WHERE COALESCE(source_platform, 'frus') = ?
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                GROUP BY g
+            """, (platform_key,)).fetchall()
+            grade_map = {r["g"]: r["n"] for r in stat_rows}
+            n_a = grade_map.get("A", 0)
+            n_b = grade_map.get("B", 0)
+            n_total = sum(grade_map.values())
+        except Exception:
+            n_a = n_b = n_total = n_docs
+
+    # 动态填充占位符 {n_a} / {n_b} / {n_total}（仅有占位时才替换，避免影响其他平台）
+    def _fmt(s: str) -> str:
+        if not s or "{n_" not in s:
+            return s
+        try:
+            return s.format(n_a=n_a, n_b=n_b, n_total=n_total)
+        except (KeyError, IndexError):
+            return s
+    coverage_str = _fmt(meta.get("coverage", ""))
+    todo_note_str = _fmt(meta.get("todo_note", ""))
 
     highlights_html = "".join(f"<li>{item}</li>" for item in meta.get("highlights", []))
 
@@ -1893,7 +1922,7 @@ def source_page(platform_key: str) -> bytes:
   <p class="hero-sub">{h(meta['intro'])}</p>
   <div class="hero-meta">
     <span><b>视角</b> {h(meta['perspective'])}</span>
-    <span><b>时间覆盖</b> {h(meta['coverage'])}</span>
+    <span><b>时间覆盖</b> {h(coverage_str)}</span>
     <span><b>状态</b> <span class="pstatus {meta['status_class']}" style="margin-left:4px;">{h(status_text)}</span></span>
   </div>
 </section>
@@ -1935,7 +1964,7 @@ def source_page(platform_key: str) -> bytes:
   <h2><svg class="ico"><use href="#i-clock"/></svg>开发路线</h2>
 </div>
 <section class="notice archival">
-  <p style="margin:0;font-family:var(--serif);line-height:1.85;">{h(meta.get("todo_note", "暂无说明。"))}</p>
+  <p style="margin:0;font-family:var(--serif);line-height:1.85;">{h(todo_note_str or "暂无说明。")}</p>
 </section>
 '''
     return layout(f"{meta['name']} · 境外档案平台", body)

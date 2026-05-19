@@ -1,29 +1,37 @@
-# Python
+# ===== Python =====
 __pycache__/
 *.py[cod]
 *.swp
 .venv/
 venv/
+*.egg-info/
 
-# macOS
+# ===== 编辑器 =====
 .DS_Store
-
-# Editor
 .*.swp
 .*.swo
+.vscode/
+.idea/
 
-# Local OCR / large scratch
+# ===== 翻译/OCR 临时日志（一律忽略，需要时单独保留）=====
+*.log
+*.stdout
+retranslate*.log
+retranslate*.stdout
+translate_*.log
+translate_*.stdout
+
+# ===== 大数据 / 临时数据 =====
+exports/
 data/ocr_smoke_test/
 data/frus_epub_tmp/
-retranslate.log
-retranslate.stdout
-
-# 自动导出的研究卡片副产品（数据源在 data/research_index.sqlite）
-exports/
-translate_cia.log
-retranslate_cia_qc.log
 data/hoover_recon/
-translate_wilson_qc.log
-translate_cia_expansion.log
 data/drnh_probe/sample_images/
+data/drnh_probe/drnh_cookies.txt
 data/drnh_images/
+
+# ===== 部署密钥（如有）=====
+*.pem
+*.key
+.env
+.env.local
