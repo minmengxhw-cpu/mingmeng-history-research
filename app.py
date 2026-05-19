@@ -1898,7 +1898,7 @@ def source_page(platform_key: str) -> bytes:
         body += f"""
 <div class="section-head">
   <h2><svg class="ico"><use href="#i-book"/></svg>本平台收录文档 ({n_docs} 篇)</h2>
-  <a class="more" href="/docs">完整列表 →</a>
+  <a class="more" href="/docs?platform={platform_key}">完整列表 →</a>
 </div>
 <section class="result-list">
 """
@@ -1913,7 +1913,7 @@ def source_page(platform_key: str) -> bytes:
   <div class="cite"><a href="{h(r["url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
 </article>"""
         if n_docs > 20:
-            body += f'<div style="padding:14px 22px;text-align:center;border-top:1px solid var(--line-soft);"><a class="button" href="/docs">查看全部 {n_docs} 篇 →</a></div>'
+            body += f'<div style="padding:14px 22px;text-align:center;border-top:1px solid var(--line-soft);"><a class="button" href="/docs?platform={platform_key}">查看全部 {n_docs} 篇 →</a></div>'
         body += "</section>"
     elif meta["active"]:
         body += '<div class="notice">本平台已上线，但当前数据库中尚无文档。</div>'
@@ -3140,7 +3140,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
     return layout(translate_title(doc["title"]), body)
 
 
-def docs(active_grade: str = "", active_translation: str = "") -> bytes:
+def docs(active_grade: str = "", active_translation: str = "", platform: str = "") -> bytes:
     with conn() as c:
         where_parts = []
         params: list[str] = []
@@ -3153,6 +3153,9 @@ def docs(active_grade: str = "", active_translation: str = "") -> bytes:
             where_parts.append("translation_stats.translated_pages > 0")
         elif active_translation == "missing":
             where_parts.append("(translation_stats.translated_pages IS NULL OR translation_stats.translated_pages < translation_stats.total_pages)")
+        if platform:
+            where_parts.append("COALESCE(documents.source_platform, 'frus') = ?")
+            params.append(platform)
         where = ("WHERE " + " AND ".join(where_parts)) if where_parts else ""
         rows = c.execute(
             f"""
@@ -3179,7 +3182,15 @@ def docs(active_grade: str = "", active_translation: str = "") -> bytes:
             """,
             tuple(params),
         ).fetchall()
-    body = breadcrumb_html([("/", "首页"), (None, "全部文档")])
+    # 平台显示名（用于面包屑和标题）
+    plat_name = ""
+    if platform:
+        plat_meta = PLATFORM_META.get(platform, {})
+        plat_name = plat_meta.get("name", platform)
+        body = breadcrumb_html([("/", "首页"), (f"/sources/{platform}", plat_name), (None, "全部文档")])
+        body += f'<h1 style="font-size:22px;margin:0 0 12px;">{h(plat_name)} · 全部文档（共 {len(rows)} 篇）</h1>'
+    else:
+        body = breadcrumb_html([("/", "首页"), (None, "全部文档")])
     body += grade_filters(active_grade, active_translation)
     body += '<section class="result-list">'
     for row in rows:
@@ -5187,7 +5198,7 @@ class Handler(BaseHTTPRequestHandler):
         elif parsed.path == "/search":
             payload = search(qs.get("q", [""])[0], qs.get("platform", [""])[0] if "platform" in qs else None)
         elif parsed.path == "/docs":
-            payload = docs(qs.get("grade", [""])[0], qs.get("translation", [""])[0])
+            payload = docs(qs.get("grade", [""])[0], qs.get("translation", [""])[0], qs.get("platform", [""])[0])
         elif parsed.path == "/glossary":
             payload = glossary_page()
         elif parsed.path.startswith("/sources/"):
