@@ -35,3 +35,7 @@ data/drnh_images/
 *.key
 .env
 .env.local
+
+# workspace/ 临时工作产物（白皮书草稿、数据集 JSON 等）
+workspace/*
+!workspace/.gitkeep
