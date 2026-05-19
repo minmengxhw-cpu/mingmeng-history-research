@@ -1649,7 +1649,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       <div class="footer-top">
         <div class="footer-brand">
           <span class="footer-title">民盟历史文献研究库</span>
-          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟中国大陆境外一手档案 · 五源多视角同代史料体系</span>
+          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟中国大陆境外一手档案 · 六源多视角同代史料体系</span>
         </div>
         <div class="footer-links">
           <a href="/">首页</a>
@@ -1748,6 +1748,28 @@ PLATFORM_META = {
         "status_class": "ok",
         "active": True,
         "todo_note": "区别于公网批量抓取——所有资料系研究者赴斯坦福现场调阅、拍照、整理为 PDF 后入库。下一步：扫描件 OCR + 翻译 + 入库。",
+    },
+    "drnh": {
+        "name": "國史館",
+        "long_name": "國史館檔案史料文物查詢系統",
+        "cn_name": "中华民国国史馆数字档案",
+        "subtitle": "国民政府最高层视角 · 蒋中正总统文物 · 戴笠/保密局密报",
+        "intro": "国史馆是中华民国总统府所属国家最高级档案馆，典藏国民政府、总统府、行政院、各部会、五院、地方政府及党国要员之个人文物。其「檔案史料文物查詢系統」（ahonline.drnh.gov.tw）目录与元数据全开放，本平台通过 Base64M 编码的 API 完整采集了 1941-1950 年民盟相关命中。",
+        "perspective": "国民政府决策视角 + 军事情报视角 —— 与 FRUS（美方外交）、CIA（美方情报）、英国 Kew（英方军情）构成「四方监视下的民盟」完整图景",
+        "coverage": "1941-1950 共 465 篇（A 档 283 / B 档 182）。蒋中正总统文物 ~70%（戴笠呈件、保密局密报、蒋的批示）/ 国民政府 ~16%（三省参议会反驳张澜系列）/ 陈诚副总统文物 ~9% / 外交部 ~5%",
+        "highlights": [
+            '<a href="/search?q=%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F+%E5%B7%A6%E8%88%9C%E7%94%9F+%E5%BC%A0%E5%90%9B%E5%8A%A2&platform=drnh">1945 戴笠呈蒋中正民盟分子左舜生张君劢拟从事调解国共纠纷（最高密件）⭐⭐⭐⭐⭐</a>',
+            '<a href="/search?q=%E8%B5%AB%E5%B0%94%E5%88%A9+%E5%BC%A0%E7%94%B3%E5%BA%9C+%E8%91%A3%E6%97%B6%E8%BF%9B&platform=drnh">1945 戴笠呈蒋中正赫尔利曾召民主同盟张申府董时进谈话要点</a>',
+            '<a href="/search?q=%E4%BF%9D%E5%AF%86%E5%B1%80+%E9%AD%8F%E5%BE%B7%E8%BF%88&platform=drnh">1947 保密局呈蒋中正民盟向魏德迈使团活动情形续报 ⭐⭐⭐⭐⭐</a>',
+            '<a href="/search?q=%E4%BD%9C%E6%88%98%E4%BC%9A%E6%8A%A5+%E5%AF%B9%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F&platform=drnh">1947 蒋中正主持作战会报对民主同盟事有所指示（最高决策档）⭐⭐⭐⭐⭐</a>',
+            '<a href="/search?q=%E9%9D%92%E6%B5%B7%E7%9C%81+%E5%BC%A0%E6%BE%9C+%E8%8D%92%E8%B0%AC&platform=drnh">1946.7 山东 → 四川 → 青海三省参议会联动反驳民盟主席张澜荒谬言论系列（3 件）</a>',
+            '<a href="/search?q=%E9%A1%BE%E7%A5%9D%E5%90%8C+%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E7%AC%AC%E4%B8%80%E5%86%9B&platform=drnh">1946 顾祝同电蒋中正共军以民主同盟第一军名义改编（军事档）</a>',
+            '<a href="/search?q=%E6%B5%99%E5%A4%A7+%E6%B0%91%E7%9B%9F+%E6%88%92%E4%B8%A5&platform=drnh">1947 沈鸿烈电蒋中正浙大学生罢课共党民盟分子戒严</a>',
+        ],
+        "status": None,
+        "status_class": "ok",
+        "active": True,
+        "todo_note": "元数据 100% 访客可达；档案原图国史馆要求注册会员（访客版有水印）。本平台仅入库元数据 + 题名简体化作为索引层，原文图像请点击「國史館原檔」按钮在国史馆系统查看。",
     },
     "hathitrust": {
         "name": "HathiTrust / IA",
@@ -2608,7 +2630,7 @@ def home() -> bytes:
         body = f"""
 <section class="hero hero-compact">
   <h1>海外民盟历史文献研究库</h1>
-  <p class="hero-sub">系统整理中国民主同盟筹建、参政与重大转折时期的<strong>中国大陆境外一手档案</strong>，汇聚 FRUS、Wilson、CIA、Hoover、HathiTrust 五源同代史料。</p>
+  <p class="hero-sub">系统整理中国民主同盟筹建、参政与重大转折时期的<strong>中国大陆境外一手档案</strong>，汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、國史館 六源同代史料，含国民政府最高层视角。</p>
   <div class="hero-chips">
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_zh}</b> 条中文译文</span>
@@ -2618,7 +2640,7 @@ def home() -> bytes:
 
 <div class="section-head">
   <h2><svg class="ico"><use href="#i-globe"/></svg>海外研究平台</h2>
-  <span class="section-meta">五源多视角 · 持续更新</span>
+  <span class="section-meta">六源多视角 · 持续更新</span>
 </div>
 {platforms_html_block}
 
@@ -2770,6 +2792,41 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
         )
         return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
+    # ============ 國史館档案史料文物查詢系統 ============
+    if platform == "drnh":
+        store_no = docnum  # 典藏号
+        fonds_full = (doc["volume_title"] if "volume_title" in doc.keys() else "") or ""
+        title_hant = title_en  # 国史馆 title 字段实为繁体
+        # 实时繁→简
+        try:
+            import zhconv
+            title_hans = zhconv.convert(title_hant, "zh-cn")
+        except Exception:
+            title_hans = title_hant
+        bibkey = f"DRNH_{store_no}".replace(".", "_").replace("-", "_")[:80]
+        bibtex = (
+            f"@misc{{{bibkey},\n"
+            f"  title  = {{{title_hant}}},\n"
+            f"  author = {{國史館}},\n"
+            f"  howpublished = {{臺北：國史館檔案史料文物查詢系統，全宗：{fonds_full}}},\n"
+            f"  year   = {{{year}}},\n"
+            f"  note   = {{典藏號 {store_no}; 本件日期 {date}}},\n"
+            f"  url    = {{{url}}},\n"
+            f"  urldate = {{{today}}}\n"
+            f"}}"
+        )
+        chicago = (
+            f'國史館 (Academia Historica). "{title_hant}." {date}. '
+            f'{fonds_full}, 典藏號 {store_no}. Taipei: Academia Historica. '
+            f'Accessed {today}. {url}.'
+        )
+        gb = (
+            f"國史館 編. {title_hans}（繁體原題：{title_hant}）[A/OL]. "
+            f"{fonds_full}, 典藏號 {store_no}, ({date}). "
+            f"臺北: 國史館檔案史料文物查詢系統[{today}]. {url}."
+        )
+        return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
+
     # ============ HathiTrust / Internet Archive 港媒 ============
     if platform == "hathitrust":
         # title 形如 "China Mail 1946-01-28 · 政协会议召开期间"
@@ -2899,6 +2956,24 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             f'<span><strong>档案集</strong> CIA Records Reading Room</span>'
             f'<span><strong>RDP 编号</strong> {h(rdp_id)}</span>'
             f'<span><strong>解密日期</strong> {h(doc["date_guess"])}</span>'
+            f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
+        )
+    elif platform == "drnh":
+        tools_html = (
+            f'<a class="button" href="{source_link}" target="_blank" rel="noreferrer">'
+            f'<svg class="ico"><use href="#i-globe"/></svg>國史館原檔（按典藏號搜尋）</a>'
+            f'<a class="button" href="/search?q={quote(doc["matched_terms"] or doc["title"])}">'
+            f'<svg class="ico"><use href="#i-search"/></svg>相关搜索</a>'
+        )
+        platform_badge = (
+            '<span class="src-badge" style="background:#1F4E78;color:#fff;">'
+            '<svg class="ico"><use href="#i-archive"/></svg>國史館 · 數位檔 · 訪客可見（會員看原圖）'
+            '</span>'
+        )
+        meta_card_foot = (
+            f'<span><strong>典藏號</strong> {h(doc["doc_id"])}</span>'
+            f'<span><strong>全宗</strong> {h(doc["volume_title"])} ({h(doc["volume_id"])})</span>'
+            f'<span><strong>本件日期</strong> {h(doc["date_guess"])}</span>'
             f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
         )
     else:
