@@ -1750,13 +1750,13 @@ PLATFORM_META = {
         "todo_note": "区别于公网批量抓取——所有资料系研究者赴斯坦福现场调阅、拍照、整理为 PDF 后入库。下一步：扫描件 OCR + 翻译 + 入库。",
     },
     "drnh": {
-        "name": "台北「国史馆」",
-        "long_name": "台北「国史馆」档案史料文物查询系统",
+        "name": "台北档案史料",
+        "long_name": "台北档案史料文物查询系统",
         "cn_name": "台湾地区档案数字典藏",
-        "subtitle": "民国政府最高层视角 · 蒋中正总统档案 · 戴笠/保密局呈件",
-        "intro": "台北「国史馆」典藏中国大陆时期民国政府、总统府、行政院及党国要员之档案文物。其「档案史料文物查询系统」（ahonline.drnh.gov.tw）目录与元数据全开放，本平台通过 Base64M 编码的 API 完整采集了 1941—1950 年民盟相关命中。",
+        "subtitle": "民国政府最高层视角 · 蒋中正档案 · 戴笠/保密局呈件",
+        "intro": "本平台台北方面所藏中国大陆时期民国政府、总统府、行政院及党国要员档案文物。「档案史料文物查询系统」（ahonline.drnh.gov.tw）目录与元数据全开放，本平台按 1941—1950 年时间线整理民盟相关核心档案。",
         "perspective": "国民政府决策视角 + 军事情报视角 —— 与 FRUS（美方外交）、CIA（美方情报）、Wilson Center（苏方）、HathiTrust 港媒（公开舆论）构成多方视角下的民盟完整图景",
-        "coverage": "1941-1950 共 364 篇（A 档 223 核心 / B 档 141 背景，经严格逐条审视剔除 101 条同名异人或与民盟无直接相关的档案）。蒋中正总统档案 + 国民政府档案为主体，含戴笠/保密局呈件、蒋介石作战会报对民盟指示、三省参议会反驳张澜系列等。",
+        "coverage": "1941-1950 民盟相关核心档案 223 篇（已严格逐条审视，剔除同名异人与擦边命中）。蒋中正档案 + 国民政府档案为主体，含戴笠/保密局呈件、蒋介石作战会报对民盟指示、三省参议会反驳张澜系列等。",
         "highlights": [
             '<a href="/search?q=%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F+%E5%B7%A6%E8%88%9C%E7%94%9F+%E5%BC%A0%E5%90%9B%E5%8A%A2&platform=drnh">1945 戴笠呈蒋中正民盟分子左舜生张君劢拟从事调解国共纠纷（最高密件）⭐⭐⭐⭐⭐</a>',
             '<a href="/search?q=%E8%B5%AB%E5%B0%94%E5%88%A9+%E5%BC%A0%E7%94%B3%E5%BA%9C+%E8%91%A3%E6%97%B6%E8%BF%9B&platform=drnh">1945 戴笠呈蒋中正赫尔利曾召民主同盟张申府董时进谈话要点</a>',
@@ -1769,7 +1769,7 @@ PLATFORM_META = {
         "status": None,
         "status_class": "ok",
         "active": True,
-        "todo_note": "元数据 100% 访客可达；档案原图台北「国史馆」要求注册会员（访客版含水印）。本平台仅入库元数据 + 题名简体化作为索引层，原文图像请点击「原档系统」按钮在台北「国史馆」系统查看。",
+        "todo_note": "元数据 100% 访客可达；档案原图原档系统要求注册会员（访客版含水印）。本平台已入库 364 条元数据（默认显示 A 档 223 条核心，按时间线排序），原文图像请点击「原档系统」按钮在原系统查看。",
     },
     "hathitrust": {
         "name": "HathiTrust / IA",
@@ -1798,7 +1798,7 @@ PLATFORM_META = {
 
 
 def platforms_panel_html(c: sqlite3.Connection) -> str:
-    """档案平台入口面板：六大档案源（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北「国史馆」）。"""
+    """档案平台入口面板：六大档案源（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北档案史料）。"""
     # 动态计算每个平台的数据规模
     plat_counts = {}
     try:
@@ -1850,15 +1850,27 @@ def source_page(platform_key: str) -> bytes:
 
     with conn() as c:
         # 取此平台的文档清单（前台过滤 grade='前台不展示'）
+        # drnh 平台特别处理：默认只取 A 档（核心 223 条），按时间线排序
         try:
-            docs_rows = c.execute("""
-                SELECT documents.*, dc.grade
-                FROM documents
-                LEFT JOIN document_classifications dc ON dc.document_id=documents.id
-                WHERE COALESCE(source_platform, 'frus')=?
-                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
-                ORDER BY documents.date_guess, documents.volume_id, CAST(documents.doc_number AS INTEGER)
-            """, (platform_key,)).fetchall()
+            if platform_key == "drnh":
+                docs_rows = c.execute("""
+                    SELECT documents.*, dc.grade
+                    FROM documents
+                    LEFT JOIN document_classifications dc ON dc.document_id=documents.id
+                    WHERE COALESCE(source_platform, 'frus')=?
+                      AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                      AND dc.grade='A'
+                    ORDER BY documents.date_guess, documents.doc_id
+                """, (platform_key,)).fetchall()
+            else:
+                docs_rows = c.execute("""
+                    SELECT documents.*, dc.grade
+                    FROM documents
+                    LEFT JOIN document_classifications dc ON dc.document_id=documents.id
+                    WHERE COALESCE(source_platform, 'frus')=?
+                      AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                    ORDER BY documents.date_guess, documents.volume_id, CAST(documents.doc_number AS INTEGER)
+                """, (platform_key,)).fetchall()
         except sqlite3.OperationalError:
             docs_rows = []
         # 文档统计
@@ -2655,7 +2667,7 @@ def home() -> bytes:
         body = f"""
 <section class="hero hero-compact">
   <h1>民盟历史文献研究库</h1>
-  <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>中国大陆境外一手档案</strong>，汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、台北「国史馆」六源多视角同代史料。</p>
+  <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>中国大陆境外一手档案</strong>，汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、台北档案史料六源多视角同代史料。</p>
   <div class="hero-chips">
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_zh}</b> 条中文译文</span>
@@ -2813,7 +2825,7 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
         )
         return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
-    # ============ 台北「国史馆」档案史料文物查询系统 ============
+    # ============ 台北档案史料文物查询系统 ============
     if platform == "drnh":
         store_no = docnum  # 典藏号
         fonds_full = (doc["volume_title"] if "volume_title" in doc.keys() else "") or ""
@@ -2830,8 +2842,8 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
         bibtex = (
             f"@misc{{{bibkey},\n"
             f"  title  = {{{title_hans}}},\n"
-            f"  author = {{台北「国史馆」}},\n"
-            f"  howpublished = {{台北「国史馆」档案史料文物查询系统，全宗：{fonds_hans}}},\n"
+            f"  author = {{台北档案史料}},\n"
+            f"  howpublished = {{台北档案史料文物查询系统，全宗：{fonds_hans}}},\n"
             f"  year   = {{{year}}},\n"
             f"  note   = {{典藏号 {store_no}; 本件日期 {date}}},\n"
             f"  url    = {{{url}}},\n"
@@ -2843,9 +2855,9 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
             f'{fonds_hans}, 典藏号 {store_no}. Accessed {today}. {url}.'
         )
         gb = (
-            f"台北「国史馆」 编. {title_hans}（繁体原题：{title_hant}）[A/OL]. "
+            f"台北档案史料 编. {title_hans}（繁体原题：{title_hant}）[A/OL]. "
             f"{fonds_hans}, 典藏号 {store_no}, ({date}). "
-            f"台北「国史馆」档案史料文物查询系统[{today}]. {url}."
+            f"台北档案史料文物查询系统[{today}]. {url}."
         )
         return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
@@ -3006,7 +3018,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         )
         platform_badge = (
             '<span class="src-badge" style="background:#1F4E78;color:#fff;">'
-            '<svg class="ico"><use href="#i-archive"/></svg>台北「国史馆」· 数位档 · 访客可见（会员看原图）'
+            '<svg class="ico"><use href="#i-archive"/></svg>台北档案史料· 数位档 · 访客可见（会员看原图）'
             '</span>'
         )
         meta_card_foot = (
@@ -3081,7 +3093,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   <div class="meta-card-head">
     <h3><svg class="ico"><use href="#i-book"/></svg>访客水印原档预览（{len(cached_images)} 页）</h3>
     <span class="meta" style="font-size:12.5px;color:var(--muted);">
-      台北「国史馆」访客模式 · 图像含「请登入」绿色水印 · 仅供研究参考 · 正式引用需在
+      台北档案史料访客模式 · 图像含「请登入」绿色水印 · 仅供研究参考 · 正式引用需在
       <a href="{source_link}" target="_blank" rel="noreferrer" style="color:var(--accent);">原档系统</a>
       注册会员查看无水印原图
     </span>
@@ -3099,8 +3111,28 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         zh = row["zh_text"] or "尚未翻译"
         zh_class = "" if row["zh_text"] else " empty"
         status = row["zh_status"] or "needs-translation"
-        source_label = "archive.org 原档" if is_cia else "FRUS 段落"
-        body += f"""
+        # 按平台动态生成来源标签（之前写死「FRUS 段落」对其他平台不合适）
+        source_label_map = {
+            "frus": "FRUS 段落",
+            "cia": "archive.org 原档",
+            "wilson": "Wilson Center 原档",
+            "hoover": "Hoover 现场调档",
+            "hathitrust": "archive.org 镜像",
+            "drnh": "台北档案史料原档",
+        }
+        source_label = source_label_map.get(platform, "档案原文")
+
+        # drnh 是中文原档：去双栏（不展示「中文译文」副栏），只显简体单栏
+        if platform == "drnh":
+            body += f"""
+  <div class="segment">
+    <article class="pane drnh-single"{selected} style="flex:1 1 100%;">
+      <div class="pane-head"><span>档案内容 · {h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
+      <div class="pane-body">{h(row["original_text"])}</div>
+    </article>
+  </div>"""
+        else:
+            body += f"""
   <div class="segment">
     <article class="pane"{selected}>
       <div class="pane-head"><span>原文 · {h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
@@ -3146,9 +3178,14 @@ def docs(active_grade: str = "", active_translation: str = "", platform: str = "
         params: list[str] = []
         # 前台默认过滤 grade='前台不展示' 的档案
         where_parts.append("(dc.grade IS NULL OR dc.grade != '前台不展示')")
-        if active_grade:
+        # drnh 平台默认只显示 A 档核心（用户要求「只留民盟有关系的最重要的史料」）
+        # 用户可加 ?grade=B 主动看背景档
+        effective_grade = active_grade
+        if platform == "drnh" and not active_grade:
+            effective_grade = "A"
+        if effective_grade:
             where_parts.append("dc.grade = ?")
-            params.append(active_grade)
+            params.append(effective_grade)
         if active_translation == "translated":
             where_parts.append("translation_stats.translated_pages > 0")
         elif active_translation == "missing":
@@ -3157,6 +3194,12 @@ def docs(active_grade: str = "", active_translation: str = "", platform: str = "
             where_parts.append("COALESCE(documents.source_platform, 'frus') = ?")
             params.append(platform)
         where = ("WHERE " + " AND ".join(where_parts)) if where_parts else ""
+        # drnh 平台按时间线（本件日期）排序；其他平台保持 volume_id 排序
+        order_by = (
+            "ORDER BY documents.date_guess, documents.doc_id"
+            if platform == "drnh"
+            else "ORDER BY documents.volume_id, CAST(documents.doc_number AS INTEGER)"
+        )
         rows = c.execute(
             f"""
             SELECT
@@ -3178,7 +3221,7 @@ def docs(active_grade: str = "", active_translation: str = "", platform: str = "
                 GROUP BY pages.document_id
             ) translation_stats ON translation_stats.document_id = documents.id
             {where}
-            ORDER BY documents.volume_id, CAST(documents.doc_number AS INTEGER)
+            {order_by}
             """,
             tuple(params),
         ).fetchall()
@@ -3555,7 +3598,7 @@ def people() -> bytes:
       点击姓名查看该人物所有原文、译文、来源链接和事件年表。
     </div>
     <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
-      本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北「国史馆」 六大档案源）。
+      本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北档案史料 六大档案源）。
       下方人物索引是档案翻译过程中用于规范人名、提供历史上下文的内部研究编排，<b>不构成资料库收录内容</b>。
     </div>
   </div>
@@ -3700,13 +3743,13 @@ def person_page(slug: str) -> bytes:
     <div style="font-family:var(--serif);font-size:16px;line-height:1.8;color:var(--text);">{h(profile_text)}</div>
     <div class="meta" style="margin-top:10px;font-size:12.5px;color:var(--muted-soft);">
       本卡为内部研究编排参考，便于理解下方档案译文的人物上下文；
-      本平台资料库本身只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北「国史馆」 六大档案源）。
+      本平台资料库本身只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北档案史料 六大档案源）。
     </div>
   </div>
 </section>
 """
     if not rows:
-        body += '<div class="notice">FRUS 档案中暂无命中。可切换查看 CIA / Wilson / Hoover / HathiTrust / 台北「国史馆」 五个境外档案源。</div>'
+        body += '<div class="notice">FRUS 档案中暂无命中。可切换查看 CIA / Wilson / Hoover / HathiTrust / 台北档案史料 五个境外档案源。</div>'
     else:
         body += '<section class="result-list">'
         for row in rows:
@@ -5204,7 +5247,7 @@ class Handler(BaseHTTPRequestHandler):
         elif parsed.path.startswith("/sources/"):
             payload = source_page(unquote(parsed.path.removeprefix("/sources/")))
         elif parsed.path.startswith("/drnh-img/"):
-            # 静态服务台北「国史馆」已下载的访客水印图：/drnh-img/<doc_key>/p<N>.jpg
+            # 静态服务台北档案史料已下载的访客水印图：/drnh-img/<doc_key>/p<N>.jpg
             try:
                 rest = unquote(parsed.path.removeprefix("/drnh-img/"))
                 parts = rest.rsplit("/", 1)
