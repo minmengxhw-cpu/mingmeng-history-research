@@ -1755,7 +1755,7 @@ PLATFORM_META = {
         "cn_name": "中华民国国史馆数字档案",
         "subtitle": "国民政府最高层视角 · 蒋中正总统文物 · 戴笠/保密局密报",
         "intro": "国史馆是中华民国总统府所属国家最高级档案馆，典藏国民政府、总统府、行政院、各部会、五院、地方政府及党国要员之个人文物。其「檔案史料文物查詢系統」（ahonline.drnh.gov.tw）目录与元数据全开放，本平台通过 Base64M 编码的 API 完整采集了 1941-1950 年民盟相关命中。",
-        "perspective": "国民政府决策视角 + 军事情报视角 —— 与 FRUS（美方外交）、CIA（美方情报）、英国 Kew（英方军情）构成「四方监视下的民盟」完整图景",
+        "perspective": "国民政府决策视角 + 军事情报视角 —— 与 FRUS（美方外交）、CIA（美方情报）、Wilson Center（苏方）、HathiTrust 港媒（公开舆论）构成多方视角下的民盟完整图景",
         "coverage": "1941-1950 共 465 篇（A 档 283 / B 档 182）。蒋中正总统文物 ~70%（戴笠呈件、保密局密报、蒋的批示）/ 国民政府 ~16%（三省参议会反驳张澜系列）/ 陈诚副总统文物 ~9% / 外交部 ~5%",
         "highlights": [
             '<a href="/search?q=%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F+%E5%B7%A6%E8%88%9C%E7%94%9F+%E5%BC%A0%E5%90%9B%E5%8A%A2&platform=drnh">1945 戴笠呈蒋中正民盟分子左舜生张君劢拟从事调解国共纠纷（最高密件）⭐⭐⭐⭐⭐</a>',
@@ -2959,7 +2959,24 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
         )
     elif platform == "drnh":
+        # 检查访客水印图是否已缓存
+        drnh_imgs_root = ROOT / "data" / "drnh_images"
+        drnh_subdir = drnh_imgs_root / doc["doc_key"].replace(":", "__").replace("/", "_")
+        cached_images = []
+        if drnh_subdir.exists():
+            cached_images = sorted(
+                [p for p in drnh_subdir.glob("p*.jpg") if p.stat().st_size > 1000],
+                key=lambda p: int(re.search(r"p(\d+)\.jpg", p.name).group(1)) if re.search(r"p(\d+)\.jpg", p.name) else 0,
+            )
+        has_preview = len(cached_images) > 0
+
+        preview_btn = (
+            f'<a class="button" href="#drnh-preview"><svg class="ico"><use href="#i-book"/></svg>'
+            f'訪客水印原檔 · {len(cached_images)} 頁</a>'
+            if has_preview else ''
+        )
         tools_html = (
+            preview_btn +
             f'<a class="button" href="{source_link}" target="_blank" rel="noreferrer">'
             f'<svg class="ico"><use href="#i-globe"/></svg>國史館原檔（按典藏號搜尋）</a>'
             f'<a class="button" href="/search?q={quote(doc["matched_terms"] or doc["title"])}">'
@@ -3021,8 +3038,39 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   '本档案为 CIA 解密报告的 <b>archive.org OCR 文本</b>，可能含扫描识别噪声（页眉/水印残留）。'
   '正式引用请以 <a href="' + archive_detail_url + '" target="_blank">archive.org 原始 PDF</a> 为准。'
   '</div>') if is_cia else ''}
+"""
+    # DRNH 访客水印图预览 section
+    if platform == "drnh" and cached_images:
+        img_thumbs = ""
+        for img_path in cached_images:
+            page_num = re.search(r"p(\d+)\.jpg", img_path.name).group(1)
+            img_url = f"/drnh-img/{quote(doc['doc_key'])}/p{page_num}.jpg"
+            img_thumbs += (
+                f'<figure style="margin:0;text-align:center;flex:0 0 auto;">'
+                f'<a href="{img_url}" target="_blank">'
+                f'<img src="{img_url}" loading="lazy" '
+                f'style="max-height:280px;border:1px solid var(--line);background:var(--bg-paper);'
+                f'box-shadow:var(--shadow-sm);"/></a>'
+                f'<figcaption style="font-size:12px;color:var(--muted);margin-top:4px;">第 {page_num} 頁</figcaption>'
+                f'</figure>'
+            )
+        body += f"""
+<section id="drnh-preview" class="meta-card" style="margin-top:18px;">
+  <div class="meta-card-head">
+    <h3><svg class="ico"><use href="#i-book"/></svg>訪客水印原檔預覽（{len(cached_images)} 頁）</h3>
+    <span class="meta" style="font-size:12.5px;color:var(--muted);">
+      國史館訪客模式 · 圖像含「請登入」綠色水印 · 僅供研究參考 · 正式引用需在
+      <a href="{source_link}" target="_blank" rel="noreferrer" style="color:var(--accent);">國史館系統</a>
+      註冊會員查看無水印原圖
+    </span>
+  </div>
+  <div style="display:flex;gap:14px;overflow-x:auto;padding:14px 4px;background:var(--panel-warm);border-top:1px solid var(--line-soft);">
+    {img_thumbs}
+  </div>
+</section>
+"""
 
-<section class="reader">"""
+    body += '<section class="reader">'
     for row in rows:
         page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
         selected = " id=\"selected\"" if page_id and str(row["page_id"]) == str(page_id) else ""
@@ -3474,7 +3522,7 @@ def people() -> bytes:
       点击姓名查看该人物所有原文、译文、来源链接和事件年表。
     </div>
     <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
-      本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust，扩展中：Kew / 国史馆 / 近史所）。
+      本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 國史館 六大档案源）。
       下方人物索引是档案翻译过程中用于规范人名、提供历史上下文的内部研究编排，<b>不构成资料库收录内容</b>。
     </div>
   </div>
@@ -3619,13 +3667,13 @@ def person_page(slug: str) -> bytes:
     <div style="font-family:var(--serif);font-size:16px;line-height:1.8;color:var(--text);">{h(profile_text)}</div>
     <div class="meta" style="margin-top:10px;font-size:12.5px;color:var(--muted-soft);">
       本卡为内部研究编排参考，便于理解下方档案译文的人物上下文；
-      本平台资料库本身只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust，扩展中：Kew / 国史馆 / 近史所）。
+      本平台资料库本身只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 國史館 六大档案源）。
     </div>
   </div>
 </section>
 """
     if not rows:
-        body += '<div class="notice">FRUS 档案中暂无命中。待 Wilson Center / CIA FOIA / Kew 等境外档案补充后会自动出现。</div>'
+        body += '<div class="notice">FRUS 档案中暂无命中。可切换查看 CIA / Wilson / Hoover / HathiTrust / 國史館 五个境外档案源。</div>'
     else:
         body += '<section class="result-list">'
         for row in rows:
@@ -5003,7 +5051,7 @@ def key_event_page(slug: str, view: str = "mixed") -> bytes:
     if not rows:
         body += (
             '<div class="notice">FRUS 档案中暂无与本事件直接命中的片段。'
-            '待 Wilson Center / CIA FOIA / Kew 等境外档案补充后会自动出现。</div>'
+            '待其他境外档案源补充后会自动出现。</div>'
         )
     else:
         # 渲染上限：宽搜事件（如政协、民盟成立）容易命中数百段，单页渲染过大
@@ -5115,6 +5163,35 @@ class Handler(BaseHTTPRequestHandler):
             payload = glossary_page()
         elif parsed.path.startswith("/sources/"):
             payload = source_page(unquote(parsed.path.removeprefix("/sources/")))
+        elif parsed.path.startswith("/drnh-img/"):
+            # 静态服务國史館已下载的访客水印图：/drnh-img/<doc_key>/p<N>.jpg
+            try:
+                rest = unquote(parsed.path.removeprefix("/drnh-img/"))
+                parts = rest.rsplit("/", 1)
+                if len(parts) != 2 or not parts[1].endswith(".jpg"):
+                    raise ValueError("bad path")
+                doc_key_safe, fname = parts
+                # 防穿越
+                if "/" in fname or ".." in fname or ".." in doc_key_safe:
+                    raise ValueError("path traversal")
+                sub = ROOT / "data" / "drnh_images" / doc_key_safe.replace(":", "__").replace("/", "_")
+                fpath = sub / fname
+                fpath = fpath.resolve()
+                root_resolved = (ROOT / "data" / "drnh_images").resolve()
+                if not str(fpath).startswith(str(root_resolved)):
+                    raise ValueError("escape")
+                if not fpath.is_file():
+                    raise FileNotFoundError
+                data = fpath.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "image/jpeg")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Cache-Control", "public, max-age=86400")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            except Exception:
+                payload = layout("圖像未找到", '<div class="notice">未找到该 DRNH 訪客水印圖。</div>')
         elif parsed.path == "/quality":
             payload = quality(qs.get("severity", [""])[0], qs.get("issue", [""])[0])
         elif parsed.path == "/tasks":

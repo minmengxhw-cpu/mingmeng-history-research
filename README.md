@@ -11,11 +11,7 @@
 - **Wilson Center Digital Archive**（威尔逊国际学者中心数字档案，含苏联/东欧档案）
 - **Hoover Institution Archives**（斯坦福大学胡佛档案馆现场调档卷宗）
 - **HathiTrust / Internet Archive**（香港同代英文报刊 China Mail / Hong Kong Telegraph）
-
-正在探勘的扩展档案源：
-
-- **The National Archives, Kew**（英国国家档案馆 FO 371 / CO 香港档案）
-- **国史馆 / 中研院近代史研究所档案馆**（台湾同代档案系统）
+- **國史館檔案史料文物查詢系統**（中华民国国史馆 · 国民政府最高层视角 · 蔣中正總統文物 / 國民政府 / 戴笠呈件 / 保密局密報）
 
 **不收录**：民盟官网、维基百科、政协官网、各级民盟省市委员会网站、新闻报道、研究论文等任何 **二手资料**。
 
