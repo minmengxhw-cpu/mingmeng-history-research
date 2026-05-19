@@ -1750,11 +1750,11 @@ PLATFORM_META = {
         "todo_note": "区别于公网批量抓取——所有资料系研究者赴斯坦福现场调阅、拍照、整理为 PDF 后入库。下一步：扫描件 OCR + 翻译 + 入库。",
     },
     "drnh": {
-        "name": "國史館",
-        "long_name": "國史館檔案史料文物查詢系統",
-        "cn_name": "中华民国国史馆数字档案",
-        "subtitle": "国民政府最高层视角 · 蒋中正总统文物 · 戴笠/保密局密报",
-        "intro": "国史馆是中华民国总统府所属国家最高级档案馆，典藏国民政府、总统府、行政院、各部会、五院、地方政府及党国要员之个人文物。其「檔案史料文物查詢系統」（ahonline.drnh.gov.tw）目录与元数据全开放，本平台通过 Base64M 编码的 API 完整采集了 1941-1950 年民盟相关命中。",
+        "name": "台北「国史馆」",
+        "long_name": "台北「国史馆」档案史料文物查询系统",
+        "cn_name": "台湾地区档案数字典藏",
+        "subtitle": "民国政府最高层视角 · 蒋中正总统档案 · 戴笠/保密局呈件",
+        "intro": "台北「国史馆」典藏中国大陆时期民国政府、总统府、行政院及党国要员之档案文物。其「档案史料文物查询系统」（ahonline.drnh.gov.tw）目录与元数据全开放，本平台通过 Base64M 编码的 API 完整采集了 1941—1950 年民盟相关命中。",
         "perspective": "国民政府决策视角 + 军事情报视角 —— 与 FRUS（美方外交）、CIA（美方情报）、Wilson Center（苏方）、HathiTrust 港媒（公开舆论）构成多方视角下的民盟完整图景",
         "coverage": "1941-1950 共 465 篇（A 档 283 / B 档 182）。蒋中正总统文物 ~70%（戴笠呈件、保密局密报、蒋的批示）/ 国民政府 ~16%（三省参议会反驳张澜系列）/ 陈诚副总统文物 ~9% / 外交部 ~5%",
         "highlights": [
@@ -1769,7 +1769,7 @@ PLATFORM_META = {
         "status": None,
         "status_class": "ok",
         "active": True,
-        "todo_note": "元数据 100% 访客可达；档案原图国史馆要求注册会员（访客版有水印）。本平台仅入库元数据 + 题名简体化作为索引层，原文图像请点击「國史館原檔」按钮在国史馆系统查看。",
+        "todo_note": "元数据 100% 访客可达；档案原图台北「国史馆」要求注册会员（访客版含水印）。本平台仅入库元数据 + 题名简体化作为索引层，原文图像请点击「原档系统」按钮在台北「国史馆」系统查看。",
     },
     "hathitrust": {
         "name": "HathiTrust / IA",
@@ -1798,7 +1798,7 @@ PLATFORM_META = {
 
 
 def platforms_panel_html(c: sqlite3.Connection) -> str:
-    """海外民盟资料平台入口面板。FRUS 已上线，其余平台显示路线图。"""
+    """档案平台入口面板：六大档案源（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北「国史馆」）。"""
     # 动态计算每个平台的数据规模
     plat_counts = {}
     try:
@@ -1839,7 +1839,7 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
   <div class="pdesc">{h(desc)}</div>
   <div class="pstatus {meta["status_class"]}">{h(status_text)}</div>
 </a>''')
-    return '<h2 style="font-size:18px;margin:18px 0 10px;">📚 海外民盟资料平台</h2>\n<section class="platforms">' + "".join(cards) + "</section>"
+    return '<h2 style="font-size:18px;margin:18px 0 10px;">📚 民盟档案研究平台</h2>\n<section class="platforms">' + "".join(cards) + "</section>"
 
 
 def source_page(platform_key: str) -> bytes:
@@ -2629,8 +2629,8 @@ def home() -> bytes:
 
         body = f"""
 <section class="hero hero-compact">
-  <h1>海外民盟历史文献研究库</h1>
-  <p class="hero-sub">系统整理中国民主同盟筹建、参政与重大转折时期的<strong>中国大陆境外一手档案</strong>，汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、國史館 六源同代史料，含国民政府最高层视角。</p>
+  <h1>民盟历史文献研究库</h1>
+  <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>中国大陆境外一手档案</strong>，汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、台北「国史馆」六源多视角同代史料。</p>
   <div class="hero-chips">
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_zh}</b> 条中文译文</span>
@@ -2639,13 +2639,13 @@ def home() -> bytes:
 </section>
 
 <div class="section-head">
-  <h2><svg class="ico"><use href="#i-globe"/></svg>海外研究平台</h2>
+  <h2><svg class="ico"><use href="#i-globe"/></svg>档案研究平台</h2>
   <span class="section-meta">六源多视角 · 持续更新</span>
 </div>
 {platforms_html_block}
 
 <div class="section-head" style="margin-top:48px;">
-  <h2><svg class="ico"><use href="#i-edit"/></svg>海外平台档案研究仪表盘</h2>
+  <h2><svg class="ico"><use href="#i-edit"/></svg>档案研究仪表盘</h2>
   <a class="more" href="/dashboard">查看完整仪表盘 →</a>
 </div>
 <section class="stats stats-card">
@@ -2792,38 +2792,39 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
         )
         return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
-    # ============ 國史館档案史料文物查詢系統 ============
+    # ============ 台北「国史馆」档案史料文物查询系统 ============
     if platform == "drnh":
         store_no = docnum  # 典藏号
         fonds_full = (doc["volume_title"] if "volume_title" in doc.keys() else "") or ""
-        title_hant = title_en  # 国史馆 title 字段实为繁体
+        title_hant = title_en  # 本平台 title 字段存的为繁体原题
         # 实时繁→简
         try:
             import zhconv
             title_hans = zhconv.convert(title_hant, "zh-cn")
+            fonds_hans = zhconv.convert(fonds_full, "zh-cn") if fonds_full else fonds_full
         except Exception:
             title_hans = title_hant
+            fonds_hans = fonds_full
         bibkey = f"DRNH_{store_no}".replace(".", "_").replace("-", "_")[:80]
         bibtex = (
             f"@misc{{{bibkey},\n"
-            f"  title  = {{{title_hant}}},\n"
-            f"  author = {{國史館}},\n"
-            f"  howpublished = {{臺北：國史館檔案史料文物查詢系統，全宗：{fonds_full}}},\n"
+            f"  title  = {{{title_hans}}},\n"
+            f"  author = {{台北「国史馆」}},\n"
+            f"  howpublished = {{台北「国史馆」档案史料文物查询系统，全宗：{fonds_hans}}},\n"
             f"  year   = {{{year}}},\n"
-            f"  note   = {{典藏號 {store_no}; 本件日期 {date}}},\n"
+            f"  note   = {{典藏号 {store_no}; 本件日期 {date}}},\n"
             f"  url    = {{{url}}},\n"
             f"  urldate = {{{today}}}\n"
             f"}}"
         )
         chicago = (
-            f'國史館 (Academia Historica). "{title_hant}." {date}. '
-            f'{fonds_full}, 典藏號 {store_no}. Taipei: Academia Historica. '
-            f'Accessed {today}. {url}.'
+            f'Taipei "Academia Historica" (Guoshi Guan). "{title_hans}." {date}. '
+            f'{fonds_hans}, 典藏号 {store_no}. Accessed {today}. {url}.'
         )
         gb = (
-            f"國史館 編. {title_hans}（繁體原題：{title_hant}）[A/OL]. "
-            f"{fonds_full}, 典藏號 {store_no}, ({date}). "
-            f"臺北: 國史館檔案史料文物查詢系統[{today}]. {url}."
+            f"台北「国史馆」 编. {title_hans}（繁体原题：{title_hant}）[A/OL]. "
+            f"{fonds_hans}, 典藏号 {store_no}, ({date}). "
+            f"台北「国史馆」档案史料文物查询系统[{today}]. {url}."
         )
         return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
@@ -2972,19 +2973,19 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
 
         preview_btn = (
             f'<a class="button" href="#drnh-preview"><svg class="ico"><use href="#i-book"/></svg>'
-            f'訪客水印原檔 · {len(cached_images)} 頁</a>'
+            f'访客水印原档 · {len(cached_images)} 页</a>'
             if has_preview else ''
         )
         tools_html = (
             preview_btn +
             f'<a class="button" href="{source_link}" target="_blank" rel="noreferrer">'
-            f'<svg class="ico"><use href="#i-globe"/></svg>國史館原檔（按典藏號搜尋）</a>'
+            f'<svg class="ico"><use href="#i-globe"/></svg>原档系统（按典藏号搜寻）</a>'
             f'<a class="button" href="/search?q={quote(doc["matched_terms"] or doc["title"])}">'
             f'<svg class="ico"><use href="#i-search"/></svg>相关搜索</a>'
         )
         platform_badge = (
             '<span class="src-badge" style="background:#1F4E78;color:#fff;">'
-            '<svg class="ico"><use href="#i-archive"/></svg>國史館 · 數位檔 · 訪客可見（會員看原圖）'
+            '<svg class="ico"><use href="#i-archive"/></svg>台北「国史馆」· 数位档 · 访客可见（会员看原图）'
             '</span>'
         )
         meta_card_foot = (
@@ -3057,11 +3058,11 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         body += f"""
 <section id="drnh-preview" class="meta-card" style="margin-top:18px;">
   <div class="meta-card-head">
-    <h3><svg class="ico"><use href="#i-book"/></svg>訪客水印原檔預覽（{len(cached_images)} 頁）</h3>
+    <h3><svg class="ico"><use href="#i-book"/></svg>访客水印原档预览（{len(cached_images)} 页）</h3>
     <span class="meta" style="font-size:12.5px;color:var(--muted);">
-      國史館訪客模式 · 圖像含「請登入」綠色水印 · 僅供研究參考 · 正式引用需在
-      <a href="{source_link}" target="_blank" rel="noreferrer" style="color:var(--accent);">國史館系統</a>
-      註冊會員查看無水印原圖
+      台北「国史馆」访客模式 · 图像含「请登入」绿色水印 · 仅供研究参考 · 正式引用需在
+      <a href="{source_link}" target="_blank" rel="noreferrer" style="color:var(--accent);">原档系统</a>
+      注册会员查看无水印原图
     </span>
   </div>
   <div style="display:flex;gap:14px;overflow-x:auto;padding:14px 4px;background:var(--panel-warm);border-top:1px solid var(--line-soft);">
@@ -3522,7 +3523,7 @@ def people() -> bytes:
       点击姓名查看该人物所有原文、译文、来源链接和事件年表。
     </div>
     <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
-      本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 國史館 六大档案源）。
+      本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北「国史馆」 六大档案源）。
       下方人物索引是档案翻译过程中用于规范人名、提供历史上下文的内部研究编排，<b>不构成资料库收录内容</b>。
     </div>
   </div>
@@ -3667,13 +3668,13 @@ def person_page(slug: str) -> bytes:
     <div style="font-family:var(--serif);font-size:16px;line-height:1.8;color:var(--text);">{h(profile_text)}</div>
     <div class="meta" style="margin-top:10px;font-size:12.5px;color:var(--muted-soft);">
       本卡为内部研究编排参考，便于理解下方档案译文的人物上下文；
-      本平台资料库本身只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 國史館 六大档案源）。
+      本平台资料库本身只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北「国史馆」 六大档案源）。
     </div>
   </div>
 </section>
 """
     if not rows:
-        body += '<div class="notice">FRUS 档案中暂无命中。可切换查看 CIA / Wilson / Hoover / HathiTrust / 國史館 五个境外档案源。</div>'
+        body += '<div class="notice">FRUS 档案中暂无命中。可切换查看 CIA / Wilson / Hoover / HathiTrust / 台北「国史馆」 五个境外档案源。</div>'
     else:
         body += '<section class="result-list">'
         for row in rows:
@@ -5164,7 +5165,7 @@ class Handler(BaseHTTPRequestHandler):
         elif parsed.path.startswith("/sources/"):
             payload = source_page(unquote(parsed.path.removeprefix("/sources/")))
         elif parsed.path.startswith("/drnh-img/"):
-            # 静态服务國史館已下载的访客水印图：/drnh-img/<doc_key>/p<N>.jpg
+            # 静态服务台北「国史馆」已下载的访客水印图：/drnh-img/<doc_key>/p<N>.jpg
             try:
                 rest = unquote(parsed.path.removeprefix("/drnh-img/"))
                 parts = rest.rsplit("/", 1)
