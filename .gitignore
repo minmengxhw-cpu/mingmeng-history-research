@@ -48,3 +48,10 @@ scripts/data/
 notion-drive-worker/node_modules/
 notion-drive-worker/dist/
 notion-drive-worker/.env*
+
+# DB 不入仓（68MB+ 二进制，备份在 data/backups/）
+data/research_index.sqlite
+data/research_index.sqlite-journal
+data/research_index.sqlite-wal
+data/research_index.sqlite-shm
+data/backups/
