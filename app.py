@@ -772,8 +772,18 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
         frus_pages = frus_zh = frus_human = 0
     frus_pct = (frus_human * 100 // frus_zh) if frus_zh else 0
 
+    # 按真实文档数降序排卡片（已上线优先于未上线；同状态内按文档数）
+    # 这样 FRUS(299) / DRNH(364) 等大源在前，Hoover(2) 在最后
+    ordered_keys = sorted(
+        PLATFORM_META.keys(),
+        key=lambda k: (
+            0 if PLATFORM_META[k]["active"] else 1,   # 已上线在前
+            -plat_counts.get(k, 0),                    # 文档多的在前
+        ),
+    )
     cards = []
-    for key, meta in PLATFORM_META.items():
+    for key in ordered_keys:
+        meta = PLATFORM_META[key]
         cls = "platform-card" + (" active" if meta["active"] else " upcoming")
         n = plat_counts.get(key, 0)
         if key == "frus":
