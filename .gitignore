@@ -39,3 +39,12 @@ data/drnh_images/
 # workspace/ 临时工作产物（白皮书草稿、数据集 JSON 等）
 workspace/*
 !workspace/.gitkeep
+
+# scripts/ 下误建的本地工作目录（含空 sqlite / drnh_images 软链等）
+scripts/data/
+
+# notion-drive-worker/ 独立子项目（含 node_modules）；如需入仓应用 git submodule 引入
+# 这里临时让顶层仓库忽略它的 node_modules 等编译产物（由子项目自己的 .gitignore 兜底）
+notion-drive-worker/node_modules/
+notion-drive-worker/dist/
+notion-drive-worker/.env*
