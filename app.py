@@ -1673,8 +1673,9 @@ def home() -> bytes:
 
         body = f"""
 <section class="hero hero-compact">
+  <div class="hero-eyebrow">1941 — 1950 · 中国大陆境外一手档案</div>
   <h1>民盟历史文献研究库</h1>
-  <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>中国大陆境外一手档案</strong>，汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、台北档案史料六源多视角同代史料。</p>
+  <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>中国大陆境外一手档案</strong>，<br>汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、台北档案史料六源同代史料。</p>
   <div class="hero-chips">
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_zh}</b> 条中文译文</span>
@@ -1682,6 +1683,10 @@ def home() -> bytes:
   </div>
 </section>
 
+<div class="section-head">
+  <h2><svg class="ico"><use href="#i-globe"/></svg>档案研究平台</h2>
+  <span class="section-meta">六源多视角 · 持续更新</span>
+</div>
 {platforms_html_block}
 
 <div class="section-head" style="margin-top:48px;">

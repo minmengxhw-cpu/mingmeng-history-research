@@ -192,6 +192,15 @@
       margin: 0 auto 32px;
       max-width: 720px;
     }
+    .hero.hero-compact .hero-eyebrow {
+      font-family: var(--serif);
+      font-size: 12px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 16px;
+      opacity: 0.82;
+    }
     .hero.hero-compact h1 {
       font-size: 27px;
       margin: 0 0 14px;
