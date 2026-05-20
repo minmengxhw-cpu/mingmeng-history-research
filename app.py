@@ -2005,16 +2005,13 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
         )
     elif platform == "drnh":
-        # 检查访客水印图是否已缓存
-        drnh_imgs_root = ROOT / "data" / "drnh_images"
-        drnh_subdir = drnh_imgs_root / doc["doc_key"].replace(":", "__").replace("/", "_")
-        cached_images = []
-        if drnh_subdir.exists():
-            cached_images = sorted(
-                [p for p in drnh_subdir.glob("p*.jpg") if p.stat().st_size > 1000],
-                key=lambda p: int(re.search(r"p(\d+)\.jpg", p.name).group(1)) if re.search(r"p(\d+)\.jpg", p.name) else 0,
-            )
+        # 从数据库 drnh_images 表读取图片关联
+        cached_images = c.execute(
+            "SELECT page_num, file_path FROM drnh_images WHERE document_id = ? ORDER BY page_num",
+            (doc["id"],)
+        ).fetchall()
         has_preview = len(cached_images) > 0
+
 
         preview_btn = (
             f'<a class="button" href="#drnh-workspace-start"><svg class="ico"><use href="#i-book"/></svg>'
@@ -2065,6 +2062,23 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   <div class="doc-tools">{tools_html}</div>
 </section>
 
+    # 交叉档案印证逻辑：查找相关事件
+    related_docs = []
+    for evt in KEY_EVENTS:
+        if any(term.lower() in (doc["title"] + (doc["matched_terms"] or "")).lower() for term in evt["search_terms"]):
+            # 查询属于同一事件的其它文档
+            term_query = " OR ".join([f"title LIKE '%{t}%'" for t in evt["search_terms"][:3]])
+            related = c.execute(f"""
+                SELECT doc_key, title, source_platform, date_guess 
+                FROM documents 
+                WHERE ({term_query}) AND doc_key != ? 
+                LIMIT 5
+            """, (doc["doc_key"],)).fetchall()
+            if related:
+                related_docs.append({"event": evt["name"], "docs": related})
+            break
+
+    body += f"""
 <section class="meta-card{' cia-cite' if is_cia else ''}" id="cite-card">
   <div class="meta-card-head">
     <h3><svg class="ico"><use href="#i-quote"/></svg>学术引用</h3>
@@ -2078,12 +2092,22 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   <pre class="cite-content" id="cite-content" data-bibtex="{h(citations['bibtex'])}" data-chicago="{h(citations['chicago'])}" data-gb="{h(citations['gb'])}">{h(citations['gb'])}</pre>
   <div class="meta-card-foot">{meta_card_foot}</div>
 </section>
+"""
+    # 渲染交叉档案区块
+    if related_docs:
+        body += '<section class="meta-card"><h3><svg class="ico"><use href="#i-globe"/></svg>跨源交叉印证</h3>'
+        for group in related_docs:
+            body += f'<h4>{h(group["event"])}</h4><ul>'
+            for d in group["docs"]:
+                body += f'<li><a href="/doc/{quote(d["doc_key"])}">{h(d["title"])}</a> <em>({h(d["source_platform"])})</em></li>'
+            body += '</ul>'
+        body += '</section>'
 
-{('<div class="notice cia-ocr-notice" style="margin-bottom:14px;">'
+    body += (('<div class="notice cia-ocr-notice" style="margin-bottom:14px;">'
   '<svg class="ico"><use href="#i-globe"/></svg>'
   '本档案为 CIA 解密报告的 <b>archive.org OCR 文本</b>，可能含扫描识别噪声（页眉/水印残留）。'
   '正式引用请以 <a href="' + archive_detail_url + '" target="_blank">archive.org 原始 PDF</a> 为准。'
-  '</div>') if is_cia else ''}
+  '</div>') if is_cia else '')
 """
     # DRNH 访客水印图预览 section
     if platform == "drnh" and cached_images:
