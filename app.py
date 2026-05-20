@@ -749,9 +749,27 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
     except sqlite3.OperationalError:
         plat_counts = {}
     frus_docs = plat_counts.get('frus', 0)
-    frus_pages = c.execute("SELECT count(*) FROM pages").fetchone()[0]
-    frus_zh = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN'").fetchone()[0]
-    frus_human = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN' AND status='human-reviewed'").fetchone()[0]
+    # 全部限定到 FRUS 平台自身（之前是全库统计，被 drnh 稀释导致显示 65%）
+    try:
+        frus_pages = c.execute(
+            "SELECT count(*) FROM pages p JOIN documents d ON p.document_id=d.id "
+            "WHERE COALESCE(d.source_platform,'frus')='frus'"
+        ).fetchone()[0]
+        frus_zh = c.execute(
+            "SELECT count(*) FROM translations t "
+            "JOIN pages p ON t.page_id=p.id "
+            "JOIN documents d ON p.document_id=d.id "
+            "WHERE t.language='zh-CN' AND COALESCE(d.source_platform,'frus')='frus'"
+        ).fetchone()[0]
+        frus_human = c.execute(
+            "SELECT count(*) FROM translations t "
+            "JOIN pages p ON t.page_id=p.id "
+            "JOIN documents d ON p.document_id=d.id "
+            "WHERE t.language='zh-CN' AND t.status='human-reviewed' "
+            "AND COALESCE(d.source_platform,'frus')='frus'"
+        ).fetchone()[0]
+    except sqlite3.OperationalError:
+        frus_pages = frus_zh = frus_human = 0
     frus_pct = (frus_human * 100 // frus_zh) if frus_zh else 0
 
     cards = []
