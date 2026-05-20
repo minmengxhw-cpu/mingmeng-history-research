@@ -1984,7 +1984,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         has_preview = len(cached_images) > 0
 
         preview_btn = (
-            f'<a class="button" href="#drnh-preview"><svg class="ico"><use href="#i-book"/></svg>'
+            f'<a class="button" href="#drnh-workspace-start"><svg class="ico"><use href="#i-book"/></svg>'
             f'访客水印原档 · {len(cached_images)} 页</a>'
             if has_preview else ''
         )
@@ -2054,37 +2054,22 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
 """
     # DRNH 访客水印图预览 section
     if platform == "drnh" and cached_images:
-        img_thumbs = ""
-        for img_path in cached_images:
-            page_num = re.search(r"p(\d+)\.jpg", img_path.name).group(1)
-            img_url = f"/drnh-img/{quote(doc['doc_key'])}/p{page_num}.jpg"
-            img_thumbs += (
-                f'<figure style="margin:0;text-align:center;flex:0 0 auto;">'
-                f'<a href="{img_url}" target="_blank">'
-                f'<img src="{img_url}" loading="lazy" '
-                f'style="max-height:280px;border:1px solid var(--line);background:var(--bg-paper);'
-                f'box-shadow:var(--shadow-sm);"/></a>'
-                f'<figcaption style="font-size:12px;color:var(--muted);margin-top:4px;">第 {page_num} 頁</figcaption>'
-                f'</figure>'
-            )
         body += f"""
-<section id="drnh-preview" class="meta-card" style="margin-top:18px;">
-  <div class="meta-card-head">
-    <h3><svg class="ico"><use href="#i-book"/></svg>访客水印原档预览（{len(cached_images)} 页）</h3>
-    <span class="meta" style="font-size:12.5px;color:var(--muted);">
-      台北档案史料访客模式 · 图像含「请登入」绿色水印 · 仅供研究参考 · 正式引用需在
-      <a href="{source_link}" target="_blank" rel="noreferrer" style="color:var(--accent);">原档系统</a>
-      注册会员查看无水印原图
-    </span>
-  </div>
-  <div style="display:flex;gap:14px;overflow-x:auto;padding:14px 4px;background:var(--panel-warm);border-top:1px solid var(--line-soft);">
-    {img_thumbs}
-  </div>
-</section>
+<div class="drnh-archive-notice">
+  <svg class="ico"><use href="#i-book"/></svg>
+  <span>
+    <strong>台北档案史料访客模式：</strong> 图像中含「请登入」绿色水印，仅供学术研究参考。正式引用如需无水印原图，请至
+    <a href="{source_link}" target="_blank" rel="noreferrer">原档系统</a>
+    注册会员以查看无水印原图。
+  </span>
+</div>
 """
 
-    body += '<section class="reader">'
-    for row in rows:
+    if platform == "drnh":
+        body += '<section id="drnh-workspace-start" class="reader reader-drnh">'
+    else:
+        body += '<section class="reader">'
+    for idx, row in enumerate(rows):
         page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
         selected = " id=\"selected\"" if page_id and str(row["page_id"]) == str(page_id) else ""
         zh = row["zh_text"] or "尚未翻译"
@@ -2103,12 +2088,86 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
 
         # drnh 是中文原档：去双栏（不展示「中文译文」副栏），只显简体单栏
         if platform == "drnh":
-            body += f"""
-  <div class="segment">
-    <article class="pane drnh-single"{selected} style="flex:1 1 100%;">
-      <div class="pane-head"><span>档案内容 · {h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
-      <div class="pane-body">{h(row["original_text"])}</div>
+            img_url = None
+            if cached_images:
+                page_label_clean = str(row['page_label']).strip().lower()
+                m_lbl = re.search(r"\d+", page_label_clean)
+                for img_path in cached_images:
+                    m_img = re.search(r"p(\d+)\.jpg", img_path.name)
+                    if m_img:
+                        if m_lbl and str(m_img.group(1)) == str(m_lbl.group(0)):
+                            img_url = f"/drnh-img/{quote(doc['doc_key'])}/{img_path.name}"
+                            break
+                if not img_url and idx < len(cached_images):
+                    img_path = cached_images[idx]
+                    img_url = f"/drnh-img/{quote(doc['doc_key'])}/{img_path.name}"
+
+            summary_html = ""
+            if zh and zh != "尚未翻译" and zh != row["original_text"]:
+                summary_html = f"""
+      <div class="drnh-academic-divider">
+        <span class="line"></span>
+        <span class="ornament">❈ ❈ ❈</span>
+        <span class="line"></span>
+      </div>
+      <div class="drnh-academic-card">
+        <div class="drnh-summary-title">
+          <svg class="ico"><use href="#i-quote"/></svg>
+          史料核心意旨与历史价值
+        </div>
+        <div class="drnh-summary-text">{h(zh)}</div>
+        <div class="drnh-summary-footer">
+          — 中国民主同盟历史专题研究小组 · 史料意旨提炼 —
+        </div>
+      </div>"""
+
+            pane_cls = "drnh-academic-pane selected-pane" if selected else "drnh-academic-pane"
+            
+            if img_url:
+                body += f"""
+  <div class="drnh-page-segment-container"{selected}>
+    <div class="drnh-workspace-row">
+      <div class="drnh-archive-image-col">
+        <figure class="drnh-image-figure">
+          <a href="{img_url}" target="_blank" title="点击查看无水印原图">
+            <img class="drnh-archive-image" src="{img_url}" loading="lazy" />
+          </a>
+          <figcaption class="drnh-image-caption">访客水印原档预览 · 第 {h(row['page_label'])} 页</figcaption>
+        </figure>
+      </div>
+      <div class="drnh-transcription-col">
+        <article class="{pane_cls}">
+          <div class="drnh-pane-header">
+            <span class="drnh-academic-badge">✦ 台北国史馆史料原档释读 · {h(page)}</span>
+            <span class="drnh-actions">
+              <a href="/cite/{h(row["page_id"])}">摘录卡片</a> · 
+              <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a>
+            </span>
+          </div>
+          <div class="drnh-pane-body">
+            <div class="drnh-original-text">{h(row["original_text"])}</div>
+          </div>
+        </article>
+      </div>
+    </div>
+    {summary_html}
+  </div>"""
+            else:
+                body += f"""
+  <div class="drnh-page-segment-container"{selected}>
+    <article class="{pane_cls}" style="width: 100%;">
+      <div class="drnh-pane-header">
+        <span class="drnh-academic-badge">✦ 台北国史馆史料原档释读 · {h(page)}</span>
+        <span class="drnh-actions">
+          <a href="/cite/{h(row["page_id"])}">摘录卡片</a> · 
+          <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a>
+        </span>
+      </div>
+      <div class="drnh-pane-body">
+        <div class="drnh-original-text">{h(row["original_text"])}</div>
+      </div>
     </article>
+    {summary_html}
   </div>"""
         else:
             body += f"""
@@ -2148,6 +2207,283 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
 """
     if page_id:
         body += "<script>document.getElementById('selected')?.scrollIntoView({block:'center'});</script>"
+    if platform == "drnh":
+        body = f"""<div class="drnh-layout-wrapper">
+<style>
+.drnh-layout-wrapper {{
+    max-width: 100%;
+    margin: 0 auto;
+}}
+.reader.reader-drnh {{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 40px !important;
+    margin-top: 24px !important;
+}}
+.drnh-page-segment-container {{
+    display: block !important;
+    margin-bottom: 48px;
+    scroll-margin-top: 86px;
+    width: 100%;
+}}
+.drnh-workspace-row {{
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    align-items: stretch;
+}}
+@media (max-width: 900px) {{
+    .drnh-workspace-row {{
+        flex-direction: column;
+    }}
+}}
+.drnh-archive-image-col {{
+    flex: 0 0 45%;
+    min-width: 0;
+}}
+.drnh-transcription-col {{
+    flex: 0 0 55%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}}
+@media (max-width: 900px) {{
+    .drnh-archive-image-col, .drnh-transcription-col {{
+        flex: 1 1 auto;
+        width: 100%;
+    }}
+}}
+.drnh-image-figure {{
+    margin: 0;
+    padding: 16px;
+    background: #fbf7ee;
+    border: 1px solid #e6dec9;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(42, 40, 32, 0.04);
+    text-align: center;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}}
+.drnh-archive-image {{
+    max-width: 100%;
+    height: auto;
+    max-height: 700px;
+    object-fit: contain;
+    border: 1px solid #e6dec9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(42, 40, 32, 0.08);
+    background: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-block;
+}}
+.drnh-archive-image:hover {{
+    transform: scale(1.015);
+    box-shadow: 0 8px 24px rgba(42, 40, 32, 0.14);
+}}
+.drnh-image-caption {{
+    font-size: 13px;
+    color: #8b5e34;
+    font-family: var(--serif);
+    margin-top: 12px;
+    font-weight: 600;
+}}
+.drnh-academic-pane {{
+    background: #fdfbf6 !important;
+    border: 1px solid #e6dec9 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 12px 36px rgba(42, 40, 32, 0.05), 0 2px 6px rgba(42, 40, 32, 0.02) !important;
+    overflow: hidden;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}}
+.drnh-academic-pane:hover {{
+    transform: translateY(-2px);
+    box-shadow: 0 16px 48px rgba(42, 40, 32, 0.07), 0 3px 8px rgba(42, 40, 32, 0.03) !important;
+}}
+.drnh-academic-pane.selected-pane {{
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px rgba(15, 107, 91, 0.08) !important;
+}}
+.drnh-pane-header {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    border-bottom: 1px solid #ece6d6;
+    background: #fbf7ee;
+}}
+.drnh-academic-badge {{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #8b5e34;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+}}
+.drnh-actions {{
+    font-size: 13px;
+    font-family: var(--sans);
+}}
+.drnh-actions a {{
+    color: var(--accent);
+    opacity: 0.85;
+    transition: opacity 0.15s, color 0.15s;
+}}
+.drnh-actions a:hover {{
+    opacity: 1;
+    color: var(--accent-deep);
+    text-decoration: underline;
+}}
+.drnh-pane-body {{
+    padding: 28px 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}}
+.drnh-original-text {{
+    font-family: var(--serif);
+    font-size: 18.5px;
+    line-height: 1.9;
+    color: #2a2820;
+    font-weight: 500;
+    border-left: 4px solid var(--accent);
+    padding-left: 18px;
+    margin-bottom: 0;
+    word-break: break-all;
+    text-align: justify;
+    text-justify: inter-word;
+    text-wrap: pretty;
+    letter-spacing: 0.03em;
+    flex: 1;
+}}
+
+/* Elegant Notice Card at top */
+.drnh-archive-notice {{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0 24px;
+    padding: 16px 20px;
+    background: #fdfbf7;
+    border: 1px solid #e3dac3;
+    border-left: 4px solid #8b5e34;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(42, 40, 32, 0.03);
+    font-size: 14px;
+    color: #5c5545;
+    line-height: 1.5;
+}}
+.drnh-archive-notice svg {{
+    width: 20px;
+    height: 20px;
+    fill: #8b5e34;
+    flex-shrink: 0;
+}}
+.drnh-archive-notice a {{
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}}
+.drnh-archive-notice a:hover {{
+    text-decoration: underline;
+}}
+
+/* Beautiful Ornate Divider */
+.drnh-academic-divider {{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 24px 0;
+    user-select: none;
+}}
+.drnh-academic-divider .line {{
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d9d2bf 30%, #d9d2bf 70%, transparent);
+}}
+.drnh-academic-divider .ornament {{
+    color: #bba677;
+    font-size: 14px;
+    letter-spacing: 6px;
+    font-family: var(--serif);
+}}
+
+/* Outstanding Academic Summary Card */
+.drnh-academic-card {{
+    background: linear-gradient(135deg, #fdfbf7 0%, #f7f3e8 100%) !important;
+    border: 1px solid #e3dac3 !important;
+    border-left: 5px solid #8c2d19 !important;
+    border-radius: 12px !important;
+    padding: 24px 28px 20px !important;
+    box-shadow: 0 8px 24px rgba(140, 45, 25, 0.04), 0 1px 3px rgba(140, 45, 25, 0.01) !important;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}}
+.drnh-academic-card::after {{
+    content: "”";
+    position: absolute;
+    right: 20px;
+    bottom: -10px;
+    font-family: var(--serif);
+    font-size: 140px;
+    color: rgba(140, 45, 25, 0.03);
+    line-height: 1;
+    pointer-events: none;
+    font-weight: 900;
+}}
+.drnh-summary-title {{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: #8c2d19;
+    font-family: var(--serif);
+    font-size: 16.5px;
+    margin-bottom: 14px;
+    letter-spacing: 0.05em;
+}}
+.drnh-summary-title svg {{
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}}
+.drnh-summary-text {{
+    font-family: var(--serif);
+    font-size: 16.2px;
+    line-height: 1.85;
+    color: #3d382e;
+    text-align: justify;
+    text-justify: inter-word;
+    text-wrap: pretty;
+    letter-spacing: 0.02em;
+}}
+.drnh-summary-footer {{
+    text-align: center;
+    font-size: 12.5px;
+    color: #8a806d;
+    margin-top: 20px;
+    font-family: var(--serif);
+    letter-spacing: 0.08em;
+    border-top: 1px dashed rgba(227, 218, 195, 0.6);
+    padding-top: 14px;
+    font-weight: 500;
+}}
+</style>
+{body}
+</div>"""
     return layout(translate_title(doc["title"]), body)
 
 

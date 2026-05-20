@@ -20,13 +20,20 @@ import http.cookiejar
 import json
 import re
 import sqlite3
+import ssl
 import sys
 import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# 忽略 SSL 证书校验错误，以连通台北国史馆网站
+try:
+    ssl._create_default_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+
+ROOT = Path(__file__).resolve().parent.parent.parent
 DB = ROOT / "data" / "research_index.sqlite"
 IMG_DIR = ROOT / "data" / "drnh_images"
 IMG_DIR.mkdir(parents=True, exist_ok=True)
