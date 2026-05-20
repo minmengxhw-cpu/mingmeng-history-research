@@ -2014,6 +2014,9 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         except sqlite3.OperationalError:
             cached_images = []
         has_preview = len(cached_images) > 0
+        # 该台北档案是否存在访客水印图——仅「有水印图」的档案才展示「史料意旨」摘要卡片
+        _drnh_img_dir = ROOT / "data" / "drnh_images" / doc["doc_key"].replace(":", "__").replace("/", "_")
+        has_watermark_img = _drnh_img_dir.is_dir() and any(_drnh_img_dir.glob("p*.jpg"))
 
 
         preview_btn = (
@@ -2183,8 +2186,9 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             # 段落锚点编号：有图用图片页码，无图用序号——保证胶片导航栏锚点可跳转
             seg_anchor = seg_img['page_num'] if seg_img is not None else (idx + 1)
 
+            # 摘要卡片：仅台北档案中「有访客水印图」的档案才展示史料意旨提炼
             summary_html = ""
-            if zh and zh != "尚未翻译" and zh != row["original_text"]:
+            if has_watermark_img and zh and zh != "尚未翻译" and zh != row["original_text"]:
                 summary_html = f"""
       <div class="drnh-academic-divider">
         <span class="line"></span>
@@ -2299,8 +2303,10 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
                 <span>{img['page_num']}</span>
             </a>'''
         
+        # 配图先不展示：无缩略图时不输出空的胶片导航栏
+        filmstrip_block = f'<div class="drnh-filmstrip">{filmstrip_items}</div>' if filmstrip_items.strip() else ''
         body = f"""<div class="drnh-layout-wrapper">
-<div class="drnh-filmstrip">{filmstrip_items}</div>
+{filmstrip_block}
 <style>
 .drnh-filmstrip {{
     display: flex;
