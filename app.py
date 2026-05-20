@@ -2005,11 +2005,14 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
         )
     elif platform == "drnh":
-        # 从数据库 drnh_images 表读取图片关联
-        cached_images = c.execute(
-            "SELECT page_num, file_path FROM drnh_images WHERE document_id = ? ORDER BY page_num",
-            (doc["id"],)
-        ).fetchall()
+        # 从数据库 drnh_images 表读取图片关联（表不存在时优雅降级为无图，不致整页崩溃）
+        try:
+            cached_images = c.execute(
+                "SELECT page_num, file_path FROM drnh_images WHERE document_id = ? ORDER BY page_num",
+                (doc["id"],)
+            ).fetchall()
+        except sqlite3.OperationalError:
+            cached_images = []
         has_preview = len(cached_images) > 0
 
 
@@ -2061,6 +2064,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   </div>
   <div class="doc-tools">{tools_html}</div>
 </section>
+"""
 
     # 交叉档案印证逻辑：查找相关事件与人物
     related_docs = []
@@ -2124,7 +2128,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   '本档案为 CIA 解密报告的 <b>archive.org OCR 文本</b>，可能含扫描识别噪声（页眉/水印残留）。'
   '正式引用请以 <a href="' + archive_detail_url + '" target="_blank">archive.org 原始 PDF</a> 为准。'
   '</div>') if is_cia else '')
-"""
+
     # DRNH 访客水印图预览 section
     if platform == "drnh" and cached_images:
         body += f"""
@@ -2162,18 +2166,22 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         # drnh 是中文原档：去双栏（不展示「中文译文」副栏），只显简体单栏
         if platform == "drnh":
             img_url = None
+            seg_img = None
             if cached_images:
-                page_label_clean = str(row['page_label']).strip().lower()
-                m_lbl = re.search(r"\d+", page_label_clean)
-                for img_path in cached_images:
-                    m_img = re.search(r"p(\d+)\.jpg", img_path.name)
-                    if m_img:
-                        if m_lbl and str(m_img.group(1)) == str(m_lbl.group(0)):
-                            img_url = f"/drnh-img/{quote(doc['doc_key'])}/{img_path.name}"
+                # cached_images 为数据库行（含 page_num / file_path）
+                m_lbl = re.search(r"\d+", str(row['page_label'] or '').strip())
+                if m_lbl:
+                    for img in cached_images:
+                        if str(img['page_num']) == str(m_lbl.group(0)):
+                            seg_img = img
                             break
-                if not img_url and idx < len(cached_images):
-                    img_path = cached_images[idx]
-                    img_url = f"/drnh-img/{quote(doc['doc_key'])}/{img_path.name}"
+                if seg_img is None and idx < len(cached_images):
+                    seg_img = cached_images[idx]
+                if seg_img is not None:
+                    fname = Path(seg_img['file_path']).name
+                    img_url = f"/drnh-img/{quote(doc['doc_key'])}/{fname}"
+            # 段落锚点编号：有图用图片页码，无图用序号——保证胶片导航栏锚点可跳转
+            seg_anchor = seg_img['page_num'] if seg_img is not None else (idx + 1)
 
             summary_html = ""
             if zh and zh != "尚未翻译" and zh != row["original_text"]:
@@ -2198,7 +2206,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             
             if img_url:
                 body += f"""
-  <div class="drnh-page-segment-container" id="page-{row['page_num']}"{selected}>
+  <div class="drnh-page-segment-container" id="page-{seg_anchor}"{selected}>
     <div class="drnh-workspace-row">
       <div class="drnh-archive-image-col">
         <figure class="drnh-image-figure">
@@ -2227,7 +2235,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   </div>"""
             else:
                 body += f"""
-  <div class="drnh-page-segment-container" id="page-{row['page_num']}"{selected}>
+  <div class="drnh-page-segment-container" id="page-{seg_anchor}"{selected}>
     <article class="{pane_cls}" style="width: 100%;">
       <div class="drnh-pane-header">
         <span class="drnh-academic-badge">✦ 台北国史馆史料原档释读 · {h(page)}</span>
@@ -2284,9 +2292,10 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         # 重新获取图片以生成导航栏
         filmstrip_items = ""
         for img in cached_images:
+            thumb_url = f"/drnh-img/{quote(doc['doc_key'])}/{Path(img['file_path']).name}"
             filmstrip_items += f'''
             <a href="#page-{img['page_num']}" class="drnh-thumb" title="第 {img['page_num']} 页">
-                <img src="/{h(img['file_path'])}" loading="lazy" />
+                <img src="{thumb_url}" loading="lazy" />
                 <span>{img['page_num']}</span>
             </a>'''
         
