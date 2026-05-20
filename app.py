@@ -2186,9 +2186,11 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             # 段落锚点编号：有图用图片页码，无图用序号——保证胶片导航栏锚点可跳转
             seg_anchor = seg_img['page_num'] if seg_img is not None else (idx + 1)
 
-            # 摘要卡片：仅台北档案中「有访客水印图」的档案才展示史料意旨提炼
+            # 摘要卡片：仅台北档案中「有访客水印图」且已生成案由摘要的档案才展示，
+            # 每篇只在首段出现一次；内容据档案案由机器整理，明确标注待人工校订
             summary_html = ""
-            if has_watermark_img and zh and zh != "尚未翻译" and zh != row["original_text"]:
+            drnh_sum = (doc["drnh_summary"] or "").strip() if has_watermark_img else ""
+            if drnh_sum and idx == 0:
                 summary_html = f"""
       <div class="drnh-academic-divider">
         <span class="line"></span>
@@ -2198,11 +2200,11 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
       <div class="drnh-academic-card">
         <div class="drnh-summary-title">
           <svg class="ico"><use href="#i-quote"/></svg>
-          史料核心意旨与历史价值
+          档案内容提要
         </div>
-        <div class="drnh-summary-text">{h(zh)}</div>
+        <div class="drnh-summary-text">{h(drnh_sum)}</div>
         <div class="drnh-summary-footer">
-          — 中国民主同盟历史专题研究小组 · 史料意旨提炼 —
+          据国史馆档案案由整理 · 机器初拟，待人工校订
         </div>
       </div>"""
 
