@@ -2062,20 +2062,36 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   <div class="doc-tools">{tools_html}</div>
 </section>
 
-    # 交叉档案印证逻辑：查找相关事件
+    # 交叉档案印证逻辑：查找相关事件与人物
     related_docs = []
+    # 1. 基于关键词查找事件关联
     for evt in KEY_EVENTS:
         if any(term.lower() in (doc["title"] + (doc["matched_terms"] or "")).lower() for term in evt["search_terms"]):
-            # 查询属于同一事件的其它文档
             term_query = " OR ".join([f"title LIKE '%{t}%'" for t in evt["search_terms"][:3]])
             related = c.execute(f"""
                 SELECT doc_key, title, source_platform, date_guess 
                 FROM documents 
                 WHERE ({term_query}) AND doc_key != ? 
-                LIMIT 5
-            """, (doc["doc_key"],)).fetchall()
+                  AND date_guess BETWEEN date(?, '-3 months') AND date(?, '+3 months')
+                LIMIT 4
+            """, (doc["doc_key"], doc["date_guess"], doc["date_guess"])).fetchall()
             if related:
-                related_docs.append({"event": evt["name"], "docs": related})
+                related_docs.append({"title": f"事件印证: {evt['name']}", "docs": related})
+            break
+            
+    # 2. 基于关联人物查找人际网络档案关联
+    for p in PEOPLE:
+        if p['name'] in (doc["title"] + (doc["matched_terms"] or "")):
+            # 查找同人物关联的其它文档
+            related_people = c.execute("""
+                SELECT doc_key, title, source_platform, date_guess 
+                FROM documents 
+                WHERE (title LIKE ? OR matched_terms LIKE ?) AND doc_key != ?
+                  AND date_guess BETWEEN date(?, '-3 months') AND date(?, '+3 months')
+                LIMIT 4
+            """, (f"%{p['name']}%", f"%{p['name']}%", doc["doc_key"], doc["date_guess"], doc["date_guess"])).fetchall()
+            if related_people:
+                related_docs.append({"title": f"人物关联: {p['name']}", "docs": related_people})
             break
 
     body += f"""
@@ -2097,7 +2113,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
     if related_docs:
         body += '<section class="meta-card"><h3><svg class="ico"><use href="#i-globe"/></svg>跨源交叉印证</h3>'
         for group in related_docs:
-            body += f'<h4>{h(group["event"])}</h4><ul>'
+            body += f'<h4>{h(group["title"])}</h4><ul>'
             for d in group["docs"]:
                 body += f'<li><a href="/doc/{quote(d["doc_key"])}">{h(d["title"])}</a> <em>({h(d["source_platform"])})</em></li>'
             body += '</ul>'
@@ -2182,7 +2198,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             
             if img_url:
                 body += f"""
-  <div class="drnh-page-segment-container"{selected}>
+  <div class="drnh-page-segment-container" id="page-{row['page_num']}"{selected}>
     <div class="drnh-workspace-row">
       <div class="drnh-archive-image-col">
         <figure class="drnh-image-figure">
@@ -2211,7 +2227,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   </div>"""
             else:
                 body += f"""
-  <div class="drnh-page-segment-container"{selected}>
+  <div class="drnh-page-segment-container" id="page-{row['page_num']}"{selected}>
     <article class="{pane_cls}" style="width: 100%;">
       <div class="drnh-pane-header">
         <span class="drnh-academic-badge">✦ 台北国史馆史料原档释读 · {h(page)}</span>
@@ -2265,8 +2281,44 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
     if page_id:
         body += "<script>document.getElementById('selected')?.scrollIntoView({block:'center'});</script>"
     if platform == "drnh":
+        # 重新获取图片以生成导航栏
+        filmstrip_items = ""
+        for img in cached_images:
+            filmstrip_items += f'''
+            <a href="#page-{img['page_num']}" class="drnh-thumb" title="第 {img['page_num']} 页">
+                <img src="/{h(img['file_path'])}" loading="lazy" />
+                <span>{img['page_num']}</span>
+            </a>'''
+        
         body = f"""<div class="drnh-layout-wrapper">
+<div class="drnh-filmstrip">{filmstrip_items}</div>
 <style>
+.drnh-filmstrip {{
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 16px;
+    background: #fbf7ee;
+    border-bottom: 1px solid #e6dec9;
+    margin-bottom: 24px;
+    scroll-behavior: smooth;
+}}
+.drnh-thumb {{
+    flex: 0 0 80px;
+    text-align: center;
+    text-decoration: none;
+    color: #8c2d19;
+    font-size: 12px;
+}}
+.drnh-thumb img {{
+    width: 80px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid #e6dec9;
+    border-radius: 4px;
+}}
+.drnh-thumb:hover img {{ border-color: #8c2d19; }}
+
 .drnh-layout-wrapper {{
     max-width: 100%;
     margin: 0 auto;
@@ -2280,7 +2332,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
 .drnh-page-segment-container {{
     display: block !important;
     margin-bottom: 48px;
-    scroll-margin-top: 86px;
+    scroll-margin-top: 160px;
     width: 100%;
 }}
 .drnh-workspace-row {{
