@@ -700,7 +700,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
   <header class="topbar">
     <a class="brand" href="/">
       <span>民盟历史文献研究库</span>
-      <span class="brand-sub">FRUS / Wilson / CIA</span>
+      <span class="brand-sub">FRUS · CIA · Wilson · Hoover · HathiTrust · DRNH</span>
     </a>
     <form class="search" method="get" action="/search" role="search">
       <input name="q" value="{h(query)}" placeholder="搜索英文原文或中文译文，例如「罗隆基」「Marshall」「政协」">
@@ -727,7 +727,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
         </div>
       </div>
       <div class="footer-meta">
-        数据来源：FRUS · Wilson Center · CIA FOIA<br>
+        数据来源：FRUS · CIA FOIA · Wilson Center · Hoover Institution · HathiTrust · 台北档案史料 (DRNH)<br>
         本站为学术研究工具，所有档案均保留原始出处引用
       </div>
     </div>
