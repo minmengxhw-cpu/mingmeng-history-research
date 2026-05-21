@@ -177,28 +177,43 @@ def clean_archive_text(text: str, lang: str) -> str:
     for ln in text.split("\n"):
         s = ln.strip()
         if not s:
-            keep.append(ln)
+            keep.append("")
             continue
+        # markdown 表格行：分隔行直接弃，数据行去竖线
+        if "|" in s and (s.startswith("|") or s.count("|") >= 2):
+            if re.fullmatch(r"[\s:|+\-]{3,}", s):
+                continue
+            s = re.sub(r"\s*\|\s*", " ", s).strip()
+            if not s:
+                continue
         if re.fullmatch(r"[-—–_=*·.\s]{3,}", s) or "分页符" in s:   # 分隔线/分页符
             continue
         if re.search(r"page\s*break", s, re.I) and len(s) < 32:     # --- page break ---
             continue
-        if "|" in s and re.fullmatch(r"[\s:|+-]{3,}", s):           # markdown 表格分隔行
-            continue
         if re.fullmatch(r"\[?\s*(p\.?\s*\d+|page\s*\d+|page|第\s*\d+\s*页"
                         r"|第[一二三四五六七八九十百]+页)\s*\]?", s, re.I):  # 页码标记
             continue
-        if re.fullmatch(r"[A-Za-z](\s*-\s*[A-Za-z]){2,}", s):       # 拼写式密级章 S-E-C-R-E-T
+        if len(s) < 32 and re.search(r"[A-Za-z](\s*-\s*[A-Za-z0-9]){3,}", s):  # 拼写式密级章
             continue
         if re.fullmatch(r":?\s*CIA-[A-Z0-9][A-Z0-9-]+", s, re.I):   # 档案控制号
             continue
+        if (re.search(r"Declassif|Decisesiied|Sanitiz|anitiz\w* Cop", s)   # 解密处理章
+                or re.search(r"ppp?roved\W{0,4}([Ff]o|Rele|Wease)", s)     # (A)pproved For…
+                or re.search(r"[Cc]opy\s+[Aa]?ppp?rov", s)                 # …Copy Approved
+                or re.search(r"[lt]ease\s+:?\s*(?:19|20)\s?\d", s)          # …Release 19/20XX(含空格残形)
+                or re.search(r"CIA[\s.\-]{0,2}R[DM]P?\s?\d", s)             # …控制号
+                or re.match(r"\W{0,4}Approved\b", s)):                       # 行首"Approved"=解密章
+            continue
+        if len(s) > 8:                                                      # OCR 乱码行
+            _weird = len(re.findall(
+                r"[^\w\s一-鿿，。；：、！？“”‘’（）()\[\]/.,;:!?'\"&%—–-]", s))
+            if _weird / len(s) > 0.12:
+                continue
         if s in _BARE_NOISE:
             continue
         if _META_LINE.match(s):
             continue
-        if s.startswith("|") and s.count("|") >= 2:                 # markdown 表格数据行
-            ln = re.sub(r"\s*\|\s*", "  ", s).strip()
-        keep.append(ln)
+        keep.append(s)
     text = "\n".join(keep)
     return re.sub(r"\n{3,}", "\n\n", text).strip()
 
