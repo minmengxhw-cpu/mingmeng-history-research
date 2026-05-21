@@ -772,13 +772,14 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
         frus_pages = frus_zh = frus_human = 0
     frus_pct = (frus_human * 100 // frus_zh) if frus_zh else 0
 
-    # 按真实文档数降序排卡片（已上线优先于未上线；同状态内按文档数）
-    # 这样 FRUS(299) / DRNH(364) 等大源在前，Hoover(2) 在最后
+    # 排卡片：已上线优先于未上线；台北档案（目前仅案由、无全文内容）固定排最后；
+    # 其余按真实文档数降序
     ordered_keys = sorted(
         PLATFORM_META.keys(),
         key=lambda k: (
             0 if PLATFORM_META[k]["active"] else 1,   # 已上线在前
-            -plat_counts.get(k, 0),                    # 文档多的在前
+            1 if k == "drnh" else 0,                   # 台北档案固定垫底
+            -plat_counts.get(k, 0),                    # 其余按文档数降序
         ),
     )
     cards = []
