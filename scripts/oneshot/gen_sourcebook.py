@@ -233,13 +233,36 @@ def to_paras(text: str, en: bool) -> str:
     return "\n".join(out)
 
 
+_MONTHS = {m: i for i, m in enumerate(
+    ["january", "february", "march", "april", "may", "june", "july",
+     "august", "september", "october", "november", "december"], 1)}
+
+
+def date_key(s):
+    """date_guess -> (年,月,日) 排序键；兼容 ISO 日期与英文文本日期。"""
+    s = (s or "").strip()
+    m = re.match(r"(\d{4})-(\d{1,2})-(\d{1,2})", s)
+    if m:
+        return tuple(int(x) for x in m.groups())
+    ym = re.search(r"(18|19|20)\d\d", s)
+    year = int(ym.group()) if ym else 9999
+    mon = next((n for nm, n in _MONTHS.items() if nm in s.lower()), 0)
+    dm = re.search(r"\b(\d{1,2})\b", re.sub(r"(18|19|20)\d\d", "", s))
+    day = int(dm.group(1)) if dm else 0
+    return (year, mon, day)
+
+
+def year_of(s):
+    y = date_key(s)[0]
+    return str(y) if y != 9999 else None
+
+
 def fetch(platform):
     c = sqlite3.connect(DB)
     c.row_factory = sqlite3.Row
     docs = c.execute(
-        """SELECT id, doc_key, title, date_guess, url
-           FROM documents WHERE COALESCE(source_platform,'frus')=?
-           ORDER BY date_guess, id""",
+        "SELECT id, doc_key, title, date_guess, url FROM documents "
+        "WHERE COALESCE(source_platform,'frus')=?",
         (platform,),
     ).fetchall()
     items = []
@@ -256,24 +279,25 @@ def fetch(platform):
         ).fetchall()
         items.append((d, pages, trans))
     c.close()
+    items.sort(key=lambda it: date_key(it[0]["date_guess"]))  # 按真实时间线排序
     return items
 
 
-def build(platform):
+def build(platform, items, vol_label=""):
     zh_name, en_name, intro = PLATFORMS[platform]
-    items = fetch(platform)
     if not items:
-        print(f"[跳过] {platform}：无文档")
+        print(f"[跳过] {platform}{vol_label}：无文档")
         return
     dates = [d["date_guess"] for d, _, _ in items if d["date_guess"]]
     span = f"{dates[0]} — {dates[-1]}" if dates else "时间不详"
     today = f"{date.today():%Y 年 %m 月}"
+    vol_txt = f"（{vol_label}）" if vol_label else ""
 
     # 封面
     parts = [f"""<div class="cover">
   <div class="lib">民盟历史文献研究库</div>
   <div class="kind">史 料 长 编</div>
-  <h1>{esc(zh_name)}</h1>
+  <h1>{esc(zh_name)}{esc(vol_txt)}</h1>
   <div class="vol">中国民主同盟史料长编 · 分卷</div>
   <div class="en">{esc(en_name)}</div>
   <div class="rule"></div>
@@ -287,7 +311,7 @@ def build(platform):
     parts.append(f"""<div class="front">
   <h2>编 者 说 明</h2>
   <p>本编为「民盟历史文献研究库」史料长编系列之一，汇辑 {esc(en_name)}
-    （{esc(zh_name)}）中与中国民主同盟相关的一手史料，共 {len(items)} 篇，
+    （{esc(zh_name)}）中与中国民主同盟相关的一手史料。{("因篇幅较巨，全编按时间线分上下两卷，" if vol_label else "")}本{esc(vol_label) or "卷"}收录档案 {len(items)} 篇，
     时间跨度 {esc(span)}。</p>
   <p>{esc(intro)}</p>
   <p>全编按档案日期先后编排，每篇先列档案信息（日期、标题、出处与原档链接），
@@ -302,10 +326,10 @@ def build(platform):
     toc = ['<div class="toc"><h2>目 　 录</h2>']
     cur = None
     for i, (d, _, _) in enumerate(items, 1):
-        yr = (d["date_guess"] or "0000")[:4]
+        yr = year_of(d["date_guess"])
         if yr != cur:
             cur = yr
-            label = f"{yr} 年" if yr != "0000" else "日期不详"
+            label = f"{yr} 年" if yr else "日期不详"
             toc.append(f'<div class="year">{label}</div>')
         title = esc((d["title"] or "（无标题）"))
         toc.append(
@@ -319,10 +343,10 @@ def build(platform):
     body = ['<div class="body">']
     cur = None
     for i, (d, pages, trans) in enumerate(items, 1):
-        yr = (d["date_guess"] or "0000")[:4]
+        yr = year_of(d["date_guess"])
         if yr != cur:
             cur = yr
-            label = f"{yr} 年" if yr != "0000" else "日期不详"
+            label = f"{yr} 年" if yr else "日期不详"
             body.append(f'<div class="year-head">{label}'
                          f'<span class="yr-rule"></span></div>')
         en_raw = clean_archive_text(
@@ -348,9 +372,10 @@ def build(platform):
 <meta charset="utf-8"><style>{CSS}</style></head>
 <body>{''.join(parts)}</body></html>"""
 
-    out = OUT / f"民盟史料长编_{zh_name}_{platform}.pdf"
+    _v = f"_{vol_label}" if vol_label else ""
+    out = OUT / f"民盟史料长编_{zh_name}{_v}_{platform}.pdf"
     HTML(string=doc_html).write_pdf(str(out))
-    print(f"[完成] {platform}：{len(items)} 篇 -> {out.name}")
+    print(f"[完成] {platform}{vol_label}：{len(items)} 篇 -> {out.name}")
 
 
 def main():
@@ -360,7 +385,18 @@ def main():
         if k not in PLATFORMS:
             print(f"[错误] 未知平台 {k}；可选 {', '.join(PLATFORMS)} / all")
             continue
-        build(k)
+        items = fetch(k)
+        if k == "frus" and len(items) > 200:
+            # FRUS 全收篇幅过巨，按时间线均分上下两卷（在年份边界切分）
+            mid = len(items) // 2
+            while 0 < mid < len(items) and \
+                    year_of(items[mid][0]["date_guess"]) == \
+                    year_of(items[mid - 1][0]["date_guess"]):
+                mid += 1
+            build(k, items[:mid], "上卷")
+            build(k, items[mid:], "下卷")
+        else:
+            build(k, items)
 
 
 if __name__ == "__main__":
