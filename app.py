@@ -2205,7 +2205,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         </div>
         <div class="drnh-summary-text">{h(drnh_sum)}</div>
         <div class="drnh-summary-footer">
-          据国史馆档案案由整理 · 机器初拟，待人工校订
+          据台北档案史料案由整理 · 机器初拟，待人工校订
         </div>
       </div>"""
 
@@ -2226,7 +2226,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
       <div class="drnh-transcription-col">
         <article class="{pane_cls}">
           <div class="drnh-pane-header">
-            <span class="drnh-academic-badge">✦ 台北国史馆史料原档释读 · {h(page)}</span>
+            <span class="drnh-academic-badge">✦ 台北档案史料原档释读 · {h(page)}</span>
             <span class="drnh-actions">
               <a href="/cite/{h(row["page_id"])}">摘录卡片</a> · 
               <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a>
@@ -2245,7 +2245,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   <div class="drnh-page-segment-container" id="page-{seg_anchor}"{selected}>
     <article class="{pane_cls}" style="width: 100%;">
       <div class="drnh-pane-header">
-        <span class="drnh-academic-badge">✦ 台北国史馆史料原档释读 · {h(page)}</span>
+        <span class="drnh-academic-badge">✦ 台北档案史料原档释读 · {h(page)}</span>
         <span class="drnh-actions">
           <a href="/cite/{h(row["page_id"])}">摘录卡片</a> · 
           <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a>

@@ -43,13 +43,13 @@ def main():
         new = deep_clean(r['text'])
         if new != r['text']:
             cur.execute(
-                "UPDATE translations SET text=?, status='human-reviewed', translator='xiao-c-wilson-2026-05-17' WHERE id=?",
+                "UPDATE translations SET text=?, status='human-reviewed', translator='小班-wilson-2026-05-17' WHERE id=?",
                 (new, r['id']),
             )
             n += 1
         else:
             cur.execute(
-                "UPDATE translations SET status='human-reviewed', translator='xiao-c-wilson-2026-05-17' WHERE id=?",
+                "UPDATE translations SET status='human-reviewed', translator='小班-wilson-2026-05-17' WHERE id=?",
                 (r['id'],),
             )
     conn.commit()

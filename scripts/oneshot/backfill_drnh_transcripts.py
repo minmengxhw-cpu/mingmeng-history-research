@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""台北国史馆（DRNH）水文档案内容回填脚本
+"""台北档案史料（DRNH）水文档案内容回填脚本
 
 主要工作：
 1. 更新指定 5 篇 A 级核心档案的 `pages.text` 为简体原档高清释读。
@@ -59,7 +59,7 @@ def main():
 
     try:
         # 1. 回填数据
-        print("\n=== 开始回填 5 篇台北国史馆核心史料释读与摘要 ===")
+        print("\n=== 开始回填 5 篇台北档案史料核心史料释读与摘要 ===")
         for doc_id, info in DATA.items():
             print(f"\n处理文档 ID: {doc_id} | {info['doc_key']}")
             

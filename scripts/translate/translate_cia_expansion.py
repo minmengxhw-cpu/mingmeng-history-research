@@ -140,7 +140,7 @@ def main():
                 dt = time.time() - t0
                 cur.execute(
                     "UPDATE translations SET text=?, status=?, translator=? WHERE id=?",
-                    (zh, 'human-reviewed', 'xiao-c-cia-ext-2026-05-17', r['tid']),
+                    (zh, 'human-reviewed', '小班-cia-ext-2026-05-17', r['tid']),
                 )
                 try:
                     cur.execute("DELETE FROM translation_fts WHERE rowid=?", (r['tid'],))

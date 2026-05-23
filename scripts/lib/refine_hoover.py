@@ -82,7 +82,7 @@ def main():
 
         cur.execute("""UPDATE translations SET text=?, translator=?
                        WHERE id=?""",
-                    (zh, 'xiao-c-hoover-refined-2026-05-18', r['tid']))
+                    (zh, '小班-hoover-refined-2026-05-18', r['tid']))
         # FTS 同步
         try:
             cur.execute("DELETE FROM translation_fts WHERE rowid=?", (r['tid'],))

@@ -86,7 +86,7 @@ mingmeng-history-research/
 ├── person_archive.py            # 人物索引基础数据
 ├── README.md
 ├── data/
-│   ├── research_index.sqlite    # 核心数据库（约 42MB，进 git）
+│   ├── research_index.sqlite    # 核心数据库（本地文件，不进 git；备份走 data/backups/ 或单独同步）
 │   ├── frus_meng/               # FRUS 原始抓取（HTML/TXT 快照）
 │   ├── cia_meng/                # CIA 原始抓取
 │   ├── wilson_center/           # Wilson 镜像
@@ -119,7 +119,7 @@ python3 scripts/crawl_frus_meng.py
 python3 scripts/build_research_index.py
 python3 scripts/rebuild_fts_trigram.py  # 必要时
 
-# 入库新源（以国史馆为例）
+# 入库新源（以台北档案史料为例）
 python3 scripts/probe_drnh_archives.py
 python3 scripts/classify_drnh_hits.py
 python3 scripts/ingest_drnh.py
