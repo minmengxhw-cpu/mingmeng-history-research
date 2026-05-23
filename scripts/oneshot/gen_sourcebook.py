@@ -8,17 +8,19 @@
 台北档案（drnh）目前仅有案由、无全文，不在范围内。
 """
 import html
+import os
 import re
 import sqlite3
 import sys
 from datetime import date
 from pathlib import Path
 
-from weasyprint import HTML
-
 ROOT = Path(__file__).resolve().parent.parent.parent
 DB = ROOT / "data" / "research_index.sqlite"
 OUT = ROOT / "workspace"
+os.environ.setdefault("XDG_CACHE_HOME", str(OUT / ".cache"))
+
+from weasyprint import HTML
 
 PLATFORMS = {
     "frus": ("美国对外关系文件集", "Foreign Relations of the United States (FRUS)",
