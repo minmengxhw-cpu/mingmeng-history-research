@@ -210,23 +210,28 @@ def analyze_row(conn: sqlite3.Connection, row: sqlite3.Row, glossary: list[tuple
     page_id = row["page_id"]
     source = row["source_text"] or ""
     zh = row["zh_text"] or ""
+    source_platform = row["source_platform"] or ""
     source_len = max(len(source), 1)
     zh_len = len(zh)
+    status = row["status"] or ""
 
     if not zh.strip():
         insert_issue(conn, page_id, "missing_translation", 3, "缺少中文译文", compact(source))
         return 1
 
-    ratio = zh_len / source_len
-    if ratio < 0.12:
-        insert_issue(conn, page_id, "length_too_short", 3, f"译文长度明显偏短，中文/英文字符比 {ratio:.2f}", compact(zh))
-        count += 1
-    elif ratio < 0.20:
-        insert_issue(conn, page_id, "length_short", 2, f"译文可能偏短，中文/英文字符比 {ratio:.2f}", compact(zh))
-        count += 1
-    elif ratio > 1.80:
-        insert_issue(conn, page_id, "length_long", 1, f"译文可能偏长，中文/英文字符比 {ratio:.2f}", compact(zh))
-        count += 1
+    is_excerpt = status in {"human-excerpt", "reference-summary"} or "【相关段落摘译】" in zh or "【全页提要】" in zh
+    skip_length_check = is_excerpt
+    if not skip_length_check:
+        ratio = zh_len / source_len
+        if ratio < 0.12:
+            insert_issue(conn, page_id, "length_too_short", 3, f"译文长度明显偏短，中文/英文字符比 {ratio:.2f}", compact(zh))
+            count += 1
+        elif ratio < 0.20:
+            insert_issue(conn, page_id, "length_short", 2, f"译文可能偏短，中文/英文字符比 {ratio:.2f}", compact(zh))
+            count += 1
+        elif ratio > 1.80:
+            insert_issue(conn, page_id, "length_long", 1, f"译文可能偏长，中文/英文字符比 {ratio:.2f}", compact(zh))
+            count += 1
 
     for bad, detail in BAD_TERMS.items():
         if bad in zh:
@@ -246,20 +251,21 @@ def analyze_row(conn: sqlite3.Connection, row: sqlite3.Row, glossary: list[tuple
         )
         count += 1
 
-    for term, translation in glossary:
-        if len(term) < 5:
-            continue
-        if source_contains_term(source, term) and not any(expected in zh for expected in expected_translations(term, translation)):
-            insert_issue(
-                conn,
-                page_id,
-                "glossary_miss",
-                2,
-                f"原文含 {term}，译文未见统一译名“{translation}”",
-                compact(zh),
-            )
-            count += 1
-            break
+    if not is_excerpt and source_platform != "hathitrust":
+        for term, translation in glossary:
+            if len(term) < 5:
+                continue
+            if source_contains_term(source, term) and not any(expected in zh for expected in expected_translations(term, translation)):
+                insert_issue(
+                    conn,
+                    page_id,
+                    "glossary_miss",
+                    2,
+                    f"原文含 {term}，译文未见统一译名“{translation}”",
+                    compact(zh),
+                )
+                count += 1
+                break
 
     if row["grade"] == "核心文献" and row["status"] and "local" in row["status"]:
         insert_issue(conn, page_id, "core_machine_draft", 1, "核心文献仍为机器初稿，建议优先抽查", compact(zh))
@@ -281,6 +287,7 @@ def main() -> None:
             translations.text AS zh_text,
             translations.status,
             documents.doc_key,
+            documents.source_platform,
             documents.title,
             documents.date_guess,
             COALESCE(dc.grade, '') AS grade
@@ -288,6 +295,7 @@ def main() -> None:
         JOIN documents ON documents.id = pages.document_id
         LEFT JOIN translations ON translations.page_id = pages.id AND translations.language = 'zh-CN'
         LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+        WHERE COALESCE(dc.grade, '') <> '前台不展示'
         ORDER BY pages.id
         """
     ).fetchall()
