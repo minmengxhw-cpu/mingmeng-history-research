@@ -814,6 +814,30 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
     return '<section class="platforms">' + "".join(cards) + "</section>"
 
 
+def sourcebook_paths(platform_key: str) -> list[Path]:
+    if platform_key == "drnh" or not (ROOT / "workspace").exists():
+        return []
+    paths = []
+    for path in sorted((ROOT / "workspace").glob("民盟史料长编_*.pdf")):
+        key = path.name.rsplit("_", 1)[-1].removesuffix(".pdf")
+        if key == platform_key:
+            paths.append(path)
+    return paths
+
+
+def sourcebook_links_html(platform_key: str, button_class: str = "button") -> str:
+    links = []
+    for path in sourcebook_paths(platform_key):
+        href = f"/sourcebooks/file/{quote(path.name)}"
+        size = path.stat().st_size // 1024
+        label = "下载长编上卷" if "_上卷_" in path.name else "下载长编下卷" if "_下卷_" in path.name else "下载史料长编"
+        links.append(
+            f'<a class="{button_class}" href="{h(href)}" target="_blank">'
+            f'<svg class="ico"><use href="#i-book"/></svg>{label} <span class="muted">({size} KB)</span></a>'
+        )
+    return "".join(links)
+
+
 def source_page(platform_key: str) -> bytes:
     """单个境外档案平台的专属栏目页。"""
     meta = PLATFORM_META.get(platform_key)
@@ -874,6 +898,7 @@ def source_page(platform_key: str) -> bytes:
             return s
     coverage_str = _fmt(meta.get("coverage", ""))
     todo_note_str = _fmt(meta.get("todo_note", ""))
+    sourcebook_tools = sourcebook_links_html(platform_key)
 
     highlights_html = "".join(f"<li>{item}</li>" for item in meta.get("highlights", []))
 
@@ -895,6 +920,7 @@ def source_page(platform_key: str) -> bytes:
     <span><b>时间覆盖</b> {h(coverage_str)}</span>
     <span><b>状态</b> <span class="pstatus {meta['status_class']}" style="margin-left:4px;">{h(status_text)}</span></span>
   </div>
+  {f'<div class="doc-tools" style="margin-top:18px;justify-content:center;">{sourcebook_tools}</div>' if sourcebook_tools else ''}
 </section>
 
 <div class="section-head">
@@ -1624,12 +1650,7 @@ def sourcebooks_page() -> bytes:
         ("hoover", "胡佛研究所档案"),
         ("hathitrust", "HathiTrust 数字典藏"),
     ]
-    files: dict[str, list[Path]] = {key: [] for key, _ in platforms}
-    if (ROOT / "workspace").exists():
-        for path in sorted((ROOT / "workspace").glob("民盟史料长编_*.pdf")):
-            key = path.name.rsplit("_", 1)[-1].removesuffix(".pdf")
-            if key in files:
-                files[key].append(path)
+    files: dict[str, list[Path]] = {key: sourcebook_paths(key) for key, _ in platforms}
     body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "史料长编")]) + """
 <section class="doc-head">
   <div>
