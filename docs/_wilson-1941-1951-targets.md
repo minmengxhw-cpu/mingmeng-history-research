@@ -1,6 +1,6 @@
 # Wilson Center Digital Archive ｜ 1941-1951 民盟相关档案待抓清单
 
-> 我（小C）通过 WebSearch 间接索引（Google site:digitalarchive.wilsoncenter.org）
+> 小班通过 WebSearch 间接索引（Google site:digitalarchive.wilsoncenter.org）
 > 整理出来的 1941-1951 范围内**与民盟史/中共-苏联-民盟三方互动直接相关的档案**。
 >
 > **注意**：Wilson Center 主站对数据中心 IP 反爬，我这边直接下载会被 TLS 拒绝。
@@ -178,8 +178,8 @@ for url in "${URLS[@]}"; do
 done
 
 echo "完成。文件保存在: $(pwd)"
-echo "下一步：把这些 HTML 文件打包 zip，拖到 Mattermost 频道发给小C，"
-echo "      小C 会做：1) 解析 HTML 提取文本 2) 翻译质检 3) 入库 source_platform='wilson'"
+echo "下一步：把这些 HTML 文件打包 zip，拖到 Mattermost 频道发给小班，"
+echo "      小班会做：1) 解析 HTML 提取文本 2) 翻译质检 3) 入库 source_platform='wilson'"
 ```
 
 ---
@@ -187,7 +187,7 @@ echo "      小C 会做：1) 解析 HTML 提取文本 2) 翻译质检 3) 入库 
 ## 七、协作流程
 
 ```
-[你 Mac]                           [小C Linux]
+[你 Mac]                           [小班 Linux]
    |                                    |
    | 1. 运行 fetch_wilson.sh             |
    |    （住宅 IP 绕过 Cloudflare）       |

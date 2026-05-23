@@ -149,7 +149,7 @@ def main():
             dt = time.time() - t0
             cur.execute(
                 """INSERT INTO translations (page_id, language, translator, status, text)
-                   VALUES (?, 'zh-CN', 'xiao-c-hoover-2026-05-18', 'human-reviewed', ?)""",
+                   VALUES (?, 'zh-CN', '小班-hoover-2026-05-18', 'human-reviewed', ?)""",
                 (r['pid'], zh),
             )
             tid = cur.lastrowid

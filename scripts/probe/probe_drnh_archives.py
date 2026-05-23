@@ -32,7 +32,7 @@ SEARCH = BASE + "/index.php?act=Archive/search/{enc}"
 SEARCH_PAGED = BASE + "/index.php?act=Archive/search/{enc}/{start}-{end}"
 INIT = BASE + "/index.php?act=Archive"
 
-PAGE_SIZE = 100  # 国史馆系统支持 20/50/100, 取最大减少请求数
+PAGE_SIZE = 100  # 台北档案史料系统支持 20/50/100, 取最大减少请求数
 
 # 6 个核心关键词（中國民主同盟系列 + 政協 + 非法團體 + 4 民盟主要人物）
 # 跳过：國民大會 19673 + 國民參政會 3571（宽泛词，命中里大部分与民盟无关）

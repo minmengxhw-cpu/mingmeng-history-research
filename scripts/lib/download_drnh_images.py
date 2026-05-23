@@ -27,7 +27,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-# 忽略 SSL 证书校验错误，以连通台北国史馆网站
+# 忽略 SSL 证书校验错误，以连通台北档案史料网站
 try:
     ssl._create_default_https_context = ssl._create_unverified_context
 except AttributeError:

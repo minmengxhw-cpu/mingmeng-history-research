@@ -1,7 +1,7 @@
 #!/bin/bash
 # Wilson Center 1941-1951 民盟相关档案批量下载（Mac 端）
 # 用法：在项目根目录跑 bash scripts/fetch_wilson_macos.sh
-# 完成后会在项目根目录生成 wilson_v1.zip，拖到 Mattermost 给小C
+# 完成后会在项目根目录生成 wilson_v1.zip，拖到 Mattermost 给小班
 
 set -e
 
@@ -113,5 +113,5 @@ echo -e "大小: ${ZIP_KB} KB"
 echo ""
 echo -e "${YELLOW}下一步：${NC}"
 echo -e "  1. 打开 Finder，在项目根目录找到 ${GREEN}${ZIP_FILE}${NC}"
-echo -e "  2. 把这个 zip 文件拖到 Mattermost 跟小C 的频道里"
-echo -e "  3. 小C 会自动解析 → 翻译 → 入库 → 上线 /sources/wilson 栏目"
+echo -e "  2. 把这个 zip 文件拖到 Mattermost 跟小班的频道里"
+echo -e "  3. 小班会自动解析 → 翻译 → 入库 → 上线 /sources/wilson 栏目"

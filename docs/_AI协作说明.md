@@ -1,17 +1,17 @@
 # AGENTS.md — 民盟历史文献研究库
 
 > 这是给 Codex / Claude / 其他 AI agent 接手本项目时的入口文件。
-> 先读这个，再读 `README.md`，最后读 `docs/research_workbench_progress.md`。
+> 先读这个，再读 `README.md` 和 `docs/_changelog.md`。
 
 ## 项目一句话
 
-基于 FRUS 1941–1950 卷册搭建中国民主同盟史料研究工作台：抓取、校验、翻译、全文检索、引用、事件线索、研究卡片导出。Python + Flask 单文件 app + SQLite。
+基于 1941–1950 年中国民主同盟相关境外一手档案搭建研究工作台：抓取、校验、翻译、全文检索、引用、事件线索、研究卡片和史料长编导出。Python 标准库 HTTP server + SQLite。
 
 ## 当前关键状态
 
-- 索引规模：299 篇文档，416 个页/段落片段，117 个带官方页码锚点。
-- 翻译覆盖：416 个片段 100% 有中文译文，其中 403 个 Argos 机器初稿，13 个早期批量样本。
-- 质量提示：见 `docs/translation_quality_report.md`，最新一次 322 条；`/tasks` 路由是优先级队列。
+- 索引规模以本地 `data/research_index.sqlite` 为准；最近一次统计为 6 源 768 篇文档。
+- 数据库文件不进 git，GitHub 只保存代码、原始文本快照、脚本和文档；数据库备份走 `data/backups/` 或单独同步。
+- 翻译覆盖以 `translations` 表为准；正式引用核心段落前仍需人工校订。
 
 ## 工作流必读
 
@@ -30,16 +30,17 @@
 ## 推荐入口
 
 ```bash
-.venv/bin/python app.py            # 启动本地服务 http://127.0.0.1:8765
-.venv/bin/python scripts/postedit_argos_translations.py
-.venv/bin/python scripts/build_translation_quality_report.py
+python3 app.py                     # 启动本地服务 http://127.0.0.1:8765
+python3 scripts/build/build_translation_quality_report.py
+python3 scripts/oneshot/gen_sourcebook.py frus
 ```
 
 ## 提交规范
 
-- 用 git。**修改 SQLite (`data/research_index.sqlite`) 也要 commit**，它是项目的事实状态。
+- 用 git。**不要提交 SQLite (`data/research_index.sqlite`)**；它是本地事实状态，但已经通过 `.gitignore` 排除。
 - Commit message 中文/英文都可，第一行简短描述，正文列出 quality report 的 delta（前/后对比）。
 - 大批量翻译改动单独成 commit，与代码改动分开。
+- Git 作者统一使用 `小班 <bot@users.noreply.github.com>`，不要出现个人真名或其他机器人署名。
 
 ## 已知坑
 
@@ -48,8 +49,8 @@
 - `T. V. Soong` 的 "宋大夫" / "宋博士" 在某些上下文是 Argos 的误译，但 "宋博士" 也可能指别人——慎用。
 - 不要 `git add data/.venv data/ocr_smoke_test data/frus_epub_tmp`，已在 `.gitignore`。
 
-## 最近一次接力（2026-05-14, Claude）
+## 最近一次接力提示
 
-- Commit `b015b7e`: git baseline，911 files。
-- Commit `a4adbaf`: 扩展术语表 ~60 条 + postedit zh-zh 字典扩展；postedit 触动 106 条；english_residue 总数 112→88。
-- 下一步：人工校订 `/tasks` 前 20 条高优先级片段。
+- 先看 `git status --short --branch`，确认是否有本地未提交改动。
+- 首页、平台卡、长编生成器和数据库口径经常联动，改一处后要同步验证 README、dashboard 和首页显示。
+- 下一步优先级：身份与文档口径统一、史料长编导出入口、DRNH 自动摘要质量分层、Kew/HKPRO/Sinica 外部档案推进。

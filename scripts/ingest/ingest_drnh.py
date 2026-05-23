@@ -7,7 +7,7 @@
 - pages 表每条 doc 1 个 page（合并题名 + 内容描述作为原文）
 - translations 表注入繁→简体作为 zh-CN（标 translator='zhconv-auto'）
 - document_classifications 标 A 或 B
-- url 指向国史馆按典藏号搜索结果（用户点链接可直达档案 detail）
+- url 指向台北档案史料按典藏号搜索结果（用户点链接可直达档案 detail）
 """
 from __future__ import annotations
 
@@ -33,7 +33,7 @@ def base64m_encode(s: str) -> str:
 
 
 def make_drnh_url(store_no: str) -> str:
-    """构造国史馆按典藏号搜索的 URL（用户点开后能直达档案 detail）"""
+    """构造台北档案史料按典藏号搜索的 URL（用户点开后能直达档案 detail）"""
     if not store_no:
         return ""
     payload = {"query": [{"field": "store_no", "value": store_no, "attr": "+"}]}
@@ -153,7 +153,7 @@ def ingest(dry_run: bool = False):
         )
         doc_id_db = cur.lastrowid
 
-        # 插 pages：1 条 doc 1 个 page；原文 = 繁体题名（国史馆未提供全文 OCR）
+        # 插 pages：1 条 doc 1 个 page；原文 = 繁体题名（台北档案史料未提供全文 OCR）
         page_text = title_zh_hant
         # 如果有内容描述附加
         desc = (r.get("內容描述") or "").strip()

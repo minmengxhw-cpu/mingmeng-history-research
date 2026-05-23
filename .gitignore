@@ -55,3 +55,6 @@ data/research_index.sqlite-journal
 data/research_index.sqlite-wal
 data/research_index.sqlite-shm
 data/backups/
+
+# unrelated local prototype, not part of the research platform
+Pulse/

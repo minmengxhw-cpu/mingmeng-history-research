@@ -17,14 +17,14 @@
 - `git rm --cached data/research_index.sqlite`（commit `2272a74`）。
 - `.gitignore` 排除：`data/research_index.sqlite` + `-journal/-wal/-shm` + `data/backups/`。
 - 本地文件保留，未来 DB 变更不再产生 git blob，避免每次 push 68MB+ 二进制。
-- 历史 blob 仍在仓库内（旧 commit），未做 `git filter-repo` 重写。
+- 2026-05-21 已用 `git filter-repo` 清理历史 blob，并强推远端；仓库历史不再保留 `data/research_index.sqlite`。
 
 ### 六源体系正式定型
 
 | 平台 | 文档数 | 状态 |
 |---|---|---|
 | FRUS | 299 | ✅ |
-| DRNH（台北国史馆） | 287 | ✅（1941 边界 + 4 件人物特例） |
+| DRNH（台北档案史料） | 287 | ✅（1941 边界 + 4 件人物特例） |
 | CIA | 102 | ✅ |
 | HathiTrust | 54 | ✅ |
 | Wilson Center | 24 | 🟡 Cloudflare 拦截待破 |

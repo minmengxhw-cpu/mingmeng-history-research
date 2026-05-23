@@ -18,7 +18,7 @@ from weasyprint import HTML
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 DB = ROOT / "data" / "research_index.sqlite"
-OUT = Path("/home/zq/work/mm/mm-bot/workspace")
+OUT = ROOT / "workspace"
 
 PLATFORMS = {
     "frus": ("美国对外关系文件集", "Foreign Relations of the United States (FRUS)",
