@@ -1624,10 +1624,12 @@ def sourcebooks_page() -> bytes:
         ("hoover", "胡佛研究所档案"),
         ("hathitrust", "HathiTrust 数字典藏"),
     ]
-    files = {
-        path.name.rsplit("_", 1)[-1].removesuffix(".pdf"): path
-        for path in (ROOT / "workspace").glob("民盟史料长编_*.pdf")
-    } if (ROOT / "workspace").exists() else {}
+    files: dict[str, list[Path]] = {key: [] for key, _ in platforms}
+    if (ROOT / "workspace").exists():
+        for path in sorted((ROOT / "workspace").glob("民盟史料长编_*.pdf")):
+            key = path.name.rsplit("_", 1)[-1].removesuffix(".pdf")
+            if key in files:
+                files[key].append(path)
     body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "史料长编")]) + """
 <section class="doc-head">
   <div>
@@ -1642,12 +1644,18 @@ def sourcebooks_page() -> bytes:
 <section class="result-list">
 """
     for key, label in platforms:
-        path = files.get(key)
-        if path and path.is_file():
-            href = f"/sourcebooks/file/{quote(path.name)}"
-            size = path.stat().st_size // 1024
-            cite = f'<a href="{h(href)}" target="_blank">打开 PDF</a><br>{size} KB'
-            status = '<span class="tag">已生成</span>'
+        paths = files.get(key, [])
+        if paths:
+            links = []
+            total_size = 0
+            for path in paths:
+                href = f"/sourcebooks/file/{quote(path.name)}"
+                size = path.stat().st_size // 1024
+                total_size += size
+                label_text = "上卷" if "_上卷_" in path.name else "下卷" if "_下卷_" in path.name else "打开 PDF"
+                links.append(f'<a href="{h(href)}" target="_blank">{label_text}</a> <span class="muted">({size} KB)</span>')
+            cite = "<br>".join(links)
+            status = f'<span class="tag">已生成 {len(paths)} 份</span><span class="tag">{total_size} KB</span>'
         else:
             cite = "待生成"
             status = '<span class="tag muted">未生成</span>'
@@ -1725,7 +1733,6 @@ def home() -> bytes:
 
         body = f"""
 <section class="hero hero-compact">
-  <div class="hero-eyebrow">1941 — 1950 · 中国大陆境外一手档案</div>
   <h1>民盟历史文献研究库</h1>
   <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>中国大陆境外一手档案</strong>，<br>汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、台北档案史料六源同代史料。</p>
   <div class="hero-chips">
