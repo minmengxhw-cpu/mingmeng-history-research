@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import datetime
+import csv
 import html
 import sys
 import json
@@ -647,7 +648,7 @@ ICONS_SVG = """
 
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/timeline", "年表"), ("/glossary", "术语表")]),
-    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
+    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
     ("topics", "i-tag", "专题与人物", [("/topics", "专题"), ("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
 
@@ -1548,6 +1549,8 @@ def dashboard() -> bytes:
     <a class="button" href="/quality?severity=2">质量检查</a>
     <a class="button" href="/events">事件线索</a>
     <a class="button" href="/focus">首页清单</a>
+    <a class="button" href="/drnh-review">DRNH校订</a>
+    <a class="button" href="/external-acquisition">外部调档</a>
     <a class="button" href="/sourcebooks">史料长编</a>
   </div>
 </section>
@@ -1690,6 +1693,124 @@ def sourcebooks_page() -> bytes:
   </article>"""
     body += "</section>"
     return layout("史料长编", body, active_path="/sourcebooks")
+
+
+def read_csv_rows(path: Path, limit: int = 200) -> list[dict[str, str]]:
+    if not path.exists():
+        return []
+    with path.open("r", encoding="utf-8-sig", newline="") as f:
+        rows = list(csv.DictReader(f))
+    return rows[:limit]
+
+
+def drnh_review_page(active_tier: str = "") -> bytes:
+    all_rows = read_csv_rows(ROOT / "data" / "drnh_review_layers.csv", 1000)
+    rows = [row for row in all_rows if not active_tier or row.get("tier") == active_tier]
+    counts: dict[str, int] = {}
+    for row in all_rows:
+        tier = row.get("tier") or "未分层"
+        counts[tier] = counts.get(tier, 0) + 1
+
+    chips = []
+    for value, label in [("", "全部"), ("重点校订", "重点校订"), ("常规校订", "常规校订"), ("背景保留", "背景保留")]:
+        href = "/drnh-review" + (f"?tier={quote(value)}" if value else "")
+        cls = "button active" if value == active_tier else "button"
+        chips.append(f'<a class="{cls}" href="{href}">{h(label)}</a>')
+
+    body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "DRNH校订")]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>DRNH 校订队列</h1>
+    <div class="meta">把国史馆自动入库材料按研究价值分层；优先处理“重点校订”，其余作为背景材料保留。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/dashboard">仪表盘</a>
+    <a class="button" href="/docs?platform=drnh">DRNH文档</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(counts.get("重点校订", 0))}</strong><span>重点校订</span></div>
+  <div class="stat"><strong>{h(counts.get("常规校订", 0))}</strong><span>常规校订</span></div>
+  <div class="stat"><strong>{h(counts.get("背景保留", 0))}</strong><span>背景保留</span></div>
+</section>
+<div class="filters">{''.join(chips)}</div>
+"""
+    if not rows:
+        body += '<div class="notice">还没有生成 DRNH 校订队列。</div>'
+    else:
+        body += '<section class="result-list">'
+        for row in rows[:80]:
+            page_id = row.get("page_id") or ""
+            doc_key = row.get("doc_key") or ""
+            doc_href = f"/doc/{quote(doc_key)}?page_id={quote(page_id)}" if doc_key and page_id else "#"
+            body += f"""
+<article class="result">
+  <div>
+    {title_block(row.get("title") or "未题名", doc_href)}
+    <div class="meta">优先级 {h(row.get("review_score"))} · {h(row.get("date_guess"))} · {h(row.get("doc_key"))}</div>
+    <div class="tagline">
+      <span class="tag">{h(row.get("tier"))}</span>
+      <span class="tag">等级 {h(row.get("grade"))}</span>
+      <span class="tag">分类分 {h(row.get("class_score"))}</span>
+    </div>
+    <div class="snippet">{h(row.get("reason"))}</div>
+  </div>
+  <div class="cite"><a href="/review/{h(page_id)}">校订</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="{h(row.get("url"))}" target="_blank" rel="noreferrer">馆藏页</a></div>
+</article>"""
+        body += "</section>"
+    return layout("DRNH校订队列", body, active_path="/drnh-review")
+
+
+def external_acquisition_page() -> bytes:
+    rows = read_csv_rows(ROOT / "data" / "external_acquisition_queue.csv", 200)
+    counts: dict[str, int] = {}
+    for row in rows:
+        archive = row.get("archive") or "未分馆藏"
+        if "National Archives" in archive or "HKPRO" in archive:
+            group = "Kew / HKPRO"
+        elif "中研院" in archive:
+            group = "Sinica"
+        else:
+            group = archive
+        counts[group] = counts.get(group, 0) + 1
+
+    body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "外部调档")]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>外部档案调档队列</h1>
+    <div class="meta">用于推进未能直接在线批量入库的高价值档案：先询价、确认页数和复制限制，再进入 OCR、翻译和页码引用流程。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/dashboard">仪表盘</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(counts.get("Kew / HKPRO", 0))}</strong><span>Kew / HKPRO</span></div>
+  <div class="stat"><strong>{h(counts.get("Sinica", 0))}</strong><span>Sinica 阅览室</span></div>
+</section>
+"""
+    if not rows:
+        body += '<div class="notice">还没有外部调档队列。</div>'
+    else:
+        body += '<section class="result-list">'
+        for row in rows[:80]:
+            url = row.get("url") or ""
+            link = url if url else "#"
+            body += f"""
+<article class="result">
+  <div>
+    {title_block(row.get("title") or row.get("ref") or "未题名", link)}
+    <div class="meta">{h(row.get("priority"))} · {h(row.get("archive"))} · {h(row.get("ref"))} · {h(row.get("date"))}</div>
+    <div class="tagline">
+      <span class="tag">{h(row.get("access"))}</span>
+      <span class="tag">{h(row.get("next_action"))}</span>
+    </div>
+    <div class="snippet">{h(row.get("note"))}</div>
+  </div>
+  <div class="cite"><a href="{h(link)}" target="_blank" rel="noreferrer">馆藏入口</a></div>
+</article>"""
+        body += "</section>"
+    return layout("外部档案调档队列", body, active_path="/external-acquisition")
 
 
 def save_home_focus(form: dict[str, list[str]]) -> tuple[bool, str]:
@@ -4761,6 +4882,10 @@ class Handler(BaseHTTPRequestHandler):
             payload = dashboard()
         elif parsed.path == "/sourcebooks":
             payload = sourcebooks_page()
+        elif parsed.path == "/drnh-review":
+            payload = drnh_review_page(qs.get("tier", [""])[0])
+        elif parsed.path == "/external-acquisition":
+            payload = external_acquisition_page()
         elif parsed.path.startswith("/sourcebooks/file/"):
             try:
                 fname = unquote(parsed.path.removeprefix("/sourcebooks/file/"))

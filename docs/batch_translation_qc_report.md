@@ -1,53 +1,53 @@
 # 批量译文质检报告
 
-- 模式：预演，未写入
-- 检查页片段：160
+- 模式：已写入数据库
+- 检查页片段：220
 - 自动通过：0
 - 批量候选：0
-- 保留人工精校：160
+- 保留人工精校：220
 - 明细 CSV：`/Users/cheer/Documents/New project/data/batch_translation_qc.csv`
 
 ## 前 40 条分诊
 
 | 页片段 | 分层 | 动作 | 等级 | 问题 | 原因 |
 |---:|---|---|---|---|---|
-| 255 | C-人工精校 | manual | 核心文献 | 英文残留：Canton-Hankow；Kuomintang 可能未统一为国民党；术语缺失：Generalissimo->委员长 | 原文较长(3751字) |
-| 59 | C-人工精校 | manual | 核心文献 | 术语缺失：Generalissimo->委员长 | 长度问题 |
-| 64 | C-人工精校 | manual | 核心文献 | 英文残留：Communist、Embtel、Smyth、Post；术语缺失：Generalissimo->委员长 | 原文较长(4880字)；核心主题页 |
-| 51 | C-人工精校 | manual | 核心文献 | 英文残留：Walter、Robertson；术语缺失：Kuomintang->国民党 | 原文较长(4199字) |
-| 266 | C-人工精校 | manual | 核心文献 | 英文残留：Telegram、Marshall；术语缺失：Generalissimo->委员长 | 原文较长(11593字)；核心主题页 |
-| 359 | C-人工精校 | manual | 核心文献 | 英文残留：Official、Secretary、Conference、Vice、NCBSH、Tientsin、Clubb；术语缺失：Kuomintang->国民党 | 核心主题页 |
-| 67 | C-人工精校 | manual | 核心文献 | 英文残留：Hart；术语缺失：Generalissimo->委员长 | 原文较长(4925字)；核心主题页 |
-| 11 | C-人工精校 | manual | 核心文献 | 英文残留：Penfield；术语缺失：Kuomintang->国民党 | 原文较长(3803字)；核心主题页 |
-| 136 | C-人工精校 | manual | 核心文献 | 英文残留：Yung、Hisang、Terrace、Tung、Walton；术语缺失：Kuomintang->国民党 | 原文较长(2372字)；核心主题页 |
-| 299 | C-人工精校 | manual | 核心文献 | 英文残留：Walton、Butterworth；术语缺失：Generalissimo->委员长 | 硬性检查未过 |
-| 132 | C-人工精校 | manual | 核心文献 | 英文残留：Ante；术语缺失：Generalissimo->委员长 | 原文较长(3573字) |
-| 370 | C-人工精校 | manual | 核心文献 | 英文残留：Cabot、ConGentel；术语缺失：Chang Po-chun->章伯钧 | 原文较长(3037字)；核心主题页 |
-| 371 | C-人工精校 | manual | 核心文献 | 英文残留：Cabot；术语缺失：Kuomintang->国民党 | 核心主题页 |
-| 33 | C-人工精校 | manual | 核心文献 | 英文残留：Dunn；术语缺失：Generalissimo->委员长 | 原文较长(4159字)；核心主题页 |
-| 83 | C-人工精校 | manual | 核心文献 | 英文残留：Beal、Caughey；Kuomintang 可能未统一为国民党；术语缺失：Generalissimo->委员长 | 原文较长(22174字)；核心主题页 |
-| 289 | C-人工精校 | manual | 核心文献 | 英文残留：Telegram、Gimo、Collique；术语缺失：Kuomintang->国民党 | 原文较长(5865字)；核心主题页 |
-| 87 | C-人工精校 | manual | 核心文献 | 英文残留：Hart、Caughey；术语缺失：Yu Ta-wei->俞大维 | 原文较长(4511字) |
-| 92 | C-人工精校 | manual | 核心文献 | 英文残留：Supra；术语缺失：Generalissimo->委员长 | 原文较长(5095字) |
-| 244 | C-人工精校 | manual | 核心文献 | 英文残留：Leighton、Stuart、Ante；术语缺失：Kuomintang->国民党 | 原文较长(4183字) |
-| 246 | C-人工精校 | manual | 核心文献 | 英文残留：Marshall；术语缺失：Generalissimo->委员长 | 原文较长(5131字)；核心主题页 |
-| 319 | C-人工精校 | manual | 核心文献 | 英文残留：Davis；术语缺失：Chang Lan->张澜 | 核心主题页 |
-| 192 | C-人工精校 | manual | 核心文献 | 英文残留：Bradley、Connors；术语缺失：Generalissimo->委员长 | 原文较长(3918字)；核心主题页 |
-| 193 | C-人工精校 | manual | 核心文献 | 英文残留：Deptel、Embtel、February、Embdes、Stuart、Ante；术语缺失：Generalissimo->委员长 | 原文较长(5591字)；核心主题页 |
-| 202 | C-人工精校 | manual | 核心文献 | 英文残留：Stuart、Ante；术语缺失：Chang Chun->张群 | 原文较长(10448字)；核心主题页 |
-| 348 | C-人工精校 | manual | 核心文献 | 英文残留：Chi-shen；术语缺失：Kuomintang->国民党 | 原文较长(5738字)；核心主题页 |
-| 347 | C-人工精校 | manual | 核心文献 | 英文残留：Airgram、Chen；术语缺失：Kuomintang->国民党 | 原文较长(2533字)；核心主题页 |
-| 128 | C-人工精校 | manual | 核心文献 | 英文残留：Wedemeyer、Clique、Patrick、Albert、Stat | 原文较长(17604字)；核心主题页 |
-| 254 | C-人工精校 | manual | 核心文献 | 术语缺失：Generalissimo->委员长 | 原文较长(8007字)；核心主题页 |
-| 143 | C-人工精校 | manual | 核心文献 | 术语缺失：Kuomintang->国民党 | 原文较长(2291字)；核心主题页 |
-| 196 | C-人工精校 | manual | 核心文献 | 术语缺失：Generalissimo->委员长 | 原文较长(4964字)；核心主题页 |
-| 72 | C-人工精校 | manual | 核心文献 | 术语缺失：Generalissimo->委员长 | 原文较长(4054字)；核心主题页 |
-| 155 | C-人工精校 | manual | 核心文献 | 术语缺失：Generalissimo->委员长 | 原文较长(22806字)；核心主题页 |
-| 156 | C-人工精校 | manual | 核心文献 | Kuomintang 可能未统一为国民党；术语缺失：Kuomintang->国民党 | 硬性检查未过 |
-| 161 | C-人工精校 | manual | 核心文献 | 术语缺失：Generalissimo->委员长 | 硬性检查未过 |
-| 162 | C-人工精校 | manual | 核心文献 | 术语缺失：Generalissimo->委员长 | 原文较长(2435字)；核心主题页 |
-| 168 | C-人工精校 | manual | 核心文献 | 术语缺失：Yu Ta-wei->俞大维 | 原文较长(9110字)；核心主题页 |
-| 330 | C-人工精校 | manual | 核心文献 | 英文残留：Freeman、Chronicle、Edmund、Clubb；Kuomintang 可能未统一为国民党 | 原文较长(23674字)；核心主题页 |
-| 331 | C-人工精校 | manual | 核心文献 | 英文残留：Chung、Chi-jou、David、Barrett、Colonel、Copy、Ante | 原文较长(7689字) |
-| 258 | C-人工精校 | manual | 核心文献 | 术语缺失：Generalissimo->委员长 | 原文较长(4172字)；核心主题页 |
-| 42 | C-人工精校 | manual | 核心文献 | 术语缺失：Generalissimo->委员长 | 原文较长(3682字)；核心主题页 |
+| 417 | C-人工精校 | manual | 核心文献 | 英文残留：WENG、Shih-liang；术语缺失：South China Democratic League->华南民盟 | 核心主题页 |
+| 418 | C-人工精校 | manual | 核心文献 | 英文残留：Pappary、Chang-ta、Chiu、Military、Cadet、School、General、CHANG、Fa-kuei、Ming-shu、People、Paper；术语缺失：third party->第三方面 | 原文较长(2712字) |
+| 886 | C-人工精校 | manual | 核心文献 | 英文残留：Third、Force、China、Papers、Hoover、Institution、Archives、Stanford、University；术语缺失：middle way->中间路线 | 原文较长(21621字)；核心主题页 |
+| 887 | C-人工精校 | manual | 核心文献 | 英文残留：Papers、Hoover、Institution、Archives、Stanford、University；术语缺失：Young China Party->中国青年党 | 原文较长(5840字)；核心主题页 |
+| 848 | C-人工精校 | manual | 核心文献 | 译文过长(2.22)；术语缺失：Chinese Communist->中共 | 原文较长(5402字)；核心主题页 |
+| 852 | C-人工精校 | manual | 核心文献 | 英文残留：Australian、Communist、Party、Chifley、General、Markos、Democratic、Army、Western、Union、Reynaud、Calwell；术语缺失：Service->谢伟思 | 原文较长(4785字) |
+| 430 | C-人工精校 | manual | 核心文献 | 英文残留：Chang、Shu-ming、Chien-fei、Ming-te、Ta-ying、Cheng、Feng、Huang、Sheng、Yi-kuo、Hsiao、Kang；术语缺失：Shanghai Branch->上海市支部 | 原文较长(7856字)；核心主题页 |
+| 435 | C-人工精校 | manual | 核心文献 | 英文残留：Chi-shen、Chen、Shu-tung、Shu-shih、Wei-Han、Ning-、Huang、Yung-sheng、Wang、Shao-so、Hsi-chun、Yeh-heng；术语缺失：Chinese Communist->中共 | 原文较长(3975字)；核心主题页 |
+| 436 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 原文较长(4082字)；核心主题页；长度问题 |
+| 94 | C-人工精校 | manual | 核心文献 | 术语缺失：Peking->北京 | 原文较长(30686字)；核心主题页 |
+| 41 | C-人工精校 | manual | 核心文献 | 术语缺失：Marshall Mission->马歇尔使华 | 原文较长(9704字)；核心主题页 |
+| 656 | C-人工精校 | manual | 核心文献 | 术语缺失：Nationalist Party->中国国民党 | 原文较长(7889字) |
+| 254 | C-人工精校 | manual | 核心文献 | 术语缺失：Marshall Mission->马歇尔使华 | 原文较长(8007字)；核心主题页 |
+| 255 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 原文较长(3751字) |
+| 56 | C-人工精校 | manual | 核心文献 | 术语缺失：Examination Yuan->考试院 | 原文较长(7825字)；核心主题页 |
+| 128 | C-人工精校 | manual | 核心文献 | 术语缺失：Marshall Mission->马歇尔使华 | 原文较长(17604字)；核心主题页 |
+| 181 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 原文较长(5155字)；核心主题页 |
+| 240 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 核心主题页 |
+| 689 | C-人工精校 | manual | 核心文献 | 术语缺失：reorganization->改组 | 原文较长(3938字) |
+| 690 | C-人工精校 | manual | 核心文献 | 术语缺失：Legislative Yuan->立法院 | 原文较长(3704字)；核心主题页 |
+| 692 | C-人工精校 | manual | 核心文献 | 术语缺失：middle way->中间路线 | 硬性检查未过 |
+| 420 | C-人工精校 | manual | 核心文献 | 英文残留：Kung、Chico、Heng、Chiu、Chiao、Chi-shen、Chang、Chiung-pat、Feng、Tsao、Ti-chiu | 核心主题页 |
+| 655 | C-人工精校 | manual | 核心文献 | 术语缺失：Democratic League->中国民主同盟 | 原文较长(9992字)；核心主题页 |
+| 424 | C-人工精校 | manual | 核心文献 | 术语缺失：National Salvation Association->全国各界救国联合会 | 原文较长(13182字)；核心主题页 |
+| 425 | C-人工精校 | manual | 核心文献 | 英文残留：Mo-jo、Po-ta、Ting-i、Shen、Yen-ping、Chou、Yang、Ting、Hsieh-lin、Chun-jui、Te-ch、Ching-kuan | 原文较长(5067字)；核心主题页 |
+| 427 | C-人工精校 | manual | 核心文献 | 英文残留：Tse-tung、Government | 核心主题页 |
+| 429 | C-人工精校 | manual | 核心文献 | 英文残留：CPNO、Mongkon、Navigaphon、Ming-chin、Liang | 核心主题页 |
+| 431 | C-人工精校 | manual | 核心文献 | 英文残留：Ching-yao、Chieh-chiung、Chou、Hsin-min | 原文较长(4148字)；核心主题页 |
+| 432 | C-人工精校 | manual | 核心文献 | 术语缺失：non-Communist parties->非中共政党 | 核心主题页 |
+| 434 | C-人工精校 | manual | 核心文献 | 英文残留：CHANG、Lan-ch、Chen-ching、Jun-i、HUANG、Chin-liang、Yun-t、Yung-ch；术语缺失：Chang Lan->张澜 | 核心主题页 |
+| 437 | C-人工精校 | manual | 核心文献 | 术语缺失：National Assembly->国民大会 | 原文较长(20152字)；核心主题页 |
+| 143 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 核心主题页 |
+| 58 | C-人工精校 | manual | 核心文献 | 术语缺失：Marshall Mission->马歇尔使华 | 原文较长(6853字)；核心主题页 |
+| 59 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 硬性检查未过 |
+| 236 | C-人工精校 | manual | 核心文献 | 术语缺失：Marshall Mission->马歇尔使华 | 原文较长(5311字)；核心主题页 |
+| 237 | C-人工精校 | manual | 核心文献 | 术语缺失：Marshall Mission->马歇尔使华 | 原文较长(9196字)；核心主题页 |
+| 196 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 原文较长(4964字)；核心主题页 |
+| 64 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 原文较长(4880字)；核心主题页 |
+| 31 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 原文较长(3253字)；核心主题页 |
+| 282 | C-人工精校 | manual | 核心文献 | 术语缺失：Chinese Communist->中共 | 原文较长(4894字)；核心主题页 |
