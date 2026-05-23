@@ -1043,7 +1043,10 @@ def quality_filters(active_severity: str = "", active_issue: str = "") -> str:
         ("glossary_miss", "术语待查"),
         ("english_residue", "英文残留"),
         ("length_short", "译文偏短"),
+        ("length_too_short", "译文过短"),
+        ("length_long", "译文偏长"),
         ("core_machine_draft", "核心初稿"),
+        ("missing_translation", "缺少译文"),
     ]
     sev_chips = []
     for value, label in severities:
@@ -2999,6 +3002,38 @@ def quality(active_severity: str = "", active_issue: str = "") -> bytes:
         ).fetchall()
         distinct_pages = c.execute("SELECT count(DISTINCT page_id) FROM translation_quality_issues").fetchone()[0]
         high_pages = c.execute("SELECT count(DISTINCT page_id) FROM translation_quality_issues WHERE severity >= 2").fetchone()[0]
+        severe_count = c.execute("SELECT count(*) FROM translation_quality_issues WHERE severity >= 3").fetchone()[0]
+        high_count = c.execute("SELECT count(*) FROM translation_quality_issues WHERE severity = 2").fetchone()[0]
+        low_count = c.execute("SELECT count(*) FROM translation_quality_issues WHERE severity = 1").fetchone()[0]
+        low_english = c.execute(
+            "SELECT count(*) FROM translation_quality_issues WHERE severity = 1 AND issue_type='english_residue'"
+        ).fetchone()[0]
+        low_length = c.execute(
+            "SELECT count(*) FROM translation_quality_issues WHERE severity = 1 AND issue_type='length_long'"
+        ).fetchone()[0]
+        core_issue_pages = c.execute(
+            """
+            SELECT count(DISTINCT q.page_id)
+            FROM translation_quality_issues q
+            JOIN pages p ON p.id=q.page_id
+            JOIN documents d ON d.id=p.document_id
+            LEFT JOIN document_classifications dc ON dc.document_id=d.id
+            WHERE COALESCE(dc.grade, '')='核心文献'
+            """
+        ).fetchone()[0]
+
+    if severe_count:
+        triage_status = "有严重问题，需要先处理"
+        triage_detail = f"当前仍有 {severe_count} 个严重质量提示，应先处理缺译、已知误译或明显短译。"
+        triage_class = "risk-high"
+    elif high_count:
+        triage_status = "有高优先级问题"
+        triage_detail = f"当前仍有 {high_count} 个需要检查的提示，应优先处理术语、短译和密集英文残留。"
+        triage_class = "risk-warn"
+    else:
+        triage_status = "高优先级已清零"
+        triage_detail = "剩余提示均为低优先级，主要是 OCR 噪声、馆藏元数据或译文长度偏长提醒。"
+        triage_class = "risk-ok"
 
     body = f"""
 <section class="doc-head">
@@ -3008,7 +3043,26 @@ def quality(active_severity: str = "", active_issue: str = "") -> bytes:
   </div>
   <div class="doc-tools">
     <a class="button" href="/docs">返回文档</a>
+    <a class="button" href="/tasks">任务队列</a>
+    <a class="button" href="/dashboard">仪表盘</a>
   </div>
+</section>
+<section class="quality-triage">
+  <article class="triage-card {triage_class}">
+    <div class="triage-label">当前状态</div>
+    <strong>{h(triage_status)}</strong>
+    <p>{h(triage_detail)}</p>
+  </article>
+  <article class="triage-card">
+    <div class="triage-label">剩余低风险</div>
+    <strong>{h(low_count)}</strong>
+    <p>英文/OCR 残留 {h(low_english)} 个，长度偏长提示 {h(low_length)} 个。</p>
+  </article>
+  <article class="triage-card">
+    <div class="triage-label">核心文献影响</div>
+    <strong>{h(core_issue_pages)}</strong>
+    <p>仍有提示的核心文献片段。建议下一轮只抽查核心文献和高引用价值页。</p>
+  </article>
 </section>
 """
     body += quality_filters(active_severity, active_issue)

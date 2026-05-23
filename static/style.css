@@ -595,6 +595,48 @@
       border-color: var(--archival-soft);
       color: var(--text);
     }
+
+    .quality-triage {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: -6px 0 22px;
+    }
+    .triage-card {
+      background: var(--panel);
+      border: 1px solid var(--line-soft);
+      border-left: 4px solid var(--line);
+      border-radius: 10px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .triage-card.risk-ok { border-left-color: var(--accent); }
+    .triage-card.risk-warn { border-left-color: var(--warn); }
+    .triage-card.risk-high { border-left-color: #8a2d1f; }
+    .triage-label {
+      color: var(--muted-soft);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .triage-card strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 21px;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .triage-card.risk-ok strong { color: var(--accent-deep); }
+    .triage-card.risk-warn strong { color: var(--warn); }
+    .triage-card.risk-high strong { color: #8a2d1f; }
+    .triage-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
     /* 学术引用块 */
     blockquote, .quote {
       font-family: var(--serif);
@@ -878,6 +920,7 @@
       .hero.hero-compact { padding: 28px 22px 24px; }
       .hero.hero-compact h1 { font-size: 21px; letter-spacing: 0.03em; }
       .hero.hero-compact .hero-sub { font-size: 13.5px; line-height: 1.75; }
+      .quality-triage { grid-template-columns: 1fr; }
       .footer-top { flex-direction: column; align-items: flex-start; gap: 16px; }
       .footer-links { width: 100%; }
     }
