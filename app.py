@@ -647,7 +647,7 @@ ICONS_SVG = """
 
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/timeline", "年表"), ("/glossary", "术语表")]),
-    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/dashboard", "进度仪表盘")]),
+    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
     ("topics", "i-tag", "专题与人物", [("/topics", "专题"), ("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
 
@@ -724,6 +724,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
           <a href="/people">人物索引</a>
           <a href="/timeline">文献年表</a>
           <a href="/dashboard">研究仪表盘</a>
+          <a href="/sourcebooks">史料长编</a>
         </div>
       </div>
       <div class="footer-meta">
@@ -1507,6 +1508,7 @@ def dashboard() -> bytes:
         except sqlite3.OperationalError:
             suggested_tasks = []
     export_files = sorted((ROOT / "exports").glob("*.md")) if (ROOT / "exports").exists() else []
+    sourcebook_files = sorted((ROOT / "workspace").glob("民盟史料长编_*.pdf")) if (ROOT / "workspace").exists() else []
     recent_exports = sorted(export_files, key=lambda path: path.stat().st_mtime, reverse=True)[:8]
 
     body = breadcrumb_html([("/", "首页"), ("/tasks", "研究工作台"), (None, "进度仪表盘")]) + f"""
@@ -1520,6 +1522,7 @@ def dashboard() -> bytes:
     <a class="button" href="/quality?severity=2">质量检查</a>
     <a class="button" href="/events">事件线索</a>
     <a class="button" href="/focus">首页清单</a>
+    <a class="button" href="/sourcebooks">史料长编</a>
   </div>
 </section>
 <section class="stats">
@@ -1531,6 +1534,7 @@ def dashboard() -> bytes:
   <div class="stat"><strong>{org_events}</strong><span>带机构事件</span></div>
   <div class="stat"><strong>{quality_rows["high_pages"] or 0}</strong><span>高优先级质量页</span></div>
   <div class="stat"><strong>{len(export_files)}</strong><span>Markdown 导出</span></div>
+  <div class="stat"><strong>{len(sourcebook_files)}</strong><span>长编 PDF</span></div>
 </section>
 <section class="result-list">
   <article class="result">
@@ -1610,6 +1614,53 @@ def dashboard() -> bytes:
         body += '<div class="notice">暂无导出文件。</div>'
     body += "</section>"
     return layout("研究进度仪表盘", body)
+
+
+def sourcebooks_page() -> bytes:
+    platforms = [
+        ("frus", "美国对外关系文件集"),
+        ("cia", "美国中央情报局解密档案"),
+        ("wilson", "威尔逊中心数字档案"),
+        ("hoover", "胡佛研究所档案"),
+        ("hathitrust", "HathiTrust 数字典藏"),
+    ]
+    files = {
+        path.name.rsplit("_", 1)[-1].removesuffix(".pdf"): path
+        for path in (ROOT / "workspace").glob("民盟史料长编_*.pdf")
+    } if (ROOT / "workspace").exists() else {}
+    body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "史料长编")]) + """
+<section class="doc-head">
+  <div>
+    <h1>史料长编</h1>
+    <div class="meta">按平台汇编英文原文与中文译文，供专题阅读、打印和阶段性整理。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/dashboard">仪表盘</a>
+    <a class="button" href="/docs">全部文档</a>
+  </div>
+</section>
+<section class="result-list">
+"""
+    for key, label in platforms:
+        path = files.get(key)
+        if path and path.is_file():
+            href = f"/sourcebooks/file/{quote(path.name)}"
+            size = path.stat().st_size // 1024
+            cite = f'<a href="{h(href)}" target="_blank">打开 PDF</a><br>{size} KB'
+            status = '<span class="tag">已生成</span>'
+        else:
+            cite = "待生成"
+            status = '<span class="tag muted">未生成</span>'
+        body += f"""
+  <article class="result">
+    <div>
+      <h2>{h(label)}</h2>
+      <div class="tagline">{status}<span class="tag">{h(key)}</span></div>
+    </div>
+    <div class="cite">{cite}</div>
+  </article>"""
+    body += "</section>"
+    return layout("史料长编", body, active_path="/sourcebooks")
 
 
 def save_home_focus(form: dict[str, list[str]]) -> tuple[bool, str]:
@@ -4680,6 +4731,27 @@ class Handler(BaseHTTPRequestHandler):
             payload = focus_page(qs.get("saved", [""])[0] == "1")
         elif parsed.path == "/dashboard":
             payload = dashboard()
+        elif parsed.path == "/sourcebooks":
+            payload = sourcebooks_page()
+        elif parsed.path.startswith("/sourcebooks/file/"):
+            try:
+                fname = unquote(parsed.path.removeprefix("/sourcebooks/file/"))
+                if "/" in fname or ".." in fname or not fname.endswith(".pdf"):
+                    raise ValueError("bad sourcebook path")
+                fpath = (ROOT / "workspace" / fname).resolve()
+                workspace_root = (ROOT / "workspace").resolve()
+                if not str(fpath).startswith(str(workspace_root)) or not fpath.is_file():
+                    raise FileNotFoundError
+                data = fpath.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/pdf")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Content-Disposition", f"inline; filename=\"sourcebook.pdf\"; filename*=UTF-8''{quote(fname)}")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            except Exception:
+                payload = layout("史料长编未找到", '<div class="notice">未找到该史料长编 PDF。</div>', active_path="/sourcebooks")
         elif parsed.path == "/search":
             payload = search(qs.get("q", [""])[0], qs.get("platform", [""])[0] if "platform" in qs else None)
         elif parsed.path == "/docs":
