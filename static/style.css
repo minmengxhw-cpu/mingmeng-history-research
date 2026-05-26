@@ -998,32 +998,52 @@
 
     /* 中等屏幕（≤720px）：启用 hamburger 抽屉导航 */
     @media (max-width: 720px) {
+      /* 改 flex-wrap 布局，比 grid-template-areas 鲁棒：
+       * row1: brand(伸缩) + toggle(固定)   ← 两列
+       * row2: search                      ← 整行
+       * row3: nav                         ← 整行，默认折叠
+       */
       .topbar {
-        grid-template-columns: 1fr auto;
-        grid-template-areas:
-          "brand toggle"
-          "search search"
-          "nav nav";
-        gap: 10px;
+        display: flex !important;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 10px;
         padding: 10px 14px;
+        grid-template-columns: unset;
+        grid-template-areas: unset;
       }
-      .brand { grid-area: brand; font-size: 16px; gap: 6px; }
-      .brand .brand-sub { display: none; }  /* 副标在手机隐藏，腾空间 */
+      .brand {
+        flex: 1 1 auto;
+        min-width: 0;
+        font-size: 16px;
+        gap: 6px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .brand .brand-sub { display: none !important; }  /* 副标必须隐藏（!important 防被外层覆盖） */
       .nav-toggle {
-        grid-area: toggle;
-        display: flex; align-items: center; justify-content: center;
+        flex: 0 0 auto;
+        display: flex !important;
+        align-items: center; justify-content: center;
         width: 42px; height: 42px;
         background: var(--panel); border: 1px solid var(--line);
         border-radius: 6px; cursor: pointer; padding: 0;
         color: var(--text);
       }
       .nav-toggle.is-open { background: var(--accent-soft); color: var(--accent-deep); border-color: var(--accent); }
-      .search { grid-area: search; max-width: 100%; width: 100%; }
+      .search {
+        flex: 1 1 100%;       /* 整行 */
+        order: 2;             /* 排到 brand+toggle 之后 */
+        max-width: 100%;
+        width: 100%;
+      }
       .search input { padding: 11px 14px; font-size: 15px; min-height: 44px; }
       .search button { min-height: 44px; padding: 0 14px; }
 
       nav.mainnav {
-        grid-area: nav;
+        flex: 1 1 100%;       /* 整行 */
+        order: 3;             /* 排到搜索框之后 */
         display: none;
         flex-direction: column;
         gap: 2px;
@@ -1034,7 +1054,7 @@
         border-top: 1px solid var(--line-soft);
         background: transparent;
       }
-      nav.mainnav.is-open { display: flex; }
+      nav.mainnav.is-open { display: flex !important; }
 
       .nav-group { width: 100%; position: static; }
       .nav-main {
