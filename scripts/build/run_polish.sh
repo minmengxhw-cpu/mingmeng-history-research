@@ -51,6 +51,10 @@ run_step "处理优先翻译问题" \
 run_step "应用术语索引注解" \
     python3 scripts/build/apply_glossary_index_notes.py
 
+# 8. CIA 误匹配剔除（24 篇与中国民盟无关：朝鲜 / 日本 / 东南亚 / 1956+）
+run_step "CIA 误匹配剔除（朝鲜 / 日本 / 东南亚 / 1956+）" \
+    python3 scripts/build/exclude_cia_off_topic.py
+
 echo
 echo "==== 扫地完成 $(date '+%Y-%m-%d %H:%M:%S') ===="
 echo
