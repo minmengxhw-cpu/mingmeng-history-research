@@ -373,5 +373,157 @@ def main() -> None:
     print(f"Refined {changed} CIA translation pages; repaired {source_changed} source pages.")
 
 
+
+# ====================================================================
+# 通用清理（5/26 19:00 扩展）
+# 针对剩余 CIA 译文做批量清理，覆盖 hardcode 修复未涉及的文档
+# 共 4 大类规则：
+#   B类  CIA 档案元数据残留
+#   D类  markdown 残留
+#   C类  威氏拼音人名 → 标准中文译名
+#   清理冗余空行
+# ====================================================================
+
+UNIVERSAL_NOISE_RE = re.compile(
+    "|".join([
+        # CIA 元数据
+        r"CIA-RDP[\d\w\-]+",
+        r"25X1[A-Z]",
+        r"Approved\s+For\s+Release[^\n]*",
+        r"NEXT\s+REVIEW\s+DATE[:\s]*\d*",
+        r"Next\s+Review\s+Date[:\s]*\d*",
+        r"NO[\.,]\s*OF\s*PAGES[\.\s]*\d*",
+        r"NO[\.,]\s*OF\s*ENCLS[\.\s]*",
+        r"DATE\s+DISTR[\.,]?\s*\d+\s*\w+\s*\d+",
+        r"CLASSIFICATION\s+(?:saNBF|CONFIDENTIAL|SECRET)[^\n]*",
+        # 密级章被 OCR 切碎的变体
+        r"S[-\s]E[-\s]C[-\s]R[-\s]E[-\s][TI]",
+        r"C[-\s]O[-\s]N[-\s]F[-\s]I[-\s]D[-\s]E[-\s]N[-\s]T[-\s]I[-\s]A[-\s]L",
+        # markdown 残留（CIA 档案译文不应有 markdown 表格，认定为噪声）
+        r"^\s*-{3,}\s*$",
+        r"```(?:markdown|json|text|)?",
+    ]),
+    re.MULTILINE | re.IGNORECASE,
+)
+
+# 威氏拼音 → 标准中文姓名
+# 优先级：民盟史/民国政治史标准译名
+WADE_GILES_PEOPLE = {
+    # —— 主要历史人物（高把握）——
+    "CHIANG Kai-shek": "蒋介石",
+    "MAO Tse-tung": "毛泽东",
+    "MAO Tse Tung": "毛泽东",
+    "CHANG Lan": "张澜",
+    "CHANG Tung-sun": "张东荪",
+    "CHANG Fa-kuei": "张发奎",
+    "TENG Yen-ta": "邓演达",
+    "HSU Te-hang": "许德珩",
+    "LO Lung-chi": "罗隆基",
+    "Lo Lung-chi": "罗隆基",
+    "SHEN Chun-ju": "沈钧儒",
+    "HUANG Yen-pei": "黄炎培",
+    "YEH Tu-yi": "叶笃义",
+    "TS'AO Yu": "曹禺",
+    "WENG Wen-hao": "翁文灏",
+    "CHANG Lan-ch": "张澜",  # OCR 截断
+    "LI Tsung-jen": "李宗仁",
+    # —— 5/26 19:30 二次扩充：CH'EN 完整威氏拼音 + 民盟史人物 ——
+    "CH'EN Ming-shu": "陈铭枢",
+    "CH'EN Wei-tz'u": "陈维慈（音译）",
+    "CH'EN Chin-sha": "陈金沙（音译）",
+    "CH'EN Chen-ching": "陈振敬（音译）",
+    "CH'EN Jun-i": "陈润仪",
+    "CH'EN Yun-t'eng": "陈云腾",
+    "CH'EN Yung-ch'iang": "陈永强",
+    "CHANG Po-chun": "章伯钧",
+    "HUANG Chi-hsiang": "黄琪翔",
+    "P'ENG Tse-min": "彭泽民",
+    "Fei Hsiao-tung": "费孝通",
+    "HUANG Chin-liang": "黄景良",
+    "FENG Shih-chen": "冯世桢",
+}
+
+# 待考人名：以"音译姓名（待考）"形式保留，方便人工最后审定
+WADE_GILES_TBD = {
+    "JAO Chang-lan": "饶漳澜（待考）",
+    "JAO Chang-feng": "饶漳峰（待考）",
+    "WU Tien-shih": "吴恬熙（待考）",
+    "WENG Shih-liang": "翁士良（待考）",
+    "HSIAO Wei-mei": "萧伟梅（待考）",
+    "HSING Shih-lien": "邢世廉（待考）",
+    "YUAN Szu-hai": "袁思海（待考）",
+    # OCR 把姓首字母切掉的，无法回译，标注待考
+    "EN Chen-ching": "[姓氏OCR残缺，原文 EN Chen-ching，待考]",
+    "EN Ming-shu": "[姓氏OCR残缺，原文 EN Ming-shu，待考]",
+    "EN Chin-sha": "[姓氏OCR残缺，原文 EN Chin-sha，待考]",
+    "EN Wei-tz": "[姓氏OCR残缺，原文 EN Wei-tz，待考]",
+}
+
+
+
+
+# 5/26 19:30 追加：修复 EN 系列切断导致的半残字符串（之前 WADE_GILES_TBD 的 EN 替换
+# 留下了前缀 CH' 和后缀，需要把这些半残形态识别成完整人名再换）
+BAD_REPLACEMENT_FIXES = {
+    "CH'[姓氏OCR残缺，原文 EN Wei-tz，待考]'u": "陈维慈（音译）",
+    "CH'[姓氏OCR残缺，原文 EN Chin-sha，待考]": "陈金沙（音译）",
+    "CH'[姓氏OCR残缺，原文 EN Ming-shu，待考]": "陈铭枢",
+    "CH'[姓氏OCR残缺，原文 EN Chen-ching，待考]": "陈振敬（音译）",
+}
+
+def apply_universal_cleanup(conn: sqlite3.Connection) -> dict:
+    """对所有 CIA 译文应用通用清理规则。返回统计信息。"""
+    rows = conn.execute(
+        """
+        SELECT t.id, t.page_id, t.text, d.id as doc_id
+        FROM translations t
+        JOIN pages p ON p.id = t.page_id
+        JOIN documents d ON d.id = p.document_id
+        JOIN sources s ON s.id = d.source_id
+        WHERE s.source_type = 'cia' AND t.language = 'zh-CN'
+        """
+    ).fetchall()
+
+    stats = {"scanned": len(rows), "updated": 0, "noise_hits": 0, "name_hits": 0}
+    for trans_id, page_id, text, doc_id in rows:
+        if not text:
+            continue
+        original = text
+        # 0) 修复之前 EN 切断造成的半残形态（必须最先）
+        for bad, good in BAD_REPLACEMENT_FIXES.items():
+            if bad in text:
+                text = text.replace(bad, good)
+        # 1) 噪声清理
+        new_text, n_noise = UNIVERSAL_NOISE_RE.subn("", text)
+        stats["noise_hits"] += n_noise
+        # 2) 威氏拼音人名替换
+        for en, zh in {**WADE_GILES_PEOPLE, **WADE_GILES_TBD}.items():
+            if en in new_text:
+                count = new_text.count(en)
+                new_text = new_text.replace(en, zh)
+                stats["name_hits"] += count
+        # 3) 收缩冗余空行
+        new_text = re.sub(r"\n{3,}", "\n\n", new_text)
+        # 4) 移除可能产生的首尾空白
+        new_text = new_text.strip()
+
+        if new_text != original:
+            conn.execute("UPDATE translations SET text=? WHERE id=?", (new_text, trans_id))
+            update_fts(conn, trans_id, page_id, new_text)
+            stats["updated"] += 1
+
+    conn.commit()
+    return stats
+
 if __name__ == "__main__":
     main()
+    # 5/26 19:00 追加：通用清理（覆盖未被 hardcode 修复的 CIA 文档）
+    import sqlite3 as _sq
+    _conn = _sq.connect(DB_PATH)
+    _stats = apply_universal_cleanup(_conn)
+    _conn.close()
+    print(
+        f"通用清理：扫描 {_stats['scanned']} 个 CIA 译文页，"
+        f"更新 {_stats['updated']} 页（噪声命中 {_stats['noise_hits']} 次，"
+        f"威氏拼音人名替换 {_stats['name_hits']} 次）"
+    )
