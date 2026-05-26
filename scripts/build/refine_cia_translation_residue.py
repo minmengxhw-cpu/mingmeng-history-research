@@ -246,6 +246,24 @@ REPLACEMENTS: dict[int, list[tuple[str, str]]] = {
 }
 
 
+ARTIFACT_CLEANUP_PAGE_IDS = {
+    777,
+    784,
+    451,
+    811,
+    469,
+    816,
+    818,
+}
+
+
+MODEL_PREFACE_PATTERNS = [
+    r"\A以下是根据您提供的\s*CIA\s*解密档案\s*OCR\s*文本翻译的\*\*学术级中文译文\*\*。译文严格遵循了您(?:设定|指定)的术语表、缩写处理、人名统一、OCR\s*噪声去除及体例要求。\s*",
+    r"\A以下是根据您提供的OCR文本翻译成的学术级中文译文。译文严格遵循了您指定的术语表、缩写处理规则、人名统一要求，并去除了OCR噪声，保留了所有实质信息。\s*",
+    r"\A好的，这是根据您提供的CIA解密档案OCR文本翻译成的学术级中文译文。我已严格遵循您设定的所有要求，包括术语统一、人名一致、OCR噪声去除和档案体例。\s*",
+]
+
+
 STATUS_OVERRIDES = {
     438: "reference-summary",
     446: "human-excerpt",
@@ -304,6 +322,12 @@ def polish_text(page_id: int, text: str) -> str:
         return FULL_FIXES[page_id].strip()
     for old, new in REPLACEMENTS.get(page_id, []):
         text = text.replace(old, new)
+    text = re.sub(r"\A```(?:markdown)?\s*", "", text.strip(), flags=re.IGNORECASE)
+    text = re.sub(r"\s*```\s*\Z", "", text)
+    text = text.replace("```", "")
+    text = re.sub(r"\A# 译文\s*", "", text)
+    for pattern in MODEL_PREFACE_PATTERNS:
+        text = re.sub(pattern, "", text)
     if page_id == 470:
         text = re.sub(r"\n?\\\n?", "\n", text)
         text = re.sub(r"\n(?:NS|a)\n", "\n", text)
@@ -314,7 +338,7 @@ def polish_text(page_id: int, text: str) -> str:
 def main() -> None:
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
-    page_ids = sorted(set(FULL_FIXES) | set(REPLACEMENTS) | set(STATUS_OVERRIDES))
+    page_ids = sorted(set(FULL_FIXES) | set(REPLACEMENTS) | set(STATUS_OVERRIDES) | ARTIFACT_CLEANUP_PAGE_IDS)
     changed = 0
     source_changed = 0
     for page_id, source_text in SOURCE_FIXES.items():
