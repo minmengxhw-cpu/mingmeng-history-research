@@ -20,6 +20,7 @@ _request = threading.local()
 ROOT = Path(__file__).resolve().parent
 DB_PATH = ROOT / "data" / "research_index.sqlite"
 HOME_FOCUS_PATH = ROOT / "data" / "home_focus.json"
+STYLE_PATH = ROOT / "static" / "style.css"
 
 
 def h(value: object) -> str:
@@ -29,6 +30,13 @@ def h(value: object) -> str:
 def compact(text: str, limit: int = 260) -> str:
     text = re.sub(r"\s+", " ", text or "").strip()
     return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
+def asset_version(path: Path) -> str:
+    try:
+        return str(int(path.stat().st_mtime))
+    except OSError:
+        return "1"
 
 
 PERSON_ZH = {
@@ -694,7 +702,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{h(title)} · 民盟历史文献研究库</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css?v={asset_version(STYLE_PATH)}">
 </head>
 <body>
   {ICONS_SVG}
@@ -4991,7 +4999,10 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_response(200)
                 self.send_header("Content-Type", ctype)
                 self.send_header("Content-Length", str(len(data)))
-                self.send_header("Cache-Control", "public, max-age=3600")
+                if ext == ".css":
+                    self.send_header("Cache-Control", "no-cache, max-age=0, must-revalidate")
+                else:
+                    self.send_header("Cache-Control", "public, max-age=3600")
                 self.end_headers()
                 self.wfile.write(data)
                 return
