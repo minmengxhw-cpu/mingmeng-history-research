@@ -685,7 +685,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
         )
         nav_html += f'''
         <div class="{cls}">
-          <button class="nav-main"><svg class="ico"><use href="#{icon_id}"/></svg>{h(group_label)}</button>
+          <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#{icon_id}"/></svg>{h(group_label)}<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="nav-flyout">{sub}</div>
         </div>'''
     return f"""<!doctype html>
@@ -703,11 +703,14 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       <span>民盟历史文献研究库</span>
       <span class="brand-sub">FRUS · CIA · Wilson · Hoover · HathiTrust · DRNH</span>
     </a>
+    <button class="nav-toggle" type="button" aria-label="打开导航" aria-controls="mainnav" aria-expanded="false" onclick="(function(b){{var n=document.getElementById('mainnav');var o=n.classList.toggle('is-open');b.setAttribute('aria-expanded',o);b.classList.toggle('is-open',o);}})(this)">
+      <svg class="ico ico-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
     <form class="search" method="get" action="/search" role="search">
       <input name="q" value="{h(query)}" placeholder="搜索英文原文或中文译文，例如「罗隆基」「Marshall」「政协」">
       <button type="submit"><svg class="ico"><use href="#i-search"/></svg>搜索</button>
     </form>
-    <nav class="mainnav">
+    <nav class="mainnav" id="mainnav">
       {nav_html}
     </nav>
   </header>

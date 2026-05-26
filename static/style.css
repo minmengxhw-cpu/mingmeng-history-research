@@ -982,3 +982,160 @@
       padding-top: 16px;
       margin-top: 4px;
     }
+
+    /* ============================================================
+     * 手机端强化适配（5/26 19:50 新增）
+     * 核心问题：
+     *   1) mainnav 用 :hover 触发，触屏不可用 → 改 hamburger 抽屉
+     *   2) 字号、间距未在 ≤540px 收紧 → 阅读不友好
+     *   3) 表格 / pre 缺 overflow-x → 横向溢出
+     *   4) tap 区域 < 44px → 误触
+     * ============================================================ */
+
+    /* 桌面：hamburger / chevron 默认隐藏 */
+    .nav-toggle { display: none; }
+    .nav-chev { display: none; }
+
+    /* 中等屏幕（≤720px）：启用 hamburger 抽屉导航 */
+    @media (max-width: 720px) {
+      .topbar {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          "brand toggle"
+          "search search"
+          "nav nav";
+        gap: 10px;
+        padding: 10px 14px;
+      }
+      .brand { grid-area: brand; font-size: 16px; gap: 6px; }
+      .brand .brand-sub { display: none; }  /* 副标在手机隐藏，腾空间 */
+      .nav-toggle {
+        grid-area: toggle;
+        display: flex; align-items: center; justify-content: center;
+        width: 42px; height: 42px;
+        background: var(--panel); border: 1px solid var(--line);
+        border-radius: 6px; cursor: pointer; padding: 0;
+        color: var(--text);
+      }
+      .nav-toggle.is-open { background: var(--accent-soft); color: var(--accent-deep); border-color: var(--accent); }
+      .search { grid-area: search; max-width: 100%; width: 100%; }
+      .search input { padding: 11px 14px; font-size: 15px; min-height: 44px; }
+      .search button { min-height: 44px; padding: 0 14px; }
+
+      nav.mainnav {
+        grid-area: nav;
+        display: none;
+        flex-direction: column;
+        gap: 2px;
+        width: 100%;
+        max-height: 70vh;
+        overflow-y: auto;
+        padding: 4px 0;
+        border-top: 1px solid var(--line-soft);
+        background: transparent;
+      }
+      nav.mainnav.is-open { display: flex; }
+
+      .nav-group { width: 100%; position: static; }
+      .nav-main {
+        width: 100%;
+        justify-content: space-between;
+        padding: 11px 14px;
+        font-size: 15px;
+        border-radius: 6px;
+        min-height: 44px;
+      }
+      .nav-chev {
+        display: inline-block;
+        margin-left: auto;
+        width: 16px; height: 16px;
+        transition: transform 0.2s;
+      }
+      .nav-group.is-open .nav-chev { transform: rotate(180deg); }
+
+      /* 手机端：子菜单不靠 hover 展开，靠 .is-open 类 */
+      .nav-flyout {
+        position: static;
+        display: none;
+        flex-direction: column;
+        background: var(--panel-warm);
+        border: 1px solid var(--line-soft);
+        border-radius: 6px;
+        padding: 4px;
+        margin: 2px 0 4px 14px;
+      }
+      .nav-flyout::before { display: none; }
+      .nav-group:hover .nav-flyout { display: none; }  /* 关掉桌面的 hover 触发 */
+      .nav-group.is-open .nav-flyout { display: flex; }
+      .nav-sub {
+        padding: 11px 12px;
+        min-height: 44px;
+        display: flex; align-items: center;
+        font-size: 14.5px;
+      }
+
+      /* 字号收紧 */
+      h1 { font-size: 24px; }
+      h2 { font-size: 18px; }
+      h3 { font-size: 16px; }
+      body { font-size: 15px; line-height: 1.65; }
+      main { padding: 16px 14px; }
+
+      /* 表格 / pre 横向滚动 */
+      table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      pre, code { overflow-x: auto; max-width: 100%; }
+
+      /* 常见 grid 单列化（涵盖之前 540px 没覆盖的） */
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .platforms { grid-template-columns: 1fr; gap: 12px; }
+      .compare-grid { grid-template-columns: 1fr; gap: 12px; }
+      .quality-triage { grid-template-columns: 1fr; }
+      .doc-meta { grid-template-columns: 1fr; }
+      .meta-card-foot { gap: 10px; }
+      .meta-card-foot > span { display: block; width: 100%; }
+
+      /* link/button tap 区域 */
+      .button, button.button, a.button { min-height: 44px; padding: 10px 16px; }
+      .cite-tab { min-height: 36px; padding: 7px 12px; }
+
+      /* 卡片内边距 */
+      .platform-card, .card, .result, .meta-card { padding: 14px 16px; }
+
+      /* 面包屑：手机不要 sticky */
+      .breadcrumb { padding: 5px 12px; font-size: 12px; }
+      .glossary-letters { position: static; }
+
+      /* footer：紧凑 */
+      .site-footer { padding: 22px 16px 18px; margin-top: 28px; }
+      .footer-links { gap: 6px 2px; }
+      .footer-links a { font-size: 13px; padding: 6px 10px; }
+
+      /* hero：紧凑 */
+      .hero { padding: 20px 18px; }
+      .hero h1 { font-size: 20px; }
+      .hero-sub { font-size: 13px; }
+
+      /* 详情页 reader：英中对照在手机上垂直堆叠（已有 980px 处理，这里再保险） */
+      .reader, .reader-grid { grid-template-columns: 1fr; gap: 12px; }
+      .reader section { padding: 14px 16px; }
+    }
+
+    /* 小屏手机 ≤ 480px：再收紧 */
+    @media (max-width: 480px) {
+      .topbar { padding: 8px 12px; }
+      .brand { font-size: 15px; }
+      h1 { font-size: 22px; }
+      h2 { font-size: 17px; }
+      body { font-size: 14.5px; }
+      main { padding: 14px 12px; }
+      .stats { grid-template-columns: 1fr; }
+      .platform-card, .card, .result { padding: 12px 14px; }
+      .hero { padding: 18px 14px; }
+      .hero h1 { font-size: 19px; }
+    }
+
+    /* 触屏设备：关掉所有 hover 触发的弹出（防止误触卡住） */
+    @media (hover: none) {
+      .nav-group:hover .nav-flyout { display: none; }
+      .nav-group.is-open .nav-flyout { display: flex; }
+    }
