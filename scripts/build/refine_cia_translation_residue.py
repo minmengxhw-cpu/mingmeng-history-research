@@ -12,7 +12,81 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 DB_PATH = ROOT / "data" / "research_index.sqlite"
 
 
+SOURCE_FIXES: dict[int, str] = {
+    422: """+ oN CLASSIFICATION saNBF (() NFIDENTIAL / '
+
+
+CENTRAL INTELLIGENCE AGENCY
+
+
+INFORMATION REPORT ocono. | 20X14
+COUNTRY China/fHong Kong DATE DISTR. 23 May 1949
+SUBJECT Political Information: China Democratic League NO, OF PAGES 1
+
+Members' Escape from Shanghai to Hong Kong
+25X1A
+PLACE . ; NO. OF ENCLS.
+ACQUIRED rat Lire (LISTED BELOW)
+Boerum @\\ 25X1X
+DATE OF IN 5 ee SUPPLEMENT TO
+REPORT NO. .
+
+
+1. YEH Tu-yi, China Democratic League executive committee member, arrived in
+Hong, Kong in disguise on 20 May 1949 with FAN Puechai, another Leacue member,
+after narrowly escaping arrest by the Nationalists in Shanghai.
+
+
+2. YEH plans to stay in Hong Xong until the Communists take Shanghai, when he
+will return there. He is very concerned over the safety of LO Lung-chi,
+Democratic League spokeaman, and CHANG Lan, chairman of the League.
+
+
+i ment is hereby regraded to
+Te MIDENTIAL in accordance with the
+letter of 16 October 1978 from the
+Director of Central Intelligence to the
+Archivist of ihe United States.
+
+
+Next Review Date: 2008
+
+
+Auth: _DDATREG
+Date: 1978 18.
+
+
+CLASSIFICATION <enme CONFIDENTIAL
+
+
+Si navy be usre DISTRIBUTION. | coed oan emnen aan
+har -- aie fete Pp
+
+
+sorerenrs Neen nnn sarah eerie oma Fea
+a
+
+
+Approved For Release 2001/11/23 : CIA-RDP82-00457R002800130003-8""",
+}
+
+
 FULL_FIXES: dict[int, str] = {
+    422: """**机密**
+
+**中央情报局情报报告**
+**国家：** 中国/香港
+**分发日期：** 1949年5月23日
+**主题：** 政治情报：中国民主同盟成员从上海逃往香港
+**页数：** 1
+
+1. 中国民主同盟执行委员会委员叶笃义，于1949年5月20日与另一名民盟成员樊璞斋化装抵达香港。二人此前在上海险些被国民党逮捕。
+
+2. 叶笃义计划留在香港，直到中共占领上海后再返回上海。他非常关切民盟发言人罗隆基以及民盟主席张澜的安全。
+
+【校订说明】
+
+核心文献原页只保留了页眉和题名，缺少正文。此处依据同档号扩展采集副本补足原文全文和中文译文；保留叶笃义、樊璞斋、罗隆基、张澜四个关键人物，以及1949年5月20日抵港、等待上海易手后返沪这两条核心事实。""",
     429: """**机密/参阅**
 
 **情报报告**
@@ -197,6 +271,34 @@ def update_fts(conn: sqlite3.Connection, translation_id: int, page_id: int, text
     )
 
 
+def update_page_fts(conn: sqlite3.Connection, page_id: int, text: str) -> None:
+    row = conn.execute(
+        """
+        SELECT d.volume_id, d.doc_id, d.title, d.matched_terms, p.page_label
+        FROM pages p
+        JOIN documents d ON d.id = p.document_id
+        WHERE p.id=?
+        """,
+        (page_id,),
+    ).fetchone()
+    conn.execute("DELETE FROM page_fts WHERE rowid=?", (page_id,))
+    conn.execute(
+        """
+        INSERT INTO page_fts(rowid, volume_id, doc_id, title, page_label, matched_terms, text)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            page_id,
+            row["volume_id"],
+            row["doc_id"],
+            row["title"],
+            row["page_label"] or "doc-level",
+            row["matched_terms"],
+            text,
+        ),
+    )
+
+
 def polish_text(page_id: int, text: str) -> str:
     if page_id in FULL_FIXES:
         return FULL_FIXES[page_id].strip()
@@ -214,6 +316,13 @@ def main() -> None:
     conn.row_factory = sqlite3.Row
     page_ids = sorted(set(FULL_FIXES) | set(REPLACEMENTS) | set(STATUS_OVERRIDES))
     changed = 0
+    source_changed = 0
+    for page_id, source_text in SOURCE_FIXES.items():
+        row = conn.execute("SELECT text FROM pages WHERE id=?", (page_id,)).fetchone()
+        if row and (row["text"] or "") != source_text:
+            conn.execute("UPDATE pages SET text=? WHERE id=?", (source_text, page_id))
+            update_page_fts(conn, page_id, source_text)
+            source_changed += 1
     for page_id in page_ids:
         row = conn.execute(
             "SELECT id, text, status FROM translations WHERE page_id=? AND language='zh-CN'",
@@ -237,7 +346,7 @@ def main() -> None:
         changed += 1
     conn.commit()
     conn.close()
-    print(f"Refined {changed} CIA translation pages.")
+    print(f"Refined {changed} CIA translation pages; repaired {source_changed} source pages.")
 
 
 if __name__ == "__main__":
