@@ -132,6 +132,36 @@ BAD_TERMS = {
 }
 
 
+# 模型应答失败模式（最严重，应当重译）
+# 5/26 19:50 新增 - 来自实际样本 wilson:111240 等
+import re as _re_failed
+TRANSLATION_FAILED_PATTERNS = [
+    _re_failed.compile(r"^抱歉[，,]"),
+    _re_failed.compile(r"^很抱歉"),
+    _re_failed.compile(r"^对不起[，,]"),
+    _re_failed.compile(r"^请提供"),
+    _re_failed.compile(r"^我无法"),
+    _re_failed.compile(r"^以下是.{0,30}译文"),
+    _re_failed.compile(r"^好的[，,]\s*这是"),
+    _re_failed.compile(r"您似乎只提供了"),
+    _re_failed.compile(r"我将严格按照"),
+    _re_failed.compile(r"请您?提供完整"),
+    _re_failed.compile(r"请补充完整"),
+    _re_failed.compile(r"未能识别有效"),
+]
+
+
+def is_translation_failed(text: str) -> bool:
+    head = (text or "")[:200].strip()
+    if not head:
+        return False
+    for pat in TRANSLATION_FAILED_PATTERNS:
+        if pat.search(head):
+            return True
+    return False
+
+
+
 ACCEPTABLE_TRANSLATIONS = {
     "Democratic League": ["中国民主同盟", "民主同盟", "民盟"],
     "Chinese Democratic League": ["中国民主同盟", "民主同盟", "民盟"],
@@ -330,8 +360,15 @@ def analyze_row(conn: sqlite3.Connection, row: sqlite3.Row, glossary: list[tuple
         insert_issue(conn, page_id, "missing_translation", 3, "缺少中文译文", compact(source))
         return 1
 
+    # 5/26 19:50 新增：检测模型应答失败（最严重，应当重译）
+    if is_translation_failed(zh):
+        insert_issue(conn, page_id, "translation_failed", 4, "译文是模型应答/拒绝消息，未真正翻译", compact(zh))
+        return 1  # 失败译文不再做后续轻量检查
+
     is_excerpt = status in {"human-excerpt", "reference-summary"} or "【相关段落摘译】" in zh or "【全页提要】" in zh
-    skip_length_check = is_excerpt
+    # 5/26 19:50 新增：DRNH 文档的"译文"实际是案由学术导读，跳过 length 检测
+    is_drnh_summary = source_platform == "drnh" or (row["doc_key"] or "").startswith("drnh:")
+    skip_length_check = is_excerpt or is_drnh_summary
     if not skip_length_check:
         ratio = zh_len / source_len
         has_completion_marker = "—— 完 ——" in zh or "-- 完 --" in zh
