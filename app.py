@@ -575,7 +575,7 @@ ISSUE_LABELS = {
 
 # 人物档案数据从 person_archive.py 独立模块加载（AI 内部研究参考）
 # 本研究平台只收录中国大陆境外一手原始档案；人物档案仅用于档案翻译人名标准化和上下文理解
-from person_archive import PEOPLE, PERSON_GROUPS  # noqa: E402
+from person_archive import PEOPLE  # noqa: E402
 
 # 关键历史事件骨架（AI 内部研究参考）
 # 用于把档案碎片化命中聚合到学术意义上的历史事件节点
@@ -657,7 +657,7 @@ ICONS_SVG = """
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
-    ("topics", "i-tag", "专题与人物", [("/topics", "专题"), ("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
+    ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
 
 
@@ -673,7 +673,7 @@ def nav_active(path: str) -> str:
         return "library"
     if path.startswith("/review/"):
         return "workbench"
-    if path.startswith(("/people/", "/places/", "/organizations/", "/topics/")):
+    if path.startswith(("/people/", "/places/", "/organizations/")):
         return "topics"
     return ""
 
@@ -3294,15 +3294,14 @@ def people() -> bytes:
     total_docs = sum((r["doc_count"] or 0) for r in stats.values())
     total_pages = sum((r["page_count"] or 0) for r in stats.values())
 
-    body = breadcrumb_html([("/", "首页"), ("/topics", "专题与人物"), (None, "人物索引")])
+    body = breadcrumb_html([("/", "首页"), (None, "人物索引")])
     body += f"""
 <section class="doc-head">
   <div>
     <h1>民盟人物索引</h1>
     <div class="meta">
-      按民盟历史角色分 {len(PERSON_GROUPS)} 组共 <b>{len(PEOPLE)}</b> 位人物，
-      其中 <b>{total_hit_persons}</b> 位在 FRUS 档案中已有命中（覆盖 {total_docs} 篇文档 / {total_pages} 个片段）。
-      点击姓名查看该人物所有原文、译文、来源链接和事件年表。
+      共 <b>{len(PEOPLE)}</b> 位民盟相关人物，其中 <b>{total_hit_persons}</b> 位在档案中已有命中（覆盖 {total_docs} 篇文档 / {total_pages} 个片段）。
+      下方按档案命中数倒序排列，无命中人物排在最后。点击姓名查看该人物所有原文、译文、来源链接和事件年表。
     </div>
     <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
       本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北档案史料 六大档案源）。
@@ -3316,49 +3315,34 @@ def people() -> bytes:
 </section>
 """
 
-    # 第二步：按 PERSON_GROUPS 顺序分组渲染
-    for group_key, group_label, group_brief in PERSON_GROUPS:
-        members = [p for p in PEOPLE if p.get("group") == group_key]
-        if not members:
-            continue
-        # 组内按命中片段数倒序，无命中的按 slug 字母序排到末尾
-        members.sort(
-            key=lambda p: (
-                -(stats[p["slug"]]["page_count"] or 0),
-                -(stats[p["slug"]]["doc_count"] or 0),
-                p["slug"],
-            )
+    # 单列按命中数倒序（无命中的按 slug 字母序排末尾）
+    all_people = sorted(
+        PEOPLE,
+        key=lambda p: (
+            -(stats[p["slug"]]["page_count"] or 0),
+            -(stats[p["slug"]]["doc_count"] or 0),
+            p["slug"],
+        ),
+    )
+    body += '<section class="result-list">'
+    for person in all_people:
+        row = stats[person["slug"]]
+        doc_count = row["doc_count"] or 0
+        page_count = row["page_count"] or 0
+        core_hits = row["core_hits"] or 0
+        no_hit_cls = "" if doc_count > 0 else ' style="opacity:.6;"'
+        hit_meta = (
+            f'{doc_count} 篇文档 · {page_count} 个片段 · 核心命中 {core_hits}'
+            if doc_count > 0
+            else '<span style="color:var(--muted-soft);">档案中暂无命中</span>'
         )
-        group_doc_total = sum((stats[p["slug"]]["doc_count"] or 0) for p in members)
-        group_page_total = sum((stats[p["slug"]]["page_count"] or 0) for p in members)
+        profile_snip = compact(person.get("profile", ""), 120) if person.get("profile") else ""
+        profile_html = (
+            f'<div class="zh" style="font-size:13.5px;color:var(--muted);">{h(profile_snip)}</div>'
+            if profile_snip
+            else ""
+        )
         body += f"""
-<div class="section-head" style="margin-top:28px;">
-  <h2 style="margin:0;">{h(group_label)}</h2>
-  <span class="meta" style="color:var(--muted);font-size:13px;">{len(members)} 人 · FRUS 共 {group_doc_total} 篇 / {group_page_total} 段</span>
-</div>
-<section class="doc-head" style="margin-bottom:10px;background:var(--panel-warm);">
-  <div><div class="meta" style="line-height:1.7;">{h(group_brief)}</div></div>
-</section>
-<section class="result-list">
-"""
-        for person in members:
-            row = stats[person["slug"]]
-            doc_count = row["doc_count"] or 0
-            page_count = row["page_count"] or 0
-            core_hits = row["core_hits"] or 0
-            no_hit_cls = "" if doc_count > 0 else ' style="opacity:.6;"'
-            hit_meta = (
-                f'{doc_count} 篇文档 · {page_count} 个片段 · 核心命中 {core_hits}'
-                if doc_count > 0
-                else '<span style="color:var(--muted-soft);">FRUS 暂无命中（待 Wilson / CIA 等档案补充）</span>'
-            )
-            profile_snip = compact(person.get("profile", ""), 120) if person.get("profile") else ""
-            profile_html = (
-                f'<div class="zh" style="font-size:13.5px;color:var(--muted);">{h(profile_snip)}</div>'
-                if profile_snip
-                else ""
-            )
-            body += f"""
 <article class="result"{no_hit_cls}>
   <div>
     <h2><a href="/people/{h(person["slug"])}">{h(person["name"])}</a></h2>
@@ -3369,7 +3353,8 @@ def people() -> bytes:
   </div>
   <div class="cite"><a href="/people/{h(person["slug"])}">查看人物页</a><br><a href="/search?q={quote(person["name"])}">中文搜索</a></div>
 </article>"""
-        body += "</section>"
+    body += "</section>"
+
     return layout("人物索引", body)
 
 
@@ -3436,16 +3421,11 @@ def person_page(slug: str) -> bytes:
     # 人物传记摘要卡片（如有 profile 字段）
     profile_text = person.get("profile", "")
     if profile_text:
-        group_label = ""
-        for g_key, g_label, _ in PERSON_GROUPS:
-            if person.get("group") == g_key:
-                group_label = g_label
-                break
         body += f"""
 <section class="doc-head" style="background:var(--panel-warm);border-left:4px solid var(--accent);margin-bottom:16px;">
   <div style="max-width:none;">
     <div class="meta" style="color:var(--accent-deep);font-size:13px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;">
-      人物档案 {('· ' + h(group_label)) if group_label else ''}
+      人物档案
     </div>
     <div style="font-family:var(--serif);font-size:16px;line-height:1.8;color:var(--text);">{h(profile_text)}</div>
     <div class="meta" style="margin-top:10px;font-size:12.5px;color:var(--muted-soft);">
@@ -3482,148 +3462,23 @@ def person_page(slug: str) -> bytes:
 
 
 def topics() -> bytes:
-    cards = []
-    with conn() as c:
-        for topic in TOPICS:
-            where, params = alias_where(
-                ["documents.title", "documents.matched_terms", "pages.text", "translations.text"],
-                topic["terms"],
-            )
-            row = c.execute(
-                f"""
-                SELECT
-                    count(DISTINCT documents.id) AS doc_count,
-                    count(DISTINCT pages.id) AS page_count,
-                    sum(CASE WHEN dc.grade = '核心文献' THEN 1 ELSE 0 END) AS core_hits,
-                    count(DISTINCT q.page_id) AS issue_pages
-                FROM pages
-                JOIN documents ON documents.id = pages.document_id
-                LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
-                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
-                LEFT JOIN translation_quality_issues q ON q.page_id = pages.id
-                WHERE {where}
-                """,
-                tuple(params),
-            ).fetchone()
-            cards.append((topic, row))
-    body = """
-<section class="doc-head">
-  <div>
-    <h1>核心主题专题</h1>
-    <div class="meta">把 FRUS 民盟材料按研究问题聚合，便于从事件和政治过程进入原文。</div>
-  </div>
-  <div class="doc-tools">
-    <a class="button" href="/tasks?queue=topics">专题校订任务</a>
-  </div>
-</section>
-<section class="result-list">
-"""
-    for topic, row in sorted(cards, key=lambda item: (item[1]["core_hits"] or 0, item[1]["doc_count"] or 0), reverse=True):
-        body += f"""
-<article class="result">
-  <div>
-    <h2><a href="/topics/{h(topic["slug"])}">{h(topic["name"])}</a></h2>
-    <div class="meta">{h(topic["brief"])}</div>
-    <div class="tagline">{''.join(f'<span class="tag">{h(term)}</span>' for term in topic["terms"][:6])}</div>
-  </div>
-  <div class="cite">{row["doc_count"] or 0} 篇文档<br>{row["page_count"] or 0} 个片段<br>{row["issue_pages"] or 0} 个待校订</div>
-</article>"""
-    body += "</section>"
-    return layout("核心主题专题", body)
-
+    """/topics 路由已废弃 — 按民盟事件主题的专题分类已不再使用，重定向到 /people 人物索引。"""
+    return layout(
+        "已迁移到人物索引",
+        '<section class="doc-head"><div><h1>专题分类已合并到人物索引</h1>'
+        '<div class="meta">本站不再按民盟事件主题（如政协、马歇尔调处、第三方面等）做分类页面，'
+        '所有档案的导航统一通过 <a href="/people">人物索引</a> 完成。</div></div>'
+        '<div class="doc-tools"><a class="button" href="/people">前往人物索引 →</a></div></section>'
+    )
 
 def topic_page(slug: str) -> bytes:
-    topic = topic_by_slug(slug)
-    if not topic:
-        return layout("未找到专题", '<div class="notice">未找到专题。</div>')
-    with conn() as c:
-        where, params = alias_where(
-            ["documents.title", "documents.matched_terms", "pages.text", "translations.text"],
-            topic["terms"],
-        )
-        rows = c.execute(
-            f"""
-            SELECT
-                pages.id AS page_id,
-                pages.page_label,
-                pages.page_url,
-                pages.text AS original_text,
-                documents.volume_id,
-                documents.doc_id,
-                documents.doc_key,
-                documents.title,
-                documents.date_guess,
-                documents.matched_terms,
-                COALESCE(dc.grade, '') AS grade,
-                translations.text AS zh_text,
-                translations.status AS zh_status,
-                count(q.id) AS issue_count,
-                max(q.severity) AS max_severity
-            FROM pages
-            JOIN documents ON documents.id = pages.document_id
-            LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
-            LEFT JOIN document_classifications dc ON dc.document_id = documents.id
-            LEFT JOIN translation_quality_issues q ON q.page_id = pages.id
-            WHERE {where}
-            GROUP BY pages.id
-            ORDER BY
-                CASE COALESCE(dc.grade, '')
-                    WHEN '核心文献' THEN 1
-                    WHEN '相关文献' THEN 2
-                    WHEN '人物关联' THEN 3
-                    ELSE 4
-                END,
-                documents.date_guess,
-                documents.volume_id,
-                CAST(documents.doc_number AS INTEGER),
-                pages.id
-            LIMIT 300
-            """,
-            tuple(params),
-        ).fetchall()
-    doc_count = len({row["doc_key"] for row in rows})
-    core_count = sum(1 for row in rows if row["grade"] == "核心文献")
-    issue_count = sum(1 for row in rows if row["issue_count"])
-    body = f"""
-<section class="doc-head">
-  <div>
-    <h1>{h(topic["name"])}</h1>
-    <div class="meta">{h(topic["brief"])}</div>
-    <div class="meta">{doc_count} 篇文档 · {len(rows)} 个片段 · 核心片段 {core_count} · 待校订片段 {issue_count}</div>
-    <div class="tagline">{''.join(f'<span class="tag">{h(term)}</span>' for term in topic["terms"])}</div>
-  </div>
-  <div class="doc-tools">
-    <a class="button" href="/topics">专题列表</a>
-    <a class="button" href="/tasks?queue=topics">专题校订任务</a>
-    <a class="button" href="/timeline?topic={h(topic["slug"])}">专题年表</a>
-    <a class="button" href="/events?topic={h(topic["slug"])}">事件线索</a>
-  </div>
-</section>
-"""
-    if not rows:
-        body += '<div class="notice">暂无匹配材料。</div>'
-    else:
-        body += '<section class="result-list">'
-        for row in rows:
-            page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
-            href = f"/doc/{quote(row['doc_key'])}?page_id={row['page_id']}"
-            issue = ""
-            if row["issue_count"]:
-                issue = f'<span class="issue{" high" if (row["max_severity"] or 0) >= 3 else ""}">{row["issue_count"]} 个校订提示</span>'
-            body += f"""
-<article class="result">
-  <div>
-    {title_block(row["title"], href)}
-    <div class="meta">{h(row["volume_id"])}/{h(row["doc_id"])} · {h(row["date_guess"])} · {h(page)} {grade_badge(row)}</div>
-    <div class="snippet">原文: {h(compact(row["original_text"], 280))}</div>
-    <div class="zh">中文: {h(compact(row["zh_text"], 280))}</div>
-    <div class="tagline">{''.join(f'<span class="tag">{h(tag)}</span>' for tag in topic_tags(row))}{issue}</div>
-  </div>
-  <div class="cite"><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
-</article>"""
-        body += "</section>"
-    return layout(str(topic["name"]), body)
-
+    """/topics/<slug> 已废弃 — 重定向到人物索引。"""
+    return layout(
+        "已迁移",
+        '<section class="doc-head"><div><h1>专题分类已合并到人物索引</h1>'
+        '<div class="meta">本站不再按民盟事件主题做分类，所有档案通过 <a href="/people">人物索引</a> 导航。</div></div>'
+        '<div class="doc-tools"><a class="button" href="/people">前往人物索引 →</a></div></section>'
+    )
 
 def upsert_translation(c: sqlite3.Connection, page_id: int, text: str, status: str, translator: str = "human-review") -> None:
     existing = c.execute(
@@ -4031,7 +3886,7 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
     )
 
     filter_links.append('<a class="button" href="/timeline">全部年表</a>')
-    filter_links.extend(f'<a class="button" href="/timeline?topic={h(topic["slug"])}">{h(topic["name"])}</a>' for topic in TOPICS[:5])
+    # 已废弃：不再按 TOPICS（民盟事件主题）做时间线过滤
     body = f"""
 <section class="doc-head">
   <div>
@@ -4040,7 +3895,6 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
     <div class="meta">{len({row["doc_key"] for row in rows})} 篇文档 · {len(rows)} 个片段 · 按月细化</div>
   </div>
   <div class="doc-tools">
-    <a class="button" href="/topics">专题</a>
     <a class="button" href="/people">人物</a>
     <a class="button" href="/events">事件线索</a>
     <a class="button" href="/events/key">关键事件</a>
@@ -4119,7 +3973,6 @@ def event_overview() -> bytes:
   </div>
   <div class="doc-tools">
     <a class="button" href="/timeline">文档年表</a>
-    <a class="button" href="/topics">专题</a>
     <a class="button" href="/people">人物</a>
     <a class="button" href="/places">地点</a>
     <a class="button" href="/organizations">机构</a>
@@ -4351,7 +4204,7 @@ def events(
         rows = [row for row in rows if active_place in split_terms(row["places"])]
     if active_org:
         rows = [row for row in rows if active_org in split_terms(row["organizations"])]
-    back_href = "/topics" if scope_type == "topic" else "/people"
+    back_href = "/people"
     timeline_href = f"/timeline?{scope_type}={quote(scope_slug)}"
     source_href = f"/{scope_type}s/{quote(scope_slug)}" if scope_type == "topic" else f"/people/{quote(scope_slug)}"
     title = f"{scope_name}事件线索"
@@ -4432,7 +4285,6 @@ def event_facet_index(kind: str) -> bytes:
   </div>
   <div class="doc-tools">
     <a class="button" href="/events">事件总览</a>
-    <a class="button" href="/topics">专题</a>
     <a class="button" href="/people">人物</a>
   </div>
 </section>
