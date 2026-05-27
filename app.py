@@ -5114,7 +5114,7 @@ class Handler(BaseHTTPRequestHandler):
         elif parsed.path.startswith("/topics/"):
             payload = topic_page(unquote(parsed.path.removeprefix("/topics/")))
         elif parsed.path == "/timeline":
-            payload = timeline(qs.get("topic", [""])[0], qs.get("person", [""])[0])
+            payload = timeline(qs.get("topic", [""])[0], qs.get("person", [""])[0], qs.get("platform", [""])[0])
         elif parsed.path == "/events":
             payload = events(
                 qs.get("topic", [""])[0],
