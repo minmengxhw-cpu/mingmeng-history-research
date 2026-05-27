@@ -3975,12 +3975,37 @@ def citation_page(page_id: int) -> bytes:
     return layout("引用摘录卡片", body)
 
 
-def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
-    title = "FRUS 民盟材料年表"
-    subtitle = "按年份排列文档片段，保留校订、摘录和 FRUS 来源入口。"
+# 6 平台元数据（用于 timeline 徽章 + 过滤按钮）
+TIMELINE_PLATFORMS = [
+    ("frus",        "FRUS",        "#0f6b5b"),  # 美方公开外交
+    ("cia",         "CIA",         "#8b5e34"),  # 美方情报
+    ("drnh",        "DRNH",        "#a86b1a"),  # 国民政府
+    ("hathitrust",  "HathiTrust",  "#0a4a3f"),  # 港媒
+    ("wilson",      "Wilson",      "#5a3a26"),  # 苏方
+    ("hoover",      "Hoover",      "#6b6356"),  # 民盟创始人私函
+]
+TIMELINE_PLAT_LABEL = {k: lab for k, lab, _ in TIMELINE_PLATFORMS}
+TIMELINE_PLAT_COLOR = {k: col for k, _, col in TIMELINE_PLATFORMS}
+
+
+def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "") -> bytes:
+    title = "民盟材料年表"
+    subtitle = "按年份排列六平台档案片段，含校订、摘录与原始来源入口。"
     where = ""
     params: list[str] = []
     filter_links = []
+    if platform_slug and platform_slug in TIMELINE_PLAT_LABEL:
+        plat_label = TIMELINE_PLAT_LABEL[platform_slug]
+        title = f"{plat_label} 民盟材料年表"
+        subtitle = f"按年份排列 {plat_label} 平台档案片段。"
+        # 注意：source_type='hathi_ia' 对应 platform='hathitrust'，需要兼容
+        if platform_slug == 'hathitrust':
+            where = "(COALESCE(documents.source_platform,'frus') = ? OR COALESCE(documents.source_platform,'frus') = ?)"
+            params.extend(['hathitrust', 'hathi_ia'])
+        else:
+            where = "COALESCE(documents.source_platform,'frus') = ?"
+            params.append(platform_slug)
+        where = "WHERE " + where
     if topic_slug:
         topic = topic_by_slug(topic_slug)
         if topic:
@@ -3995,7 +4020,7 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
         person = person_by_slug(person_slug)
         if person:
             title = f"{person['name']}年表"
-            subtitle = "按时间排列该人物在 FRUS 民盟材料中的出现。"
+            subtitle = "按时间排列该人物在六平台档案中的出现。"
             where, params = alias_where(
                 ["documents.matched_terms", "documents.title", "pages.text", "translations.text"],
                 person["aliases"],
@@ -4082,8 +4107,14 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
         '</div>'
     )
 
-    filter_links.append('<a class="button" href="/timeline">全部年表</a>')
-    # 已废弃：不再按 TOPICS（民盟事件主题）做时间线过滤
+    # 全部年表入口
+    all_active = ' active' if not platform_slug else ''
+    filter_links.append(f'<a class="button{all_active}" href="/timeline">全部年表</a>')
+    # 6 平台过滤按钮
+    for plat_key, plat_label, _ in TIMELINE_PLATFORMS:
+        is_active = (platform_slug == plat_key)
+        active_cls = ' active' if is_active else ''
+        filter_links.append(f'<a class="button{active_cls}" href="/timeline?platform={plat_key}">{plat_label}</a>')
     body = f"""
 <section class="doc-head">
   <div>
@@ -4125,11 +4156,14 @@ def timeline(topic_slug: str = "", person_slug: str = "") -> bytes:
                 issue = ""
                 if row["issue_count"]:
                     issue = f'<span class="issue{" high" if (row["max_severity"] or 0) >= 3 else ""}">{row["issue_count"]} 个校订提示</span>'
-                # source 徽章
+                # source 徽章 — 6 平台分别识别
                 src_platform = row["source_platform"] if "source_platform" in row.keys() else None
-                src_badge = ('<span class="src-badge cia" style="font-size:11px;">CIA</span> '
-                             if src_platform == 'cia'
-                             else '<span class="src-badge frus" style="font-size:11px;">FRUS</span> ')
+                if src_platform == 'hathi_ia':  # ingest 时 source_type='hathi_ia' 对应前台 'hathitrust'
+                    src_platform = 'hathitrust'
+                _label = TIMELINE_PLAT_LABEL.get(src_platform or 'frus', 'FRUS')
+                _color = TIMELINE_PLAT_COLOR.get(src_platform or 'frus', '#0f6b5b')
+                src_badge = (f'<span class="src-badge" style="font-size:11px;background:{_color};color:#fff;'
+                             f'padding:1px 7px;border-radius:3px;letter-spacing:.02em;">{_label}</span> ')
                 body += f"""
 <article class="result">
   <div>
