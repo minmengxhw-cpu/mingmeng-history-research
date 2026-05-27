@@ -109,7 +109,11 @@
       padding: 8px 14px; border-radius: 6px;
       background: transparent; border: 1px solid transparent;
       color: var(--muted); font: 14px var(--sans);
+      font-family: var(--sans);  /* 显式声明 sans-serif，防被 var(--serif) 误用 */
       cursor: pointer;
+    }
+    .nav-sub {
+      font-family: var(--sans);  /* 子菜单链接同样强制 sans-serif */
     }
     .nav-main:hover { background: var(--panel-warm); color: var(--text); }
     .nav-group.active .nav-main { background: var(--accent-soft); color: var(--accent-deep); border-color: rgba(15, 107, 91, 0.25); }
@@ -1288,4 +1292,60 @@
       .paper-content .md-h2 { font-size: 18px; margin: 24px 0 10px; }
       .paper-content .md-h3 { font-size: 16px; }
       .paper-content .md-table { font-size: 13px; display: block; overflow-x: auto; }
+    }
+
+
+    /* ============================================================
+     * 手机端顶栏兜底修复（5/27 加强版）
+     * 用 header.topbar 高特异性 + !important 强制覆盖
+     * 解决 Cloudflare CDN 缓存可能导致的 @media 规则失效
+     * ============================================================ */
+    @media (max-width: 720px) {
+      /* 强制 hamburger 显示 */
+      header.topbar .nav-toggle {
+        display: inline-flex !important;
+        visibility: visible !important;
+      }
+      /* 强制 brand 副标隐藏 */
+      header.topbar .brand .brand-sub {
+        display: none !important;
+        visibility: hidden !important;
+      }
+      /* 强制 mainnav 默认折叠 */
+      header.topbar nav.mainnav {
+        display: none !important;
+        flex-direction: column !important;
+      }
+      header.topbar nav.mainnav.is-open {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      /* 强制 nav-group 占满整行 */
+      header.topbar nav.mainnav .nav-group {
+        width: 100% !important;
+        display: block !important;
+      }
+      /* 强制 nav-main 撑满 + sans-serif + 正常颜色 */
+      header.topbar .nav-main {
+        width: 100% !important;
+        font-family: var(--sans) !important;
+        color: var(--text) !important;
+        background: transparent !important;
+      }
+      /* 激活态高亮（手机端也保留绿色） */
+      header.topbar .nav-group.active .nav-main {
+        background: var(--accent-soft) !important;
+        color: var(--accent-deep) !important;
+      }
+      header.topbar .nav-sub {
+        font-family: var(--sans) !important;
+        color: var(--text) !important;
+      }
+    }
+
+    /* 桌面端 hamburger 绝对隐藏 */
+    @media (min-width: 721px) {
+      .nav-toggle {
+        display: none !important;
+      }
     }
