@@ -655,7 +655,7 @@ ICONS_SVG = """
 
 
 NAV_GROUPS = [
-    ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/timeline", "年表"), ("/glossary", "术语表")]),
+    ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
@@ -669,7 +669,7 @@ def nav_active(path: str) -> str:
         for href, _ in items:
             if path == href or (href != "/" and path.startswith(href + "/")):
                 return group_key
-    if path.startswith("/doc/") or path.startswith("/cite/"):
+    if path.startswith("/doc/") or path.startswith("/cite/") or path.startswith("/papers/"):
         return "library"
     if path.startswith("/review/"):
         return "workbench"
@@ -911,6 +911,11 @@ def source_page(platform_key: str) -> bytes:
     coverage_str = _fmt(meta.get("coverage", ""))
     todo_note_str = _fmt(meta.get("todo_note", ""))
     sourcebook_tools = sourcebook_links_html(platform_key)
+    # 5/26 19:50 新增：研究论文入口
+    paper_link = ''
+    if platform_key in {"frus", "cia", "drnh", "hathitrust", "wilson", "hoover"}:
+        paper_link = f'<a class="button" href="/papers/{platform_key}"><svg class="ico"><use href="#i-quote"/></svg>研究论文</a>'
+    sourcebook_tools = (paper_link + sourcebook_tools) if paper_link else sourcebook_tools
 
     highlights_html = "".join(f"<li>{item}</li>" for item in meta.get("highlights", []))
 
@@ -3471,6 +3476,198 @@ def topics() -> bytes:
         '<div class="doc-tools"><a class="button" href="/people">前往人物索引 →</a></div></section>'
     )
 
+
+# ============================================================
+# 七篇学术论文展示 (/papers, /papers/<key>) — 5/26 19:50 新增
+# ============================================================
+
+PAPERS = [
+    ("overview", "六源对照档案体系（总论）",
+     "1941-1950 年中国民主同盟史的境外一手档案研究框架",
+     "docs/_overview-paper.md", "i-library", "/papers/overview"),
+    ("frus", "美方公开外交基准源 · FRUS",
+     "11 分卷 / 273 直接命中 + 26 间接命中 / 罗隆基 57 次为人物之首",
+     "docs/_frus-paper.md", "i-globe", "/papers/frus"),
+    ("drnh", "国民政府打压方内部档案 · DRNH",
+     "364 篇 / 戴笠呈件 + 蒋档批阅 + 保密局呈件 25 篇为核心子集",
+     "docs/_drnh-paper.md", "i-archive", "/papers/drnh"),
+    ("cia", "美方解密情报系统 · CIA",
+     "78 篇（剔 24 后）/ 民盟海外网络独有档案 / 上海撤往香港 hardcode 重译样本",
+     "docs/_cia-paper.md", "i-lock", "/papers/cia"),
+    ("hathitrust", "港埠公开舆论场 · HathiTrust / IA",
+     "54 期 China Mail + Hong Kong Telegraph / 1947 民盟「非法」5 期连续报道",
+     "docs/_hathitrust-paper.md", "i-book", "/papers/hathitrust"),
+    ("wilson", "苏方与东欧档案 · Wilson Center",
+     "24 篇 / 121 页段 / wilson:134160 新政协预委会民主党派苏方记录",
+     "docs/_wilson-paper.md", "i-flag", "/papers/wilson"),
+    ("hoover", "民盟创始人致美方私函 · Hoover Institution",
+     "张君劢致 Wedemeyer + Marshall 两封信 / 与 FRUS 1947v07 卷四源对照",
+     "docs/_hoover-paper.md", "i-quote", "/papers/hoover"),
+]
+
+
+def render_markdown(md: str) -> str:
+    """轻量 markdown → HTML 渲染（针对论文格式）。"""
+    lines = md.split("\n")
+    out = []
+    i = 0
+    in_table = False
+    in_codeblock = False
+    in_list = False
+    in_blockquote = False
+
+    def inline(text):
+        # 转 HTML entity（先转 & 防止后面替换坏掉）
+        t = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        # 行内代码 `code`
+        t = re.sub(r"`([^`]+?)`", lambda m_: f"<code>{m_.group(1)}</code>", t)
+        # 加粗 **text**
+        t = re.sub(r"\*\*([^*]+?)\*\*", lambda m_: f"<strong>{m_.group(1)}</strong>", t)
+        # 链接 [text](url)
+        t = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", lambda m_: f'<a href="{m_.group(2)}">{m_.group(1)}</a>', t)
+        return t
+
+    while i < len(lines):
+        line = lines[i]
+        # 代码块
+        if line.startswith("```"):
+            if in_codeblock:
+                out.append("</pre>")
+                in_codeblock = False
+            else:
+                if in_list: out.append("</ul>"); in_list = False
+                out.append('<pre class="md-code">')
+                in_codeblock = True
+            i += 1; continue
+        if in_codeblock:
+            out.append(line.replace("<","&lt;").replace(">","&gt;"))
+            i += 1; continue
+
+        # 表格（连续含 | 的行）
+        if "|" in line and not line.startswith("|") is False and "|" in line.strip().strip("|"):
+            # 启发式：看下行是不是分隔行 |---|---|
+            if not in_table:
+                if i+1 < len(lines) and re.match(r"^\s*\|?[\s\-:|]+\|?\s*$", lines[i+1]):
+                    # 开表头
+                    if in_list: out.append("</ul>"); in_list = False
+                    cells = [c.strip() for c in line.strip().strip("|").split("|")]
+                    out.append("<table class='md-table'><thead><tr>")
+                    for c in cells: out.append(f"<th>{inline(c)}</th>")
+                    out.append("</tr></thead><tbody>")
+                    in_table = True
+                    i += 2; continue
+            else:
+                cells = [c.strip() for c in line.strip().strip("|").split("|")]
+                out.append("<tr>")
+                for c in cells: out.append(f"<td>{inline(c)}</td>")
+                out.append("</tr>")
+                i += 1; continue
+        if in_table:
+            out.append("</tbody></table>")
+            in_table = False
+
+        # 标题
+        m_h = re.match(r"^(#{1,6})\s+(.+)$", line)
+        if m_h:
+            if in_list: out.append("</ul>"); in_list = False
+            lvl = len(m_h.group(1))
+            out.append(f"<h{lvl} class='md-h{lvl}'>{inline(m_h.group(2))}</h{lvl}>")
+            i += 1; continue
+
+        # 引用
+        if line.startswith("> "):
+            if in_list: out.append("</ul>"); in_list = False
+            if not in_blockquote:
+                out.append("<blockquote class='md-quote'>")
+                in_blockquote = True
+            out.append(f"<p>{inline(line[2:])}</p>")
+            i += 1; continue
+        else:
+            if in_blockquote:
+                out.append("</blockquote>")
+                in_blockquote = False
+
+        # 列表项
+        m_li = re.match(r"^[-*]\s+(.+)$", line)
+        if m_li:
+            if not in_list:
+                out.append("<ul class='md-list'>")
+                in_list = True
+            out.append(f"<li>{inline(m_li.group(1))}</li>")
+            i += 1; continue
+        else:
+            if in_list:
+                out.append("</ul>")
+                in_list = False
+
+        # 水平分割
+        if re.match(r"^---+$", line.strip()):
+            out.append("<hr class='md-hr'>")
+            i += 1; continue
+
+        # 空行
+        if not line.strip():
+            i += 1; continue
+
+        # 普通段落
+        out.append(f"<p>{inline(line)}</p>")
+        i += 1
+
+    if in_list: out.append("</ul>")
+    if in_blockquote: out.append("</blockquote>")
+    if in_table: out.append("</tbody></table>")
+    return "\n".join(out)
+
+
+def papers_index() -> bytes:
+    """所有论文索引页"""
+    body = breadcrumb_html([("/", "首页"), (None, "研究论文")])
+    body += """
+<section class="hero hero-compact">
+  <div class="hero-eyebrow">PLATFORM RESEARCH PAPERS</div>
+  <h1>六源对照档案体系 · 七篇学术论文</h1>
+  <p class="hero-sub">每个研究平台一篇档案学/史料学论文，加一篇总论。聚焦档案集合的客观属性与对民盟史研究的不可替代价值；不下民盟史史学评价。</p>
+</section>
+<section class="result-list">
+"""
+    for key, name, brief, _, icon, href in PAPERS:
+        body += f"""
+<article class="result">
+  <div>
+    <h2><a href="{href}"><svg class="ico ico-lg" style="margin-right:6px;"><use href="#{icon}"/></svg>{h(name)}</a></h2>
+    <div class="meta" style="margin-top:6px;line-height:1.7;">{h(brief)}</div>
+  </div>
+  <div class="cite"><a class="button" href="{href}">阅读全文 →</a></div>
+</article>"""
+    body += "</section>"
+    return layout("研究论文 · 六源对照档案体系", body)
+
+
+def paper_page(key: str) -> bytes:
+    """单篇论文渲染"""
+    meta = next((p for p in PAPERS if p[0] == key), None)
+    if not meta:
+        return layout("论文未找到", '<div class="notice">未找到该论文。</div>')
+    _, name, brief, path, icon, _ = meta
+    from pathlib import Path as _P
+    fpath = _P(__file__).parent / path
+    if not fpath.exists():
+        return layout(name, f'<div class="notice">论文文件未生成：{path}</div>')
+    md = fpath.read_text(encoding="utf-8")
+    html_body = render_markdown(md)
+    body = breadcrumb_html([("/", "首页"), ("/papers", "研究论文"), (None, name)])
+    body += f"""
+<article class="paper-content">
+{html_body}
+</article>
+<div class="doc-tools" style="margin-top:24px;justify-content:center;">
+  <a class="button" href="/papers">← 返回论文索引</a>
+  {'<a class="button" href="/sources/' + key + '">前往 ' + h(name.split(' · ')[-1] if ' · ' in name else name) + ' 平台栏目</a>' if key != 'overview' else ''}
+</div>
+"""
+    return layout(f"{name} · 研究论文", body)
+
+
 def topic_page(slug: str) -> bytes:
     """/topics/<slug> 已废弃 — 重定向到人物索引。"""
     return layout(
@@ -4893,6 +5090,13 @@ class Handler(BaseHTTPRequestHandler):
             payload = quality(qs.get("severity", [""])[0], qs.get("issue", [""])[0])
         elif parsed.path == "/tasks":
             payload = tasks(qs.get("queue", [""])[0])
+        elif parsed.path == "/papers":
+            payload = papers_index()
+            self.send_response(200); self.send_header("Content-Type","text/html; charset=utf-8"); self.send_header("Cache-Control","no-cache"); self.end_headers(); self.wfile.write(payload); return
+        elif parsed.path.startswith("/papers/"):
+            key = parsed.path.removeprefix("/papers/").rstrip("/")
+            payload = paper_page(key)
+            self.send_response(200); self.send_header("Content-Type","text/html; charset=utf-8"); self.send_header("Cache-Control","no-cache"); self.end_headers(); self.wfile.write(payload); return
         elif parsed.path == "/people":
             payload = people()
         elif parsed.path.startswith("/people/"):

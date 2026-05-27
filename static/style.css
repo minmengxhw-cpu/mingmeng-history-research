@@ -1159,3 +1159,133 @@
       .nav-group:hover .nav-flyout { display: none; }
       .nav-group.is-open .nav-flyout { display: flex; }
     }
+
+    /* ============================================================
+     * 学术论文阅读体验 (5/26 19:50 新增)
+     * 用于 /papers/<key> 页面渲染的 markdown 内容
+     * ============================================================ */
+    .paper-content {
+      max-width: 760px;
+      margin: 18px auto 0;
+      padding: 36px 44px;
+      background: var(--bg-paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 10px;
+      box-shadow: var(--shadow-md);
+      font-family: var(--serif);
+      line-height: 1.85;
+      color: var(--text);
+      font-size: 16px;
+    }
+    .paper-content .md-h1 {
+      font-size: 28px;
+      line-height: 1.35;
+      margin: 0 0 18px;
+      padding-bottom: 16px;
+      border-bottom: 3px double var(--archival);
+      text-align: center;
+      color: var(--archival);
+    }
+    .paper-content .md-h2 {
+      font-size: 22px;
+      margin: 36px 0 14px;
+      padding-left: 10px;
+      border-left: 4px solid var(--accent);
+      color: var(--accent-deep);
+    }
+    .paper-content .md-h3 {
+      font-size: 18px;
+      margin: 24px 0 10px;
+      color: var(--text);
+    }
+    .paper-content .md-h4 {
+      font-size: 16px;
+      margin: 18px 0 8px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .paper-content p {
+      margin: 0 0 14px;
+      text-align: justify;
+      text-justify: inter-character;
+    }
+    .paper-content strong { color: var(--text); font-weight: 600; }
+    .paper-content code {
+      font-family: var(--mono);
+      font-size: 13.5px;
+      background: var(--panel-warm);
+      padding: 1px 6px;
+      border-radius: 3px;
+      color: var(--archival);
+    }
+    .paper-content a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--accent-soft); }
+    .paper-content a:hover { text-decoration-color: var(--accent); }
+    .paper-content .md-quote {
+      margin: 16px 0;
+      padding: 12px 22px;
+      background: var(--panel-warm);
+      border-left: 4px solid var(--muted-soft);
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+    .paper-content .md-quote p { margin: 0 0 6px; }
+    .paper-content .md-quote p:last-child { margin-bottom: 0; }
+    .paper-content .md-list {
+      margin: 0 0 14px;
+      padding-left: 28px;
+    }
+    .paper-content .md-list li {
+      margin-bottom: 6px;
+    }
+    .paper-content .md-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 14.5px;
+      font-family: var(--sans);
+    }
+    .paper-content .md-table th {
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      padding: 8px 12px;
+      text-align: left;
+      border: 1px solid var(--accent);
+      font-weight: 600;
+    }
+    .paper-content .md-table td {
+      padding: 7px 12px;
+      border: 1px solid var(--line-soft);
+      vertical-align: top;
+    }
+    .paper-content .md-table tr:nth-child(even) td { background: var(--panel-warm); }
+    .paper-content .md-code {
+      background: var(--bg-paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 6px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+      white-space: pre;
+    }
+    .paper-content .md-hr {
+      border: 0;
+      border-top: 1px dashed var(--line);
+      margin: 30px 0;
+    }
+
+    @media (max-width: 720px) {
+      .paper-content {
+        padding: 22px 18px;
+        font-size: 15px;
+        line-height: 1.75;
+        margin: 12px auto 0;
+      }
+      .paper-content .md-h1 { font-size: 22px; }
+      .paper-content .md-h2 { font-size: 18px; margin: 24px 0 10px; }
+      .paper-content .md-h3 { font-size: 16px; }
+      .paper-content .md-table { font-size: 13px; display: block; overflow-x: auto; }
+    }
