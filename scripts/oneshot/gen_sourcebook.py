@@ -262,9 +262,15 @@ def year_of(s):
 def fetch(platform):
     c = sqlite3.connect(DB)
     c.row_factory = sqlite3.Row
+    # 5/26 19:50 修复：过滤 grade='前台不展示' 的档案
+    # 之前生成的 PDF 含 CIA 24 篇与中国民盟无关的同名组织档案
+    # 现在与前台 /sources/<platform> 的过滤逻辑保持一致
     docs = c.execute(
-        "SELECT id, doc_key, title, date_guess, url FROM documents "
-        "WHERE COALESCE(source_platform,'frus')=?",
+        """SELECT d.id, d.doc_key, d.title, d.date_guess, d.url
+           FROM documents d
+           LEFT JOIN document_classifications dc ON dc.document_id = d.id
+           WHERE COALESCE(d.source_platform,'frus')=?
+             AND (dc.grade IS NULL OR dc.grade != '前台不展示')""",
         (platform,),
     ).fetchall()
     items = []
