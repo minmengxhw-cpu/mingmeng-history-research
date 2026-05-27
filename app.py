@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent
 DB_PATH = ROOT / "data" / "research_index.sqlite"
 HOME_FOCUS_PATH = ROOT / "data" / "home_focus.json"
 STYLE_PATH = ROOT / "static" / "style.css"
+FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
 
 
 def h(value: object) -> str:
@@ -700,9 +701,9 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{h(title)} · 民盟历史文献研究库</title>
-  <link rel="stylesheet" href="/static/fonts.css">
+  <link rel="stylesheet" href="/static/fonts.css?v={asset_version(FONTS_CSS_PATH)}">
   <link rel="stylesheet" href="/static/style.css?v={asset_version(STYLE_PATH)}">
 </head>
 <body>
