@@ -702,6 +702,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{h(title)} · 民盟历史文献研究库</title>
+  <link rel="stylesheet" href="/static/fonts.css">
   <link rel="stylesheet" href="/static/style.css?v={asset_version(STYLE_PATH)}">
 </head>
 <body>
