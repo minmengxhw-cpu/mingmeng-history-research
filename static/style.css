@@ -26,6 +26,7 @@
     }
     * { box-sizing: border-box; }
     html { height: 100%; scroll-behavior: smooth; }
+    html, body { max-width: 100%; overflow-x: clip; }
     body {
       margin: 0;
       min-height: 100vh;
@@ -1002,6 +1003,13 @@
 
     /* 中等屏幕（≤720px）：启用 hamburger 抽屉导航 */
     @media (max-width: 720px) {
+      html, body {
+        width: 100%;
+        overflow-x: hidden;
+      }
+      body {
+        min-width: 0;
+      }
       /* 改 flex-wrap 布局，比 grid-template-areas 鲁棒：
        * row1: brand(伸缩) + toggle(固定)   ← 两列
        * row2: search                      ← 整行
@@ -1013,6 +1021,9 @@
         align-items: center;
         gap: 8px 10px;
         padding: 10px 14px;
+        width: 100%;
+        max-width: 100dvw;
+        overflow-x: clip;
         grid-template-columns: unset;
         grid-template-areas: unset;
       }
@@ -1104,6 +1115,11 @@
       h3 { font-size: 16px; }
       body { font-size: 15px; line-height: 1.65; }
       main { padding: 16px 14px; }
+      main {
+        width: 100%;
+        max-width: 100dvw;
+        overflow-x: clip;
+      }
 
       /* 表格 / pre 横向滚动 */
       table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -1283,6 +1299,10 @@
 
     @media (max-width: 720px) {
       .paper-content {
+        width: 100%;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
         padding: 22px 18px;
         font-size: 15px;
         line-height: 1.75;
@@ -1292,6 +1312,12 @@
       .paper-content .md-h2 { font-size: 18px; margin: 24px 0 10px; }
       .paper-content .md-h3 { font-size: 16px; }
       .paper-content .md-table { font-size: 13px; display: block; overflow-x: auto; }
+      .paper-content p,
+      .paper-content li,
+      .paper-content .md-quote {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
     }
 
 
@@ -1301,6 +1327,19 @@
      * 解决 Cloudflare CDN 缓存可能导致的 @media 规则失效
      * ============================================================ */
     @media (max-width: 720px) {
+      header.topbar {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100dvw !important;
+        overflow-x: clip !important;
+      }
+      header.topbar .search,
+      header.topbar .brand,
+      header.topbar nav.mainnav {
+        min-width: 0 !important;
+        max-width: 100% !important;
+      }
       /* 强制 hamburger 显示 */
       header.topbar .nav-toggle {
         display: inline-flex !important;
