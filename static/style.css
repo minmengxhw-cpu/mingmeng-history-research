@@ -421,6 +421,21 @@
       border: 1px solid rgba(15, 107, 91, 0.2);
     }
     .grade.context { background: var(--archival-soft); color: var(--archival); border-color: rgba(139, 94, 52, 0.25); }
+    /* 民盟相关度分级标签（统一呈现：核心 / 相关 / 人物关联 / 背景 / 已剔除）*/
+    .grade.core { background: var(--accent-soft); color: var(--accent-deep); border-color: rgba(15, 107, 91, 0.30); font-weight: 600; }
+    .grade.related { background: #e2ecf5; color: #2c5575; border-color: rgba(44, 85, 117, 0.25); }
+    .grade.person { background: #efe4f1; color: #6b3d72; border-color: rgba(107, 61, 114, 0.25); }
+    .grade.background { background: var(--archival-soft); color: var(--archival); border-color: rgba(139, 94, 52, 0.25); }
+    .grade.excluded { background: #efeae0; color: #8d8472; border-color: rgba(141, 132, 114, 0.30); text-decoration: line-through; text-decoration-color: rgba(141, 132, 114, 0.5); }
+    /* 分级图例 */
+    .grade-legend { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 6px 0 14px; padding: 10px 14px; background: var(--panel-warm); border: 1px solid var(--line-soft); border-radius: 6px; font-size: 12px; color: var(--muted); }
+    .grade-legend .lg-item { display: inline-flex; align-items: center; gap: 5px; }
+    .grade-legend .lg-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+    .grade-legend .lg-core { background: var(--accent); }
+    .grade-legend .lg-related { background: #3a6c92; }
+    .grade-legend .lg-person { background: #8a52926e; border: 1px solid #6b3d72; }
+    .grade-legend .lg-background { background: var(--archival); }
+    .grade-legend .lg-excluded { background: #b0a890; }
     .issue {
       display: inline-flex; align-items: center; gap: 4px;
       border-radius: 4px;
