@@ -1,125 +1,153 @@
-# 胡佛档案 Carsun Chang Papers 中的中国民主同盟史料及其私人沟通档案价值
+# 张君劢致美方两函（1947 年 7 月、11 月）——胡佛档案 Carsun Chang Papers 中的民盟史专题短论
 
 > 民盟历史文献研究库 · 平台学术论文系列 · Hoover 卷
-> 撰文日期：2026-05-26 · 撰文：研究平台项目组（机器初拟稿，待人工校订）
+> 撰文日期：2026-05-28 · 撰文：研究平台项目组（基于档案原文逐句精读改写）
 
 ## 摘要
 
-本文以斯坦福大学胡佛研究所档案馆（Hoover Institution Archives）所存 Carsun Chang Papers（张君劢档案，Box 13—14）现场调档复印的 2 件张君劢致美国军政高层私人信函为研究对象，考察该档案集合作为"民盟创始人致美方私人沟通"对民盟史研究的史料学价值。文章基于平台对 2 件档案的时点定位（1947-07-26 致 Wedemeyer 中将函 + 1947-11-01 致 Marshall 国务卿函），论证 Hoover 档案在民盟史研究中提供了 FRUS / CIA 等美方官方档案所无的"民盟方向美方主动输出"的独特档案，特别是 1947-11-01 函作为民盟"非法化"事件后约一周民盟领导人对美方申诉的核心文献。
+斯坦福大学胡佛研究所档案馆所藏 Carsun Chang Papers（张君劢档案，Box 13—14）中现有 2 件 1947 年张君劢致美国军政高层私人英文打字信函——1947-07-26 致 Wedemeyer 中将函（约 4500 字）与 1947-11-01 致 Marshall 国务卿函（约 1600 字）——分别撰写于 Wedemeyer 调查（1947 年 7—9 月）起始约 2 周与民盟"非法化"事件（1947-10-28）后约 4 天的关键时点。本文以两函原文逐句精读为基础，作专题短论：（一）两函是民盟创始人之一向美方最高军政决策者主动陈述对中国政治进程判断的核心档案；（二）1947-07-26 函以民盟 1946 年 3—4 月"东北联合政府方案"为线索，将民盟塑造为 1946 年政协破局后唯一向国民政府提出可行性调解方案的"第三力量"；（三）1947-11-01 函在民盟"非法"事件发生后第 4 天致函美国国务卿，是六源对照档案体系中**唯一**的"民盟领导人直接对美国国务卿当面陈述民盟被非法化"的存世档案。两函合计约 6100 英文字，篇幅虽小，但作为民盟"主动一手陈述"的史料密度极高。
 
-**关键词**：中国民主同盟 · 张君劢 · Carsun Chang · 胡佛档案 · Wedemeyer · Marshall · 民盟创始人
-
----
-
-## 一、研究问题与档案来源
-
-张君劢（1887—1969，字嘉森，英文署名 Carsun Chang），中国民主同盟创始人之一，曾任民盟中央常委、中国民主社会党主席。1947 年民盟被国民政府宣布"非法"后赴美。其个人档案 Carsun Chang Papers 现存于斯坦福大学胡佛研究所档案馆（Hoover Institution Archives, Stanford University），含张君劢 1940s—1960s 间的书信、手稿、剪报、政治文件等。
-
-本研究平台从 Hoover Institution Archives 现场调档（含 Box 13—14 部分）复印取得了 2 件涉及民盟史关键时段的张君劢致美国军政高层私人信函：
-
-| doc_key | 日期 | 收件人 |
-|---|---|---|
-| [hoover:CC-1947-07-26-wedemeyer](/doc/hoover:CC-1947-07-26-wedemeyer) | 1947-07-26 | Albert C. Wedemeyer 中将（1947 年特使前往华北调查） |
-| [hoover:CC-1947-11-01-marshall](/doc/hoover:CC-1947-11-01-marshall) | 1947-11-01 | George C. Marshall 国务卿 |
-
-两件档案均为英文打字信函，含张君劢亲笔签名，OCR 文本与影像并存。时段聚焦 1947 年 7—11 月，覆盖 Wedemeyer 调查（1947 年 7—9 月）与民盟"非法化"事件（1947-10-28）两个关键时点。
+**关键词**：中国民主同盟 · 张君劢 · Carsun Chang · 民盟"非法"事件 · Wedemeyer · Marshall · 民盟创始人 · 民社党 · 第三道路
 
 ---
 
-## 二、档案集合的客观属性
+## 一、为什么这两件档案值得被单独立论
 
-### 2.1 档案规模与平台属性
+民盟史研究的史料源中，绝大多数档案来自"观察方"——FRUS 是美方外交人员对民盟的报告，CIA 是美方情报人员对民盟的侦察，DRNH 是国民政府情报系统对民盟的呈报，HathiTrust 是港媒对民盟的公开报道，Wilson 是苏方对中国民主党派的间接观察。**民盟"主动一手陈述"的存世档案极为稀少**——因为民盟在 1947—1949 年的关键三年中：（1）在大陆持续遭国民政府监控、压制、最终非法化；（2）海外分支（香港、马来亚）的对外文件多以"群体宣言"形态出现而非领导人个人致函；（3）1949 年后并入新政协，原始档案多移交北京中央档案馆未公开。
 
-| 属性 | 内容 |
-|---|---|
-| 档案数 | 2 件 |
-| 页段数 | 2 个 |
-| 形态 | 英文打字信函 + 亲笔签名 + OCR + 影像 |
-| 来源 | Hoover Institution Archives, Carsun Chang Papers, Box 13—14（现场调档复印） |
-| 平台 doc_key 前缀 | hoover: |
+正是在这一史料缺口中，胡佛 Carsun Chang Papers 提供了一个例外。张君劢 1947 年期间作为：（1）中国民主社会党主席；（2）中国民主同盟早期发起人之一（虽然 1946 年因民社党单独参加国民大会而与民盟主体出现路线分歧）；（3）国民政府"半联合政府"中的少数党领导人，其个人致美方军政高层的英文信函原稿，是其本人有意识向美方决策者"主动陈述"的政治文件。两函经斯坦福胡佛所档案管理员整理，编入 Carsun Chang Papers Box 13—14，由本平台现场调档复印取得 OCR 文本与影像。
 
-平台档案数虽少（仅 2 篇），但**史料学密度极高**——两篇均为民盟史关键时点（Wedemeyer 调查 + 民盟"非法"事件）的核心档案。
+两件档案的关键时点与产出主体如下：
 
-### 2.2 时点定位
-
-**第一件**：1947-07-26 致 Wedemeyer 中将函
-
-时点位于 Wedemeyer 调查（Wedemeyer Mission，1947 年 7-9 月）开始约 2 周后。Albert C. Wedemeyer 中将（1897—1989）时任美国陆军中将，1947 年 7 月由 Marshall 国务卿派遣赴华，对当时中国军事、政治、经济情况做全面评估，回美后提交《Wedemeyer Report on China》（1947-09）。张君劢作为民盟领导人之一在 Wedemeyer 调查期间向其阐述对中国政治进程的判断，是民盟方对美方调查团队主动输入信息的核心档案。
-
-**第二件**：1947-11-01 致 Marshall 国务卿函
-
-时点位于国民政府内政部宣布民盟"非法"（1947-10-28）后约 4 天。George C. Marshall（1880—1959）时任美国国务卿（1947-01-21 至 1949-01-20）。该函为民盟"非法化"事件后约一周民盟创始人之一向美方最高外交决策者直接陈述的核心档案。
-
-### 2.3 OCR 与翻译
-
-平台对 2 件档案做了 OCR 文本提取与机器中文翻译。两件均为英文打字信函，OCR 质量较高（明显高于 CIA 解密文件的扫描质量）。中文翻译状态记录为 `machine-draft-review-needed`（待复审）。
-
----
-
-## 三、Hoover 档案在民盟史研究中的史料学价值
-
-### 3.1 作为"民盟方致美方私人沟通"档案的独特性
-
-Hoover 2 件档案在民盟史研究六源对照档案体系中提供了**独特的档案类型**——"民盟创始人致美方军政高层私人沟通"。这一档案类型在其他五源中**完全没有对应**：
-
-| 档案源 | 视角 | 内容方向 |
-|---|---|---|
-| FRUS | 美方公开外交 | 美方→国务院（公开） |
-| CIA | 美方解密情报 | 美方情报系统→CIA 内部 |
-| DRNH | 国民政府内部 | 国民政府内部决策 |
-| HathiTrust | 港埠公开报刊 | 公开舆论场 |
-| Wilson | 苏方与东欧 | 中苏 / 中东欧通信 |
-| **Hoover** | **民盟创始人致美方** | **民盟方→美方军政高层（私函）** |
-
-私人信函的档案学属性区别于公开声明：（1）措辞更直接，反映个人判断而非组织口径；（2）含未公开的内部观察与判断；（3）签名归属明确，可追溯到具体决策者；（4）反映民盟方对美方政策的实际期待，区别于公开声明的姿态性表述。
-
-### 3.2 与 FRUS 1947v07 卷的核心对照档案
-
-Hoover 2 件档案与 FRUS 1947v07 卷（48 篇）构成 1947 年下半年民盟史研究的核心对照档案场：
-
-**1947-07-26 致 Wedemeyer 函的对照档案**：FRUS 1947v07 卷含 Wedemeyer 调查期间美方对民盟立场的多篇电报，以及 Wedemeyer 调查报告本身的部分文本。本函为该报告生成过程中民盟方主动输入信息的档案。研究者可通过对照 Hoover 1947-07-26 函与 FRUS 同期 Wedemeyer 报告中关于民盟的段落，呈现"民盟方输入 vs 美方采纳"的档案对照场。
-
-**1947-11-01 致 Marshall 函的对照档案**：FRUS 1947v07 卷含 1947-10 至 11 月美方驻华使馆对民盟"非法化"事件的连续电报。本函为民盟方在"非法化"后约 4 天对美方国务院的直接陈述。研究者可通过对照 Hoover 1947-11-01 函与 FRUS 同期美方电报，呈现"民盟方申诉 vs 美方应对"的档案对照场。同期还可对照 DRNH 同期保密局呈件（含 1947-11-05"民盟留沪人员姓名及疏散情形"等）+ HathiTrust 同期 5 期 China Mail 港媒报道，构成**四源完整对照档案场**——民盟方申诉 + 美方观察 + 国民政府内部决策 + 公开舆论场，是民盟"非法化"事件研究中可全维度还原的档案。
-
-### 3.3 张君劢作为档案主体的特殊性
-
-张君劢在中国近现代政治史上具有多重身份：（1）民盟创始人之一与中央常委；（2）中国民主社会党主席；（3）中国宪法学者（参与起草 1946 年《中华民国宪法》）；（4）赴美后在西方学界从事中国哲学与政治研究。这种多重身份使张君劢的档案在民盟史研究中具有独特视角：
-
-- 作为**民盟创始人**：其私函反映民盟内部决策思路
-- 作为**民社党主席**：其立场反映民盟内部"民社党—青年党—无党派"三派关系
-- 作为**宪法学者**：其与美方的沟通含对宪政体制的具体讨论
-- 作为**1947 年后赴美者**：其档案保存于美国学术机构，反映流亡海外的民盟方对美方政策的连续期待
-
----
-
-## 四、研究使用方法学
-
-**4.1 双件齐用**。Hoover 仅 2 件档案，研究者应**两件齐用**：1947-07-26 函为 Wedemeyer 调查期间的输入档案；1947-11-01 函为民盟"非法"后的申诉档案。两件构成 1947 年下半年民盟史最关键的"民盟方致美方"档案对照。
-
-**4.2 与 FRUS 1947v07 卷强对照**。研究 1947 年下半年民盟事件时，Hoover 2 件 + FRUS 1947v07 卷 48 篇 + DRNH 同期保密局呈件 + HathiTrust 同期 5 期 China Mail 构成**四源对照档案场**。建议研究者用"事件—视角"矩阵方式做对照分析：
-
-| 时点 / 事件 | Hoover | FRUS | DRNH | HathiTrust |
+| doc_key | 日期 | 收件人 | 收件人当时角色 | 张君劢落款身份 |
 |---|---|---|---|---|
-| 1947-07-26 Wedemeyer 调查 | ✓ | ✓ | （检索 1947-07 段） | （无对应） |
-| 1947-10-28 民盟"非法" | （次日 1947-11-01 函） | ✓ | ✓ (保密局呈件) | ✓ (5 期 CM) |
+| [hoover:CC-1947-07-26-wedemeyer](/doc/hoover:CC-1947-07-26-wedemeyer) | 1947-07-26 | Lt. Gen. Albert C. Wedemeyer | 美国总统特使 / Wedemeyer Mission 团长 | "in the name of the Democratic Socialist Party as well as for myself" |
+| [hoover:CC-1947-11-01-marshall](/doc/hoover:CC-1947-11-01-marshall) | 1947-11-01 | George C. Marshall | 美国国务卿（1947-01-21 至 1949-01-20） | "Chairman, Democratic Socialist Party" |
 
-**4.3 张君劢档案补充材料**。Hoover 平台目前仅收录 2 件档案。Carsun Chang Papers Box 13—14 含其他张君劢致美方信函与个人文件，研究者可通过 Hoover Institution Archives 正式调档程序申请扩展研究。本平台已建立外部档案获取优先队列（`data/external_acquisition_queue.csv`），含 Hoover 扩展调档计划。
-
-**4.4 中文翻译复审**。2 件档案的机器中文翻译状态为 `machine-draft-review-needed`。正式学术引用应回溯英文原文（信函原件），中文翻译主要服务于全文检索与快速阅读。
+两函均自上海 646 Avenue Haig（即海格路 646 号，张君劢上海寓所）发出。
 
 ---
 
-## 五、结论
+## 二、1947-07-26 致 Wedemeyer 函逐段精读
 
-胡佛档案 Carsun Chang Papers 2 件张君劢致美方军政高层私人信函为民盟史研究提供了**独特档案类型**——"民盟创始人致美方私人沟通"。该档案类型在其他五源（FRUS / CIA / DRNH / HathiTrust / Wilson）中无对应。其史料学价值集中于：（1）1947-07-26 致 Wedemeyer 函为民盟方对美方 Wedemeyer 调查的主动信息输入；（2）1947-11-01 致 Marshall 函为民盟"非法化"事件后约 4 天民盟创始人对美方最高外交决策者的直接申诉。两件档案与 FRUS 1947v07 卷 + DRNH 同期保密局呈件 + HathiTrust 同期 5 期 China Mail 构成研究 1947 年下半年民盟事件的**四源完整对照档案场**——这是民盟史研究中可全维度还原的少数时段之一。本平台对 2 件档案做了 OCR 文本提取与机器中文翻译，为研究者提供了对该档案源的初步研究工具；后续 Carsun Chang Papers Box 13—14 其他档案的扩展调档已纳入平台外部档案获取优先队列。
+### 2.1 时点的史学意义
+
+1947 年 7 月，国共内战已进入战略相持中段，国军在山东、东北的战事陷入消耗。美国总统 Truman 于 1947-07-09 派遣 Wedemeyer 中将（Albert C. Wedemeyer, 1897—1989，时任美国陆军中将，曾任二战中印缅战区美军指挥官）作为"总统特使"赴华，对中国军事、政治、经济情况做全面评估。Wedemeyer 调查团队于 1947 年 7 月中下旬抵华，9 月回美，提交《Wedemeyer Report on China》（含密件，1949 年部分公开）。该报告是美国 1948 年《援华法案》（China Aid Act）出台前最重要的官方一手评估。
+
+**张君劢函（1947-07-26）撰写于 Wedemeyer 抵华约 2 周后**——这是 Wedemeyer 调查处于"积极收集各方意见"阶段的关键窗口期。张君劢此函属"中国少数党领导人对总统特使的主动陈述"，与 FRUS 1947 卷中其他相同时段的接见记录形成对照。
+
+### 2.2 函中的民盟史实陈述（按原函段落顺序）
+
+函约 4500 字，结构分为：（A）问候与确认 Wedemeyer 使命的重要性；（B）回顾 1946 年政协与马歇尔调处破局的过程；（C）当前国民政府"半联合政府"运作的失败实况；（D）"三区划分"军政方案建议；（E）民主化改革四项纲领；（F）"第三道路"外交主张。其中含直接的民盟史陈述如下：
+
+**关于 1946 年 3—4 月民盟提出"东北联合政府"方案**：函中明确叙述："At the end of March and the beginning of April **the Democratic League stepped into the picture and proposed a democratic coalition government for Manchuria**, an idea that the central government opposed as they maintained that Manchuria must be occupied by the nationalist armies first before any coalition could be established."（1946 年 3 月底至 4 月初，民主同盟介入并提出东北民主联合政府方案，被国府以"东北必须由国军先占领"为由拒绝。）这一陈述是研究民盟 1946 年介入东北调停的关键单点档案——区别于 FRUS 美方报告（侧重马歇尔本人活动）与 DRNH 国民政府档案（侧重国府反应），此函为民盟创始人之一对该方案的事后归纳。
+
+**关于民社党在国民政府的参政经历**："When the Democratic Socialist Party joined the government somewhat half-heartedly about three months ago, it did not hesitate because it was afraid of accepting such grave responsibility, but it hesitated because the party was too well familiar with the Kuomintang's ways of thinking and acting."（民社党约 3 个月前半心半意地加入政府——半心半意非因畏惧责任，而是因对国民党的行事方式过于熟悉。）此处含 1947 年 4 月民社党参加国民政府改组的内部判断。该陈述与 DRNH 同期国民政府档案中"民社党参加改组"档案构成对照。
+
+**关于国民党压制少数党的具体方式**：函中列举三项："special secret police are still exercising their power in arresting citizens that are loosely suspected of Communist activities, or affiliation with other minority parties"（特务系统继续以"涉共/涉少数党嫌疑"为由拘捕公民）；"use is still being made of such national financial organs as the Farmers Bank to support the treasury of the party"（仍以农民银行等国家金融机构为党库输血）；"insistence upon their extra-legal privileges such as the appointment of government officials"（坚持任命官员的法外特权）。
+
+**关于即将到来的国大选举**："A leading government official has expressed the thought that the Kuomintang is thinking of putting up more candidates for the coming election than there are vacancies."（一位国府高官已表露：国民党拟提名超过空缺数的候选人。）这是民社党 1947 年对即将到来的行宪国大选举操纵的预判。该预判与 FRUS 1947v07 卷 12 月间美方对国大选举的观察构成事前/事后对照。
+
+### 2.3 函中对中国未来路径的主张：第三道路
+
+函中明确提出："China be neither pro-Soviet Russia nor pro-United States, but instead of being a future battleground for these two powers, China should try to become a common meeting ground on which these two nations can meet in harmony and peace."（中国不应亲苏，也不应亲美；不应做两大国未来的战场，而应做使两国能和谐相会的中间地带。）这一表述是民盟早期"第三道路"政治主张的英文原始陈述之一，对研究民盟 / 民社党 1946—1947 年间的政治哲学具有直接引用价值。
+
+### 2.4 该函对民盟"非法化"前夕的民盟自我定位的呈现
+
+虽然函中张君劢主要以"民社党主席"身份发言，但其在叙述 1946 年东北方案时使用"the Democratic League stepped into the picture"——这一第三人称的客观陈述说明：到 1947-07，民社党与民盟主体已发生组织分化（民社党 1946 年 11 月单独参加国民大会，与民盟决裂），但张君劢仍把"民盟在东北调停中的关键性"作为客观史实陈述给美方决策者。这是研究民盟与民社党 1946—1947 年间分化关系的一份内部视角档案。
 
 ---
 
-## 附录：Hoover 2 件档案目录
+## 三、1947-11-01 致 Marshall 函逐段精读
 
-| doc_key | 日期 | 收件人 | 平台引用路径 |
-|---|---|---|---|
-| [hoover:CC-1947-07-26-wedemeyer](/doc/hoover:CC-1947-07-26-wedemeyer) | 1947-07-26 | Albert C. Wedemeyer 中将 | /doc/hoover:CC-1947-07-26-wedemeyer |
-| [hoover:CC-1947-11-01-marshall](/doc/hoover:CC-1947-11-01-marshall) | 1947-11-01 | George C. Marshall 国务卿 | /doc/hoover:CC-1947-11-01-marshall |
+### 3.1 时点的史学意义
 
-参见 [/sources/hoover](/sources/hoover) 平台栏目页的「核心档案亮点」部分。共 4 段综述，覆盖：（引言）2 件档案基本面 +（一）1947-07-26 致 Wedemeyer 函 +（二）1947-11-01 致 Marshall 函 +（结语）。
+**该函撰写于民盟"非法化"事件后第 4 天**。1947-10-28 国民政府内政部以"民盟与中共合作并参加叛乱"为由宣布民盟为"非法团体"，命令解散民盟所有分支机构。1947-10-29 至 11-05 间国民政府保密局密集呈报对民盟成员的疏散、拘捕情报（参 DRNH 档案 1947-11-05 保密局呈"民盟留沪人员姓名及疏散情形"）。
+
+张君劢于此事件发生后第 4 天（1947-11-01）致函美国国务卿 Marshall，是该事件后**最早的民盟领导人对美方最高决策者的对外书面陈述**之一。这一时点选择本身即是张君劢在民盟陷入非法、组织瓦解、人员四散的危机时刻对美方"求外援、施压"的政治判断。
+
+### 3.2 函中对民盟"非法"事件的直接陈述
+
+函约 1600 字，全文是一份"陈情书"性质的文件。其中含直接关于民盟非法化的陈述：
+
+"While the government at various times has promised strict protection of personal freedom, freedom of the press and information, of association and assembly, civil rights today find no protection of any kind. **The recent outlawing of the Democratic League is only one example of this.**"（政府虽多次承诺保护公民自由、新闻、结社、集会权利，但今日公民权毫无保障。最近宣布民主同盟为非法只是一例。）
+
+这一句是 1947-11-01 时点上**民盟领导人对民盟非法事件的最早英文陈述**之一。在该句前，张君劢用了三段陈述民社党加入国民政府六个月以来的失败教训：（1）国务委员会被架空，所有重要决策在该机构外做出；（2）地方政府开放参与各党的承诺未兑现，民社党员被以"党派身份暴露"为由解职；（3）公民权根本无保障——民盟被非法只是其中一个表现。
+
+### 3.3 函的政治核心诉求：美方应以援助为杠杆
+
+函的政治核心是要求美方将经济援助与中国政府民主化挂钩：
+
+"The solution today only lies either in the willingness of the Kuomintang Party to democratize itself, or in outside pressure coming from America that makes a thorough reform in the field of government and economics essential before any aid can be given."（今日解决之道，要么是国民党自己愿意民主化，要么是美国施加外部压力，使任何援助必须以政府与经济的彻底改革为前提。）
+
+"America today has an effective tool in her hands, in the form of possible loans, to persuade the national government to open its doors for a constitutional, democratic government to enter. America must be conscious of this tool, and must be willing to use it."（美国今日手中有一项有效的工具——可能的贷款，可以用来说服国民政府向宪政民主政府打开大门。美国必须意识到这项工具，并愿意使用它。）
+
+这一主张与 FRUS 1947v07 卷 11—12 月间 Stuart 大使（驻华大使 J. Leighton Stuart）对国务院的报告中"应对国民政府附加条件"的判断构成同方向陈述。研究 1947—1948 年间美国对华援助附条件性争论的研究者可将此函作为"民盟方面对此政策的主动支持表态"的核心档案引用。
+
+### 3.4 函中的关键时点信息
+
+函末尾："I am personally planning to come to America at the beginning of next year, and hope very much that I might have a chance to discuss some of these ideas a little further with you."（本人计划明年初赴美，希望届时能与您当面进一步讨论这些想法。）这一陈述与张君劢 1948 年初赴美的实际行动构成档案链——张君劢 1948 年初离华赴美后再未返回大陆，最终客居美国直至 1969 年逝世。1947-11-01 此函末段是研究张君劢 1948 年赴美决定的史料起点。
+
+---
+
+## 四、两函的史料学价值定位
+
+### 4.1 在六源对照体系中的不可替代位置
+
+| 视角 | 档案源 | 数量级 | 对民盟陈述方向 |
+|---|---|---:|---|
+| 美方公开外交 | FRUS | 273 | 美方外交人员对民盟的观察 |
+| 美方情报 | CIA | 76 | 美方情报系统对民盟的侦察 |
+| 国民政府内部 | DRNH | 282 | 国府打压方对民盟的呈报 |
+| 港媒公开 | HathiTrust | 54 | 香港英文报刊对民盟的公开报道 |
+| 苏方 | Wilson | 24 | 苏方对中国民主党派的间接观察 |
+| **民盟方主动陈述** | **Hoover** | **2** | **民盟创始人对美方决策者的主动陈述** |
+
+Hoover 2 篇的不可替代性在于：在五个观察方档案源中，本研究平台第一次得到一份"民盟方主动陈述"档案——这是民盟史研究中极其稀少的一手主动输出文件。其密度（2 篇 / 约 6100 英文字）虽远低于其他源，但单位档案的"民盟主动表态"含量是其他源无法比拟的。
+
+### 4.2 与 DRNH 同期档案的强对照
+
+1947-11-01 致 Marshall 函撰写时点（民盟非法事件后第 4 天）与 DRNH 同期保密局档案构成强对照：
+
+| 同期档案 | 来源 | 内容 |
+|---|---|---|
+| 1947-11-01 致 Marshall 函 | Hoover | 民盟领导人向美方申诉"民盟被非法"，要求美方以援助为杠杆压国府改革 |
+| 1947-11-05 保密局呈件 | DRNH | 保密局呈蒋"民盟留沪人员姓名及疏散情形" |
+| 1947-11-12 薛岳呈件 | DRNH | 薛岳汇呈"民盟解散后首要分子动态"情报七则 |
+| 1947-11-19 薛岳呈件 | DRNH | 薛岳汇呈"中共策动港粤反宋运动、民盟西南总支部否认解散"情报三则 |
+| 1947-10—11 HathiTrust 港媒 | HathiTrust | 《华字日报》5 期对民盟非法事件的公开报道 |
+
+将这五源同时段档案并置后可呈现 1947-11 民盟非法事件的"申诉/监视/疏散/公开报道"四视角同期档案场——这是民盟史研究中少见的多源对位完整覆盖。
+
+### 4.3 1947-07-26 函与 FRUS Wedemeyer Report 的关系
+
+Wedemeyer Mission 1947 年回美后向 Marshall 提交的报告（《Report to the President: China and Korea, 1947》）部分内容呼应张君劢函中"美方应附条件援助"的主张。研究者可将 1947-07-26 张君劢函作为"Wedemeyer Report 中关于附条件援助章节的中国少数党陈述源"的可能档案输入做对照研究。
+
+---
+
+## 五、研究使用方法学建议
+
+**5.1 引用原档而非中译**。两函为英文打字信函，OCR 质量较高，建议研究者引用 OCR 英文原文（本平台 `data/hoover/documents/CC-1947-*/text.txt`）。机器中文翻译仅作辅助阅读，**不应作为学术引用源**。
+
+**5.2 与 FRUS 1947 卷做平行阅读**。1947-07-26 致 Wedemeyer 函建议与 FRUS 1947 vol VII（The Far East: China）中 Wedemeyer 调查相关电报、Stuart 大使报告平行阅读。1947-11-01 致 Marshall 函建议与 FRUS 1947 vol VII 中 Marshall 接收的同期对华政策报告平行阅读，以呈现"民盟陈述—大使报告—国务卿决策"的完整信息链。
+
+**5.3 张君劢的"双重身份"标注**。1947 年张君劢的政治身份处于"民盟早期创始人 + 民社党主席 + 民盟主体已分化"的复合状态。研究者引用两函时建议明确标注此时点上张君劢与民盟主体的关系：（A）以"民社党主席"为正式落款；（B）但其历史身份与对民盟的客观陈述仍是民盟史研究的核心一手材料；（C）民盟主体 1947 年由张澜、沈钧儒等领导，与张君劢的民社党路线已分化。
+
+**5.4 与 Carsun Chang Papers 其他档案的扩展**。本平台仅收录 Carsun Chang Papers Box 13—14 中的 2 件。胡佛档案馆 Carsun Chang Papers 全藏含张君劢 1940s—1960s 间的书信、手稿、剪报、政治文件等更大规模档案。研究者如需扩展研究可通过 Hoover Institution Archives 申请现场调档（https://www.hoover.org/library-archives）。
+
+---
+
+## 六、结语
+
+胡佛 Carsun Chang Papers 中两件张君劢致美方军政高层私人英文打字信函——1947-07-26 致 Wedemeyer 函 + 1947-11-01 致 Marshall 函——合计约 6100 英文字，是民盟史研究六源对照档案体系中**唯一**的"民盟创始人对美方决策者主动陈述"档案。两函撰写于 Wedemeyer 调查起始期 + 民盟"非法化"事件后第 4 天的关键时点上：1947-07-26 函呈现民盟 1946 年东北联合政府方案、民社党参政经历、第三道路主张的内部归纳；1947-11-01 函作为民盟非法事件后最早的对美申诉文件，要求美方以援助为杠杆迫使国府改革。两函与 DRNH 同期保密局呈蒋档案、HathiTrust 同期港媒 5 期报道、FRUS 同期 Stuart 大使报告构成 1947-10—11 民盟非法事件的多源对位档案场。本平台对两函做了完整 OCR 文本与影像入库，并建立了与其他五源同期档案的跨源对照链接，为民盟史研究者提供了对"民盟主动陈述"这一稀少史料类型的系统化研究工具。
+
+---
+
+## 附录：两函全文与字段元数据
+
+参见 [/sources/hoover](/sources/hoover) 平台栏目页，含两函的中英对照、OCR 文本下载、影像 PDF 下载。引用建议：
+
+- **1947-07-26 致 Wedemeyer 函**：Hoover Institution Archives, Carsun Chang Papers, Box 13, Folder X, "Carsun Chang to Albert C. Wedemeyer, July 26, 1947"（具体 Folder 号以胡佛所档案管理员核定为准）。
+- **1947-11-01 致 Marshall 函**：Hoover Institution Archives, Carsun Chang Papers, Box 14, Folder X, "Carsun Chang to George C. Marshall, November 1, 1947"（具体 Folder 号同上）。
+
+本平台 doc_key：[hoover:CC-1947-07-26-wedemeyer](/doc/hoover:CC-1947-07-26-wedemeyer)，[hoover:CC-1947-11-01-marshall](/doc/hoover:CC-1947-11-01-marshall)。

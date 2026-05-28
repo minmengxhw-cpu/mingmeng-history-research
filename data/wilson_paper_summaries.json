@@ -1,0 +1,459 @@
+[
+  {
+    "core_fact": "1945年10月5日，苏联驻华大使Petrov与周恩来、王若飞会谈。周恩来向Petrov汇报国共谈判进展，提及准备签署的协议记录包括双方已达成谅解和争议的段落，并讨论蒋介石的行为受苏联红军在华及伦敦外长会议失败影响，预测蒋介石将增加反共活动但不会公开宣战。档案未提及民盟或民主党派。",
+    "people_mentioned": [
+      "Petrov",
+      "周恩来",
+      "王若飞"
+    ],
+    "geography": "中国",
+    "event_type": "苏联驻华大使会谈",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:122808",
+    "title": "Record of Conversation between Soviet Ambassador in China Apollon Petrov and Zhou Enlai and Wang Ruofei",
+    "date": "1945-10-05",
+    "grade": "核心文献"
+  },
+  {
+    "core_fact": "1945年10月10日，苏联驻华大使Petrov与毛泽东、周恩来、王若飞会谈。毛泽东在回答Petrov关于蒋介石依赖何种政治集团的问题时，提到如果共产党放弃军队，应允许其在政治生活中占据类似美国民主党那样的地位，但未直接提及中国民主同盟或民主党派。",
+    "people_mentioned": [
+      "Petrov",
+      "毛泽东",
+      "周恩来",
+      "王若飞",
+      "Miklashevskii",
+      "Roshchin",
+      "Fedorenko",
+      "Ledovskii"
+    ],
+    "geography": "重庆",
+    "event_type": "苏联驻华大使会谈",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:122809",
+    "title": "Record of Conversation between Soviet Ambassador in China Apollon Petrov and Mao Zedong, Zhou Enlai and Wang Ruofei",
+    "date": "1945-10-10",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1948年12月30日，毛泽东在给斯大林的电报中汇报军事进展，未直接提及中国民主同盟或民主党派，但提到“自由资产阶级”在寻找与中共的解决方案。",
+    "people_mentioned": [
+      "Mao Zedong",
+      "Stalin"
+    ],
+    "geography": "中国（徐州、北平、天津等）",
+    "event_type": "Mao-Stalin 通信",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "The liberal bourgeoisie are wobbling more and more, searching with us for a solution for themselves.",
+    "doc_key": "wilson:113789",
+    "title": "Cable, Mao Zedong to Stalin",
+    "date": "1948-12-30",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年1月7日，毛泽东通过Terebin向斯大林（经Kuznetsov）汇报：目前民主组织及其领导人不支持蒋介石的和平呼吁，他们保持沉默；大多数民主派政治家已来到解放区，只有张澜、罗隆基和黄炎培仍留在上海，后两人也想前来但中共尚未召唤。",
+    "people_mentioned": [
+      "毛泽东",
+      "斯大林",
+      "Terebin",
+      "Kuznetsov",
+      "张澜",
+      "罗隆基",
+      "黄炎培"
+    ],
+    "geography": "上海",
+    "event_type": "Mao-Stalin通信",
+    "ningmeng_direct": "间接提及",
+    "key_quote": "Currently the democratic organizations and their leaders do not support the peaceful howl of Jiang Jieshi, they are standing on the sidelines and [are] keeping silent.",
+    "doc_key": "wilson:112226",
+    "title": "Cable, Terebin to Stalin [via Kuznetsov]",
+    "date": "1949-01-10",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年1月31日，米高扬与毛泽东在西柏坡会谈，讨论联合政府组建时间。毛泽东表示，联合政府可在北平解放后组建，但米高扬建议推迟至南京解放后以增强道德权威，毛泽东同意在5月或6月组建。会谈未直接提及民盟，但涉及联合政府中非党群众（non-party masses）的动员问题。",
+    "people_mentioned": [
+      "Anastas Mikoyan",
+      "Mao Zedong",
+      "Zhou Enlai",
+      "Liu Shaoqi",
+      "Ren Bishi",
+      "Zhu De",
+      "Ivan Kovalev",
+      "E. Kovalev",
+      "Stalin"
+    ],
+    "geography": "西柏坡、北平、南京",
+    "event_type": "Mikoyan访华",
+    "ningmeng_direct": "间接提及",
+    "key_quote": "Its appeals cannot have the same force for non-party masses as the decision of state power, which can make laws, required for all.",
+    "doc_key": "wilson:112436",
+    "title": "Memorandum of Conversation between Anastas Mikoyan and Mao Zedong",
+    "date": "1949-01-31",
+    "grade": "核心文献"
+  },
+  {
+    "core_fact": "1949年2月3日，米高扬与毛泽东在西柏坡会谈，讨论国共调解、南斯拉夫问题及亚洲共产党协调。毛泽东提到中共与印度支那、暹罗、菲律宾、印尼、缅甸、印度、马来亚和朝鲜的共产党保持联系，但未提及民盟或民主党派。",
+    "people_mentioned": [
+      "Anastas Mikoyan",
+      "Mao Zedong",
+      "Zhou Enlai",
+      "Liu Shaoqi",
+      "Ren Bishi",
+      "Zhu De",
+      "Shi Zhe",
+      "Ivan V. Kovalev",
+      "E.F. Kovalev"
+    ],
+    "geography": "西柏坡",
+    "event_type": "Mikoyan 访华",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:113239",
+    "title": "Memorandum of Conversation between Anastas Mikoyan and Mao Zedong",
+    "date": "1949-02-03",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949-02-04 Mikoyan与毛泽东会谈中，双方讨论了新政协筹备委员会问题，但档案节选部分未提及民主党派或民盟的具体内容。",
+    "people_mentioned": [
+      "Mikoyan",
+      "Mao Zedong",
+      "Zhou Enlai",
+      "Liu Shaoqi",
+      "Ren Bishi",
+      "Zhu De",
+      "Shi Zhe",
+      "Kovalev I.V.",
+      "Kovalev E.F."
+    ],
+    "geography": "西柏坡",
+    "event_type": "Mikoyan访华",
+    "ningmeng_direct": "间接提及",
+    "key_quote": "",
+    "doc_key": "wilson:113318",
+    "title": "Memorandum of Conversation between Anastas Mikoyan and Mao Zedong",
+    "date": "1949-02-04",
+    "grade": "核心文献"
+  },
+  {
+    "core_fact": "1949年2月5日晚，米高扬与毛泽东在西柏坡会谈，毛泽东在介绍军事形势和党的任务时，未直接提及民盟或民主党派，但讨论了党的统一、工人问题及未来经济工作，未涉及民主党派合作或新政协构成。",
+    "people_mentioned": [
+      "Anastas Mikoyan",
+      "Mao Zedong",
+      "Zhou Enlai",
+      "Liu Shaoqi",
+      "Ren Bishi",
+      "Zhu De",
+      "Shi Zhe",
+      "Ivan V. Kovalev",
+      "E.F. Kovalev"
+    ],
+    "geography": "西柏坡",
+    "event_type": "Mikoyan 访华",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:113323",
+    "title": "Memorandum of Conversation between Anastas Mikoyan and Mao Zedong",
+    "date": "1949-02-05",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年4月9日，毛泽东与Kovalev会谈，讨论军事形势、上海问题等，未提及民盟或民主党派。",
+    "people_mentioned": [
+      "毛泽东",
+      "朱德",
+      "周恩来",
+      "刘少奇",
+      "Kovalev"
+    ],
+    "geography": "中国",
+    "event_type": "Kovalev报告",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:113353",
+    "title": "Kovalev reports to Stalin on conversation with Mao Zedong",
+    "date": "1949-04-13",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年6月14日，毛泽东通过科瓦廖夫向斯大林报告关于组建政府的问题，提到将在8-9月召开政治协商会议，与会代表来自44个政党、公共组织、团体和无党派人士，其中包括民主人士。毛泽东指出，一些民主人士曾认为应在占领广州和重庆后再召开会议，但这一观点已不再被支持。",
+    "people_mentioned": [
+      "毛泽东",
+      "斯大林",
+      "科瓦廖夫"
+    ],
+    "geography": "中国",
+    "event_type": "Mao-Stalin 通信",
+    "ningmeng_direct": "民主党派广义覆盖",
+    "key_quote": "The opinion of some democratic figures, who believed that the meeting must be called after the taking of Canton and Chongqing, is no longer supported by them.",
+    "doc_key": "wilson:113377",
+    "title": "Cable, Mao Zedong [via Kovalev] to Stalin",
+    "date": "1949-06-14",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年6月18日，斯大林在给毛泽东的电报中，未直接提及中国民主同盟或民主党派，而是讨论了中国政府组建、军事计划及新疆石油开采等议题。",
+    "people_mentioned": [
+      "斯大林",
+      "毛泽东"
+    ],
+    "geography": "莫斯科",
+    "event_type": "Mao-Stalin 通信",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:113379",
+    "title": "Cable, Filippov [Stalin] to Mao Zedong [via Kovalev]",
+    "date": "1949-06-18",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "该档案是毛泽东1949年6月30日发表的《论人民民主专政》一文，文中未直接提及中国民主同盟或民主党派，但阐述了共产党领导下的阶级、政党和国家消亡的理论，为即将建立的人民民主专政政权提供理论基础，间接涉及民主党派在政权中的地位。",
+    "people_mentioned": [
+      "毛泽东"
+    ],
+    "geography": "中国",
+    "event_type": "政治理论文献",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:119300",
+    "title": "On the People's Democratic Dictatorship: In Commemoration of the Twenty-eighth Anniversary of the Communist Party of China",
+    "date": "1949-06-30",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年7月4日，刘少奇在提交给斯大林的中共中央代表团报告中指出，美国帝国主义和蒋介石国民党已完全孤立，所有民主党派和团体都站在中共一边。报告未具体提及民主同盟，但将民主党派视为中共的政治盟友。",
+    "people_mentioned": [
+      "刘少奇",
+      "斯大林"
+    ],
+    "geography": "中国",
+    "event_type": "政治理论文献",
+    "ningmeng_direct": "民主党派广义覆盖",
+    "key_quote": "All the democratic parties and groups are on our side.",
+    "doc_key": "wilson:134156",
+    "title": "Report from the Head of the Delegation of the CC of the Chinese Communist Party, 'The Current State of the Chinese Revolution'",
+    "date": "1949-07-04",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年7月5日至6日，刘少奇、高岗、王稼祥与苏联代表Kovalev会谈，请求斯大林就国际形势、政府管理等问题提供建议，并讨论满洲、旅顺、大连等事务。档案未直接提及中国民主同盟或民主党派。",
+    "people_mentioned": [
+      "刘少奇",
+      "高岗",
+      "王稼祥",
+      "毛泽东",
+      "斯大林",
+      "Kovalev"
+    ],
+    "geography": "莫斯科",
+    "event_type": "Kovalev报告",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:113382",
+    "title": "Kovalev reports to Stalin advice on running a communist government",
+    "date": "1949-07-06",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年7月6日，刘少奇在给斯大林的报告中请求了解苏联的国家结构、经济政策、文化教育及党组织等，以指导新中国建设。报告未直接提及民盟或民主党派，但涉及新中国的政权建设，间接关联民主党派参与。",
+    "people_mentioned": [
+      "刘少奇",
+      "斯大林",
+      "毛泽东"
+    ],
+    "geography": "莫斯科",
+    "event_type": "刘少奇访苏",
+    "ningmeng_direct": "间接提及",
+    "key_quote": "",
+    "doc_key": "wilson:134157",
+    "title": "Report from the Head of the Delegation of the Chinese Communist Party CC to Stalin",
+    "date": "1949-07-06",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年7月7日，一份中文报告（俄译）介绍了参加新政治协商会议筹备委员会的民主党派和团体，其中详细描述了革命民主同盟（Revolutionary Democratic League）作为中共影响下的秘密组织，成立于1945年，由1941年创建的全国革命同盟改组而来，包括来自国民党的民主分子，如王昆仑、许宝驹等，并与中共有联系。",
+    "people_mentioned": [
+      "王昆仑",
+      "许宝驹",
+      "赖亚力",
+      "卢忠荣",
+      "屈武",
+      "郭崇涛",
+      "黄显如",
+      "甘介侯",
+      "钱俊瑞",
+      "王炳南",
+      "谭平山",
+      "陈铭枢",
+      "杨杰",
+      "余振英",
+      "李济深",
+      "蔡廷锴",
+      "何应钦",
+      "张群",
+      "刘文辉",
+      "龙云",
+      "宋子文",
+      "孙科",
+      "冯玉祥",
+      "李宗仁",
+      "白崇禧",
+      "于右任",
+      "蒋介石"
+    ],
+    "geography": "香港",
+    "event_type": "新政协参与",
+    "ningmeng_direct": "直接命名民盟",
+    "key_quote": "The Revolutionary Democratic League is a secret organization under the influence of our Party. It was formed in 1945 by reorganizing the National Revolutionary League, created in 1941.",
+    "doc_key": "wilson:134160",
+    "title": "Democratic Parties and Groups in the Preparatory Committee to Convene a Political Consultative Conference",
+    "date": "1949-07-07",
+    "grade": "核心文献"
+  },
+  {
+    "core_fact": "1949年7月11日，斯大林与刘少奇、高岗、王稼祥等中共代表团在莫斯科克里姆林宫会谈。斯大林在回答中共关于民族资产阶级政策的问题时，指出中共与民族资产阶级合作并将其纳入政府的观点是正确的，但未直接提及民盟或民主党派。档案未涉及民盟具体内容。",
+    "people_mentioned": [
+      "Stalin",
+      "Liu Shaoqi",
+      "Gao Gang",
+      "Wang Jiaxiang",
+      "Kovalev",
+      "Mikoyan",
+      "Molotov",
+      "Malenkov",
+      "Beria",
+      "Kaganovich",
+      "Bulganin",
+      "Shvernik",
+      "Sokolovskii"
+    ],
+    "geography": "莫斯科",
+    "event_type": "刘少奇访苏",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:liu-shaoqi-mao-1949-07-18",
+    "title": "Liu Shaoqi about his meeting with Stalin",
+    "date": "1949-07-18",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "档案未直接提及中国民主同盟或民主党派，主要内容为刘少奇与斯大林1949年7月27日在莫斯科的会谈，涉及国共合作历史、毛泽东赴重庆谈判、台湾解放援助请求及高岗事件。",
+    "people_mentioned": [
+      "刘少奇",
+      "斯大林",
+      "毛泽东",
+      "周恩来",
+      "高岗",
+      "王稼祥",
+      "蒋介石"
+    ],
+    "geography": "莫斯科",
+    "event_type": "刘少奇访苏",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:liu-shaoqi-stalin-1949-07-27",
+    "title": "Memorandum of Conversation between Liu Shaoqi and Stalin",
+    "date": "1949-07-27",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年11月10日，苏联驻华大使罗申与周恩来会谈。周恩来转达毛泽东希望12月访苏的意愿，并提及可能讨论中苏条约问题。档案未提及中国民主同盟或民主党派。",
+    "people_mentioned": [
+      "周恩来",
+      "毛泽东",
+      "斯大林",
+      "科瓦廖夫",
+      "罗申"
+    ],
+    "geography": "北京（北平）、莫斯科",
+    "event_type": "苏联驻华大使会谈",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:roshchin-zhou-1949-11-10",
+    "title": "Roshchin Memorandum of Conversation with Prime Minister and Foreign Minister Zhou Enlai",
+    "date": "1949-11-10",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年12月16日斯大林与毛泽东在莫斯科会谈，讨论和平前景、中苏条约及旅顺港问题。斯大林建议形式上维持1945年条约，但应中方请求实际撤军，以改善中共与民族资产阶级的关系。档案未提及中国民主同盟或民主党派。",
+    "people_mentioned": [
+      "Stalin",
+      "Mao Zedong"
+    ],
+    "geography": "莫斯科",
+    "event_type": "Mao-Stalin 通信",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:111240",
+    "title": "Record of conversation between Stalin and Mao Zedong",
+    "date": "1949-12-16",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年12月18日，毛泽东在莫斯科与斯大林会谈，讨论中苏条约问题，未提及中国民主同盟或民主党派。",
+    "people_mentioned": [
+      "毛泽东",
+      "斯大林",
+      "刘少奇"
+    ],
+    "geography": "莫斯科",
+    "event_type": "Mao-Stalin通信",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:mao-liu-1949-12-18",
+    "title": "Telegram Mao Zedong to Liu Shaoqi about meeting with Stalin",
+    "date": "1949-12-18",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "1949年12月24日，Kovalev在给斯大林报告中讨论中国经济状况，未直接提及中国民主同盟或民主党派，但涉及国家经济困难、工业恢复缓慢、财政货币体系混乱等背景。",
+    "people_mentioned": [
+      "Kovalev",
+      "Stalin"
+    ],
+    "geography": "中国（满洲、北京、天津、上海、广州、汉口等）",
+    "event_type": "Kovalev 报告",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:113441",
+    "title": "Report, Kovalev to Stalin",
+    "date": "1949-12-24",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "档案未提及中国民主同盟或民主党派。内容涉及1958年6月5日彭德怀向毛泽东和中共中央报告苏联请求合作在中国建立长波电台，苏联坚持双方共同投资，中方为不阻碍工作允许苏联专家来华进行技术工作，但投资和运营问题留待下一步解决。",
+    "people_mentioned": [
+      "彭德怀",
+      "毛泽东",
+      "Radion Malinovsky"
+    ],
+    "geography": "中国",
+    "event_type": "其他",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:117031",
+    "title": "Report, Peng Dehuai to Mao Zedong and the CCP Central Committee (Excerpt)",
+    "date": "1958-06-05",
+    "grade": "相关文献"
+  },
+  {
+    "core_fact": "档案未直接提及中国民主同盟或民主党派。Mikoyan 回忆1949年1月访华前与斯大林讨论17个问题，但未涉及民盟。",
+    "people_mentioned": [
+      "Stalin",
+      "Mikoyan",
+      "Kovalev",
+      "Malenkov",
+      "Fedorenko"
+    ],
+    "geography": "莫斯科、石家庄",
+    "event_type": "Mikoyan访华",
+    "ningmeng_direct": "仅含背景",
+    "key_quote": "",
+    "doc_key": "wilson:121774",
+    "title": "Anastas Mikoyan's Recollections of his Trip to China",
+    "date": "1958-09-04",
+    "grade": "相关文献"
+  }
+]
