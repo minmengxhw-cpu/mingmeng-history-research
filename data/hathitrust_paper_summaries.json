@@ -1,0 +1,682 @@
+[
+  {
+    "core_fact": "1946-01-11 China Mail 报道：民盟（Democratic League）代表张澜、罗隆基等出席政治协商会议（Political Consultative Conference），同时列出其他党派代表如张君劢、章伯钧、沈钧儒、黄炎培、梁漱溟等。报道未注明具体信息来源，但内容为会议代表名单。",
+    "people_mentioned": [
+      "张澜",
+      "罗隆基",
+      "张君劢",
+      "章伯钧",
+      "沈钧儒",
+      "黄炎培",
+      "梁漱溟"
+    ],
+    "geography": "未明确提及，推测为重庆或南京",
+    "event_type": "政协会议报道",
+    "news_source": "未注明（可能为CM staff或通讯社）",
+    "importance": 3,
+    "key_quote": "The two Democratic League delegates are Chang Lan, member, and Lo Lung-chi, Professor of the National Southwest Associated University.",
+    "identifier": "NPCM19460111",
+    "title": "China Mail 1946-01-11",
+    "date": "1946-01-11",
+    "paper": "China Mail",
+    "passage_count": 5
+  },
+  {
+    "core_fact": "1946-01-28 China Mail 报道：民盟因抗议警察无端搜查其成员住宅而退出政治协商会议，导致当日会议取消。民盟发言人罗隆基表示，一旦获得满意保证，民盟将立即结束罢工。",
+    "people_mentioned": [
+      "罗隆基",
+      "张申府",
+      "史良"
+    ],
+    "geography": "重庆",
+    "event_type": "政协会议报道",
+    "news_source": "CM staff",
+    "importance": 4,
+    "key_quote": "Lo Lung-chi, the Democratic League’s spokesman, said the League would call off the strike immediately it received satisfactory assurances against further unwarranted police visits to the homes of its members.",
+    "identifier": "NPCM19460128",
+    "title": "China Mail 1946-01-28",
+    "date": "1946-01-28",
+    "paper": "China Mail",
+    "passage_count": 5
+  },
+  {
+    "core_fact": "1946-01-29 China Mail 报道：民主同盟在抗议重庆警察搜查其成员住宅后，经24小时退出，现已派代表返回中国统一会议。",
+    "people_mentioned": [],
+    "geography": "重庆",
+    "event_type": "政协会议报道",
+    "news_source": "CM staff",
+    "importance": 3,
+    "key_quote": "The Democratic League has sent its delegates back to China's unity conference after a 24-hour withdrawal in protest against the search of some of its members' homes by the Chungking police.",
+    "identifier": "NPCM19460129",
+    "title": "China Mail 1946-01-29",
+    "date": "1946-01-29",
+    "paper": "China Mail",
+    "passage_count": 1
+  },
+  {
+    "core_fact": "1946-02-01 China Mail 报道：约150人应中国民主同盟邀请，在香港酒店屋顶花园参加集会，民盟华南支部主席李章达在会上发表讲话。",
+    "people_mentioned": [
+      "李章达"
+    ],
+    "geography": "香港",
+    "event_type": "民盟领导人活动",
+    "news_source": "CM staff",
+    "importance": 3,
+    "key_quote": "About 150 people, members of the foreign community, in response to an invitation from the China Democratic League, attended the Hong Kong Hotel Roof Garden yesterday afternoon. Leaders of the League, including Mr. Li Choung-at, chairman of the South China Branch, addressed the gathering.",
+    "identifier": "NPCM19460201",
+    "title": "China Mail 1946-02-01",
+    "date": "1946-02-01",
+    "paper": "China Mail",
+    "passage_count": 3
+  },
+  {
+    "core_fact": "1946-02-26 China Mail 报道：民盟就2月22日其报纸《民主日报》营业部遭闯入事件向蒋介石抗议，抗议信由民盟主席张澜签署，要求保障人民自由并防止类似事件再次发生。同时，张澜在重庆记者会上强调必须尽快解决国共在满洲问题上的争端，但不得损害中国主权与行政完整。信息来源为美联社。",
+    "people_mentioned": [
+      "张澜"
+    ],
+    "geography": "重庆",
+    "event_type": "公开声明",
+    "news_source": "AP",
+    "importance": 3,
+    "key_quote": "The Democratic League has protested to the Generalissimo against the action of intruders who on Feb. 22 raided the business office of its newspaper, the 'Democratic Daily'... Chang Lan requested 'adequate guarantees' against recurrence of incidents.",
+    "identifier": "NPCM19460226",
+    "title": "China Mail 1946-02-26",
+    "date": "1946-02-26",
+    "paper": "China Mail",
+    "passage_count": 7
+  },
+  {
+    "core_fact": "1946-08-23 China Mail 报道：76岁的民盟领袖张澜（Chang Lan）被提及，但上下文不完整，无法确认具体事件。",
+    "people_mentioned": [
+      "张澜"
+    ],
+    "geography": "未明确",
+    "event_type": "民盟领导人活动",
+    "news_source": "未明确",
+    "importance": 1,
+    "key_quote": "today that Chang Lan, 76-year- and Tnake'or break the Security tender. ' ago of 235 and 95. Applicatlon : Sort He added: “I personally hope old teader of the Democratic | Council, Washington diplomatic E. E. HAGGER.",
+    "identifier": "NPCM19460823",
+    "title": "China Mail 1946-08-23",
+    "date": "1946-08-23",
+    "paper": "China Mail",
+    "passage_count": 2
+  },
+  {
+    "core_fact": "1946-10-22 Hong Kong Telegraph 报道：第三方调解人（third party mediators）在国共内战调停中提出四项原则，包括有条件停火、地方停战、政协成员组成停战小组等，但认为国共双方条件差距过大，谈判前景渺茫。报道未直接提及民盟名称，但第三方调解人可能包含民盟成员。",
+    "people_mentioned": [],
+    "geography": "南京",
+    "event_type": "国共调解",
+    "news_source": "未明确标注，可能为自家电讯或路透社",
+    "importance": 2,
+    "key_quote": "Third party mediators consider the gap between the Government and Communist terms at present too wide apart and fear that talks on those bases would be hopeless and long drawn out",
+    "identifier": "NPTG19461022",
+    "title": "Hong Kong Telegraph 1946-10-22",
+    "date": "1946-10-22",
+    "paper": "Hong Kong Telegraph",
+    "passage_count": 4
+  },
+  {
+    "core_fact": "1946-10-30 Hong Kong Telegraph 报道：第三方调解人（Third party leaders）正在向政府、共产党和马歇尔将军提交修订后的调解方案，但未透露具体内容。报道未明确提及中国民主同盟，但“第三方”可能指包括民盟在内的调解团体。",
+    "people_mentioned": [],
+    "geography": "未明确提及",
+    "event_type": "国共调解",
+    "news_source": "未明确标注",
+    "importance": 2,
+    "key_quote": "Speculation was rife this evening as the Third party loaders are submitting their revised mediation proposal to the Government, the Communists and Gen. Marshall.",
+    "identifier": "NPTG19461030",
+    "title": "Hong Kong Telegraph 1946-10-30",
+    "date": "1946-10-30",
+    "paper": "Hong Kong Telegraph",
+    "passage_count": 1
+  },
+  {
+    "core_fact": "1946-11-26 China Mail 综合路透社与美联社电报道：罗隆基重申此前声明，要求张君劢的社会民主党因参加国民大会及与政府单独谈判而退出民主同盟；另报道称民主同盟将联合共产党反对国民党控制的国民大会。",
+    "people_mentioned": [
+      "罗隆基",
+      "张君劢"
+    ],
+    "geography": "南京",
+    "event_type": "民盟内部动态",
+    "news_source": "Reuters, Associated Press",
+    "importance": 3,
+    "key_quote": "Lo Lung-chi repeated an earlier statement that Carson Chang's Social Democrats would be asked to resign from the Democratic League because of their participation in the National Assembly and their negotiations independently with the Government.",
+    "identifier": "NPCM19461126",
+    "title": "China Mail 1946-11-26",
+    "date": "1946-11-26",
+    "paper": "China Mail",
+    "passage_count": 5
+  },
+  {
+    "core_fact": "1946-11-27 China Mail 引用美联社电讯，报道民盟（Democratic League）在国共谈判中反对由共产党人出任总理的联合政府方案，但未提供更多细节。",
+    "people_mentioned": [],
+    "geography": "未明确",
+    "event_type": "国共调解",
+    "news_source": "Associated Press",
+    "importance": 2,
+    "key_quote": "Democratic League: ... their already officially avowed opposition to entering a coalition government headed by a Communist premier.",
+    "identifier": "NPCM19461127",
+    "title": "China Mail 1946-11-27",
+    "date": "1946-11-27",
+    "paper": "China Mail",
+    "passage_count": 2
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19470310",
+    "title": "China Mail 1947-03-10",
+    "date": "1947-03-10"
+  },
+  {
+    "core_fact": "该期 China Mail 无民盟相关实质内容。",
+    "people_mentioned": [],
+    "geography": "",
+    "event_type": "",
+    "news_source": "",
+    "importance": 1,
+    "key_quote": "",
+    "identifier": "NPCM19470324",
+    "title": "China Mail 1947-03-24",
+    "date": "1947-03-24",
+    "paper": "China Mail",
+    "passage_count": 1
+  },
+  {
+    "core_fact": "该期 China Mail 无中国民主同盟相关实质内容，仅包含美国政治人物 Henry A. Wallace 关于第三党的言论，与民盟无关。",
+    "people_mentioned": [],
+    "geography": "",
+    "event_type": "",
+    "news_source": "",
+    "importance": 1,
+    "key_quote": "",
+    "identifier": "NPCM19470414",
+    "title": "China Mail 1947-04-14",
+    "date": "1947-04-14",
+    "paper": "China Mail",
+    "passage_count": 1
+  },
+  {
+    "core_fact": "1947-04-26 China Mail 报道：中国第三大政党民主同盟于4月25日在上海发表1500字宣言，声明改组后的国民政府不会带来和平。民盟与中共共同抵制改组后的政府。",
+    "people_mentioned": [],
+    "geography": "上海",
+    "event_type": "公开声明",
+    "news_source": "United Press",
+    "importance": 3,
+    "key_quote": "The Democratic League—third largest political party in China, which with the Communists is boycotting the reorganised government—issued a 1,500 word manifesto today, declaring that the reorganised government will not bring peace to China",
+    "identifier": "NPCM19470426",
+    "title": "China Mail 1947-04-26",
+    "date": "1947-04-26",
+    "paper": "China Mail",
+    "passage_count": 2
+  },
+  {
+    "core_fact": "1947-05-26 China Mail 报道：民盟向国民参政会提交备忘录，呼吁真正解决内战问题，同时满洲代表严厉批评国民党军在东北的处境。",
+    "people_mentioned": [],
+    "geography": "南京、满洲",
+    "event_type": "政协会议报道",
+    "news_source": "CM staff",
+    "importance": 3,
+    "key_quote": "The Democratic League called for a genuine attempt to settle the civil war in a memorandum to the Peoples’ Political Council today as the Manchurian delegates severely criticized the Nationalist Army for the Government’s grave position at Cha",
+    "identifier": "NPCM19470526",
+    "title": "China Mail 1947-05-26",
+    "date": "1947-05-26",
+    "paper": "China Mail",
+    "passage_count": 1
+  },
+  {
+    "core_fact": "1947-06-05 China Mail 报道：罗隆基在记者会上指出，从张群总理的声明看，军队和警察直接听命于蒋介石委员长，暗示民盟成员对政府控制军队和警察的权力表示关切。",
+    "people_mentioned": [
+      "罗隆基"
+    ],
+    "geography": "南京",
+    "event_type": "民盟领导人活动",
+    "news_source": "CM staff",
+    "importance": 3,
+    "key_quote": "Dr, Lo Lunghi told press conference: “It seems from the Premier's statenent that the military and the police are uns der’ the wlirect — ordera of the | Generalissimo,”",
+    "identifier": "NPCM19470605",
+    "title": "China Mail 1947-06-05",
+    "date": "1947-06-05",
+    "paper": "China Mail",
+    "passage_count": 1
+  },
+  {
+    "core_fact": "该期China Mail（1947-06-19）无任何与中国民主同盟相关的报道内容。OCR抽取段落均为关于美国副总统Henry A. Wallace呼吁成立第三党运动的新闻，与民盟无关。",
+    "people_mentioned": [],
+    "geography": "",
+    "event_type": "",
+    "news_source": "",
+    "importance": 1,
+    "key_quote": "",
+    "identifier": "NPCM19470619",
+    "title": "China Mail 1947-06-19",
+    "date": "1947-06-19",
+    "paper": "China Mail",
+    "passage_count": 4
+  },
+  {
+    "core_fact": "1947-06-27 China Mail 报道：前中国国民革命军参谋长李济深（Marshal Li）接受本报专访，表示支持华南脱离，前提是“这是一场民主解放运动”。报道中提及李济深是“中国联合政府的主要鼓动者之一”，但未直接提及民盟名称。",
+    "people_mentioned": [
+      "李济深"
+    ],
+    "geography": "华南",
+    "event_type": "公开声明",
+    "news_source": "CM staff",
+    "importance": 2,
+    "key_quote": "one of the leading agitators for a coalition government in China and one-time Chief of Staff of the Chinese National Army, told the \"China Mail\" in a special interview yesterday that he favoured secession of South China provided \"it is a democratic movement in the emancipat",
+    "identifier": "NPCM19470627",
+    "title": "China Mail 1947-06-27",
+    "date": "1947-06-27",
+    "paper": "China Mail",
+    "passage_count": 2
+  },
+  {
+    "core_fact": "该期 China Mail 无中国民主同盟相关报道。",
+    "people_mentioned": [],
+    "geography": "",
+    "event_type": "",
+    "news_source": "",
+    "importance": 1,
+    "key_quote": "",
+    "identifier": "NPCM19470719",
+    "title": "China Mail 1947-07-19",
+    "date": "1947-07-19",
+    "paper": "China Mail",
+    "passage_count": 5
+  },
+  {
+    "core_fact": "1947-07-31 China Mail 引用 United Press 电讯报道：民盟四位主要成员于7月30日在南京与 Lt. Gen. Albert Wedemeyer 会面，并告知美方应停止对华援助。",
+    "people_mentioned": [],
+    "geography": "南京",
+    "event_type": "民盟与美方接触",
+    "news_source": "United Press",
+    "importance": 3,
+    "key_quote": "Four leading members of the Democratic League...conferred with Lt. Gen. Albert Wedemeyer yesterday and told him that the United States should withhold all aid.",
+    "identifier": "NPCM19470731",
+    "title": "China Mail 1947-07-31",
+    "date": "1947-07-31",
+    "paper": "China Mail",
+    "passage_count": 1
+  },
+  {
+    "core_fact": "1947-08-04 HKT 报道：民盟发言人称广西省逾百名盟员遭当局围捕，民盟已向政府提出正式抗议。消息发自上海。",
+    "people_mentioned": [],
+    "geography": "上海、广西",
+    "event_type": "民盟非法化",
+    "news_source": "未明确标注，推测为路透社或本报电讯",
+    "importance": 3,
+    "key_quote": "A spokesman of the Democratic League today claimed that more than 100 League members in Kiwangsi Province have been rounded up by the authorities.",
+    "identifier": "NPTG19470804",
+    "title": "Hong Kong Telegraph 1947-08-04",
+    "date": "1947-08-04",
+    "paper": "Hong Kong Telegraph",
+    "passage_count": 1
+  },
+  {
+    "core_fact": "1947-08-29 Hong Kong Telegraph 刊发一篇关于美国“第三党”运动的评论文章，讨论美国政治中第三党对选举的影响，但全文未提及中国民主同盟。",
+    "people_mentioned": [],
+    "geography": "美国",
+    "event_type": "其他",
+    "news_source": "United Press",
+    "importance": 1,
+    "key_quote": "",
+    "identifier": "NPTG19470829",
+    "title": "Hong Kong Telegraph 1947-08-29",
+    "date": "1947-08-29",
+    "paper": "Hong Kong Telegraph",
+    "passage_count": 6
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19471006",
+    "title": "China Mail 1947-10-06",
+    "date": "1947-10-06"
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19471024",
+    "title": "China Mail 1947-10-24",
+    "date": "1947-10-24"
+  },
+  {
+    "core_fact": "1947-10-29 China Mail 报道：国民政府于 10 月 28 日宣布民主同盟（Democratic League）为非法组织，指控其参与“共产党叛乱”，并预计将进行大规模逮捕。内政部发言人表示，民盟南京发言人罗隆基（Lo Lung-chi）若“和平生活”可能不会被逮捕。",
+    "people_mentioned": [
+      "罗隆基"
+    ],
+    "geography": "南京",
+    "event_type": "民盟非法化",
+    "news_source": "CM staff",
+    "importance": 5,
+    "key_quote": "The Chinese Government today outlawed the Liberal Democratic League, its minority party opposition. An Interior Ministry spokesman said the League's participation in the 'Communist revolt' against the Government already w",
+    "identifier": "NPCM19471029",
+    "title": "China Mail 1947-10-29",
+    "date": "1947-10-29",
+    "paper": "China Mail",
+    "passage_count": 4
+  },
+  {
+    "core_fact": "1947-10-30 China Mail 报道：上海警方接管民盟总部，民盟成员被置于警方监视之下，因民盟被宣布为非法组织。报道未提及具体信息来源。",
+    "people_mentioned": [],
+    "geography": "上海",
+    "event_type": "民盟非法化",
+    "news_source": "未明确",
+    "importance": 4,
+    "key_quote": "The Shanghai police have take over the Democratic League's headquarters, while Chinese Democratic League members have been placed under police surveillance in the wake of outlawing the Party.",
+    "identifier": "NPCM19471030",
+    "title": "China Mail 1947-10-30",
+    "date": "1947-10-30",
+    "paper": "China Mail",
+    "passage_count": 2
+  },
+  {
+    "core_fact": "1947-11-05 China Mail 引用 United Press 电讯报道：民盟主席张澜将在未来 46 小时内宣布民盟自愿解散，并指示全国追随者停止进一步活动。",
+    "people_mentioned": [
+      "张澜"
+    ],
+    "geography": "南京",
+    "event_type": "民盟非法化",
+    "news_source": "United Press",
+    "importance": 5,
+    "key_quote": "Chang Lan, leader of the Democratic League, will announce voluntary dissolution of the Democratic League within the next 46 hours.",
+    "identifier": "NPCM19471105",
+    "title": "China Mail 1947-11-05",
+    "date": "1947-11-05",
+    "paper": "China Mail",
+    "passage_count": 1
+  },
+  {
+    "core_fact": "1947-12-23 China Mail 引用评论文章，提及国民政府取缔民主联盟（Democratic League）的行为，并指出此类行动严重缺乏明确和公平的法律规则，是对人权和自由保护的现实确认。",
+    "people_mentioned": [],
+    "geography": "中国",
+    "event_type": "民盟非法化",
+    "news_source": "评论文章",
+    "importance": 2,
+    "key_quote": "such actions as the proscription of the Democratic League by the Central Government, and those which point so seriously to the absence of a clear and equitable rule of law, are present-day confirmation of the existence of protection for the rights of men and the liberty of the subject.",
+    "identifier": "NPCM19471223",
+    "title": "China Mail 1947-12-23",
+    "date": "1947-12-23",
+    "paper": "China Mail",
+    "passage_count": 1
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19471231",
+    "title": "China Mail 1947-12-31",
+    "date": "1947-12-31"
+  },
+  {
+    "core_fact": "1948-01-06 China Mail 报道：民盟被南京政府非法解散后，民盟中央常委在香港召开会议，宣布不接受解散令，并依据盟章重建总部、制定新政策。会议由沈钧儒主持，章伯钧等出席。",
+    "people_mentioned": [
+      "沈钧儒",
+      "章伯钧"
+    ],
+    "geography": "香港",
+    "event_type": "民盟内部动态",
+    "news_source": "CM staff",
+    "importance": 4,
+    "key_quote": "Acting according to the League's Constitution, we are meeting here in Hong Kong to reestablish our Headquarters and to decide on new policies for the League.",
+    "identifier": "NPCM19480106",
+    "title": "China Mail 1948-01-06",
+    "date": "1948-01-06",
+    "paper": "China Mail",
+    "passage_count": 6
+  },
+  {
+    "core_fact": "1948-02-03 China Mail 报道：被国民政府宣布为非法的中国民主同盟（China Democratic League）的地下工作者正在全国范围内争取教授、学生、商人和普通民众的支持，以推翻现有政府。报道还提及以沈钧儒（Shen Chun-yu）名义发布的声明，以及民主同盟与其他党派联合发布的文件。信息来源为路透社（Reuters）。",
+    "people_mentioned": [
+      "沈钧儒",
+      "章伯钧",
+      "马叙伦",
+      "谭平山",
+      "王绍鏊",
+      "陈其尤"
+    ],
+    "geography": "中国全国",
+    "event_type": "民盟非法化",
+    "news_source": "Reuters",
+    "importance": 4,
+    "key_quote": "Except in the ranks of the Nanking Government's Army, underground workers of China’s outlawed China Democratic League are rallying the support of professors, students, businessmen and the common people throughout the country for the overthrow of the existing Chinese Government.",
+    "identifier": "NPCM19480203",
+    "title": "China Mail 1948-02-03",
+    "date": "1948-02-03",
+    "paper": "China Mail",
+    "passage_count": 4
+  },
+  {
+    "core_fact": "1948-03-02 China Mail 报道：针对国民政府发言人 Tong Teh-chen 和 Wu 将军于 2 月 26 日谴责被取缔的中国民主联盟为共产党机构，民盟驻港发言人于昨日发表反驳声明。",
+    "people_mentioned": [
+      "Tong Teh-chen",
+      "Wu"
+    ],
+    "geography": "香港",
+    "event_type": "公开声明",
+    "news_source": "CM staff",
+    "importance": 3,
+    "key_quote": "condemning the outlawed China Democratic League as a Communist body, were refuted by the League's spokesman in Hong Kong yesterday.",
+    "identifier": "NPCM19480302",
+    "title": "China Mail 1948-03-02",
+    "date": "1948-03-02",
+    "paper": "China Mail",
+    "passage_count": 2
+  },
+  {
+    "core_fact": "该期 China Mail 无民盟相关实质内容。",
+    "people_mentioned": [],
+    "geography": "",
+    "event_type": "",
+    "news_source": "",
+    "importance": 1,
+    "key_quote": "",
+    "identifier": "NPCM19480305",
+    "title": "China Mail 1948-03-05",
+    "date": "1948-03-05",
+    "paper": "China Mail",
+    "passage_count": 4
+  },
+  {
+    "core_fact": "1948-03-09 China Mail 报道：民主联盟（Democratic League）最近指责国民政府向美国“出卖主权”，包括军事基地和内河航行权。报道未注明具体信息来源。",
+    "people_mentioned": [],
+    "geography": "上海",
+    "event_type": "公开声明",
+    "news_source": "未注明",
+    "importance": 2,
+    "key_quote": "The Democratic League recently accused the National Government of 'traitorous' activities in 'selling sovereignty rights' to the United States in terms of military bases and inland navigation rights.",
+    "identifier": "NPCM19480309",
+    "title": "China Mail 1948-03-09",
+    "date": "1948-03-09",
+    "paper": "China Mail",
+    "passage_count": 1
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19480423",
+    "title": "China Mail 1948-04-23",
+    "date": "1948-04-23"
+  },
+  {
+    "core_fact": "1948-05-19 China Mail 报道：香港中国民主同盟披露，其两名主要成员因抗议荷兰当局的驱逐令而开始绝食。",
+    "people_mentioned": [],
+    "geography": "香港、棉兰（Medan）",
+    "event_type": "民盟领导人活动",
+    "news_source": "CM staff",
+    "importance": 3,
+    "key_quote": "The China Democratic League in Hong Kong disclosed yesterday that two of their leading members have gone on a hunger strike in protest against an expulsion order by Dutch authorities.",
+    "identifier": "NPCM19480519",
+    "title": "China Mail 1948-05-19",
+    "date": "1948-05-19",
+    "paper": "China Mail",
+    "passage_count": 3
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19480722",
+    "title": "China Mail 1948-07-22",
+    "date": "1948-07-22"
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19480830",
+    "title": "China Mail 1948-08-30",
+    "date": "1948-08-30"
+  },
+  {
+    "core_fact": "1948-09-04 China Mail 报道：中共在哈尔滨召开会议，民盟（Democratic League）被提及，但未具体说明民盟代表出席情况。报道指出中共已建立多个地方政权，并提到民盟并非首次被提及。信息来源为CM staff。",
+    "people_mentioned": [],
+    "geography": "哈尔滨、南京",
+    "event_type": "中共会议报道",
+    "news_source": "CM staff",
+    "importance": 2,
+    "key_quote": "Observers also pointed out that this is not the first time that Democratic League",
+    "identifier": "NPCM19480904",
+    "title": "China Mail 1948-09-04",
+    "date": "1948-09-04",
+    "paper": "China Mail",
+    "passage_count": 2
+  },
+  {
+    "core_fact": "1948-12-02 China Mail 报道：中国民主同盟警告美国人民，美国向天津、北平派遣260名海军陆战队的行动将重蹈日本侵华覆辙。报道未注明具体信息来源，但提及欧文·拉铁摩尔预测中国将成立联合政府。",
+    "people_mentioned": [
+      "欧文·拉铁摩尔"
+    ],
+    "geography": "中国（天津、北平）、美国",
+    "event_type": "民盟与美方接触",
+    "news_source": "未注明（可能为CM staff或AP）",
+    "importance": 3,
+    "key_quote": "the China Democratic League, yesterday warned the American people of the consequences of their Government’s acts",
+    "identifier": "NPCM19481202",
+    "title": "China Mail 1948-12-02",
+    "date": "1948-12-02",
+    "paper": "China Mail",
+    "passage_count": 2
+  },
+  {
+    "core_fact": "1949-01-07 China Mail 报道：民盟主席张澜在上海表示毛泽东是“为中国而非为国际共产主义”的共产主义者；另报道沈钧儒与章伯钧已从香港前往华北参加中共召集的政治会议。",
+    "people_mentioned": [
+      "张澜",
+      "沈钧儒",
+      "章伯钧",
+      "李济琛"
+    ],
+    "geography": "上海、香港、华北",
+    "event_type": "民盟领导人活动 / 民盟与中共关系",
+    "news_source": "United Press",
+    "importance": 4,
+    "key_quote": "Mr. Chang Lon, chairman of the outlawed Democratic League, said today that Mao Txo-tung, Chinese Communist leader, is a Communist for China, not for international Communism.",
+    "identifier": "NPCM19490107",
+    "title": "China Mail 1949-01-07",
+    "date": "1949-01-07",
+    "paper": "China Mail",
+    "passage_count": 3
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19490112",
+    "title": "China Mail 1949-01-12",
+    "date": "1949-01-12"
+  },
+  {
+    "core_fact": "1949-01-17 Hong Kong Telegraph 报道：民社党张君劢与青年党左舜生作为卫星政党领袖，就国共局势发表言论，坚持某种形式的回应。",
+    "people_mentioned": [
+      "张君劢",
+      "左舜生"
+    ],
+    "geography": "未明确",
+    "event_type": "民盟与中共关系",
+    "news_source": "未明确",
+    "importance": 2,
+    "key_quote": "two satellite party lenders, Carsun Chang of the Democratic Socialist Party and Tso Shun Shen of the Young Chinn Party, spoke up. They insisted some sort of reply would",
+    "identifier": "NPTG19490117",
+    "title": "Hong Kong Telegraph 1949-01-17",
+    "date": "1949-01-17",
+    "paper": "Hong Kong Telegraph",
+    "passage_count": 3
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19490603",
+    "title": "China Mail 1949-06-03",
+    "date": "1949-06-03"
+  },
+  {
+    "core_fact": "1949-06-20 China Mail 报道：毛泽东在新政协筹备会开幕式上讲话，提及新政协将于八月召开并起草联合政府蓝图，但未直接提及民盟。该期无民盟相关实质内容。",
+    "people_mentioned": [],
+    "geography": "上海",
+    "event_type": "新政协参与",
+    "news_source": "CM staff",
+    "importance": 1,
+    "key_quote": "",
+    "identifier": "NPCM19490620",
+    "title": "China Mail 1949-06-20",
+    "date": "1949-06-20",
+    "paper": "China Mail",
+    "passage_count": 2
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19500120",
+    "title": "China Mail 1950-01-20",
+    "date": "1950-01-20"
+  },
+  {
+    "core_fact": "该期 HKT 无任何与中国民主同盟相关的报道内容。OCR 抽取段落涉及比利时罢工、香港强制第三方保险等话题，与民盟无关。",
+    "people_mentioned": [],
+    "geography": "",
+    "event_type": "",
+    "news_source": "",
+    "importance": 1,
+    "key_quote": "",
+    "identifier": "NPTG19500321",
+    "title": "Hong Kong Telegraph 1950-03-21",
+    "date": "1950-03-21",
+    "paper": "Hong Kong Telegraph",
+    "passage_count": 6
+  },
+  {
+    "core_fact": "该期 HKT 1950-03-22 无中国民主同盟相关实质内容。",
+    "people_mentioned": [],
+    "geography": "",
+    "event_type": "",
+    "news_source": "",
+    "importance": 1,
+    "key_quote": "",
+    "identifier": "NPTG19500322",
+    "title": "Hong Kong Telegraph 1950-03-22",
+    "date": "1950-03-22",
+    "paper": "Hong Kong Telegraph",
+    "passage_count": 1
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19500323",
+    "title": "China Mail 1950-03-23",
+    "date": "1950-03-23"
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPTG19500515",
+    "title": "Hong Kong Telegraph 1950-05-15",
+    "date": "1950-05-15"
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPTG19500623",
+    "title": "Hong Kong Telegraph 1950-06-23",
+    "date": "1950-06-23"
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19500704",
+    "title": "China Mail 1950-07-04",
+    "date": "1950-07-04"
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPCM19500831",
+    "title": "China Mail 1950-08-31",
+    "date": "1950-08-31"
+  },
+  {
+    "_error": "no relevant passages",
+    "identifier": "NPTG19500912",
+    "title": "Hong Kong Telegraph 1950-09-12",
+    "date": "1950-09-12"
+  }
+]
