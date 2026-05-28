@@ -17,6 +17,8 @@
   华人活动，主题非民盟
 - D 组（1956+ 远离民盟史时段，9 篇）：CIA 中央情报简报系列、1957 亚非
   团结会议、FACTBOOK 1982 等，与民盟 1941–1950 史关键期不在同一时段
+- E 组（台湾系列名称相似，2 篇）：「台湾新民盟」「台湾民主自治同盟」「台湾
+  再解放联盟」是与中国民盟分立的台籍政治组织，按收录边界应剔除
 """
 import sqlite3
 from pathlib import Path
@@ -53,6 +55,11 @@ EXCLUDE_IDENTIFIERS = {
     "03174706": "D_56plus",                          # CIB 1960/05/07
     "cia-rdp79t00975a029600010002-1": "D_56plus",   # 国家情报简报
     "cia-rdp08-00534r000100180001-3": "D_56plus",   # 世界概况 1982
+    # E 组 — 台湾系列名称相似但与中国民盟无关组织（2026-05-28 新增）
+    # 按用户「收录边界」规则：Taiwan Democratic League / New Democratic League on Taiwan /
+    # Formosan League / Democratic League for Taiwan Autonomy 均应剔除前台
+    "cia-rdp82-00457r003500280004-3": "E_台湾",   # 台湾新民盟 + 台湾再解放联盟
+    "cia-rdp82-00457r009900020008-7": "E_台湾",   # 台湾民主自治同盟（与中国民盟分立的台籍政治组织）
 }
 
 
@@ -132,7 +139,7 @@ def main():
     print(f"  ----")
     total_excluded = excluded + already_excluded
     print(f"  目前共剔除  ：{total_excluded} 篇")
-    print(f"  CIA 仍展示  ：约 {102 - total_excluded} 篇真正与民盟相关")
+    print(f"  CIA 仍展示  ：约 {102 - total_excluded} 篇真正与民盟相关")  # 102 → 76（剔 26 后）
     print()
     print("  幂等：本脚本可重复执行，已剔除的会被跳过。")
 
