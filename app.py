@@ -554,12 +554,54 @@ def bibliography_entry(row: sqlite3.Row) -> str:
     ).strip()
 
 
+# 民盟相关度分级 → 前台统一标签（CSS 类 + 显示名）
+# 五级体系：核心 / 相关 / 人物关联 / 背景 / 已剔除（前台不展示）
+GRADE_CLASS = {
+    "核心文献": "core",
+    "相关文献": "related",
+    "人物关联": "person",
+    "背景材料": "background",
+    "前台不展示": "excluded",
+    "误收已剔除": "excluded",
+    # DRNH 三层校订分层（document_classifications.grade 存 A/B/C）
+    "A": "core",
+    "B": "background",
+    "C": "related",
+}
+# DRNH A/B/C 的前台显示名（内部分层名翻译为读者可理解的相关度）
+GRADE_LABEL = {
+    "A": "核心文献",
+    "B": "背景材料",
+    "C": "相关文献",
+}
+
+
 def grade_badge(row: sqlite3.Row) -> str:
     grade = row["grade"] if "grade" in row.keys() else ""
     if not grade:
         return ""
-    class_name = "grade context" if grade in {"人物关联", "背景材料"} else "grade"
-    return f'<span class="{class_name}">{h(grade)}</span>'
+    cls = GRADE_CLASS.get(grade, "background")
+    label = GRADE_LABEL.get(grade, grade)
+    return f'<span class="grade {cls}">{h(label)}</span>'
+
+
+def grade_legend_html() -> str:
+    """前台分级图例：统一呈现五级相关度标签的含义。"""
+    items = [
+        ("lg-core", "核心文献", "直接命中民盟 + 核心人物 + 核心事件"),
+        ("lg-related", "相关文献", "民盟为重要内容之一"),
+        ("lg-person", "人物关联", "经民盟人物间接关联"),
+        ("lg-background", "背景材料", "民盟相关背景，不作主要引用"),
+        ("lg-excluded", "已剔除", "名称相似无关 / 误收，前台不展示"),
+    ]
+    parts = "".join(
+        f'<span class="lg-item"><span class="lg-dot {cls}"></span>{h(name)}<span style="color:var(--muted-soft);">· {h(desc)}</span></span>'
+        for cls, name, desc in items
+    )
+    return (
+        '<div class="grade-legend">' + parts +
+        '<a href="/standards" style="margin-left:auto;">收录与排除标准 →</a></div>'
+    )
 
 
 ISSUE_LABELS = {
@@ -2898,6 +2940,7 @@ def docs(active_grade: str = "", active_translation: str = "", platform: str = "
     else:
         body = breadcrumb_html([("/", "首页"), (None, "全部文档")])
     body += grade_filters(active_grade, active_translation)
+    body += grade_legend_html()
     body += '<section class="result-list">'
     for row in rows:
         page = f"{row['translated_pages']}/{row['page_count']} 已译"
@@ -3671,6 +3714,69 @@ def paper_page(key: str) -> bytes:
     return layout(f"{name} · 研究论文", body)
 
 
+def excluded_page() -> bytes:
+    """已剔除清单页 (/excluded)：统一呈现 grade='前台不展示' 的误收档案 + 剔除理由。
+    实现"误收已剔除"分级的可追溯展示，与 /standards 收录标准页配套。"""
+    body = breadcrumb_html([("/", "首页"), (None, "已剔除清单")])
+    body += """
+<section class="hero hero-compact">
+  <div class="hero-eyebrow">EXCLUDED · 前台不展示</div>
+  <h1>已剔除档案清单</h1>
+  <p class="hero-sub">下列档案因「名称相似但与中国民主同盟无组织关系」「远离民盟史时段」「误命中」等原因被剔出前台展示，但原始数据完整保留、可追溯、可复核。剔除依据见 <a href="/standards">本库收录标准与排除标准</a>。</p>
+</section>
+"""
+    with conn() as c:
+        try:
+            rows = c.execute(
+                """
+                SELECT documents.doc_key, documents.title, documents.date_guess,
+                       documents.doc_id, documents.volume_id,
+                       COALESCE(documents.source_platform, 'frus') AS platform,
+                       dc.reason
+                FROM document_classifications dc
+                JOIN documents ON documents.id = dc.document_id
+                WHERE dc.grade = '前台不展示'
+                ORDER BY platform, documents.date_guess, documents.doc_id
+                """
+            ).fetchall()
+        except sqlite3.OperationalError:
+            rows = []
+    if not rows:
+        body += '<div class="notice">当前无标记为「前台不展示」的档案，或剔除记录尚未同步到本环境数据库。剔除规则与历史记录详见 <a href="/standards">收录标准页</a>。</div>'
+        return layout("已剔除清单 · 前台不展示", body)
+
+    # 按平台分组
+    from collections import defaultdict
+    by_plat = defaultdict(list)
+    for r in rows:
+        by_plat[r["platform"]].append(r)
+
+    body += f'<p class="meta" style="margin:8px 0 18px;">共 <strong>{len(rows)}</strong> 篇已剔除档案，分布于 {len(by_plat)} 个档案源。</p>'
+
+    for plat in sorted(by_plat.keys()):
+        plat_name = PLATFORM_META.get(plat, {}).get("name", plat.upper())
+        items = by_plat[plat]
+        body += f'<h2 class="md-h2" style="margin-top:24px;">{h(plat_name)} · {len(items)} 篇</h2>'
+        body += '<table class="md-table"><thead><tr><th>标题</th><th style="width:110px;">日期</th><th style="width:30%;">剔除理由</th></tr></thead><tbody>'
+        for r in items:
+            title = r["title"] or r["doc_key"]
+            reason = r["reason"] or "—"
+            body += (
+                f'<tr><td><span class="grade excluded">{h(title)}</span></td>'
+                f'<td>{h(r["date_guess"] or "")}</td>'
+                f'<td style="font-size:13px;color:var(--muted);">{h(reason)}</td></tr>'
+            )
+        body += "</tbody></table>"
+
+    body += """
+<div class="doc-tools" style="margin-top:24px;justify-content:center;">
+  <a class="button" href="/standards">← 收录与排除标准</a>
+  <a class="button" href="/docs">全部前台文档 →</a>
+</div>
+"""
+    return layout("已剔除清单 · 前台不展示", body)
+
+
 def standards_page() -> bytes:
     """《本库收录标准与排除标准》编辑准则页 (/standards)"""
     from pathlib import Path as _P
@@ -3687,6 +3793,7 @@ def standards_page() -> bytes:
 </article>
 <div class="doc-tools" style="margin-top:24px;justify-content:center;">
   <a class="button" href="/papers">研究论文索引 →</a>
+  <a class="button" href="/excluded">已剔除清单 →</a>
   <a class="button" href="/docs">全部文档 →</a>
 </div>
 """
@@ -5158,6 +5265,9 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(200); self.send_header("Content-Type","text/html; charset=utf-8"); self.send_header("Cache-Control","no-cache"); self.end_headers(); self.wfile.write(payload); return
         elif parsed.path == "/standards":
             payload = standards_page()
+            self.send_response(200); self.send_header("Content-Type","text/html; charset=utf-8"); self.send_header("Cache-Control","no-cache"); self.end_headers(); self.wfile.write(payload); return
+        elif parsed.path == "/excluded":
+            payload = excluded_page()
             self.send_response(200); self.send_header("Content-Type","text/html; charset=utf-8"); self.send_header("Cache-Control","no-cache"); self.end_headers(); self.wfile.write(payload); return
         elif parsed.path == "/people":
             payload = people()
