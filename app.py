@@ -656,7 +656,7 @@ ICONS_SVG = """
 
 
 NAV_GROUPS = [
-    ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/timeline", "年表"), ("/glossary", "术语表")]),
+    ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
@@ -3629,6 +3629,7 @@ def papers_index() -> bytes:
   <div class="hero-eyebrow">PLATFORM RESEARCH PAPERS</div>
   <h1>六源对照档案体系 · 七篇学术论文</h1>
   <p class="hero-sub">每个研究平台一篇档案学/史料学论文，加一篇总论。聚焦档案集合的客观属性与对民盟史研究的不可替代价值；不下民盟史史学评价。</p>
+  <p style="margin-top:10px;"><a class="button" href="/standards"><svg class="ico"><use href="#i-archive"/></svg>本库收录标准与排除标准</a></p>
 </section>
 <section class="result-list">
 """
@@ -3668,6 +3669,28 @@ def paper_page(key: str) -> bytes:
 </div>
 """
     return layout(f"{name} · 研究论文", body)
+
+
+def standards_page() -> bytes:
+    """《本库收录标准与排除标准》编辑准则页 (/standards)"""
+    from pathlib import Path as _P
+    fpath = _P(__file__).parent / "docs" / "_collection-standards.md"
+    body = breadcrumb_html([("/", "首页"), (None, "收录标准")])
+    if not fpath.exists():
+        body += '<div class="notice">收录标准文档未生成。</div>'
+        return layout("收录标准与排除标准", body)
+    md = fpath.read_text(encoding="utf-8")
+    html_body = render_markdown(md)
+    body += f"""
+<article class="paper-content">
+{html_body}
+</article>
+<div class="doc-tools" style="margin-top:24px;justify-content:center;">
+  <a class="button" href="/papers">研究论文索引 →</a>
+  <a class="button" href="/docs">全部文档 →</a>
+</div>
+"""
+    return layout("收录标准与排除标准 · 编辑准则", body)
 
 
 def topic_page(slug: str) -> bytes:
@@ -5132,6 +5155,9 @@ class Handler(BaseHTTPRequestHandler):
         elif parsed.path.startswith("/papers/"):
             key = parsed.path.removeprefix("/papers/").rstrip("/")
             payload = paper_page(key)
+            self.send_response(200); self.send_header("Content-Type","text/html; charset=utf-8"); self.send_header("Cache-Control","no-cache"); self.end_headers(); self.wfile.write(payload); return
+        elif parsed.path == "/standards":
+            payload = standards_page()
             self.send_response(200); self.send_header("Content-Type","text/html; charset=utf-8"); self.send_header("Cache-Control","no-cache"); self.end_headers(); self.wfile.write(payload); return
         elif parsed.path == "/people":
             payload = people()
