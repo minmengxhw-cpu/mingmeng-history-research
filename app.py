@@ -1954,6 +1954,18 @@ def home() -> bytes:
 {platforms_html_block}
 
 <div class="section-head" style="margin-top:48px;">
+  <h2><svg class="ico"><use href="#i-quote"/></svg>学术论文总览</h2>
+  <a class="more" href="/papers">进入论文总览 →</a>
+</div>
+<section class="stats stats-card">
+  <div class="stat"><strong>总论</strong><span>六源对照框架</span></div>
+  <div class="stat"><strong>FRUS</strong><span>美方公开外交</span></div>
+  <div class="stat"><strong>CIA</strong><span>美方解密情报</span></div>
+  <div class="stat"><strong>DRNH</strong><span>国民政府内部</span></div>
+  <div class="stat"><strong>六源</strong><span>平台论文入口</span></div>
+</section>
+
+<div class="section-head" style="margin-top:48px;">
   <h2><svg class="ico"><use href="#i-edit"/></svg>档案研究仪表盘</h2>
   <a class="more" href="/dashboard">查看完整仪表盘 →</a>
 </div>
@@ -3537,7 +3549,7 @@ PAPERS = [
      "364 篇 / 戴笠呈件 + 蒋档批阅 + 保密局呈件 25 篇为核心子集",
      "docs/_drnh-paper.md", "i-archive", "/papers/drnh"),
     ("cia", "美方解密情报系统 · CIA",
-     "78 篇（剔 24 后）/ 民盟海外网络独有档案 / 上海撤往香港 hardcode 重译样本",
+     "76 篇（剔 26 后）/ 民盟海外网络独有档案 / 上海撤往香港高质量译文样本",
      "docs/_cia-paper.md", "i-lock", "/papers/cia"),
     ("hathitrust", "港埠公开舆论场 · HathiTrust / IA",
      "54 期 China Mail + Hong Kong Telegraph / 1947 民盟「非法」5 期连续报道",
@@ -3670,8 +3682,8 @@ def papers_index() -> bytes:
     body += """
 <section class="hero hero-compact">
   <div class="hero-eyebrow">PLATFORM RESEARCH PAPERS</div>
-  <h1>六源对照档案体系 · 七篇学术论文</h1>
-  <p class="hero-sub">每个研究平台一篇档案学/史料学论文，加一篇总论。聚焦档案集合的客观属性与对民盟史研究的不可替代价值；不下民盟史史学评价。</p>
+  <h1>六源对照档案体系 · 学术论文总览</h1>
+  <p class="hero-sub">以总论为入口，分别进入 FRUS、DRNH、CIA、HathiTrust / IA、Wilson Center、Hoover 六个档案平台论文。每篇聚焦档案集合的客观属性、收录边界、关键样本与跨源对照价值。</p>
   <p style="margin-top:10px;"><a class="button" href="/standards"><svg class="ico"><use href="#i-archive"/></svg>本库收录标准与排除标准</a></p>
 </section>
 <section class="result-list">

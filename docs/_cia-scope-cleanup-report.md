@@ -46,6 +46,17 @@
 
 **CIA 入库 102 篇 → 剔除 26 篇 → 前台展示 76 篇真正与中国民主同盟相关**
 
+### 2026-05-31 本地 SQLite 兼容修正
+
+本地数据库中部分 CIA 档案号保存为 `cia-readingroom-document-...` 形式，原脚本只按短编号匹配，导致台湾系列等记录在部分本地库中未被实际隐藏。本次已修正脚本，使其同时兼容短编号、`cia-readingroom-document-` 编号和 canonical `CIA-RDP...` 编号。
+
+同时补充两类本地前台校准：
+
+- **G 组重复记录**：4 条 archive.org readingroom 重复行已隐藏，保留同一 RDP 号的 canonical 核心记录。
+- **F 组低相关记录**：`cia-rdp82-00457r006100040009-5`（为台湾及香港印刷共产党宣传品）当前本地无 OCR，题名也不能证明与中国民盟有实质关系，先移出前台，保留供后续重审。
+
+执行后本地 `document_classifications` 统计为：`前台不展示 26 篇 / 前台展示 76 篇`。
+
 ## 谨慎保留清单（已审定为中国民盟海外/南方分支）
 
 下列档案虽含"Democratic League"在异地（华南 / 香港 / 雪兰莪），但已审定为中国民盟海外/南方系统，**保留前台 + 标注海外分支**：
@@ -77,7 +88,7 @@ python3 scripts/build/exclude_cia_off_topic.py
 
 | 文件 | 改动 |
 |---|---|
-| `scripts/build/exclude_cia_off_topic.py` | EXCLUDE_IDENTIFIERS 加 2 条 E 组 |
+| `scripts/build/exclude_cia_off_topic.py` | EXCLUDE_IDENTIFIERS 加 2 条 E 组；2026-05-31 追加编号兼容、重复行隐藏、低相关条目隐藏 |
 | `docs/_cia-paper.md` | 78→76，8→6（核心），2 条台湾系列加删除线 + 剔除原因标注 |
 | `platforms.py` CIA highlights | 删除对 r003500280004-3 与 r009900020008-7 的引用；规模数字 78→76 |
 | `docs/_cia-scope-cleanup-report.md` | 本报告（新建）|
