@@ -1711,6 +1711,7 @@ def dashboard() -> bytes:
 def sourcebooks_page() -> bytes:
     platforms = [
         ("frus", "美国对外关系文件集"),
+        ("drnh", "国民政府档案"),
         ("cia", "美国中央情报局解密档案"),
         ("wilson", "威尔逊中心数字档案"),
         ("hoover", "胡佛研究所档案"),
@@ -2221,9 +2222,10 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             SELECT documents.*, dc.grade, dc.score, dc.reason, dc.needs_review
             FROM documents
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
-            WHERE documents.doc_key=?
+            WHERE documents.doc_key=? OR lower(documents.doc_key)=lower(?)
+            LIMIT 1
             """,
-            (doc_key,),
+            (doc_key, doc_key),
         ).fetchone()
         if not doc:
             return layout("未找到文档", '<div class="notice">未找到文档。</div>')
@@ -3676,6 +3678,106 @@ def render_markdown(md: str) -> str:
     return "\n".join(out)
 
 
+def paper_cited_docs_html(key: str, md: str) -> str:
+    """Build a compact cited-document panel for paper pages."""
+    if key == "overview":
+        return ""
+
+    candidates: list[str] = []
+    patterns = [
+        r"\bfrus\d{4}[A-Za-z0-9]*/d\d+\b",
+        r"\b(?:cia-meng|wilson|hoover|hathi-ia|drnh):[A-Za-z0-9_.:/-]+\b",
+        r"\bcia-rdp[0-9a-z-]+\b",
+        r"\br[0-9]{4}[0-9a-z-]+\b",
+    ]
+    for pattern in patterns:
+        candidates.extend(re.findall(pattern, md, flags=re.IGNORECASE))
+
+    resolved: list[str] = []
+    seen: set[str] = set()
+    with conn() as c:
+        for raw in candidates:
+            token = raw.strip().rstrip(").,;，。；")
+            lower = token.lower()
+            doc_key = ""
+            if lower.startswith("frus"):
+                doc_key = token
+            elif lower.startswith(("wilson:", "hoover:", "hathi-ia:", "drnh:", "cia-meng:")):
+                doc_key = token
+            elif lower.startswith("cia-rdp"):
+                doc_key = "cia-meng:" + lower
+            elif lower.startswith("r"):
+                row = c.execute(
+                    """
+                    SELECT doc_key FROM documents
+                    WHERE source_platform='cia'
+                      AND lower(doc_key) LIKE ?
+                    ORDER BY length(doc_key)
+                    LIMIT 1
+                    """,
+                    (f"%{lower}",),
+                ).fetchone()
+                doc_key = row["doc_key"] if row else ""
+            if not doc_key or doc_key in seen:
+                continue
+            row = c.execute(
+                """
+                SELECT doc_key FROM documents
+                WHERE doc_key=? OR lower(doc_key)=lower(?)
+                LIMIT 1
+                """,
+                (doc_key, doc_key),
+            ).fetchone()
+            if row and row["doc_key"] not in seen:
+                resolved.append(row["doc_key"])
+                seen.add(row["doc_key"])
+
+        if not resolved:
+            return ""
+        placeholders = ",".join("?" for _ in resolved)
+        rows = c.execute(
+            f"""
+            SELECT documents.doc_key, documents.title, documents.date_guess,
+                   COALESCE(dc.grade, '') AS grade,
+                   (SELECT pages.id FROM pages WHERE pages.document_id=documents.id ORDER BY pages.id LIMIT 1) AS page_id
+            FROM documents
+            LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+            WHERE documents.doc_key IN ({placeholders})
+            """,
+            resolved,
+        ).fetchall()
+
+    by_key = {row["doc_key"]: row for row in rows}
+    items = []
+    for doc_key in resolved[:24]:
+        row = by_key.get(doc_key)
+        if not row:
+            continue
+        href = "/doc/" + quote(doc_key, safe=":/")
+        cite_href = f'/cite/{row["page_id"]}' if row["page_id"] else href
+        items.append(
+            f"""
+<article class="result compact-result">
+  <div>
+    <h3><a href="{h(href)}">{h(row["title"] or doc_key)}</a></h3>
+    <div class="meta">{h(doc_key)} · {h(row["date_guess"] or "日期未注明")} · {h(row["grade"] or "未分级")}</div>
+  </div>
+  <div class="cite"><a href="{h(cite_href)}">引用卡片</a></div>
+</article>"""
+        )
+    if not items:
+        return ""
+    more = "" if len(resolved) <= 24 else f'<p class="meta">已显示前 24 篇，本文共识别 {len(resolved)} 个可点击原档引用。</p>'
+    return f"""
+<section class="paper-citations">
+  <h2 class="md-h2">本文引用的原始档案</h2>
+  <div class="meta">从论文正文自动识别 doc_key，并链接到本库中英对照原档与引用卡片。</div>
+  <div class="result-list compact-list">{''.join(items)}</div>
+  {more}
+</section>
+"""
+
+
 def papers_index() -> bytes:
     """所有论文索引页"""
     body = breadcrumb_html([("/", "首页"), (None, "研究论文")])
@@ -3713,11 +3815,13 @@ def paper_page(key: str) -> bytes:
         return layout(name, f'<div class="notice">论文文件未生成：{path}</div>')
     md = fpath.read_text(encoding="utf-8")
     html_body = render_markdown(md)
+    citations_html = paper_cited_docs_html(key, md)
     body = breadcrumb_html([("/", "首页"), ("/papers", "研究论文"), (None, name)])
     body += f"""
 <article class="paper-content">
 {html_body}
 </article>
+{citations_html}
 <div class="doc-tools" style="margin-top:24px;justify-content:center;">
   <a class="button" href="/papers">← 返回论文索引</a>
   {'<a class="button" href="/sources/' + key + '">前往 ' + h(name.split(' · ')[-1] if ' · ' in name else name) + ' 平台栏目</a>' if key != 'overview' else ''}

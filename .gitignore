@@ -22,6 +22,7 @@ translate_*.log
 translate_*.stdout
 
 # ===== 大数据 / 临时数据 =====
+output/
 exports/
 data/ocr_smoke_test/
 data/frus_epub_tmp/

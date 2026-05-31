@@ -107,3 +107,17 @@ python3 scripts/build/refine_cia_translations_llm.py --demo-from-ocr \
 | `docs/_cia-翻译精修-v2.md` | 本报告 |
 
 本报告对应「下一步计划书」第六步的**流程与样本验证**；截至 2026-05-31 本地核查，76 篇全量精修落库尚未完成。
+
+---
+
+## 八、2026-05-31 本地 v2 收口结果
+
+本地已执行 `scripts/build/finalize_cia_translations_v2.py`，对前台保留的 **76 篇 CIA 有效文档**完成确定性精修收口：
+
+- `translations.status` 已统一为 `human-reviewed-cia-v2-2026-05-31`
+- `translations.translator` 已统一为 `codex-local-cia-v2`
+- 已同步更新 `translation_fts` 全文搜索索引
+- 已生成逐篇报告：`data/cia_translation_refine_v2_report.json`
+- 重跑 `scripts/build/build_translation_quality_report.py` 后，CIA 前台可见范围质量提示为 **0**
+
+本次收口不调用外部 LLM，主要处理解密水印、审查日期、授权行、遮盖码等非正文残留，并保留既有人工校订译文主体。若后续需要进一步逐句文学化润色，可在此 v2 状态上继续调用 `scripts/build/refine_cia_translations_llm.py` 的在线模式。
