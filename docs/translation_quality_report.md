@@ -1,6 +1,6 @@
 # 译文质量检查报告
 
-- 检查片段：966
+- 检查片段：944
 - 风险提示：5
 - CSV：`/Users/cheer/Documents/New project/data/translation_quality_issues.csv`
 

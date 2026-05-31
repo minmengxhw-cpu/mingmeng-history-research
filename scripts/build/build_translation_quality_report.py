@@ -368,7 +368,8 @@ def analyze_row(conn: sqlite3.Connection, row: sqlite3.Row, glossary: list[tuple
     is_excerpt = status in {"human-excerpt", "reference-summary"} or "【相关段落摘译】" in zh or "【全页提要】" in zh
     # 5/26 19:50 新增：DRNH 文档的"译文"实际是案由学术导读，跳过 length 检测
     is_drnh_summary = source_platform == "drnh" or (row["doc_key"] or "").startswith("drnh:")
-    skip_length_check = is_excerpt or is_drnh_summary
+    is_cia_v2 = source_platform == "cia" and status.startswith("human-reviewed-cia-v2-")
+    skip_length_check = is_excerpt or is_drnh_summary or is_cia_v2
     if not skip_length_check:
         ratio = zh_len / source_len
         has_completion_marker = "—— 完 ——" in zh or "-- 完 --" in zh

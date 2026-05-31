@@ -374,6 +374,7 @@
       border-top: 1px solid var(--line-soft);
       border-left: 3px solid transparent;
       transition: background 0.18s, padding-left 0.2s, border-left-color 0.2s;
+      min-width: 0;
     }
     .result:first-child { border-top: 0; }
     .result:hover {
@@ -454,6 +455,7 @@
       font-size: 13px;
       color: var(--muted);
       font-family: var(--serif);
+      min-width: 0;
     }
     .cite a { display: block; padding: 2px 0; }
     .doc-head {
@@ -482,12 +484,14 @@
     .button {
       display: inline-flex; align-items: center; gap: 5px;
       min-height: 34px;
+      max-width: 100%;
       padding: 6px 14px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
       color: var(--text);
       font: 13px var(--sans);
+      white-space: normal;
       transition: all 0.18s;
     }
     .button:hover {
@@ -1033,6 +1037,7 @@
       .topbar {
         display: flex !important;
         flex-wrap: wrap;
+        position: sticky;
         align-items: center;
         gap: 8px 10px;
         padding: 10px 14px;
@@ -1043,7 +1048,8 @@
         grid-template-areas: unset;
       }
       .brand {
-        flex: 1 1 auto;
+        flex: 1 1 calc(100% - 54px);
+        max-width: calc(100% - 54px);
         min-width: 0;
         font-size: 16px;
         gap: 6px;
@@ -1054,6 +1060,8 @@
       .brand .brand-sub { display: none !important; }  /* 副标必须隐藏（!important 防被外层覆盖） */
       .nav-toggle {
         flex: 0 0 auto;
+        order: 1;
+        margin-left: auto;
         display: flex !important;
         align-items: center; justify-content: center;
         width: 42px; height: 42px;
@@ -1312,6 +1320,24 @@
       margin: 30px 0;
     }
 
+    .paper-citations {
+      max-width: 760px;
+      margin: 22px auto 0;
+    }
+    .paper-citations .compact-list {
+      margin-top: 12px;
+    }
+    .paper-citations .compact-result {
+      grid-template-columns: minmax(0, 1fr) 120px;
+      padding: 14px 18px;
+    }
+    .paper-citations .compact-result h3,
+    .paper-citations .compact-result a,
+    .paper-citations .compact-result .meta {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
     @media (max-width: 720px) {
       .paper-content {
         width: 100%;
@@ -1327,6 +1353,8 @@
       .paper-content .md-h2 { font-size: 18px; margin: 24px 0 10px; }
       .paper-content .md-h3 { font-size: 16px; }
       .paper-content .md-table { font-size: 13px; display: block; overflow-x: auto; }
+      .paper-citations { max-width: 100%; }
+      .paper-citations .compact-result { grid-template-columns: 1fr; padding: 12px 14px; }
       .paper-content p,
       .paper-content li,
       .paper-content .md-quote {
@@ -1355,10 +1383,17 @@
         min-width: 0 !important;
         max-width: 100% !important;
       }
+      header.topbar .brand {
+        flex: 1 1 calc(100% - 54px) !important;
+        max-width: calc(100% - 54px) !important;
+      }
       /* 强制 hamburger 显示 */
       header.topbar .nav-toggle {
         display: inline-flex !important;
         visibility: visible !important;
+        flex: 0 0 42px !important;
+        order: 1 !important;
+        margin-left: auto !important;
       }
       /* 强制 brand 副标隐藏 */
       header.topbar .brand .brand-sub {

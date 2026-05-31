@@ -160,18 +160,20 @@ def get_cia_pages(conn: sqlite3.Connection):
         """
         SELECT p.id AS page_id, p.text AS source_text,
                t.id AS trans_id, t.text AS zh_text, t.status AS zh_status,
-               d.identifier AS identifier
+               d.doc_key AS identifier
         FROM pages p
         JOIN documents d ON d.id = p.document_id
         JOIN sources s ON s.id = d.source_id
+        JOIN document_classifications dc ON dc.document_id = d.id
         LEFT JOIN translations t ON t.page_id = p.id AND t.language='zh-CN'
         WHERE s.source_type='cia'
-        ORDER BY d.identifier, p.page_number
+          AND dc.grade <> '前台不展示'
+        ORDER BY d.doc_key, p.id
         """
     ).fetchall()
     out = []
     for r in rows:
-        ident = normalize_id(r["identifier"] or "")
+        ident = normalize_id((r["identifier"] or "").split(":", 1)[-1])
         if ident in EXCLUDED:
             continue
         if not r["zh_text"]:
@@ -182,9 +184,20 @@ def get_cia_pages(conn: sqlite3.Connection):
 
 def update_fts(conn, trans_id, page_id, text):
     try:
-        conn.execute("DELETE FROM translations_fts WHERE rowid=?", (trans_id,))
-        conn.execute("INSERT INTO translations_fts(rowid, page_id, text) VALUES(?,?,?)",
-                     (trans_id, page_id, text))
+        page = conn.execute(
+            """
+            SELECT pages.page_label, documents.title
+            FROM pages
+            JOIN documents ON documents.id = pages.document_id
+            WHERE pages.id=?
+            """,
+            (page_id,),
+        ).fetchone()
+        conn.execute("DELETE FROM translation_fts WHERE rowid=?", (trans_id,))
+        conn.execute(
+            "INSERT INTO translation_fts(rowid, language, title, page_label, text) VALUES (?, ?, ?, ?, ?)",
+            (trans_id, "zh-CN", page["title"], page["page_label"] or "doc-level", text),
+        )
     except sqlite3.OperationalError:
         pass  # 无 FTS 表则跳过
 
