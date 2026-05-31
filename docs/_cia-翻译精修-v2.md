@@ -58,7 +58,17 @@ CIA 译文此前经过两轮处理：
 - 委员会结构完整保留：财务委员会 / 海外事务委员会 / 秘书 / 联络委员会 / 工商委员会 / 宣传委员会，南方总支部 / 广东省支部 / 香港九龙支部 / 上海支部 / 南京支部各级官员
 - 无把握的人名统一标注"（音译）"，便于人工最后审定
 
-## 四、生产环境运行（在有数据库的环境执行）
+## 四、生产环境运行状态核查
+
+**2026-05-31 本地核查结论**：当前 GitHub 版本已经具备 v2 精修脚本和 4 篇演示样本，但本地 `data/research_index.sqlite` 中尚未发现全量 v2 写回记录。
+
+- `translations.status` 中未出现 `machine-reviewed-v2-cia-2026-05-28`
+- `translations.translator` 中未出现 `deepseek-v4-flash-2026-05-28-cia-refine`
+- 本地未发现 `data/cia_translation_refine_v2_report.json`
+
+因此，本阶段应表述为：**CIA v2 精修流程与样本已完成，76 篇全量落库尚待执行**。正式执行需具备 `DEEPSEEK_API_KEY` 与可用网络；执行后再以报告 JSON 和数据库状态作为完成依据。
+
+## 五、生产环境运行命令（在有数据库与 API Key 的环境执行）
 
 ```bash
 export DEEPSEEK_API_KEY=sk-xxxx
@@ -79,7 +89,7 @@ python3 scripts/build/refine_cia_translations_llm.py --demo-from-ocr \
 - 产出 `data/cia_translation_refine_v2_report.json`（逐页 before/after 残留统计）
 - 之后重跑 `scripts/build/build_translation_quality_report.py` 可看精修后质量提示清单
 
-## 五、认识论声明
+## 六、认识论声明
 
 精修后的译文仍是**机器翻译**（v4-flash 精修，非人工逐句校订）。其中：
 
@@ -88,7 +98,7 @@ python3 scripts/build/refine_cia_translations_llm.py --demo-from-ocr \
 3. 名单类档案的人名转写已大幅改善，但音译人名的准确性以"（音译）"标记为限，不应作为人名考证的最终依据
 4. 如需达到 FRUS 同等的 `human-reviewed` 等级，需在 `/review/<page_id>` 校订页人工逐篇精修
 
-## 六、同步文件
+## 七、同步文件
 
 | 文件 | 改动 |
 |---|---|
@@ -96,4 +106,4 @@ python3 scripts/build/refine_cia_translations_llm.py --demo-from-ocr \
 | `docs/cia-refine-samples/*.md` | 4 篇演示精修样本（中英对照）|
 | `docs/_cia-翻译精修-v2.md` | 本报告 |
 
-本报告对应「下一步计划书」第六步完成。六步计划全部完成。
+本报告对应「下一步计划书」第六步的**流程与样本验证**；截至 2026-05-31 本地核查，76 篇全量精修落库尚未完成。
