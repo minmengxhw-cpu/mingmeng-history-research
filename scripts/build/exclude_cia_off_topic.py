@@ -74,15 +74,23 @@ def main():
 
     for ident, group in EXCLUDE_IDENTIFIERS.items():
         # CIA 文档：doc_key = f"cia-meng:{ident}"
+        doc_id_variants = (
+            ident,
+            f"cia-readingroom-document-{ident}",
+            ident.upper(),
+            f"cia-readingroom-document-{ident}".upper(),
+        )
+        doc_key_variants = tuple(f"cia-meng:{variant}" for variant in doc_id_variants)
         rows = cur.execute(
             """
             SELECT d.id, d.doc_key, d.title, dc.grade
             FROM documents d
             LEFT JOIN document_classifications dc ON dc.document_id = d.id
             JOIN sources s ON s.id = d.source_id
-            WHERE s.source_type='cia' AND d.doc_id = ?
+            WHERE s.source_type='cia'
+              AND (d.doc_id IN (?, ?, ?, ?) OR d.doc_key IN (?, ?, ?, ?))
             """,
-            (ident,),
+            (*doc_id_variants, *doc_key_variants),
         ).fetchall()
 
         if not rows:
