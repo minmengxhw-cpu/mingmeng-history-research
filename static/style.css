@@ -519,6 +519,34 @@
       border-radius: 10px;
       box-shadow: var(--shadow-sm);
     }
+    .search-filters label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 126px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .search-filters label:first-child { flex: 1 1 220px; }
+    .search-filters input[type="search"],
+    .search-filters input[type="text"],
+    .search-filters select {
+      min-height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 6px 9px;
+      background: var(--panel);
+      color: var(--text);
+      font: 13px var(--sans);
+    }
+    .search-filters .checkline {
+      flex-direction: row;
+      align-items: center;
+      min-height: 34px;
+      margin-top: 18px;
+      color: var(--text);
+    }
+    .search-filters .checkline input { margin: 0; }
     .reader {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

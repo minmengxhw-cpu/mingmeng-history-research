@@ -22,6 +22,7 @@ DB_PATH = ROOT / "data" / "research_index.sqlite"
 HOME_FOCUS_PATH = ROOT / "data" / "home_focus.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
+RESEARCH_PACKAGE_DIR = ROOT / "output" / "research_packages"
 
 
 def h(value: object) -> str:
@@ -698,7 +699,7 @@ ICONS_SVG = """
 
 
 NAV_GROUPS = [
-    ("library", "i-library", "资料库", [("/", "首页"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
+    ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
@@ -881,15 +882,38 @@ def sourcebook_paths(platform_key: str) -> list[Path]:
     return paths
 
 
+def file_size_label(path: Path) -> str:
+    size = path.stat().st_size
+    if size >= 1024 * 1024:
+        return f"{size / (1024 * 1024):.1f} MB"
+    return f"{max(1, size // 1024)} KB"
+
+
+def research_package_path(platform_key: str) -> Path | None:
+    path = RESEARCH_PACKAGE_DIR / f"民盟研究资料包_{platform_key}.zip"
+    return path if path.is_file() else None
+
+
+def research_package_links_html(platform_key: str, button_class: str = "button") -> str:
+    path = research_package_path(platform_key)
+    if not path:
+        return ""
+    href = f"/packages/file/{quote(path.name)}"
+    return (
+        f'<a class="{button_class}" href="{h(href)}">'
+        f'<svg class="ico"><use href="#i-archive"/></svg>下载资料包 ZIP '
+        f'<span class="muted">({h(file_size_label(path))})</span></a>'
+    )
+
+
 def sourcebook_links_html(platform_key: str, button_class: str = "button") -> str:
     links = []
     for path in sourcebook_paths(platform_key):
         href = f"/sourcebooks/file/{quote(path.name)}"
-        size = path.stat().st_size // 1024
         label = "下载长编上卷" if "_上卷_" in path.name else "下载长编下卷" if "_下卷_" in path.name else "下载史料长编"
         links.append(
             f'<a class="{button_class}" href="{h(href)}" target="_blank">'
-            f'<svg class="ico"><use href="#i-book"/></svg>{label} <span class="muted">({size} KB)</span></a>'
+            f'<svg class="ico"><use href="#i-book"/></svg>{label} <span class="muted">({h(file_size_label(path))})</span></a>'
         )
     return "".join(links)
 
@@ -954,7 +978,7 @@ def source_page(platform_key: str) -> bytes:
             return s
     coverage_str = _fmt(meta.get("coverage", ""))
     todo_note_str = _fmt(meta.get("todo_note", ""))
-    sourcebook_tools = sourcebook_links_html(platform_key)
+    sourcebook_tools = sourcebook_links_html(platform_key) + research_package_links_html(platform_key)
     # 5/26 19:50 新增：研究论文入口
     paper_link = ''
     if platform_key in {"frus", "cia", "drnh", "hathitrust", "wilson", "hoover"}:
@@ -1212,7 +1236,16 @@ def format_yearmonth(ym: str) -> str:
     return f"{y} 年 {int(m)} 月"
 
 
-def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50, platform: str = None) -> list[sqlite3.Row]:
+def rows_for_search(
+    c: sqlite3.Connection,
+    query: str,
+    limit: int = 50,
+    platform: str | None = None,
+    year: str = "",
+    grade: str = "",
+    person: str = "",
+    cited: bool = False,
+) -> list[sqlite3.Row]:
     """统一搜索：FTS5 trigram + LIKE 兜底 + 繁简自动展开 + 多词 AND 分词。
 
     问题修复历史：
@@ -1221,9 +1254,6 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50, platform
     - 多词 query（如「保密局 魏德邁」）原来用 LIKE 整段必 0 命中，现在按空格拆 + AND 合取
     - 繁简自动展开：搜简体「魏德迈」时自动也搜繁体「魏德邁」
     """
-    if not query.strip():
-        return []
-
     SELECT_BASE = """
         SELECT
             pages.id AS page_id,
@@ -1235,6 +1265,50 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50, platform
             translations.text AS zh_text,
             translations.status AS zh_status
     """
+
+    filter_clauses: list[str] = []
+    filter_params: list[str] = []
+    if platform:
+        filter_clauses.append("COALESCE(documents.source_platform, 'frus') = ?")
+        filter_params.append(platform)
+    if year.strip():
+        filter_clauses.append("substr(COALESCE(documents.date_guess, ''), 1, 4) = ?")
+        filter_params.append(year.strip()[:4])
+    if grade.strip():
+        filter_clauses.append("dc.grade = ?")
+        filter_params.append(grade.strip())
+    if person.strip():
+        person_like = f"%{person.strip()}%"
+        filter_clauses.append(
+            "(documents.title LIKE ? OR documents.matched_terms LIKE ? OR pages.text LIKE ? OR IFNULL(translations.text, '') LIKE ?)"
+        )
+        filter_params.extend([person_like, person_like, person_like, person_like])
+    if cited:
+        cited_keys = paper_cited_doc_keys(c)
+        if not cited_keys:
+            return []
+        placeholders = ",".join("?" for _ in cited_keys)
+        filter_clauses.append(f"documents.doc_key IN ({placeholders})")
+        filter_params.extend(cited_keys)
+
+    filter_clause = "".join(f" AND {clause}" for clause in filter_clauses)
+    has_filters = bool(filter_clauses)
+
+    if not query.strip():
+        if not has_filters:
+            return []
+        sql = f"""
+            {SELECT_BASE}
+            FROM pages
+            JOIN documents ON documents.id = pages.document_id
+            LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+            LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+            WHERE (dc.grade IS NULL OR dc.grade != '前台不展示')
+              {filter_clause}
+            ORDER BY documents.date_guess, documents.doc_key, pages.id
+            LIMIT ?
+        """
+        return list(c.execute(sql, tuple(filter_params) + (limit,)))
 
     # 拆词（空格/逗号分隔）
     tokens = [t for t in re.split(r"[\s,，、;；]+", query.strip()) if t]
@@ -1249,9 +1323,6 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50, platform
         except Exception:
             pass
         expanded_tokens.append(list(variants))
-
-    plat_clause = " AND COALESCE(documents.source_platform, 'frus') = ? " if platform else ""
-    plat_params: tuple = (platform,) if platform else ()
 
     seen: set[int] = set()
     out: list[sqlite3.Row] = []
@@ -1285,10 +1356,10 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50, platform
                 LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
                 WHERE page_fts MATCH ?
                   AND (dc.grade IS NULL OR dc.grade != '前台不展示')
-                  {plat_clause}
+                  {filter_clause}
                 LIMIT ?
             """
-            _add_rows(sql, (fts_q,) + plat_params + (limit,))
+            _add_rows(sql, (fts_q,) + tuple(filter_params) + (limit,))
             # 同样查 translation_fts（简体翻译里搜）
             sql2 = f"""
                 {SELECT_BASE}
@@ -1300,10 +1371,10 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50, platform
                 WHERE translation_fts MATCH ?
                   AND translations.language='zh-CN'
                   AND (dc.grade IS NULL OR dc.grade != '前台不展示')
-                  {plat_clause}
+                  {filter_clause}
                 LIMIT ?
             """
-            _add_rows(sql2, (fts_q,) + plat_params + (limit,))
+            _add_rows(sql2, (fts_q,) + tuple(filter_params) + (limit,))
     except sqlite3.OperationalError:
         pass
 
@@ -1333,10 +1404,10 @@ def rows_for_search(c: sqlite3.Connection, query: str, limit: int = 50, platform
                 LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
                 WHERE {like_where}
                   AND (dc.grade IS NULL OR dc.grade != '前台不展示')
-                  {plat_clause}
+                  {filter_clause}
                 LIMIT ?
             """
-            _add_rows(sql, tuple(like_params) + plat_params + (limit,))
+            _add_rows(sql, tuple(like_params) + tuple(filter_params) + (limit,))
     return out[:limit]
 
 
@@ -1718,6 +1789,7 @@ def sourcebooks_page() -> bytes:
         ("hathitrust", "HathiTrust 数字典藏"),
     ]
     files: dict[str, list[Path]] = {key: sourcebook_paths(key) for key, _ in platforms}
+    packages: dict[str, Path | None] = {key: research_package_path(key) for key, _ in platforms}
     body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "史料长编")]) + """
 <section class="doc-head">
   <div>
@@ -1733,17 +1805,22 @@ def sourcebooks_page() -> bytes:
 """
     for key, label in platforms:
         paths = files.get(key, [])
+        package = packages.get(key)
+        links = []
+        status_parts = []
         if paths:
-            links = []
-            total_size = 0
             for path in paths:
                 href = f"/sourcebooks/file/{quote(path.name)}"
-                size = path.stat().st_size // 1024
-                total_size += size
                 label_text = "上卷" if "_上卷_" in path.name else "下卷" if "_下卷_" in path.name else "打开 PDF"
-                links.append(f'<a href="{h(href)}" target="_blank">{label_text}</a> <span class="muted">({size} KB)</span>')
+                links.append(f'<a href="{h(href)}" target="_blank">{label_text}</a> <span class="muted">({h(file_size_label(path))})</span>')
+            status_parts.append(f'<span class="tag">PDF {len(paths)} 份</span>')
+        if package:
+            href = f"/packages/file/{quote(package.name)}"
+            links.append(f'<a href="{h(href)}">整包 ZIP</a> <span class="muted">({h(file_size_label(package))})</span>')
+            status_parts.append('<span class="tag">资料包 ZIP</span>')
+        if links:
             cite = "<br>".join(links)
-            status = f'<span class="tag">已生成 {len(paths)} 份</span><span class="tag">{total_size} KB</span>'
+            status = "".join(status_parts)
         else:
             cite = "待生成"
             status = '<span class="tag muted">未生成</span>'
@@ -1983,14 +2060,50 @@ def home() -> bytes:
     return layout("首页", body, active_path="/")
 
 
-def search(query: str, platform: str = None) -> bytes:
+def search_filter_form(query: str, platform: str | None, year: str, grade: str, person: str, cited: bool) -> str:
+    platform_options = ['<option value="">全部平台</option>']
+    for key, meta in PLATFORM_META.items():
+        selected = " selected" if platform == key else ""
+        platform_options.append(f'<option value="{h(key)}"{selected}>{h(meta["name"])}</option>')
+    grade_options = ['<option value="">全部分级</option>']
+    for value in ["核心文献", "相关文献", "人物关联", "背景材料", "A", "B"]:
+        selected = " selected" if grade == value else ""
+        grade_options.append(f'<option value="{h(value)}"{selected}>{h(value)}</option>')
+    checked = " checked" if cited else ""
+    return f"""
+<form class="filters search-filters" action="/search" method="get">
+  <label><span>关键词</span><input type="search" name="q" value="{h(query)}" placeholder="罗隆基、Marshall、政协"></label>
+  <label><span>平台</span><select name="platform">{''.join(platform_options)}</select></label>
+  <label><span>年份</span><input type="text" name="year" value="{h(year)}" inputmode="numeric" maxlength="4" placeholder="1949"></label>
+  <label><span>分级</span><select name="grade">{''.join(grade_options)}</select></label>
+  <label><span>人物</span><input type="text" name="person" value="{h(person)}" placeholder="张澜 / Lo Lung-chi"></label>
+  <label class="checkline"><input type="checkbox" name="cited" value="1"{checked}>只看论文引用档案</label>
+  <button class="button" type="submit"><svg class="ico"><use href="#i-search"/></svg>筛选</button>
+</form>
+"""
+
+
+def search(query: str, platform: str | None = None, year: str = "", grade: str = "", person: str = "", cited: bool = False) -> bytes:
     with conn() as c:
-        rows = rows_for_search(c, query, platform=platform)
+        rows = rows_for_search(c, query, platform=platform, year=year, grade=grade, person=person, cited=cited)
         body = stats_html(c)
+        title_text = f"搜索：{query}" if query.strip() else "筛选档案"
+        chips = []
         if platform:
-            body += f'<h1 style="font-size:20px;margin:0 0 12px;">搜索：{h(query)} <span style="font-size:14px;color:var(--muted);">[{h(platform)}]</span></h1>'
-        else:
-            body += f'<h1 style="font-size:20px;margin:0 0 12px;">搜索：{h(query)}</h1>'
+            chips.append(PLATFORM_META.get(platform, {}).get("name", platform))
+        if year.strip():
+            chips.append(f"{year.strip()[:4]} 年")
+        if grade.strip():
+            chips.append(grade.strip())
+        if person.strip():
+            chips.append(person.strip())
+        if cited:
+            chips.append("论文引用档案")
+        chip_html = "".join(f'<span class="tag">{h(chip)}</span>' for chip in chips)
+        body += f'<h1 style="font-size:20px;margin:0 0 12px;">{h(title_text)}</h1>'
+        body += search_filter_form(query, platform, year, grade, person, cited)
+        if chip_html:
+            body += f'<div class="tagline" style="margin:-8px 0 14px;">{chip_html}<span class="tag">{len(rows)} 条结果</span></div>'
         if rows:
             body += '<section class="result-list">' + "".join(result_html(row) for row in rows) + "</section>"
         else:
@@ -2248,6 +2361,8 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
 
     source_link = h(doc["url"] or "")
     citations = _build_citations(doc)
+    paper_backlinks = paper_backlinks_html(doc["doc_key"])
+    event_backlinks = doc_event_links_html([row["page_id"] for row in rows])
     matched_chips = "".join(
         f'<a class="tag" href="/search?q={quote(t.strip())}">{h(t.strip())}</a>'
         for t in (doc["matched_terms"] or "").split(";") if t.strip()
@@ -2393,6 +2508,8 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   <pre class="cite-content" id="cite-content" data-bibtex="{h(citations['bibtex'])}" data-chicago="{h(citations['chicago'])}" data-gb="{h(citations['gb'])}">{h(citations['gb'])}</pre>
   <div class="meta-card-foot">{meta_card_foot}</div>
 </section>
+{paper_backlinks}
+{event_backlinks}
 """
     # 渲染交叉档案区块
     if related_docs:
@@ -3565,6 +3682,75 @@ PAPERS = [
 ]
 
 
+CITATION_PATTERNS = [
+    r"\bfrus\d{4}[A-Za-z0-9]*/d\d+\b",
+    r"\b(?:cia-meng|wilson|hoover|hathi-ia|drnh):[A-Za-z0-9_.:/-]+\b",
+    r"\bcia-rdp[0-9a-z-]+\b",
+    r"\br[0-9]{4}[0-9a-z-]+\b",
+]
+
+
+def paper_cited_doc_keys_from_markdown(c: sqlite3.Connection, md: str) -> list[str]:
+    candidates: list[str] = []
+    for pattern in CITATION_PATTERNS:
+        candidates.extend(re.findall(pattern, md, flags=re.IGNORECASE))
+
+    resolved: list[str] = []
+    seen: set[str] = set()
+    for raw in candidates:
+        token = raw.strip().rstrip(").,;，。；")
+        lower = token.lower()
+        doc_key = ""
+        if lower.startswith("frus"):
+            doc_key = token
+        elif lower.startswith(("wilson:", "hoover:", "hathi-ia:", "drnh:", "cia-meng:")):
+            doc_key = token
+        elif lower.startswith("cia-rdp"):
+            doc_key = "cia-meng:" + lower
+        elif lower.startswith("r"):
+            row = c.execute(
+                """
+                SELECT doc_key FROM documents
+                WHERE source_platform='cia'
+                  AND lower(doc_key) LIKE ?
+                ORDER BY length(doc_key)
+                LIMIT 1
+                """,
+                (f"%{lower}",),
+            ).fetchone()
+            doc_key = row["doc_key"] if row else ""
+        if not doc_key or doc_key.lower() in seen:
+            continue
+        row = c.execute(
+            """
+            SELECT doc_key FROM documents
+            WHERE doc_key=? OR lower(doc_key)=lower(?)
+            LIMIT 1
+            """,
+            (doc_key, doc_key),
+        ).fetchone()
+        if row and row["doc_key"].lower() not in seen:
+            resolved.append(row["doc_key"])
+            seen.add(row["doc_key"].lower())
+    return resolved
+
+
+def paper_cited_doc_keys(c: sqlite3.Connection, key: str = "") -> list[str]:
+    targets = [p for p in PAPERS if p[0] != "overview" and (not key or p[0] == key)]
+    resolved: list[str] = []
+    seen: set[str] = set()
+    for _, _, _, path, _, _ in targets:
+        fpath = ROOT / path
+        if not fpath.exists():
+            continue
+        for doc_key in paper_cited_doc_keys_from_markdown(c, fpath.read_text(encoding="utf-8")):
+            if doc_key.lower() in seen:
+                continue
+            resolved.append(doc_key)
+            seen.add(doc_key.lower())
+    return resolved
+
+
 def render_markdown(md: str) -> str:
     """轻量 markdown → HTML 渲染（针对论文格式）。"""
     lines = md.split("\n")
@@ -3683,55 +3869,8 @@ def paper_cited_docs_html(key: str, md: str) -> str:
     if key == "overview":
         return ""
 
-    candidates: list[str] = []
-    patterns = [
-        r"\bfrus\d{4}[A-Za-z0-9]*/d\d+\b",
-        r"\b(?:cia-meng|wilson|hoover|hathi-ia|drnh):[A-Za-z0-9_.:/-]+\b",
-        r"\bcia-rdp[0-9a-z-]+\b",
-        r"\br[0-9]{4}[0-9a-z-]+\b",
-    ]
-    for pattern in patterns:
-        candidates.extend(re.findall(pattern, md, flags=re.IGNORECASE))
-
-    resolved: list[str] = []
-    seen: set[str] = set()
     with conn() as c:
-        for raw in candidates:
-            token = raw.strip().rstrip(").,;，。；")
-            lower = token.lower()
-            doc_key = ""
-            if lower.startswith("frus"):
-                doc_key = token
-            elif lower.startswith(("wilson:", "hoover:", "hathi-ia:", "drnh:", "cia-meng:")):
-                doc_key = token
-            elif lower.startswith("cia-rdp"):
-                doc_key = "cia-meng:" + lower
-            elif lower.startswith("r"):
-                row = c.execute(
-                    """
-                    SELECT doc_key FROM documents
-                    WHERE source_platform='cia'
-                      AND lower(doc_key) LIKE ?
-                    ORDER BY length(doc_key)
-                    LIMIT 1
-                    """,
-                    (f"%{lower}",),
-                ).fetchone()
-                doc_key = row["doc_key"] if row else ""
-            if not doc_key or doc_key in seen:
-                continue
-            row = c.execute(
-                """
-                SELECT doc_key FROM documents
-                WHERE doc_key=? OR lower(doc_key)=lower(?)
-                LIMIT 1
-                """,
-                (doc_key, doc_key),
-            ).fetchone()
-            if row and row["doc_key"] not in seen:
-                resolved.append(row["doc_key"])
-                seen.add(row["doc_key"])
-
+        resolved = paper_cited_doc_keys_from_markdown(c, md)
         if not resolved:
             return ""
         placeholders = ",".join("?" for _ in resolved)
@@ -3774,6 +3913,83 @@ def paper_cited_docs_html(key: str, md: str) -> str:
   <div class="meta">从论文正文自动识别 doc_key，并链接到本库中英对照原档与引用卡片。</div>
   <div class="result-list compact-list">{''.join(items)}</div>
   {more}
+</section>
+"""
+
+
+def paper_backlinks_html(doc_key: str) -> str:
+    matches = []
+    wanted = doc_key.lower()
+    with conn() as c:
+        for key, name, brief, _, icon, href in PAPERS:
+            if key == "overview":
+                continue
+            cited = {value.lower() for value in paper_cited_doc_keys(c, key)}
+            if wanted in cited:
+                matches.append((name, brief, icon, href))
+    if not matches:
+        return ""
+    items = []
+    for name, brief, icon, href in matches:
+        items.append(
+            f"""
+<article class="result compact-result">
+  <div>
+    <h3><a href="{h(href)}"><svg class="ico"><use href="#{h(icon)}"/></svg>{h(name)}</a></h3>
+    <div class="meta">{h(brief)}</div>
+  </div>
+  <div class="cite"><a href="{h(href)}">论文证据链</a></div>
+</article>"""
+        )
+    return f"""
+<section class="paper-citations">
+  <h2 class="md-h2">论文引用回链</h2>
+  <div class="meta">下列平台论文已把本档案列入原始证据链，可从论文回到原文、译文和引用卡片。</div>
+  <div class="result-list compact-list">{''.join(items)}</div>
+</section>
+"""
+
+
+def doc_event_links_html(page_ids: list[int]) -> str:
+    if not page_ids:
+        return ""
+    placeholders = ",".join("?" for _ in page_ids)
+    with conn() as c:
+        try:
+            rows = c.execute(
+                f"""
+                SELECT DISTINCT scope_type, scope_slug, scope_name, event_date, event_title, event_summary
+                FROM research_events
+                WHERE page_id IN ({placeholders})
+                ORDER BY COALESCE(event_date, ''), importance DESC, event_title
+                LIMIT 8
+                """,
+                tuple(page_ids),
+            ).fetchall()
+        except sqlite3.OperationalError:
+            rows = []
+    if not rows:
+        return ""
+    items = []
+    for row in rows:
+        query_key = "topic" if row["scope_type"] == "topic" else "person"
+        href = f"/events?{query_key}={quote(row['scope_slug'])}"
+        items.append(
+            f"""
+<article class="result compact-result">
+  <div>
+    <h3><a href="{h(href)}">{h(row["event_title"])}</a></h3>
+    <div class="meta">{h(row["event_date"] or "日期未注明")} · {h(row["scope_name"])}</div>
+    <div class="snippet">{h(compact(row["event_summary"], 180))}</div>
+  </div>
+  <div class="cite"><a href="{h(href)}">事件线索</a></div>
+</article>"""
+        )
+    return f"""
+<section class="paper-citations">
+  <h2 class="md-h2">事件与人物证据链</h2>
+  <div class="meta">本档案片段已进入事件索引，可继续按人物、地点、机构追踪同一问题的跨源材料。</div>
+  <div class="result-list compact-list">{''.join(items)}</div>
 </section>
 """
 
@@ -3828,6 +4044,26 @@ def paper_page(key: str) -> bytes:
 </div>
 """
     return layout(f"{name} · 研究论文", body)
+
+
+def about_page() -> bytes:
+    fpath = ROOT / "docs" / "_public-introduction.md"
+    body = breadcrumb_html([("/", "首页"), (None, "项目介绍")])
+    if not fpath.exists():
+        body += '<div class="notice">项目介绍文档未生成。</div>'
+        return layout("项目介绍", body, active_path="/about")
+    html_body = render_markdown(fpath.read_text(encoding="utf-8"))
+    body += f"""
+<article class="paper-content">
+{html_body}
+</article>
+<div class="doc-tools" style="margin-top:24px;justify-content:center;">
+  <a class="button" href="/papers">研究论文</a>
+  <a class="button" href="/sourcebooks">资料包下载</a>
+  <a class="button" href="/standards">收录标准</a>
+</div>
+"""
+    return layout("项目介绍 · 民盟历史文献研究库", body, active_path="/about")
 
 
 def excluded_page() -> bytes:
@@ -5276,6 +5512,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = focus_page(qs.get("saved", [""])[0] == "1")
         elif parsed.path == "/dashboard":
             payload = dashboard()
+        elif parsed.path == "/about":
+            payload = about_page()
         elif parsed.path == "/sourcebooks":
             payload = sourcebooks_page()
         elif parsed.path == "/drnh-review":
@@ -5301,8 +5539,34 @@ class Handler(BaseHTTPRequestHandler):
                 return
             except Exception:
                 payload = layout("史料长编未找到", '<div class="notice">未找到该史料长编 PDF。</div>', active_path="/sourcebooks")
+        elif parsed.path.startswith("/packages/file/"):
+            try:
+                fname = unquote(parsed.path.removeprefix("/packages/file/"))
+                if "/" in fname or ".." in fname or not fname.endswith(".zip"):
+                    raise ValueError("bad package path")
+                fpath = (RESEARCH_PACKAGE_DIR / fname).resolve()
+                package_root = RESEARCH_PACKAGE_DIR.resolve()
+                if not str(fpath).startswith(str(package_root)) or not fpath.is_file():
+                    raise FileNotFoundError
+                data = fpath.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/zip")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Content-Disposition", f"attachment; filename=\"research-package.zip\"; filename*=UTF-8''{quote(fname)}")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            except Exception:
+                payload = layout("资料包未找到", '<div class="notice">未找到该平台资料包 ZIP。请先生成 output/research_packages。</div>', active_path="/sourcebooks")
         elif parsed.path == "/search":
-            payload = search(qs.get("q", [""])[0], qs.get("platform", [""])[0] if "platform" in qs else None)
+            payload = search(
+                qs.get("q", [""])[0],
+                qs.get("platform", [""])[0] if qs.get("platform", [""])[0] else None,
+                qs.get("year", [""])[0],
+                qs.get("grade", [""])[0],
+                qs.get("person", [""])[0],
+                qs.get("cited", [""])[0] == "1",
+            )
         elif parsed.path == "/docs":
             payload = docs(qs.get("grade", [""])[0], qs.get("translation", [""])[0], qs.get("platform", [""])[0])
         elif parsed.path == "/glossary":
