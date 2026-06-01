@@ -95,11 +95,22 @@ class DRNHSession:
             "page_fname": d.get("page_fname", ""),
         }
 
-    def load_image(self, page_code: str) -> bytes | None:
-        r = self.s.get(f"{BASE}?act=Display/loadimg/{page_code}", timeout=45)
-        if r.status_code != 200 or not r.headers.get("Content-Type", "").startswith("image/"):
-            return None
-        return r.content
+    def load_image(self, page_code: str, retries: int = 4) -> bytes | None:
+        """带重试的图像下载，处理 DNS / 连接 / HTTP 临时故障。"""
+        for attempt in range(retries):
+            try:
+                r = self.s.get(f"{BASE}?act=Display/loadimg/{page_code}", timeout=45)
+                if r.status_code == 200 and r.headers.get("Content-Type", "").startswith("image/"):
+                    return r.content
+                # 非 image 响应（403/500/HTML 拦截等）
+                if attempt == retries - 1:
+                    return None
+            except requests.RequestException:
+                if attempt == retries - 1:
+                    return None
+            # 指数退避：3s, 6s, 12s
+            time.sleep(3 * (2 ** attempt))
+        return None
 
     def fetch_doc(self, store_no: str) -> tuple[dict, bytes | None]:
         """端到端取一份档案的所有页。返回 (meta, error_or_None)。"""
@@ -206,7 +217,13 @@ def main():
                     continue
             except Exception:
                 pass
-        meta, images = sess.fetch_doc(sn)
+        try:
+            meta, images = sess.fetch_doc(sn)
+        except Exception as e:
+            # 网络瞬时故障 / 服务端 5xx / 解析异常等：记一笔继续下一篇
+            meta = {"store_no": sn, "fetched_at": datetime.now().isoformat(timespec="seconds"),
+                    "error": f"exception:{type(e).__name__}:{str(e)[:120]}", "pages_ok": 0}
+            images = None
         dst.mkdir(parents=True, exist_ok=True)
         if images:
             for n, b in images.items():
