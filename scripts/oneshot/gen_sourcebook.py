@@ -36,6 +36,9 @@ PLATFORMS = {
     "hathitrust": ("HathiTrust 数字典藏", "HathiTrust Digital Library",
                    "由 HathiTrust 数字图书馆与 Internet Archive 数字化的"
                    "同时期图书、报刊与文献。"),
+    "newspapersg": ("NewspaperSG 南洋报刊", "NewspaperSG, National Library Board Singapore",
+                    "新加坡国家图书馆 NewspaperSG 数字报刊平台所收南洋华文与英文报刊，"
+                    "记录中国民主同盟在南洋舆论场、华侨社团和英殖民地政治环境中的活动。"),
 }
 
 CSS = """
@@ -310,7 +313,7 @@ def build(platform, items, vol_label=""):
   <div class="en">{esc(en_name)}</div>
   <div class="rule"></div>
   <div class="desc">1941—1950 年中国民主同盟<br>中国大陆境外一手档案<br>
-    英文原文与中文译文对照 · 按时间线编排</div>
+    原文与中文译文对照 · 按时间线编排</div>
   <div class="foot">收录档案 {len(items)} 篇　·　{esc(span)}<br>
     民盟历史文献研究项目组（编）　·　{today}</div>
 </div>"""]
@@ -323,7 +326,7 @@ def build(platform, items, vol_label=""):
     时间跨度 {esc(span)}。</p>
   <p>{esc(intro)}</p>
   <p>全编按档案日期先后编排，每篇先列档案信息（日期、标题、出处与原档链接），
-    继列英文原文，再列中文译文。英文原文照录自原始档案数字化文本，可能含
+    继列原文，再列中文译文。原文照录自原始档案数字化文本，可能含
     扫描识别（OCR）噪声，未作改动；中文译文供研究参考。正式学术引用请以
     原始档案为准，并按各档案出处依 GB/T 7714 著录。</p>
   <p>本编为研究编排与翻译整理之成果，原始档案版权归各档案馆所属机构所有。</p>
@@ -367,7 +370,7 @@ def build(platform, items, vol_label=""):
         body.append(f"""<div class="entry">
   <div class="no-title"><span class="no">{i}.</span>{esc(d["title"] or "（无标题）")}</div>
   <div class="meta">日期：{esc(d["date_guess"] or "不详")}　|　出处：{esc(en_name)}　|　本库 ID：doc/{esc(d["doc_key"])}{url}</div>
-  <div class="seclabel">英 文 原 文</div>
+  <div class="seclabel">原 文</div>
   <div class="en-text">{en_html}</div>
   <div class="seclabel">中 文 译 文</div>
   <div class="zh-text">{zh_html}</div>

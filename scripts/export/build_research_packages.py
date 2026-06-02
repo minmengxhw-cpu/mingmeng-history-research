@@ -33,6 +33,7 @@ PLATFORMS = {
     "hathitrust": "HathiTrust 数字典藏",
     "wilson": "威尔逊中心数字档案",
     "hoover": "胡佛研究所档案",
+    "newspapersg": "NewspaperSG 南洋报刊",
 }
 
 
