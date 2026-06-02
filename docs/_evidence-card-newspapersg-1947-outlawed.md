@@ -6,12 +6,12 @@
 
 ## NewspaperSG 证据
 
-- 1947-10-29 Morning Tribune: “CHINA DEMOCRATIC LEAGUE OUTLAWED”
-- 1947-10-29 Indian Daily Mail: “CHINESE GOVERNMENT OUTLAWS DEMOCRATIC LEAGUE”
-- 1947-10-30 Indian Daily Mail: “China Democratic League Outlawed”
-- 1947-10-30 Malaya Tribune: “S'hai Police take Over Democratic League Hqrs.”
-- 1947-11-01 Morning Tribune: “Police Guard Shanghai Democratic League Hq”
-- 1947-11-05 《南洋商报》: “平教授请政府收回民盟非法令……”
+- 1947-10-29 Morning Tribune: “CHINA DEMOCRATIC LEAGUE OUTLAWED”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/morningtribune19471029-1.2.13)
+- 1947-10-29 Indian Daily Mail: “CHINESE GOVERNMENT OUTLAWS DEMOCRATIC LEAGUE”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/indiandailymail19471029-1.2.45)
+- 1947-10-30 Indian Daily Mail: “China Democratic League Outlawed”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/indiandailymail19471030-1.2.34)
+- 1947-10-30 Malaya Tribune: “S'hai Police take Over Democratic League Hqrs.”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/maltribune19471030-1.2.81)
+- 1947-11-01 Morning Tribune: “Police Guard Shanghai Democratic League Hq”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/morningtribune19471101-1.2.30)
+- 1947-11-05 《南洋商报》: “平教授请政府收回民盟非法令……”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/nysp19471105-1.2.10)
 
 ## 可互证来源
 

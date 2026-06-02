@@ -6,10 +6,10 @@
 
 ## NewspaperSG 证据
 
-- 1946-10-21 Indian Daily Mail: “Local Chinese Launch 'Quit China Week' Today”
-- 1946-10-24 Malaya Tribune: “20,000 Sign 'Quit China' Petition”
-- 1946-10-25 Indian Daily Mail: “‘QUIT CHINA WEEK’ 20,000 Chinese Have Already Signed Petition To Truman”
-- 1946-10-28 Indian Daily Mail: “‘International’ Rally in Singapore urges Americans Quit China”
+- 1946-10-21 Indian Daily Mail: “Local Chinese Launch 'Quit China Week' Today”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/indiandailymail19461021-1.2.49)
+- 1946-10-24 Malaya Tribune: “20,000 Sign 'Quit China' Petition”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/maltribune19461024-1.2.9)
+- 1946-10-25 Indian Daily Mail: “‘QUIT CHINA WEEK’ 20,000 Chinese Have Already Signed Petition To Truman”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/indiandailymail19461025-1.2.65)
+- 1946-10-28 Indian Daily Mail: “‘International’ Rally in Singapore urges Americans Quit China”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/indiandailymail19461028-1.2.32)
 
 ## 可互证来源
 
