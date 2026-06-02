@@ -700,7 +700,7 @@ ICONS_SVG = """
 
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
-    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
+    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
 
@@ -1685,6 +1685,7 @@ def dashboard() -> bytes:
     <a class="button" href="/focus">首页清单</a>
     <a class="button" href="/drnh-review">DRNH校订</a>
     <a class="button" href="/external-acquisition">外部调档</a>
+    <a class="button" href="/open-sources">开放资料源</a>
     <a class="button" href="/sourcebooks">史料长编</a>
   </div>
 </section>
@@ -1952,6 +1953,70 @@ def external_acquisition_page() -> bytes:
 </article>"""
         body += "</section>"
     return layout("外部档案调档队列", body, active_path="/external-acquisition")
+
+
+def open_sources_page() -> bytes:
+    rows = read_csv_rows(ROOT / "data" / "open_source_probe.csv", 200)
+    groups: dict[str, list[dict[str, str]]] = {}
+    for row in rows:
+        groups.setdefault(row.get("source_line") or "未分组", []).append(row)
+
+    available_count = sum(1 for row in rows if (row.get("probe_status") or "").startswith("200"))
+    blocked_count = sum(1 for row in rows if not (row.get("probe_status") or "").startswith("200"))
+    gpa_count = len(groups.get("GPA 民国报刊开放库", []))
+    nus_count = len(groups.get("NUS 南侨日报", []))
+    jacar_count = len(groups.get("JACAR 日本亚洲历史资料中心", []))
+
+    body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "开放资料源")]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>开放资料源探勘</h1>
+    <div class="meta">用于推进可以免费访问、后续可自动抓取全文或图像的资料源；付费扫描或到馆调档仍放在外部调档队列。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/dashboard">仪表盘</a>
+    <a class="button" href="/external-acquisition">外部调档</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(len(rows))}</strong><span>候选入口</span></div>
+  <div class="stat"><strong>{h(available_count)}</strong><span>入口可访问</span></div>
+  <div class="stat"><strong>{h(blocked_count)}</strong><span>需接口处理</span></div>
+  <div class="stat"><strong>{h(gpa_count)}</strong><span>GPA</span></div>
+  <div class="stat"><strong>{h(nus_count)}</strong><span>NUS</span></div>
+  <div class="stat"><strong>{h(jacar_count)}</strong><span>JACAR</span></div>
+</section>
+"""
+    if not rows:
+        body += '<div class="notice">还没有开放资料源探勘清单。请先运行 scripts/probe/probe_open_sources.py。</div>'
+    else:
+        for source_line, items in groups.items():
+            body += f"""
+<div class="section-head">
+  <h2><svg class="ico"><use href="#i-archive"/></svg>{h(source_line)}</h2>
+</div>
+<section class="result-list">
+"""
+            for row in items:
+                url = row.get("url") or "#"
+                status = row.get("probe_status") or ""
+                status_cls = "ok" if status.startswith("200") else "warn"
+                body += f"""
+<article class="result">
+  <div>
+    {title_block(row.get("title") or row.get("query") or "未题名", url)}
+    <div class="meta">{h(row.get("priority"))} · {h(row.get("archive"))} · 检索词：{h(row.get("query"))}</div>
+    <div class="tagline">
+      <span class="tag">{h(row.get("access"))}</span>
+      <span class="pstatus {status_cls}">{h(status)}</span>
+    </div>
+    <div class="snippet">{h(row.get("note"))}</div>
+    <div class="snippet"><strong>下一步：</strong>{h(row.get("next_action"))}</div>
+  </div>
+  <div class="cite"><a href="{h(url)}" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>"""
+            body += "</section>"
+    return layout("开放资料源探勘", body, active_path="/open-sources")
 
 
 def save_home_focus(form: dict[str, list[str]]) -> tuple[bool, str]:
@@ -5586,6 +5651,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = drnh_review_page(qs.get("tier", [""])[0])
         elif parsed.path == "/external-acquisition":
             payload = external_acquisition_page()
+        elif parsed.path == "/open-sources":
+            payload = open_sources_page()
         elif parsed.path.startswith("/sourcebooks/file/"):
             try:
                 fname = unquote(parsed.path.removeprefix("/sourcebooks/file/"))
