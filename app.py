@@ -3658,27 +3658,57 @@ def topics() -> bytes:
 # ============================================================
 
 PAPERS = [
+    # 第一组：六源平台学术综述 + 总论（7 篇）
     ("overview", "六源对照档案体系（总论）",
      "1941-1950 年中国民主同盟史的境外一手档案研究框架",
-     "docs/_overview-paper.md", "i-library", "/papers/overview"),
+     "docs/_overview-paper.md", "i-library", "/papers/overview", "paper"),
     ("frus", "美方公开外交基准源 · FRUS",
-     "11 分卷 / 273 直接命中 + 26 间接命中 / 罗隆基 57 次为人物之首",
-     "docs/_frus-paper.md", "i-globe", "/papers/frus"),
+     "11 分卷 / 273 篇直接命中精读 / 罗隆基 62 次为人物之首 / v3 史学叙事版",
+     "docs/_frus-paper.md", "i-globe", "/papers/frus", "paper"),
     ("drnh", "国民政府打压方内部档案 · DRNH",
-     "364 篇 / 戴笠呈件 + 蒋档批阅 + 保密局呈件 25 篇为核心子集",
-     "docs/_drnh-paper.md", "i-archive", "/papers/drnh"),
+     "282 篇精读 / 124 核心 + 38 保密局呈件 / 1947-10-23 蒋作战会报亲自决策档",
+     "docs/_drnh-paper.md", "i-archive", "/papers/drnh", "paper"),
     ("cia", "美方解密情报系统 · CIA",
-     "76 篇（剔 26 后）/ 民盟海外网络独有档案 / 上海撤往香港高质量译文样本",
-     "docs/_cia-paper.md", "i-lock", "/papers/cia"),
+     "76 篇（剔 26 后）human-reviewed / 民盟海外网络独有档案 / 1949-05 上海撤离档",
+     "docs/_cia-paper.md", "i-lock", "/papers/cia", "paper"),
     ("hathitrust", "港埠公开舆论场 · HathiTrust / IA",
      "54 期 China Mail + Hong Kong Telegraph / 1947 民盟「非法」5 期连续报道",
-     "docs/_hathitrust-paper.md", "i-book", "/papers/hathitrust"),
+     "docs/_hathitrust-paper.md", "i-book", "/papers/hathitrust", "paper"),
     ("wilson", "苏方与东欧档案 · Wilson Center",
-     "24 篇 / 121 页段 / wilson:134160 新政协预委会民主党派苏方记录",
-     "docs/_wilson-paper.md", "i-flag", "/papers/wilson"),
+     "24 篇 / wilson:134160 RGASPI 斯大林档新政协民主党派系统报告",
+     "docs/_wilson-paper.md", "i-flag", "/papers/wilson", "paper"),
     ("hoover", "民盟创始人致美方私函 · Hoover Institution",
-     "张君劢致 Wedemeyer + Marshall 两封信 / 与 FRUS 1947v07 卷四源对照",
-     "docs/_hoover-paper.md", "i-quote", "/papers/hoover"),
+     "张君劢致 Wedemeyer + Marshall 两函 L1 级 / 1947-11 民盟非法化四源对位",
+     "docs/_hoover-paper.md", "i-quote", "/papers/hoover", "paper"),
+    # 第二组：六卷待核问题与证据等级清单（社科院方法论实践，6 份）
+    ("frus-review", "FRUS 卷 · 待核问题与证据等级清单",
+     "4 篇 ⭐ 关键档案 L1 优先 / 4 类单源孤证 / 12 位民盟人物待补 / 论文 v3 中 7 处判断层自查",
+     "docs/_frus-待核问题与证据等级清单.md", "i-tag", "/papers/frus-review", "review"),
+    ("drnh-review", "DRNH 卷 · 待核问题与证据等级清单",
+     "9 篇 LLM 自评误命中分组处置 / 5 类时间冲突待互证 / 「民主同盟」概念 4 重所指方法学说明",
+     "docs/_drnh-待核问题与证据等级清单.md", "i-tag", "/papers/drnh-review", "review"),
+    ("cia-review", "CIA 卷 · 待核问题与证据等级清单",
+     "4 篇 ⭐ 关键档案 L1 优先 / 1949 罗隆基「被囚禁」vs FRUS「新政权要职」反向陈述核验",
+     "docs/_cia-待核问题与证据等级清单.md", "i-tag", "/papers/cia-review", "review"),
+    ("hathitrust-review", "HathiTrust 卷 · 待核问题与证据等级清单",
+     "16 期「空」分两类（真无相关 vs 关键词漏报）/ 6 个关键词遗漏候选 / 港媒立场转变机制",
+     "docs/_hathitrust-待核问题与证据等级清单.md", "i-tag", "/papers/hathitrust-review", "review"),
+    ("wilson-review", "Wilson 卷 · 待核问题与证据等级清单",
+     "wilson:134160 RGASPI 斯大林档 L1 优先 / 革命民主同盟 vs 中国民主同盟术语核 / 双道翻译限制",
+     "docs/_wilson-待核问题与证据等级清单.md", "i-tag", "/papers/wilson-review", "review"),
+    ("hoover-review", "Hoover 卷 · 待核问题与证据等级清单（精简版）",
+     "2 件已 L1 / Box 13—14 全宗补查清单 / 张君劢「双重身份」问题 / 1947-11-01 函因果待 NARA 补",
+     "docs/_hoover-待核问题与证据等级清单.md", "i-tag", "/papers/hoover-review", "review"),
+    # 第三组：跨源事件证据卡片（社科院方法论第 2 条「互证优先」实践，3 份）
+    ("evidence-1947-10", "证据卡片 001 · 1947-10 民盟「非法化」事件",
+     "DRNH + Hoover + HathiTrust + FRUS 四源 / 17 张时点卡片 / 民盟史多源最完整覆盖案例",
+     "docs/_evidence-card-1947-10-民盟非法化.md", "i-archive", "/papers/evidence-1947-10", "evidence"),
+    ("evidence-1946-05", "证据卡片 002 · 1946-05 广西取缔民盟事件",
+     "DRNH 国府内部档案孤证事件 / 10 张时点卡片 / 蒋本人 5 件连续电令链 + 同日反差档案",
+     "docs/_evidence-card-1946-05-广西取缔民盟.md", "i-archive", "/papers/evidence-1946-05", "evidence"),
+    ("evidence-1945-07", "证据卡片 003 · 1945-07 民盟代表团访延安事件",
+     "DRNH 7 篇 + FRUS 3 篇双源对位完整 / 7 张时点卡片 / 戴笠+钱大钧同日双线呈报",
+     "docs/_evidence-card-1945-07-民盟代表团访延安.md", "i-archive", "/papers/evidence-1945-07", "evidence"),
 ]
 
 
@@ -3739,7 +3769,8 @@ def paper_cited_doc_keys(c: sqlite3.Connection, key: str = "") -> list[str]:
     targets = [p for p in PAPERS if p[0] != "overview" and (not key or p[0] == key)]
     resolved: list[str] = []
     seen: set[str] = set()
-    for _, _, _, path, _, _ in targets:
+    for p in targets:
+        path = p[3]
         fpath = ROOT / path
         if not fpath.exists():
             continue
@@ -3921,7 +3952,8 @@ def paper_backlinks_html(doc_key: str) -> str:
     matches = []
     wanted = doc_key.lower()
     with conn() as c:
-        for key, name, brief, _, icon, href in PAPERS:
+        for p in PAPERS:
+            key, name, brief, _, icon, href = p[:6]
             if key == "overview":
                 continue
             cited = {value.lower() for value in paper_cited_doc_keys(c, key)}
@@ -3995,36 +4027,55 @@ def doc_event_links_html(page_ids: list[int]) -> str:
 
 
 def papers_index() -> bytes:
-    """所有论文索引页"""
+    """所有论文索引页 — 按 category 分三组：paper / review / evidence。"""
     body = breadcrumb_html([("/", "首页"), (None, "研究论文")])
     body += """
 <section class="hero hero-compact">
   <div class="hero-eyebrow">PLATFORM RESEARCH PAPERS</div>
-  <h1>六源对照档案体系 · 学术论文总览</h1>
-  <p class="hero-sub">以总论为入口，分别进入 FRUS、DRNH、CIA、HathiTrust / IA、Wilson Center、Hoover 六个档案平台论文。每篇聚焦档案集合的客观属性、收录边界、关键样本与跨源对照价值。</p>
+  <h1>六源对照档案体系 · 研究产出总览</h1>
+  <p class="hero-sub">本平台研究产出分三层：一、<strong>平台学术综述</strong>（六源 + 总论 7 篇）；
+  二、<strong>待核问题与证据等级清单</strong>（按社科院方法论「先标疑点」对每卷的核验配套，6 份）；
+  三、<strong>跨源事件证据卡片</strong>（按方法论「互证优先」的结构化卡片，3 张）。</p>
   <p style="margin-top:10px;"><a class="button" href="/standards"><svg class="ico"><use href="#i-archive"/></svg>本库收录标准与排除标准</a></p>
 </section>
-<section class="result-list">
 """
-    for key, name, brief, _, icon, href in PAPERS:
+    groups = [
+        ("paper", "一、平台学术综述（7 篇）",
+         "每篇聚焦档案集合的客观属性、收录边界、关键样本与跨源对照价值"),
+        ("review", "二、待核问题与证据等级清单（6 份）",
+         "按社科院方法论「先看来源 → 先标疑点」原则，对每卷论文做配套核验：标证据等级（L1—L4）、列单源孤证、自查判断/解释层"),
+        ("evidence", "三、跨源事件证据卡片（3 张）",
+         "对民盟史关键事件做结构化证据卡片（来源/产出主体/原文摘录/历史背景/人物关系/跨源对应/可信度/研究价值/后续检索/证据等级 8 字段）"),
+    ]
+    for cat, group_title, group_desc in groups:
+        items = [p for p in PAPERS if (p[6] if len(p) >= 7 else "paper") == cat]
         body += f"""
+<section style="margin-top:24px;">
+  <h2 style="font-size:18px; color:var(--accent-deep); border-bottom:1.5pt solid var(--accent); padding-bottom:4px; margin-bottom:8px;">{h(group_title)}</h2>
+  <p class="meta" style="margin:6px 0 12px;">{h(group_desc)}</p>
+  <div class="result-list">
+"""
+        for p in items:
+            key, name, brief, _, icon, href = p[:6]
+            body += f"""
 <article class="result">
   <div>
-    <h2><a href="{href}"><svg class="ico ico-lg" style="margin-right:6px;"><use href="#{icon}"/></svg>{h(name)}</a></h2>
+    <h2 style="font-size:16px;"><a href="{href}"><svg class="ico ico-lg" style="margin-right:6px;"><use href="#{icon}"/></svg>{h(name)}</a></h2>
     <div class="meta" style="margin-top:6px;line-height:1.7;">{h(brief)}</div>
   </div>
   <div class="cite"><a class="button" href="{href}">阅读全文 →</a></div>
 </article>"""
-    body += "</section>"
+        body += "</div></section>"
     return layout("研究论文 · 六源对照档案体系", body)
 
 
 def paper_page(key: str) -> bytes:
-    """单篇论文渲染"""
+    """单篇论文/清单/卡片渲染（PAPERS 三组共用入口）"""
     meta = next((p for p in PAPERS if p[0] == key), None)
     if not meta:
-        return layout("论文未找到", '<div class="notice">未找到该论文。</div>')
-    _, name, brief, path, icon, _ = meta
+        return layout("文档未找到", '<div class="notice">未找到该文档。</div>')
+    key, name, brief, path, icon, _ = meta[:6]
+    category = meta[6] if len(meta) >= 7 else "paper"
     from pathlib import Path as _P
     fpath = _P(__file__).parent / path
     if not fpath.exists():
@@ -4033,17 +4084,32 @@ def paper_page(key: str) -> bytes:
     html_body = render_markdown(md)
     citations_html = paper_cited_docs_html(key, md)
     body = breadcrumb_html([("/", "首页"), ("/papers", "研究论文"), (None, name)])
+    # 「前往平台栏目」按钮仅对一级论文（category=paper、非 overview）显示
+    platform_btn = ""
+    if category == "paper" and key != "overview":
+        plat_label = name.split(' · ')[-1] if ' · ' in name else name
+        platform_btn = f'<a class="button" href="/sources/{key}">前往 {h(plat_label)} 平台栏目</a>'
+    # 待核清单和证据卡片的回链按钮
+    related_btn = ""
+    if category == "review":
+        # 待核清单跳回对应平台论文
+        base_key = key.removesuffix("-review")
+        related_btn = f'<a class="button" href="/papers/{base_key}">查看 {h(base_key.upper())} 平台论文 →</a>'
+    elif category == "evidence":
+        related_btn = '<a class="button" href="/papers">← 全部研究论文</a>'
+
     body += f"""
 <article class="paper-content">
 {html_body}
 </article>
 {citations_html}
 <div class="doc-tools" style="margin-top:24px;justify-content:center;">
-  <a class="button" href="/papers">← 返回论文索引</a>
-  {'<a class="button" href="/sources/' + key + '">前往 ' + h(name.split(' · ')[-1] if ' · ' in name else name) + ' 平台栏目</a>' if key != 'overview' else ''}
+  <a class="button" href="/papers">← 返回研究论文索引</a>
+  {related_btn}
+  {platform_btn}
 </div>
 """
-    return layout(f"{name} · 研究论文", body)
+    return layout(f"{name} · 研究产出", body)
 
 
 def about_page() -> bytes:

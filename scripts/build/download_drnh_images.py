@@ -62,29 +62,51 @@ class DRNHSession:
     def _slow(self):
         time.sleep(self.sleep)
 
+    def _retry_request(self, fn, retries: int = 4):
+        """统一重试包装：DNS / 连接 / 5xx 临时故障指数退避（3s/6s/12s/24s）。"""
+        last_exc = None
+        for attempt in range(retries):
+            try:
+                return fn()
+            except requests.RequestException as e:
+                last_exc = e
+                if attempt == retries - 1:
+                    raise
+                time.sleep(3 * (2 ** attempt))
+        raise last_exc  # 防御性
+
     def search_for_acckey(self, store_no: str) -> str | None:
-        """按典藏号搜索，从结果 HTML 抽 acckey。"""
+        """按典藏号搜索，从结果 HTML 抽 acckey（带重试）。"""
         query = json.dumps({"query": [{"field": "store_no", "value": store_no, "attr": "+"}]},
                            ensure_ascii=False, separators=(",", ":"))
-        r = self.s.get(f"{BASE}?act=Archive/search/{b64u(query)}", timeout=40)
-        r.raise_for_status()
+        def _do():
+            r = self.s.get(f"{BASE}?act=Archive/search/{b64u(query)}", timeout=40)
+            r.raise_for_status()
+            return r
+        r = self._retry_request(_do)
         # 限定到包含该 store_no 的结果块附近，避免抓错
         m = re.search(r"acckey=['\"]([a-f0-9]{32})['\"]", r.text)
         return m.group(1) if m else None
 
     def display_initial(self, acckey: str) -> str | None:
-        r = self.s.post(BASE, data={"act": f"Display/initial/{acckey}"},
-                        headers={"X-Requested-With": "XMLHttpRequest"}, timeout=30)
-        r.raise_for_status()
+        def _do():
+            r = self.s.post(BASE, data={"act": f"Display/initial/{acckey}"},
+                            headers={"X-Requested-With": "XMLHttpRequest"}, timeout=30)
+            r.raise_for_status()
+            return r
+        r = self._retry_request(_do)
         j = r.json()
         if not j.get("action"):
             return None
         return j["data"].get("resouse")
 
     def display_built(self, resouse: str) -> dict | None:
-        r = self.s.post(BASE, data={"act": f"Display/built/{resouse}/"},
-                        headers={"X-Requested-With": "XMLHttpRequest"}, timeout=30)
-        r.raise_for_status()
+        def _do():
+            r = self.s.post(BASE, data={"act": f"Display/built/{resouse}/"},
+                            headers={"X-Requested-With": "XMLHttpRequest"}, timeout=30)
+            r.raise_for_status()
+            return r
+        r = self._retry_request(_do)
         j = r.json()
         if not j.get("action"):
             return None
