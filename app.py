@@ -23,6 +23,8 @@ HOME_FOCUS_PATH = ROOT / "data" / "home_focus.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
 RESEARCH_PACKAGE_DIR = ROOT / "output" / "research_packages"
+PAPER_PDF_DIR = ROOT / "output" / "pdf"
+TITLE_TRANSLATIONS_CSV = ROOT / "data" / "newspapersg" / "title_translations.csv"
 
 
 def h(value: object) -> str:
@@ -39,6 +41,22 @@ def asset_version(path: Path) -> str:
         return str(int(path.stat().st_mtime))
     except OSError:
         return "1"
+
+
+def load_title_translations() -> dict[str, str]:
+    if not TITLE_TRANSLATIONS_CSV.exists():
+        return {}
+    out: dict[str, str] = {}
+    with TITLE_TRANSLATIONS_CSV.open(encoding="utf-8-sig") as f:
+        for row in csv.DictReader(f):
+            title = (row.get("title") or "").strip()
+            title_zh = (row.get("title_zh") or "").strip()
+            if title and title_zh:
+                out[title] = title_zh
+    return out
+
+
+TITLE_TRANSLATIONS = load_title_translations()
 
 
 PERSON_ZH = {
@@ -344,6 +362,8 @@ def _rank_with_name(rank: str, name: str) -> str:
 
 def translate_title(title: str) -> str:
     title = title or ""
+    if title in TITLE_TRANSLATIONS:
+        return TITLE_TRANSLATIONS[title]
     if title in EXACT_TITLE_ZH:
         return EXACT_TITLE_ZH[title]
 
@@ -754,7 +774,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
   <header class="topbar">
     <a class="brand" href="/">
       <span>民盟历史文献研究库</span>
-      <span class="brand-sub">FRUS · CIA · Wilson · Hoover · HathiTrust · DRNH</span>
+      <span class="brand-sub">FRUS · CIA · Wilson · Hoover · HathiTrust · DRNH · NewspaperSG</span>
     </a>
     <button class="nav-toggle" type="button" aria-label="打开导航" aria-controls="mainnav" aria-expanded="false" onclick="(function(b){{var n=document.getElementById('mainnav');var o=n.classList.toggle('is-open');b.setAttribute('aria-expanded',o);b.classList.toggle('is-open',o);}})(this)">
       <svg class="ico ico-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -773,7 +793,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       <div class="footer-top">
         <div class="footer-brand">
           <span class="footer-title">民盟历史文献研究库</span>
-          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟中国大陆境外一手档案 · 六源多视角同代史料体系</span>
+          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟中国大陆境外一手档案 · 七源多视角同代史料体系</span>
         </div>
         <div class="footer-links">
           <a href="/">首页</a>
@@ -894,6 +914,23 @@ def research_package_path(platform_key: str) -> Path | None:
     return path if path.is_file() else None
 
 
+def paper_pdf_path(platform_key: str) -> Path | None:
+    path = PAPER_PDF_DIR / f"mingmeng-{platform_key}-paper.pdf"
+    return path if path.is_file() else None
+
+
+def paper_pdf_links_html(platform_key: str, button_class: str = "button") -> str:
+    path = paper_pdf_path(platform_key)
+    if not path:
+        return ""
+    href = f"/papers/file/{quote(path.name)}"
+    return (
+        f'<a class="{button_class}" href="{h(href)}" target="_blank">'
+        f'<svg class="ico"><use href="#i-book"/></svg>下载论文 PDF '
+        f'<span class="muted">({h(file_size_label(path))})</span></a>'
+    )
+
+
 def research_package_links_html(platform_key: str, button_class: str = "button") -> str:
     path = research_package_path(platform_key)
     if not path:
@@ -978,7 +1015,7 @@ def source_page(platform_key: str) -> bytes:
             return s
     coverage_str = _fmt(meta.get("coverage", ""))
     todo_note_str = _fmt(meta.get("todo_note", ""))
-    sourcebook_tools = sourcebook_links_html(platform_key) + research_package_links_html(platform_key)
+    sourcebook_tools = paper_pdf_links_html(platform_key) + sourcebook_links_html(platform_key) + research_package_links_html(platform_key)
     # 5/26 19:50 新增：研究论文入口
     paper_link = ''
     if platform_key in {"frus", "cia", "drnh", "hathitrust", "wilson", "hoover", "newspapersg"}:
@@ -1788,6 +1825,7 @@ def sourcebooks_page() -> bytes:
         ("wilson", "威尔逊中心数字档案"),
         ("hoover", "胡佛研究所档案"),
         ("hathitrust", "HathiTrust 数字典藏"),
+        ("newspapersg", "NewspaperSG 南洋报刊"),
     ]
     files: dict[str, list[Path]] = {key: sourcebook_paths(key) for key, _ in platforms}
     packages: dict[str, Path | None] = {key: research_package_path(key) for key, _ in platforms}
@@ -1795,7 +1833,7 @@ def sourcebooks_page() -> bytes:
 <section class="doc-head">
   <div>
     <h1>史料长编</h1>
-    <div class="meta">按平台汇编英文原文与中文译文，供专题阅读、打印和阶段性整理。</div>
+  <div class="meta">按平台汇编原文与中文译文，供专题阅读、打印和阶段性整理。</div>
   </div>
   <div class="doc-tools">
     <a class="button" href="/dashboard">仪表盘</a>
@@ -2108,7 +2146,7 @@ def home() -> bytes:
         body = f"""
 <section class="hero hero-compact">
   <h1>民盟历史文献研究库</h1>
-  <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>中国大陆境外一手档案</strong>，<br>汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、台北档案史料六源同代史料。</p>
+  <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>中国大陆境外一手档案</strong>，<br>汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、台北档案史料、NewspaperSG 七源同代史料。</p>
   <div class="hero-chips">
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_zh}</b> 条中文译文</span>
@@ -2118,7 +2156,7 @@ def home() -> bytes:
 
 <div class="section-head">
   <h2><svg class="ico"><use href="#i-globe"/></svg>档案研究平台</h2>
-  <span class="section-meta">六源多视角 · 持续更新</span>
+  <span class="section-meta">七源多视角 · 持续更新</span>
 </div>
 {platforms_html_block}
 
@@ -2127,11 +2165,11 @@ def home() -> bytes:
   <a class="more" href="/papers">进入论文总览 →</a>
 </div>
 <section class="stats stats-card">
-  <div class="stat"><strong>总论</strong><span>六源对照框架</span></div>
+  <div class="stat"><strong>总论</strong><span>七源对照框架</span></div>
   <div class="stat"><strong>FRUS</strong><span>美方公开外交</span></div>
   <div class="stat"><strong>CIA</strong><span>美方解密情报</span></div>
   <div class="stat"><strong>DRNH</strong><span>国民政府内部</span></div>
-  <div class="stat"><strong>六源</strong><span>平台论文入口</span></div>
+  <div class="stat"><strong>七源</strong><span>平台论文入口</span></div>
 </section>
 
 <div class="section-head" style="margin-top:48px;">
@@ -2649,6 +2687,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             "hoover": "Hoover 现场调档",
             "hathitrust": "archive.org 镜像",
             "drnh": "台北档案史料原档",
+            "newspapersg": "NewspaperSG 原始报刊",
         }
         source_label = source_label_map.get(platform, "档案原文")
 
@@ -3749,8 +3788,8 @@ def topics() -> bytes:
 # ============================================================
 
 PAPERS = [
-    # 第一组：六源平台学术综述 + 总论（7 篇）
-    ("overview", "六源对照档案体系（总论）",
+    # 第一组：七源平台学术综述 + 总论（8 篇）
+    ("overview", "七源对照档案体系（总论）",
      "1941-1950 年中国民主同盟史的境外一手档案研究框架",
      "docs/_overview-paper.md", "i-library", "/papers/overview", "paper"),
     ("frus", "美方公开外交基准源 · FRUS",
@@ -4619,7 +4658,7 @@ def citation_page(page_id: int) -> bytes:
     return layout("引用摘录卡片", body)
 
 
-# 6 平台元数据（用于 timeline 徽章 + 过滤按钮）
+# 7 平台元数据（用于 timeline 徽章 + 过滤按钮）
 TIMELINE_PLATFORMS = [
     ("frus",        "FRUS",        "#0f6b5b"),  # 美方公开外交
     ("cia",         "CIA",         "#8b5e34"),  # 美方情报
@@ -4627,6 +4666,7 @@ TIMELINE_PLATFORMS = [
     ("hathitrust",  "HathiTrust",  "#0a4a3f"),  # 港媒
     ("wilson",      "Wilson",      "#5a3a26"),  # 苏方
     ("hoover",      "Hoover",      "#6b6356"),  # 民盟创始人私函
+    ("newspapersg", "NewspaperSG", "#157f73"),  # 南洋报刊
 ]
 TIMELINE_PLAT_LABEL = {k: lab for k, lab, _ in TIMELINE_PLATFORMS}
 TIMELINE_PLAT_COLOR = {k: col for k, _, col in TIMELINE_PLATFORMS}
@@ -4634,7 +4674,7 @@ TIMELINE_PLAT_COLOR = {k: col for k, _, col in TIMELINE_PLATFORMS}
 
 def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "") -> bytes:
     title = "民盟材料年表"
-    subtitle = "按年份排列六平台档案片段，含校订、摘录与原始来源入口。"
+    subtitle = "按年份排列七平台档案片段，含校订、摘录与原始来源入口。"
     where = ""
     params: list[str] = []
     filter_links = []
@@ -4664,7 +4704,7 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
         person = person_by_slug(person_slug)
         if person:
             title = f"{person['name']}年表"
-            subtitle = "按时间排列该人物在六平台档案中的出现。"
+            subtitle = "按时间排列该人物在七平台档案中的出现。"
             where, params = alias_where(
                 ["documents.matched_terms", "documents.title", "pages.text", "translations.text"],
                 person["aliases"],
@@ -4754,7 +4794,7 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
     # 全部年表入口
     all_active = ' active' if not platform_slug else ''
     filter_links.append(f'<a class="button{all_active}" href="/timeline">全部年表</a>')
-    # 6 平台过滤按钮
+    # 平台过滤按钮
     for plat_key, plat_label, _ in TIMELINE_PLATFORMS:
         is_active = (platform_slug == plat_key)
         active_cls = ' active' if is_active else ''
@@ -4800,7 +4840,7 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
                 issue = ""
                 if row["issue_count"]:
                     issue = f'<span class="issue{" high" if (row["max_severity"] or 0) >= 3 else ""}">{row["issue_count"]} 个校订提示</span>'
-                # source 徽章 — 6 平台分别识别
+                # source 徽章 — 各平台分别识别
                 src_platform = row["source_platform"] if "source_platform" in row.keys() else None
                 if src_platform == 'hathi_ia':  # ingest 时 source_type='hathi_ia' 对应前台 'hathitrust'
                     src_platform = 'hathitrust'
@@ -5701,6 +5741,25 @@ class Handler(BaseHTTPRequestHandler):
                 return
             except Exception:
                 payload = layout("史料长编未找到", '<div class="notice">未找到该史料长编 PDF。</div>', active_path="/sourcebooks")
+        elif parsed.path.startswith("/papers/file/"):
+            try:
+                fname = unquote(parsed.path.removeprefix("/papers/file/"))
+                if "/" in fname or ".." in fname or not fname.endswith(".pdf"):
+                    raise ValueError("bad paper pdf path")
+                fpath = (PAPER_PDF_DIR / fname).resolve()
+                paper_root = PAPER_PDF_DIR.resolve()
+                if not str(fpath).startswith(str(paper_root)) or not fpath.is_file():
+                    raise FileNotFoundError
+                data = fpath.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/pdf")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Content-Disposition", f"inline; filename=\"paper.pdf\"; filename*=UTF-8''{quote(fname)}")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            except Exception:
+                payload = layout("论文 PDF 未找到", '<div class="notice">未找到该论文 PDF。请先生成 output/pdf。</div>', active_path="/papers")
         elif parsed.path.startswith("/packages/file/"):
             try:
                 fname = unquote(parsed.path.removeprefix("/packages/file/"))
