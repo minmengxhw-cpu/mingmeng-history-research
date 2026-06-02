@@ -981,7 +981,7 @@ def source_page(platform_key: str) -> bytes:
     sourcebook_tools = sourcebook_links_html(platform_key) + research_package_links_html(platform_key)
     # 5/26 19:50 新增：研究论文入口
     paper_link = ''
-    if platform_key in {"frus", "cia", "drnh", "hathitrust", "wilson", "hoover"}:
+    if platform_key in {"frus", "cia", "drnh", "hathitrust", "wilson", "hoover", "newspapersg"}:
         paper_link = f'<a class="button" href="/papers/{platform_key}"><svg class="ico"><use href="#i-quote"/></svg>研究论文</a>'
     sourcebook_tools = (paper_link + sourcebook_tools) if paper_link else sourcebook_tools
 
@@ -3771,6 +3771,9 @@ PAPERS = [
     ("hoover", "民盟创始人致美方私函 · Hoover Institution",
      "张君劢致 Wedemeyer + Marshall 两函 L1 级 / 1947-11 民盟非法化四源对位",
      "docs/_hoover-paper.md", "i-quote", "/papers/hoover", "paper"),
+    ("newspapersg", "南洋报刊舆论场 · NewspaperSG",
+     "93 篇南洋商报与英文报刊 OCR / 新加坡分部、雪兰莪分部、1947 与 1949 非法化双线",
+     "docs/_newspapersg-paper.md", "i-book", "/papers/newspapersg", "paper"),
     # 第二组：六卷待核问题与证据等级清单（社科院方法论实践，6 份）
     ("frus-review", "FRUS 卷 · 待核问题与证据等级清单",
      "4 篇 ⭐ 关键档案 L1 优先 / 4 类单源孤证 / 12 位民盟人物待补 / 论文 v3 中 7 处判断层自查",
@@ -4123,15 +4126,15 @@ def papers_index() -> bytes:
     body += """
 <section class="hero hero-compact">
   <div class="hero-eyebrow">PLATFORM RESEARCH PAPERS</div>
-  <h1>六源对照档案体系 · 研究产出总览</h1>
-  <p class="hero-sub">本平台研究产出分三层：一、<strong>平台学术综述</strong>（六源 + 总论 7 篇）；
+  <h1>七源对照档案体系 · 研究产出总览</h1>
+  <p class="hero-sub">本平台研究产出分三层：一、<strong>平台学术综述</strong>（七源 + 总论 8 篇）；
   二、<strong>待核问题与证据等级清单</strong>（按社科院方法论「先标疑点」对每卷的核验配套，6 份）；
   三、<strong>跨源事件证据卡片</strong>（按方法论「互证优先」的结构化卡片，3 张）。</p>
   <p style="margin-top:10px;"><a class="button" href="/standards"><svg class="ico"><use href="#i-archive"/></svg>本库收录标准与排除标准</a></p>
 </section>
 """
     groups = [
-        ("paper", "一、平台学术综述（7 篇）",
+        ("paper", "一、平台学术综述（8 篇）",
          "每篇聚焦档案集合的客观属性、收录边界、关键样本与跨源对照价值"),
         ("review", "二、待核问题与证据等级清单（6 份）",
          "按社科院方法论「先看来源 → 先标疑点」原则，对每卷论文做配套核验：标证据等级（L1—L4）、列单源孤证、自查判断/解释层"),
@@ -4157,7 +4160,7 @@ def papers_index() -> bytes:
   <div class="cite"><a class="button" href="{href}">阅读全文 →</a></div>
 </article>"""
         body += "</div></section>"
-    return layout("研究论文 · 六源对照档案体系", body)
+    return layout("研究论文 · 七源对照档案体系", body)
 
 
 def paper_page(key: str) -> bytes:

@@ -14,8 +14,8 @@
 |---|---|---|---|---|
 | A1 | WO 208/4770 | Reports on political parties: Democratic League | 1947 Sept-1948 Oct | 先询价全卷扫描；同时询问页数和复制限制 |
 | A2 | FCO 141/16965 | Singapore: Chinese Democratic League branch in Hong Kong | 1947 | 优先询价，因公开状态较好，可能最快取得 |
-| A3 | CO 537/3724 | China Democratic League | 1948 | 与 CO 537/4820 一并询价 |
-| A4 | CO 537/4820 / HKMS184-3-10 | China Democratic League | 1949 | 优先走 HKPRO 检索/预约，Kew 作为备份路径 |
+| A3 | CO 537/3724 / HKMS184-2-10 | China Democratic League | 1948 | 优先走 HKPRO Access Application，确认页数、影像取得方式和复制限制 |
+| A4 | CO 537/4820 / HKMS184-3-10 | China Democratic League | 1949 | 优先走 HKPRO Access Application，确认页数、影像取得方式和复制限制 |
 
 ## 第二优先级：Sinica 阅览室 A 档
 

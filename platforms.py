@@ -158,16 +158,16 @@ PLATFORM_META = {
         "cn_name": "新加坡国家图书馆中文报刊",
         "subtitle": "南洋商报与英文海峡报刊 OCR",
         "intro": "NewspaperSG 是新加坡国家图书馆的数字报刊平台。本库已接入南洋商报、Malaya Tribune、Morning Tribune、Indian Daily Mail、Sunday Tribune 中与中国民主同盟、新加坡/马来亚华侨民盟分部、民盟被取缔及海外活动直接相关的报道，使用原始文章图像进行本地 OCR 入库。",
-        "perspective": "南洋华文报刊视角 —— 补充 FRUS/CIA/Wilson/Hoover/HathiTrust/DRNH 之外的海外中文舆论与侨界组织活动记录",
+        "perspective": "南洋华文与英文报刊视角 —— 补充 FRUS/CIA/Wilson/Hoover/HathiTrust/DRNH 之外的海外舆论与侨界组织活动记录",
         "coverage": "1945-1949 新加坡华文与英文报刊民盟相关报道，覆盖新加坡分部、雪兰莪分部、罗隆基、胡愈之、李公朴闻一多案、1947 民盟非法化、1949 总部迁平等线索",
         "highlights": [
-            "已完成真实抓取：61 篇中国民主同盟相关报刊报道，含 21 篇南洋商报中文报道与 40 篇英文报刊报道；剔除马来亚民主同盟等同名误命中。",
+            "已完成真实抓取：93 篇中国民主同盟相关报刊报道，含 21 篇南洋商报中文报道与 72 篇英文报刊报道；剔除马来亚民主同盟等同名误命中。",
             "入库形态为 NewspaperSG 原始文章链接 + 本地高清文章图 OCR 文本；高清图像保留在本机，GitHub 只同步 OCR 文本、候选清单与脚本。",
             "可与 CIA 华南/马来亚民盟情报、HathiTrust 香港英文报刊和 FRUS 同期外交电报互相对照。"
         ],
         "status": None,
         "status_class": "ok",
         "active": True,
-        "todo_note": "下一步继续扩展 NewspaperSG data.gov.sg 候选清单中剩余高置信英文条目，并继续补齐 1946-1949 华文报刊中直接出现中国民主同盟、民盟总部、张澜、罗隆基、胡愈之、李公朴、闻一多等关键词的报道。",
+        "todo_note": "下一步继续补齐 1946-1949 华文报刊中直接出现中国民主同盟、民盟总部、张澜、罗隆基、胡愈之、李公朴、闻一多等关键词的报道，并与 HKPRO/HKRS 港英档案线索互证。",
     },
 }
