@@ -59,11 +59,11 @@ SEEDS: list[Seed] = [
         "GPA 民国报刊开放库",
         "East View / CRL Late Qing and Republican-Era Chinese Newspapers",
         "中國民主同盟",
-        "中国民主同盟 / 民盟直接命中",
+        "中国民主同盟检索入口 / 待命中解析",
         gpa_search_url("中國民主同盟"),
         "开放访问；Veridian 全文检索；可继续按中文关键词抓候选页",
-        "先按繁体关键词跑命中清单，再抽取 1944-1949 结果",
-        "中文报刊库不适合用英文 Democratic League 检索，应以繁体中文为主。",
+        "改用人物名、报刊名和简繁异体词组合，先得到具体题名页再入库",
+        "本入口用于继续探勘；不能当作已命中民盟单篇记录。",
     ),
     Seed(
         "A2",
@@ -150,7 +150,7 @@ def fetch_status(url: str, timeout: float = 8.0) -> tuple[int | None, str, str]:
 
 def classify_html(text: str) -> str:
     lower = text.lower()
-    if "no results for" in lower or "未找到" in text:
+    if "no results for" in lower or "no results" in lower or "未找到" in text or "无结果" in text or "無結果" in text or "該当する文書が見つかりません" in text:
         return "可访问；本关键词暂无命中"
     if "searchpagesearchresults" in lower or "search" in lower:
         return "可访问；检索页已返回"

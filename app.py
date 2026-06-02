@@ -1957,6 +1957,7 @@ def external_acquisition_page() -> bytes:
 
 def open_sources_page() -> bytes:
     rows = read_csv_rows(ROOT / "data" / "open_source_probe.csv", 200)
+    records = read_csv_rows(ROOT / "data" / "open_source_records.csv", 200)
     groups: dict[str, list[dict[str, str]]] = {}
     for row in rows:
         groups.setdefault(row.get("source_line") or "未分组", []).append(row)
@@ -1985,8 +1986,33 @@ def open_sources_page() -> bytes:
   <div class="stat"><strong>{h(gpa_count)}</strong><span>GPA</span></div>
   <div class="stat"><strong>{h(nus_count)}</strong><span>NUS</span></div>
   <div class="stat"><strong>{h(jacar_count)}</strong><span>JACAR</span></div>
+  <div class="stat"><strong>{h(len(records))}</strong><span>真实候选</span></div>
 </section>
 """
+    if records:
+        body += """
+<div class="section-head">
+  <h2><svg class="ico"><use href="#i-check"/></svg>已验证可入库记录</h2>
+</div>
+<section class="result-list">
+"""
+        for record in records:
+            url = record.get("url") or "#"
+            body += f"""
+<article class="result">
+  <div>
+    {title_block(record.get("title") or "未题名", url)}
+    <div class="meta">{h(record.get("archive"))} · {h(record.get("date"))} · {h(record.get("pages"))} 页 · {h(record.get("access"))}</div>
+    <div class="tagline">
+      <span class="tag">{h(record.get("source_line"))}</span>
+      <span class="pstatus ok">{h(record.get("status"))}</span>
+    </div>
+    <div class="snippet">{h(record.get("relevance"))}</div>
+    <div class="snippet"><strong>下一步：</strong>{h(record.get("next_action"))}</div>
+  </div>
+  <div class="cite"><a href="{h(url)}" target="_blank" rel="noreferrer">打开记录</a></div>
+</article>"""
+        body += "</section>"
     if not rows:
         body += '<div class="notice">还没有开放资料源探勘清单。请先运行 scripts/probe/probe_open_sources.py。</div>'
     else:
