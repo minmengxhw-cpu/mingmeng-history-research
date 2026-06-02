@@ -6,11 +6,11 @@
 
 ## NewspaperSG 证据
 
-- 1947-09-29 Malaya Tribune: “China Democratic League Plans Pan-Malayan H. Q.”
-- 1947-09-29 Morning Tribune: “China Democratic League Plans To Establish Pan-Malayan H.Q.”
-- 1947-11-01 Indian Daily Mail: “MALAYA BRANCH OF DEMOCRATIC LEAGUE WILL CONTINUE TO FUNCTION”
-- 1947-11-02 Sunday Tribune: “S'pore Branch Of C.D.L. To Continue, Despite Nanking Ban”
-- 1948-01-05 Morning Tribune: “China Political Party In Burma”
+- 1947-09-29 Malaya Tribune: “China Democratic League Plans Pan-Malayan H. Q.”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/maltribune19470929-1.2.59)
+- 1947-09-29 Morning Tribune: “China Democratic League Plans To Establish Pan-Malayan H.Q.”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/morningtribune19470929-1.2.47)
+- 1947-11-01 Indian Daily Mail: “MALAYA BRANCH OF DEMOCRATIC LEAGUE WILL CONTINUE TO FUNCTION”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/indiandailymail19471101-1.2.57)
+- 1947-11-02 Sunday Tribune: “S'pore Branch Of C.D.L. To Continue, Despite Nanking Ban”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/sundaytribune19471102-1.2.45)
+- 1948-01-05 Morning Tribune: “China Political Party In Burma”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/morningtribune19480105-1.2.110)
 
 ## 可互证来源
 

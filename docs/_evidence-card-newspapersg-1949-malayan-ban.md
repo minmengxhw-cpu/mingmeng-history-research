@@ -6,12 +6,12 @@
 
 ## NewspaperSG 证据
 
-- 1949-05-10 Malaya Tribune: “Exemption To Foreign Political Bodies In S'pore Withdraw”
-- 1949-05-10 Indian Daily Mail: “TWO CHINESE PARTIES LOSE STATUS”
-- 1949-05-13 Indian Daily Mail: “CHINA DEMOCRATIC LEAGUE DECLARED UNLAWFUL”
-- 1949-05-13 Malaya Tribune: “THE MASTER MIND”
-- 1949-05-13 《南洋商报》: “联邦政府宣布中国民主同盟为非法团体”
-- 1949-05-18 《南洋商报》: 庇朥警方怀疑民盟活动并搜查
+- 1949-05-10 Malaya Tribune: “Exemption To Foreign Political Bodies In S'pore Withdraw”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/maltribune19490510-1.2.39)
+- 1949-05-10 Indian Daily Mail: “TWO CHINESE PARTIES LOSE STATUS”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/indiandailymail19490510-1.2.51)
+- 1949-05-13 Indian Daily Mail: “CHINA DEMOCRATIC LEAGUE DECLARED UNLAWFUL”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/indiandailymail19490513-1.2.61)
+- 1949-05-13 Malaya Tribune: “THE MASTER MIND”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/maltribune19490513-1.2.48)
+- 1949-05-13 《南洋商报》: “联邦政府宣布中国民主同盟为非法团体”  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/nysp19490513-1.2.32.5)
+- 1949-05-18 《南洋商报》: 庇朥警方怀疑民盟活动并搜查  [(NLB 原文)](https://eresources.nlb.gov.sg/newspapers/digitised/article/nysp19490518-1.2.28.2)
 
 ## 可互证来源
 
