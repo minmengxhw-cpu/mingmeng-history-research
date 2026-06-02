@@ -1,0 +1,74 @@
+[
+  {
+    "core_fact": "1948年，印尼秘密组织中华复兴民主联盟（CHFHTMH）成立，政策基于新政治协商会议，希望与民盟（CKMCTM）和中共结盟。民盟在香港发起伪造荷兰东印度纸币，经新加坡输入爪哇和婆罗洲。",
+    "people_mentioned": [
+      "TIE Joek Moy",
+      "LIOE Kha Kie",
+      "THEN Djin Seng",
+      "Lid Sien Hua",
+      "HUANG Ching Yen",
+      "LIOR NIE Jine",
+      "PRANG Hui Chung"
+    ],
+    "geography": "印尼（爪哇、婆罗洲）、香港、新加坡",
+    "event_type": "政治组织活动与伪造货币",
+    "importance": 4,
+    "key_quote": "The secret Chung Hua Fu Tsing Tong Meng Hui (CHFHTMH - Chinese Rehabilitation Democratic League) was set up... wishes to affiliate with the Chung Kuo Min Chu Tiang Meng (CKMCTM = China Democratic League) and the Chung Kuo Kungchantang (Chinese Communist Party).",
+    "relevance_to_existing_papers": "与民盟海外分支及与中共关系章节相关，新增民盟参与伪造货币的视角",
+    "identifier": "cia-rdp82-00457r002700760004-9",
+    "date": "1948-11-08",
+    "title": ""
+  },
+  {
+    "core_fact": "1949年3月3日，中共广播承认中国民主同盟（China Democratic League）为合法民主党派，领导人沈钧儒（Shen Chun-ju）。",
+    "people_mentioned": [
+      "沈钧儒"
+    ],
+    "geography": "上海、大连",
+    "event_type": "政治承认",
+    "importance": 4,
+    "key_quote": "China Democratic Leagues (Shen Chun-ju)",
+    "relevance_to_existing_papers": "与CIA卷v2中关于中共对民主党派政策章节相关，提供中共承认民盟的具体时间与领导人信息。",
+    "identifier": "cia-rdp80-00809a000600210828-0",
+    "date": "1949-04-05",
+    "title": ""
+  },
+  {
+    "core_fact": "该档案主要分析缅甸共产主义运动，未提及中国民主同盟（CDL）。",
+    "people_mentioned": [],
+    "geography": "缅甸",
+    "event_type": "共产主义影响分析",
+    "importance": 1,
+    "key_quote": "",
+    "relevance_to_existing_papers": "无关联",
+    "identifier": "cia-rdp79-01082a000100030008-9",
+    "date": "1949-08-23",
+    "title": ""
+  },
+  {
+    "core_fact": "1949年8月26日，东北人民政府正式成立。在8月21-26日的人民代表会议上，中国民主同盟（CDL）东北支部代表高崇民发表讲话，表示赞同政府目标，并感谢中共及东北行政委员会的援助。",
+    "people_mentioned": [
+      "高崇民"
+    ],
+    "geography": "中国东北",
+    "event_type": "政治会议",
+    "importance": 3,
+    "key_quote": "Speeches made by Kao Ch'ung-min, of the Northeast Branch of the China Democratic League (CDL), and Independents Ch'e Hsiang-shen and Tu Kuegaya, expressed approval of the aims set forth and appreciation was voiced for the aid granted by the CCP and the Northeast Executive Committee.",
+    "relevance_to_existing_papers": "与CIA卷v2中关于民盟在东北活动及与中共关系的章节相关，提供了民盟地方分支参与新政权成立的具体事例。",
+    "identifier": "cia-rdp80-00809a000600260259-6",
+    "date": "1949-10-25",
+    "title": ""
+  },
+  {
+    "core_fact": "档案未提及中国民主同盟（CDL）相关人物或事件。",
+    "people_mentioned": [],
+    "geography": "北京（Pei-p'ing）",
+    "event_type": "中苏友好协会成立大会",
+    "importance": 1,
+    "key_quote": "",
+    "relevance_to_existing_papers": "无关联",
+    "identifier": "cia-rdp80-00809a000600260509-8",
+    "date": "1949-11-02",
+    "title": ""
+  }
+]
