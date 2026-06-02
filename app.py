@@ -818,7 +818,7 @@ from platforms import PLATFORM_META  # noqa: E402  (优化 2-F 抽出)
 
 
 def platforms_panel_html(c: sqlite3.Connection) -> str:
-    """档案平台入口面板：六大档案源（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北档案史料）。"""
+    """档案平台入口面板：七大档案源。"""
     # 动态计算每个平台的数据规模
     plat_counts = {}
     try:
@@ -2428,6 +2428,43 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
         )
         return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
+    # ============ NewspaperSG 新加坡国家图书馆报刊 ============
+    if platform == "newspapersg":
+        newspaper = "NewspaperSG"
+        if title_en.startswith("本") or re.search(r"[\u4e00-\u9fff]", title_en):
+            newspaper = "南洋商报"
+        elif "maltribune" in (doc["doc_key"] or ""):
+            newspaper = "Malaya Tribune"
+        elif "morningtribune" in (doc["doc_key"] or ""):
+            newspaper = "Morning Tribune"
+        elif "indiandailymail" in (doc["doc_key"] or ""):
+            newspaper = "Indian Daily Mail"
+        elif "sundaytribune" in (doc["doc_key"] or ""):
+            newspaper = "Sunday Tribune"
+        nid = docnum or (doc["doc_key"] or "").split(":", 1)[-1]
+        bibkey = f"NewspaperSG_{nid}".replace(".", "_").replace("-", "_")[:80]
+        bibtex = (
+            f"@misc{{{bibkey},\n"
+            f"  title  = {{{title_en}}},\n"
+            f"  author = {{{newspaper}}},\n"
+            f"  howpublished = {{NewspaperSG, National Library Board Singapore}},\n"
+            f"  year   = {{{year}}},\n"
+            f"  note   = {{Article identifier: {nid}; date: {date}}},\n"
+            f"  url    = {{{url}}},\n"
+            f"  urldate = {{{today}}}\n"
+            f"}}"
+        )
+        chicago = (
+            f'{newspaper}. "{title_en}." {date}. NewspaperSG, National Library '
+            f'Board Singapore. Accessed {today}. {url}.'
+        )
+        gb = (
+            f"{newspaper}. {title_zh}: {title_en}[N/OL]. "
+            f"新加坡: NewspaperSG, National Library Board Singapore, ({date})"
+            f"[{today}]. {url}."
+        )
+        return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
+
     # ============ FRUS 美国对外关系文件集（默认） ============
     bibkey = f"FRUS_{vol}_{docnum}".replace(".", "_").replace("-", "_")
     bibtex = (
@@ -3832,7 +3869,7 @@ PAPERS = [
     ("hoover-review", "Hoover 卷 · 待核问题与证据等级清单（精简版）",
      "2 件已 L1 / Box 13—14 全宗补查清单 / 张君劢「双重身份」问题 / 1947-11-01 函因果待 NARA 补",
      "docs/_hoover-待核问题与证据等级清单.md", "i-tag", "/papers/hoover-review", "review"),
-    # 第三组：跨源事件证据卡片（社科院方法论第 2 条「互证优先」实践，3 份）
+    # 第三组：跨源事件证据卡片（社科院方法论第 2 条「互证优先」实践，7 份）
     ("evidence-1947-10", "证据卡片 001 · 1947-10 民盟「非法化」事件",
      "DRNH + Hoover + HathiTrust + FRUS 四源 / 17 张时点卡片 / 民盟史多源最完整覆盖案例",
      "docs/_evidence-card-1947-10-民盟非法化.md", "i-archive", "/papers/evidence-1947-10", "evidence"),
@@ -3842,6 +3879,18 @@ PAPERS = [
     ("evidence-1945-07", "证据卡片 003 · 1945-07 民盟代表团访延安事件",
      "DRNH 7 篇 + FRUS 3 篇双源对位完整 / 7 张时点卡片 / 戴笠+钱大钧同日双线呈报",
      "docs/_evidence-card-1945-07-民盟代表团访延安.md", "i-archive", "/papers/evidence-1945-07", "evidence"),
+    ("evidence-newspapersg-1946-quit-china-week", "证据卡片 004 · 1946 南洋反内战与 Quit China Week",
+     "NewspaperSG + CIA + FRUS 对照 / 新加坡华人反内战、要求美军撤出中国与民盟海外动员",
+     "docs/_evidence-card-newspapersg-1946-quit-china-week.md", "i-archive", "/papers/evidence-newspapersg-1946-quit-china-week", "evidence"),
+    ("evidence-newspapersg-1947-outlawed", "证据卡片 005 · 1947 民盟非法化的南洋报刊反应",
+     "NewspaperSG + FRUS + DRNH + HathiTrust + Hoover 对照 / 民盟被禁、上海总部与海外反应",
+     "docs/_evidence-card-newspapersg-1947-outlawed.md", "i-archive", "/papers/evidence-newspapersg-1947-outlawed", "evidence"),
+    ("evidence-newspapersg-overseas-branches", "证据卡片 006 · 1947-1949 海外民盟继续活动",
+     "泛马来亚总部、香港节点、新加坡分部继续活动 / 与 CIA、HKPRO、HathiTrust 互证",
+     "docs/_evidence-card-newspapersg-1947-1949-overseas-branches.md", "i-archive", "/papers/evidence-newspapersg-overseas-branches", "evidence"),
+    ("evidence-newspapersg-1949-malayan-ban", "证据卡片 007 · 1949 新加坡/马来亚宣布中国民主同盟非法",
+     "英殖民地政府撤销豁免、宣布非法、警方搜查 / 与 CIA、HKPRO、FRUS 互证",
+     "docs/_evidence-card-newspapersg-1949-malayan-ban.md", "i-archive", "/papers/evidence-newspapersg-1949-malayan-ban", "evidence"),
 ]
 
 
@@ -4168,7 +4217,7 @@ def papers_index() -> bytes:
   <h1>七源对照档案体系 · 研究产出总览</h1>
   <p class="hero-sub">本平台研究产出分三层：一、<strong>平台学术综述</strong>（七源 + 总论 8 篇）；
   二、<strong>待核问题与证据等级清单</strong>（按社科院方法论「先标疑点」对每卷的核验配套，6 份）；
-  三、<strong>跨源事件证据卡片</strong>（按方法论「互证优先」的结构化卡片，3 张）。</p>
+  三、<strong>跨源事件证据卡片</strong>（按方法论「互证优先」的结构化卡片，7 张）。</p>
   <p style="margin-top:10px;"><a class="button" href="/standards"><svg class="ico"><use href="#i-archive"/></svg>本库收录标准与排除标准</a></p>
 </section>
 """
@@ -4177,7 +4226,7 @@ def papers_index() -> bytes:
          "每篇聚焦档案集合的客观属性、收录边界、关键样本与跨源对照价值"),
         ("review", "二、待核问题与证据等级清单（6 份）",
          "按社科院方法论「先看来源 → 先标疑点」原则，对每卷论文做配套核验：标证据等级（L1—L4）、列单源孤证、自查判断/解释层"),
-        ("evidence", "三、跨源事件证据卡片（3 张）",
+        ("evidence", "三、跨源事件证据卡片（7 张）",
          "对民盟史关键事件做结构化证据卡片（来源/产出主体/原文摘录/历史背景/人物关系/跨源对应/可信度/研究价值/后续检索/证据等级 8 字段）"),
     ]
     for cat, group_title, group_desc in groups:
@@ -4263,6 +4312,47 @@ def about_page() -> bytes:
 </div>
 """
     return layout("项目介绍 · 民盟历史文献研究库", body, active_path="/about")
+
+
+def public_page() -> bytes:
+    with conn() as c:
+        n_docs = c.execute(
+            "SELECT count(*) FROM documents d LEFT JOIN document_classifications dc ON dc.document_id=d.id "
+            "WHERE dc.grade IS NULL OR dc.grade != '前台不展示'"
+        ).fetchone()[0]
+        n_zh = c.execute("SELECT count(*) FROM translations WHERE language='zh-CN'").fetchone()[0]
+        n_events = c.execute("SELECT count(*) FROM research_events").fetchone()[0]
+    body = breadcrumb_html([("/", "首页"), (None, "公开介绍版")]) + f"""
+<section class="hero hero-compact">
+  <div class="hero-eyebrow">PUBLIC OVERVIEW</div>
+  <h1>民盟历史文献研究库</h1>
+  <p class="hero-sub">面向中国民主同盟早期历史研究的一手文献平台，系统整理 FRUS、CIA、Wilson、Hoover、HathiTrust、DRNH、NewspaperSG 七类境外与公开档案来源。</p>
+  <div class="hero-chips">
+    <span><b>{n_docs}</b> 篇公开展示文档</span>
+    <span><b>{n_zh}</b> 条中文译文</span>
+    <span><b>{n_events}</b> 条事件线索</span>
+  </div>
+</section>
+<section class="result-list">
+  <article class="result">
+    <div><h2>七源同代史料体系</h2><div class="meta">以美方外交、美方情报、国民政府内部、港媒、南洋报刊、苏方档案、民盟领导人私函共同互证。</div></div>
+    <div class="cite"><a class="button" href="/sources/frus">平台入口</a></div>
+  </article>
+  <article class="result">
+    <div><h2>研究论文与证据卡片</h2><div class="meta">按平台综述、待核清单、跨源事件证据卡片三层组织研究成果。</div></div>
+    <div class="cite"><a class="button" href="/papers">研究论文</a></div>
+  </article>
+  <article class="result">
+    <div><h2>全文检索与人物索引</h2><div class="meta">支持英文原文、中文译文、人物、事件、年份和档案来源交叉检索。</div></div>
+    <div class="cite"><a class="button" href="/search?q=罗隆基">搜索样例</a></div>
+  </article>
+  <article class="result">
+    <div><h2>史料长编与资料包</h2><div class="meta">按平台导出论文 PDF、史料长编和研究资料包，方便阅读、引用与阶段性整理。</div></div>
+    <div class="cite"><a class="button" href="/sourcebooks">下载入口</a></div>
+  </article>
+</section>
+"""
+    return layout("公开介绍版 · 民盟历史文献研究库", body, active_path="/about")
 
 
 def excluded_page() -> bytes:
@@ -5714,6 +5804,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = dashboard()
         elif parsed.path == "/about":
             payload = about_page()
+        elif parsed.path == "/public":
+            payload = public_page()
         elif parsed.path == "/sourcebooks":
             payload = sourcebooks_page()
         elif parsed.path == "/drnh-review":
