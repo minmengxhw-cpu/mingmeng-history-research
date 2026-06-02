@@ -30,6 +30,7 @@ data/hoover_recon/
 data/drnh_probe/sample_images/
 data/drnh_probe/drnh_cookies.txt
 data/drnh_images/
+data/newspapersg/images/
 
 # ===== 部署密钥（如有）=====
 *.pem
