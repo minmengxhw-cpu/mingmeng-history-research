@@ -785,7 +785,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
         </div>
       </div>
       <div class="footer-meta">
-        数据来源：FRUS · CIA FOIA · Wilson Center · Hoover Institution · HathiTrust · 台北档案史料 (DRNH)<br>
+        数据来源：FRUS · CIA FOIA · Wilson Center · Hoover Institution · HathiTrust · 台北档案史料 (DRNH) · NewspaperSG<br>
         本站为学术研究工具，所有档案均保留原始出处引用
       </div>
     </div>

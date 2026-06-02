@@ -152,4 +152,22 @@ PLATFORM_META = {
         "active": True,
         "todo_note": "",
     },
+    "newspapersg": {
+        "name": "NewspaperSG",
+        "long_name": "NewspaperSG",
+        "cn_name": "新加坡国家图书馆中文报刊",
+        "subtitle": "南洋商报等华文报刊 OCR",
+        "intro": "NewspaperSG 是新加坡国家图书馆的数字报刊平台。本库已接入南洋商报中与中国民主同盟、新加坡/马来亚华侨民盟分部、民盟被取缔及海外活动直接相关的中文报道，使用原始文章图像进行本地 OCR 入库。",
+        "perspective": "南洋华文报刊视角 —— 补充 FRUS/CIA/Wilson/Hoover/HathiTrust/DRNH 之外的海外中文舆论与侨界组织活动记录",
+        "coverage": "1946-1949 南洋商报民盟相关报道，覆盖新加坡分部、雪兰莪分部、罗隆基、胡愈之、李公朴闻一多案、1947 民盟非法化、1949 总部迁平等线索",
+        "highlights": [
+            "已完成首批真实抓取：21 篇中国民主同盟相关中文报刊报道，剔除马来亚民主同盟等同名误命中。",
+            "入库形态为 NewspaperSG 原始文章链接 + 本地高清文章图 OCR 文本；高清图像保留在本机，GitHub 只同步 OCR 文本与清单。",
+            "可与 CIA 华南/马来亚民盟情报、HathiTrust 香港英文报刊和 FRUS 同期外交电报互相对照。"
+        ],
+        "status": None,
+        "status_class": "ok",
+        "active": True,
+        "todo_note": "下一步继续扩展 NewspaperSG 搜索词与期号，优先补齐 1946-1949 华文报刊中直接出现中国民主同盟、民盟总部、张澜、罗隆基、胡愈之、李公朴、闻一多等关键词的报道。",
+    },
 }

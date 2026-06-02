@@ -41,16 +41,43 @@ KEYWORDS = [
     "聞一多",
 ]
 
+EXCLUDE_TITLE_TERMS = [
+    "馬民主同盟",
+    "马民主同盟",
+    "馬來亞民主同盟",
+    "马来亚民主同盟",
+]
+
+
+def issue_url(issue_id: str) -> str:
+    return f"https://eresources.nlb.gov.sg/newspapers/Digitised/Issue/{issue_id}"
+
+
 SEED_ISSUES = [
-    "https://eresources.nlb.gov.sg/newspapers/digitised/issue/nysp19460501-1",
-    "https://eresources.nlb.gov.sg/newspapers/digitised/issue/nysp19460604-1",
-    "https://eresources.nlb.gov.sg/newspapers/digitised/issue/nysp19460709-1",
-    "https://eresources.nlb.gov.sg/newspapers/digitised/issue/nysp19460719-1",
-    "https://eresources.nlb.gov.sg/newspapers/digitised/issue/nysp19460722-1",
-    "https://eresources.nlb.gov.sg/newspapers/digitised/issue/nysp19460831-1",
-    "https://eresources.nlb.gov.sg/newspapers/digitised/issue/nysp19470716-1",
-    "https://eresources.nlb.gov.sg/newspapers/digitised/issue/nysp19470916-1",
-    "https://eresources.nlb.gov.sg/newspapers/digitised/issue/nysp19490513-1",
+    issue_url("nysp19460327-1"),
+    issue_url("nysp19460501-1"),
+    issue_url("nysp19460514-1"),
+    issue_url("nysp19460601-1"),
+    issue_url("nysp19460604-1"),
+    issue_url("nysp19460705-1"),
+    issue_url("nysp19460706-1"),
+    issue_url("nysp19460709-1"),
+    issue_url("nysp19460719-1"),
+    issue_url("nysp19460722-1"),
+    issue_url("nysp19460727-1"),
+    issue_url("nysp19460808-1"),
+    issue_url("nysp19460831-1"),
+    issue_url("nysp19460907-1"),
+    issue_url("nysp19460924-1"),
+    issue_url("nysp19461001-1"),
+    issue_url("nysp19470716-1"),
+    issue_url("nysp19470916-1"),
+    issue_url("nysp19471105-1"),
+    issue_url("nysp19471107-1"),
+    issue_url("nysp19471110-1"),
+    issue_url("nysp19490316-1"),
+    issue_url("nysp19490513-1"),
+    issue_url("nysp19490518-1"),
 ]
 
 
@@ -73,10 +100,36 @@ def opener() -> urllib.request.OpenerDirector:
 
 
 def fetch(url: str, client: urllib.request.OpenerDirector | None = None) -> str:
+    if client is None:
+        return curl_text(url)
     req = urllib.request.Request(url, headers={"User-Agent": "mingmeng-research/1.0"})
-    open_fn = client.open if client else urllib.request.urlopen
-    with open_fn(req, timeout=20) as resp:
+    with client.open(req, timeout=20) as resp:
         return resp.read().decode("utf-8", errors="replace")
+
+
+def curl_text(url: str, data: dict[str, str] | None = None, referer: str | None = None) -> str:
+    cmd = [
+        "curl",
+        "-L",
+        "-sS",
+        "--compressed",
+        "-H",
+        "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "-H",
+        "Accept-Language: zh-CN,zh;q=0.9,en;q=0.8",
+    ]
+    if referer:
+        cmd.extend(["-H", f"Referer: {referer}"])
+    cookie_path = None
+    if data:
+        cookie_path = str(Path(tempfile.gettempdir()) / "newspapersg-cookies.txt")
+        cmd.extend(["-c", cookie_path, "-b", cookie_path])
+    if data:
+        for key, value in data.items():
+            cmd.extend(["--data-urlencode", f"{key}={value}"])
+    cmd.append(url)
+    result = subprocess.run(cmd, check=True, capture_output=True)
+    return result.stdout.decode("utf-8", errors="replace")
 
 
 def clean_text(value: str) -> str:
@@ -88,6 +141,14 @@ def clean_text(value: str) -> str:
 
 def issue_id_from_url(url: str) -> str:
     return url.rstrip("/").split("/")[-1]
+
+
+def article_ref(article: Article) -> str:
+    return article.url.rstrip("/").rsplit("/", 1)[-1]
+
+
+def article_doc_id(article: Article) -> str:
+    return f"{article.issue_id}-{article_ref(article)}"
 
 
 def parse_issue(raw_html: str, issue_url: str) -> list[Article]:
@@ -104,16 +165,18 @@ def parse_issue(raw_html: str, issue_url: str) -> list[Article]:
 
     articles: list[Article] = []
     article_re = re.compile(
-        r'<a\s+rel="nofollow"\s+class="text-primary\s+fw-bold"\s+href="(?P<href>/newspapers/digitised/article/[^"]+)"\s+title="(?P<title>[^"]+)"',
+        r'<a\b[^>]*href="(?P<href>/newspapers/digitised/article/[^"]+)"[^>]*title="(?P<title>[^"]+)"',
         re.S,
     )
     for match in article_re.finditer(raw_html):
         title = html.unescape(match.group("title")).strip()
         if not any(term in title for term in KEYWORDS):
             continue
-        block = raw_html[match.start(): match.start() + 1400]
-        page_match = re.search(r'data-nlb-pagenumber="(\d+)"', block)
-        page_label = page_match.group(1) if page_match else "1"
+        if any(term in title for term in EXCLUDE_TITLE_TERMS):
+            continue
+        block = raw_html[max(0, match.start() - 5000): match.start() + 1400]
+        page_matches = re.findall(r"Page\s+(\d+)", clean_text(block))
+        page_label = page_matches[-1] if page_matches else "1"
         matched = [term for term in KEYWORDS if term in title]
         url = "https://eresources.nlb.gov.sg" + html.unescape(match.group("href"))
         articles.append(
@@ -132,20 +195,12 @@ def parse_issue(raw_html: str, issue_url: str) -> list[Article]:
 
 
 def accept_terms_and_fetch_article(article_url: str) -> str:
-    client = opener()
     path = urllib.parse.urlparse(article_url).path
-    data = urllib.parse.urlencode({"u": path}).encode("utf-8")
-    req = urllib.request.Request(
+    return curl_text(
         "https://eresources.nlb.gov.sg/newspapers/Digitised/TermsAndConditionsCheck",
-        data=data,
-        headers={
-            "User-Agent": "mingmeng-research/1.0",
-            "Referer": article_url,
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
+        data={"u": path},
+        referer=article_url,
     )
-    with client.open(req, timeout=20) as resp:
-        return resp.read().decode("utf-8", errors="replace")
 
 
 def parse_article_page(raw_html: str, article: Article) -> Article:
@@ -154,15 +209,28 @@ def parse_article_page(raw_html: str, article: Article) -> Article:
         article.title = clean_text(title_match.group(1))[:120]
     image_urls = []
     for src in re.findall(r'<img[^>]+class="image-content"[^>]+src="([^"]+)"', raw_html):
-        image_urls.append(html.unescape(src))
+        image_urls.append(re.sub(r"width=\d+", "width=1600", html.unescape(src)))
     article.image_urls = image_urls
     return article
 
 
-def download_binary(url: str, path: Path) -> None:
-    req = urllib.request.Request(url, headers={"User-Agent": "mingmeng-research/1.0"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        path.write_bytes(resp.read())
+def download_binary(url: str, path: Path, referer: str) -> None:
+    cookie_path = str(Path(tempfile.gettempdir()) / "newspapersg-cookies.txt")
+    cmd = [
+        "curl",
+        "-L",
+        "-sS",
+        "-c",
+        cookie_path,
+        "-b",
+        cookie_path,
+        "-H",
+        f"Referer: {referer}",
+        url,
+        "-o",
+        str(path),
+    ]
+    subprocess.run(cmd, check=True)
 
 
 def ocr_image(image_path: Path) -> str:
@@ -188,8 +256,7 @@ def enrich_with_article_ocr(articles: list[Article]) -> list[Article]:
         for idx, image_url in enumerate(a.image_urls or [], start=1):
             image_path = IMG_DIR / f"{a.issue_id}-{a.url.rsplit('/', 1)[-1]}-{idx:02d}.webp"
             try:
-                if not image_path.exists():
-                    download_binary(image_url, image_path)
+                download_binary(image_url, image_path, a.url)
                 texts.append(ocr_image(image_path))
             except Exception as exc:
                 print(f"  OCR failed {image_url}: {exc}", file=sys.stderr)
@@ -224,7 +291,7 @@ def write_manifest(articles: list[Article]) -> None:
 def save_articles(articles: list[Article]) -> None:
     DOC_DIR.mkdir(parents=True, exist_ok=True)
     for idx, a in enumerate(articles, start=1):
-        out = DOC_DIR / f"{a.issue_id}-p{a.page_label}-{idx:03d}.txt"
+        out = DOC_DIR / f"{article_doc_id(a)}.txt"
         out.write_text(a.text, encoding="utf-8")
 
 
@@ -250,8 +317,8 @@ def insert_db(articles: list[Article]) -> int:
         source_id = cur.lastrowid
 
     inserted = 0
-    for idx, a in enumerate(articles, start=1):
-        doc_id = f"{a.issue_id}-p{a.page_label}-{idx:03d}"
+    for a in articles:
+        doc_id = article_doc_id(a)
         doc_key = f"newspapersg:{doc_id}"
         txt_path = DOC_DIR / f"{doc_id}.txt"
         if cur.execute("SELECT id FROM documents WHERE doc_key=?", (doc_key,)).fetchone():
