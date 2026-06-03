@@ -3652,7 +3652,7 @@ def people() -> bytes:
       下方按档案命中数倒序排列，无命中人物排在最后。点击姓名查看该人物所有原文、译文、来源链接和事件年表。
     </div>
     <div class="meta" style="margin-top:6px;color:var(--muted-soft);font-size:13px;">
-      本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北档案史料 六大档案源）。
+      本平台只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北档案史料 / NewspaperSG 七大档案源）。
       下方人物索引是档案翻译过程中用于规范人名、提供历史上下文的内部研究编排，<b>不构成资料库收录内容</b>。
     </div>
   </div>
@@ -3778,7 +3778,7 @@ def person_page(slug: str) -> bytes:
     <div style="font-family:var(--serif);font-size:16px;line-height:1.8;color:var(--text);">{h(profile_text)}</div>
     <div class="meta" style="margin-top:10px;font-size:12.5px;color:var(--muted-soft);">
       本卡为内部研究编排参考，便于理解下方档案译文的人物上下文；
-      本平台资料库本身只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北档案史料 六大档案源）。
+      本平台资料库本身只收录 <b>中国大陆境外一手原始档案</b>（FRUS / CIA / Wilson / Hoover / HathiTrust / 台北档案史料 / NewspaperSG 七大档案源）。
     </div>
   </div>
 </section>
@@ -3825,9 +3825,12 @@ def topics() -> bytes:
 # ============================================================
 
 PAPERS = [
-    # 第一组：七源平台学术综述 + 总论（8 篇）
-    ("overview", "七源对照档案体系（总论）",
-     "1941-1950 年中国民主同盟史的境外一手档案研究框架",
+    # 第一组：七源平台学术综述 + 总论（9 篇，含 v1 历史版本与 v2 当前版本）
+    ("overview-v2", "七源对照档案体系（总论 v2）",
+     "1941-1950 中国民盟史 · 纳入 NewspaperSG 形成七源研究框架 · 2026-06-03",
+     "docs/_seven-source-overview-paper-v2.md", "i-library", "/papers/overview-v2", "paper"),
+    ("overview", "六源对照档案体系（总论 v1，历史版本）",
+     "1941-1950 中国民盟史 · v1 历史版本 · 2026-05-26（保留供研究比对）",
      "docs/_overview-paper.md", "i-library", "/papers/overview", "paper"),
     ("frus", "美方公开外交基准源 · FRUS",
      "11 分卷 / 273 篇直接命中精读 / 罗隆基 62 次为人物之首 / v3 史学叙事版",
