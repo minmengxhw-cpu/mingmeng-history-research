@@ -23,6 +23,8 @@ MANIFEST = DATA / "manifest.csv"
 DOC_DIR = DATA / "documents"
 TRANS_CSV = DATA / "zh_translations.csv"
 REVIEW_CSV = DATA / "relevance_review.csv"
+REVIEW_CSV_V2 = DATA / "relevance_review_v2.csv"   # 含误收剔除后的 v2
+EXCL_CSV = DATA / "exclusions.csv"                  # 误收清单
 OUT_DIR = ROOT / "output" / "sourcebooks"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 OUT_PDF = OUT_DIR / "NewspaperSG_史料长编_v1.pdf"
@@ -199,11 +201,23 @@ def load_translations() -> dict[str, dict]:
 
 
 def load_reviews() -> dict[str, dict]:
-    if not REVIEW_CSV.exists(): return {}
+    """优先用 v2（含误收剔除），回退到 v1"""
+    src = REVIEW_CSV_V2 if REVIEW_CSV_V2.exists() else REVIEW_CSV
+    if not src.exists(): return {}
     out = {}
-    for r in csv.DictReader(REVIEW_CSV.open(encoding="utf-8-sig")):
+    for r in csv.DictReader(src.open(encoding="utf-8-sig")):
         dk = r["doc_key"].replace("newspapersg:", "")
         out[dk] = r
+    return out
+
+
+def load_exclusions() -> set:
+    """读 exclusions.csv 拿到剔除的 doc_key 集合"""
+    if not EXCL_CSV.exists(): return set()
+    out = set()
+    for r in csv.DictReader(EXCL_CSV.open(encoding="utf-8-sig")):
+        if r.get("decision") == "exclude":
+            out.add(r["doc_key"])
     return out
 
 
@@ -217,6 +231,13 @@ def main():
     manifest = load_manifest()
     trans = load_translations()
     reviews = load_reviews()
+    excluded = load_exclusions()
+
+    # 剔除误收
+    if excluded:
+        before = len(manifest)
+        manifest = [m for m in manifest if m["doc_key"] not in excluded]
+        print(f"剔除 {before - len(manifest)} 篇误收文档（v2 复核）", file=sys.stderr)
 
     # 按日期排序
     manifest.sort(key=lambda x: (x["date"], x["issue_id"]))
