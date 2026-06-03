@@ -719,10 +719,16 @@ ICONS_SVG = """
 
 
 NAV_GROUPS = [
-    ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
-    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘"), ("/sourcebooks", "史料长编")]),
+    ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
+    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
+
+# 公开模式：隐藏 workbench 组（内部校订/质量/后台路径），保留 library + topics
+# 通过 cookie public_mode=1 或 query ?public=1 开启
+PUBLIC_HIDDEN_GROUPS = {"workbench"}
+PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisition",
+                        "/open-sources", "/dashboard", "/review", "/excluded"}
 
 
 def nav_active(path: str) -> str:
@@ -746,9 +752,14 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
     # 优先使用调用方明确传的 active_path；否则从 thread-local 取（do_GET 设置）
     if not active_path:
         active_path = getattr(_request, "path", "/") or "/"
+    # 公开模式：从 thread-local 取（do_GET 解析 cookie/query 后设置）
+    public_mode = bool(getattr(_request, "public_mode", False))
     active_group = nav_active(active_path)
     nav_html = ""
     for group_key, icon_id, group_label, items in NAV_GROUPS:
+        # 公开模式下隐藏 workbench 组（内部校订/质量/后台路径）
+        if public_mode and group_key in PUBLIC_HIDDEN_GROUPS:
+            continue
         is_active = group_key == active_group
         cls = "nav-group active" if is_active else "nav-group"
         sub = "".join(
@@ -760,6 +771,10 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
           <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#{icon_id}"/></svg>{h(group_label)}<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="nav-flyout">{sub}</div>
         </div>'''
+    # 公开模式 banner（提示用户当前处于公开模式 + 退出按钮）
+    public_banner = ""
+    if public_mode:
+        public_banner = '<div style="background:#f4ead4;border-bottom:1px solid #d4ba7a;padding:6px 14px;font-size:12px;color:#5a4a26;text-align:center;">📖 公开介绍版 · 仅显示公开档案与研究成果 · <a href="/?public=0" style="color:#0f6b5b;font-weight:bold;">退出公开模式</a></div>'
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -771,6 +786,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
 </head>
 <body>
   {ICONS_SVG}
+  {public_banner}
   <header class="topbar">
     <a class="brand" href="/">
       <span>民盟历史文献研究库</span>
@@ -4335,6 +4351,10 @@ def public_page() -> bytes:
     <span><b>{n_zh}</b> 条中文译文</span>
     <span><b>{n_events}</b> 条事件线索</span>
   </div>
+  <div style="margin-top:18px;">
+    <a class="button" href="/?public=1" style="background:#0f6b5b;color:#fff;padding:10px 22px;border-radius:6px;text-decoration:none;font-weight:bold;">📖 进入公开浏览模式</a>
+    <span style="margin-left:10px;font-size:12px;color:var(--muted-soft);">公开模式下隐藏内部校订入口、质量页与后台路径；保留资料平台、论文、长编、卡片、人物索引、全文搜索</span>
+  </div>
 </section>
 <section class="result-list">
   <article class="result">
@@ -5799,6 +5819,26 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(raw_path)
         qs = parse_qs(parsed.query)
         _request.path = parsed.path  # 让 layout() 知道当前页面，自动 highlight 导航
+        # 公开模式解析：query ?public=1 显式开启 / ?public=0 关闭；否则读 cookie
+        cookie_hdr = self.headers.get("Cookie", "") or ""
+        cookie_public = "public_mode=1" in cookie_hdr
+        q_public = qs.get("public", [None])[0]
+        if q_public == "1":
+            _request.public_mode = True
+            self._set_public_cookie = "1"
+        elif q_public == "0":
+            _request.public_mode = False
+            self._set_public_cookie = "0"
+        else:
+            _request.public_mode = cookie_public
+            self._set_public_cookie = None
+        # 公开模式下，访问内部路径自动 302 回 /public
+        if _request.public_mode and any(parsed.path == p or parsed.path.startswith(p + "/")
+                                         for p in PUBLIC_HIDDEN_PATHS):
+            self.send_response(302)
+            self.send_header("Location", "/public")
+            self.end_headers()
+            return
         if parsed.path == "/":
             payload = home()
         elif parsed.path == "/focus":
@@ -6029,6 +6069,12 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(payload)))
         self.send_header("Cache-Control", "no-cache, max-age=0, must-revalidate")
+        # 公开模式 cookie 设置（query 显式指定时下发）
+        sc = getattr(self, "_set_public_cookie", None)
+        if sc == "1":
+            self.send_header("Set-Cookie", "public_mode=1; Path=/; Max-Age=31536000; SameSite=Lax")
+        elif sc == "0":
+            self.send_header("Set-Cookie", "public_mode=0; Path=/; Max-Age=0; SameSite=Lax")
         self.end_headers()
         self.wfile.write(payload)
 
