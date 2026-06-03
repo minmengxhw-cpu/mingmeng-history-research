@@ -7,7 +7,7 @@ trigram tokenizer 按 3 字符滑窗切，中文友好。
 import sqlite3
 from pathlib import Path
 
-DB = Path(__file__).resolve().parent.parent / "data" / "research_index.sqlite"
+DB = Path(__file__).resolve().parent.parent.parent / "data" / "research_index.sqlite"
 
 conn = sqlite3.connect(DB)
 cur = conn.cursor()
