@@ -838,7 +838,13 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
     # 动态计算每个平台的数据规模
     plat_counts = {}
     try:
-        for r in c.execute("SELECT COALESCE(source_platform,'frus') AS p, count(*) AS n FROM documents GROUP BY p"):
+        for r in c.execute("""
+            SELECT COALESCE(d.source_platform,'frus') AS p, count(*) AS n
+            FROM documents d
+            LEFT JOIN document_classifications dc ON dc.document_id=d.id
+            WHERE COALESCE(dc.grade, '') <> '前台不展示'
+            GROUP BY p
+        """):
             plat_counts[r['p']] = r['n']
     except sqlite3.OperationalError:
         plat_counts = {}
