@@ -369,7 +369,14 @@ def analyze_row(conn: sqlite3.Connection, row: sqlite3.Row, glossary: list[tuple
     # 5/26 19:50 新增：DRNH 文档的"译文"实际是案由学术导读，跳过 length 检测
     is_drnh_summary = source_platform == "drnh" or (row["doc_key"] or "").startswith("drnh:")
     is_cia_v2 = source_platform == "cia" and status.startswith("human-reviewed-cia-v2-")
-    skip_length_check = is_excerpt or is_drnh_summary or is_cia_v2
+    # 6/3 新增：NewspaperSG 机器译稿豁免——原 OCR 是整页噪声碎片（古字竖排、版面分散），
+    # 译文为 LLM 基于"题名 + 残存可读片段"的合理重构，长度比天然偏低，不计入 length 类质检。
+    # 同样豁免 glossary_miss（短文术语匹配机械化）。OCR 清洗思路记 docs/_newspapersg-ocr-noise-handling.md
+    is_newspapersg_machine = (
+        source_platform == "newspapersg"
+        or (row["doc_key"] or "").startswith("newspapersg:")
+    ) and (status.startswith("machine-reviewed-newspapersg-") or status.startswith("machine-reviewed"))
+    skip_length_check = is_excerpt or is_drnh_summary or is_cia_v2 or is_newspapersg_machine
     if not skip_length_check:
         ratio = zh_len / source_len
         has_completion_marker = "—— 完 ——" in zh or "-- 完 --" in zh
@@ -393,18 +400,29 @@ def analyze_row(conn: sqlite3.Connection, row: sqlite3.Row, glossary: list[tuple
 
     residues = english_residue(zh)
     if residues:
-        severity = 2 if len(residues) >= 4 else 1
-        insert_issue(
-            conn,
-            page_id,
-            "english_residue",
-            severity,
-            "译文仍保留英文词：" + "、".join(residues),
-            compact(zh),
-        )
-        count += 1
+        # 6/3 新增：NewspaperSG 卷豁免人名残留（"Aw Siew Ee"等华侨威氏拼音姓名属合法保留）
+        if is_newspapersg_machine:
+            # 只检查 4+ 大写字母构成的非人名英文残留（如 CONFIDENTIAL）
+            non_name_residues = [r for r in residues if not re.match(r"^[A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2}$", r)]
+            residues = non_name_residues
+        if residues:
+            severity = 2 if len(residues) >= 4 else 1
+            insert_issue(
+                conn,
+                page_id,
+                "english_residue",
+                severity,
+                "译文仍保留英文词：" + "、".join(residues),
+                compact(zh),
+            )
+            count += 1
 
-    if not is_excerpt and source_platform != "hathitrust":
+    # 6/3 新增：NewspaperSG 短文（< 600 字 OCR）glossary_miss 误报豁免
+    # —— 短电报里术语机械匹配率高，且 LLM 已在术语表约束下译，剩余漏报多为语境同义
+    skip_glossary = is_excerpt or source_platform == "hathitrust" or (
+        is_newspapersg_machine and source_len < 600
+    )
+    if not skip_glossary:
         for term, translation in glossary:
             if len(term) < 5:
                 continue
