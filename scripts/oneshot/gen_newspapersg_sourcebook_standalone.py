@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 DATA = ROOT / "data" / "newspapersg"
 MANIFEST = DATA / "manifest.csv"
 DOC_DIR = DATA / "documents"
+DOC_CLEAN_DIR = DATA / "documents_clean"
 TRANS_CSV = DATA / "zh_translations.csv"
 REVIEW_CSV = DATA / "relevance_review.csv"
 REVIEW_CSV_V2 = DATA / "relevance_review_v2.csv"   # 含误收剔除后的 v2
@@ -282,8 +283,12 @@ def main():
         for m in items:
             t = trans.get(m["doc_key"], {})
             rv = reviews.get(m["doc_key"], {})
+            clean_path = DOC_CLEAN_DIR / f"{m['doc_key']}.txt"
             ocr_path = DOC_DIR / f"{m['doc_key']}.txt"
-            en_text = clean_ocr(ocr_path.read_text(encoding="utf-8", errors="replace")) if ocr_path.exists() else ""
+            if clean_path.exists():
+                en_text = clean_path.read_text(encoding="utf-8", errors="replace").strip()
+            else:
+                en_text = clean_ocr(ocr_path.read_text(encoding="utf-8", errors="replace")) if ocr_path.exists() else ""
             zh_text = (t.get("zh_text") or "").strip()
             title_zh = (t.get("title_zh") or "").strip()
             note = (t.get("translator_note") or "").strip()

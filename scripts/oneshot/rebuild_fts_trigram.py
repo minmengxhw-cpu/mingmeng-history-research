@@ -8,6 +8,8 @@ import sqlite3
 from pathlib import Path
 
 DB = Path(__file__).resolve().parent.parent.parent / "data" / "research_index.sqlite"
+ROOT = DB.parent.parent
+NEWSPAPERSG_CLEAN_DIR = ROOT / "data" / "newspapersg" / "documents_clean"
 
 conn = sqlite3.connect(DB)
 cur = conn.cursor()
@@ -48,6 +50,23 @@ cur.execute("""
 """)
 print(f"  完成: {cur.rowcount}")
 
+if NEWSPAPERSG_CLEAN_DIR.exists():
+    print("\n覆盖 NewspaperSG page_fts 为清洗 OCR...")
+    cleaned = 0
+    for page_id, doc_key in cur.execute("""
+        SELECT p.id, d.doc_key
+        FROM pages p
+        JOIN documents d ON d.id=p.document_id
+        WHERE d.source_platform='newspapersg'
+    """).fetchall():
+        clean_path = NEWSPAPERSG_CLEAN_DIR / f"{doc_key.removeprefix('newspapersg:')}.txt"
+        if not clean_path.exists():
+            continue
+        text = clean_path.read_text(encoding="utf-8", errors="replace").strip()
+        cur.execute("UPDATE page_fts SET text=? WHERE rowid=?", (text, page_id))
+        cleaned += 1
+    print(f"  完成: {cleaned}")
+
 print("\n填充 translation_fts...")
 cur.execute("""
     INSERT INTO translation_fts(rowid, language, title, page_label, text)
@@ -83,7 +102,7 @@ for q in test_queries:
 # 其他平台也验证
 print("\n=== 各平台「Marshall」（FRUS）+「Carsun Chang」 ===")
 for q in ["Marshall", "Carsun Chang", "Democratic League"]:
-    for plat in ["frus", "drnh", "cia", "wilson", "hoover", "hathitrust"]:
+    for plat in ["frus", "drnh", "cia", "wilson", "hoover", "hathitrust", "newspapersg"]:
         n = cur.execute("""
             SELECT COUNT(*) FROM page_fts
             JOIN pages p ON p.id=page_fts.rowid
