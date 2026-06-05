@@ -25,6 +25,7 @@ FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
 RESEARCH_PACKAGE_DIR = ROOT / "output" / "research_packages"
 PAPER_PDF_DIR = ROOT / "output" / "pdf"
 TITLE_TRANSLATIONS_CSV = ROOT / "data" / "newspapersg" / "title_translations.csv"
+NEWSPAPERSG_CLEAN_DIR = ROOT / "data" / "newspapersg" / "documents_clean"
 
 
 def h(value: object) -> str:
@@ -57,6 +58,15 @@ def load_title_translations() -> dict[str, str]:
 
 
 TITLE_TRANSLATIONS = load_title_translations()
+
+
+def newspapersg_clean_text(doc_key: str) -> str:
+    if not doc_key.startswith("newspapersg:"):
+        return ""
+    path = NEWSPAPERSG_CLEAN_DIR / f"{doc_key.removeprefix('newspapersg:')}.txt"
+    if not path.exists():
+        return ""
+    return path.read_text(encoding="utf-8", errors="replace").strip()
 
 
 PERSON_ZH = {
@@ -2624,19 +2634,35 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
         )
     else:
+        source_button_labels = {
+            "frus": "FRUS 原文",
+            "wilson": "Wilson Center 原档",
+            "hoover": "Hoover 现场调档来源",
+            "hathitrust": "archive.org 镜像",
+            "newspapersg": "NewspaperSG 原始报刊",
+        }
+        source_button_label = source_button_labels.get(platform, "档案原文")
         tools_html = (
             f'<a class="button" href="{source_link}" target="_blank" rel="noreferrer">'
-            f'<svg class="ico"><use href="#i-globe"/></svg>FRUS 原文</a>'
+            f'<svg class="ico"><use href="#i-globe"/></svg>{h(source_button_label)}</a>'
             f'<a class="button" href="/search?q={quote(doc["matched_terms"] or doc["title"])}">'
             f'<svg class="ico"><use href="#i-search"/></svg>相关搜索</a>'
         )
         platform_badge = ''
-        meta_card_foot = (
-            f'<span><strong>FRUS 卷号</strong> {h(doc["volume_id"])}</span>'
-            f'<span><strong>文件号</strong> {h(doc["doc_id"])}</span>'
-            f'<span><strong>日期</strong> {h(doc["date_guess"])}</span>'
-            f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
-        )
+        if platform == "frus":
+            meta_card_foot = (
+                f'<span><strong>FRUS 卷号</strong> {h(doc["volume_id"])}</span>'
+                f'<span><strong>文件号</strong> {h(doc["doc_id"])}</span>'
+                f'<span><strong>日期</strong> {h(doc["date_guess"])}</span>'
+                f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
+            )
+        else:
+            meta_card_foot = (
+                f'<span><strong>平台</strong> {h(platform)}</span>'
+                f'<span><strong>文档编号</strong> {h(doc["doc_id"] or doc["doc_key"])}</span>'
+                f'<span><strong>日期</strong> {h(doc["date_guess"])}</span>'
+                f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
+            )
 
     body = breadcrumb_html([("/", "首页"), ("/docs", "全部文档"), (None, translate_title(doc["title"])[:36])]) + f"""
 <section class="doc-head{' cia-doc' if is_cia else ''}">
@@ -2841,11 +2867,24 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
     {summary_html}
   </div>"""
         else:
+            original_text = row["original_text"] or ""
+            display_original = original_text
+            original_note = ""
+            if platform == "newspapersg":
+                clean_text = newspapersg_clean_text(doc["doc_key"])
+                if clean_text:
+                    display_original = clean_text
+                    original_note = (
+                        '<details class="notice" style="margin-top:12px;">'
+                        '<summary>查看原始 OCR 噪声文本</summary>'
+                        f'<pre style="white-space:pre-wrap;margin-top:10px;">{h(original_text)}</pre>'
+                        '</details>'
+                    )
             body += f"""
   <div class="segment">
     <article class="pane"{selected}>
-      <div class="pane-head"><span>原文 · {h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
-      <div class="pane-body">{h(row["original_text"])}</div>
+      <div class="pane-head"><span>{'清洗 OCR · ' if platform == "newspapersg" else '原文 · '}{h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
+      <div class="pane-body">{h(display_original)}{original_note}</div>
     </article>
     <article class="pane zh-pane">
       <div class="pane-head"><span>中文译文 · {h(status)}</span><a href="/review/{h(row["page_id"])}"><svg class="ico"><use href="#i-edit"/></svg>校订</a></div>

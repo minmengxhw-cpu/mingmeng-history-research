@@ -78,7 +78,7 @@ archive.org 在本侦察期间持续抽风（SSL 证书 hostname mismatch + conn
 
 ## 六、阶段 2 待办
 
-- ⏳ archive.org 恢复后跑 `/tmp/cia_ext_llm.py` 完成 OCR + LLM 精读
+- ✅ 2026-06-05 已完成 1946-1949 关键期 22 篇 OCR 下载与阶段 2 复核，详见 `docs/_cia-扩展扫描v2-阶段2关键期复核报告.md`
 - ⏳ 真涉民盟篇下载 PDF + metadata 入库到 `data/cia_meng/extended_batch2/`
 - ⏳ 写 CIA 卷 v2.2 论文修订（含本轮 30-60 篇新增）
 
@@ -88,8 +88,11 @@ archive.org 在本侦察期间持续抽风（SSL 证书 hostname mismatch + conn
 |---|---|
 | `scripts/probe/probe_cia_extended_v2.py` | 19 关键词扫描器 |
 | `data/cia_extended_v2_candidates.csv` | **126 篇候选清单**（identifier / title / date / matched_keywords / ia_detail_url）|
-| `/tmp/cia_ext_llm.py` | OCR + LLM 精读脚本（待 archive.org 恢复后跑）|
+| `scripts/build/cia_extended_v2_llm_review.py` | OCR + 精读复核脚本；有 API key 时走 LLM，无 API key 时走本地规则复核 |
+| `data/cia_extended_v2_llm_review.csv` | 1946-1949 关键期 22 篇阶段 2 复核结果 |
+| `data/cia_extended_v2_ocr_cache/` | 1946-1949 关键期 22 篇 OCR 缓存 |
 | `docs/_cia-扩展扫描v2-阶段1侦察报告.md` | 本报告 |
+| `docs/_cia-扩展扫描v2-阶段2关键期复核报告.md` | 阶段 2 关键期复核报告 |
 
 ---
 
