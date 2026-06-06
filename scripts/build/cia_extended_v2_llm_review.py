@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """下载 cia_extended_v2 候选 OCR，并精读判定民盟相关度。"""
-import csv, json, os, re, sys, time, urllib.request, urllib.parse, ssl
+import argparse, csv, json, os, re, sys, time, urllib.request, urllib.parse, ssl
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
@@ -163,13 +163,18 @@ def llm(api_key, ident, title, date, kws, text):
             time.sleep(3)
 
 def main():
+    parser = argparse.ArgumentParser(description="复核 CIA extended v2 候选 OCR")
+    parser.add_argument("--year-from", type=int, default=1946)
+    parser.add_argument("--year-to", type=int, default=1949)
+    parser.add_argument("--out", type=Path, default=OUT_CSV)
+    args = parser.parse_args()
+
     api_key = os.environ.get("DEEPSEEK_API_KEY")
     use_llm = bool(api_key)
 
     rows = list(csv.DictReader(CAND_CSV.open(encoding='utf-8-sig')))
-    # 取 1946-1949 关键期 22 篇
-    rows = [r for r in rows if 1946 <= int(r['year']) <= 1949]
-    print(f"待处理 {len(rows)} 篇（1946-1949 民盟关键期）", flush=True)
+    rows = [r for r in rows if args.year_from <= int(r['year']) <= args.year_to]
+    print(f"待处理 {len(rows)} 篇（{args.year_from}-{args.year_to}）", flush=True)
 
     # 下 OCR
     print("下载 OCR...", flush=True)
@@ -207,7 +212,23 @@ def main():
         for fut in as_completed({ex.submit(work, r): r for r in rows}):
             r, res = fut.result()
             if "_error" in res:
-                print(f"  ✗ {r['identifier'][:50]}: {res['_error'][:80]}", flush=True); continue
+                entry = {
+                    "identifier": r['identifier'],
+                    "title": r['title'][:200],
+                    "date": r['date'],
+                    "matched_keywords": r['matched_keywords'],
+                    "is_meng": False,
+                    "decision": "skip",
+                    "meng_mentions": "无",
+                    "people": "",
+                    "summary_zh": res["_error"][:300],
+                    "review_method": "ocr_missing",
+                    "evidence_snippet": "",
+                    "ia_detail_url": r['ia_detail_url'],
+                }
+                results.append(entry)
+                print(f"  ✗ {r['identifier'][:50]}: {res['_error'][:80]}", flush=True)
+                continue
             entry = {
                 "identifier": r['identifier'],
                 "title": r['title'][:200],
@@ -230,7 +251,8 @@ def main():
     fields = ["identifier","title","date","matched_keywords","is_meng",
               "decision","meng_mentions","people","summary_zh","review_method",
               "evidence_snippet","ia_detail_url"]
-    with OUT_CSV.open('w', encoding='utf-8-sig', newline='') as f:
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    with args.out.open('w', encoding='utf-8-sig', newline='') as f:
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
         for r in sorted(results, key=lambda x:(not x['is_meng'], x['date'])):
@@ -242,7 +264,7 @@ def main():
     print(f"\n=== 完成 ===", flush=True)
     print(f"精读: {len(results)} / 涉民盟: {n_meng}", flush=True)
     print(f"决定分布: {dict(cnt)}", flush=True)
-    print(f"输出: {OUT_CSV}", flush=True)
+    print(f"输出: {args.out}", flush=True)
 
 if __name__ == '__main__':
     main()

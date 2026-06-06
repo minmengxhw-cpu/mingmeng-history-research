@@ -76,11 +76,14 @@ archive.org 在本侦察期间持续抽风（SSL 证书 hostname mismatch + conn
 3. **1950-1957 时段 104 候选** 主体可能是"民主党派整体"评估，民盟单独命中预计 **20-40 篇**
 4. **预期补 CIA 卷 30-60 篇**（实际数取决于 LLM 精读结果）
 
+> 2026-06-05 复核修正：阶段 2 与阶段 3 OCR 复核显示，上述估计偏高。1946-1949 关键期 22 篇未发现直接涉民盟新增核心档；1950-1957 后续期 104 篇中仅 1 篇为相关文献，且已在库。宽关键词主要产生战后欧洲、菲律宾、韩国、反革命镇压和一般冷战政治材料的噪声。
+
 ## 六、阶段 2 待办
 
 - ✅ 2026-06-05 已完成 1946-1949 关键期 22 篇 OCR 下载与阶段 2 复核，详见 `docs/_cia-扩展扫描v2-阶段2关键期复核报告.md`
-- ⏳ 真涉民盟篇下载 PDF + metadata 入库到 `data/cia_meng/extended_batch2/`
-- ⏳ 写 CIA 卷 v2.2 论文修订（含本轮 30-60 篇新增）
+- ✅ 2026-06-05 已完成 1950-1957 后续期 104 篇 OCR 下载与阶段 3 复核，详见 `docs/_cia-扩展扫描v2-阶段3后续期复核报告.md`
+- ✅ 阶段 2/3 未发现新增核心 CIA 民盟档；唯一相关候选已在库，无需重复入库
+- ⏳ 后续只需单独补跑 2 篇弱概念命中的缺 OCR 项
 
 ## 七、已落产物
 
@@ -90,9 +93,11 @@ archive.org 在本侦察期间持续抽风（SSL 证书 hostname mismatch + conn
 | `data/cia_extended_v2_candidates.csv` | **126 篇候选清单**（identifier / title / date / matched_keywords / ia_detail_url）|
 | `scripts/build/cia_extended_v2_llm_review.py` | OCR + 精读复核脚本；有 API key 时走 LLM，无 API key 时走本地规则复核 |
 | `data/cia_extended_v2_llm_review.csv` | 1946-1949 关键期 22 篇阶段 2 复核结果 |
-| `data/cia_extended_v2_ocr_cache/` | 1946-1949 关键期 22 篇 OCR 缓存 |
+| `data/cia_extended_v2_llm_review_1950_1957.csv` | 1950-1957 后续期 104 篇阶段 3 复核结果 |
+| `data/cia_extended_v2_ocr_cache/` | 阶段 2/3 已抓取 OCR 缓存 |
 | `docs/_cia-扩展扫描v2-阶段1侦察报告.md` | 本报告 |
 | `docs/_cia-扩展扫描v2-阶段2关键期复核报告.md` | 阶段 2 关键期复核报告 |
+| `docs/_cia-扩展扫描v2-阶段3后续期复核报告.md` | 阶段 3 后续期复核报告 |
 
 ---
 
