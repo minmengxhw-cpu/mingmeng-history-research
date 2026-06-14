@@ -730,7 +730,7 @@ ICONS_SVG = """
 
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
-    ("workbench", "i-edit", "研究工作台", [("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
+    ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
 
@@ -3575,6 +3575,7 @@ def tasks(active_queue: str = "") -> bytes:
                 documents.title,
                 documents.date_guess,
                 documents.matched_terms,
+                COALESCE(documents.source_platform, 'frus') AS platform,
                 COALESCE(dc.grade, '') AS grade,
                 translations.text AS zh_text,
                 translations.status AS zh_status,
@@ -3790,6 +3791,7 @@ def person_page(slug: str) -> bytes:
                 documents.title,
                 documents.date_guess,
                 documents.matched_terms,
+                COALESCE(documents.source_platform, 'frus') AS platform,
                 COALESCE(dc.grade, '') AS grade,
                 translations.text AS zh_text,
                 translations.status AS zh_status,
@@ -3844,6 +3846,7 @@ def person_page(slug: str) -> bytes:
   </div>
 </section>
 """
+    body += person_archive_panel(person, rows)
     if not rows:
         body += '<div class="notice">FRUS 档案中暂无命中。可切换查看 CIA / Wilson / Hoover / HathiTrust / 台北档案史料 五个境外档案源。</div>'
     else:
@@ -5846,6 +5849,280 @@ class ReusableThreadingHTTPServer(ThreadingHTTPServer):
     allow_reuse_address = True
 
 
+# ===== 新增功能：多源对位 / 人物档案画像 / 证据卡片库 =====
+
+def alignment_page(date_from: str = "", date_to: str = "", q: str = "") -> bytes:
+    # 默认窗口：1947 民盟非法化高密度期（四源对位最密的 50 天）
+    date_from = (date_from or "1947-10-01").strip()
+    date_to = (date_to or "1947-11-30").strip()
+    q = (q or "").strip()
+
+    c = conn()
+    where = [
+        "COALESCE(documents.date_guess,'') <> ''",
+        "substr(documents.date_guess,1,10) >= ?",
+        "substr(documents.date_guess,1,10) <= ?",
+    ]
+    params: list = [date_from, date_to]
+    if q:
+        where.append("(documents.title LIKE ? OR COALESCE(documents.matched_terms,'') LIKE ?)")
+        params += [f"%{q}%", f"%{q}%"]
+
+    rows = c.execute(
+        f"""
+        SELECT documents.id, documents.doc_key, documents.doc_id, documents.volume_id,
+               documents.title, documents.date_guess,
+               COALESCE(documents.source_platform, 'frus') AS platform,
+               COALESCE(dc.grade, '') AS grade
+        FROM documents
+        LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+        WHERE {' AND '.join(where)}
+        ORDER BY documents.date_guess, platform
+        """,
+        tuple(params),
+    ).fetchall()
+
+    # 组矩阵：day -> platform -> [row]
+    matrix: dict[str, dict[str, list]] = {}
+    plat_totals: dict[str, int] = {}
+    for r in rows:
+        day = (r["date_guess"] or "")[:10]
+        plat = r["platform"]
+        matrix.setdefault(day, {}).setdefault(plat, []).append(r)
+        plat_totals[plat] = plat_totals.get(plat, 0) + 1
+
+    # 出现过的源，按 PLATFORM_META 顺序（已上线优先）排列为列
+    def _plat_order(k: str) -> tuple:
+        meta = PLATFORM_META.get(k, {})
+        return (0 if meta.get("active") else 1, k)
+
+    platforms = sorted(plat_totals.keys(), key=_plat_order)
+    days = sorted(matrix.keys())
+
+    # 预设高密度窗口快捷入口（你库里已建对位卡片的三个转折）
+    presets = [
+        ("1947-10-01", "1947-11-30", "1947 民盟非法化"),
+        ("1946-05-01", "1946-06-30", "1946 广西取缔"),
+        ("1945-07-01", "1945-08-31", "1945 访问延安"),
+        ("1946-07-01", "1946-08-31", "1946 李闻血案"),
+    ]
+    preset_html = " · ".join(
+        f'<a href="/align?from={a}&to={b}">{h(label)}</a>' for a, b, label in presets
+    )
+
+    # 顶部控制条
+    head = f"""
+<section class="doc-head">
+  <div>
+    <h1>多源对位视图</h1>
+    <div class="meta">同一时点各档案源并排，看清谁记了、谁缺位 · 当前窗口 {h(date_from)} → {h(date_to)}
+      {('· 关键词：' + h(q)) if q else ''}</div>
+  </div>
+</section>
+<form method="get" action="/align" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 4px;">
+  <label style="font-size:13px;color:var(--muted);">起 <input type="text" name="from" value="{h(date_from)}" placeholder="1947-10-01" style="width:120px;"></label>
+  <label style="font-size:13px;color:var(--muted);">止 <input type="text" name="to" value="{h(date_to)}" placeholder="1947-11-30" style="width:120px;"></label>
+  <input type="text" name="q" value="{h(q)}" placeholder="关键词（可选，如 罗隆基）" style="width:180px;">
+  <button class="button" type="submit">对位</button>
+</form>
+<div style="font-size:12px;color:var(--muted-soft);margin-bottom:10px;">快捷窗口：{preset_html}</div>
+"""
+
+    if not rows:
+        body = head + '<div class="notice">该时间窗内没有带日期的文档。换个窗口或放宽日期试试。</div>'
+        return layout("多源对位视图", body, active_path="/align")
+
+    # 各源命中统计
+    stat_html = " ".join(
+        f'<span class="grade related" style="margin-right:4px;">{h(PLATFORM_META.get(p,{}).get("name",p))} {plat_totals[p]}</span>'
+        for p in platforms
+    )
+
+    # 对位矩阵表（横向可滚动，移动端友好）
+    th = "".join(
+        f'<th style="position:sticky;top:0;background:var(--paper);min-width:150px;text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);font-size:13px;">'
+        f'{h(PLATFORM_META.get(p,{}).get("name",p))}</th>'
+        for p in platforms
+    )
+    trs = []
+    for day in days:
+        cells = [
+            f'<td style="white-space:nowrap;padding:8px 10px;border-bottom:1px solid var(--line-soft);'
+            f'font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600;vertical-align:top;">{h(day)}</td>'
+        ]
+        for p in platforms:
+            docs = matrix[day].get(p, [])
+            if not docs:
+                cells.append('<td style="padding:8px 10px;border-bottom:1px solid var(--line-soft);color:var(--line);text-align:center;vertical-align:top;">·</td>')
+                continue
+            items = []
+            for r in docs:
+                title = translate_title(r["title"]) or r["doc_key"]
+                title_short = title if len(title) <= 38 else title[:36] + "…"
+                badge = grade_badge(r)
+                items.append(
+                    f'<div style="margin-bottom:5px;line-height:1.35;">'
+                    f'<a href="/doc/{quote(r["doc_key"])}" title="{h(title)}">{h(title_short)}</a> {badge}</div>'
+                )
+            cells.append(
+                f'<td style="padding:8px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top;font-size:13px;">{"".join(items)}</td>'
+            )
+        trs.append(f'<tr><th style="position:sticky;left:0;background:var(--paper);padding:8px 10px;'
+                   f'border-bottom:1px solid var(--line-soft);text-align:left;font-weight:600;font-variant-numeric:tabular-nums;">{h(day)}</th>{"".join(cells[1:])}</tr>')
+
+    table = f"""
+<div style="margin:8px 0 14px;font-size:13px;">{stat_html}</div>
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line-soft);border-radius:8px;">
+  <table style="border-collapse:collapse;width:100%;min-width:640px;">
+    <thead><tr><th style="position:sticky;left:0;top:0;background:var(--paper);text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);font-size:13px;min-width:90px;">日期</th>{th}</tr></thead>
+    <tbody>{''.join(trs)}</tbody>
+  </table>
+</div>
+<div style="font-size:12px;color:var(--muted-soft);margin-top:10px;">
+  共 {len(rows)} 篇 / {len(days)} 个日期 / {len(platforms)} 个源 · "·" 表示该源当日无对位档案 · 点标题进单篇详情
+</div>
+"""
+    return layout("多源对位视图", head + table, active_path="/align")
+
+
+def person_archive_panel(person: dict, rows: list) -> str:
+    if not rows:
+        return ""
+
+    # 按文档去重（rows 是逐片段，一个 doc 可能多页）——取每个 doc 最早出现的那行
+    by_doc: dict = {}
+    for r in rows:
+        k = r["doc_key"]
+        if k not in by_doc:
+            by_doc[k] = r
+
+    def _plat(r) -> str:
+        return r["platform"] if ("platform" in r.keys() and r["platform"]) else "frus"
+
+    # ① 跨源分布
+    plat_count: dict[str, int] = {}
+    for r in by_doc.values():
+        p = _plat(r)
+        plat_count[p] = plat_count.get(p, 0) + 1
+
+    def _plat_order(k: str) -> tuple:
+        meta = PLATFORM_META.get(k, {})
+        return (0 if meta.get("active") else 1, -plat_count.get(k, 0), k)
+
+    plats = sorted(plat_count.keys(), key=_plat_order)
+    total_docs = len(by_doc)
+    dist_bar = "".join(
+        f'<span class="grade related" style="margin:0 6px 6px 0;display:inline-block;">'
+        f'{h(PLATFORM_META.get(p,{}).get("name", p))} · {plat_count[p]} 篇</span>'
+        for p in plats
+    )
+
+    # ② 在档行迹时间线（按 date_guess 排序，无日期者沉底）
+    def _sort_key(r):
+        d = (r["date_guess"] or "").strip()
+        return (d if d else "9999", r["doc_key"])
+
+    timeline_docs = sorted(by_doc.values(), key=_sort_key)
+    rows_html = []
+    for r in timeline_docs:
+        date = (r["date_guess"] or "").strip() or "日期未注明"
+        title = translate_title(r["title"]) or r["doc_key"]
+        title_short = title if len(title) <= 52 else title[:50] + "…"
+        badge = grade_badge(r)
+        src = PLATFORM_META.get(_plat(r), {}).get("name", _plat(r))
+        rows_html.append(
+            f'<tr>'
+            f'<td style="white-space:nowrap;padding:7px 12px 7px 0;vertical-align:top;'
+            f'font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600;border-bottom:1px solid var(--line-soft);">{h(date)}</td>'
+            f'<td style="padding:7px 10px 7px 0;vertical-align:top;border-bottom:1px solid var(--line-soft);">'
+            f'<a href="/doc/{quote(r["doc_key"])}" title="{h(title)}">{h(title_short)}</a> {badge}</td>'
+            f'<td style="white-space:nowrap;padding:7px 0;vertical-align:top;border-bottom:1px solid var(--line-soft);'
+            f'font-size:12px;color:var(--muted-soft);">{h(src)}</td>'
+            f'</tr>'
+        )
+
+    # 行迹时间线最多直接展开 60 条，其余提示去事件/搜索看全量
+    shown = rows_html[:60]
+    more_note = ""
+    if len(rows_html) > 60:
+        more_note = (
+            f'<div style="font-size:12px;color:var(--muted-soft);margin-top:8px;">'
+            f'仅列前 60 条（共 {len(rows_html)} 篇）· '
+            f'<a href="/timeline?person={h(person["slug"])}">完整年表 →</a> · '
+            f'<a href="/events?person={h(person["slug"])}">事件线索 →</a></div>'
+        )
+
+    return f"""
+<section style="margin:4px 0 18px;">
+  <div class="meta" style="color:var(--accent-deep);font-size:13px;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px;">
+    档案画像
+  </div>
+  <div style="margin-bottom:14px;">
+    <div style="font-size:12.5px;color:var(--muted);margin-bottom:6px;">跨源分布 · 共 {total_docs} 篇文档记录此人</div>
+    {dist_bar}
+  </div>
+  <div style="font-size:12.5px;color:var(--muted);margin-bottom:6px;">在档行迹（按档案日期）</div>
+  <div style="overflow-x:auto;">
+    <table style="border-collapse:collapse;width:100%;font-size:13.5px;">
+      <tbody>{''.join(shown)}</tbody>
+    </table>
+  </div>
+  {more_note}
+</section>
+"""
+
+
+def cards_index() -> bytes:
+    # 从 PAPERS 中筛出证据卡片（type == "evidence"）
+    cards = [p for p in PAPERS if len(p) >= 7 and p[6] == "evidence"]
+
+    # 按事件年份排序（从 key 里抽 4 位年份，抽不到沉底）
+    import re as _re
+
+    def _year(key: str) -> str:
+        m = _re.search(r"(19\d{2})", key)
+        return m.group(1) if m else "9999"
+
+    cards = sorted(cards, key=lambda p: (_year(p[0]), p[0]))
+
+    # 画廊卡片
+    items = []
+    for key, title, subtitle, md_path, icon, url, _type in cards:
+        items.append(f"""
+    <a class="card-link" href="{h(url)}" style="display:block;text-decoration:none;border:1px solid var(--line-soft);
+       border-radius:10px;padding:16px 18px;margin-bottom:12px;background:var(--paper);transition:border-color .15s;">
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <svg class="ico" style="flex:none;margin-top:3px;color:var(--accent);"><use href="#{h(icon)}"/></svg>
+        <div style="min-width:0;">
+          <div style="font-family:var(--serif);font-size:16.5px;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:5px;">{h(title)}</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6;">{h(subtitle)}</div>
+          <div style="font-size:12.5px;color:var(--accent-deep);margin-top:8px;">阅读卡片集 →</div>
+        </div>
+      </div>
+    </a>""")
+
+    head = f"""
+<section class="doc-head">
+  <div>
+    <h1>证据卡片库</h1>
+    <div class="meta">跨源对位证据卡片集 · 共 {len(cards)} 部 · 社科院方法「孤证不举·互证优先」实践</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/align">多源对位视图</a>
+    <a class="button" href="/papers">研究论文</a>
+    <a class="button" href="/events">事件线索</a>
+  </div>
+</section>
+<div style="font-size:13.5px;color:var(--muted);line-height:1.8;margin:6px 0 16px;max-width:62ch;">
+  每部卡片集围绕一个民盟史关键事件，把同时点各档案源（FRUS / DRNH / HathiTrust / Hoover / CIA / NewspaperSG）
+  的档案逐时点对位，标注原文摘录、可信度、证据等级（L1–L4）与待核问题——用档案讲史，而非堆资料清单。
+  想看"同一时点各源自动并排"，去 <a href="/align">多源对位视图</a>。
+</div>
+"""
+    body = head + '<div class="card-grid">' + "".join(items) + "</div>"
+    return layout("证据卡片库", body, active_path="/cards")
+
+
 class Handler(BaseHTTPRequestHandler):
     def do_HEAD(self) -> None:
         self.send_response(200)
@@ -6037,6 +6314,10 @@ class Handler(BaseHTTPRequestHandler):
             payload = quality(qs.get("severity", [""])[0], qs.get("issue", [""])[0])
         elif parsed.path == "/tasks":
             payload = tasks(qs.get("queue", [""])[0])
+        elif parsed.path == "/align":
+            payload = alignment_page(qs.get("from", [""])[0], qs.get("to", [""])[0], qs.get("q", [""])[0])
+        elif parsed.path == "/cards":
+            payload = cards_index()
         elif parsed.path == "/papers":
             payload = papers_index()
             self.send_response(200); self.send_header("Content-Type","text/html; charset=utf-8"); self.send_header("Cache-Control","no-cache"); self.end_headers(); self.wfile.write(payload); return
