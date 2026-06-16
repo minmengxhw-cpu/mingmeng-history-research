@@ -1,0 +1,7 @@
+paper,platform,identifier_prefix,holdings,era,language,access,harvest,meng_relevance,status
+華僑日報,Internet Archive,NPWK,约 15975 期,1925–1990s,中文,开放·全文 OCR,curl djvu.txt 可批量,报道 1947 民盟非法化、海外活动,可抓·已实测
+工商晚報,Internet Archive,NPKSE,约 16190 期,约 1930s–1980s,中文,开放·全文 OCR,curl djvu.txt 可批量,港埠中文舆论场,可抓
+大公報（香港版）,Internet Archive,NPTKP,约 16864 期,1940s 起,中文,开放·全文 OCR,curl djvu.txt 可批量,大报·民盟相关报道密集,可抓
+China Mail / Hong Kong Telegraph,HathiTrust / IA,—,54 期已入库,1945–1949,英文,已入库,—,英文港媒·1947 非法化 5 期连续报道,已收录
+香港旧报纸（HKPL）,sls.hkpl.gov.hk,—,大量港报,清末–当代,中文,受限·Queue-it 反爬闸,需现场/排队闸,含更多港报含部分稀见,受阻待人工
+光明报,无开放数字版,—,存世稀少,1941 香港·民盟前身机关报,中文,馆藏(港中大/国图/民盟史馆),线下调档,建盟宣言+十大纲领首发,待调档(宣言文本已得)
