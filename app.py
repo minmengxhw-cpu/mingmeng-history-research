@@ -5919,13 +5919,13 @@ def alignment_page(date_from: str = "", date_to: str = "", q: str = "") -> bytes
       {('· 关键词：' + h(q)) if q else ''}</div>
   </div>
 </section>
-<form method="get" action="/align" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 4px;">
-  <label style="font-size:13px;color:var(--muted);">起 <input type="text" name="from" value="{h(date_from)}" placeholder="1947-10-01" style="width:120px;"></label>
-  <label style="font-size:13px;color:var(--muted);">止 <input type="text" name="to" value="{h(date_to)}" placeholder="1947-11-30" style="width:120px;"></label>
-  <input type="text" name="q" value="{h(q)}" placeholder="关键词（可选，如 罗隆基）" style="width:180px;">
+<form class="align-form" method="get" action="/align">
+  <label><span>起</span><input type="text" name="from" value="{h(date_from)}" placeholder="1947-10-01"></label>
+  <label><span>止</span><input type="text" name="to" value="{h(date_to)}" placeholder="1947-11-30"></label>
+  <label class="align-query"><span>关键词</span><input type="text" name="q" value="{h(q)}" placeholder="可选，如 罗隆基"></label>
   <button class="button" type="submit">对位</button>
 </form>
-<div style="font-size:12px;color:var(--muted-soft);margin-bottom:10px;">快捷窗口：{preset_html}</div>
+<div class="align-presets">快捷窗口：{preset_html}</div>
 """
 
     if not rows:
@@ -5971,9 +5971,9 @@ def alignment_page(date_from: str = "", date_to: str = "", q: str = "") -> bytes
                    f'border-bottom:1px solid var(--line-soft);text-align:left;font-weight:600;font-variant-numeric:tabular-nums;">{h(day)}</th>{"".join(cells[1:])}</tr>')
 
     table = f"""
-<div style="margin:8px 0 14px;font-size:13px;">{stat_html}</div>
-<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line-soft);border-radius:8px;">
-  <table style="border-collapse:collapse;width:100%;min-width:640px;">
+<div class="align-stats">{stat_html}</div>
+<div class="align-scroll">
+  <table class="align-table">
     <thead><tr><th style="position:sticky;left:0;top:0;background:var(--paper);text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);font-size:13px;min-width:90px;">日期</th>{th}</tr></thead>
     <tbody>{''.join(trs)}</tbody>
   </table>
@@ -6062,8 +6062,8 @@ def person_archive_panel(person: dict, rows: list) -> str:
     {dist_bar}
   </div>
   <div style="font-size:12.5px;color:var(--muted);margin-bottom:6px;">在档行迹（按档案日期）</div>
-  <div style="overflow-x:auto;">
-    <table style="border-collapse:collapse;width:100%;font-size:13.5px;">
+  <div class="person-timeline-scroll">
+    <table class="person-timeline-table">
       <tbody>{''.join(shown)}</tbody>
     </table>
   </div>
@@ -6089,8 +6089,7 @@ def cards_index() -> bytes:
     items = []
     for key, title, subtitle, md_path, icon, url, _type in cards:
         items.append(f"""
-    <a class="card-link" href="{h(url)}" style="display:block;text-decoration:none;border:1px solid var(--line-soft);
-       border-radius:10px;padding:16px 18px;margin-bottom:12px;background:var(--paper);transition:border-color .15s;">
+    <a class="card-link" href="{h(url)}">
       <div style="display:flex;align-items:flex-start;gap:10px;">
         <svg class="ico" style="flex:none;margin-top:3px;color:var(--accent);"><use href="#{h(icon)}"/></svg>
         <div style="min-width:0;">
