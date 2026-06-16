@@ -730,7 +730,7 @@ ICONS_SVG = """
 
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
-    ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/first-person", "第一人称史料"), ("/l1-board", "L1升级看板"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
+    ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/first-person", "第一人称史料"), ("/hk-press", "香港报刊源"), ("/l1-board", "L1升级看板"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
 
@@ -2017,6 +2017,47 @@ def l1_board_page() -> bytes:
 </article>"""
         body += "</section>"
     return layout("L1 证据等级升级看板", body, active_path="/l1-board")
+
+
+def hk_press_page() -> bytes:
+    """香港报刊开放源（读 data/hk_press_sources.csv）——IA 港报可抓源登记。"""
+    rows = read_csv_rows(ROOT / "data" / "hk_press_sources.csv", 100)
+    grab = sum(1 for r in rows if "可抓" in (r.get("status") or ""))
+    body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "香港报刊源")]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>香港报刊·开放可抓源</h1>
+    <div class="meta">补"港埠舆论"维度的中文港媒。Internet Archive 已数字化华侨日报、工商晚报、大公报（香港版）等约 4.9 万期，全文 OCR、开放可批量抓取（已实测）；报道民盟非法化与海外活动，与现有 HathiTrust 英文港媒形成中英双语对照。注：1940s 繁体密排 OCR 噪声大，须清洗＋模糊匹配。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/first-person">第一人称史料</a>
+    <a class="button" href="/external-acquisition">外部调档</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(len(rows))}</strong><span>登记报刊源</span></div>
+  <div class="stat"><strong>{h(grab)}</strong><span>开放可抓（IA）</span></div>
+</section>
+"""
+    if not rows:
+        body += '<div class="notice">香港报刊源清单为空。</div>'
+    else:
+        body += '<section class="result-list">'
+        for row in rows[:60]:
+            body += f"""
+<article class="result">
+  <div>
+    <h3 class="result-title">{h(row.get("paper") or "未命名")}</h3>
+    <div class="meta">{h(row.get("platform"))} · {h(row.get("era"))} · {h(row.get("language"))} · 状态：{h(row.get("status"))}</div>
+    <div class="snippet">馆藏：{h(row.get("holdings"))} · 民盟相关：{h(row.get("meng_relevance"))}</div>
+    <div class="tagline">
+      <span class="tag">访问：{h(row.get("access"))}</span>
+      <span class="tag">抓取：{h(row.get("harvest"))}</span>
+    </div>
+  </div>
+</article>"""
+        body += "</section>"
+    return layout("香港报刊开放源", body, active_path="/hk-press")
 
 
 def first_person_page() -> bytes:
@@ -6283,6 +6324,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = drnh_review_page(qs.get("tier", [""])[0])
         elif parsed.path == "/l1-board":
             payload = l1_board_page()
+        elif parsed.path == "/hk-press":
+            payload = hk_press_page()
         elif parsed.path == "/first-person":
             payload = first_person_page()
         elif parsed.path == "/external-acquisition":
