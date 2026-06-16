@@ -730,7 +730,7 @@ ICONS_SVG = """
 
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
-    ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
+    ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/first-person", "第一人称史料"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
 
@@ -1971,6 +1971,64 @@ def drnh_review_page(active_tier: str = "") -> bytes:
 </article>"""
         body += "</section>"
     return layout("DRNH校订队列", body, active_path="/drnh-review")
+
+
+def first_person_page() -> bytes:
+    """民盟第一人称一手史料获取清单（读 data/first_person_acquisition.csv）。"""
+    rows = read_csv_rows(ROOT / "data" / "first_person_acquisition.csv", 200)
+    pri: dict[str, int] = {}
+    for row in rows:
+        p = (row.get("priority") or "其他").strip()
+        pri[p] = pri.get(p, 0) + 1
+    body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "第一人称史料")]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>民盟第一人称一手史料</h1>
+    <div class="meta">补境外七源最大盲区——七源里民盟几乎全是"被观察"，唯一主体之声仅张君劢两函。本清单把"民盟自己说话"的材料（机关报刊／领导人日记文集／自编文献汇编）从线索变为可跟踪任务；中文一手不翻译，仅 OCR、繁简统一与页码引用。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/external-acquisition">外部调档</a>
+    <a class="button" href="/dashboard">仪表盘</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(pri.get("P0", 0))}</strong><span>P0 最优先</span></div>
+  <div class="stat"><strong>{h(pri.get("P1", 0))}</strong><span>P1 重要</span></div>
+  <div class="stat"><strong>{h(pri.get("P2", 0))}</strong><span>P2 待查</span></div>
+  <div class="stat"><strong>{h(len(rows))}</strong><span>清单合计</span></div>
+</section>
+"""
+    if not rows:
+        body += '<div class="notice">第一人称史料清单为空。</div>'
+    else:
+        body += '<section class="result-list">'
+        for row in rows[:80]:
+            body += f"""
+<article class="result">
+  <div>
+    <h3 class="result-title">{h(row.get("material") or "未命名材料")}</h3>
+    <div class="meta">{h(row.get("priority"))} · {h(row.get("source_type"))} · 入库代码 {h(row.get("platform_code"))} · 状态：{h(row.get("status"))}</div>
+    <div class="snippet">目标范围：{h(row.get("target_scope"))}</div>
+    <div class="tagline">
+      <span class="tag">渠道：{h(row.get("channel"))}</span>
+      <span class="tag">动作：{h(row.get("next_action"))}</span>
+      <span class="tag">交付：{h(row.get("deliverable"))}</span>
+    </div>
+  </div>
+</article>"""
+        body += "</section>"
+    body += """
+<section class="doc-head" style="margin-top:18px;">
+  <div>
+    <div class="meta" style="font-size:13px;line-height:1.8;">
+      <b>入库判断规则：</b>本人日记／本人文集原文／本组织机关报刊／本组织自编文件汇编 → <b>一手正式层</b>；
+      回忆录、纪念文章、政协文史资料、后人传记 → 仅<b>参考层</b>，不单独支撑结论。
+      每件须留来源字段（藏处／卷期／日期／页码／获取方式／是否可公开），并优先与境外七源做"同日／同事件"互证。
+    </div>
+  </div>
+</section>
+"""
+    return layout("民盟第一人称一手史料", body, active_path="/first-person")
 
 
 def external_acquisition_page() -> bytes:
@@ -6174,6 +6232,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = sourcebooks_page()
         elif parsed.path == "/drnh-review":
             payload = drnh_review_page(qs.get("tier", [""])[0])
+        elif parsed.path == "/first-person":
+            payload = first_person_page()
         elif parsed.path == "/external-acquisition":
             payload = external_acquisition_page()
         elif parsed.path == "/open-sources":
