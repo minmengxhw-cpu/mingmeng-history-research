@@ -730,7 +730,7 @@ ICONS_SVG = """
 
 NAV_GROUPS = [
     ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
-    ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/first-person", "第一人称史料"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
+    ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/first-person", "第一人称史料"), ("/l1-board", "L1升级看板"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
 
@@ -1971,6 +1971,52 @@ def drnh_review_page(active_tier: str = "") -> bytes:
 </article>"""
         body += "</section>"
     return layout("DRNH校订队列", body, active_path="/drnh-review")
+
+
+def l1_board_page() -> bytes:
+    """L1 证据等级升级看板（读 data/l1_upgrade_queue.csv）。"""
+    rows = read_csv_rows(ROOT / "data" / "l1_upgrade_queue.csv", 200)
+    pri: dict[str, int] = {}
+    for row in rows:
+        p = (row.get("priority") or "其他").strip()
+        pri[p] = pri.get(p, 0) + 1
+    body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "L1 升级看板")]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>L1 证据等级升级看板</h1>
+    <div class="meta">把各源"待核问题清单"与证据卡片里点名的"待升 L1"判断，汇成一张可跟踪任务表——把研究的下一步从"再写一遍"转成"把 L4 判断坐实成 L1 事实"。等级：L1 一手原档已核 / L2 已下待核 / L3 目录元数据 / L4 LLM 精读。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/cards">证据卡片库</a>
+    <a class="button" href="/dashboard">仪表盘</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(pri.get("P0", 0))}</strong><span>P0 最优先</span></div>
+  <div class="stat"><strong>{h(pri.get("P1", 0))}</strong><span>P1 重要</span></div>
+  <div class="stat"><strong>{h(pri.get("P2", 0))}</strong><span>P2 待查</span></div>
+  <div class="stat"><strong>{h(len(rows))}</strong><span>升级任务合计</span></div>
+</section>
+"""
+    if not rows:
+        body += '<div class="notice">L1 升级看板为空。</div>'
+    else:
+        body += '<section class="result-list">'
+        for row in rows[:120]:
+            body += f"""
+<article class="result">
+  <div>
+    <h3 class="result-title">{h(row.get("claim") or "未命名待核点")}</h3>
+    <div class="meta">{h(row.get("priority"))} · {h(row.get("event"))} · 等级 {h(row.get("level_now"))} → {h(row.get("target_level"))} · 状态：{h(row.get("status"))}</div>
+    <div class="snippet">来源：{h(row.get("source"))}</div>
+    <div class="tagline">
+      <span class="tag">待核档案：{h(row.get("archive_to_check"))}</span>
+      <span class="tag">动作：{h(row.get("action"))}</span>
+    </div>
+  </div>
+</article>"""
+        body += "</section>"
+    return layout("L1 证据等级升级看板", body, active_path="/l1-board")
 
 
 def first_person_page() -> bytes:
@@ -3947,6 +3993,9 @@ def topics() -> bytes:
 # ============================================================
 
 PAPERS = [
+    ("transnational-1947", "史论 · 被取缔的跨国政党（1947 民盟非法化）",
+     "FRUS＋DRNH＋Hoover＋HathiTrust＋NewspaperSG 五源 / 决策先于宣布 · 美援杠杆 · 海外分部不同步回应 / 用档案讲史",
+     "docs/_paper-1947-transnational.md", "i-globe", "/papers/transnational-1947", "paper"),
     # 第一组：七源平台学术综述 + 总论（9 篇，含 v1 历史版本与 v2 当前版本）
     ("overview-v2", "七源对照档案体系（总论 v2）",
      "1941-1950 中国民盟史 · 纳入 NewspaperSG 形成七源研究框架 · 2026-06-03",
@@ -6232,6 +6281,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = sourcebooks_page()
         elif parsed.path == "/drnh-review":
             payload = drnh_review_page(qs.get("tier", [""])[0])
+        elif parsed.path == "/l1-board":
+            payload = l1_board_page()
         elif parsed.path == "/first-person":
             payload = first_person_page()
         elif parsed.path == "/external-acquisition":
