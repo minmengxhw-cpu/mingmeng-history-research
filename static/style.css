@@ -957,6 +957,88 @@
     .glossary-table .note { color: var(--muted); font-size: 13px; }
     .glossary-table .lookup { font-size: 12px; }
 
+    /* === 三视图：多源对位 / 证据卡片 / 人物画像 === */
+    .align-form {
+      display: grid;
+      grid-template-columns: max-content max-content minmax(180px, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+      margin: 10px 0 4px;
+    }
+    .align-form label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .align-form input {
+      width: 126px;
+      min-height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 7px 9px;
+      background: var(--paper);
+      color: var(--text);
+      font: inherit;
+    }
+    .align-form .align-query input {
+      width: 100%;
+      min-width: 180px;
+    }
+    .align-presets {
+      margin-bottom: 10px;
+      color: var(--muted-soft);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .align-stats {
+      margin: 8px 0 14px;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+    .align-scroll,
+    .person-timeline-scroll {
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
+    }
+    .align-table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+    }
+    .align-table a,
+    .person-timeline-table a,
+    .card-link {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .person-timeline-table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    .card-link {
+      display: block;
+      margin-bottom: 12px;
+      padding: 16px 18px;
+      background: var(--paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .card-link:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+    }
+
     @media (max-width: 980px) {
       .topbar { grid-template-columns: 1fr; gap: 12px; padding: 12px 18px; }
       nav.mainnav { overflow-x: auto; padding-bottom: 4px; }
@@ -1209,6 +1291,45 @@
       /* 详情页 reader：英中对照在手机上垂直堆叠（已有 980px 处理，这里再保险） */
       .reader, .reader-grid { grid-template-columns: 1fr; gap: 12px; }
       .reader section { padding: 14px 16px; }
+
+      .align-form {
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+      }
+      .align-form label {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .align-form input,
+      .align-form .align-query input {
+        width: 100%;
+        min-width: 0;
+      }
+      .align-form .align-query,
+      .align-form button {
+        grid-column: 1 / -1;
+      }
+      .align-scroll,
+      .person-timeline-scroll {
+        margin-left: -14px;
+        margin-right: -14px;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+      }
+      .align-table {
+        display: table;
+        min-width: 720px;
+      }
+      .person-timeline-table {
+        display: table;
+        min-width: 620px;
+      }
+      .card-link {
+        padding: 14px 14px;
+        border-radius: 8px;
+      }
     }
 
     /* 小屏手机 ≤ 480px：再收紧 */
@@ -1223,6 +1344,14 @@
       .platform-card, .card, .result { padding: 12px 14px; }
       .hero { padding: 18px 14px; }
       .hero h1 { font-size: 19px; }
+      .align-form {
+        grid-template-columns: 1fr;
+      }
+      .align-scroll,
+      .person-timeline-scroll {
+        margin-left: -12px;
+        margin-right: -12px;
+      }
     }
 
     /* 触屏设备：关掉所有 hover 触发的弹出（防止误触卡住） */
