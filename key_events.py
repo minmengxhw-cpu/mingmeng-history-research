@@ -189,12 +189,71 @@ KEY_EVENTS = [
         "related_persons": ["chang-tung-sun", "chang-lan", "lo-lung-chi"],
     },
 
+    # ╔══════════════════════════════════════════════════════════════
+    # ║ 五. 1941—1945 境外背景支撑（不等同于同日事件配对）
+    # ╚══════════════════════════════════════════════════════════════
+    {
+        "slug": "democratic-league-1941-formation-context",
+        "name": "1941 年民盟成立的境外档案回顾",
+        "phase": "p-context-1941-45",
+        "date_label": "1945.12.26 文件回顾 1941 成立",
+        "sort_date": "1941-03-19",
+        "summary": (
+            "美国国务院公开的 1945 年驻华外交文件转述民盟主席致马歇尔的材料，"
+            "回顾民盟于 1941 年由六个中间团体合组成立，并记录其反对一党专政、"
+            "主张联合政府的政治目标。该材料是境外档案中的组织史回顾，"
+            "不是 1941 年成立当天的外方记录。"
+        ),
+        "archive_support": (
+            "FRUS 1945, The Far East, China, Vol. VII, Document 573，"
+            "1945-12-26，公开记录含民盟成立于 1941 年的回顾性说明。"
+        ),
+        "search_terms": ["Democratic League", "1941", "Chinese Democratic League", "Marshall"],
+        "related_persons": ["chang-lan", "carsun-chang"],
+    },
+    {
+        "slug": "democratic-league-1944-political-proposals",
+        "name": "1944 年民盟政治主张的境外记录",
+        "phase": "p-context-1941-45",
+        "date_label": "1944.10.30",
+        "sort_date": "1944-10-30",
+        "summary": (
+            "美国驻华大使馆 1944 年文件记录民盟在抗战最后阶段提出的政治主张，"
+            "包括终止一党政府、组成联合政府以及政治和谈等内容。该文件与民盟"
+            "1944 年改组、更名后的政治路线相互参照，但文件本身不是改组会议记录。"
+        ),
+        "archive_support": (
+            "FRUS 1944, China, Vol. VI, Document 478，1944-10-30，"
+            "公开记录并转述民盟抗战最后阶段政治主张。"
+        ),
+        "search_terms": ["Democratic League", "1944", "political proposals", "coalition government"],
+        "related_persons": ["chang-lan", "lo-lung-chi", "chang-po-chun"],
+    },
+    {
+        "slug": "democratic-league-1945-context",
+        "name": "1945 年民盟对外活动的境外记录",
+        "phase": "p-context-1941-45",
+        "date_label": "1945.04.14",
+        "sort_date": "1945-04-14",
+        "summary": (
+            "美国驻华使馆电报记录 1945 年 4 月民盟人士为赴旧金山会议的代表活动、"
+            "对联合政府和战后中国政治安排的公开讨论。它为 1945 年民盟政治活动提供"
+            "境外同时代观察，但不是 1945 年 10 月民盟第一次全国代表大会的直接记录。"
+        ),
+        "archive_support": (
+            "FRUS 1945, The Far East, China, Vol. VII, Document 234，"
+            "1945-04-14，公开电报记录民盟代表及相关政治活动。"
+        ),
+        "search_terms": ["Democratic League", "1945", "San Francisco Conference", "Chang Po-chun"],
+        "related_persons": ["chang-po-chun", "li-huang", "tung-pi-wu"],
+    },
+
     # ════════════════════════════════════════════════════════════════
     # 注：本平台事件骨架严格遵循「境外档案驱动」原则。
     # 1949 年 9 月新政协一届虽对民盟政治史极重要，但境外档案
     # 直接关联报道极少（仅 1 篇弱支撑），暂不纳入事件骨架。
-    # 1941–1945 期间民盟筹建、改组、一大等中方内部事件，境外档案
-    # 0 命中，遵循档案驱动原则一律不纳入。
+    # 1941–1945 期间的三张新增事件卡仅作为境外背景/同期支撑，
+    # 明确标注不等同于成立、改组或一大当天的直接外方记录。
     # ════════════════════════════════════════════════════════════════
 ]
 
@@ -203,6 +262,8 @@ KEY_EVENTS = [
 # 与 person_archive.PERSON_GROUPS 的 phase 体系**前台不再强制对应**——
 # person_archive 用民盟史官方分期作为内部研究编排参考，本表用档案驱动分期作为前台展示。
 EVENT_PHASES = [
+    ("p-context-1941-45",
+     "补充. 1941–1945 境外背景支撑 · FRUS 同期观察，不等同于中方事件原件"),
     ("p-pcc-1946",
      "一. 政协会议期（1946.1–1946.2） · FRUS + 港媒多源"),
     ("p-ban-1947",

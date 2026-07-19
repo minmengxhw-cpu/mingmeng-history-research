@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Domestic primary-source candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_id",
+    "title",
+    "repository_code",
+    "repository_name",
+    "access_mode",
+    "rights_status",
+    "authenticity_level_proposed",
+    "relevance_grade_proposed",
+    "evidence_note",
+    "uncertainty_note",
+    "checked_at",
+    "checked_by",
+    "review_status"
+  ],
+  "properties": {
+    "candidate_id": {"type": "string", "minLength": 3},
+    "title": {"type": "string", "minLength": 1},
+    "creator": {"type": "string"},
+    "recipient": {"type": "string"},
+    "document_date": {"type": "string"},
+    "document_date_precision": {"enum": ["day", "month", "year", "approximate", "range", "unknown"]},
+    "document_type": {"type": "string"},
+    "repository_code": {"type": "string", "minLength": 2},
+    "repository_name": {"type": "string", "minLength": 1},
+    "collection_name": {"type": "string"},
+    "archive_fonds": {"type": "string"},
+    "archive_series": {"type": "string"},
+    "archive_file": {"type": "string"},
+    "archive_item": {"type": "string"},
+    "catalog_reference": {"type": "string", "minLength": 1},
+    "catalog_reference_status": {"enum": ["verified", "unpublished", "not_found", "pending", "unknown"]},
+    "source_url": {"type": "string", "format": "uri", "minLength": 1},
+    "source_url_role": {"enum": ["item_digital", "item_surrogate", "finding_aid", "bibliography", "institution_home", "none", "unknown"]},
+    "access_note": {"type": "string"},
+    "access_mode": {"enum": ["open", "login", "reading_room", "offline", "unknown"]},
+    "medium": {"enum": ["physical", "digital", "hybrid", "unknown"]},
+    "online_availability": {"enum": ["full_item_online", "surrogate_online", "catalogue_only_online", "not_online", "unknown"]},
+    "rights_status": {"enum": ["public", "internal", "restricted", "unknown"]},
+    "reuse_rights": {"enum": ["public_domain", "open_license", "citation_only", "no_republication", "unknown"]},
+    "rights_basis": {"type": "string"},
+    "copy_allowed": {"enum": ["yes", "no", "unknown"]},
+    "authenticity_level_proposed": {"enum": ["L0", "L1", "L2", "L3", "L4", "LX"]},
+    "relevance_grade_proposed": {"enum": ["core", "related", "person", "background", "exclude", "unknown"]},
+    "event_tags": {"type": "array", "items": {"type": "string"}},
+    "person_tags": {"type": "array", "items": {"type": "string"}},
+    "place_tags": {"type": "array", "items": {"type": "string"}},
+    "evidence_note": {"type": "string", "minLength": 1},
+    "evidence_type": {"enum": ["catalogue", "official_description", "digital_image", "printed_finding_aid", "secondary_lead", "unknown"]},
+    "evidence_locator": {"type": "string"},
+    "uncertainty_note": {"type": "string"},
+    "checked_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "checked_by": {"enum": ["minimax", "grok", "codex", "human"]},
+    "review_status": {"enum": ["candidate", "needs_human_review", "accepted", "rejected", "duplicate"]},
+    "review_note": {"type": "string"},
+    "reviewed_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "reviewed_by": {"enum": ["minimax", "grok", "codex", "human"]},
+    "check_outcome": {"enum": ["pass", "fail", "needs_info", "deferred", "unknown"]},
+    "authenticity_level_accepted": {"enum": ["L0", "L1", "L2", "L3", "L4", "LX", null]},
+    "relevance_grade_accepted": {"enum": ["core", "related", "person", "background", "exclude", "unknown", null]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"access_mode": {"enum": ["offline", "reading_room"]}}, "required": ["access_mode"]},
+      "then": {"required": ["catalog_reference", "catalog_reference_status", "access_note"]}
+    },
+    {
+      "if": {"properties": {"online_availability": {"enum": ["full_item_online", "surrogate_online"]}}, "required": ["online_availability"]},
+      "then": {"required": ["source_url", "source_url_role"]}
+    },
+    {
+      "if": {"properties": {"authenticity_level_proposed": {"const": "L0"}}, "required": ["authenticity_level_proposed"]},
+      "then": {"required": ["catalog_reference", "catalog_reference_status", "evidence_type", "evidence_locator"]}
+    },
+    {
+      "if": {"properties": {"review_status": {"const": "accepted"}}, "required": ["review_status"]},
+      "then": {"required": ["check_outcome", "authenticity_level_accepted", "relevance_grade_accepted", "reviewed_at", "reviewed_by"]}
+    },
+    {
+      "if": {"properties": {"review_status": {"enum": ["rejected", "duplicate"]}}, "required": ["review_status"]},
+      "then": {"required": ["review_note"]}
+    }
+  ]
+}
