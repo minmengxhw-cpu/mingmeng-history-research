@@ -1,0 +1,25 @@
+{
+  "phase": "0",
+  "review_mode": "local_codex_plus_sanitized_external_probe",
+  "external_cli_review": "completed_with_public_synthetic_contract_only",
+  "external_models": [
+    "MiniMax-M3",
+    "grok-4.5-build"
+  ],
+  "external_repository_access": false,
+  "external_private_data_sent": false,
+  "contract_status": "needs_revision",
+  "core_data_touched": false,
+  "database_touched": false,
+  "archive_files_touched": false,
+  "required_changes": [
+    "allow offline records without source_url when catalog_reference and access_note are present",
+    "add catalog reference status",
+    "add document date precision",
+    "separate evidence type from research judgment",
+    "add review status and rejection or duplicate reason",
+    "add rights basis and access evidence",
+    "enforce URL format for online records"
+  ],
+  "phase_1_allowed": false
+}

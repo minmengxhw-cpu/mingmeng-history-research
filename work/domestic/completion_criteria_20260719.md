@@ -1,0 +1,53 @@
+# 国内民盟史资料库：任务完成标准与监控
+
+更新日期：2026-07-19  
+项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`
+
+## 两层完成定义（禁止混淆）
+
+### A 层：阶段执行完成（可本地判定、可自动监控）
+
+必须同时满足：
+
+1. 阶段0—5 报告文件齐全  
+2. `validate_candidates` 全通过  
+3. `validate_event_coverage` 无悬空引用  
+4. `ingest_domestic` 幂等成功且与 JSONL 计数一致  
+5. `audit_readiness`：missing_required=0、missing_paths=0  
+6. R1 成立宣言第38页边界已纠正  
+7. R2 政治报告 page-111—116 本地页图齐全  
+8. 统一审核报告已生成  
+9. 不得把 OCR/目录/后期叙述/汇编写成原件  
+
+**A 层完成 ≠ 原件史料闭环。**
+
+### B 层：原件硬缺口（依赖馆藏/权限，监控只跟踪、不虚报完成）
+
+下列任一项未取得原始载体时，B 层标记为 **未闭环**：
+
+| ID | 目标 |
+|---|---|
+| B1 | 1941-10-10/16《光明報》原刊影像（非汇编） |
+| B2 | 1944 全国代表会议原始文件 |
+| B3 | 1945 大会政治报告/组织规程同期印本 |
+| B4 | 1946《民主同盟文獻》政治报告正文页界 |
+| B5 | 1947-10-27 内政部公函或同期公报原页 |
+| B6 | 1947-11-06 总部解散公告独立印本 |
+| B7 | 1947-11-04 北平《新民报》教授声明原版 |
+
+监控 agent **禁止**为闭环而猜测页码、作者或公文内容。  
+负向结果必须可复查（URL、日期、查询参数、结论）。
+
+## 监控输出
+
+每次运行写入：
+
+- `work/domestic/monitor_status_latest.json`（机器可读）  
+- `work/domestic/monitor_status_latest.md`（人读摘要）  
+- 若 A 层全绿：在摘要顶部写 `A_LAYER_COMPLETE=true`  
+- 若 B 层仍有缺口：写 `B_LAYER_OPEN=true` 与缺口列表  
+
+## 调度
+
+- 本地脚本：`scripts/domestic/monitor_completion.py`  
+- 计划任务：`tasks` 调度「民盟国内资料库完成监控」  

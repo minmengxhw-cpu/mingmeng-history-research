@@ -729,7 +729,7 @@ ICONS_SVG = """
 
 
 NAV_GROUPS = [
-    ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
+    ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/domestic", "国内史料"), ("/domestic/sources", "国内来源"), ("/domestic/events", "国内事件"), ("/domestic/acquisition", "调档清单"), ("/domestic/review", "国内复核"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/first-person", "第一人称史料"), ("/hk-press", "香港报刊源"), ("/l1-board", "L1升级看板"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
@@ -738,7 +738,7 @@ NAV_GROUPS = [
 # 通过 cookie public_mode=1 或 query ?public=1 开启
 PUBLIC_HIDDEN_GROUPS = {"workbench"}
 PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisition",
-                        "/open-sources", "/dashboard", "/review", "/excluded"}
+                        "/open-sources", "/dashboard", "/review", "/excluded", "/domestic/review"}
 
 
 def nav_active(path: str) -> str:
@@ -2260,6 +2260,325 @@ def open_sources_page() -> bytes:
     return layout("开放资料源探勘", body, active_path="/open-sources")
 
 
+def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
+    """国内史料来源卡与候选清单；候选默认全部处于人工复核区。"""
+    query = query or {}
+    term = query.get("q", [""])[0].strip()
+    level = query.get("level", [""])[0].strip()
+    repository = query.get("repository", [""])[0].strip()
+    relevance = query.get("relevance", [""])[0].strip()
+    review = query.get("review", [""])[0].strip()
+    event = query.get("event", [""])[0].strip()
+    event_options = [
+        ("1941民盟前身", "1941民盟前身"),
+        ("1944改组更名", "1944改组更名"),
+        ("1945民盟一大", "1945民盟一大"),
+        ("1946旧政协", "1946旧政协"),
+        ("1946拒绝国民大会", "1946拒绝国民大会"),
+        ("1946李闻血案", "1946李闻血案"),
+        ("1947民盟被宣布非法", "1947民盟被宣布非法"),
+        ("1948五一口号", "1948五一口号"),
+        ("1949政协一届全会", "1949第一届政协"),
+        ("1949开国大典", "1949开国大典"),
+    ]
+    try:
+        coverage_path = ROOT / "data" / "domestic" / "event_coverage.json"
+        coverage = json.loads(coverage_path.read_text(encoding="utf-8")) if coverage_path.exists() else []
+        with conn() as c:
+            sources = c.execute(
+                """SELECT source_name, institution, source_type, authority_level,
+                          official_url, access_mode, shanghai_relevance, status
+                   FROM domestic_sources ORDER BY shanghai_relevance DESC, source_name"""
+            ).fetchall()
+            total_candidates = c.execute("SELECT count(*) FROM domestic_candidates").fetchone()[0]
+            accepted_count = c.execute("SELECT count(*) FROM domestic_candidates WHERE review_status = 'accepted'").fetchone()[0]
+            l1_count = c.execute("SELECT count(*) FROM domestic_candidates WHERE authenticity_level_proposed = 'L1'").fetchone()[0]
+            repository_options = [row[0] for row in c.execute(
+                "SELECT DISTINCT repository_code FROM domestic_candidates ORDER BY repository_code"
+            ).fetchall()]
+            where = []
+            params: list[object] = []
+            if getattr(_request, "public_mode", False):
+                # LX/L4 只保留在内部线索库，公开模式不得把它们当作可引用记录展示。
+                where.append("authenticity_level_proposed IN ('L0', 'L1', 'L2', 'L3')")
+            if term:
+                where.append("(title LIKE ? OR creator LIKE ? OR evidence_note LIKE ? OR person_tags LIKE ? OR event_tags LIKE ?)")
+                like = f"%{term}%"
+                params.extend([like, like, like, like, like])
+            if level:
+                where.append("authenticity_level_proposed = ?")
+                params.append(level)
+            if repository:
+                where.append("repository_code = ?")
+                params.append(repository)
+            if relevance:
+                where.append("relevance_grade_proposed = ?")
+                params.append(relevance)
+            if review:
+                where.append("review_status = ?")
+                params.append(review)
+            if event:
+                where.append("event_tags LIKE ?")
+                params.append(f"%{event}%")
+            where_sql = (" WHERE " + " AND ".join(where)) if where else ""
+            candidates = c.execute(
+                f"""SELECT candidate_id, title, document_type, source_url,
+                          authenticity_level_proposed, relevance_grade_proposed,
+                          review_status, evidence_note, uncertainty_note
+                   FROM domestic_candidates{where_sql} ORDER BY id""", params
+            ).fetchall()
+    except sqlite3.OperationalError:
+        return layout("国内史料", '<div class="notice">国内史料表尚未初始化，请先运行 scripts/domestic/ingest_domestic.py。</div>', active_path="/domestic")
+
+    pending = total_candidates - accepted_count
+    body = breadcrumb_html([("/", "首页"), (None, "国内史料")]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>国内民盟史与多党合作史资料</h1>
+    <div class="meta">上海视角 · 公开来源注册表与待复核候选</div>
+  </div>
+  <div class="doc-tools"><a class="button" href="/standards">收录标准</a></div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(len(sources))}</strong><span>来源卡</span></div>
+  <div class="stat"><strong>{h(total_candidates)}</strong><span>候选记录</span></div>
+  <div class="stat"><strong>{h(l1_count)}</strong><span>L1建议</span></div>
+  <div class="stat"><strong>{h(pending)}</strong><span>待人工复核</span></div>
+  <div class="stat"><strong>{h(accepted_count)}</strong><span>已接受记录</span></div>
+</section>
+<div class="notice">L1/L3 是拟议等级，不代表人工验收完成；没有档号、期号、页码或原件定位的记录不会直接作为已接受一手档案。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-calendar"/></svg>九个关键事件覆盖</h2></div>
+<section class="result-list">
+{''.join(f'''<article class="result">
+  <div>
+    <div class="title">{h(item["event_name"])}</div>
+    <div class="meta">国内状态：{h(item["domestic_status"])}</div>
+    <div class="tagline"><span class="tag">{h(item["pair_status"])}</span><span class="pstatus {'ok' if item["pair_status"] == "pair_available" else "warn"}">{h("境外已关联" if item["foreign_event_slugs"] else "境外待补")}</span></div>
+    <div class="snippet">{h(item["review_note"])}</div>
+  </div>
+  <div class="cite">国内证据 {h(len(item["domestic_candidate_ids"]))} 条</div>
+</article>''' for item in coverage)}
+</section>
+<section class="filter-panel">
+  <form method="get" action="/domestic" class="filter-form">
+    <label>关键词 <input name="q" value="{h(term)}" placeholder="题名、人物、事件"></label>
+    <label>原始性
+      <select name="level"><option value="">全部</option><option value="L1"{' selected' if level == 'L1' else ''}>L1</option><option value="L3"{' selected' if level == 'L3' else ''}>L3</option><option value="L4"{' selected' if level == 'L4' else ''}>L4</option><option value="LX"{' selected' if level == 'LX' else ''}>LX</option></select>
+    </label>
+    <label>来源
+      <select name="repository"><option value="">全部</option>{''.join(f'<option value="{h(code)}"{" selected" if repository == code else ""}>{h(code)}</option>' for code in repository_options)}</select>
+    </label>
+    <label>事件
+      <select name="event"><option value="">全部</option>{''.join(f'<option value="{h(value)}"{" selected" if event == value else ""}>{h(label)}</option>' for label, value in event_options)}</select>
+    </label>
+    <label>相关度
+      <select name="relevance"><option value="">全部</option><option value="core"{' selected' if relevance == 'core' else ''}>核心</option><option value="related"{' selected' if relevance == 'related' else ''}>相关</option><option value="background"{' selected' if relevance == 'background' else ''}>背景</option></select>
+    </label>
+    <label>状态
+      <select name="review"><option value="">全部</option><option value="needs_human_review"{' selected' if review == 'needs_human_review' else ''}>待复核</option><option value="accepted"{' selected' if review == 'accepted' else ''}>已接受</option></select>
+    </label>
+    <button class="button" type="submit">筛选</button>
+    <a class="button secondary" href="/domestic">清除</a>
+  </form>
+  <div class="meta">当前显示 {h(len(candidates))} 条 / 全部 {h(total_candidates)} 条候选</div>
+</section>
+"""
+    body += '<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>来源注册表</h2></div><section class="result-list">'
+    for row in sources:
+        link = row["official_url"] or "#"
+        body += f"""
+<article class="result">
+  <div>
+    {title_block(row["source_name"], link)}
+    <div class="meta">{h(row["institution"])} · {h(row["source_type"])} · {h(row["authority_level"])}</div>
+    <div class="tagline"><span class="tag">上海相关性：{h(row["shanghai_relevance"])}</span><span class="pstatus ok">{h(row["status"])}</span></div>
+    <div class="snippet">访问：{h(row["access_mode"])}</div>
+  </div>
+  <div class="cite"><a href="{h(link)}" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>"""
+    body += "</section>"
+    body += '<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>待复核候选</h2></div><section class="result-list">'
+    for row in candidates:
+        link = row["source_url"] or "#"
+        body += f"""
+<article class="result">
+  <div>
+    {title_block(row["title"], link)}
+    <div class="meta">{h(row["document_type"])} · 拟议证据等级 {h(row["authenticity_level_proposed"])} · 相关度 {h(row["relevance_grade_proposed"])}</div>
+    <div class="tagline"><span class="tag">{h(row["candidate_id"])}</span><span class="pstatus warn">{h(row["review_status"])}</span></div>
+    <div class="snippet">{h(row["evidence_note"])}</div>
+    <div class="snippet"><strong>不确定性：</strong>{h(row["uncertainty_note"])}</div>
+  </div>
+  <div class="cite"><a href="{h(link)}" target="_blank" rel="noreferrer">打开来源</a></div>
+</article>"""
+    body += "</section>"
+    return layout("国内史料", body, active_path="/domestic")
+
+
+def _domestic_tag_values(raw: object) -> list[str]:
+    """读取国内候选中的 JSON 标签；旧记录损坏时降级为空。"""
+    if not raw:
+        return []
+    if isinstance(raw, list):
+        return [str(value) for value in raw if str(value).strip()]
+    try:
+        value = json.loads(str(raw))
+    except (TypeError, json.JSONDecodeError):
+        return [part.strip() for part in str(raw).split("；") if part.strip()]
+    return value if isinstance(value, list) else []
+
+
+def _domestic_rows() -> list[sqlite3.Row]:
+    with conn() as c:
+        rows = c.execute(
+            """SELECT candidate_id, title, creator, document_date, document_type,
+                      repository_code, archive_fonds, archive_series, archive_file,
+                      archive_item, catalog_reference, source_url,
+                      authenticity_level_proposed, relevance_grade_proposed,
+                      review_status, event_tags, person_tags, place_tags,
+                      evidence_note, uncertainty_note
+               FROM domestic_candidates ORDER BY id"""
+        ).fetchall()
+    if getattr(_request, "public_mode", False):
+        rows = [row for row in rows if row["authenticity_level_proposed"] in {"L0", "L1", "L2", "L3"}]
+    return rows
+
+
+def domestic_sources_page() -> bytes:
+    """国内来源家族与机构地图。"""
+    with conn() as c:
+        rows = c.execute(
+            """SELECT source_name, institution, source_type, authority_level,
+                      official_url, record_or_search_url, access_mode,
+                      rights_status, shanghai_relevance, status, verification_note
+               FROM domestic_sources
+               ORDER BY shanghai_relevance DESC, source_name"""
+        ).fetchall()
+    families = {
+        "民盟自身文件": {"民盟", "盟史", "民盟中央", "民盟地方"},
+        "党政机关档案": {"档案", "政府", "党政"},
+        "政协与统一战线": {"政协", "统战"},
+        "国内同期报刊": {"报刊", "报纸", "期刊", "文献"},
+        "人物与地方组织档案": {"人物", "地方", "上海"},
+    }
+    family_rows: list[str] = []
+    for family, keywords in families.items():
+        matched = [row for row in rows if any(k in f"{row['source_name']} {row['institution']} {row['source_type']}" for k in keywords)]
+        family_rows.append(
+            f'<article class="result"><div><h2>{h(family)}</h2>'
+            f'<div class="meta">已登记 {len(matched)} 个来源入口</div>'
+            f'<div class="snippet">来源卡仍按机构、权威级别、访问方式和权利状态逐条复核。</div>'
+            f'</div><div class="cite"><a href="/domestic/sources?q={quote(family)}">查看</a></div></article>'
+        )
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, "来源地图")]) + f"""
+<section class="doc-head"><div><h1>国内来源与馆藏地图</h1><div class="meta">来源家族、权威入口、访问方式与上海关联度</div></div><div class="doc-tools"><a class="button" href="/domestic">候选目录</a></div></section>
+<section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>来源卡</span></div><div class="stat"><strong>{h(sum(1 for row in rows if row['access_mode'] == 'open'))}</strong><span>开放入口</span></div><div class="stat"><strong>{h(sum(1 for row in rows if row['rights_status'] != 'public'))}</strong><span>权利待核</span></div></section>
+<div class="notice">来源卡是检索入口，不等于已取得原件；记录级档号、卷期、影像和复制权利仍以候选卡的复核结果为准。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-building"/></svg>五个来源家族</h2></div><section class="result-list">{''.join(family_rows)}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>来源卡明细</h2></div><section class="result-list">"""
+    for row in rows:
+        link = row["official_url"] or row["record_or_search_url"] or "#"
+        body += f"""
+<article class="result"><div>{title_block(row['source_name'], link)}
+  <div class="meta">{h(row['institution'])} · {h(row['source_type'])} · {h(row['authority_level'])}</div>
+  <div class="tagline"><span class="tag">上海相关性：{h(row['shanghai_relevance'])}</span><span class="pstatus {'ok' if row['status'] == 'verified' else 'warn'}">{h(row['status'])}</span></div>
+  <div class="snippet">访问：{h(row['access_mode'])} · 权利：{h(row['rights_status'])}</div>
+  <div class="snippet">{h(row['verification_note'])}</div></div>
+  <div class="cite"><a href="{h(link)}" target="_blank" rel="noreferrer">打开入口</a></div></article>"""
+    body += "</section>"
+    return layout("国内来源地图", body, active_path="/domestic/sources")
+
+
+def domestic_events_page(query: dict[str, list[str]] | None = None) -> bytes:
+    """九个关键事件的国内候选与境外对位索引。"""
+    query = query or {}
+    selected = query.get("event", [""])[0].strip()
+    coverage_path = ROOT / "data" / "domestic" / "event_coverage.json"
+    coverage = json.loads(coverage_path.read_text(encoding="utf-8")) if coverage_path.exists() else []
+    rows = _domestic_rows()
+    by_id = {row["candidate_id"]: row for row in rows}
+    cards: list[str] = []
+    for item in coverage:
+        if selected and selected not in {item["event_id"], item["event_name"]}:
+            continue
+        linked = [by_id[cid] for cid in item.get("domestic_candidate_ids", []) if cid in by_id]
+        tag = (item.get("event_tags") or [""])[0]
+        domestic_link = f"/domestic?event={quote(tag)}" if tag else "/domestic"
+        foreign_links = []
+        for slug in item.get("foreign_event_slugs", []):
+            foreign_links.append(f'<a href="{h("/events/key/" + slug if event_by_slug(slug) else "/topics/" + slug)}">{h(slug)}</a>')
+        cards.append(f"""
+<article class="result"><div><h2>{h(item['event_name'])}</h2>
+  <div class="meta">国内候选 {len(linked)} 条 · {h(item['domestic_status'])}</div>
+  <div class="tagline"><span class="tag">{h(item['pair_status'])}</span><span class="pstatus {'ok' if item['pair_status'] == 'pair_available' else 'warn'}">{'境外已关联' if item.get('foreign_event_slugs') else '境外待补'}</span></div>
+  <div class="snippet">{h(item['review_note'])}</div></div>
+  <div class="cite"><a href="{h(domestic_link)}">查看国内记录</a>{' · ' + ' · '.join(foreign_links) if foreign_links else ''}</div></article>""")
+    selector = '<a class="button secondary" href="/domestic/events">显示全部</a>' if selected else ''
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, "关键事件")]) + f"""
+<section class="doc-head"><div><h1>国内关键事件覆盖</h1><div class="meta">国内记录、境外对位和仍待调档的差异说明</div></div><div class="doc-tools"><a class="button" href="/domestic">候选目录</a>{selector}</div></section>
+<div class="notice">“已关联”只表示存在可追踪的境外事件入口，不代表国内原件已经取得；L4/LX 仍停留在线索层。</div>
+<section class="result-list">{''.join(cards) or '<div class="notice">未找到该事件。</div>'}</section>"""
+    return layout("国内关键事件", body, active_path="/domestic/events")
+
+
+def _domestic_facet_page(kind: str) -> bytes:
+    """国内人物或地点索引，链接回带关键词的真实候选检索。"""
+    field = "person_tags" if kind == "people" else "place_tags"
+    label = "人物" if kind == "people" else "地点"
+    counts: dict[str, int] = {}
+    for row in _domestic_rows():
+        for value in _domestic_tag_values(row[field]):
+            counts[value] = counts.get(value, 0) + 1
+    items = []
+    for value, count in sorted(counts.items(), key=lambda item: (-item[1], item[0])):
+        items.append(f'<article class="result"><div><h2>{h(value)}</h2><div class="meta">国内候选 {count} 条</div></div><div class="cite"><a href="/domestic?q={quote(value)}">查看记录</a></div></article>')
+    path = "/domestic/people" if kind == "people" else "/domestic/places"
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, label + "索引")]) + f"""
+<section class="doc-head"><div><h1>国内{label}索引</h1><div class="meta">从候选记录中的实体标签回查来源、事件和不确定性</div></div><div class="doc-tools"><a class="button" href="/domestic">国内史料</a></div></section>
+<section class="stats"><div class="stat"><strong>{h(len(items))}</strong><span>{label}词条</span></div><div class="stat"><strong>{h(sum(counts.values()))}</strong><span>关联次数</span></div></section>
+<section class="result-list">{''.join(items) or '<div class="notice">暂无线索。</div>'}</section>"""
+    return layout("国内" + label + "索引", body, active_path=path)
+
+
+def domestic_acquisition_page() -> bytes:
+    """调档清单与待获取项；只显示元数据，不暴露受限影像。"""
+    plan_path = ROOT / "docs" / "domestic" / "acquisition_plan.md"
+    text = plan_path.read_text(encoding="utf-8") if plan_path.exists() else ""
+    bullets = re.findall(r"^- (.+)$", text, flags=re.MULTILINE)
+    rows = _domestic_rows()
+    with_archive = sum(1 for row in rows if row["archive_fonds"] or row["archive_file"] or row["archive_item"])
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, "调档清单")]) + f"""
+<section class="doc-head"><div><h1>国内史料调档与获取清单</h1><div class="meta">记录级档号、卷期、影像和权利的下一步任务</div></div><div class="doc-tools"><a class="button" href="/domestic/review">复核看板</a></div></section>
+<section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>候选记录</span></div><div class="stat"><strong>{h(with_archive)}</strong><span>含档号字段</span></div><div class="stat"><strong>{h(len(rows) - with_archive)}</strong><span>待定位</span></div></section>
+<div class="notice">本页只列调档元数据和公开入口；受限扫描件、PDF、图片和本地缓存不会通过公开 URL 提供。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>当前未闭环重点</h2></div><section class="result-list">{''.join(f'<article class="result"><div><div class="title">{h(item)}</div><div class="snippet">需要回到馆藏目录、同期报刊或正式汇编，补齐档号/卷期、影像和权利字段。</div></div><div class="cite"><a href="/domestic/review">进入复核</a></div></article>' for item in bullets)}</section>"""
+    return layout("国内调档清单", body, active_path="/domestic/acquisition")
+
+
+def domestic_review_page() -> bytes:
+    """国内候选的原始性、字段完整性和编辑状态看板。"""
+    rows = _domestic_rows()
+    with conn() as c:
+        decision_count = c.execute("SELECT count(*) FROM domestic_editorial_decisions").fetchone()[0]
+    levels: dict[str, int] = {}
+    statuses: dict[str, int] = {}
+    missing_archive = 0
+    for row in rows:
+        levels[row["authenticity_level_proposed"]] = levels.get(row["authenticity_level_proposed"], 0) + 1
+        statuses[row["review_status"]] = statuses.get(row["review_status"], 0) + 1
+        if not (row["archive_fonds"] or row["archive_file"] or row["archive_item"] or row["catalog_reference"]):
+            missing_archive += 1
+    level_cards = "".join(f'<article class="result"><div><h2>{h(level)}</h2><div class="meta">{count} 条候选</div><div class="snippet">{h("核心或公开展示" if level in {"L0", "L1", "L2", "L3"} else "仅线索/待核")}</div></div><div class="cite"><a href="/domestic?level={h(level)}">查看</a></div></article>' for level, count in sorted(levels.items()))
+    status_cards = "".join(f'<article class="result"><div><h2>{h(status)}</h2><div class="meta">{count} 条</div></div><div class="cite"><a href="/domestic?review={h(status)}">查看</a></div></article>' for status, count in sorted(statuses.items()))
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, "复核看板")]) + f"""
+<section class="doc-head"><div><h1>国内史料复核看板</h1><div class="meta">原始性等级、字段缺口、人工验收和编辑边界</div></div><div class="doc-tools"><a class="button" href="/domestic/acquisition">调档清单</a></div></section>
+<section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>候选</span></div><div class="stat"><strong>{h(statuses.get('accepted', 0))}</strong><span>已接受</span></div><div class="stat"><strong>{h(statuses.get('needs_human_review', 0))}</strong><span>待人工复核</span></div><div class="stat"><strong>{h(missing_archive)}</strong><span>缺档号/卷期</span></div><div class="stat"><strong>{h(decision_count)}</strong><span>编辑决策</span></div></section>
+<div class="notice">只有完成形成者、日期、档号/卷期、页码/影像和权利核验的记录，才可从 needs_human_review 升级为 accepted；本看板不把拟议等级当作验收结论。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-layer"/></svg>原始性分布</h2></div><section class="result-list">{level_cards}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-edit"/></svg>编辑状态</h2></div><section class="result-list">{status_cards}</section>"""
+    return layout("国内复核看板", body, active_path="/domestic/review")
+
+
 def save_home_focus(form: dict[str, list[str]]) -> tuple[bool, str]:
     raw = form.get("config_text", [""])[0]
     try:
@@ -2751,8 +3070,15 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             cached_images = []
         has_preview = len(cached_images) > 0
         # 该台北档案是否存在访客水印图——仅「有水印图」的档案才展示「史料意旨」摘要卡片
-        _drnh_img_dir = ROOT / "data" / "drnh_images" / doc["doc_key"].replace(":", "__").replace("/", "_")
-        has_watermark_img = _drnh_img_dir.is_dir() and any(_drnh_img_dir.glob("p*.jpg"))
+        _drnh_img_dir_name = doc["doc_key"].replace(":", "__").replace("/", "_")
+        _drnh_img_dirs = [ROOT / "data" / "drnh_images" / _drnh_img_dir_name]
+        # 兼容旧的 drnh__<典藏号> 和下载器当前生成的 <典藏号> 目录。
+        if _drnh_img_dir_name.startswith("drnh__"):
+            _drnh_img_dirs.append(ROOT / "data" / "drnh_images" / _drnh_img_dir_name.removeprefix("drnh__"))
+        _drnh_img_dir = next((p for p in _drnh_img_dirs if p.is_dir()), _drnh_img_dirs[0])
+        has_watermark_img = _drnh_img_dir.is_dir() and any(
+            list(_drnh_img_dir.glob("p*.jpg")) + list(_drnh_img_dir.glob("page_*.jpg"))
+        )
 
 
         preview_btn = (
@@ -2944,7 +3270,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             # 摘要卡片：仅台北档案中「有访客水印图」且已生成案由摘要的档案才展示，
             # 每篇只在首段出现一次；内容据档案案由机器整理，明确标注待人工校订
             summary_html = ""
-            drnh_sum = (doc["drnh_summary"] or "").strip() if has_watermark_img else ""
+            drnh_sum = (doc["drnh_summary"] or "").strip() if has_watermark_img and "drnh_summary" in doc.keys() else ""
             if drnh_sum and idx == 0:
                 summary_html = f"""
       <div class="drnh-academic-divider">
@@ -6318,6 +6644,20 @@ class Handler(BaseHTTPRequestHandler):
             payload = about_page()
         elif parsed.path == "/public":
             payload = public_page()
+        elif parsed.path == "/domestic/sources":
+            payload = domestic_sources_page()
+        elif parsed.path == "/domestic/events":
+            payload = domestic_events_page(qs)
+        elif parsed.path == "/domestic/people":
+            payload = _domestic_facet_page("people")
+        elif parsed.path == "/domestic/places":
+            payload = _domestic_facet_page("places")
+        elif parsed.path == "/domestic/acquisition":
+            payload = domestic_acquisition_page()
+        elif parsed.path == "/domestic/review":
+            payload = domestic_review_page()
+        elif parsed.path == "/domestic":
+            payload = domestic_page(qs)
         elif parsed.path == "/sourcebooks":
             payload = sourcebooks_page()
         elif parsed.path == "/drnh-review":
@@ -6445,14 +6785,17 @@ class Handler(BaseHTTPRequestHandler):
                 # 防穿越
                 if "/" in fname or ".." in fname or ".." in doc_key_safe:
                     raise ValueError("path traversal")
-                sub = ROOT / "data" / "drnh_images" / doc_key_safe.replace(":", "__").replace("/", "_")
-                fpath = sub / fname
-                fpath = fpath.resolve()
                 root_resolved = (ROOT / "data" / "drnh_images").resolve()
+                sub_name = doc_key_safe.replace(":", "__").replace("/", "_")
+                sub_candidates = [root_resolved / sub_name]
+                if sub_name.startswith("drnh__"):
+                    sub_candidates.append(root_resolved / sub_name.removeprefix("drnh__"))
+                fpath = next((p / fname for p in sub_candidates if (p / fname).is_file()), None)
+                if fpath is None:
+                    raise FileNotFoundError
+                fpath = fpath.resolve()
                 if not str(fpath).startswith(str(root_resolved)):
                     raise ValueError("escape")
-                if not fpath.is_file():
-                    raise FileNotFoundError
                 data = fpath.read_bytes()
                 self.send_response(200)
                 self.send_header("Content-Type", "image/jpeg")

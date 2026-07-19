@@ -87,14 +87,17 @@
       "domestic:NLC:minmeng-wenxian-1946-whole",
       "domestic:NLC:minmeng-wenxian-1946-situation-declaration-1945-01-15",
       "domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
-      "domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16"
+      "domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+      "domestic:NLC:minmeng-yanlunji-1945-whole",
+      "domestic:NLC:minmeng-yanlunji-1945-congress-political-report",
+      "domestic:NLC:minmeng-yanlunji-1945-congress-declaration"
     ],
     "foreign_event_slugs": [
       "democratic-league-1945-context"
     ],
-    "domestic_status": "已补入《民憲》连续期同期原刊扫描；民盟正式组织文件仍需原件互校；新增1983《历史文献》组织规程L2页界记录",
+    "domestic_status": "已补入《民憲》连续期同期原刊扫描；民盟正式组织文件仍需原件互校；新增1983《历史文献》组织规程L2页界记录；已挂NLC言论集1945宣言/政治报告L2转载链（同文双源，仍待原件）",
     "pair_status": "pair_partial",
-    "review_note": "FRUS 1945 文件提供民盟同期对外活动观察，但不是1945年10月第一次全国代表大会直接记录；大会原件仍待查。 2026-07-19 增挂 MMHIST 组织规程 L2 汇编页界候选（PDF124—127），仍不替代原件。"
+    "review_note": "FRUS 1945 文件提供民盟同期对外活动观察，但不是1945年10月第一次全国代表大会直接记录；大会原件仍待查。 2026-07-19 增挂 MMHIST 组织规程 L2 汇编页界候选（PDF124—127），仍不替代原件。 2026-07-19 挂接《中國民主同盟言論集》整本+政治报告+宣言（L2 1945同期选辑转载；与MMHIST 1983汇编为同文双源，≠原件、≠1946文獻正文缺口闭合）。"
   },
   {
     "event_id": "domestic-1946-pcc",
@@ -300,12 +303,31 @@
       "domestic:NLC:guangmingbao-1947-12-qingmo-democracy-two-paths",
       "domestic:NLC:guangmingbao-1947-12-oppose-us-atrocities-shanghai",
       "domestic:NLC:guangmingbao-1947-12-shanghai-democrats-on-us-atrocities",
-      "domestic:NLC:guangmingbao-1947-12-students-letter-to-truman"
+      "domestic:NLC:guangmingbao-1947-12-students-letter-to-truman",
+      "domestic:NLC:guangmingbao-1947-issue13-our-attitude-editorial",
+      "domestic:NLC:guangmingbao-1947-issue13-zhang-lan-plenum-opening",
+      "domestic:NLC:guangmingbao-1947-issue13-zhang-lan-plenum-closing",
+      "domestic:NLC:guangmingbao-1947-issue13-plenum-clippings",
+      "domestic:NLC:guangmingbao-1947-issue14-pcc-anniversary-editorial",
+      "domestic:NLC:guangmingbao-1947-issue14-plenum-political-report",
+      "domestic:NLC:guangmingbao-1947-issue14-shen-zhiyuan-plenum-impression",
+      "domestic:NLC:guangmingbao-1947-issue14-li-boqiu-plenum-gains",
+      "domestic:NLC:guangmingbao-1947-issue15-heavier-task-editorial",
+      "domestic:NLC:guangmingbao-1947-issue15-huang-yaomian-pcc-line",
+      "domestic:NLC:guangmingbao-1947-issue16-17-li-jishen-situation-views",
+      "domestic:NLC:guangmingbao-1947-issue16-17-minmeng-situation-declaration",
+      "domestic:NLC:guangmingbao-1947-issue16-17-respond-li-jishen-editorial",
+      "domestic:NLC:guangmingbao-1947-issue16-17-moscow-conference-china-editorial",
+      "domestic:NLC:guangmingbao-1947-issue18-people-cannot-endure-editorial",
+      "domestic:NLC:guangmingbao-1947-issue18-nantotal-press-reception",
+      "domestic:NLC:guangmingbao-1947-issue18-peng-zemin-statement",
+      "domestic:NLC:guangmingbao-1947-issue21-critique-dictatorship-new-policy-editorial",
+      "domestic:NLC:guangmingbao-1947-issue21-deng-chumin-middle-route"
     ],
     "foreign_event_slugs": [
       "meng-banned-1947"
     ],
-    "domestic_status": "已补入1947年8—10月《光明報》连续原刊；新十二号已增加社论及文章级页码定位；新十九号已增加5条文章级页码定位；10月27日公函、11月解散公告和全文转录仍待完成",
+    "domestic_status": "已补入1947年《光明報》连续原刊；新十三至新十八、新二十一已完成首面/目录+关键文文章级页码定位（本轮新增19条L1/needs_human_review）；封面出版日已按版出日RTL重核为1947-01至05及07月（纠正常见的Aug–Oct误读）；10月27日公函、11月解散公告和全文转录仍待完成",
     "pair_status": "pair_partial",
     "review_note": "境外事件证据较强；汉口版原刊补足11月4日交涉、11月6日解散报道的全国版别互证，但仍不能替代内政部公函或民盟总部解散公告原件。"
   },
@@ -430,10 +452,6 @@
       "domestic:SAAC:1949-item-a15",
       "domestic:SAAC:1949-item-a16",
       "domestic:SAAC:1949-item-a17",
-      "domestic:SAAC:catalog-01-01_03",
-      "domestic:SAAC:catalog-01-01_05",
-      "domestic:SAAC:catalog-01-01_10",
-      "domestic:SAAC:catalog-01-01_11",
       "domestic:SAAC:catalog-01-01_13",
       "domestic:SAAC:catalog-01-01_17",
       "domestic:SAAC:catalog-01-01_18",
@@ -464,7 +482,6 @@
       "domestic:SAAC:catalog-03-03_02_02",
       "domestic:SAAC:catalog-03-03_02_03",
       "domestic:SAAC:catalog-03-03_02_04",
-      "domestic:SAAC:catalog-03-03_03_01",
       "domestic:SAAC:catalog-03-03_03_02",
       "domestic:SAAC:catalog-03-03_03_03",
       "domestic:SAAC:catalog-03-03_03_04",
@@ -523,14 +540,13 @@
       "domestic:SAAC:catalog-06-06_10",
       "domestic:SAAC:catalog-06-06_11",
       "domestic:SAAC:catalog-06-06_12",
-      "domestic:MMZY:lead-周恩来与第一届人民政协会议的召开",
-      "domestic:MMSH:lead-新中国成立前民盟对政治协商制度的贡献"
+      "domestic:MMZY:lead-周恩来与第一届人民政协会议的召开"
     ],
     "foreign_event_slugs": [
       "peiping-mediation-1949"
     ],
     "domestic_status": "已补入1948—1949年《光明報》代表性原刊；逐页转录和大会档案互校仍待完成",
     "pair_status": "pair_partial",
-    "review_note": "现有境外事件页更集中于北平和平接触，政协一届全体会议的境外对应仍需另建证据卡。"
+    "review_note": "2026-07-19激进瘦身：默认仅保留SAAC且L1（或题名明确一届全会/新政协/开国/筹备会）、NLC《光明報》v2n1/v2n12整期与文章，及题名/日期明确1949且直接相关的少量L2–L4线索（≤15）；已移出1948输送计划/进入解放区动员/纲领草案初稿与泛盟史L4。境外事件页仍偏北平和平接触，一届全会境外对应待建。"
   }
 ]

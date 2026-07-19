@@ -1,0 +1,51 @@
+{
+  "model": "grok-4.5-build",
+  "checked_at": "2026-07-18",
+  "private_workspace_access": false,
+  "candidates": [
+    {
+      "candidate_id": "mmgk-3da6fe99",
+      "title": "历史沿革",
+      "source_url": "https://mng.minmengsh.gov.cn/detailpage/mmgk-3da6fe99-f684-11ec-95d4-94c691be0bb6.html",
+      "publisher": "民盟",
+      "published_or_historical_date": "2008-12-08",
+      "material_type": "官方组织沿革网页",
+      "model_classification": "primary",
+      "codex_final_classification": "secondary/L4",
+      "note": "Grok核验了页面和日期；项目标准要求官方后设叙述不能替代同时期原始档案。"
+    },
+    {
+      "candidate_id": "mmgk-3d1a262d",
+      "title": "民盟上海组织历届领导",
+      "source_url": "https://mng.minmengsh.gov.cn/detailpage/mmgk-3d1a262d-f684-11ec-8a00-94c691be0bb6.html",
+      "publisher": "民盟",
+      "published_or_historical_date": "2017-04-07",
+      "material_type": "官方组织名录网页",
+      "model_classification": "primary",
+      "codex_final_classification": "secondary/L4",
+      "note": "可用于人物检索词和组织沿革线索，不能替代选举公告或会议原件。"
+    },
+    {
+      "candidate_id": "jyjd-25ee39cd",
+      "title": "12处上海民盟传统教育基地合集",
+      "source_url": "https://www.minmengsh.gov.cn/detailpage/jyjd-25ee39cd-d19e-11ec-ad68-8c554a2845d4.html",
+      "publisher": "民盟市委宣传部",
+      "published_or_historical_date": "2019-10-17",
+      "material_type": "官方教育基地目录网页",
+      "model_classification": "primary",
+      "codex_final_classification": "secondary/L4",
+      "note": "可用于地点和人物追索，不能替代挂牌决定、批复文件或现场原件。"
+    },
+    {
+      "candidate_id": "sx-20240512-144526",
+      "title": "从南京西路到陕西北路——民盟上海市委机关办公地址的变迁",
+      "source_url": "https://paper.minmengsh.gov.cn/html/2024-05/12/content_144526_17450774.htm",
+      "publisher": "上海盟讯（民盟上海市委）",
+      "published_or_historical_date": "2024-05-12",
+      "material_type": "数字报专题文章",
+      "model_classification": "secondary",
+      "codex_final_classification": "secondary/L4",
+      "note": "数字报回顾文章，可反查办公地点产权、租赁和同期机关文件。"
+    }
+  ]
+}
