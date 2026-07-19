@@ -230,7 +230,7 @@ git diff --check
 - 阶段报告:work/domestic/sprint_38_phase2_report_20260719.md
 - 校验结果:候选文件 405 行 JSON 合规;事件覆盖 3 事件均含新候选 ID;6 件红线全守;minimax 不跑 ingest / 校验 / 审计(留给 mavis 阶段 5)
 - 阻塞 / 风险:任务 2.5/2.6/2.7 原刊完整核验依赖 cheer-only 接力(NLC 视检 / 数据库全文核验);B4 政治报告依赖 cheer 启动二史馆函调
-- Git commit hash: [待 commit 完成后填]
+- Git commit hash: `6ddf2f0656375d4a64dd381452ebcdb3e2d52409` (HEAD = main)
 ```
 
 ---
