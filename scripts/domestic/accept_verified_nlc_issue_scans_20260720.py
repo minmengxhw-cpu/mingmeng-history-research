@@ -4,30 +4,53 @@
 This intentionally excludes article-level cards.  Acceptance here means the
 issue identity, NLC identifier, visible cover/contents locator, local PDF and
 record metadata were checked; it does not mean every article was transcribed.
+
+与 accept_with_verification 的 rejected 列表不同, 旧版有:
+- dynamic discovery: 候选不是固定 IDS, 而是从所有 NLC + L1 + 光明報/民憲 + needs_human_review 的候选中
+- file existence check: (ROOT / path).exists()
+- normalize-accepted-date: 把已 accept 的光明報/民憲 的 reviewed_at 与 checked_at 统一 (单独 flag)
+
+为简化, 本重构保留主流程 (accept), normalize-accepted-date 暂不实现 (可后续按需添加).
 """
 
 from __future__ import annotations
 
 import argparse
-import json
 import re
+import sys
 from pathlib import Path
+from typing import Any
+
+sys.path.insert(0, str(Path(__file__).parent))
+from _accept_lib import (
+    dedupe_by_cid,
+    read_jsonl,
+    validate_after_write,
+    write_jsonl_atomic,
+)
+from _accept_lib import run_verifier_main
 
 
 ROOT = Path(__file__).resolve().parents[2]
 PATH_RE = re.compile(r"data/domestic/press_scans/[^；，。\s]+?\.pdf")
+TITLE_PREFIXES = ("《光明報》", "《民憲》")
 
 
-def eligible(row: dict[str, object]) -> tuple[bool, str]:
+REVIEW_NOTE = (
+    "通过整期原刊记录级审核：NLC馆藏标识、期名/期号、日期、可见封面或目录页、"
+    "页数/本地PDF和SHA256（如已登记）已核对。该接受只确认整期记录身份和可复查入口，"
+    "不表示期内每篇文章均已逐字转录，不表示复制权利已无条件确认，也不替代民盟正式文件原件。"
+)
+
+
+def _eligible(row: dict[str, Any]) -> tuple[bool, str]:
     cid = str(row.get("candidate_id", ""))
     title = str(row.get("title", ""))
     if row.get("repository_code") != "NLC":
         return False, "not NLC"
     if row.get("authenticity_level_proposed") != "L1" or row.get("evidence_type") != "digital_image":
         return False, "not L1 digital image"
-    if row.get("review_status") != "needs_human_review":
-        return False, "already reviewed"
-    if "article" in cid or not (title.startswith("《光明報》") or title.startswith("《民憲》")):
+    if "article" in cid or not title.startswith(TITLE_PREFIXES):
         return False, "not full issue"
     locator = str(row.get("evidence_locator", ""))
     access_note = str(row.get("access_note", ""))
@@ -38,21 +61,7 @@ def eligible(row: dict[str, object]) -> tuple[bool, str]:
         return False, "local PDF missing"
     if not row.get("document_date") or not row.get("catalog_reference"):
         return False, "missing date or catalog reference"
-    return True, "ok"
-
-
-def accept(row: dict[str, object], checked_at: str) -> None:
-    row["review_status"] = "accepted"
-    row["check_outcome"] = "pass"
-    row["authenticity_level_accepted"] = row["authenticity_level_proposed"]
-    row["relevance_grade_accepted"] = row["relevance_grade_proposed"]
-    row["reviewed_at"] = checked_at
-    row["reviewed_by"] = "codex"
-    row["review_note"] = (
-        "通过整期原刊记录级审核：NLC馆藏标识、期名/期号、日期、可见封面或目录页、"
-        "页数/本地PDF和SHA256（如已登记）已核对。该接受只确认整期记录身份和可复查入口，"
-        "不表示期内每篇文章均已逐字转录，不表示复制权利已无条件确认，也不替代民盟正式文件原件。"
-    )
+    return True, ""
 
 
 def main() -> int:
@@ -60,36 +69,41 @@ def main() -> int:
     parser.add_argument("jsonl", type=Path)
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--checked-at", default="2026-07-19")
-    parser.add_argument(
-        "--normalize-accepted-date",
-        action="store_true",
-        help="将本脚本已审核的整期记录的 reviewed_at 与 checked_at 统一",
-    )
     args = parser.parse_args()
 
-    rows = [json.loads(line) for line in args.jsonl.read_text(encoding="utf-8").splitlines() if line.strip()]
-    eligible_ids = []
-    rejected = []
-    for row in rows:
-        ok, reason = eligible(row)
-        if ok:
-            eligible_ids.append(row["candidate_id"])
-            if args.apply:
-                accept(row, args.checked_at)
-        elif args.normalize_accepted_date and row.get("review_status") == "accepted" and row.get("reviewed_by") == "codex":
-            if str(row.get("title", "")).startswith("《光明報》") or str(row.get("title", "")).startswith("《民憲》"):
-                row["checked_at"] = args.checked_at
-                row["reviewed_at"] = args.checked_at
-        elif row.get("repository_code") == "NLC" and row.get("authenticity_level_proposed") == "L1" and (str(row.get("title", "")).startswith("《光明報》") or str(row.get("title", "")).startswith("《民憲》")):
-            rejected.append({"candidate_id": row.get("candidate_id"), "reason": reason})
+    rows = read_jsonl(args.jsonl)
+    rows = dedupe_by_cid(rows)
 
-    if args.apply:
-        tmp = args.jsonl.with_suffix(args.jsonl.suffix + ".tmp")
-        tmp.write_text("".join(json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n" for row in rows), encoding="utf-8")
-        tmp.replace(args.jsonl)
-    result = {"records": len(rows), "eligible": len(eligible_ids), "applied": args.apply, "eligible_ids": eligible_ids, "rejected": rejected}
-    print(json.dumps(result, ensure_ascii=False))
-    return 0
+    # Dynamic discovery: 从 rows 中筛 NLC + L1 + digital_image + needs_human_review + 光明報/民憲
+    accept_ids = set()
+    rejected_pre = []
+    for r in rows:
+        if r.get("repository_code") != "NLC":
+            continue
+        if r.get("authenticity_level_proposed") != "L1" or r.get("evidence_type") != "digital_image":
+            continue
+        if r.get("review_status") != "needs_human_review":
+            continue
+        cid = r.get("candidate_id", "")
+        title = str(r.get("title", ""))
+        if "article" in cid or not title.startswith(TITLE_PREFIXES):
+            continue
+        accept_ids.add(cid)
+
+    if not accept_ids:
+        print(f"no eligible NLC full-issue scans in {len(rows)} rows", file=sys.stderr)
+        return 0
+
+    return run_verifier_main(
+        args.jsonl,
+        args.apply,
+        accept_ids=accept_ids,
+        validators=[_eligible],
+        review_note=REVIEW_NOTE,
+        today=args.checked_at,
+        reviewed_by="codex",
+        enforce_unchanged_status=True,
+    )
 
 
 if __name__ == "__main__":

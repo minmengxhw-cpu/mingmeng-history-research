@@ -21,12 +21,31 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from _accept_lib import (
+    dedupe_by_cid,
+    read_jsonl,
+    upgrade_level,
+    validate_after_write,
+    write_jsonl_atomic,
+)
 
 
 TODAY = "2026-07-19"
 
-# Mapping: candidate_id → upgrade info (verified file_no, page, original_verified_url)
+REVIEW_NOTE = (
+    "通过 history.state.gov 在线核读升级 L3 → L2：file number / 印刷页码 / despatch 号 / "
+    "作者-日期-收件人 / 正文摘要 全部与官方 FRUS 数字版匹配；"
+    "accepted 表示 FRUS 官方外交档案级别的研究入口已稳定，"
+    "不表示附件（如『未刊印』Service 备忘录、Sprouse 草案译文）已取到完整正文。"
+)
+
+EVIDENCE_NOTE_PREFIX = "【FRUS 官方核读 2026-07-19】"
+
+# Mapping: candidate_id → upgrade info
 UPGRADES = {
     "domestic:FRUS:1943-07-31-d232-ringwalt-liang-shuming-interview": {
         "frus_volume": "FRUS 1943 China",
@@ -100,67 +119,59 @@ UPGRADES = {
 }
 
 
+def _build_upgrade_dict() -> dict[str, dict]:
+    """将 UPGRADES 映射到 upgrade_level 期望的格式."""
+    result = {}
+    for cid, info in UPGRADES.items():
+        evidence_note_addition = EVIDENCE_NOTE_PREFIX + info["additional_notes"]
+        doc_num = cid.split("-d")[1].split("-")[0]
+        catalog_reference = (
+            f"{info['frus_volume']}, Document {doc_num}, "
+            f"{info['frus_file_number']}, printed page {info['frus_printed_page']}"
+        )
+        result[cid] = {
+            "field_updates": {
+                "authenticity_level_accepted": "L2",
+                "evidence_note": evidence_note_addition,
+                "catalog_reference": catalog_reference,
+            },
+            "review_note": REVIEW_NOTE,
+            "append_evidence_note": True,
+        }
+    return result
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("jsonl", type=Path)
     parser.add_argument("--apply", action="store_true")
     args = parser.parse_args()
 
-    rows = [json.loads(line) for line in args.jsonl.read_text(encoding="utf-8").splitlines() if line.strip()]
+    rows = read_jsonl(args.jsonl)
+    rows = dedupe_by_cid(rows)
 
-    upgraded, skipped = [], []
-    for row in rows:
-        cid = row.get("candidate_id", "")
-        if cid not in UPGRADES:
-            continue
-        if row.get("review_status") == "accepted" and row.get("authenticity_level_accepted") == "L2":
-            skipped.append(f"{cid} (already accepted L2)")
-            continue
+    upgrade_specs = _build_upgrade_dict()
+    rows, upgraded, skipped = upgrade_level(
+        rows,
+        upgrade_specs,
+        today=TODAY,
+        reviewed_by="claude-code",
+    )
 
-        u = UPGRADES[cid]
-
-        # Update evidence_note to incorporate WebFetch verification details
-        old_note = row.get("evidence_note", "")
-        if "[FRUS 核读 2026-07-19]" not in old_note:
-            new_note = (
-                old_note.rstrip() + "\n\n"
-                "【FRUS 官方核读 2026-07-19】" + u["additional_notes"]
-            )
-            row["evidence_note"] = new_note
-
-        # Update catalog_reference to include page reference
-        old_cat = row.get("catalog_reference", "")
-        if "p." not in old_cat and "pp." not in old_cat and "Page" not in old_cat:
-            row["catalog_reference"] = (
-                f"{u['frus_volume']}, Document {cid.split('-d')[1].split('-')[0]}, "
-                f"{u['frus_file_number']}, printed page {u['frus_printed_page']}"
-            )
-
-        # Promote to accepted L2
-        row["authenticity_level_accepted"] = "L2"
-        row["relevance_grade_accepted"] = row.get("relevance_grade_proposed", "core")
-        row["review_status"] = "accepted"
-        row["check_outcome"] = "pass"
-        row["reviewed_at"] = TODAY
-        row["reviewed_by"] = "claude-code"
-        row["review_note"] = (
-            "通过 history.state.gov 在线核读升级 L3 → L2：file number / 印刷页码 / despatch 号 / "
-            "作者-日期-收件人 / 正文摘要 全部与官方 FRUS 数字版匹配；"
-            "accepted 表示 FRUS 官方外交档案级别的研究入口已稳定，"
-            "不表示附件（如『未刊印』Service 备忘录、Sprouse 草案译文）已取到完整正文。"
-        )
-
-        upgraded.append(cid)
-
+    backup_path = None
     if args.apply:
-        args.jsonl.write_text(
-            "".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) + "\n" for r in rows),
-            encoding="utf-8",
-        )
-    print(json.dumps(
-        {"upgraded": upgraded, "skipped": skipped, "applied": args.apply, "total_records": len(rows)},
-        ensure_ascii=False,
-    ))
+        backup_path = write_jsonl_atomic(args.jsonl, rows)
+        if not validate_after_write(args.jsonl):
+            return 3
+
+    summary = {
+        "upgraded": upgraded,
+        "skipped": skipped,
+        "applied": args.apply,
+        "backup": str(backup_path) if backup_path else None,
+        "total_records": len(rows),
+    }
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
     return 0
 
 
