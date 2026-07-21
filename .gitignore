@@ -67,6 +67,19 @@ data/domestic/drnh_images/
 # 工作流产物中的原始页影像（OCR/对比用，本地留存，不入仓）
 work/domestic/sprint38_phase1/
 work/domestic/yanlunji_1945_pages/
+work/domestic/continue_pages/
+work/domestic/phase1_sprint38_probe/
+work/domestic/hard_gap_probe_20260719/
+work/domestic/minmeng_wenxian_1946/
+work/domestic/guangmingbao_1946_phase2_pages/
+work/domestic/ocr_guangmingbao_1946/
+work/domestic/guangmingbao_1948_1949/
+work/domestic/dagongbao_nlc_7604_7606/
+
+# work/domestic/ 下的 page 影像 / 扫描 PNG 一律不入仓（保留为本地工作产物）
+work/domestic/**/page-*.png
+work/domestic/**/*.png
+!work/domestic/**/*.svg
 
 # 临时 / 备份 / 归档
 data/domestic/candidates.jsonl.bak.*
