@@ -1,8 +1,26 @@
 # Cheer-only 接力清单
 
 收口日期：2026-07-19 10:04 (Asia/Shanghai)  
+最新更新：2026-07-21 21:55 (Asia/Shanghai) — 0721 sprint 增量（44 accepts + 闻一多 URL 修复 + 3 P1 模板就绪）
 适用项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`  
 边界：mavis 不主动发起，全部等 cheer 拍板；本清单用于 cheer 后续 sprint 拍优先级
+
+---
+
+## 更新摘要（2026-07-21）
+
+| 变化 | 详情 |
+|---|---|
+| candidates total | 689（不变）|
+| accepted | 401 → **450**（+49：T1 36 + T2.1 8 + 1 减表 + 5 L4 derivative = 50；其他调整详见 work/domestic/snapshot_20260721.md）|
+| pending | 288 → **239**（-49）|
+| 闻一多 wikisource URL | 404 → 200（已修到 baike.baidu.com）|
+| 3 P1 模板 | 孔夫子询价 v1 / 3 校校史馆函调 v1 / 民盟中央 3 处函调 v1 — 全部就绪 |
+| cheer-only 7 件 P0 模板 | 已就绪（3 件港大/二史馆/NLC 视检），cheer 启动直接套 |
+| 13 段模板结构 | 5 件统一（3 P0 + 3 P1）|
+| T2.3 cheer-only 候选 | 73 条（53 L3 catalogue + 16 not_online + 4 物理）|
+
+详细 codex 复审见 `work/domestic/codex_review_20260721.md` + `work/domestic/codex_review_tier2_20260721.md` + `work/domestic/codex_review_tier2_review_20260721.md`。
 
 ---
 
@@ -166,19 +184,19 @@ shac_1354_request_template_20260719.md
 nlc_press_viewing_template_20260719.md
 ```
 
-**P1 模板待提取**（cheer 启动对应接力时再写）：
+### 3 件 P1 模板（0721 就绪）
 
-| 模板 | 适用接力 | 触发条件 |
-|---|---|---|
-| 孔夫子询价 v1 | §1.接力 4 | cheer 拍 1947-11-04 北平《新民报》单日 |
-| 3 校校史馆函调 v1 | §1.接力 5 | cheer 拍清华 / 北大 / 燕京 校史馆 |
-| 民盟中央 3 处函调 v1 | §1.接力 6 | cheer 拍民盟中央 / 民主党派历史陈列馆 / 特园 |
+| 模板 | 适用接力 | 状态 | 文件 |
+|---|---|:---:|---|
+| 孔夫子询价 v1 | §1.接力 4（孔夫子询 1947-11-04 北平《新民报》）| ✅ 已就绪 | `work/domestic/kongfuzi_xinminbao_1947_request_template_20260721.md` |
+| 3 校校史馆函调 v1 | §1.接力 5（清华 / 北大 / 燕京 校史馆）| ✅ 已就绪 | `work/domestic/three_universities_history_museum_request_template_20260721.md` |
+| 民盟中央 3 处函调 v1 | §1.接力 6（民盟中央 / 陈列馆 / 特园）| ✅ 已就绪 | `work/domestic/three_meng_locations_request_template_20260721.md` |
 
 **触发命令：**
 
 ```text
 cheer：开 [接力编号] — [时间窗口]
-mavis：[P0 模板已就绪, cheer 直接套; P1 模板 cheer 拍后 mavis 写]
+mavis：[P0 模板已就绪, cheer 直接套; P1 模板已就绪, cheer 直接套]
 ```
 
 ---
