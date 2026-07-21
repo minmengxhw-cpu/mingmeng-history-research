@@ -42,6 +42,10 @@ ENUMS = {
     "review_status": {"candidate", "needs_human_review", "accepted", "rejected", "duplicate"},
     "reviewed_by": {"minimax", "grok", "codex", "human", "claude-code"},
     "check_outcome": {"pass", "fail", "needs_info", "deferred", "unknown"},
+    # v2 新增字段
+    "transcription_status": {"none", "partial", "full", "validated"},
+    "transcription_confidence": {"high", "medium", "low"},
+    "access_audit_status": {"ok", "redirect", "paywall", "archived", "failed", "unknown"},
 }
 
 
@@ -82,6 +86,22 @@ def validate(row: dict[str, object]) -> list[str]:
             errors.append("accepted records require check_outcome=pass")
     if row.get("review_status") in {"rejected", "duplicate"} and not str(row.get("review_note", "")).strip():
         errors.append("review_note is required for rejected or duplicate records")
+    # v2 新增字段 conditional 校验
+    transcription_status = row.get("transcription_status")
+    if transcription_status in {"partial", "full", "validated"}:
+        if not str(row.get("transcription_text_path", "")).strip():
+            errors.append(f"transcription_text_path is required for transcription_status={transcription_status}")
+    if transcription_status == "validated":
+        if "access_audit_date" not in row or not str(row.get("access_audit_date", "")).strip():
+            errors.append("access_audit_date is required for transcription_status=validated")
+        if "access_audit_status" not in row or row.get("access_audit_status") is None:
+            errors.append("access_audit_status is required for transcription_status=validated")
+    # citation_key 格式校验 (如有, 必须符合 pattern)
+    citation_key = row.get("citation_key")
+    if citation_key is not None:
+        import re
+        if not re.match(r"^[a-z0-9_-]{4,80}$", str(citation_key)):
+            errors.append(f"citation_key={citation_key!r} must match ^[a-z0-9_-]{{4,80}}$")
     return errors
 
 
