@@ -58,5 +58,20 @@ data/research_index.sqlite-wal
 data/research_index.sqlite-shm
 data/backups/
 
+# 大体量原始史料影像（数百 MB～GB 级，单独备份/上传 drive，不入仓）
+data/domestic/press_scans/
+data/domestic/sourcebooks/
+data/domestic/gazette_scans/
+data/domestic/drnh_images/
+
+# 工作流产物中的原始页影像（OCR/对比用，本地留存，不入仓）
+work/domestic/sprint38_phase1/
+work/domestic/yanlunji_1945_pages/
+
+# 临时 / 备份 / 归档
+data/domestic/candidates.jsonl.bak.*
+data/mingmeng_corpus_data_*.tar.gz
+data/domestic/*.bak
+
 # unrelated local prototype, not part of the research platform
 Pulse/

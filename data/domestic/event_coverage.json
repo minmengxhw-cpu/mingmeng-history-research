@@ -49,14 +49,20 @@
       "domestic:NLC:minxian-v1n1-1944-05-16",
       "domestic:NLC:minxian-v1n6-1944-08-15",
       "domestic:NLC:minxian-v1n9-1944-11-20",
-      "domestic:NLC:minxian-v1n9-democracy-vs-nondemocracy-1944-11-20"
+      "domestic:NLC:minxian-v1n9-democracy-vs-nondemocracy-1944-11-20",
+      "domestic:FRUS:1943-07-31-d232-ringwalt-liang-shuming-interview",
+      "domestic:FRUS:1943-09-18-d272-atcheson-federation-platform",
+      "domestic:FRUS:1944-04-21-d329-gauss-service-minority-parties",
+      "domestic:FRUS:1944-07-11-d380-langdon-kunming-democratic-league",
+      "domestic:FRUS:1944-09-22-d445-sprouse-democratic-league-principles",
+      "domestic:FRUS:1944-10-30-d478-gauss-war-final-stage-proposals"
     ],
     "foreign_event_slugs": [
       "democratic-league-1944-political-proposals"
     ],
     "domestic_status": "已补入1946年民盟总部官方文献汇编；原刊/原件互校仍待完成",
     "pair_status": "pair_partial",
-    "review_note": "FRUS 1944 文件记录民盟同期政治主张，但不是1944年改组会议记录；国内会议原件仍待查。"
+    "review_note": "FRUS 1944 文件记录民盟同期政治主张，但不是1944年改组会议记录；国内会议原件仍待查。| Claude Code 2026-07-19 L3→L2 升级（history.state.gov WebFetch 核读）：新增 6 条 FRUS L2 引用——d232/d272/d329/d380/d445/d478；FRUS 是美国国务院正式出版的外交档案集，hagi跳转级"
   },
   {
     "event_id": "domestic-1945-first-congress",
@@ -329,7 +335,7 @@
     ],
     "domestic_status": "已补入1947年《光明報》连续原刊；新十三至新十八、新二十一已完成首面/目录+关键文文章级页码定位（本轮新增19条L1/needs_human_review）；封面出版日已按版出日RTL重核为1947-01至05及07月（纠正常见的Aug–Oct误读）；10月27日公函、11月解散公告和全文转录仍待完成",
     "pair_status": "pair_partial",
-    "review_note": "境外事件证据较强；汉口版原刊补足11月4日交涉、11月6日解散报道的全国版别互证，但仍不能替代内政部公函或民盟总部解散公告原件。"
+    "review_note": "境外事件证据较强；汉口版原刊补足11月4日交涉、11月6日解散报道的全国版别互证，但仍不能替代内政部公函或民盟总部解散公告原件。 | Claude Code 2026-07-19 抽样 accept：issue13/14/15/16-17/18/21 共 19 条 L1 文章级原刊记录级接受（pages 全部在 work/domestic/continue_pages/1947_{13,14,15,16-17,18,21}/ 下，题名/日期/页界与本地页图核对一致；accepted 仅表示记录级入口，不代表全文转录或复制权利完成）"
   },
   {
     "event_id": "domestic-1948-third-plenum-may-day",

@@ -38,9 +38,9 @@ ENUMS = {
     "reuse_rights": {"public_domain", "open_license", "citation_only", "no_republication", "unknown"},
     "copy_allowed": {"yes", "no", "unknown"},
     "evidence_type": {"catalogue", "official_description", "digital_image", "printed_finding_aid", "secondary_lead", "unknown"},
-    "checked_by": {"minimax", "grok", "codex", "human"},
+    "checked_by": {"minimax", "grok", "codex", "human", "claude-code"},
     "review_status": {"candidate", "needs_human_review", "accepted", "rejected", "duplicate"},
-    "reviewed_by": {"minimax", "grok", "codex", "human"},
+    "reviewed_by": {"minimax", "grok", "codex", "human", "claude-code"},
     "check_outcome": {"pass", "fail", "needs_info", "deferred", "unknown"},
 }
 

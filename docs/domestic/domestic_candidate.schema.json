@@ -55,11 +55,11 @@
     "evidence_locator": {"type": "string"},
     "uncertainty_note": {"type": "string"},
     "checked_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
-    "checked_by": {"enum": ["minimax", "grok", "codex", "human"]},
+    "checked_by": {"enum": ["minimax", "grok", "codex", "human", "claude-code"]},
     "review_status": {"enum": ["candidate", "needs_human_review", "accepted", "rejected", "duplicate"]},
     "review_note": {"type": "string"},
     "reviewed_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
-    "reviewed_by": {"enum": ["minimax", "grok", "codex", "human"]},
+    "reviewed_by": {"enum": ["minimax", "grok", "codex", "human", "claude-code"]},
     "check_outcome": {"enum": ["pass", "fail", "needs_info", "deferred", "unknown"]},
     "authenticity_level_accepted": {"enum": ["L0", "L1", "L2", "L3", "L4", "LX", null]},
     "relevance_grade_accepted": {"enum": ["core", "related", "person", "background", "exclude", "unknown", null]}
