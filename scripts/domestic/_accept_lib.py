@@ -13,6 +13,9 @@
 - P2-12 accept 后自动 validate (validate_after_write 选项)
 - P3-13 UTF-8 BOM (read_jsonl 用 utf-8-sig)
 - P3-14 重复 cid (read_jsonl 后调用 dedupe_by_cid)
+
+0722 扩展: accept_with_verification / demote_level / upgrade_level,
+         覆盖 8 个历史 accept + 1 demote + 1 upgrade 脚本重构。
 """
 
 from __future__ import annotations
@@ -24,7 +27,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 
 # ===== I/O =====
@@ -155,6 +158,187 @@ def accept_batch(
             missing.append(cid)
 
     return rows, accepted, skipped, missing
+
+
+def accept_with_verification(
+    rows: list[dict[str, Any]],
+    accept_ids: set[str],
+    *,
+    validators: list[Callable[[dict[str, Any]], tuple[bool, str]]],
+    review_note: str,
+    today: str,
+    reviewed_by: str = "codex",
+    level_mode: str = "preserve_proposed",
+    hardcoded_level: str | None = None,
+    enforce_unchanged_status: bool = False,
+) -> tuple[list[dict[str, Any]], list[str], list[str], list[str], list[dict[str, str]]]:
+    """Verifier 模式 accept: 逐行 validators, 任一不过则 rejected (不入 accepted/skip/missing)。
+
+    validators: list of (row) -> (ok, reason)
+    enforce_unchanged_status: 若 True, raise if 候选 review_status != 'needs_human_review' (跳过没设这个的)
+
+    Returns (rows, accepted, skipped, missing, rejected).
+    rejected = [{"candidate_id": ..., "reason": ...}, ...]
+    """
+    accepted: list[str] = []
+    skipped: list[str] = []
+    missing: list[str] = []
+    rejected: list[dict[str, str]] = []
+
+    for r in rows:
+        cid = r.get("candidate_id")
+        if cid is None:
+            continue
+        if cid not in accept_ids:
+            continue
+
+        if enforce_unchanged_status and r.get("review_status") != "needs_human_review":
+            rejected.append({"candidate_id": cid, "reason": f"unexpected review_status {r.get('review_status')!r}"})
+            continue
+
+        if r.get("review_status") == "accepted":
+            skipped.append(cid)
+            continue
+
+        # 跑 validators
+        rejected_reason: str | None = None
+        for v in validators:
+            ok, reason = v(r)
+            if not ok:
+                rejected_reason = reason
+                break
+        if rejected_reason:
+            rejected.append({"candidate_id": cid, "reason": rejected_reason})
+            continue
+
+        # accept
+        r["review_status"] = "accepted"
+        r["reviewed_by"] = reviewed_by
+        r["reviewed_at"] = today
+        r["check_outcome"] = "pass"
+
+        if level_mode == "hardcode":
+            if not hardcoded_level:
+                raise ValueError("level_mode='hardcode' requires hardcoded_level")
+            r["authenticity_level_accepted"] = hardcoded_level
+        else:
+            proposed = r.get("authenticity_level_proposed")
+            if not proposed:
+                raise ValueError(
+                    f"authenticity_level_proposed missing for {cid}; cannot set level_accepted. "
+                    f"Either fix data or use level_mode='hardcode' with hardcoded_level."
+                )
+            r["authenticity_level_accepted"] = proposed
+
+        proposed_rel = r.get("relevance_grade_proposed")
+        if proposed_rel is None:
+            raise ValueError(
+                f"relevance_grade_proposed missing for {cid}; cannot set relevance_grade_accepted"
+            )
+        r["relevance_grade_accepted"] = proposed_rel
+
+        r["review_note"] = review_note
+        accepted.append(cid)
+
+    for cid in accept_ids:
+        if cid not in accepted and cid not in skipped and not any(rj["candidate_id"] == cid for rj in rejected):
+            missing.append(cid)
+
+    return rows, accepted, skipped, missing, rejected
+
+
+# ===== Demote / Upgrade 操作 =====
+
+def demote_level(
+    rows: list[dict[str, Any]],
+    demote_ids: set[str],
+    *,
+    from_level: str,
+    to_level: str,
+    review_note: str,
+) -> tuple[list[dict[str, Any]], list[str], list[str], list[str]]:
+    """降级 authenticity_level_proposed from from_level to to_level。
+
+    Returns (rows, demoted, skipped_already_at_to_level, missing).
+    """
+    demoted: list[str] = []
+    skipped: list[str] = []
+    missing: list[str] = []
+
+    for r in rows:
+        cid = r.get("candidate_id")
+        if cid is None:
+            continue
+        if cid not in demote_ids:
+            continue
+        current = r.get("authenticity_level_proposed")
+        if current == to_level:
+            skipped.append(cid)
+            continue
+        if current != from_level:
+            # 偏离预期状态 — 静默记录, 让操作者知道
+            skipped.append(f"{cid} (current={current}, expected={from_level})")
+            continue
+        r["authenticity_level_proposed"] = to_level
+        r["review_note"] = review_note
+        demoted.append(cid)
+
+    for cid in demote_ids:
+        if cid not in demoted and cid not in skipped:
+            missing.append(cid)
+
+    return rows, demoted, skipped, missing
+
+
+def upgrade_level(
+    rows: list[dict[str, Any]],
+    upgrades: dict[str, dict[str, Any]],
+    *,
+    today: str,
+    reviewed_by: str = "claude-code",
+) -> tuple[list[dict[str, Any]], list[str], list[str]]:
+    """逐 cid 升级 + 更新 evidence_note / catalog_reference / 设置 accepted。
+
+    upgrades: {cid: {field_updates: {...}, review_note: "...", append_evidence_note: bool}}
+    """
+    upgraded: list[str] = []
+    skipped: list[str] = []
+
+    for r in rows:
+        cid = r.get("candidate_id")
+        if cid is None or cid not in upgrades:
+            continue
+        u = upgrades[cid]
+        field_updates = u.get("field_updates", {})
+        review_note = u["review_note"]
+
+        # idempotency: if already accepted + level_accepted = target, skip
+        if r.get("review_status") == "accepted" and r.get("authenticity_level_accepted") == field_updates.get("authenticity_level_accepted"):
+            skipped.append(f"{cid} (already accepted)")
+            continue
+
+        # 更新 evidence_note (append 模式, 保留原内容)
+        if u.get("append_evidence_note") and "evidence_note" in field_updates:
+            old = r.get("evidence_note", "")
+            new_note = field_updates["evidence_note"]
+            # 仅追加 1 次
+            if "[FRUS 核读 2026-07-19]" not in old and "[FRUS 核读" not in old:
+                r["evidence_note"] = (old.rstrip() + "\n\n" + new_note).strip() if old else new_note
+            del field_updates["evidence_note"]
+
+        # 应用其他字段更新
+        for k, v in field_updates.items():
+            r[k] = v
+
+        r["review_status"] = "accepted"
+        r["reviewed_by"] = reviewed_by
+        r["reviewed_at"] = today
+        r["check_outcome"] = "pass"
+        r["review_note"] = review_note
+
+        upgraded.append(cid)
+
+    return rows, upgraded, skipped
 
 
 # ===== Update Field 操作 (URL 修复等) =====
@@ -288,3 +472,63 @@ def run_standard_main(
         return 4
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     return 0
+
+
+def run_verifier_main(
+    jsonl_path: Path,
+    apply: bool,
+    *,
+    accept_ids: set[str],
+    validators: list[Callable[[dict[str, Any]], tuple[bool, str]]],
+    review_note: str,
+    today: str,
+    reviewed_by: str = "codex",
+    level_mode: str = "preserve_proposed",
+    hardcoded_level: str | None = None,
+    enforce_unchanged_status: bool = False,
+    auto_validate: bool = True,
+) -> int:
+    """Verifier 模式标准 main(): 读 -> 去重 -> 验证 -> accept -> (apply 时) 原子写 + 备份 + validate。
+
+    Returns exit code.  Returns 1 if any rejected, 4 if count mismatch.
+    """
+    rows = read_jsonl(jsonl_path)
+    rows = dedupe_by_cid(rows)
+
+    rows, accepted, skipped, missing, rejected = accept_with_verification(
+        rows,
+        accept_ids,
+        validators=validators,
+        review_note=review_note,
+        today=today,
+        reviewed_by=reviewed_by,
+        level_mode=level_mode,
+        hardcoded_level=hardcoded_level,
+        enforce_unchanged_status=enforce_unchanged_status,
+    )
+
+    backup_path: Path | None = None
+    if apply:
+        backup_path = write_jsonl_atomic(jsonl_path, rows)
+        if auto_validate and not validate_after_write(jsonl_path):
+            return 3
+
+    summary = {
+        "accepted": accepted,
+        "skipped_already_accepted": skipped,
+        "missing_not_found": missing,
+        "rejected": rejected,
+        "applied": apply,
+        "backup": str(backup_path) if backup_path else None,
+        "total_records": len(rows),
+        "accept_set_size": len(accept_ids),
+    }
+    if (len(accepted) + len(skipped) + len(missing) + len(rejected)) != len(accept_ids):
+        print(
+            f"ERROR: count mismatch (accepted+skipped+missing+rejected={len(accepted)+len(skipped)+len(missing)+len(rejected)} "
+            f"!= accept_set_size={len(accept_ids)})",
+            file=sys.stderr,
+        )
+        return 4
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
+    return 1 if rejected else 0

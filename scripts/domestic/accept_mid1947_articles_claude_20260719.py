@@ -17,11 +17,15 @@ completion or copyright clearance (see review_note).
 from __future__ import annotations
 
 import argparse
-import json
+import sys
 from pathlib import Path
+from typing import Any
+
+sys.path.insert(0, str(Path(__file__).parent))
+from _accept_lib import run_verifier_main
 
 
-IDS = {
+ACCEPT_IDS = {
     # 1947 新十三號（1947-01-18）— 4 篇
     "domestic:NLC:guangmingbao-1947-issue13-our-attitude-editorial",
     "domestic:NLC:guangmingbao-1947-issue13-zhang-lan-plenum-opening",
@@ -56,14 +60,26 @@ REVIEW_NOTE = (
 )
 
 
-def accept(row: dict[str, object], checked_at: str) -> None:
-    row["review_status"] = "accepted"
-    row["check_outcome"] = "pass"
-    row["authenticity_level_accepted"] = row["authenticity_level_proposed"]
-    row["relevance_grade_accepted"] = row["relevance_grade_proposed"]
-    row["reviewed_at"] = checked_at
-    row["reviewed_by"] = "claude-code"
-    row["review_note"] = REVIEW_NOTE
+def _v_repo_nlc(row: dict[str, Any]) -> tuple[bool, str]:
+    if row.get("repository_code") != "NLC":
+        return False, "not NLC"
+    return True, ""
+
+
+def _v_title_date(row: dict[str, Any]) -> tuple[bool, str]:
+    if not row.get("document_date") or not row.get("title"):
+        return False, "missing title/date"
+    return True, ""
+
+
+def _v_local_locator(row: dict[str, Any]) -> tuple[bool, str]:
+    locator = str(row.get("evidence_locator", ""))
+    if "data/domestic/" in locator or "work/domestic/" in locator:
+        return True, ""
+    return False, "missing local locator"
+
+
+VALIDATORS = [_v_repo_nlc, _v_title_date, _v_local_locator]
 
 
 def main() -> int:
@@ -73,44 +89,15 @@ def main() -> int:
     parser.add_argument("--checked-at", default="2026-07-19")
     args = parser.parse_args()
 
-    rows = [json.loads(line) for line in args.jsonl.read_text(encoding="utf-8").splitlines() if line.strip()]
-    by_id = {str(r.get("candidate_id", "")): r for r in rows}
-
-    selected, missing, rejected = [], [], []
-    for cid in sorted(IDS):
-        if cid not in by_id:
-            missing.append(cid)
-            continue
-        row = by_id[cid]
-        selected.append(cid)
-        if row.get("repository_code") != "NLC":
-            rejected.append((cid, "not NLC"))
-        elif not row.get("document_date") or not row.get("title"):
-            rejected.append((cid, "missing title/date"))
-        elif not (
-            "data/domestic/" in str(row.get("evidence_locator", ""))
-            or "work/domestic/" in str(row.get("evidence_locator", ""))
-        ):
-            rejected.append((cid, "missing local locator"))
-        elif args.apply:
-            accept(row, args.checked_at)
-
-    if args.apply:
-        args.jsonl.write_text(
-            "".join(json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n" for row in rows),
-            encoding="utf-8",
-        )
-    print(json.dumps(
-        {
-            "selected": len(selected),
-            "applied": args.apply,
-            "missing": missing,
-            "rejected": rejected,
-            "ids": selected,
-        },
-        ensure_ascii=False,
-    ))
-    return 0 if not (missing or rejected) else 1
+    return run_verifier_main(
+        args.jsonl,
+        args.apply,
+        accept_ids=ACCEPT_IDS,
+        validators=VALIDATORS,
+        review_note=REVIEW_NOTE,
+        today=args.checked_at,
+        reviewed_by="claude-code",
+    )
 
 
 if __name__ == "__main__":
