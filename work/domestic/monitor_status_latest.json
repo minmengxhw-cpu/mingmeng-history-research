@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-19T15:46:10+08:00",
+  "generated_at": "2026-07-22T08:35:23+08:00",
   "project_root": "/Users/cheer/Documents/mm agent/mingmeng-history-research",
   "A_LAYER_COMPLETE": true,
   "B_LAYER_OPEN": true,
@@ -15,32 +15,32 @@
     "codex_review_report_present": true
   },
   "baseline": {
-    "candidates": 425,
+    "candidates": 689,
     "review_status": {
-      "needs_human_review": 224,
-      "accepted": 201
+      "accepted": 647,
+      "needs_human_review": 42
     },
     "evidence_levels": {
-      "L4": 40,
-      "L1": 323,
+      "L4": 44,
+      "L1": 325,
       "LX": 4,
-      "L3": 8,
-      "L2": 50
+      "L3": 88,
+      "L2": 228
     },
-    "accepted": 201,
-    "needs_human_review": 224,
+    "accepted": 647,
+    "needs_human_review": 42,
     "sources_ingest": 89,
     "events": 9
   },
   "validators": {
     "candidates": {
-      "records": 425,
+      "records": 689,
       "failed": 0,
-      "passed": 425,
+      "passed": 689,
       "_returncode": 0
     },
     "event_coverage": {
-      "candidate_ids": 425,
+      "candidate_ids": 689,
       "events": 9,
       "missing_candidate_references": [],
       "pair_status_counts": {
@@ -51,16 +51,16 @@
     },
     "ingest": {
       "domestic_sources": 89,
-      "domestic_candidates": 425,
-      "pending_review": 224,
-      "editorial_decisions": 425,
+      "domestic_candidates": 689,
+      "pending_review": 42,
+      "editorial_decisions": 689,
       "_returncode": 0
     },
     "audit": {
-      "records": 425,
+      "records": 689,
       "missing_required": 0,
       "missing_paths": 0,
-      "accepted_records": 201,
+      "accepted_records": 647,
       "report": "/Users/cheer/Documents/mm agent/mingmeng-history-research/docs/domestic/收口审计_20260719.md",
       "_returncode": 0
     }
@@ -96,7 +96,7 @@
         },
         {
           "candidate_id": "domestic:LNU:guangmingbao-index-1941",
-          "review_status": "needs_human_review",
+          "review_status": "accepted",
           "level": "L3"
         }
       ]
@@ -108,7 +108,7 @@
       "related_candidates": [
         {
           "candidate_id": "domestic:NLC:minmeng-wenxian-1946-toc-political-report-gap",
-          "review_status": "needs_human_review",
+          "review_status": "accepted",
           "level": "L3"
         }
       ]
@@ -120,7 +120,7 @@
       "related_candidates": [
         {
           "candidate_id": "domestic:MMHIST:league-banned-1947-10-27",
-          "review_status": "needs_human_review",
+          "review_status": "accepted",
           "level": "L2"
         }
       ]
@@ -132,7 +132,7 @@
       "related_candidates": [
         {
           "candidate_id": "domestic:MMHIST:league-dissolution-announcement-1947-11-06",
-          "review_status": "needs_human_review",
+          "review_status": "accepted",
           "level": "L2"
         }
       ]
@@ -144,7 +144,7 @@
       "related_candidates": [
         {
           "candidate_id": "domestic:GXMM:xinminbao-professors-statement-1947-11-04",
-          "review_status": "needs_human_review",
+          "review_status": "accepted",
           "level": "L4"
         }
       ]
