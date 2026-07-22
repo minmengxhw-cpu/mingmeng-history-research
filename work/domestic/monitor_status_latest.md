@@ -1,9 +1,9 @@
 # 完成监控状态
 
-- 生成时间：2026-07-19T15:46:10+08:00
+- 生成时间：2026-07-22T08:35:23+08:00
 - `A_LAYER_COMPLETE`：**true**
 - `B_LAYER_OPEN`：**true**
-- 候选：425；accepted：201；needs_human_review：224
+- 候选：689；accepted：647；needs_human_review：42
 
 ## A 层检查
 
