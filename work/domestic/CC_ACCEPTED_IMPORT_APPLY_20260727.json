@@ -1,0 +1,9 @@
+{
+  "batch_id": "cc_accepted_20260727",
+  "records": 58,
+  "gate": "PASS",
+  "mode": "apply",
+  "pages": 75,
+  "rollback_path": "data/research_index.sqlite.cc_accepted_20260727.pre.bak",
+  "applied_at": "2026-07-27T06:25:07"
+}

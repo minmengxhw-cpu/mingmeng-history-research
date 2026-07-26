@@ -1,0 +1,152 @@
+{
+  "date": "2026-07-26 (P3-GXMM rerotate 20260727)",
+  "phase": "Phase 5 dry-run (no actual apply)",
+  "executor": "Claude Code (terminal)",
+  "sqlite_state_at_baseline": {
+    "integrity_check": "ok",
+    "documents": 928,
+    "pages": 1428,
+    "page_fts": 1428
+  },
+  "batches": {
+    "accepted21": {
+      "candidates": 21,
+      "planned_new_documents": 21,
+      "planned_new_pages": 2178,
+      "planned_new_page_fts": 2178,
+      "planned_updated_pages": 0,
+      "citation_ready_count": 0,
+      "needs_human_review_count": 21
+    },
+    "pending37": {
+      "candidates": 37,
+      "planned_new_documents": 37,
+      "planned_new_pages": 942,
+      "planned_new_page_fts": 942,
+      "planned_updated_pages": 0,
+      "citation_ready_count": 0,
+      "needs_human_review_count": 37
+    },
+    "accepted_orphan_20260726": {
+      "candidates": 1,
+      "planned_new_documents": 0,
+      "planned_new_pages": 0,
+      "planned_new_page_fts": 0,
+      "planned_updated_pages": 0,
+      "status": "pending_codex_review",
+      "citation_ready_count": 0,
+      "needs_human_review_count": 1
+    },
+    "p3-113_114_p1_20260727": {
+      "candidates": 2,
+      "planned_new_documents": 2,
+      "planned_new_pages": 480,
+      "planned_new_page_fts": 480,
+      "planned_updated_pages": 0,
+      "citation_ready_count": 0,
+      "needs_human_review_count": 2,
+      "mean_confidence_p3-113": 0.8689,
+      "mean_confidence_p3-114": 0.8656
+    }
+  },
+  "totals": {
+    "candidates_total": 61,
+    "planned_new_documents_total": 60,
+    "planned_new_pages_total": 3600,
+    "planned_new_page_fts_total": 3600,
+    "planned_updated_pages_total": 0,
+    "citation_ready_count_total": 0,
+    "needs_human_review_count_total": 61
+  },
+  "skip_reasons": {
+    "P3-023": "pending_codex_review (orphan batch; phase5 决策缺失)"
+  },
+  "prohibitions_enforced": [
+    "no SQLite INSERT/UPDATE on data/research_index.sqlite",
+    "no upgrade_domestic_ocr_pages.py formal apply",
+    "no git commit",
+    "no git push"
+  ],
+  "backup_command": "cp -p data/research_index.sqlite data/research_index.sqlite.20260726_phase5.pre.bak",
+  "rollback_command": "cp -p data/research_index.sqlite.20260726_phase5.pre.bak data/research_index.sqlite",
+  "integrity_check_after_rollback": "sqlite3 data/research_index.sqlite \"PRAGMA integrity_check;\" → expect ok",
+  "post_apply_integrity_check": "sqlite3 data/research_index.sqlite \"PRAGMA integrity_check;\" → must be ok",
+  "post_apply_search_regression_keywords": [
+    "成立宣言",
+    "对时局主张纲领",
+    "民盟改组",
+    "民盟一大",
+    "民主宪政",
+    "五五宪草",
+    "人民主权",
+    "政治协商会议",
+    "国民大会",
+    "反对一党独裁",
+    "教授联署",
+    "民盟总部",
+    "非法化",
+    "恢复活动",
+    "三中全会",
+    "五一号召",
+    "新政协",
+    "多党合作",
+    "张澜",
+    "沈钧儒",
+    "黄炎培",
+    "张君劢",
+    "陈启天",
+    "李公朴",
+    "闻一多",
+    "香港",
+    "上海"
+  ],
+  "why_no_apply": [
+    "Phase 0—Phase 4 完成 dry-run, 全部 candidate 标 citation_ready=false 与 needs_human_review=true (per handoff 硬停止条件)",
+    "ACCEPTED21 + PENDING37 = 58 records, 3120 pages planned; Codex 验收前不得 apply",
+    "P3-023 是 orphan batch, Phase 5 决策缺失, 等 Codex 单独复核",
+    "2 件 REJECT_OCR/REVIEW_ORIGINAL (P3-GXMM-SH/TJ) 需 cheer 端高清重 OCR",
+    "113 卷/114 卷后段 OCR 仍在跑 (上一轮遗留 PIDs 63188/64599), 完成后再追加",
+    "本任务为长任务交接的 dry-run, 不在 Codex 验收前执行任何写入操作"
+  ],
+  "p3_gxmm_rerotate_20260727": {
+    "date": "2026-07-27",
+    "method": "r90 旋转增强 + PaddleOCR 重试",
+    "before": {
+      "P3-GXMM-SH": {
+        "conf": 0.5019,
+        "decision": "REVIEW_ORIGINAL"
+      },
+      "P3-GXMM-TJ": {
+        "conf": 0.4575,
+        "decision": "REJECT_OCR"
+      }
+    },
+    "after": {
+      "P3-GXMM-SH": {
+        "conf": 0.8012,
+        "decision": "GO_SEARCH_DRAFT"
+      },
+      "P3-GXMM-TJ": {
+        "conf": 0.8672,
+        "decision": "GO_SEARCH_DRAFT"
+      }
+    },
+    "cheer_only_status": "Both P3-GXMM-SH/TJ 已无需 cheer-only; r90 旋转后 OCR 平均 > 0.80",
+    "key_terms_tianjin_r90": [
+      "通知盟員停止政治活動",
+      "董顯光談民盟",
+      "政府不擬拘捕盟員",
+      "國代候選人",
+      "一週戰局",
+      "司法行政會議揭幕",
+      "義大利的新外交"
+    ],
+    "key_terms_shanghai_r90": [
+      "張瀾等昨開會決定",
+      "政府對民盟之政等",
+      "代候選人今日公告",
+      "倫敦四強會議揭",
+      "榆林城郊戰事持續"
+    ]
+  }
+}

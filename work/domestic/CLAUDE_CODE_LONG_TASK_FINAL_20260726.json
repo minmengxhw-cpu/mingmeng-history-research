@@ -1,0 +1,267 @@
+{
+  "date": "2026-07-26 (P3-GXMM rerotate 20260727)",
+  "executor": "Claude Code (terminal, long-task round 2)",
+  "primary_reviewer": "Codex",
+  "project_root": "/Users/cheer/Documents/mm agent/mingmeng-history-research",
+  "phases": {
+    "phase_0_baseline": {
+      "status": "completed",
+      "outputs": [
+        "work/domestic/CLAUDE_PHASE0_BASELINE_20260726.md",
+        "work/domestic/CLAUDE_PHASE0_BASELINE_20260726.json"
+      ],
+      "key_metrics": {
+        "integrity_check": "ok",
+        "documents": 928,
+        "pages": 1428,
+        "page_fts": 1428,
+        "validate_candidates": "689/689 passed",
+        "validate_event_coverage": "9 events, 0 missing",
+        "audit_readiness": "689 records, 660 accepted",
+        "git_diff_check": "clean"
+      }
+    },
+    "phase_1_manifest_split": {
+      "status": "completed",
+      "outputs": [
+        "work/domestic/CLAUDE_OCR_MANIFEST_ACCEPTED21_20260726.jsonl",
+        "work/domestic/CLAUDE_OCR_MANIFEST_PENDING37_20260726.jsonl",
+        "work/domestic/CLAUDE_PHASE1_MANIFEST_RECONCILIATION_20260726.csv",
+        "work/domestic/CLAUDE_PHASE1_MANIFEST_RECONCILIATION_20260726.md"
+      ],
+      "totals": {
+        "accepted21": {
+          "records": 21,
+          "pages": 2178,
+          "ocr_lines": 76258,
+          "conf_range": [
+            0.723,
+            0.986
+          ]
+        },
+        "pending37": {
+          "records": 37,
+          "pages": 942,
+          "ocr_lines": 143782,
+          "conf_range": [
+            0.458,
+            0.926
+          ]
+        }
+      },
+      "boundary_restored": "21+37=58 (旧 manifest 行 1-58), P3-023 行 59 as orphan"
+    },
+    "phase_2_collection_reconciliation": {
+      "status": "completed",
+      "outputs": [
+        "data/domestic/collection_download_manifest_20260726.jsonl",
+        "work/domestic/CLAUDE_PHASE2_COLLECTION_RECONCILIATION_20260726.md"
+      ],
+      "key_findings": {
+        "total_records": 62,
+        "is_new_download_true": 0,
+        "was_already_local_true": 61,
+        "round_summary": 1,
+        "verdict": "本轮新下载 0 件; '22 件下载'说法不成立"
+      }
+    },
+    "phase_3_continue_ocr": {
+      "status": "completed",
+      "outputs": [
+        "work/domestic/CLAUDE_OCR_MANIFEST_P3-023_20260726.jsonl",
+        "work/domestic/CLAUDE_PHASE3_OCR_QUEUE_20260726.csv",
+        "work/domestic/CLAUDE_PHASE3_OCR_QUEUE_20260726.md"
+      ],
+      "batches": [
+        {
+          "id": "P3-023",
+          "status": "manifest_complete (3 chunks exist, mean_conf 0.9301)"
+        },
+        {
+          "id": "P3-113",
+          "status": "in_progress (PID 63188 running on p0101-0232)"
+        },
+        {
+          "id": "P3-114",
+          "status": "in_progress (PID 64599 running on p0101-0248)"
+        },
+        {
+          "id": "P3-GXMM-SH_rescan",
+          "status": "queued_cheer_only"
+        },
+        {
+          "id": "P3-GXMM-TJ_rescan",
+          "status": "queued_cheer_only"
+        }
+      ]
+    },
+    "phase_4_quality_review": {
+      "status": "completed",
+      "outputs": [
+        "work/domestic/CLAUDE_PHASE4_OCR_DECISIONS_20260726.csv",
+        "work/domestic/CLAUDE_PHASE4_OCR_REVIEW_20260726.json",
+        "work/domestic/CLAUDE_PHASE4_OCR_REVIEW_20260726.md"
+      ],
+      "totals": {
+        "chunks_reviewed": 80,
+        "GO_SEARCH_DRAFT": 71,
+        "REVIEW_ORIGINAL": 9,
+        "REJECT_OCR": 0
+      }
+    },
+    "phase_5_dryrun": {
+      "status": "completed",
+      "outputs": [
+        "work/domestic/CLAUDE_PHASE5_IMPORT_CANDIDATE_MANIFEST_20260726.jsonl",
+        "work/domestic/CLAUDE_PHASE5_IMPORT_DRYRUN_20260726.json",
+        "work/domestic/CLAUDE_PHASE5_IMPORT_DRYRUN_20260726.md"
+      ],
+      "totals": {
+        "candidates_total": 61,
+        "planned_new_documents": 60,
+        "planned_new_pages": 3600,
+        "planned_new_page_fts": 3600,
+        "planned_updated_pages": 0,
+        "citation_ready_count": 0,
+        "needs_human_review_count": 61
+      },
+      "skip_reasons": {
+        "P3-023": "pending_codex_review (orphan batch; phase5 决策缺失)"
+      }
+    },
+    "phase_6_regression": {
+      "status": "completed",
+      "outputs": [
+        "work/domestic/CLAUDE_PHASE6_SEARCH_REGRESSION_20260726.json",
+        "work/domestic/CLAUDE_PHASE6_SEARCH_REGRESSION_20260726.md"
+      ],
+      "totals": {
+        "queries_total": 39,
+        "queries_with_hits": 18,
+        "total_hits": 587,
+        "zero_hits_due_to_trigram_tokenizer": 21,
+        "like_search_supplement": "民盟 152, 上海 82, 香港 61, 张澜 19"
+      }
+    }
+  },
+  "hard_prohibitions_enforced": [
+    "no SQLite INSERT/UPDATE on data/research_index.sqlite",
+    "no upgrade_domestic_ocr_pages.py real apply",
+    "no git commit",
+    "no git push"
+  ],
+  "hard_stop_conditions_checked": [
+    {
+      "cond": "SHA256 mismatch",
+      "triggered": false
+    },
+    {
+      "cond": "OCR source missing",
+      "triggered": false
+    },
+    {
+      "cond": "page count mismatch",
+      "triggered": false
+    },
+    {
+      "cond": "21/37 mixed batches",
+      "triggered": false
+    },
+    {
+      "cond": "original file overwrite prep",
+      "triggered": false
+    },
+    {
+      "cond": "page_fts/pages mismatch",
+      "triggered": false
+    },
+    {
+      "cond": "integrity_check non-ok",
+      "triggered": false
+    },
+    {
+      "cond": "needs login/cookie/captcha/paywall to bypass",
+      "triggered": false
+    },
+    {
+      "cond": "OCR unconfirmed but guess-fill",
+      "triggered": false
+    },
+    {
+      "cond": "citation_ready=true without rollback cmd",
+      "triggered": false
+    }
+  ],
+  "answers_to_handoff_q7": {
+    "Q1_21_vs_37_status": "21 ACCEPTED 全部 sha/size/pages/chunks/phase5 全匹配，14 GO_SEARCH_DRAFT + 7 REVIEW_ORIGINAL；37 PENDING 全部 sha/size/pages 已重算补齐，34 GO_SEARCH_DRAFT + 2 REVIEW_ORIGINAL + 1 REJECT_OCR",
+    "Q2_real_new_downloads": "0 件；DL 中 0 条 is_new_download=true；mmda/incoming 仅 README；22 件下载说法无凭证",
+    "Q3_remaining_local_materials": "60 PDF/PNG = 58 已 OCR + 2 后段运行中(113卷/114卷)；sourcebook 5/5、gazette 4/4、press_scan 49/51、raw 0；加权完成度约 95%",
+    "Q4_low_quality_cheer_only_list": "低质量 9 件 (r90 旋转后 P3-GXMM-SH/TJ 提升, 移除 2 件; 剩 4 件 1947 公報 + 3 件 1941 新华日报 + 1 件 1947 大剛報 + 1 件 1944 民憲); 重复 0; 缺页 0; 缺 SHA 0; cheer-only 3 项 (HKU + 上图 + 1941 香港光明報原版); P3-GXMM-SH/TJ cheer-only 已通过 r90 旋转解除",
+    "Q5_dryrun_changes": "若 apply P0(56 file_id)：docs 928→986，pages 1428→4548，page_fts 1428→4548",
+    "Q6_why_no_apply": "citation_ready 全 false + Codex 验收未完成 + P3-023 phase5 决策缺失 + 2 件低置信度需 cheer 重 OCR + 113/114 后段运行中 + 长任务交接规则禁止 Codex 验收前 apply",
+    "Q7_next_priority": "P0: ACCEPTED21 GO_SEARCH_DRAFT 子集(14) + ACCEPTED21 REVIEW_ORIGINAL(7) + PENDING37 GO_SEARCH_DRAFT(34) + P3-023(1)等 Codex; P1: P3-113/114 后段 OCR 完成追加(280 pages); P2: cheer 补 P3-GXMM-SH/TJ 高清图; P3: 1944-1945 时期新资料"
+  },
+  "status": "complete; awaiting Codex review",
+  "p1_supplement_20260727": {
+    "date": "2026-07-27",
+    "trigger": "PID 63188 / 64599 background OCR completed overnight",
+    "new_batches": [
+      "P3-113",
+      "P3-114"
+    ],
+    "new_chunks": 6,
+    "new_pages": 480,
+    "new_ocr_lines": 231875,
+    "mean_conf_p3_113": 0.8689,
+    "mean_conf_p3_114": 0.8656,
+    "candidates_total_after": 61,
+    "planned_new_pages_total_after": 3600,
+    "manifests_written": [
+      "work/domestic/CLAUDE_OCR_MANIFEST_P3-113_20260727.jsonl",
+      "work/domestic/CLAUDE_OCR_MANIFEST_P3-114_20260727.jsonl"
+    ],
+    "csv_appended": "work/domestic/CLAUDE_PHASE4_OCR_DECISIONS_20260726.csv (+6 rows)",
+    "candidate_manifest_extended": "work/domestic/CLAUDE_PHASE5_IMPORT_CANDIDATE_MANIFEST_20260726.jsonl (59 → 61)",
+    "dry_run_json_extended": "work/domestic/CLAUDE_PHASE5_IMPORT_DRYRUN_20260726.json (+p3-113_114_p1 batch)"
+  },
+  "p3_gxmm_rerotate_20260727": {
+    "date": "2026-07-27",
+    "method": "PDF 渲染 300dpi + 旋转 r90/r270 + PaddleOCR (PP-OCRv6_medium)",
+    "before": {
+      "P3-GXMM-SH": {
+        "conf": 0.5019,
+        "decision": "REVIEW_ORIGINAL",
+        "cheer_only": true
+      },
+      "P3-GXMM-TJ": {
+        "conf": 0.4575,
+        "decision": "REJECT_OCR",
+        "cheer_only": true
+      }
+    },
+    "after": {
+      "P3-GXMM-SH": {
+        "conf": 0.8012,
+        "decision": "GO_SEARCH_DRAFT",
+        "cheer_only": false
+      },
+      "P3-GXMM-TJ": {
+        "conf": 0.8672,
+        "decision": "GO_SEARCH_DRAFT",
+        "cheer_only": false
+      }
+    },
+    "cheer_only_cleared": 2,
+    "key_insight": "试用数据库 1 页 PDF 实际不是竖排倒序问题而是图像旋转问题; r90 旋转后 PaddleOCR 大幅提升",
+    "new_ocr_files": [
+      "work/domestic/claude_ocr_batches_20260726/P3-GXMM_rescan/NLC_大公報_上海版_r90.ocr.md",
+      "work/domestic/claude_ocr_batches_20260726/P3-GXMM_rescan/NLC_大公報_天津版_r90.ocr.md",
+      "work/domestic/claude_ocr_batches_20260726/P3-GXMM_rescan/...r270.ocr.md (rejected, low confidence)"
+    ],
+    "final_phase_4_totals": {
+      "GO_SEARCH_DRAFT": 71,
+      "REVIEW_ORIGINAL": 9,
+      "REJECT_OCR": 0
+    }
+  }
+}

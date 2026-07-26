@@ -1,0 +1,237 @@
+{
+  "status": "complete",
+  "mode": "manual_codex_local",
+  "dryrun": {
+    "mode": "dry-run-only",
+    "sqlite_touched": false,
+    "baseline": {
+      "documents": 928,
+      "pages": 1428,
+      "page_fts": 1428
+    },
+    "candidates": 61,
+    "planned_documents": 58,
+    "planned_pages": 3598,
+    "planned_page_fts": 3598,
+    "skipped": 3,
+    "skip_breakdown": {
+      "cheer_only_high_resolution_rescan": 2,
+      "orphan_pending_codex_review": 1
+    },
+    "citation_ready": 0,
+    "backup_command": "cp -p data/research_index.sqlite data/research_index.sqlite.20260726_manual.pre.bak",
+    "rollback_command": "cp -p data/research_index.sqlite.20260726_manual.pre.bak data/research_index.sqlite"
+  },
+  "regression": {
+    "integrity_check": "ok",
+    "counts": {
+      "documents": 928,
+      "pages": 1428,
+      "page_fts": 1428
+    },
+    "queries_total": 40,
+    "results": [
+      {
+        "keyword": "成立宣言",
+        "fts_hits": 5,
+        "like_hits": 3
+      },
+      {
+        "keyword": "中国民主政团同盟",
+        "fts_hits": 3,
+        "like_hits": 1
+      },
+      {
+        "keyword": "民盟改组",
+        "fts_hits": 2,
+        "like_hits": 0
+      },
+      {
+        "keyword": "民盟一大",
+        "fts_hits": 41,
+        "like_hits": 0
+      },
+      {
+        "keyword": "临时全国代表大会",
+        "fts_hits": 5,
+        "like_hits": 4
+      },
+      {
+        "keyword": "民主宪政",
+        "fts_hits": 1,
+        "like_hits": 1
+      },
+      {
+        "keyword": "政治协商会议",
+        "fts_hits": 131,
+        "like_hits": 130
+      },
+      {
+        "keyword": "国民大会",
+        "fts_hits": 22,
+        "like_hits": 14
+      },
+      {
+        "keyword": "非法化",
+        "fts_hits": 28,
+        "like_hits": 0
+      },
+      {
+        "keyword": "十月三十一日",
+        "fts_hits": 3,
+        "like_hits": 3
+      },
+      {
+        "keyword": "三中全会",
+        "fts_hits": 26,
+        "like_hits": 1
+      },
+      {
+        "keyword": "新政协",
+        "fts_hits": 125,
+        "like_hits": 4
+      },
+      {
+        "keyword": "多党合作",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "共同纲领",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "张澜",
+        "fts_hits": 0,
+        "like_hits": 19
+      },
+      {
+        "keyword": "沈钧儒",
+        "fts_hits": 10,
+        "like_hits": 10
+      },
+      {
+        "keyword": "黄炎培",
+        "fts_hits": 11,
+        "like_hits": 11
+      },
+      {
+        "keyword": "张君劢",
+        "fts_hits": 8,
+        "like_hits": 8
+      },
+      {
+        "keyword": "陈启天",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "李公朴",
+        "fts_hits": 2,
+        "like_hits": 2
+      },
+      {
+        "keyword": "闻一多",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "香港",
+        "fts_hits": 0,
+        "like_hits": 61
+      },
+      {
+        "keyword": "上海",
+        "fts_hits": 0,
+        "like_hits": 82
+      },
+      {
+        "keyword": "延安",
+        "fts_hits": 0,
+        "like_hits": 14
+      },
+      {
+        "keyword": "南京",
+        "fts_hits": 0,
+        "like_hits": 79
+      },
+      {
+        "keyword": "北平",
+        "fts_hits": 0,
+        "like_hits": 46
+      },
+      {
+        "keyword": "沈阳",
+        "fts_hits": 0,
+        "like_hits": 4
+      },
+      {
+        "keyword": "民盟",
+        "fts_hits": 0,
+        "like_hits": 152
+      },
+      {
+        "keyword": "中国民主同盟",
+        "fts_hits": 162,
+        "like_hits": 15
+      },
+      {
+        "keyword": "五五宪草",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "人民主权",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "反对一党独裁",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "教授联署",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "恢复活动",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "五一号召",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "下关惨案",
+        "fts_hits": 0,
+        "like_hits": 0
+      },
+      {
+        "keyword": "政治报告",
+        "fts_hits": 2,
+        "like_hits": 1
+      },
+      {
+        "keyword": "民主政团",
+        "fts_hits": 3,
+        "like_hits": 1
+      },
+      {
+        "keyword": "重庆谈判",
+        "fts_hits": 1,
+        "like_hits": 1
+      },
+      {
+        "keyword": "新政协筹备",
+        "fts_hits": 0,
+        "like_hits": 0
+      }
+    ]
+  },
+  "sqlite_touched": false
+}
