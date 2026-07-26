@@ -1,0 +1,21 @@
+{
+  "mode": "dry-run-only",
+  "sqlite_touched": false,
+  "baseline": {
+    "documents": 928,
+    "pages": 1428,
+    "page_fts": 1428
+  },
+  "candidates": 61,
+  "planned_documents": 58,
+  "planned_pages": 3598,
+  "planned_page_fts": 3598,
+  "skipped": 3,
+  "skip_breakdown": {
+    "cheer_only_high_resolution_rescan": 2,
+    "orphan_pending_codex_review": 1
+  },
+  "citation_ready": 0,
+  "backup_command": "cp -p data/research_index.sqlite data/research_index.sqlite.20260726_manual.pre.bak",
+  "rollback_command": "cp -p data/research_index.sqlite.20260726_manual.pre.bak data/research_index.sqlite"
+}

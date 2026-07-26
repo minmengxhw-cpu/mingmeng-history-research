@@ -1,0 +1,7 @@
+{
+  "batch_id": "cc_accepted_20260727",
+  "records": 58,
+  "gate": "PASS",
+  "mode": "dry_run",
+  "next_action": "rerun with --apply after reviewing pilot tags"
+}
