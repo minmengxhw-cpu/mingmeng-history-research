@@ -1,0 +1,96 @@
+{
+  "db_integrity": "ok",
+  "gate": "PASS",
+  "manifest_rows": 8,
+  "read_only": true,
+  "rows": [
+    {
+      "db_doc_key": null,
+      "document_present": false,
+      "download_id": "DL-20260727-001",
+      "extracted_text_present": true,
+      "extracted_text_sha256_matches": true,
+      "formal_import": false,
+      "fts_count": 0,
+      "page_count": 0,
+      "title": "中国民主同盟（维基百科导航条目）"
+    },
+    {
+      "db_doc_key": null,
+      "document_present": false,
+      "download_id": "DL-20260727-002",
+      "extracted_text_present": true,
+      "extracted_text_sha256_matches": true,
+      "formal_import": false,
+      "fts_count": 0,
+      "page_count": 0,
+      "title": "China Democratic League（Wikipedia导航条目）"
+    },
+    {
+      "db_doc_key": "domestic-web/DL-20260727-003",
+      "document_present": true,
+      "download_id": "DL-20260727-003",
+      "extracted_text_present": true,
+      "extracted_text_sha256_matches": true,
+      "formal_import": true,
+      "fts_count": 1,
+      "page_count": 1,
+      "title": "中国人民政治协商会议共同纲领（维基文库公开转录）"
+    },
+    {
+      "db_doc_key": "domestic-web/DL-20260727-004",
+      "document_present": true,
+      "download_id": "DL-20260727-004",
+      "extracted_text_present": true,
+      "extracted_text_sha256_matches": true,
+      "formal_import": true,
+      "fts_count": 1,
+      "page_count": 1,
+      "title": "中国民主同盟简介（民盟中央官方史叙）"
+    },
+    {
+      "db_doc_key": "domestic-web/DL-20260727-005",
+      "document_present": true,
+      "download_id": "DL-20260727-005",
+      "extracted_text_present": true,
+      "extracted_text_sha256_matches": true,
+      "formal_import": true,
+      "fts_count": 1,
+      "page_count": 1,
+      "title": "1948年1月5日，民盟恢复组织活动（人民政协网钩沉）"
+    },
+    {
+      "db_doc_key": "domestic-web/DL-20260727-006",
+      "document_present": true,
+      "download_id": "DL-20260727-006",
+      "extracted_text_present": true,
+      "extracted_text_sha256_matches": true,
+      "formal_import": true,
+      "fts_count": 1,
+      "page_count": 1,
+      "title": "中国共产党大事记·1946年"
+    },
+    {
+      "db_doc_key": "domestic-web/DL-20260727-007",
+      "document_present": true,
+      "download_id": "DL-20260727-007",
+      "extracted_text_present": true,
+      "extracted_text_sha256_matches": true,
+      "formal_import": true,
+      "fts_count": 1,
+      "page_count": 1,
+      "title": "沈钧儒保存的政协筹建会议提纲和记录（中央统战部）"
+    },
+    {
+      "db_doc_key": null,
+      "document_present": false,
+      "download_id": "DL-20260727-008",
+      "extracted_text_present": true,
+      "extracted_text_sha256_matches": true,
+      "formal_import": false,
+      "fts_count": 0,
+      "page_count": 0,
+      "title": "China Democratic League（Wikipedia原始wikitext）"
+    }
+  ]
+}
