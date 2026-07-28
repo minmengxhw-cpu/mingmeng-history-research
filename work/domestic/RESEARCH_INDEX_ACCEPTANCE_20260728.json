@@ -1,0 +1,52 @@
+{
+  "database": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
+  "counts": {
+    "documents": 991,
+    "pages": 1508,
+    "page_fts": 1508,
+    "domestic_documents": 130,
+    "accepted_candidates": 679,
+    "pending_candidates": 10,
+    "classification_orphans": 15,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0,
+    "integrity_check": "ok"
+  },
+  "platform_counts": {
+    "cia": 102,
+    "domestic": 130,
+    "drnh": 287,
+    "frus": 299,
+    "hathitrust": 54,
+    "hoover": 2,
+    "newspapersg": 93,
+    "wilson": 24
+  },
+  "candidate_statuses": {
+    "accepted": 679,
+    "needs_human_review": 10
+  },
+  "core_manifest": {
+    "rows": 40,
+    "periods": {
+      "1941": 8,
+      "1944-1945": 10,
+      "1946": 5,
+      "1947": 4,
+      "1948-1949": 8,
+      "1942-1943": 5
+    },
+    "citation_ready_true": 0
+  },
+  "observer": {
+    "issues": 12,
+    "derived_pdfs": 12,
+    "front_ocr_markdown": 24
+  },
+  "acceptance": {
+    "database_integrity": true,
+    "fts_aligned": true,
+    "core_manifest_shape": true,
+    "observer_boundaries_present": true
+  }
+}

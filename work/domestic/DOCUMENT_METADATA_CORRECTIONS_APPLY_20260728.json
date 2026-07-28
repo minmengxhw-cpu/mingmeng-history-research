@@ -1,0 +1,10 @@
+{
+  "batch_id": "p3_014_metadata_20260728",
+  "mode": "apply",
+  "rows": 1,
+  "validated": 1,
+  "applied": 1,
+  "skipped": [],
+  "backup": "data/research_index.sqlite.p3_014_metadata_20260728.20260728_084327.pre.bak",
+  "integrity_check": "ok"
+}
