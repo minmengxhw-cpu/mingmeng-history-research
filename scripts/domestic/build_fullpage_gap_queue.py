@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Build a conservative queue for domestic sources whose OCR is not page-complete.
+"""Build a conservative queue for domestic OCR drafts and formalization.
 
-The existing coverage inventory treats any indexed page as ``indexed``. This
-report adds the stricter physical-page comparison so selected-page OCR cannot
-be mistaken for whole-file coverage. It never modifies SQLite or source files.
+The queue distinguishes local OCR drafts from pages formally imported into
+SQLite. A source with a complete local draft should be formalized and reviewed,
+not OCRed again. It never modifies SQLite or source files.
 """
 
 from __future__ import annotations
@@ -22,6 +22,8 @@ def integer(value: str) -> int | None:
 
 
 def priority(source_path: str) -> tuple[str, str]:
+    if "/gazette_scans/" in f"/{source_path}":
+        return "A", "同期官方公报/原始扫描优先"
     if "/press_scans/" in f"/{source_path}":
         return "A", "同期报刊/原始扫描优先"
     if "/sourcebooks/" in f"/{source_path}":
@@ -44,24 +46,31 @@ def main() -> int:
     unknown = 0
     for row in rows:
         physical = integer(row.get("pdf_pages", ""))
-        manifest = integer(row.get("manifest_pages", "")) or 0
+        draft = integer(row.get("ocr_draft_pages", "")) or 0
         indexed = integer(row.get("indexed_pages", "")) or 0
         if physical is None:
             unknown += 1
             state = "physical_page_count_unknown"
-            missing = ""
+            ocr_needed = ""
+            formalize = str(max(draft - indexed, 0))
         else:
-            missing_count = max(physical - manifest, 0)
-            if physical == manifest == indexed:
+            ocr_needed = str(max(physical - draft, 0))
+            formalize = str(max(draft - indexed, 0))
+            if indexed > physical:
+                state = "formal_page_count_anomaly"
+            elif physical == indexed:
                 complete += 1
-                state = "page_complete"
-            elif indexed == 0:
-                state = "not_indexed"
+                state = "formal_page_complete"
+            elif draft >= physical:
+                state = "draft_ready_formal_gap"
+            elif draft:
+                state = "draft_partial_formal_gap"
+            elif indexed:
+                state = "indexed_partial_no_draft"
             else:
-                state = "partial_selected_pages"
-            missing = str(missing_count)
+                state = "ocr_needed"
         band, rationale = priority(row["source_path"])
-        if state != "page_complete":
+        if state != "formal_page_complete":
             queue.append(
                 {
                     "priority": band,
@@ -69,9 +78,10 @@ def main() -> int:
                     "coverage_state": state,
                     "source_path": row["source_path"],
                     "pdf_pages": row.get("pdf_pages", ""),
-                    "manifest_pages": row.get("manifest_pages", "0"),
+                    "ocr_draft_pages": row.get("ocr_draft_pages", "0"),
                     "indexed_pages": row.get("indexed_pages", "0"),
-                    "missing_pages": missing,
+                    "ocr_pages_to_generate": ocr_needed,
+                    "pages_to_formalize": formalize,
                     "sha256": row.get("sha256", ""),
                     "record_ids": row.get("record_ids", ""),
                     "indexed_titles": row.get("indexed_titles", ""),
@@ -81,7 +91,9 @@ def main() -> int:
     queue.sort(
         key=lambda row: (
             row["priority"],
-            -(integer(row["missing_pages"]) or 0),
+            0 if row["coverage_state"] == "draft_ready_formal_gap" else 1,
+            -(integer(row["pages_to_formalize"]) or 0),
+            -(integer(row["ocr_pages_to_generate"]) or 0),
             row["source_path"],
         )
     )
@@ -94,30 +106,31 @@ def main() -> int:
         writer.writerows(queue)
 
     physical_total = sum(integer(row.get("pdf_pages", "")) or 0 for row in rows)
-    manifest_total = sum(integer(row.get("manifest_pages", "")) or 0 for row in rows)
+    draft_total = sum(integer(row.get("ocr_draft_pages", "")) or 0 for row in rows)
     indexed_total = sum(integer(row.get("indexed_pages", "")) or 0 for row in rows)
-    missing_total = sum(
-        max((integer(row.get("pdf_pages", "")) or 0) - (integer(row.get("manifest_pages", "")) or 0), 0)
+    ocr_needed_total = sum(
+        max((integer(row.get("pdf_pages", "")) or 0) - (integer(row.get("ocr_draft_pages", "")) or 0), 0)
         for row in rows
     )
-    overcount_total = sum(
-        max((integer(row.get("manifest_pages", "")) or 0) - (integer(row.get("pdf_pages", "")) or 0), 0)
+    formalize_total = sum(
+        max((integer(row.get("ocr_draft_pages", "")) or 0) - (integer(row.get("indexed_pages", "")) or 0), 0)
         for row in rows
     )
+    by_state = Counter(row["coverage_state"] for row in queue)
     by_priority = Counter(row["priority"] for row in queue)
     lines = [
-        "# 国内来源整本页覆盖缺口队列",
+        "# 国内来源 OCR 草稿与正式入库队列",
         "",
-        "本报告对比 PDF 物理页数、OCR manifest 页数和 SQLite 已入库页数。`indexed` 不代表整本完成；只有三者相等才标记为 `page_complete`。报告只读生成，不修改原始文件或 SQLite。",
+        "本报告区分本地 OCR 草稿和 SQLite 正式页层。完整 OCR 草稿优先进入 formalize/review，不重复 OCR；报告只读生成，不修改 SQLite 或原始文件。",
         "",
-        f"- 来源 PDF：{len(rows)}",
+        f"- 来源文件：{len(rows)}",
         f"- 物理页总数（可识别）：{physical_total}",
-        f"- manifest 页总数：{manifest_total}",
+        f"- 本地 OCR 草稿页总数：{draft_total}",
         f"- SQLite 入库页总数：{indexed_total}",
-        f"- 待补物理页（逐文件正缺口合计）：{missing_total}",
-        f"- manifest 超出 pdfinfo 页数：{overcount_total}",
+        f"- 仍需生成 OCR 草稿页：{ocr_needed_total}",
+        f"- 已有 OCR 草稿但待正式化页：{formalize_total}",
         f"- 整本页完整：{complete}",
-        f"- 选页/部分 OCR：{len(queue) - unknown}",
+        f"- 待处理来源：{len(queue)}",
         f"- 物理页数未知：{unknown}",
         "",
         "## 优先级定义",
@@ -128,26 +141,33 @@ def main() -> int:
         "",
         "## 队列统计",
         "",
+        "| 状态 | 文件数 |",
+        "|---|---:|",
+        f"| draft_ready_formal_gap | {by_state['draft_ready_formal_gap']} |",
+        f"| draft_partial_formal_gap | {by_state['draft_partial_formal_gap']} |",
+        f"| indexed_partial_no_draft | {by_state['indexed_partial_no_draft']} |",
+        f"| formal_page_count_anomaly | {by_state['formal_page_count_anomaly']} |",
+        "",
         "| 优先级 | 文件数 |",
         "|---|---:|",
         f"| A | {by_priority['A']} |",
         f"| B | {by_priority['B']} |",
         f"| C | {by_priority['C']} |",
         "",
-        "## 最大页缺口（前 20）",
+        "## 下一步队列（前 20）",
         "",
     ]
-    for row in sorted(queue, key=lambda r: -(integer(r["missing_pages"]) or 0))[:20]:
+    for row in queue[:20]:
         lines.append(
-            f"- `{row['priority']}` 缺 {row['missing_pages']} 页：`{row['source_path']}`（物理 {row['pdf_pages']}，manifest {row['manifest_pages']}，入库 {row['indexed_pages']}）"
+            f"- `{row['coverage_state']}` / `{row['priority']}`：`{row['source_path']}`（物理 {row['pdf_pages']}，OCR草稿 {row['ocr_draft_pages']}，正式入库 {row['indexed_pages']}，待OCR {row['ocr_pages_to_generate']}，待正式化 {row['pages_to_formalize']}）"
         )
     lines.extend(
         [
             "",
             "## 入库门控",
             "",
-            "1. 先按 `A` 队列逐份保留原 PDF SHA256 和页码映射。",
-            "2. 以页为单位运行 PaddleOCR；OCR 结果只能先进入检索草稿层。",
+            "1. `draft_ready_formal_gap`：复核本地 OCR 草稿的来源 SHA256、页码映射和页级边界，再做 SQLite dry-run。",
+            "2. `draft_partial_formal_gap`/`ocr_needed`：只对缺失页运行 PaddleOCR，保留页级 manifest。",
             "3. 关键页必须记录原图定位、版面复核和人工审校结果。",
             "4. 仅在 manifest、pages、page_fts 对齐且证据门控通过后，才提升为引用候选。",
         ]
@@ -159,8 +179,9 @@ def main() -> int:
             "queue": len(queue),
             "page_complete": complete,
             "physical_pages": physical_total,
-            "manifest_pages": manifest_total,
-            "missing_pages": missing_total,
+            "ocr_draft_pages": draft_total,
+            "ocr_pages_to_generate": ocr_needed_total,
+            "pages_to_formalize": formalize_total,
             "output_csv": str(args.output_csv),
             "output_md": str(args.output_md),
         }
