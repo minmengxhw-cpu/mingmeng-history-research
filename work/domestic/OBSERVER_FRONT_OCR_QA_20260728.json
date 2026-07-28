@@ -1,0 +1,207 @@
+{
+  "gate": "PASS",
+  "issues": 12,
+  "ocr_pages": 24,
+  "verified_pages": 24,
+  "confidence": {
+    "min": 0.8409,
+    "mean": 0.9122375000000003,
+    "max": 0.964
+  },
+  "errors": [],
+  "pages": [
+    {
+      "record_id": "OBSERVER-V3N01-1947-front-p01",
+      "issue_number": 1,
+      "page_label": "front-01",
+      "confidence": 0.9547,
+      "recognized_chars": 398,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue01/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N01-1947-front-p02",
+      "issue_number": 1,
+      "page_label": "front-02",
+      "confidence": 0.9423,
+      "recognized_chars": 2296,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue01/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N02-1947-front-p01",
+      "issue_number": 2,
+      "page_label": "front-01",
+      "confidence": 0.8884,
+      "recognized_chars": 513,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue02/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N02-1947-front-p02",
+      "issue_number": 2,
+      "page_label": "front-02",
+      "confidence": 0.9409,
+      "recognized_chars": 2168,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue02/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N03-1947-front-p01",
+      "issue_number": 3,
+      "page_label": "front-01",
+      "confidence": 0.964,
+      "recognized_chars": 319,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue03/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N03-1947-front-p02",
+      "issue_number": 3,
+      "page_label": "front-02",
+      "confidence": 0.9211,
+      "recognized_chars": 2308,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue03/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N04-1947-front-p01",
+      "issue_number": 4,
+      "page_label": "front-01",
+      "confidence": 0.9267,
+      "recognized_chars": 473,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue04/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N04-1947-front-p02",
+      "issue_number": 4,
+      "page_label": "front-02",
+      "confidence": 0.9195,
+      "recognized_chars": 2445,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue04/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N05-1947-front-p01",
+      "issue_number": 5,
+      "page_label": "front-01",
+      "confidence": 0.9236,
+      "recognized_chars": 539,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue05/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N05-1947-front-p02",
+      "issue_number": 5,
+      "page_label": "front-02",
+      "confidence": 0.8409,
+      "recognized_chars": 1933,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue05/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N06-1947-front-p01",
+      "issue_number": 6,
+      "page_label": "front-01",
+      "confidence": 0.8671,
+      "recognized_chars": 431,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue06/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N06-1947-front-p02",
+      "issue_number": 6,
+      "page_label": "front-02",
+      "confidence": 0.9247,
+      "recognized_chars": 2669,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue06/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N07-1947-front-p01",
+      "issue_number": 7,
+      "page_label": "front-01",
+      "confidence": 0.8881,
+      "recognized_chars": 573,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue07/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N07-1947-front-p02",
+      "issue_number": 7,
+      "page_label": "front-02",
+      "confidence": 0.9069,
+      "recognized_chars": 2479,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue07/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N08-1947-front-p01",
+      "issue_number": 8,
+      "page_label": "front-01",
+      "confidence": 0.8626,
+      "recognized_chars": 559,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue08/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N08-1947-front-p02",
+      "issue_number": 8,
+      "page_label": "front-02",
+      "confidence": 0.9127,
+      "recognized_chars": 2579,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue08/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N09-1947-front-p01",
+      "issue_number": 9,
+      "page_label": "front-01",
+      "confidence": 0.9017,
+      "recognized_chars": 430,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue09/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N09-1947-front-p02",
+      "issue_number": 9,
+      "page_label": "front-02",
+      "confidence": 0.8654,
+      "recognized_chars": 2276,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue09/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N10-1947-front-p01",
+      "issue_number": 10,
+      "page_label": "front-01",
+      "confidence": 0.8997,
+      "recognized_chars": 452,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue10/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N10-1947-front-p02",
+      "issue_number": 10,
+      "page_label": "front-02",
+      "confidence": 0.9247,
+      "recognized_chars": 2343,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue10/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N11-1947-front-p01",
+      "issue_number": 11,
+      "page_label": "front-01",
+      "confidence": 0.8942,
+      "recognized_chars": 460,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue11/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N11-1947-front-p02",
+      "issue_number": 11,
+      "page_label": "front-02",
+      "confidence": 0.9469,
+      "recognized_chars": 2523,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue11/page-02.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N12-1947-front-p01",
+      "issue_number": 12,
+      "page_label": "front-01",
+      "confidence": 0.9597,
+      "recognized_chars": 474,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue12/page-01.ocr.md"
+    },
+    {
+      "record_id": "OBSERVER-V3N12-1947-front-p02",
+      "issue_number": 12,
+      "page_label": "front-02",
+      "confidence": 0.9172,
+      "recognized_chars": 2452,
+      "ocr_markdown": "work/domestic/observer_front_ocr_20260728/markdown/issue12/page-02.ocr.md"
+    }
+  ],
+  "import_policy": "review_only; citation_ready=false; needs_human_review=true"
+}
