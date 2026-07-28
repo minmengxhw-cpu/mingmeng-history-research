@@ -1,0 +1,25 @@
+{
+  "batch_id": "observer-front-ocr-20260728",
+  "mode": "dry_run",
+  "gate": "PASS",
+  "issues": 12,
+  "ocr_pages": 24,
+  "inserted_documents": 0,
+  "inserted_pages": 0,
+  "skipped_existing": [
+    "domestic-ocr/NLC:observer-1947-v3n01-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n02-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n03-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n04-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n05-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n06-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n07-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n08-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n09-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n10-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n11-front-ocr",
+    "domestic-ocr/NLC:observer-1947-v3n12-front-ocr"
+  ],
+  "backup": null,
+  "applied_at": null
+}

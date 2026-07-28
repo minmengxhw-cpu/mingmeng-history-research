@@ -1,10 +1,12 @@
 {
   "database": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
   "counts": {
-    "documents": 991,
-    "pages": 1508,
-    "page_fts": 1508,
-    "domestic_documents": 130,
+    "documents": 1003,
+    "pages": 1532,
+    "page_fts": 1532,
+    "domestic_documents": 142,
+    "observer_front_documents": 12,
+    "observer_front_pages": 24,
     "accepted_candidates": 679,
     "pending_candidates": 10,
     "classification_orphans": 15,
@@ -14,7 +16,7 @@
   },
   "platform_counts": {
     "cia": 102,
-    "domestic": 130,
+    "domestic": 142,
     "drnh": 287,
     "frus": 299,
     "hathitrust": 54,
@@ -41,7 +43,9 @@
   "observer": {
     "issues": 12,
     "derived_pdfs": 12,
-    "front_ocr_markdown": 24
+    "front_ocr_markdown": 24,
+    "db_documents": 12,
+    "db_pages": 24
   },
   "acceptance": {
     "database_integrity": true,

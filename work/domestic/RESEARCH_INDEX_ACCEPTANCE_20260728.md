@@ -2,8 +2,9 @@
 
 ## 当前库状态
 
-- documents：991；pages：1508；page_fts：1508
-- 国内文献（source_platform=domestic）：130
+- documents：1003；pages：1532；page_fts：1532
+- 国内文献（source_platform=domestic）：142
+- 《观察》封面/目录 review-only 入库：12 期文档、24 页
 - 候选：accepted 679；needs_human_review 10
 - integrity_check：ok
 - pages_without_fts：0；fts_without_pages：0
@@ -16,7 +17,7 @@
 
 ## 《观察》
 
-- 已确认并切分 12 期，覆盖卷3第1—12期；首轮封面/目录 OCR 产出 24 个 Markdown（逐页可断点续跑）。
+- 已确认并切分 12 期，覆盖卷3第1—12期；首轮封面/目录 OCR 产出 24 个 Markdown，并以 review-only 方式入库。
 - 全刊正文尚未导入正式库；原始 PDF 与派生 issue PDF 均保留 SHA256 溯源。
 
 ## 结论
