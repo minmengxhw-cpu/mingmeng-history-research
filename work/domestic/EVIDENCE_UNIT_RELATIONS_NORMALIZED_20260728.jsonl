@@ -1,0 +1,9 @@
+{"confidence": "high", "from_evidence_id": "EU-1944-004", "needs_human_review": true, "reason": "1945 政治报告/纲领在两套汇编中均收录, 但都非 1945 同期印本", "relation_type": "同文双源 (1946 汇编 vs 言论集)", "to_evidence_id": "EU-1944-005"}
+{"confidence": "high", "from_evidence_id": "EU-1944-004", "needs_human_review": true, "reason": "1946 汇编中的纲领/政治报告 ≠ 1945 同期印本, B4 缺口维持", "relation_type": "汇编 vs 同期原刊 OPEN", "to_evidence_id": "EU-1944-007"}
+{"confidence": "high", "from_evidence_id": "eu-1941-006", "needs_human_review": true, "reason": "B1 缺口: 1941 香港光明报原刊 vs 1946 汇编重刊的成立宣言/对时局主张纲领", "relation_type": "同期原刊 vs 1946 汇编重刊", "to_evidence_id": "eu-1941-002"}
+{"confidence": "high", "from_evidence_id": "eu-1941-006", "needs_human_review": true, "reason": "1941 香港光明报原刊 vs LNU 1941 工运剪报索引, 后者仅 10-11 月, 不含 10-10/10-16 成立期", "relation_type": "同期原刊 vs 1941 后期索引", "to_evidence_id": "eu-1941-001"}
+{"confidence": "high", "from_evidence_id": "EU-1947-002", "needs_human_review": true, "reason": "B5/B6 联动: 内政部非法化公函后 10 天 民盟总部解散", "relation_type": "同时事件 (1947-10-27 / 1947-11-06)", "to_evidence_id": "EU-1947-003"}
+{"confidence": "high", "from_evidence_id": "EU-1947-004", "needs_human_review": true, "reason": "47 教授 11-04 抗议早于 11-06 解散, 时间线", "relation_type": "时序前后 (抗议 vs 解散)", "to_evidence_id": "EU-1947-003"}
+{"confidence": "high", "from_evidence_id": "EU-1948-002", "needs_human_review": true, "reason": "1948-05-01 五一口号 → 1949-09-21 新政协, 17 个月事件链", "relation_type": "事件链 (5-1 → 9-21)", "to_evidence_id": "EU-1949-001"}
+{"confidence": "high", "from_evidence_id": "EU-1949-004", "needs_human_review": true, "reason": "1949 民盟代表多次公开发言/联合声明", "relation_type": "同人物同事件 (沈钧儒/章伯钧)", "to_evidence_id": "EU-1949-005"}
+{"confidence": "high", "from_evidence_id": "EU-1946-001", "needs_human_review": true, "reason": "1946-09 复刊 → 1946-12 国大, 《光明報》 同期原刊 12 期", "relation_type": "同一报刊同期 (新一 → 新十一)", "to_evidence_id": "EU-1946-007"}

@@ -1,0 +1,139 @@
+{
+  "citation_ready_true": 0,
+  "db": {
+    "documents": 1003,
+    "integrity_check": "ok",
+    "page_fts": 1532,
+    "pages": 1532
+  },
+  "evidence_boundary_status": {
+    "likely": 48,
+    "unknown": 34
+  },
+  "evidence_document_refs": 82,
+  "evidence_ocr_status": {
+    "draft": 4,
+    "needs_human_review": 72,
+    "untagged": 3,
+    "verified": 3
+  },
+  "evidence_page_refs": 82,
+  "evidence_units": 82,
+  "gate": "PASS",
+  "missing_document_ids": [],
+  "missing_page_ids": [],
+  "public_lead_checks": [
+    {
+      "evidence_level": "L4",
+      "exists": true,
+      "lead_id": "L-1941-013",
+      "local_path": "data/domestic/raw/public_sources/DL-20260727-001_zh_wikipedia_cdl.html",
+      "sha256_matches": true,
+      "size_matches": true
+    },
+    {
+      "evidence_level": "L4",
+      "exists": true,
+      "lead_id": "L-1941-014",
+      "local_path": "data/domestic/raw/public_sources/DL-20260727-002_en_wikipedia_cdl.html",
+      "sha256_matches": true,
+      "size_matches": true
+    },
+    {
+      "evidence_level": "L4",
+      "exists": true,
+      "lead_id": "L-1946-010",
+      "local_path": "data/domestic/raw/public_sources/DL-20260727-006_cpc_people_1946.html",
+      "sha256_matches": true,
+      "size_matches": true
+    },
+    {
+      "evidence_level": "L4",
+      "exists": true,
+      "lead_id": "L-1947-013",
+      "local_path": "data/domestic/raw/public_sources/DL-20260727-005_icppcc_1948_01_05.html",
+      "sha256_matches": true,
+      "size_matches": true
+    },
+    {
+      "evidence_level": "L4",
+      "exists": true,
+      "lead_id": "L-1947-014",
+      "local_path": "data/domestic/raw/public_sources/DL-20260727-007_zytzb_2024_11_08.html",
+      "sha256_matches": true,
+      "size_matches": true
+    },
+    {
+      "evidence_level": "L4",
+      "exists": true,
+      "lead_id": "L-1948-008",
+      "local_path": "data/domestic/raw/public_sources/DL-20260727-008_en_wikipedia_cdl_raw.txt",
+      "sha256_matches": true,
+      "size_matches": true
+    },
+    {
+      "evidence_level": "L4",
+      "exists": true,
+      "lead_id": "L-1948-009",
+      "local_path": "data/domestic/raw/public_sources/DL-20260727-004_mmzy_jianjie.html",
+      "sha256_matches": true,
+      "size_matches": true
+    },
+    {
+      "evidence_level": "L1",
+      "exists": true,
+      "lead_id": "L-1949-008",
+      "local_path": "data/domestic/raw/public_sources/DL-20260727-003_wikisource_commonprogram.html",
+      "sha256_matches": true,
+      "size_matches": true
+    }
+  ],
+  "public_leads": 8,
+  "read_only": true,
+  "relation_endpoint_mismatches": [
+    {
+      "from": "EU-1944-004",
+      "from_resolves": null,
+      "to": "EU-1944-005",
+      "to_resolves": null
+    },
+    {
+      "from": "EU-1944-004",
+      "from_resolves": null,
+      "to": "EU-1944-007",
+      "to_resolves": null
+    },
+    {
+      "from": "EU-1947-002",
+      "from_resolves": null,
+      "to": "EU-1947-003",
+      "to_resolves": null
+    },
+    {
+      "from": "EU-1947-004",
+      "from_resolves": null,
+      "to": "EU-1947-003",
+      "to_resolves": null
+    },
+    {
+      "from": "EU-1948-002",
+      "from_resolves": null,
+      "to": "EU-1949-001",
+      "to_resolves": null
+    },
+    {
+      "from": "EU-1949-004",
+      "from_resolves": null,
+      "to": "EU-1949-005",
+      "to_resolves": null
+    },
+    {
+      "from": "EU-1946-001",
+      "from_resolves": null,
+      "to": "EU-1946-007",
+      "to_resolves": null
+    }
+  ],
+  "relations": 9,
+  "relations_normalized": 9
+}
