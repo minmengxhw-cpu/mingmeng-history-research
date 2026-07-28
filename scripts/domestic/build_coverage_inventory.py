@@ -86,7 +86,9 @@ def load_local_draft_coverage(project: Path) -> dict[str, dict[str, object]]:
 
     by_source: dict[str, dict[str, object]] = {}
     root = project / "work/domestic"
-    for manifest_path in sorted(root.glob("CLAUDE_OCR_MANIFEST_ACCEPTED21_*.jsonl")):
+    manifest_paths = sorted(root.glob("CLAUDE_B_OCR_MANIFEST_NORMALIZED_*.jsonl"))
+    manifest_paths.extend(sorted(root.glob("CLAUDE_OCR_MANIFEST_ACCEPTED21_*.jsonl")))
+    for manifest_path in manifest_paths:
         try:
             lines = manifest_path.read_text(encoding="utf-8").splitlines()
         except (OSError, UnicodeDecodeError):
@@ -97,8 +99,16 @@ def load_local_draft_coverage(project: Path) -> dict[str, dict[str, object]]:
             except json.JSONDecodeError:
                 continue
             source = record.get("source_path") or record.get("rel_path")
-            pages = record.get("pdf_pages_actual") or record.get("pdf_pages_manifest")
-            chunks = record.get("chunk_paths") or []
+            pages = (
+                record.get("page_count")
+                or record.get("pdf_pages_actual")
+                or record.get("pdf_pages_manifest")
+            )
+            chunks = (
+                record.get("ocr_output_paths")
+                or record.get("chunk_paths")
+                or ([record["ocr_md_path_actual"]] if record.get("ocr_md_path_actual") else [])
+            )
             if not source or integer(str(pages)) is None or not chunks:
                 continue
             page_count = integer(str(pages)) or 0
@@ -112,10 +122,13 @@ def load_local_draft_coverage(project: Path) -> dict[str, dict[str, object]]:
                 existing_chunks.append(str(chunk))
             else:
                 current = by_source.setdefault(
-                    str(source), {"pages": 0, "records": 0, "paths": []}
+                    str(source), {"pages": 0, "records": 0, "record_keys": set(), "paths": []}
                 )
                 current["pages"] = max(int(current["pages"]), page_count)
-                current["records"] = int(current["records"]) + 1
+                record_key = str(record.get("file_id") or record.get("record_id") or source)
+                if record_key not in current["record_keys"]:
+                    current["records"] = int(current["records"]) + 1
+                    current["record_keys"].add(record_key)
                 current["paths"] = sorted(set(current["paths"]) | set(existing_chunks))
     return by_source
 
