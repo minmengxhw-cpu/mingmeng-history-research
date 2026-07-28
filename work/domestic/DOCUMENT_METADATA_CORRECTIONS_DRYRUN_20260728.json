@@ -1,0 +1,10 @@
+{
+  "batch_id": "p3_014_metadata_20260728",
+  "mode": "dry_run",
+  "rows": 1,
+  "validated": 1,
+  "applied": 0,
+  "skipped": [],
+  "backup": null,
+  "integrity_check": "ok"
+}

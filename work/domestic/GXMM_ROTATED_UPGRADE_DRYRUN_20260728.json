@@ -1,0 +1,10 @@
+{
+  "db": "data/research_index.sqlite",
+  "manifest": "work/domestic/GXMM_ROTATED_UPGRADE_MANIFEST_20260728.jsonl",
+  "dry_run": true,
+  "rows": 2,
+  "approved": 2,
+  "applied": 2,
+  "skipped": [],
+  "backup": null
+}
