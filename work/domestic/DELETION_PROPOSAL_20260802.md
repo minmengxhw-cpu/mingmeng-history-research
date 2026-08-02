@@ -84,5 +84,5 @@
 | C1/C2/C3 | CIA 26 / hathitrust 12 / CIA 1950-54 | ⏸ 按用户决定保留（C1/C2 已隔离不出前台） |
 
 - 总释放：**约 73 GB**（data 67→4.5GB，work 9.6→5.4GB）
-- 新 SHA：`013720ecc3...`（已同步 12 脚本 + STATE 待轮询更新）
+- 新 SHA：`7af2e27b`（S2 后，新增 bigram FTS 索引表）
 - 备份：保留 pre_quarantine_1931 / pre_rebaseline / pre_pagebreak_clean 三份回滚点

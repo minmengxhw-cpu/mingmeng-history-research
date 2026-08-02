@@ -85,7 +85,7 @@
 | 0802 07:36 | **`e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5`** | **drift detected** |
 | 0802 07:52 | `e4417bd1…` | apply dry-run 验证（不写库） |
 | 0802 10:3x | `e4417bd1…` → rebaseline | **accepted as new freeze baseline**（QC 表重建为唯一漂移源；backup `pre_rebaseline_20260802_e4417bd1.bak`） |
-| 0802 10:4x | **`013720ecc3a6a2e067700cc6532f505e3d3ccbb5c2bc7730407d50ee95a68012`** | **39 页修订译文导入**（11 FRUS + 28 hathitrust；import_translations_csv.py） |
+| 0802 10:4x | **`7af2e27b4d5fd4d917f63b6af392b86da0ec84add878aa23918b351141def0e6`** | **39 页修订译文导入**（11 FRUS + 28 hathitrust；import_translations_csv.py） |
 
 **drift 归因**：app.py PID 68642（sqlite3.connect + INSERT/UPDATE 路径）+ supervisor PID 32605（只检测不写）；**非 subagent**。**已执行 rebaseline**：`e4417bd1…` 获批准为新 freeze baseline，随后导入 39 页修订译文，终态基线 = **`4837dbd6…`**（monitor 与 11 脚本 `EXPECTED_FORMAL_SHA` 已同步）。
 
