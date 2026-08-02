@@ -1,0 +1,36 @@
+{
+  "task": "MINIMAX_P5_T69_20260802_W6",
+  "wave": 6,
+  "completed_at": "2026-08-02T20:44:54+08:00",
+  "hard_gap_pool_rows": 47,
+  "relation_rows": 62,
+  "isolated_holds": 4,
+  "apply_executed": false,
+  "formal_sha": "bdebdbb0d4c5b250cf59487dfb023cdaf9d219e3d1c4e51c8e5edd8980729d2e",
+  "sha_match_audit": true,
+  "db_counts": {
+    "documents": 1386,
+    "pages": 6157,
+    "domestic_candidates": 689,
+    "pass": 279,
+    "lead_only": 381,
+    "null_outcome": 29
+  },
+  "acquisition_status_counts": {
+    "public_remote_accessible": 2,
+    "lead_only_no_local_bytes": 3,
+    "local_file_verified": 15,
+    "url_lead": 18,
+    "lead_template": 9
+  },
+  "period_bucket_counts": {
+    "1948-1949_cluster": 4,
+    "1941-1946_early_mid": 2,
+    "1947_cluster": 2,
+    "other": 12,
+    "mixed_lead": 10,
+    "1948-1949": 17
+  },
+  "citation_ready_created": 0,
+  "human_verified_created": 0
+}

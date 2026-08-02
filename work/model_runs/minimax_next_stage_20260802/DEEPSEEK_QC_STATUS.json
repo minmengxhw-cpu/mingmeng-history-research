@@ -1,0 +1,46 @@
+{
+  "task": "DEEPSEEK_V4FLASH_QC_20260802_W6",
+  "wave": 6,
+  "completed_at": "2026-08-02T20:44:54+08:00",
+  "formal_db_sha_readonly": "bdebdbb0d4c5b250cf59487dfb023cdaf9d219e3d1c4e51c8e5edd8980729d2e",
+  "formal_db_matches_audit_baseline": true,
+  "sample_size": 42,
+  "new_pages_vs_prior": 30,
+  "overlap_prior_pages": 12,
+  "platforms_sampled": {
+    "frus": 17,
+    "newspapersg": 5,
+    "drnh": 8,
+    "wilson": 5,
+    "cia": 5,
+    "hathitrust": 2
+  },
+  "primary_type_counts": {
+    "ok": 32,
+    "historical_inference": 1,
+    "ocr_uncertainty": 8,
+    "translation_error": 1
+  },
+  "severity_counts": {
+    "info": 32,
+    "medium": 2,
+    "high": 8
+  },
+  "reconstruction_holds": 0,
+  "deepseek_pool_exhausted": true,
+  "deepseek_pool_size": 161,
+  "expanded_beyond_deepseek": true,
+  "reaudit_prior_flags": 12,
+  "issue_type_counts": {
+    "no_auto_flag": 32,
+    "reconstruction_marker": 1,
+    "source_ocr_noise_high": 8,
+    "possible_date_drop:1946": 1,
+    "possible_date_drop:1950": 1
+  },
+  "boundaries": {
+    "sqlite_written": false,
+    "citation_ready": 0,
+    "human_verified": 0
+  }
+}

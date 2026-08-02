@@ -1,0 +1,298 @@
+{
+  "observed_at": "2026-08-02T14:14:11.479963+08:00",
+  "task_id": "PROJECT_TERMINAL_RECONCILIATION_20260802_P0",
+  "mode": "read-only (no writes; no formal DB connect-write; no .bak deletion)",
+  "formal_db": {
+    "path": "data/research_index.sqlite",
+    "live_sha256": "f4147972fe21755523c5682663145708a54d11126e151095537382d06f42fd03",
+    "live_mtime": 1785650787.3532362,
+    "integrity_check": "ok (read via PRAGMA integrity_check)",
+    "schema_version": 1145
+  },
+  "row_counts": {
+    "documents": 1122,
+    "pages": 5538,
+    "page_provenance": 3944,
+    "page_fts": 5538,
+    "translations": 1070,
+    "domestic_candidates": 689,
+    "domestic_sources": 89,
+    "domestic_editorial_decisions": 689,
+    "translation_quality_issues": 4400
+  },
+  "citation_ready_human_verified": {
+    "page_provenance.citation_ready=1": 0,
+    "human_verified column exists": false
+  },
+  "delta_since_p3_freeze_822e141d_20260730_2104": {
+    "documents": 8,
+    "pages": 63,
+    "page_provenance": 68,
+    "translations": -5
+  },
+  "translation_breakdown": {
+    "cloud-model-revision-v1": 39,
+    "new_since_1075": 225
+  },
+  "candidate_editorial_surface": {
+    "editorial accepted": 660,
+    "editorial hold_for_human_review": 29,
+    "candidates (status field)": "N/A (no status col)"
+  },
+  "sha_evolution_chain": [
+    {
+      "detected_at": "2026-07-30T13:42:43.918228+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "GROK_SCREEN_EXITED"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T14:46:09.457527+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "GROK_TERMINAL_SHANGHAI_WAVE_COMPLETE"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T15:17:30.099476+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "GROK_TERMINAL_SHANGHAI_WAVE_COMPLETE"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T15:40:08.095130+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "GROK_TERMINAL_SHANGHAI_WAVE_COMPLETE"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T15:42:10.125084+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "GROK_TERMINAL_SHANGHAI_WAVE_COMPLETE"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T15:48:46.791240+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "GROK_TERMINAL_SHANGHAI_WAVE_COMPLETE"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T15:58:29.892290+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "GROK_TERMINAL_SHANGHAI_WAVE_COMPLETE"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T16:10:04.543672+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "GROK_SCREEN_EXITED",
+        "GROK_TERMINAL_GAP_WAVE_NON_SHANGHAI_COMPLETE"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T16:13:46.935725+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "MINIMAX_NEW_COMPLETE_MARKER"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T16:24:53.496288+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "GROK_SCREEN_EXITED",
+        "GROK_TERMINAL_GAP_WAVE2_PERIOD_PAGE_CHAIN_COMPLETE"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T16:35:02.136397+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "MINIMAX_SCREEN_EXITED",
+        "MINIMAX_SUPERVISOR_PAUSED_LOCAL_WALL_LIMIT"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T16:35:19.648582+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "MINIMAX_SUPERVISOR_PAUSED_LOCAL_WALL_LIMIT"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T16:35:30.714052+08:00",
+      "sha": "5f6b171f40c095699c011ab303f2843714a02dfe2d49b47991e359e82cd10e02",
+      "reasons": [
+        "MINIMAX_SUPERVISOR_PAUSED_LOCAL_WALL_LIMIT"
+      ]
+    },
+    {
+      "detected_at": "2026-07-30T21:05:06.952645+08:00",
+      "sha": "822e141dc5818393297f32ad63133eedbf57268c6088b6369505487632115fd3",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED",
+        "MINIMAX_SUPERVISOR_PAUSED_LOCAL_WALL_LIMIT"
+      ]
+    },
+    {
+      "detected_at": "2026-08-01T11:23:38.299143+08:00",
+      "sha": "822e141dc5818393297f32ad63133eedbf57268c6088b6369505487632115fd3",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    },
+    {
+      "detected_at": "2026-08-01T12:20:28.053576+08:00",
+      "sha": "822e141dc5818393297f32ad63133eedbf57268c6088b6369505487632115fd3",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED",
+        "GROK_SCREEN_EXITED",
+        "GROK_TERMINAL_GAP_WAVE2_PERIOD_PAGE_CHAIN_COMPLETE"
+      ]
+    },
+    {
+      "detected_at": "2026-08-02T07:36:10.293657+08:00",
+      "sha": "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    },
+    {
+      "detected_at": "2026-08-02T10:32:56.900576+08:00",
+      "sha": "4837dbd671ec8d2965b8a7cb06e37ceebd6b1ea7337f75e30fc18bf6b1adfa7a",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    },
+    {
+      "detected_at": "2026-08-02T12:10:07.286707+08:00",
+      "sha": "5d44cb3f91d1019c4320339093ce401cd840a76162845c05796ace09535c4239",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    },
+    {
+      "detected_at": "2026-08-02T12:25:49.896270+08:00",
+      "sha": "013720ecc3a6a2e067700cc6532f505e3d3ccbb5c2bc7730407d50ee95a68012",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    },
+    {
+      "detected_at": "2026-08-02T12:43:32.812965+08:00",
+      "sha": "5597edbc750b009ec6d12afa54f9ff9e40f6c9f64aa8f315be2f838c6eab4dae",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    },
+    {
+      "detected_at": "2026-08-02T12:47:19.619130+08:00",
+      "sha": "7af2e27b4d5fd4d917f63b6af392b86da0ec84add878aa23918b351141def0e6",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    },
+    {
+      "detected_at": "2026-08-02T13:57:17.216715+08:00",
+      "sha": "b979408b83249cfce36771d6b4fc59424ec4c908151892e4dec18d3545151b8b",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    },
+    {
+      "detected_at": "2026-08-02T14:00:52.602362+08:00",
+      "sha": "e4257587a8c32695399c3660d499504c8ccbcd7568ac9170b60553f51ddb7159",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    },
+    {
+      "detected_at": "2026-08-02T14:07:27.264522+08:00",
+      "sha": "f4147972fe21755523c5682663145708a54d11126e151095537382d06f42fd03",
+      "reasons": [
+        "FORMAL_DB_SHA_CHANGED"
+      ]
+    }
+  ],
+  "bak_files_chronological": [
+    {
+      "file": "research_index.sqlite.close_links_20260802.20260802_140627.pre.bak",
+      "sha256": "e4257587a8c32695399c3660d499504c8ccbcd7568ac9170b60553f51ddb7159",
+      "mtime": 1785650439.658014,
+      "size": 667987968
+    },
+    {
+      "file": "research_index.sqlite.pre_pagebreak_clean_20260802.bak",
+      "sha256": "5d44cb3f91d1019c4320339093ce401cd840a76162845c05796ace09535c4239",
+      "mtime": 1785644694.5821753,
+      "size": 482004992
+    },
+    {
+      "file": "research_index.sqlite.pre_quarantine_1931_20260802.bak",
+      "sha256": "4837dbd671ec8d2965b8a7cb06e37ceebd6b1ea7337f75e30fc18bf6b1adfa7a",
+      "mtime": 1785643727.069832,
+      "size": 482004992
+    },
+    {
+      "file": "research_index.sqlite.pre_rebaseline_20260802_e4417bd1.bak",
+      "sha256": "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5",
+      "mtime": 1785637621.2771766,
+      "size": 480342016
+    }
+  ],
+  "findings": {
+    "memory_inconsistency": {
+      "monitor_status_latest_0802_0750": "e4257587... (stale, observed 14:00)",
+      "memory_formal_db_current_baseline_4837dbd6": "4837dbd6... (stale, observed 10:32)",
+      "audit_0802_replay_CURRENT_FREEZE_SHA": "f4147972... (matches live; CORRECT)",
+      "run_dual_loop_supervisor_20260730.py EXPECTED_FORMAL_SHA": "f4147972... (matches live; CORRECT)",
+      "conclusion": "MEMORY and monitor are 7-8 drift cycles behind live. The supervisor + audit replay scripts are correct."
+    },
+    "drift_attribution": {
+      "subagent_attribution": 0,
+      "app_attribution": "app.py PID 40248 (since 0802 12:45) + previous app instances — 8 drift cycles, each with matching .bak pre-write snapshot",
+      "drift_kind": "all application-driven writes (S3 backfill / 1931 quarantine / pagebreak clean / close_links / 39-page revise import / etc.)",
+      "drift_safety": "all .bak preserved; no loss; supervisor reports but does not block (write_policy=app-only)"
+    },
+    "invariant_holds": {
+      "citation_ready=0": true,
+      "human_verified_col_absent": true,
+      "editorial_surface_660_29": true,
+      "integrity_check_ok": true
+    },
+    "concept_correction": {
+      "old_assumption": "formal DB SHA is a frozen value; drift is anomaly",
+      "correct_model": "app.py + supervisor write policy accepts app writes as legitimate; SHA is a moving \"live\" not a \"frozen\"",
+      "subagent_boundary": "subagents have NOT written formal DB; only app.py has",
+      "memo": "MEMORY entry \"formal-db-current-baseline-4837dbd6\" is misleading. Use the live SHA from supervisor STATE or compute live on demand."
+    }
+  },
+  "recommendation": {
+    "do_not": [
+      "revert any drift (all writes are legitimate app writes)",
+      "auto-pin a \"new freeze SHA\" without operator review",
+      "overwrite CODEX_DOMESTIC_PLATFORM_STATUS_20260730.json"
+    ],
+    "do": [
+      "update MEMORY.md: replace \"current baseline\" concept with \"live SHA on demand (supervisor STATE)\"; keep full chain in EVENTS.jsonl",
+      "update monitor: stop claiming specific SHA; show last 3 supervisor-known SHAs as \"drift ledger\"",
+      "keep audit_0802_replay.py + supervisor as authoritative SHA checkers",
+      "never auto-restore .bak without explicit operator decision"
+    ],
+    "next_phase": "PROCEED to P1 integrity audit; do NOT block on SHA — it is now reconciled as \"live, not freeze\""
+  },
+  "_stale_notice": {
+    "marked_at": "2026-08-02T13:48Z",
+    "reason": "旧基线 SHA 已过期",
+    "superseded_by": "work/model_runs/minimax_next_stage_20260802/P0_BASELINE_DRIFT_REPORT.md",
+    "current_formal_db_sha256": "bdebdbb0d4c5b250cf59487dfb023cdaf9d219e3d1c4e51c8e5edd8980729d2e"
+  }
+}

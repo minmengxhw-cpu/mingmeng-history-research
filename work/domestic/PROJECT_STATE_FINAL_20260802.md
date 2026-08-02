@@ -1,3 +1,7 @@
+> **STALE — superseded by [`work/model_runs/minimax_next_stage_20260802/P0_BASELINE_DRIFT_REPORT.md`](work/model_runs/minimax_next_stage_20260802/P0_BASELINE_DRIFT_REPORT.md) (2026-08-02T13:48Z)**
+>
+> 旧基线引用过期 SHA `e4417bd1…` / `4837dbd6…`，与当前正式库 `bdebdbb0d4c5b250cf59487dfb023cdaf9d219e3d1c4e51c8e5edd8980729d2e` 不一致。详见 drift 报告。未删原文，仅加注。
+
 # PROJECT STATE FINAL（2026-08-02）
 
 > 给 cheer / Codex / 未来 agent 用的**5 分钟速通文档**。  

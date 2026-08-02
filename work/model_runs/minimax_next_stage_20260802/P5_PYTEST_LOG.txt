@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.9.6, pytest-8.4.2, pluggy-1.6.0 -- /Applications/Xcode.app/Contents/Developer/usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/cheer/Documents/mm agent/mingmeng-history-research
+configfile: pytest.ini
+plugins: anyio-4.12.1
+collecting ... collected 13 items
+
+tests/test_smoke.py::test_home_smoke PASSED                              [  7%]
+tests/test_smoke.py::test_dashboard_smoke PASSED                         [ 15%]
+tests/test_smoke.py::test_sourcebooks_smoke PASSED                       [ 23%]
+tests/test_smoke.py::test_doc_detail_smoke PASSED                        [ 30%]
+tests/test_smoke.py::test_timeline_smoke PASSED                          [ 38%]
+tests/test_smoke.py::test_domestic_smoke PASSED                          [ 46%]
+tests/test_smoke.py::test_domestic_library_smoke PASSED                  [ 53%]
+tests/test_snapshot.py::test_home_snapshot PASSED                        [ 61%]
+tests/test_snapshot.py::test_dashboard_snapshot PASSED                   [ 69%]
+tests/test_snapshot.py::test_sourcebooks_snapshot PASSED                 [ 76%]
+tests/test_snapshot.py::test_doc_snapshot PASSED                         [ 84%]
+tests/test_snapshot.py::test_timeline_snapshot PASSED                    [ 92%]
+tests/test_snapshot.py::test_domestic_snapshot PASSED                    [100%]
+
+============================== 13 passed in 0.55s ==============================
