@@ -1,0 +1,179 @@
+integrity	ok
+quick_check	ok
+documents	1386
+pages	6157
+translations	1070
+translations_zh	1070
+translations_deepseek_v4flash	87
+translations_deepseek_chat	68
+page_provenance	4786
+pp_citation_ready_1	4353
+pp_citation_ready_0	433
+pp_needs_human_review_1	146
+pp_needs_human_review_0	4640
+pp_review_only	917
+pp_human_verified_col_exists	0
+docs_by_platform	wilson	24
+docs_by_platform	newspapersg	93
+docs_by_platform	hoover	2
+docs_by_platform	hathitrust	54
+docs_by_platform	frus	299
+docs_by_platform	drnh	287
+docs_by_platform	domestic	525
+docs_by_platform	cia	102
+docs_domestic	525
+Parse error near line 20: no such column: p.doc_key
+dom_candidates_total	689
+dom_candidates_pass	279
+dom_candidates_lead_only	381
+dom_candidates_check_null	29
+dom_candidates_ingested	279
+dom_candidates_by_repo	香港大学图书馆特别馆藏	1
+dom_candidates_by_repo	香港大学图书馆 Special Collections；JULAC/Primo	1
+dom_candidates_by_repo	陕西人民出版社 / 民盟陕西省委	1
+dom_candidates_by_repo	重庆出版社 / 重庆市政协文史资料委员会	1
+dom_candidates_by_repo	贵州人民出版社 / 民盟贵州省委	1
+dom_candidates_by_repo	财新网（caixin.com）	1
+dom_candidates_by_repo	苏州市档案馆	1
+dom_candidates_by_repo	群言出版社（民盟中央直属）+ 文物出版社	1
+dom_candidates_by_repo	群言出版社（民盟中央直属）	10
+dom_candidates_by_repo	群言出版社 / 民盟湖南省委员会	1
+dom_candidates_by_repo	群言出版社 / 中国民主同盟重庆市委员会	2
+dom_candidates_by_repo	群言出版社 / 中国民主同盟中央委员会	1
+dom_candidates_by_repo	维基文库公开转录	6
+dom_candidates_by_repo	线装书局 / 民盟福建省委	1
+dom_candidates_by_repo	相关民主党派官方机构	1
+dom_candidates_by_repo	澎湃新闻（thepaper.cn）	4
+dom_candidates_by_repo	湖北人民出版社 / 民盟湖北省委	1
+dom_candidates_by_repo	浙江人民出版社 / 浙江省民主党派志编纂委员会	1
+dom_candidates_by_repo	河北人民出版社 / 民盟石家庄市委员会	1
+dom_candidates_by_repo	江苏人民出版社 / 民盟江苏省委员会 / 江苏省政协	1
+dom_candidates_by_repo	民盟黑龙江省委员会	1
+dom_candidates_by_repo	民盟福建省委	2
+dom_candidates_by_repo	民盟湖南省委员会网站	1
+dom_candidates_by_repo	民盟湖南省委	1
+dom_candidates_by_repo	民盟广西区委公开盟史转载	8
+dom_candidates_by_repo	民盟广西区委公开盟史文章（嵌入原刊影像）	1
+dom_candidates_by_repo	民盟广西区委	1
+dom_candidates_by_repo	民盟北京市东城区委员会	1
+dom_candidates_by_repo	民盟上海市委数字报	5
+dom_candidates_by_repo	民盟上海市委官网	5
+dom_candidates_by_repo	民盟上海市委内部传记汇编《盟贤》（169 页 PDF）	2
+dom_candidates_by_repo	民盟上海市委内部传记汇编《盟贤》	4
+dom_candidates_by_repo	民盟上海市委	1
+dom_candidates_by_repo	民建湖北省委	1
+dom_candidates_by_repo	新华社英文版	1
+dom_candidates_by_repo	文物出版社（中央级出版机构）	1
+dom_candidates_by_repo	搜狐网（sohu.com）	1
+dom_candidates_by_repo	搜狐新闻（news.sohu.com）	1
+dom_candidates_by_repo	抗战文献数据平台（中国社会科学院近代史研究所运营）	1
+dom_candidates_by_repo	张澜纪念馆／张澜网（民盟中央背景）	2
+dom_candidates_by_repo	张澜纪念馆公开史料页	2
+dom_candidates_by_repo	延安党史网／中共延安市委党史研究室页面	1
+dom_candidates_by_repo	广东人民出版社 / 民盟广东省委	1
+dom_candidates_by_repo	岭南大学数字典藏／陈明銶教授学术藏书	1
+dom_candidates_by_repo	安徽教育出版社 / 时代出版传媒	1
+dom_candidates_by_repo	团结出版社（民革中央直属）	2
+dom_candidates_by_repo	四川大学马列主义教研室中共党史科研组／公开数字化汇编	2
+dom_candidates_by_repo	四川人民出版社 / 民盟四川省委	1
+dom_candidates_by_repo	台湾民主自治同盟（taimeng.org.cn）	2
+dom_candidates_by_repo	台湾民主自治同盟中央委员会（taimeng.org.cn）	1
+dom_candidates_by_repo	台湾国史馆檔案史料文物查詢系統	10
+dom_candidates_by_repo	北京市委统战部	1
+dom_candidates_by_repo	光明日报（gmw.cn）	3
+dom_candidates_by_repo	光明日报 epaper（epaper.gmw.cn）	1
+dom_candidates_by_repo	人民网（people.com.cn）	1
+dom_candidates_by_repo	人民网党史频道（dangshi.people.com.cn）	1
+dom_candidates_by_repo	人民政协网（rmzxw.com.cn）	2
+dom_candidates_by_repo	人民政协网（rmzxb.com.cn）	2
+dom_candidates_by_repo	云南出版集团晨光出版社 / 民盟云南省委	1
+dom_candidates_by_repo	九三学社（93.gov.cn）	2
+dom_candidates_by_repo	九三学社中央委员会（93.gov.cn）	1
+dom_candidates_by_repo	九三学社中央委员会	2
+dom_candidates_by_repo	中央社会主义学院 / 中华文化学院（zysy.org.cn）	1
+dom_candidates_by_repo	中央档案馆	174
+dom_candidates_by_repo	中央党史出版社 / 民盟江苏省委员会	1
+dom_candidates_by_repo	中国致公党（zg.org.cn）	1
+dom_candidates_by_repo	中国致公党中央委员会（zg.org.cn）	1
+dom_candidates_by_repo	中国第二历史档案馆（南京）	1
+dom_candidates_by_repo	中国社会科学院（cssn.cn）	1
+dom_candidates_by_repo	中国民主建国会（cndca.org.cn）+ 澎湃新闻	1
+dom_candidates_by_repo	中国民主建国会中央委员会（cndca.org.cn）	1
+dom_candidates_by_repo	中国民主同盟浙江省委员会	1
+dom_candidates_by_repo	中国民主同盟成都市委员会（cdmm.org.cn）	1
+dom_candidates_by_repo	中国民主同盟北京市委员会（bjmm.org.cn）	1
+dom_candidates_by_repo	中国民主同盟北京市委员会	1
+dom_candidates_by_repo	中国民主同盟北京市东城区委员会	1
+dom_candidates_by_repo	中国民主同盟云南省委员会	1
+dom_candidates_by_repo	中国民主同盟中央文史资料委员会／公开数字化扫描	22
+dom_candidates_by_repo	中国民主同盟中央委员会网站	1
+dom_candidates_by_repo	中国民主同盟中央委员会官网（mmzy.org.cn）	4
+dom_candidates_by_repo	中国民主同盟中央委员会	2
+dom_candidates_by_repo	中国民主党派历史陈列馆（重庆特园）	1
+dom_candidates_by_repo	中国民主促进会中央委员会（minj.in）	1
+dom_candidates_by_repo	中国文史出版社	1
+dom_candidates_by_repo	中国国民党革命委员会中央委员会（minge.gov.cn）	1
+dom_candidates_by_repo	中国国家图书馆独家授权图像（中国近代报刊资料库／大公报数据库）	2
+dom_candidates_by_repo	中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）	133
+dom_candidates_by_repo	中国国家图书馆数字化民国期刊（Wikimedia Commons 镜像）	1
+dom_candidates_by_repo	中国国家图书馆数字化民国报纸（Wikimedia Commons镜像）	3
+dom_candidates_by_repo	中国国家图书馆数字化民国图书（Wikimedia Commons镜像）	10
+dom_candidates_by_repo	中国国家图书馆数字化文献（Wikimedia Commons镜像）	1
+dom_candidates_by_repo	中国历史研究院近代史研究所 / 近代史数字图书馆	1
+dom_candidates_by_repo	中国农工民主党（ngd.org.cn）	2
+dom_candidates_by_repo	中国农工民主党中央委员会（ngd.org.cn）	1
+dom_candidates_by_repo	中国共产党第一次全国代表大会纪念馆	1
+dom_candidates_by_repo	中国共产党新闻网（cpc.people.com.cn）	1
+dom_candidates_by_repo	中国人民政治协商会议全国委员会网站	1
+dom_candidates_by_repo	中华职业教育社 / 全国报刊索引 cnbksy.com / 近代史数字图书馆 modernhistory.org.cn	1
+dom_candidates_by_repo	中华人民共和国国家档案局 / 中央档案馆	60
+dom_candidates_by_repo	中华人民共和国国务院新闻办公室（scio.gov.cn）	1
+dom_candidates_by_repo	上海市档案馆	1
+dom_candidates_by_repo	上海市地方志办公室／民盟代表人士资料汇编	3
+dom_candidates_by_repo	上海市地方志办公室／上海民主党派志验收稿	6
+dom_candidates_by_repo	上海书店 / 全国报刊索引 / 重庆图书馆 / 红岩革命纪念馆	1
+dom_candidates_by_repo	上海《时代日报》等（后期盟史与研究引文）	1
+dom_candidates_by_repo	《解放日报》延安版／中共中央机关报	1
+dom_candidates_by_repo	《民盟历史文献全媒体数据库》（minmeng1941.cn）	40
+dom_candidates_by_repo	《民主周刊》(闻一多任社长,1946-07 停刊)	1
+dom_candidates_by_repo	《新华日报》(1938-1947)	2
+dom_candidates_by_repo	《新华日报》(1938-1947 公开数字档案)	1
+dom_candidates_by_repo	《文汇报》(1938 创刊于上海)	1
+dom_candidates_by_repo	《文汇报》	1
+dom_candidates_by_repo	《大公报》数字版(及公网数据库)	1
+dom_candidates_by_repo	《国民参政会纪实》公开书目与试读入口	1
+dom_candidates_by_repo	《人民日报》历史版面公开数字转录入口	3
+dom_candidates_by_repo	Wikimedia Commons 黄炎培分类	2
+dom_candidates_by_repo	Wikimedia Commons 黄炎培 / 章伯钧 / 沈钧儒分类	1
+dom_candidates_by_repo	Wikimedia Commons 黄炎培 / 沈钧儒分类	2
+dom_candidates_by_repo	Wikimedia Commons 马叙伦分类	5
+dom_candidates_by_repo	Wikimedia Commons 陶行知分类	1
+dom_candidates_by_repo	Wikimedia Commons 闻一多分类 + 史良分类	1
+dom_candidates_by_repo	Wikimedia Commons 闻一多分类	4
+dom_candidates_by_repo	Wikimedia Commons 罗隆基分类	2
+dom_candidates_by_repo	Wikimedia Commons 章伯钧分类	1
+dom_candidates_by_repo	Wikimedia Commons 章伯钧 / 黄炎培分类	1
+dom_candidates_by_repo	Wikimedia Commons 章伯钧 / 沈钧儒分类	1
+dom_candidates_by_repo	Wikimedia Commons 沈钧儒分类	6
+dom_candidates_by_repo	Wikimedia Commons 沈钧儒 / 黄炎培人物分类	1
+dom_candidates_by_repo	Wikimedia Commons 民盟人物分类	2
+dom_candidates_by_repo	Wikimedia Commons 李公朴分类	5
+dom_candidates_by_repo	Wikimedia Commons 张澜分类	3
+dom_candidates_by_repo	Wikimedia Commons 张澜人物分类	2
+dom_candidates_by_repo	Wikimedia Commons 张君劢分类	1
+dom_candidates_by_repo	Wikimedia Commons 史良分类 + CPPCC 分类	1
+dom_candidates_by_repo	Wikimedia Commons 史良分类 + CPPCC First Plenary Session 分类	1
+dom_candidates_by_repo	Wikimedia Commons 史良分类	4
+dom_candidates_by_repo	Wikimedia Commons 史良 / 沈钧儒分类	1
+dom_candidates_by_repo	Wikimedia Commons 中央人民政府档案	1
+dom_candidates_by_repo	Wikimedia Commons 中国民主同盟分类	2
+dom_candidates_by_repo	Wikimedia Commons 中国民主同盟人物分类	4
+dom_candidates_by_repo	Wangfang Data 上海图书公司近代期刊全文库（或其他公开数据库）	1
+dom_candidates_by_repo	University of Michigan / 道客巴巴公开学术资源	1
+dom_candidates_by_repo	U.S. Department of State / Foreign Relations of the United States (FRUS) / 民盟历史文献研究项目组（2026-05 编）	6
+dom_candidates_by_repo	Cambridge The China Quarterly	1
+dom_candidates_by_repo	8 大民主党派中央主管出版社	1
+tqi_total	111
+tqi_by_type	incomplete_ocr	111
+pages_domestic	5087
+docs_domestic_pages_charcount	15140035

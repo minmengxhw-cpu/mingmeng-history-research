@@ -764,7 +764,7 @@ ICONS_SVG = """
 
 
 NAV_GROUPS = [
-    ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/domestic", "国内史料"), ("/domestic/search", "国内检索"), ("/domestic/quality", "国内质量底座"), ("/domestic/sources", "国内来源"), ("/domestic/events", "国内事件"), ("/domestic/acquisition", "调档清单"), ("/domestic/review", "国内复核"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
+    ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/domestic/library", "已收国内资料"), ("/domestic", "国内候选目录"), ("/domestic/search", "国内检索"), ("/domestic/quality", "国内质量底座"), ("/domestic/sources", "国内来源"), ("/domestic/events", "国内事件"), ("/domestic/acquisition", "调档清单"), ("/domestic/review", "国内复核"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/first-person", "第一人称史料"), ("/hk-press", "香港报刊源"), ("/l1-board", "L1升级看板"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
@@ -956,11 +956,18 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
   <div class="pstatus {meta["status_class"]}">{h(status_text)}</div>
 </a>''')
     domestic_docs = plat_counts.get("domestic", 0)
+    try:
+        domestic_pages = c.execute(
+            "SELECT count(*) FROM pages p JOIN documents d ON p.document_id=d.id "
+            "WHERE d.source_platform='domestic'"
+        ).fetchone()[0]
+    except sqlite3.OperationalError:
+        domestic_pages = 0
     cards.append(f'''
-<a class="platform-card active" href="/domestic">
-  <h3>国内史料层</h3>
-  <div class="pmeta">同期报刊 · 公开扫描 · 民盟目录 · 官方来源</div>
-  <div class="pdesc">已收 {domestic_docs} 篇国内资料文档；OCR 默认是检索草稿，证据等级与人工复核状态单独保留。</div>
+<a class="platform-card active" href="/domestic/library">
+  <h3>国内资料库</h3>
+  <div class="pmeta">国内史料层 · 同期报刊 · 公开扫描 · 官方来源</div>
+  <div class="pdesc">已收 {domestic_docs} 篇国内资料文档、{domestic_pages} 个页面；可查看已收文献，候选目录与复核状态另行保留。</div>
   <div class="pstatus ok">已上线 · {domestic_docs} 篇</div>
 </a>''')
     return '<section class="platforms">' + "".join(cards) + "</section>"
@@ -2363,6 +2370,87 @@ def open_sources_page() -> bytes:
     return layout("开放资料源探勘", body, active_path="/open-sources")
 
 
+def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
+    """国内正式收录文档入口；与境外平台页一样展示已入库资料，不混入候选线索。"""
+    query = query or {}
+    term = query.get("q", [""])[0].strip()
+    like = f"%{term}%"
+    with conn() as c:
+        rows = c.execute(
+            """
+            SELECT
+                d.id, d.doc_key, d.title, d.date_guess, d.url, d.volume_title,
+                d.doc_id, d.doc_number, d.source_id,
+                COUNT(p.id) AS page_count
+            FROM documents d
+            LEFT JOIN pages p ON p.document_id = d.id
+            WHERE d.source_platform = 'domestic'
+              AND (? = '' OR d.title LIKE ? OR d.doc_key LIKE ? OR COALESCE(d.volume_title, '') LIKE ?)
+            GROUP BY d.id
+            ORDER BY COALESCE(d.date_guess, '9999-99-99'), d.id
+            """,
+            (term, like, like, like),
+        ).fetchall()
+        total_docs = c.execute(
+            "SELECT count(*) FROM documents WHERE source_platform='domestic'"
+        ).fetchone()[0]
+        total_pages = c.execute(
+            """
+            SELECT count(*) FROM pages p
+            JOIN documents d ON d.id=p.document_id
+            WHERE d.source_platform='domestic'
+            """
+        ).fetchone()[0]
+        source_count = c.execute(
+            "SELECT count(DISTINCT source_id) FROM documents WHERE source_platform='domestic'"
+        ).fetchone()[0]
+
+    body = breadcrumb_html([("/", "首页"), (None, "已收国内资料")]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>已收国内资料</h1>
+    <div class="meta">国内史料层正式收录文档；候选线索、staging 材料和待复核记录不混入本列表。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/domestic">国内候选目录</a>
+    <a class="button" href="/domestic/search?scope=documents">国内检索</a>
+    <a class="button secondary" href="/domestic/sources">来源地图</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(total_docs)}</strong><span>已收文档</span></div>
+  <div class="stat"><strong>{h(total_pages)}</strong><span>物理页面</span></div>
+  <div class="stat"><strong>{h(source_count)}</strong><span>来源</span></div>
+  <div class="stat"><strong>{h(len(rows))}</strong><span>当前结果</span></div>
+</section>
+<div class="notice">资料页保留来源、页面和复核状态。OCR 文本用于检索不等于逐字可靠；引用前请进入文献详情核对原件定位。</div>
+<form method="get" action="/domestic/library" class="filter-form">
+  <label>检索已收资料 <input name="q" value="{h(term)}" placeholder="题名、档号或来源"></label>
+  <button class="button" type="submit">筛选</button>
+  <a class="button secondary" href="/domestic/library">清除</a>
+</form>
+<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>国内已收文档（{h(len(rows))} 篇）</h2></div>
+<section class="result-list">
+"""
+    if not rows:
+        body += '<div class="notice">当前筛选没有找到已收国内资料。</div>'
+    else:
+        for row in rows:
+            href = f"/doc/{quote(row['doc_key'])}" if row["doc_key"] else "/domestic/library"
+            source_href = row["url"] or "#"
+            body += f"""
+<article class="result">
+  <div>
+    {title_block(row["title"] or "未题名国内资料", href)}
+    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(row["volume_title"] or row["source_id"] or "来源未标注")} · {h(row["page_count"])} 页</div>
+    <div class="tagline"><span class="tag">正式收录</span><span class="tag">国内史料层</span></div>
+  </div>
+  <div class="cite"><a href="{h(source_href)}" target="_blank" rel="noreferrer">原始来源</a><br><a href="{h(href)}">查看文献</a></div>
+</article>"""
+    body += "</section>"
+    return layout("已收国内资料", body, active_path="/domestic/library")
+
+
 def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
     """国内史料来源卡与候选清单；候选默认全部处于人工复核区。"""
     query = query or {}
@@ -2440,7 +2528,7 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
     <h1>国内民盟史与多党合作史资料</h1>
     <div class="meta">上海视角 · 公开来源注册表与待复核候选</div>
   </div>
-  <div class="doc-tools"><a class="button" href="/domestic/search">国内检索</a><a class="button" href="/domestic/quality">质量底座</a><a class="button" href="/domestic/acquisition">调档清单</a><a class="button secondary" href="/domestic/sources">来源地图</a><a class="button secondary" href="/standards">收录标准</a></div>
+  <div class="doc-tools"><a class="button" href="/domestic/library">已收资料库</a><a class="button" href="/domestic/search">国内检索</a><a class="button" href="/domestic/quality">质量底座</a><a class="button" href="/domestic/acquisition">调档清单</a><a class="button secondary" href="/domestic/sources">来源地图</a><a class="button secondary" href="/standards">收录标准</a></div>
 </section>
 <section class="stats">
   <div class="stat"><strong>{h(len(sources))}</strong><span>来源卡</span></div>
@@ -7650,6 +7738,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = public_page()
         elif parsed.path == "/domestic/document":
             payload = domestic_staging_document_page(qs)
+        elif parsed.path == "/domestic/library":
+            payload = domestic_library_page(qs)
         elif parsed.path == "/domestic/search":
             payload = domestic_staging_search_page(qs)
         elif parsed.path == "/domestic/quality":

@@ -17,7 +17,8 @@ def _normalize(html: str, *, normalize_today: bool = False) -> str:
     normalized = ASSET_VERSION_RE.sub(r"\1NORMALIZED", html)
     if normalize_today:
         normalized = normalized.replace(datetime.date.today().isoformat(), "TODAY")
-    return normalized
+    # HTML 模板缩进可能产生行尾空格；快照只护栏结构和内容，不护栏空白实现细节。
+    return "\n".join(line.rstrip() for line in normalized.splitlines()) + "\n"
 
 
 def _assert_snapshot(name: str, html: str, *, normalize_today: bool = False) -> None:

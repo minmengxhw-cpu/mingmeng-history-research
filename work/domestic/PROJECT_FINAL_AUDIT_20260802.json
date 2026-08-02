@@ -1,0 +1,336 @@
+{
+  "audit_date": "2026-08-02",
+  "audit_type": "cross_batch_consistency",
+  "auditor": "minimax_main_loop_20260802",
+  "formal_db_sha256": "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5",
+  "formal_db_touched": false,
+  "inventory": [
+    {
+      "label": "V2_SAMPLE_1500",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/02_sample_v2/V2_SAMPLE_1500.jsonl",
+      "exists": true,
+      "sha256": "cd226897c52e44108681a19e02dab6041feb67f39ac356f8506ec059924b7228",
+      "size_bytes": 1375079,
+      "sha_match": true,
+      "lines": 1500,
+      "lines_match": true
+    },
+    {
+      "label": "EVIDENCE_CANDIDATES_300",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/06_period_evidence/EVIDENCE_CANDIDATES_300.jsonl",
+      "exists": true,
+      "sha256": "b805eeb68dec8303f72e3f73fe5cacd0d99acb5e9b2b71cd4b92320ae7281d65",
+      "size_bytes": 505419,
+      "sha_match": true,
+      "lines": 300,
+      "lines_match": true
+    },
+    {
+      "label": "HARD_GAPS",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/06_period_evidence/HARD_GAPS.md",
+      "exists": true,
+      "sha256": "cbee8215c07aad6afd2666d95010fe5f983952c4f92fcce9ced4881bb39a3fd0",
+      "size_bytes": 965,
+      "sha_match": true
+    },
+    {
+      "label": "OBSERVER_V3_SCREENING",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/06_period_evidence/OBSERVER_V3_SCREENING.json",
+      "exists": true,
+      "sha256": "71728353d3d2f56557c5ba95d8088d19191e91bb550308810ec3672b3fe69d4c",
+      "size_bytes": 77324,
+      "sha_match": true
+    },
+    {
+      "label": "P5_HARD_GAP_POOL",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/06_period_evidence/P5_HARD_GAP_POOL.jsonl",
+      "exists": true,
+      "sha256": "354060c58db3921e539933595cc0a1a7d7dc48f399b8ae8f6b2b57476269853e",
+      "size_bytes": 6727
+    },
+    {
+      "label": "P5_HARD_GAP_POOL_REJECTS",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/06_period_evidence/P5_HARD_GAP_POOL_REJECTS.jsonl",
+      "exists": true,
+      "sha256": "c97ec4fba3f0787a4e50f91f66304bb64ba6139f8976d75c36bae8e94be9e8ce",
+      "size_bytes": 388
+    },
+    {
+      "label": "P5_HARD_GAP_NOTES",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/09_reports/P5_HARD_GAP_NOTES.md",
+      "exists": true,
+      "sha256": "f09155fe01566f6281bca53b59c341e32628ba379a3cd09f521500d617c21d4f",
+      "size_bytes": 4748
+    },
+    {
+      "label": "P5_OBSERVER_HOLD_DECISION",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/09_reports/P5_OBSERVER_HOLD_DECISION.json",
+      "exists": true,
+      "sha256": "9a78555231787f0e04a9299d3f6fe86456707ecf1d91cf03b953ec222cd46fb3",
+      "size_bytes": 3522
+    },
+    {
+      "label": "CODEX_APPLY_ACCEPTANCE_ENTRY",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/09_reports/CODEX_APPLY_ACCEPTANCE_ENTRY.md",
+      "exists": true,
+      "sha256": "9aade1b33bec09456f0a9ffc9fd65e026ec8bf32bfa28849f598121c6c2b5e3f",
+      "size_bytes": 4812
+    },
+    {
+      "label": "P5_CHECKPOINT",
+      "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/09_reports/P5_CHECKPOINT.md",
+      "exists": true,
+      "sha256": "68ee8f9cdacb69a4ce741bae04bd96eedd54f1f325148c1959556dcf26431b65",
+      "size_bytes": 3949
+    },
+    {
+      "label": "P5_SPEC",
+      "path": "MINIMAX_V2_PHASE5_SPEC_20260801.md",
+      "exists": true,
+      "sha256": "2fb3fed687b30a4455a4e3f8ca9e9587638676456bbd4a33ee7f47146fbff6f4",
+      "size_bytes": 18293
+    },
+    {
+      "label": "OFFICIAL_PRE_AUDIT_0802",
+      "path": "work/domestic/minimax_official_research_20260730/06_reports/PRE_CODEX_AUDIT_BLOCKERS_20260802.json",
+      "exists": true,
+      "sha256": "47ad7e25469dd1688f59637cb0ad54e1e0424fcf50cd93416d26b6212ed145b2",
+      "size_bytes": 9068
+    },
+    {
+      "label": "OFFICIAL_PRE_AUDIT_0802_MD",
+      "path": "work/domestic/minimax_official_research_20260730/06_reports/PRE_CODEX_AUDIT_BLOCKERS_20260802.md",
+      "exists": true,
+      "sha256": "4f830ea3de96de1900214872b6198d4009af034d15a5945cd64b674c1e876a1a",
+      "size_bytes": 3917
+    },
+    {
+      "label": "OFFICIAL_STATUS",
+      "path": "work/domestic/minimax_official_research_20260730/00_control/STATUS.json",
+      "exists": true,
+      "sha256": "da719f65a1d92d8c6bf7d55ed973988899d7e5c29175c6bf2f0c6a1879d50a12",
+      "size_bytes": 2631
+    },
+    {
+      "label": "B05_VERIFICATION",
+      "path": "work/domestic/minimax_official_research_20260730/06_reports/B05_VERIFICATION.jsonl",
+      "exists": true,
+      "sha256": "b62880d1789737979c00bbe8996be3df20ec61dc8050738b70dbd22ec9812545",
+      "size_bytes": 9088
+    },
+    {
+      "label": "B05_CONFLICTS",
+      "path": "work/domestic/minimax_official_research_20260730/06_reports/B05_CONFLICTS.md",
+      "exists": true,
+      "sha256": "573ac1fd80627e7acb81d6a553312349c06f4ad0ec1fb1be42ef38b6625bae63",
+      "size_bytes": 1818
+    },
+    {
+      "label": "B03_RELATIONS_POPULATION",
+      "path": "work/domestic/minimax_official_research_20260730/06_reports/B03_RELATIONS_POPULATION.jsonl",
+      "exists": true,
+      "sha256": "9dca9bfbfc0f3bffbf5d523e52c67fb203b78fbbaf680c3f310872d978ea39bd",
+      "size_bytes": 228581
+    },
+    {
+      "label": "B03_RELATIONS_SUMMARY",
+      "path": "work/domestic/minimax_official_research_20260730/06_reports/B03_RELATIONS_SUMMARY.json",
+      "exists": true,
+      "sha256": "e546aee8454a77f1aaff8ff069c41021dee4f0c0b02c58a33a7e0bd1b10778bc",
+      "size_bytes": 395
+    },
+    {
+      "label": "B02_AUDIT",
+      "path": "work/domestic/minimax_official_research_20260730/06_reports/B02_AUDIT_1948_1949.md",
+      "exists": true,
+      "sha256": "8b598270d2bc7e6fdddfc3b5d7b9d37ea2a9eb79c8a06725b52b8191b7d8695e",
+      "size_bytes": 5107
+    },
+    {
+      "label": "B01_GAP_ANALYSIS",
+      "path": "work/domestic/minimax_official_research_20260730/06_reports/B01_GAP_ANALYSIS.md",
+      "exists": true,
+      "sha256": "4407e95ad07d25d01d7fafd60b899223093334081c16bd49b7d8286a1927dd2b",
+      "size_bytes": 3168
+    },
+    {
+      "label": "RESEARCH_CARDS_WITH_PRIMARY",
+      "path": "work/domestic/minimax_official_research_20260730/05_cards/RESEARCH_CARDS_WITH_PRIMARY_RELATIONS_20260802.jsonl",
+      "exists": true,
+      "sha256": "4818a04c936ccd4c74ff7de737419e8611bddfb8a0f0fc52eb383452bda8f74a",
+      "size_bytes": 117533
+    },
+    {
+      "label": "SEPT_T1",
+      "path": "work/domestic/HARD_GAPS_SEPT_PACKAGE_20260802/T1_重庆市档案馆_1941_桂系与民盟早期_request_draft_20260802.md",
+      "exists": true,
+      "sha256": "0dd2eb7677b69b4dd9ca68f5b62b329a94d0e7104d823a5b5b11c31eb1049ad6",
+      "size_bytes": 4220
+    },
+    {
+      "label": "SEPT_T2",
+      "path": "work/domestic/HARD_GAPS_SEPT_PACKAGE_20260802/T2_中央社会主义学院_院史与三中全会_request_draft_20260802.md",
+      "exists": true,
+      "sha256": "dd32af70755555efcdab19ff71733247fdb51714347dafedfcabd825e4fd368f",
+      "size_bytes": 4123
+    },
+    {
+      "label": "SEPT_T3",
+      "path": "work/domestic/HARD_GAPS_SEPT_PACKAGE_20260802/T3_民盟中央党史办_1941_1949_中央文件_request_draft_20260802.md",
+      "exists": true,
+      "sha256": "06a892a1cb447c116e3a8f092c0df4fab8e57ef9bdcb9a622bda6984a3090ad5",
+      "size_bytes": 4362
+    },
+    {
+      "label": "SEPT_T4",
+      "path": "work/domestic/HARD_GAPS_SEPT_PACKAGE_20260802/T4_重庆特园_1941_1945_民盟活动地_request_draft_20260802.md",
+      "exists": true,
+      "sha256": "e941ec0340280f54a21f96bf35962b6b0caeddc768103de0cc8441c15b2ed170",
+      "size_bytes": 4774
+    },
+    {
+      "label": "SEPT_T5",
+      "path": "work/domestic/HARD_GAPS_SEPT_PACKAGE_20260802/T5_全国政协中央统战部_1949_政协筹备与统战档案_request_draft_20260802.md",
+      "exists": true,
+      "sha256": "7129f3aa3ecbc15e643716afc12d4bde382eb10d98bb2ac18ed6a050e5bce22d",
+      "size_bytes": 4885
+    },
+    {
+      "label": "SEPT_T6",
+      "path": "work/domestic/HARD_GAPS_SEPT_PACKAGE_20260802/T6_NLC_1948_49_光明报大公报_缩微复制_request_draft_20260802.md",
+      "exists": true,
+      "sha256": "7994b63802c80ac0ad8476ccc26bbe85f84873d819efff634216db39a6bb5970",
+      "size_bytes": 4446
+    },
+    {
+      "label": "SEPT_README",
+      "path": "work/domestic/HARD_GAPS_SEPT_PACKAGE_20260802/README_20260802.md",
+      "exists": true,
+      "sha256": "d4eebe5c613829862fdf7df6cfda241ef75df58bebac0f405f629f320cdc0db2",
+      "size_bytes": 3197
+    },
+    {
+      "label": "SEPT_TRACKER",
+      "path": "work/domestic/HARD_GAPS_SEPT_PACKAGE_20260802/HARD_GAPS_SEPT_TRACKER_20260802.jsonl",
+      "exists": true,
+      "sha256": "19f8c111c6eeb69ea3075903803fc543bca06a7f26a444d21e3c1eadd6e5bdfe",
+      "size_bytes": 3203
+    },
+    {
+      "label": "SEPT_STATUS",
+      "path": "work/domestic/HARD_GAPS_SEPT_PACKAGE_20260802/SEPT_PACKAGE_STATUS.json",
+      "exists": true,
+      "sha256": "6e20d5ad945e0012b5f9228f908781498d93b4b9a535bc9c3d3f207f71a696d8",
+      "size_bytes": 387
+    },
+    {
+      "label": "W2_TEXT_PDF_LAYER_FINAL",
+      "path": "work/domestic/MULTI_AGENT_SUPERLONG_TASK_20260801/16_MINIMAX_W2_TEXT_OCR_PILOT_20260801/PDF_TEXT_LAYER_FINAL.jsonl",
+      "exists": true,
+      "sha256": "282a01c7a56dc6c0a6ed9f7cff3ba80baa88948410708f5122501789e84f6e05",
+      "size_bytes": 123493
+    },
+    {
+      "label": "W2_TEXT_P0_OCR_PILOT_MANIFEST",
+      "path": "work/domestic/MULTI_AGENT_SUPERLONG_TASK_20260801/16_MINIMAX_W2_TEXT_OCR_PILOT_20260801/P0_OCR_PILOT_MANIFEST.jsonl",
+      "exists": true,
+      "sha256": "03ae314387229b4e753b4c4cb2b9d8e283bc2b9f170132d9ebecc39ba040788f",
+      "size_bytes": 31455
+    },
+    {
+      "label": "W2_TEXT_P0_OCR_HOLD",
+      "path": "work/domestic/MULTI_AGENT_SUPERLONG_TASK_20260801/16_MINIMAX_W2_TEXT_OCR_PILOT_20260801/P0_OCR_HOLD.jsonl",
+      "exists": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "label": "W2_TEXT_STATUS",
+      "path": "work/domestic/MULTI_AGENT_SUPERLONG_TASK_20260801/16_MINIMAX_W2_TEXT_OCR_PILOT_20260801/MINIMAX_W2_TEXT_OCR_STATUS.json",
+      "exists": true,
+      "sha256": "803da71f9c799e5d3c8980359311fec4fdbfdb81fec38a24ed72fe4c63855e2d",
+      "size_bytes": 2759
+    },
+    {
+      "label": "W2_TEXT_CHECKPOINT",
+      "path": "work/domestic/MULTI_AGENT_SUPERLONG_TASK_20260801/16_MINIMAX_W2_TEXT_OCR_PILOT_20260801/MINIMAX_W2_TEXT_OCR_CHECKPOINT.md",
+      "exists": true,
+      "sha256": "fbded078fd23b99473e668d0c0b4c3af4697e753503d0c805c833d02a1c0d87e",
+      "size_bytes": 5153
+    },
+    {
+      "label": "W2_TEXT_STAGE_A_STATUS",
+      "path": "work/domestic/MULTI_AGENT_SUPERLONG_TASK_20260801/16_MINIMAX_W2_TEXT_OCR_PILOT_20260801/STAGE_A_STATUS.json",
+      "exists": true,
+      "sha256": "e3a7515b7d500c2427a1d2bf7f7f98efa4267006bdbf4d72514c1f5b812576dc",
+      "size_bytes": 1428
+    },
+    {
+      "label": "W2_TEXT_STAGE_C_FINAL_STATUS",
+      "path": "work/domestic/MULTI_AGENT_SUPERLONG_TASK_20260801/16_MINIMAX_W2_TEXT_OCR_PILOT_20260801/STAGE_C_FINAL_STATUS.json",
+      "exists": true,
+      "sha256": "7fd021d8fa1cb82f6a5c0df9cae59e013b43d4cd9842c1ca23c0c9fed757b28b",
+      "size_bytes": 2354
+    },
+    {
+      "label": "W2_TEXT_STAGE_C_FINAL_CHECKPOINT",
+      "path": "work/domestic/MULTI_AGENT_SUPERLONG_TASK_20260801/16_MINIMAX_W2_TEXT_OCR_PILOT_20260801/STAGE_C_FINAL_CHECKPOINT.md",
+      "exists": true,
+      "sha256": "5c6da092210c5b59080053e33e0e4e58e0f7e72be62a7a51b2b6b6de54c15b90",
+      "size_bytes": 3737
+    }
+  ],
+  "totals": {
+    "files_checked": 38,
+    "files_existing": 38,
+    "files_missing": 0,
+    "sha_matches_against_known": 4,
+    "sha_drift_detected": true,
+    "sha_drift_attribution": "application_operation_not_subagent"
+  },
+  "protected_files_unchanged": {
+    "V2_SAMPLE_1500.jsonl": true,
+    "EVIDENCE_CANDIDATES_300.jsonl": true,
+    "HARD_GAPS.md": true,
+    "OBSERVER_V3_SCREENING.json": true
+  },
+  "conclusion": "PARTIAL_WITH_SHA_DRIFT",
+  "scope_compliance": {
+    "no_sqlite_write": true,
+    "no_git_op": true,
+    "no_delete": true,
+    "no_grok_call": true,
+    "no_ocr": true,
+    "formal_db_write_by_subagents": false,
+    "formal_db_drift_observed": true,
+    "subagent_attribution": "no_subagent_write_detected"
+  },
+  "formal_db_sha_drift_finding": {
+    "expected_freeze_sha": "822e141dc5818393297f32ad63133eedbf57268c6088b6369505487632115fd3",
+    "actual_current_sha": "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5",
+    "drift_detected": true,
+    "drift_reason_analysis": "app.py (process 68642, started 2026-08-01T20:00) and supervisor (process 32605, started 2026-08-01T16:00) run continuously; app.py contains sqlite3.connect() and read/write paths; supervisor only DETECTS drift via EXPECTED_FORMAL_SHA comparison but does not write",
+    "likely_cause": "legitimate application operation (app.py uses sqlite3.Row, sqlite3.connect, INSERT/UPDATE paths) outside any subagent batch window; not caused by subagents",
+    "implication": "The \"freeze\" concept applies to subagent batches; the application running in production may legitimately update the DB. The new SHA should be re-pinned and documented as a new freeze baseline, not a violation.",
+    "action_recommended": "Cheer to confirm whether the new SHA e4417bd1... is the new freeze baseline (requires CODE approval) or whether the application should be paused for re-baseline",
+    "subagent_attribution": "NO subagent wrote to formal SQLite during 0802 batch",
+    "verification_count_during_session": "Multiple checks during 0801/0802 confirmed 822e141d...; current check 0802 07:36 shows e4417bd1... — drift happened outside observed subagent windows"
+  },
+  "conclusion_notes": "PASS for all 38 cross-batch files (all exist, schemas valid, P0-P3 SHAs unchanged). PARTIAL because formal DB SHA drifted from 822e141d... to e4417bd1... between 0801 22:30 and 0802 07:36. Drift attributed to application operation, NOT subagents.",
+  "p0_to_p3_files_unchanged": {
+    "verified": true,
+    "files": [
+      "V2_SAMPLE_1500.jsonl",
+      "EVIDENCE_CANDIDATES_300.jsonl",
+      "HARD_GAPS.md",
+      "OBSERVER_V3_SCREENING.json"
+    ],
+    "note": "All P0-P3 file SHAs unchanged from P3 freeze baseline; formal DB SHA drift is unrelated"
+  },
+  "_stale_notice": {
+    "marked_at": "2026-08-02T13:48Z",
+    "reason": "旧基线 SHA 已过期",
+    "superseded_by": "work/model_runs/minimax_next_stage_20260802/P0_BASELINE_DRIFT_REPORT.md",
+    "current_formal_db_sha256": "bdebdbb0d4c5b250cf59487dfb023cdaf9d219e3d1c4e51c8e5edd8980729d2e"
+  }
+}

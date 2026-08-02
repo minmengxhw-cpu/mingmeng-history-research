@@ -1,4 +1,4 @@
-"""T1 六条真实路由冒烟测试。"""
+"""T1 真实路由冒烟测试。"""
 from __future__ import annotations
 
 import pytest
@@ -47,3 +47,8 @@ def test_domestic_smoke(live_server, staging_missing_reason):
     if staging_missing_reason:
         pytest.skip(f"国内史料真实页面未验证：{staging_missing_reason}")
     _assert_page(live_server, "/domestic", "国内史料")
+
+
+def test_domestic_library_smoke(live_server, db_missing_reason):
+    _require_database(db_missing_reason)
+    _assert_page(live_server, "/domestic/library", "已收国内资料")
