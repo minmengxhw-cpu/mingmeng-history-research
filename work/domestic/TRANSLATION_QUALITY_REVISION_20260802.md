@@ -70,3 +70,14 @@
 
 ### hathitrust 报纸版面混排（28 页标注）
 hathitrust 整版报纸 OCR 中 29 页确认混排（混入法国/意大利/希腊/德国/捷克/匈牙利/朝鲜/美国国会等无关版面报道），newspapersg 93 页全部正常。已有 1 页（838）此前标注，本轮为其余 28 页追加【校订说明】标注，输出 `data/domestic/zh_translation_revisions_hathitrust_mix.csv`。
+
+## 抽样复核补审（补充 3，2026-08-02 · 正式库导入后）
+
+- **导入校验**：39 页修订译文（11 FRUS + 28 hathitrust）经 `scripts/lib/import_translations_csv.py` 入库（translator=`cloud-model-revision-v1`，status=`machine-revised`），`translations` 总数保持 1075（DELETE+INSERT）；FTS 行完整对应（1075/1075，39/39 cloud 行）。
+- **残余英文 token 甄别**：对 FRUS-family 492 页 + 全文 1075 页扫描，命中项逐条核对均为**刻意保留**：
+  - 括注专名/机构缩写：SWNCC、SCAP、CNRRA、CGIL、Kuomintang、Democratic League、Manchuria、persona non grata 等（正文已附中文译名）。
+  - 术语索引行（刻意保留英中对照，如 `National Assembly：国民大会`）。
+  - 档案落款 OCR 残缺括注（如 page 316 `R〔obert〕A〔nderson〕`）。
+  - 【校订说明】内提示性英文（page 860 等混排页复核指引）。
+- **补审页**：94/379/387/437/270/330/266/146/334/683/1384/860/281/206/316/660/56/128/157/402 —— 无新增真实残留。
+- **结论**：核心文献无系统性重译需求；抽样评估 + 补审均确认译文质量总体良好。FTS5 unicode61 中文分词将 CJK 连续串视为单 token（`卢汉` 需按 `卢汉将军` 查询），属既有分词特性，非数据问题。
