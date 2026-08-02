@@ -26,8 +26,8 @@
 | 项 | 值 |
 |---|---|
 | formal path | `data/research_index.sqlite` |
-| formal_db_sha256 current | `e4257587a8c32695399c3660d499504c8ccbcd7568ac9170b60553f51ddb7159` ✅ **S3 补采入库（8 文档 68 页，繁体→简体重建后）** |
-| formal_db_sha256 previous freeze (0802 rebaseline) | `7af2e27b4d5fd4d917f63b6af392b86da0ec84add878aa23918b351141def0e6` |
+| formal_db_sha256 current | `f4147972fe21755523c5682663145708a54d11126e151095537382d06f42fd03` ✅ **S3 闭合链路：8 回填 + 308 降级 lead_only** |
+| formal_db_sha256 previous freeze (0802 rebaseline) | `e4257587a8c32695399c3660d499504c8ccbcd7568ac9170b60553f51ddb7159` |
 | drift_attribution | application-driven（app.py PID 68642 / supervisor PID 32605）；**非 subagent** |
 | write_policy | **FROZEN for subagents**; **app 仍可合法更新** |
 | citation_ready Δ | **0** |

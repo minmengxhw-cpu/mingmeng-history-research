@@ -54,7 +54,9 @@
 - ✅ **已入库 8 个候选 / 68 页**：`scripts/domestic/s3_backfill_ingest.py --commit` 将 8 个 `full_item_online`+wikimedia+现成逐页 OCR 的候选真实写入 `documents`/`pages`/`page_fts`/`page_fts_bigram`/`page_provenance`（doc 1301-1308：三中全会成就、反对美援蒋扶日、最终阶段政治主张、时局宣言、民盟纲领、临时全国代表大会宣言×2、政治报告×1）。
 - ✅ **OCR 源复用**：7 个来自 `work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/` 与 `NLC511-027032016010761-42571`，1-2 个来自 `guangmingbao_1948_1949/`；逐页 `page-\d+\.ocr\.md$`，排除 tile/merged/目录页。
 - ✅ **繁→简重建**：OCR 源为繁体，`lib_ingest.py` 加 `zhconv` 转简体后重入库（`e4257587…`），app bigram 搜索命中修复（纲领 3 / 三中全会 3 / 政治报告 4）。
-- ⏳ 剩余：296 中其余候选待补采；`surrogate_online`(127)/`catalogue_only_online`(88) 待降级 `lead_only`；`ingested_document_id` 外键闭合链路待做。
+- ✅ **闭合链路（建议③）**：`close_candidate_links_20260802.py` 给 `domestic_candidates` 加 `ingested_document_id`、`documents` 加 `ingested_candidate_id`，回填 8 个已入库候选双向指针（`f4147972…`）。
+- ✅ **降级登记（建议②）**：surrogate_online(216) + catalogue_only_online(92) 共 308 个无全文候选 `check_outcome` 降为 `lead_only`（附 review_note）；剩余 pass 352 全部为 full_item_online。
+- ⏳ 剩余：296 full_item_online 中其余 288 个待补采（本批已入库 8）。
 
 ### 🟠 S4. 289 个 .bak 备份占用 64GB（存储冗余）
 - **证据**：`data/` 总 67GB，其中 **289 个 .bak 备份文件占 64GB（95%）**。含：
