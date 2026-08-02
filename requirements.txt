@@ -1,0 +1,4 @@
+# 民盟历史文献研究库：核心运行依赖
+# 依据当前仓库代码的真实 import 扫描；OCR、PDF、翻译和导出工具见
+# requirements-optional.txt，不由 CI 默认安装。
+zhconv==1.4.3
