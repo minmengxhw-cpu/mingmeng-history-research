@@ -50,6 +50,12 @@
 - **影响**：声称的收集成果（660 候选）与实际语料（253 文档/4400 页）严重脱节；是「数量虚高」的主要来源。
 - **处置建议**：① 对 296 个 `full_item_online` 建立真实采集流水线（批量拉取 Wikimedia/NLC 公开页）补入 pages；② 或将其 `check_outcome` 降级为 `lead_only`，避免虚报已收集；③ 给 candidates 增加 `ingested_document_id` 外键字段，形成闭合链路。
 
+#### S3 处置进展（0802 下午）
+- ✅ **已入库 8 个候选 / 68 页**：`scripts/domestic/s3_backfill_ingest.py --commit` 将 8 个 `full_item_online`+wikimedia+现成逐页 OCR 的候选真实写入 `documents`/`pages`/`page_fts`/`page_fts_bigram`/`page_provenance`（doc 1301-1308：三中全会成就、反对美援蒋扶日、最终阶段政治主张、时局宣言、民盟纲领、临时全国代表大会宣言×2、政治报告×1）。
+- ✅ **OCR 源复用**：7 个来自 `work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/` 与 `NLC511-027032016010761-42571`，1-2 个来自 `guangmingbao_1948_1949/`；逐页 `page-\d+\.ocr\.md$`，排除 tile/merged/目录页。
+- ✅ **繁→简重建**：OCR 源为繁体，`lib_ingest.py` 加 `zhconv` 转简体后重入库（`e4257587…`），app bigram 搜索命中修复（纲领 3 / 三中全会 3 / 政治报告 4）。
+- ⏳ 剩余：296 中其余候选待补采；`surrogate_online`(127)/`catalogue_only_online`(88) 待降级 `lead_only`；`ingested_document_id` 外键闭合链路待做。
+
 ### 🟠 S4. 289 个 .bak 备份占用 64GB（存储冗余）
 - **证据**：`data/` 总 67GB，其中 **289 个 .bak 备份文件占 64GB（95%）**。含：
   - `machine_review.*` / `MONTH_B*` 系列：7/28-7/29 循环内**每 3 秒一个**、同一天数百份，粒度已无价值
