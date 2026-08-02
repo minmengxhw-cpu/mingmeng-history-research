@@ -17,7 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 DB = ROOT / "work/domestic/staging_20260730/domestic_staging.sqlite"
 FORMAL_DB = ROOT / "data/research_index.sqlite"
-EXPECTED_FORMAL_SHA = "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5"
+EXPECTED_FORMAL_SHA = "4837dbd671ec8d2965b8a7cb06e37ceebd6b1ea7337f75e30fc18bf6b1adfa7a"
 
 EVENT_TERMS = ["成立", "代表大会", "代表大會", "政治协商", "政治協商", "解散", "非法", "五一口号", "五一口號", "三中全会", "三中全會", "抗战", "抗戰", "反右", "宪政", "憲政"]
 ENTITY_TERMS = ["民盟", "民主同盟", "中國民主同盟", "中国民主同盟", "国民党", "國民黨", "政协", "政協", "光明报", "光明報", "民宪", "民憲"]

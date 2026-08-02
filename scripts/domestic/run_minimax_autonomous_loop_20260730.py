@@ -24,7 +24,7 @@ LOG = CONTROL / "MINIMAX_LOOP.log"
 FORMAL_DB = ROOT / "data/research_index.sqlite"
 TASK = ROOT / "work/domestic/MINIMAX_AUTONOMOUS_RESEARCH_START_PROMPT_20260730.md"
 WRAPPER = ROOT / "scripts/domestic/exec_current_ccswitch_claude.py"
-EXPECTED_FORMAL_SHA = "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5"
+EXPECTED_FORMAL_SHA = "4837dbd671ec8d2965b8a7cb06e37ceebd6b1ea7337f75e30fc18bf6b1adfa7a"
 
 MAX_WALL_SECONDS = 4 * 3600 + 50 * 60
 MAX_ROUNDS = 24
