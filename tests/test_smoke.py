@@ -1,15 +1,17 @@
 """T1 冒烟测试:覆盖首页 / dashboard / sourcebooks / 文档详情页 / timeline / 国内史料页。
 
-**先看 conftest.py 顶部的说明** —— 当前(2026-08-01)这台机器和 CI 上都没有真实的
-`data/research_index.sqlite`,而 app.py 里绝大多数路由的首条 SQL 都没做
-try/except 保护,数据库缺失时不是返回 500,而是直接把连接断开。
+**先看 conftest.py 顶部的说明** —— 当前(2026-08-02)这台机器和 CI 上都没有真实的
+`data/research_index.sqlite`。2026-08-02 对抗性审查修复了 do_GET/do_POST 缺少
+顶层异常兜底的问题,现在数据库缺失时路由会返回一个干净的 500 页面(不再直接
+断开连接、不回传 traceback)。
 
 所以下面 6 条路由里:
   - /sourcebooks 完全不碰数据库,任何时候都应该 200 —— 正常断言。
   - /domestic 对"表未初始化"做了 try/except、会退化成一个正常的 200 提示页
     —— 正常断言(断言的是退化页面的文案,不是真实史料内容)。
-  - /、/dashboard、/timeline、文档详情页 目前必然因为数据库缺失连接被断开
-    —— 用 db_missing_reason 确认原因后 skip,不许伪装成"通过"。
+  - /、/dashboard、/timeline、文档详情页 目前必然因为数据库缺失返回 500
+    —— 用 db_missing_reason 确认原因后,只断言 500 兜底页本身干净
+    (不泄露 traceback),不假装验证了真实内容。
 """
 from __future__ import annotations
 
@@ -21,16 +23,18 @@ from tests._http import fetch
 from tests.conftest import DB_PATH
 
 
-def _skip_if_db_missing(db_missing_reason: str | None) -> None:
-    if db_missing_reason:
-        pytest.skip(f"数据库缺失,该路由无法在当前环境验证真实内容: {db_missing_reason}")
+def _assert_clean_500(body: str | None) -> None:
+    assert body is not None
+    assert "Traceback" not in body
+    assert "服务错误" in body or "页面渲染出错" in body
 
 
 def test_home_smoke(live_server, db_missing_reason):
     status, body = fetch(live_server, "/")
-    if status is None:
-        _skip_if_db_missing(db_missing_reason)
-        pytest.fail("首页请求连接被重置,且不是已知的数据库缺失场景,需要人工排查")
+    if db_missing_reason:
+        assert status == 500, f"预期数据库缺失时返回 500 兜底页,实际是 {status}"
+        _assert_clean_500(body)
+        pytest.skip(f"数据库缺失,只验证了 500 兜底页干净,未验证首页真实内容: {db_missing_reason}")
     assert status == 200
     assert "Traceback" not in body and "Internal Server Error" not in body
     assert "民盟历史文献研究库" in body
@@ -38,9 +42,10 @@ def test_home_smoke(live_server, db_missing_reason):
 
 def test_dashboard_smoke(live_server, db_missing_reason):
     status, body = fetch(live_server, "/dashboard")
-    if status is None:
-        _skip_if_db_missing(db_missing_reason)
-        pytest.fail("/dashboard 请求连接被重置,且不是已知的数据库缺失场景,需要人工排查")
+    if db_missing_reason:
+        assert status == 500, f"预期数据库缺失时返回 500 兜底页,实际是 {status}"
+        _assert_clean_500(body)
+        pytest.skip(f"数据库缺失,只验证了 500 兜底页干净,未验证 dashboard 真实内容: {db_missing_reason}")
     assert status == 200
     assert "Traceback" not in body and "Internal Server Error" not in body
     assert "研究进度仪表盘" in body
@@ -73,9 +78,10 @@ def test_doc_detail_smoke(live_server, db_missing_reason):
 
 def test_timeline_smoke(live_server, db_missing_reason):
     status, body = fetch(live_server, "/timeline")
-    if status is None:
-        _skip_if_db_missing(db_missing_reason)
-        pytest.fail("/timeline 请求连接被重置,且不是已知的数据库缺失场景,需要人工排查")
+    if db_missing_reason:
+        assert status == 500, f"预期数据库缺失时返回 500 兜底页,实际是 {status}"
+        _assert_clean_500(body)
+        pytest.skip(f"数据库缺失,只验证了 500 兜底页干净,未验证 timeline 真实内容: {db_missing_reason}")
     assert status == 200
     assert "Traceback" not in body and "Internal Server Error" not in body
     assert "年表" in body

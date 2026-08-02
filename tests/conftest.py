@@ -7,16 +7,20 @@ app.py 运行时连接的 `data/research_index.sqlite` 被 .gitignore 排除,不
 等后续新增的表。也就是说:**在一台全新 clone 的机器上(包括这次 CI),
 这个数据库文件根本不存在**。
 
-app.py 几乎每个路由的第一条 SQL 语句都没有包 try/except(如 home() 里的
-`SELECT count(*) FROM documents`),数据库缺表时 sqlite3.OperationalError
-会一直往上抛,http.server 的默认异常处理不会返回任何 HTTP 响应,而是直接把
-连接断开(客户端拿到的是连接错误,不是带 500 状态码的响应体)。
+2026-08-02 对抗性审查修复:app.py 的 do_GET/do_POST 之前没有顶层异常兜底,
+数据库缺表时 sqlite3.OperationalError 会一直往上抛,http.server 的默认异常
+处理不会返回任何 HTTP 响应,而是直接把连接断开(客户端拿到的是连接错误,不是
+带 500 状态码的响应体)。现在 do_GET/do_POST 已经加了 try/except,任何路由
+处理函数抛出的未预期异常都会被统一转成一个干净的 500 页面(不回传服务端
+traceback),所以**数据库缺失现在表现为 500,而不是连接被重置**。
 
 所以这份测试网的策略是:
-  1. 能拿到 HTTP 响应 → 按响应内容正常断言(200 + 特征字符串 / 无 Traceback)。
-  2. 拿不到响应(连接被重置)且确认是 research_index.sqlite 缺失/缺表导致的
-     → skip,并把原因打印出来,不算测试失败。
-  3. 拿不到响应但排除了"数据库缺失"这个已知原因 → 视为真失败,不允许吞掉。
+  1. 能拿到 200 响应 → 按响应内容正常断言(特征字符串 / 无 Traceback)。
+  2. 拿到 500 且确认是 research_index.sqlite 缺失/缺表导致的
+     → skip 真实内容校验,只确认 500 页面本身干净(不泄露 traceback),
+     不算测试失败。
+  3. 拿到非 200/500 的响应,或 500 但排除了"数据库缺失"这个已知原因
+     → 视为真失败,不允许吞掉。
 """
 from __future__ import annotations
 

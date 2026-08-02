@@ -63,8 +63,15 @@ TITLE_TRANSLATIONS = load_title_translations()
 def newspapersg_clean_text(doc_key: str) -> str:
     if not doc_key.startswith("newspapersg:"):
         return ""
-    path = NEWSPAPERSG_CLEAN_DIR / f"{doc_key.removeprefix('newspapersg:')}.txt"
-    if not path.exists():
+    rest = doc_key.removeprefix("newspapersg:")
+    # 防穿越：与 /static/、/sourcebooks/file/ 等路由统一的纵深防御写法。
+    # 目前唯一调用点传入的是数据库落地值而非原始 URL 字符串，理论上不可直接触发，
+    # 但仍按同样标准加上校验，避免以后有新调用路径把这个函数当成"安全的"。
+    if ".." in rest or "/" in rest or "\\" in rest:
+        return ""
+    path = (NEWSPAPERSG_CLEAN_DIR / f"{rest}.txt").resolve()
+    clean_root = NEWSPAPERSG_CLEAN_DIR.resolve()
+    if not str(path).startswith(str(clean_root)) or not path.exists():
         return ""
     return path.read_text(encoding="utf-8", errors="replace").strip()
 
@@ -1411,8 +1418,9 @@ def rows_for_search(
         for variants in expanded_tokens:
             valid = [v for v in variants if len(v) >= 3]
             if valid:
-                # FTS5 quote: "..."
-                quoted = " OR ".join(f'"{v}"' for v in valid)
+                # FTS5 quote: "..."，双引号需转义为 ""，否则用户输入里的 " 能提前闭合短语、
+                # 注入 FTS5 查询语法（如列过滤器/布尔操作符）
+                quoted = " OR ".join('"{}"'.format(v.replace('"', '""')) for v in valid)
                 fts_parts.append(f"({quoted})")
         if fts_parts:
             fts_q = " AND ".join(fts_parts)
@@ -3152,14 +3160,18 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
     # 1. 基于关键词查找事件关联
     for evt in KEY_EVENTS:
         if any(term.lower() in (doc["title"] + (doc["matched_terms"] or "")).lower() for term in evt["search_terms"]):
-            term_query = " OR ".join([f"title LIKE '%{t}%'" for t in evt["search_terms"][:3]])
+            # 改为参数化查询：即使 search_terms 目前只来自 key_events.py 静态常量，
+            # 用 f-string 拼 SQL 仍是一个隐患信号——一旦这份数据未来变成可编辑/外部输入，
+            # 这里会立刻变成真实的 SQL 注入点，所以直接改成 ? 占位符。
+            terms = evt["search_terms"][:3]
+            term_query = " OR ".join(["title LIKE ?"] * len(terms))
             related = c.execute(f"""
-                SELECT doc_key, title, source_platform, date_guess 
-                FROM documents 
-                WHERE ({term_query}) AND doc_key != ? 
+                SELECT doc_key, title, source_platform, date_guess
+                FROM documents
+                WHERE ({term_query}) AND doc_key != ?
                   AND date_guess BETWEEN date(?, '-3 months') AND date(?, '+3 months')
                 LIMIT 4
-            """, (doc["doc_key"], doc["date_guess"], doc["date_guess"])).fetchall()
+            """, tuple(f"%{t}%" for t in terms) + (doc["doc_key"], doc["date_guess"], doc["date_guess"])).fetchall()
             if related:
                 related_docs.append({"title": f"事件印证: {evt['name']}", "docs": related})
             break
@@ -6604,6 +6616,28 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self) -> None:
+        # 顶层异常兜底：任何路由处理函数抛出未预期异常时，
+        # 之前会直接断连（客户端收到 Empty reply），现在统一转成 500 页面，
+        # 并且绝不把服务端 traceback 回传给客户端（只打到 stderr）。
+        try:
+            self._do_GET_inner()
+        except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
+            pass
+        except Exception:
+            import traceback
+            traceback.print_exc()
+            try:
+                body = layout("服务错误", '<div class="notice">页面渲染出错，已记录服务端日志，请稍后重试。</div>')
+                self.send_response(500)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-cache, max-age=0, must-revalidate")
+                self.end_headers()
+                self.wfile.write(body)
+            except Exception:
+                pass
+
+    def _do_GET_inner(self) -> None:
         # 修复：BaseHTTPRequestHandler 把 self.path 按 ISO-8859-1 解码，
         # 中文 URL 参数会变成乱码。这里重新按 UTF-8 解一遍。
         raw_path = self.path
@@ -6901,6 +6935,26 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(payload)
 
     def do_POST(self) -> None:
+        # 与 do_GET 一致的顶层异常兜底，避免表单保存类接口异常时直接断连。
+        try:
+            self._do_POST_inner()
+        except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
+            pass
+        except Exception:
+            import traceback
+            traceback.print_exc()
+            try:
+                body = layout("服务错误", '<div class="notice">提交处理出错，已记录服务端日志，请稍后重试。</div>')
+                self.send_response(500)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-cache, max-age=0, must-revalidate")
+                self.end_headers()
+                self.wfile.write(body)
+            except Exception:
+                pass
+
+    def _do_POST_inner(self) -> None:
         parsed = urlparse(self.path)
         if parsed.path == "/focus":
             length = int(self.headers.get("Content-Length", "0"))
