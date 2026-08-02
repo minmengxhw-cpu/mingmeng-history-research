@@ -19,6 +19,7 @@ _request = threading.local()
 
 
 ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / "scripts" / "legacy"))
 DB_PATH = ROOT / "data" / "research_index.sqlite"
 DOMESTIC_STAGING_DB_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "domestic_staging.sqlite"
 PHASE2_INVENTORY_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "REPORT.json"
@@ -1452,20 +1453,76 @@ def rows_for_search(
             out.append(row)
             seen.add(row["page_id"])
 
-    # 路径 1: FTS5 trigram（适合 3+ 字符词），把 tokens 用 AND 组合
-    # FTS5 query 语法: token1 AND token2，trigram 至少 3 字符才能命中
+    # 路径 1: FTS5（中文走 bigram 表，英文走 trigram 表），多 token AND
+    # - CJK 词 → bigram phrase（预切 bigram，2 字词单 token 命中，多字相邻命中）
+    # - 纯英文 3+ 词 → trigram 表（原逻辑）
+    # 两类都命中才返回（跨表结果按 page_id 去重合并）
+    cjk_re = re.compile(r"[\u3400-\u9fff]+")
     try:
-        # 任一变体满足即可（OR），多 token 之间 AND
-        fts_parts = []
+        # CJK token → bigram 表子句（phrase）
+        bg_parts = []
+        # 纯英文 token（>=3 字符）→ trigram 表子句
+        tr_parts = []
         for variants in expanded_tokens:
-            valid = [v for v in variants if len(v) >= 3]
-            if valid:
-                # FTS5 quote: "..."，双引号需转义为 ""，否则用户输入里的 " 能提前闭合短语、
-                # 注入 FTS5 查询语法（如列过滤器/布尔操作符）
-                quoted = " OR ".join('"{}"'.format(v.replace('"', '""')) for v in valid)
-                fts_parts.append(f"({quoted})")
-        if fts_parts:
-            fts_q = " AND ".join(fts_parts)
+            any_cjk = any(cjk_re.search(v) for v in variants)
+            if any_cjk:
+                # 任一变体满足即可（OR），多 token 之间 AND
+                phrases = []
+                for v in variants:
+                    # 把该变体内的连续 CJK 段切成相邻 bigram phrase
+                    v_phrases = []
+                    for m in cjk_re.finditer(v):
+                        seg = m.group(0)
+                        bgs = [seg[i : i + 2] for i in range(len(seg) - 1)]
+                        if bgs:
+                            v_phrases.append('"' + " ".join(bgs) + '"')
+                    # 变体内英文片段单独作为词（unicode61 空格分词）
+                    for m in re.finditer(r"[A-Za-z0-9]+", v):
+                        v_phrases.append(f'"{m.group(0)}"')
+                    if v_phrases:
+                        phrases.append("(" + " AND ".join(v_phrases) + ")")
+                if phrases:
+                    bg_parts.append("(" + " OR ".join(phrases) + ")")
+            else:
+                valid = [v for v in variants if len(v) >= 3]
+                if valid:
+                    # FTS5 quote: "..."，双引号需转义为 ""，否则用户输入里的 " 能提前闭合短语、
+                    # 注入 FTS5 查询语法（如列过滤器/布尔操作符）
+                    quoted = " OR ".join('"{}"'.format(v.replace('"', '""')) for v in valid)
+                    tr_parts.append(f"({quoted})")
+
+        if bg_parts:
+            bg_q = " AND ".join(bg_parts)
+            sql = f"""
+                {SELECT_BASE}
+                FROM page_fts_bigram
+                JOIN pages ON pages.id = page_fts_bigram.rowid
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+                LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+                WHERE page_fts_bigram MATCH ?
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                  {filter_clause}
+                LIMIT ?
+            """
+            _add_rows(sql, (bg_q,) + tuple(filter_params) + (limit,))
+            sql2 = f"""
+                {SELECT_BASE}
+                FROM translation_fts_bigram
+                JOIN translations ON translations.id = translation_fts_bigram.rowid
+                JOIN pages ON pages.id = translations.page_id
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+                WHERE translation_fts_bigram MATCH ?
+                  AND translations.language='zh-CN'
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                  {filter_clause}
+                LIMIT ?
+            """
+            _add_rows(sql2, (bg_q,) + tuple(filter_params) + (limit,))
+
+        if tr_parts:
+            tr_q = " AND ".join(tr_parts)
             sql = f"""
                 {SELECT_BASE}
                 FROM page_fts
@@ -1478,8 +1535,7 @@ def rows_for_search(
                   {filter_clause}
                 LIMIT ?
             """
-            _add_rows(sql, (fts_q,) + tuple(filter_params) + (limit,))
-            # 同样查 translation_fts（简体翻译里搜）
+            _add_rows(sql, (tr_q,) + tuple(filter_params) + (limit,))
             sql2 = f"""
                 {SELECT_BASE}
                 FROM translation_fts
@@ -1493,16 +1549,22 @@ def rows_for_search(
                   {filter_clause}
                 LIMIT ?
             """
-            _add_rows(sql2, (fts_q,) + tuple(filter_params) + (limit,))
+            _add_rows(sql2, (tr_q,) + tuple(filter_params) + (limit,))
     except sqlite3.OperationalError:
         pass
 
     # 路径 2: LIKE 兜底（处理短词 < 3 字符 + 中文模糊匹配）
+    # 路径 2: LIKE 兜底（处理 1 字中文 + 非 CJK 短词 <3 字符，bigram 表已覆盖 2+ 字中文）
     # 每个 token 用任一变体 LIKE 都算命中（OR），多 token 用 AND 取交
-    if not out or any(len(t) < 3 for t in tokens):
+    need_like = any(len(t) < 3 and not cjk_re.search(t) for t in tokens) or any(len(t) < 2 for t in tokens)
+    if (not out or need_like) and need_like:
         like_conds_parts = []
         like_params: list = []
         for variants in expanded_tokens:
+            # bigram 表已覆盖 2+ 字中文，此处只对「1 字中文 / 非 CJK 短词」走 LIKE
+            skip = all(cjk_re.search(v) and len(v) >= 2 for v in variants)
+            if skip:
+                continue
             # 对单 token 的多变体：在 (text OR title OR matched_terms OR translations.text) 任一字段 LIKE
             sub_parts = []
             for v in variants:
