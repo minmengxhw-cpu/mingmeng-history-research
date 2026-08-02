@@ -1,0 +1,172 @@
+{
+  "already_in_documents": 138,
+  "total": 8,
+  "with_ocr": 8,
+  "no_ocr": 0,
+  "items": [
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-article",
+      "title": "民盟三中全会的成就",
+      "date": "1948-03-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10484_光明報_1948年1卷1期.pdf",
+      "doc_type": "同期政论报刊文章／整期公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/guangmingbao_1948_1949/v1n1_ocr/page-04.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0004.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "PDF第2页目录列于第4页；正文PDF第4页；work/domestic/guangmingbao_1948_1949/v1n1_pages/page-04.png；work/domestic/guangmingbao_1948_1949/"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12-article",
+      "title": "反對美國援蔣扶日",
+      "date": "1948-08-16",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10514_光明報_1948年1卷12期.pdf",
+      "doc_type": "同期政论报刊文章／整期公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/guangmingbao_1948_1949/v1n12_ocr/page-02.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10514/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "PDF第2页标题与正文；work/domestic/guangmingbao_1948_1949/v1n12_pages/page-02.png；work/domestic/guangmingbao_1948_1949/v1n12_ocr/"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-final-war-political-platform",
+      "title": "中国民主同盟对抗战最后阶段的政治主张",
+      "date": "1944-10-10",
+      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
+      "doc_type": "1946年官方文献汇编中的同期文件",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0022.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0023.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0024.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0025.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "PDF第22—25页；印刷页14—17；目录PDF第5页；PDF共176页；SHA256 276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-situation-declaration-1945-01-15",
+      "title": "时局宣言",
+      "date": "1945-01-15",
+      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
+      "doc_type": "1946年官方文献汇编中的同期文件",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0026.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0027.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0028.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0029.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "PDF第26—29页；印刷页18起至下一件文件前；目录PDF第5页；PDF共176页；SHA256 276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+      "title": "中国民主同盟纲领",
+      "date": "1945-10",
+      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
+      "doc_type": "1946年官方文献汇编中的同期文件",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0048.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0049.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0050.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0051.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0052.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0053.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0054.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0055.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0056.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0057.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0058.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0059.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0060.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0061.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0062.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0063.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0064.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0065.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0066.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0067.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0068.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0069.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0070.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0071.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0072.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "PDF第48—72页；印刷页40—64；目录PDF第6页；PDF共176页；SHA256 276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+      "title": "中国民主同盟临时全国代表大会宣言",
+      "date": "1945-10-16",
+      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
+      "doc_type": "1946年官方文献汇编中的同期文件",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0073.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0074.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0075.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0076.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0077.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0078.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "PDF第73—78页；印刷页65—70；目录PDF第6页；PDF共176页；SHA256 276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-yanlunji-1945-congress-political-report",
+      "title": "中国民主同盟临时全国代表大会政治报告（言论集／民主星期刊转载）",
+      "date": "1945-10-11",
+      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC511-027032016010761-42571_%E4%B8%AD%E5%9C%8B%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E8%A8%80%E8%AB%96%E9%9B%86.pdf",
+      "doc_type": "1945年同期期刊转载之大会政治报告／选辑扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0019.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0020.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0021.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0022.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0023.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0024.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0025.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0026.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0027.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0028.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0029.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0030.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0031.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0032.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0033.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0034.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0035.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0036.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "目录PDF第4页；题名/编者PDF第19页；正文PDF第20—36页上栏（印刷15—31）；全文单元含题名页计PDF第19—36页（印刷14—31）；下一文（章伯钧）同页PDF第36页起；页图 work/domestic/yanlunji_"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-yanlunji-1945-congress-declaration",
+      "title": "中国民主同盟临时全国代表大会宣言（言论集／民主星期刊转载）",
+      "date": "1945-10-16",
+      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC511-027032016010761-42571_%E4%B8%AD%E5%9C%8B%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E8%A8%80%E8%AB%96%E9%9B%86.pdf",
+      "doc_type": "1945年同期期刊转载之大会宣言／选辑扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0014.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0015.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0016.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0017.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0018.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0019.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "目录PDF第4页；正文PDF第14—19页（印刷9—14）；起页 page-014.png；末页/边界 page-019.png（上栏「謹此宣言」收束，下栏政治报告题名）；SHA256 386faf360e73fd31e39d1f0a584"
+    }
+  ]
+}
