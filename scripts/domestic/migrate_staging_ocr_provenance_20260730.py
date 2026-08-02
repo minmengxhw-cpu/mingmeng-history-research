@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DB = ROOT / "work/domestic/staging_20260730/domestic_staging.sqlite"
 OCR_ROOT = ROOT / "work/domestic/minimax_autonomous_research_20260730/ocr"
 FORMAL_DB = ROOT / "data/research_index.sqlite"
-EXPECTED_FORMAL_SHA = "5d44cb3f91d1019c4320339093ce401cd840a76162845c05796ace09535c4239"
+EXPECTED_FORMAL_SHA = "013720ecc3a6a2e067700cc6532f505e3d3ccbb5c2bc7730407d50ee95a68012"
 
 
 def sha256(path: Path) -> str:

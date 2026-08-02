@@ -21,7 +21,7 @@ QUEUE = ROOT / "work/domestic/grok_next_stage_20260730/05_handoff/DOMESTIC_PRIMA
 MACHINE_QUEUE = ROOT / "work/domestic/grok_next_stage_20260730/05_handoff/DOMESTIC_MACHINE_TEXT_QUEUE.jsonl"
 SCHOLARLY_QUEUE = ROOT / "work/domestic/grok_next_stage_20260730/05_handoff/SCHOLARLY_FULLTEXT_QUEUE.jsonl"
 FORMAL_DB = ROOT / "data/research_index.sqlite"
-EXPECTED_FORMAL_SHA = "5d44cb3f91d1019c4320339093ce401cd840a76162845c05796ace09535c4239"
+EXPECTED_FORMAL_SHA = "013720ecc3a6a2e067700cc6532f505e3d3ccbb5c2bc7730407d50ee95a68012"
 
 
 def sha256(path: Path) -> str:
