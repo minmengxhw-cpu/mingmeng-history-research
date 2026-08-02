@@ -1,0 +1,12 @@
+{
+  "batch_id": "observer-front-ocr-20260728",
+  "mode": "dry_run",
+  "gate": "PASS",
+  "issues": 12,
+  "ocr_pages": 24,
+  "inserted_documents": 12,
+  "inserted_pages": 24,
+  "skipped_existing": [],
+  "backup": null,
+  "applied_at": null
+}

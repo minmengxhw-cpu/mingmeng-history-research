@@ -1,13 +1,13 @@
 # 民盟历史文献研究库
 
-> 1941—1950 中国大陆境外一手档案的系统整理、双语翻译与多源交叉印证。
+> 1941—1950 民盟境外档案与国内史料的分层整理、OCR、引用复核与多源交叉印证。
 
 ## 一、项目简介
 
-本平台是「民盟历史文献研究」项目组维护的内部研究工作台，聚焦中国民主同盟筹建、参政与重大转折时期的一手档案。
+本平台是「民盟历史文献研究」项目组维护的内部研究工作台，聚焦中国民主同盟筹建、参政与重大转折时期的境外档案，以及国内同期报刊、公开扫描、民盟目录和官方来源。
 
 - **时段**：1941—1950
-- **数据源**：7 大档案系统、900+ 篇核心档案（实际以本地 `data/research_index.sqlite` 动态统计为准）
+- **数据源**：7 大境外档案系统 + 国内史料层（实际以本地 `data/research_index.sqlite` 动态统计为准）
 - **功能**：抓取 / 清洗 / 翻译 / 全文索引 / 引用 / 事件梳理 / 研究卡片导出
 
 ### 当前数据规模（以数据库动态统计为准）
@@ -22,11 +22,20 @@
 | 台北档案史料文物查询系统（DRNH）| 民国政府最高层视角（蒋档／国民政府档案／戴笠呈件）|
 | **NewspaperSG（新加坡国家图书馆）** | **南洋华侨与英殖民地公共舆论场** |
 
+国内史料层单独保留证据等级与复核状态，当前包含民盟历史文献全媒体数据库目录、1941—1949 年国内同期报刊公开扫描、民盟官方来源、政协/统战官方回顾和公开领域转录。国内 OCR 默认是检索草稿；只有完成原图定位、版面/页码记录和人工复核，才可进入引用级证据层。
+
 各源精读入库篇数随研究进度变化，前台栏目页、首页、`/dashboard` 与 `/sourcebooks` 均按 `data/research_index.sqlite` 实时计算，不在 README 内静态写死。可在浏览器打开 `/dashboard` 查看当前数字。
 
 ## 二、收录原则
 
-只收录 **中国大陆境外一手原始档案** 的原文与中译；不收录民盟官网、维基百科、新闻报道、研究论文等任何二手资料。前台展示遵循民盟史的学术分期与中性表述原则。
+境外档案主库只收录 **中国大陆境外一手原始档案** 的原文与中译；国内史料层另行收录同期报刊、国内公开扫描、官方目录和二次来源，但必须标注来源类型、证据等级、版权/访问状态和 `citation_ready` 状态。民盟官网、维基百科、新闻报道、研究论文不能替代同期原件。前台展示遵循民盟史的学术分期与中性表述原则。
+
+国内资料的分层规则：
+
+- `L1/L2`：同期原件或可复查的原始扫描；OCR 仍需逐页复核。
+- `L3`：目录、详情字段或整理材料中可定位的原件线索；不能当作已取得全文。
+- `L4+`：官方回顾、公开网页、百科或研究资料；用于时间线和检索导航，不替代一手证据。
+- `citation_ready=false`：默认状态；未完成页级定位和人工审校前禁止作为正式引文。
 
 收录边界与误收防线：
 - "China Democratic League / 中国民主同盟" 在 NewspaperSG / HathiTrust 等公开报刊源中容易与 **马来亚民主同盟（Malayan Democratic Union/League）**、**台湾民主自治同盟**、**Korean Democratic League**、**Indo-British Democratic League** 等同名／近名组织混淆。本平台 NewspaperSG 卷设置二次复核脚本（`scripts/build/review_newspapersg_exclusions.py`）逐篇判断 "是否真涉中国民盟"，输出 `data/newspapersg/exclusions.csv` 误收清单。
@@ -86,7 +95,11 @@ python3 app.py
 | 路径 | 用途 |
 |---|---|
 | `/` | 首页 |
-| `/sources/<plat>` | 单个档案源的栏目页（`frus` / `cia` / `wilson` / `hoover` / `hathitrust` / `drnh` / `newspapersg`）|
+| `/sources/<plat>` | 单个境外档案源的栏目页（`frus` / `cia` / `wilson` / `hoover` / `hathitrust` / `drnh` / `newspapersg`）|
+| `/domestic` | 国内史料候选、证据等级和复核状态 |
+| `/domestic/sources` | 国内来源家族、机构入口、访问方式与权利状态 |
+| `/domestic/events` | 国内史料关联的关键事件线索 |
+| `/domestic/review` | 国内候选和 OCR 人工复核看板 |
 | `/docs?platform=<plat>` | 单平台全文档列表 |
 | `/doc/<doc_key>` | 单条档案详情 |
 | `/search?q=<词>&platform=<plat>` | 全文检索（含繁简自动展开、trigram 中文分词）|
@@ -116,6 +129,7 @@ mingmeng-history-research/
 │   ├── drnh_probe/              # 台北档案目录元数据
 │   ├── drnh_images/             # 访客水印图（不进 git，本地下载）
 │   ├── newspapersg/             # 新加坡国家图书馆报刊 OCR + 译文 + 误收清单
+│   ├── domestic/                # 国内候选、来源卡、同期扫描元数据与证据单元
 │   └── translation_glossary.csv # 译名标准化
 ├── docs/                        # 内部研究文档 + 探勘报告
 │   ├── _*.md                    # 内部参考（以 _ 开头）
@@ -129,6 +143,7 @@ mingmeng-history-research/
 │   ├── probe/                   # 探勘类
 │   ├── ingest/                  # 入库类
 │   ├── translate/               # 翻译类
+│   ├── domestic/                # 国内史料筛选、OCR、证据门控与复核报告
 │   ├── build/                   # 报告/包生成 + 质量复核
 │   ├── oneshot/                 # 一次性任务（含史料长编生成、FTS 重建）
 │   └── export/                  # 论文 PDF 渲染

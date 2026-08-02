@@ -1,0 +1,32 @@
+{
+  "batch_id": "domestic_web_20260728",
+  "mode": "apply",
+  "gate": "PASS",
+  "records": 5,
+  "record_ids": [
+    "DL-20260727-003",
+    "DL-20260727-004",
+    "DL-20260727-005",
+    "DL-20260727-006",
+    "DL-20260727-007"
+  ],
+  "citation_ready": 0,
+  "backup": "data/research_index.sqlite.domestic_web_20260728.pre.bak",
+  "before": {
+    "sources": 142,
+    "documents": 986,
+    "pages": 1503,
+    "page_fts": 1503
+  },
+  "after": {
+    "sources": 147,
+    "documents": 991,
+    "pages": 1508,
+    "page_fts": 1508
+  },
+  "inserted_documents": 5,
+  "updated_documents": 0,
+  "integrity_check": "ok",
+  "fts_orphans": 0,
+  "pages_missing_fts": 0
+}

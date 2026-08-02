@@ -826,7 +826,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
       <div class="footer-top">
         <div class="footer-brand">
           <span class="footer-title">民盟历史文献研究库</span>
-          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟中国大陆境外一手档案 · 七源多视角同代史料体系</span>
+          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟境外档案与国内史料 · 分层证据与多源互证体系</span>
         </div>
         <div class="footer-links">
           <a href="/">首页</a>
@@ -838,7 +838,7 @@ def layout(title: str, body: str, query: str = "", active_path: str = "") -> byt
         </div>
       </div>
       <div class="footer-meta">
-        数据来源：FRUS · CIA FOIA · Wilson Center · Hoover Institution · HathiTrust · 台北档案史料 (DRNH) · NewspaperSG<br>
+        数据来源：FRUS · CIA FOIA · Wilson Center · Hoover Institution · HathiTrust · 台北档案史料 (DRNH) · NewspaperSG · 国内史料层<br>
         本站为学术研究工具，所有档案均保留原始出处引用
       </div>
     </div>
@@ -851,7 +851,7 @@ from platforms import PLATFORM_META  # noqa: E402  (优化 2-F 抽出)
 
 
 def platforms_panel_html(c: sqlite3.Connection) -> str:
-    """档案平台入口面板：七大档案源。"""
+    """档案平台入口面板：境外七源与国内史料层。"""
     # 动态计算每个平台的数据规模
     plat_counts = {}
     try:
@@ -926,6 +926,14 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
   <div class="pmeta">{h(meta["subtitle"])}</div>
   <div class="pdesc">{h(desc)}</div>
   <div class="pstatus {meta["status_class"]}">{h(status_text)}</div>
+</a>''')
+    domestic_docs = plat_counts.get("domestic", 0)
+    cards.append(f'''
+<a class="platform-card active" href="/domestic">
+  <h3>国内史料层</h3>
+  <div class="pmeta">同期报刊 · 公开扫描 · 民盟目录 · 官方来源</div>
+  <div class="pdesc">已收 {domestic_docs} 篇国内资料文档；OCR 默认是检索草稿，证据等级与人工复核状态单独保留。</div>
+  <div class="pstatus ok">已上线 · {domestic_docs} 篇</div>
 </a>''')
     return '<section class="platforms">' + "".join(cards) + "</section>"
 
@@ -2645,12 +2653,13 @@ def home() -> bytes:
             "AND status='human-reviewed'"
         ).fetchone()[0]
         n_events = c.execute("SELECT count(*) FROM research_events").fetchone()[0]
+        n_domestic_docs = c.execute("SELECT count(*) FROM documents WHERE source_platform='domestic'").fetchone()[0]
         cov_pct = (n_human * 100 // n_translatable) if n_translatable else 0
 
         body = f"""
 <section class="hero hero-compact">
   <h1>民盟历史文献研究库</h1>
-  <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>中国大陆境外一手档案</strong>，<br>汇聚 FRUS、CIA、Wilson、Hoover、HathiTrust、台北档案史料、NewspaperSG 七源同代史料。</p>
+  <p class="hero-sub">系统整理 1941—1950 年中国民主同盟<strong>境外档案与国内史料</strong>，<br>汇聚境外七源同代档案，并将国内同期报刊、公开扫描与目录资料按证据等级分层管理。</p>
   <div class="hero-chips">
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_zh}</b> 条中文译文</span>
@@ -2660,7 +2669,7 @@ def home() -> bytes:
 
 <div class="section-head">
   <h2><svg class="ico"><use href="#i-globe"/></svg>档案研究平台</h2>
-  <span class="section-meta">七源多视角 · 持续更新</span>
+    <span class="section-meta">境外七源 + 国内史料层 · 持续更新</span>
 </div>
 {platforms_html_block}
 
@@ -2686,6 +2695,7 @@ def home() -> bytes:
   <div class="stat"><strong>{n_zh}</strong><span>中文译文片段</span></div>
   <div class="stat"><strong>{cov_pct}%</strong><span>人工复核率</span></div>
   <div class="stat"><strong>{n_events}</strong><span>条事件线索</span></div>
+  <div class="stat"><strong>{n_domestic_docs}</strong><span>国内资料文档</span></div>
 </section>
 """
 
