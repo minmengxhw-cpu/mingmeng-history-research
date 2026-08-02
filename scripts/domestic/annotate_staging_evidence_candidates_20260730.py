@@ -16,7 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 DB = ROOT / "work/domestic/staging_20260730/domestic_staging.sqlite"
 FORMAL_DB = ROOT / "data/research_index.sqlite"
-EXPECTED_FORMAL_SHA = "4837dbd671ec8d2965b8a7cb06e37ceebd6b1ea7337f75e30fc18bf6b1adfa7a"
+EXPECTED_FORMAL_SHA = "5d44cb3f91d1019c4320339093ce401cd840a76162845c05796ace09535c4239"
 TAXONOMY_VERSION = "domestic-lexicon-v1-20260730"
 
 LEXICON = {
