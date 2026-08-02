@@ -89,6 +89,7 @@
 | 0802 12:4x | **`b979408b83249cfce36771d6b4fc59424ec4c908151892e4dec18d3545151b8b`** | **S3 候选补采入库**（8 文档 / 68 页；s3_backfill_ingest.py --commit） |
 | 0802 14:0x | **`e4257587a8c32695399c3660d499504c8ccbcd7568ac9170b60553f51ddb7159`** | **S3 繁→简重建**（OCR 源繁体，zhconv 转简体后重入库；搜索命中修复） |
 | 0802 14:0x | **`f4147972fe21755523c5682663145708a54d11126e151095537382d06f42fd03`** | **S3 闭合链路**（8 候选回填 ingested_document_id + 308 surrogate/catalogue 降级 lead_only；close_candidate_links_20260802.py） |
+| 0802 14:3x | **`857e2b3fc485af17c2852c39aede6a8e4129f8efe7ddecca8c16129d4312f07d`** | **S3 批量补采：138 候选/398 页入库**（wikimedia pdf 现成 OCR 全量复用；parse_pdf_pages 支持顿号页码；idx_page_prov_page_key 加 document_id；+6 FRUS +1 wikisource 对账） |
 
 **drift 归因**：app.py PID 68642（sqlite3.connect + INSERT/UPDATE 路径）+ supervisor PID 32605（只检测不写）；**非 subagent**。**已执行 rebaseline**：`e4417bd1…` 获批准为新 freeze baseline，随后导入 39 页修订译文，终态基线 = **`4837dbd6…`**（monitor 与 11 脚本 `EXPECTED_FORMAL_SHA` 已同步）。
 

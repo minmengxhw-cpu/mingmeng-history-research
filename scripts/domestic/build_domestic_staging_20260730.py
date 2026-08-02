@@ -16,7 +16,7 @@ RECON = ROOT / "work/domestic/phase0_reconciliation_20260730"
 OUT_DIR = ROOT / "work/domestic/staging_20260730"
 DB = OUT_DIR / "domestic_staging.sqlite"
 FORMAL_DB = ROOT / "data/research_index.sqlite"
-EXPECTED_FORMAL_SHA = "f4147972fe21755523c5682663145708a54d11126e151095537382d06f42fd03"
+EXPECTED_FORMAL_SHA = "857e2b3fc485af17c2852c39aede6a8e4129f8efe7ddecca8c16129d4312f07d"
 
 
 def sha256(path: Path) -> str:

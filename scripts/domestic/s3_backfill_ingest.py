@@ -80,19 +80,25 @@ def build_nlc_index() -> dict[str, list[Path]]:
 
 
 def parse_pdf_pages(locator: str):
-    """从 locator 提取正文 PDF 页码范围（如「PDF第2—3页」「本地PDF第1页」）。
+    """从 locator 提取正文 PDF 页码范围（如「PDF第2—3页」「本地PDF第1页」「PDF第1、3、6—8页」）。
 
-    只匹配独立出现的「(本地)?PDF第X页」，排除「目录PDF第X页」「书内第X页」等。
+    只匹配独立出现的「(本地)?PDF第X页」片段，排除「目录PDF第X页」「书内第X页」等。
+    支持顿号/逗号分隔的页号列表，每项可带「—/–/至/到」范围。
     返回 1-based 页号列表；无正文页码时返回 None。
     """
     pages: set[int] = set()
     found = False
-    for m in re.finditer(r"(?<!目录)(?:本地)?PDF\s*第\s*(\d+)\s*(?:[—–至到]\s*(\d+))?\s*页", locator or ""):
+    # 捕获 (本地)PDF第 ... 页 片段；负数前瞻排除「目录」
+    for m in re.finditer(r"(?<!目录)(?:本地)?PDF\s*第\s*([\d、，,至到—–\s]+)\s*页", locator or ""):
         found = True
-        a = int(m.group(1))
-        b = int(m.group(2)) if m.group(2) else a
-        for i in range(a, b + 1):
-            pages.add(i)
+        for part in re.split(r"[、，,]", m.group(1)):
+            pm = re.match(r"\s*(\d+)\s*(?:[至到—–]\s*(\d+))?\s*$", part)
+            if not pm:
+                continue
+            a = int(pm.group(1))
+            b = int(pm.group(2)) if pm.group(2) else a
+            for i in range(a, b + 1):
+                pages.add(i)
     return sorted(pages) if found else None
 
 
@@ -171,36 +177,29 @@ def _nlc_keys(text: str) -> set[str]:
 
 
 def match_candidates(cur) -> tuple[list[dict], list[dict]]:
-    """返回 (已入库候选, 可采候选)。已入库判定：locator 的 NLC 在 documents.title 中。"""
-    doc_map = {}
-    for r in cur.execute("SELECT id, title FROM documents WHERE source_platform='domestic'"):
-        for n in _nlc_keys(r["title"] or ""):
-            doc_map.setdefault(n, r["id"])
+    """返回 (已入库候选, 可采候选)。已入库判定：ingested_document_id 非空（S3 闭合链路）。
 
+    注意：不能再用 documents.title 含 NLC 判定——整期 title 的 NLC 不代表候选文章已入库。
+    """
     nlc_idx = build_nlc_index()
 
     cands = cur.execute(
         "SELECT candidate_id, title, evidence_locator, source_url, online_availability, repository_name, document_date, document_type, creator, event_tags, person_tags, relevance_grade_accepted, authenticity_level_accepted, evidence_note "
-        "FROM domestic_candidates WHERE check_outcome='pass'"
+        "FROM domestic_candidates WHERE check_outcome='pass' AND ingested_document_id IS NULL"
     ).fetchall()
 
     already, items = [], []
     for r in cands:
-        loc = r["evidence_locator"] or ""
-        nlc_hit = bool(_nlc_keys(loc) & set(doc_map))
-        if nlc_hit:
-            already.append(r["candidate_id"])
-            continue
         if r["online_availability"] != "full_item_online":
             continue
         if "wikimedia" not in (r["source_url"] or ""):
             continue
-        if ".pdf" not in (r["source_url"] or "") and not re.search(r"NLC\d+", r["source_url"] or ""):
-            continue  # 图片类
+        if ".pdf" not in (r["source_url"] or ""):
+            continue  # 只采 PDF 全文；图片类（jpg/png）不入文章库
         if "硬缺口" in (r["document_type"] or "") or "硬缺口" in (r["evidence_note"] or ""):
             continue  # 正文硬缺口候选不入库
-        ocr_paths = resolve_ocr_files(loc, nlc_idx, r["source_url"] or "")
-        missing = [p for p in re.findall(r"([^\s;，,、；及至]+\.ocr\.md)", loc) if not (ROOT / p).exists()]
+        ocr_paths = resolve_ocr_files(r["evidence_locator"] or "", nlc_idx, r["source_url"] or "")
+        missing = [p for p in re.findall(r"([^\s;，,、；及至]+\.ocr\.md)", r["evidence_locator"] or "") if not (ROOT / p).exists()]
         items.append({
             "candidate_id": r["candidate_id"],
             "title": r["title"],
@@ -210,7 +209,7 @@ def match_candidates(cur) -> tuple[list[dict], list[dict]]:
             "doc_type": r["document_type"],
             "ocr_paths": ocr_paths,
             "missing_ocr": missing[:3],
-            "locator": loc[:120],
+            "locator": (r["evidence_locator"] or "")[:120],
         })
     return already, items
 

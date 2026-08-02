@@ -1,133 +1,1737 @@
 {
-  "already_in_documents": 138,
-  "total": 8,
-  "with_ocr": 8,
+  "already_in_documents": 0,
+  "total": 138,
+  "with_ocr": 138,
   "no_ocr": 0,
   "items": [
     {
-      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-article",
-      "title": "民盟三中全会的成就",
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue8",
+      "title": "《光明報》新八號（1946年8期）",
+      "date": "1946",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
+      "doc_type": "同期报刊原刊影像／公开数字化扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10429/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10429；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-10429_光明報_1946年8期.pdf"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue21",
+      "title": "《光明報》新二十一號（1947年7月5日）",
+      "date": "1947-07-05",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10460_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B421%E6%9C%9F.pdf",
+      "doc_type": "同期报刊原刊影像／公开数字化扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0003.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0005.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0008.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0009.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0010.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0011.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0013.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0014.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0015.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0016.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "Wikimedia 具体文件页、NLC404-01J000514-10460、16页原始 PDF；本地副本及 SHA256 已记录"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22",
+      "title": "《光明報》新二十二號（1947年8月1日）",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊原刊影像／公开数字化扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0003.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0005.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0008.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0009.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0010.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0011.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0013.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0014.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0015.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0016.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0017.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0018.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0019.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0020.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "Wikimedia 具体文件页、NLC404-01J000514-10483、20页原始 PDF；本地副本及 SHA256 已记录"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue9",
+      "title": "《光明報》新九號（1946年8月21日）",
+      "date": "1946-08-21",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10430_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B49%E6%9C%9F.pdf",
+      "doc_type": "同期报刊原刊影像／公开数字化扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0003.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0005.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0008.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0009.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0010.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0011.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0013.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0014.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0015.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0016.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "Wikimedia 具体文件页、NLC404-01J000514-10430、16页原始 PDF；本地副本及 SHA256 已记录"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue10",
+      "title": "《光明報》新十號（1946年8月28日）",
+      "date": "1946-08-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10431_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B410%E6%9C%9F.pdf",
+      "doc_type": "同期报刊原刊影像／公开数字化扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0003.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0005.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0008.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0009.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0010.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0011.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0013.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0014.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0015.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0016.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "Wikimedia 具体文件页、NLC404-01J000514-10431、16页原始 PDF；本地副本及 SHA256 已记录"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue11",
+      "title": "《光明報》新十一號（1946年9月13日）",
+      "date": "1946-09-13",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-23806_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B411%E6%9C%9F.pdf",
+      "doc_type": "同期报刊原刊影像／公开数字化扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0003.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-23806；本地PDF第1、3页；data/domestic/press_scans/NLC404-01J000514-23806_光明報_1946年11期.pdf"
+    },
+    {
+      "candidate_id": "domestic:NLC:observer-1947-v3n11",
+      "title": "《观察》第三卷第十一期（1947年11月8日）",
+      "date": "1947-11-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000332-6817_%E8%A7%80%E5%AF%9F_1947%E5%B9%B43%E5%8D%B711%E6%9C%9F.pdf",
+      "doc_type": "同期政论周刊原刊影像／公开数字化扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000332-6817/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000332-6817/ocr/page-0003.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000332-6817/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000332-6817/ocr/page-0005.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000332-6817；本地PDF第1、3—5页；work/domestic/observer_v3n11_pages/page3.png、page4.png；work/domestic/observer_dagongb"
+    },
+    {
+      "candidate_id": "domestic:NLC:observer-1947-v3n11-dong-shijin",
+      "title": "我对于政府取缔民盟的感想",
+      "date": "1947-11-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000332-6817_%E8%A7%82%E5%AF%9F_1947%E5%B9%B43%E5%8D%B711%E6%9C%9F.pdf",
+      "doc_type": "同期政论周刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/observer_v3n11_ocr/page4.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000332-6817/ocr/page-0004.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000332-6817；本地PDF第4页；work/domestic/observer_v3n11_pages/page4.png；work/domestic/observer_v3n11_ocr/page4.ocr.m"
+    },
+    {
+      "candidate_id": "domestic:NLC:observer-1947-v3n11-han-depei",
+      "title": "人身自由的问题",
+      "date": "1947-11-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000332-6817_%E8%A7%82%E5%AF%9F_1947%E5%B9%B43%E5%8D%B711%E6%9C%9F.pdf",
+      "doc_type": "同期政论周刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000332-6817/ocr/page-0005.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000332-6817；本地PDF第5页（由原PDF页定位）；work/domestic/observer_dagongbao_transcription_index_20260719.md"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-anti-one-party-constitution",
+      "title": "反对一党独裁的宪法！",
+      "date": "1946-09-13",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-23806_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B411%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0003.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-23806；本地PDF第1、3页；data/domestic/press_scans/NLC404-01J000514-23806_光明報_1946年11期.pdf"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue8-conditional-national-assembly",
+      "title": "论有条件参加国大",
+      "date": "1946-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10429/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10429；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-10429_光明報_1946年8期.pdf"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-v1n1-1944-05-16",
+      "title": "《民憲》第一卷第一期",
+      "date": "1944-05-16",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85442_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%B8%80%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85442/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85442/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85442；本地 PDF 第1—2页封面/目录；整期共47页；SHA256 528aa1c147c3ef5ae7af19790cc61b7fe3b261fd3f4afed0cb75b7e58dacbdad"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-v1n6-1944-08-15",
+      "title": "《民憲》第一卷第六期",
+      "date": "1944-08-15",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85447_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E5%85%AD%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85447/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85447/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85447；本地 PDF 第1—2页封面/目录；整期共51页；SHA256 680b592ba16a2826f23b46a382ca261f4183523293f82d568f6e6c5b5b6e503c"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-v1n9-1944-11-20",
+      "title": "《民憲》第一卷第九期",
+      "date": "1944-11-20",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85450_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%B9%9D%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85450/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85450/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85450；本地 PDF 第1—2页封面/目录；整期共51页；SHA256 b6e123c4d90e4b2b596a61e70758f3d0be22cbfbf63ee6ac7853f682de62d5df"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-v1n9-democracy-vs-nondemocracy-1944-11-20",
+      "title": "民主政治與非民主政治",
+      "date": "1944-11-20",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85450_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%B9%9D%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物文章原刊扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85450/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85450/ocr/page-0016.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85450/ocr/page-0017.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85450/ocr/page-0018.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85450/ocr/page-0019.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85450/ocr/page-0020.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85450；目录 PDF 第2页；正文印刷页13—17（PDF第16—20页）；整期 SHA256 b6e123c4d90e4b2b596a61e70758f3d0be22cbfbf63ee6ac7853f"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-zhang-lan-shanghai-welcome-speech",
+      "title": "张澜在上海各人民团体欢迎茶会演讲词",
+      "date": "1946-09-13",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-23806_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B411%E6%9C%9F.pdf",
+      "doc_type": "同期报刊演讲词／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0005.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-23806；本地PDF第1、5页；data/domestic/press_scans/NLC404-01J000514-23806_光明報_1946年11期.pdf"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-china-at-1947-threshold",
+      "title": "中国，在一九四七年的门槛上",
+      "date": "1946-09-13",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-23806_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B411%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0008.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-23806；本地PDF第1、6—8页；data/domestic/press_scans/NLC404-01J000514-23806_光明報_1946年11期.pdf"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-truman-december-18-statement",
+      "title": "评杜鲁门总统十二月十八日的声明",
+      "date": "1946-09-13",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-23806_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B411%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-23806/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-23806；本地PDF第1—2页；data/domestic/press_scans/NLC404-01J000514-23806_光明報_1946年11期.pdf"
+    },
+    {
+      "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
+      "title": "张群书面通知民盟：应允保障盟员安全",
+      "date": "1947-11-04",
+      "repo": "中国国家图书馆数字化民国报纸（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/NLC1080-00N001037-7604_%E5%A4%A7%E5%89%9B%E5%A0%B1_1947%E5%B9%B411%E6%9C%8804%E6%97%A5.pdf",
+      "doc_type": "同期报刊报道／国家图书馆原刊扫描",
+      "ocr_paths": [
+        "work/domestic/dagongbao_nlc_7604_7606/ocr_full/issue7604-1.ocr.md",
+        "work/domestic/month_20260728/pages/NLC1080-00N001037-7604/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC1080-00N001037-7604；本地PDF第1页；work/domestic/dagongbao_nlc_7604_7606/issue7604-1.png；work/domestic/dagongbao_nlc_7604_7"
+    },
+    {
+      "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-04-league-dissolution-meeting",
+      "title": "民盟将召开中常会讨论解散",
+      "date": "1947-11-04",
+      "repo": "中国国家图书馆数字化民国报纸（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/NLC1080-00N001037-7604_%E5%A4%A7%E5%89%9B%E5%A0%B1_1947%E5%B9%B411%E6%9C%8804%E6%97%A5.pdf",
+      "doc_type": "同期报刊报道／国家图书馆原刊扫描",
+      "ocr_paths": [
+        "work/domestic/dagongbao_nlc_7604_7606/ocr_full/issue7604-1.ocr.md",
+        "work/domestic/month_20260728/pages/NLC1080-00N001037-7604/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC1080-00N001037-7604；本地PDF第1页；work/domestic/dagongbao_nlc_7604_7606/issue7604-1.png；work/domestic/dagongbao_nlc_7604_7"
+    },
+    {
+      "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
+      "title": "民盟正式宣告解散·通告各地盟员停止政治活动",
+      "date": "1947-11-06",
+      "repo": "中国国家图书馆数字化民国报纸（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/NLC1080-00N001037-7606_%E5%A4%A7%E5%89%9B%E5%A0%B1_1947%E5%B9%B411%E6%9C%8806%E6%97%A5.pdf",
+      "doc_type": "同期报刊报道／国家图书馆原刊扫描",
+      "ocr_paths": [
+        "work/domestic/dagongbao_nlc_7604_7606/ocr_full/issue7606-1.ocr.md",
+        "work/domestic/month_20260728/pages/NLC1080-00N001037-7606/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC1080-00N001037-7606；本地PDF第1页；work/domestic/dagongbao_nlc_7604_7606/issue7606-1.png；work/domestic/dagongbao_nlc_7604_7"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue01",
+      "title": "《光明報》新一號（复刊号）",
+      "date": "1946-09-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10834_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B41%E6%9C%9F.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/guangmingbao_1946_early/ocr/issue01-01.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10834/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10834；本地PDF第1页封面/正文；work/domestic/guangmingbao_1946_early/ocr/issue01-01.ocr.md；整期24页；SHA256 29a5d3149b"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue01-refounding-editorial",
+      "title": "复刊词",
+      "date": "1946-09-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10834_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B41%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10834/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [
+        "ocr/issue01-01.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10834；本地PDF第1页；work/domestic/guangmingbao_1946_early/issue01-01.png及ocr/issue01-01.ocr.md"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue02",
+      "title": "《光明報》新二號",
+      "date": "1946-09-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10835_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B42%E6%9C%9F.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/guangmingbao_1946_early/ocr/issue02-01.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10835/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10835；本地PDF第1页封面/正文；work/domestic/guangmingbao_1946_early/ocr/issue02-01.ocr.md；整期16页；SHA256 c6d05b14da"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue02-people-power-editorial",
+      "title": "我们相信人民的力量",
+      "date": "1946-09-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10835_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B42%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10835/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [
+        "ocr/issue02-01.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10835；本地PDF第1页；work/domestic/guangmingbao_1946_early/issue02-01.png及ocr/issue02-01.ocr.md"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue03",
+      "title": "《光明報》新三號",
+      "date": "1946-10-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10424_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B43%E6%9C%9F.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10424/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [
+        "ocr/issue03-01.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10424；本地PDF第1页；work/domestic/guangmingbao_1946_early_03_04/issue03-01.png及ocr/issue03-01.ocr.md；整期16页；S"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue04",
+      "title": "《光明報》新四號",
+      "date": "1946-10-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10425_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B44%E6%9C%9F.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10425/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [
+        "ocr04/issue04-01.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10425；本地PDF第1页；work/domestic/guangmingbao_1946_early_03_04/issue04-01.png及ocr04/issue04-01.ocr.md；整期16页"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue04-urgent-situation-editorial",
+      "title": "时机紧急中我们的态度",
+      "date": "1946-10-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10425_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B44%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10425/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [
+        "ocr04/issue04-01.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10425；本地PDF第1页；work/domestic/guangmingbao_1946_early_03_04/issue04-01.png及ocr04/issue04-01.ocr.md"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue05",
+      "title": "《光明報》新五號",
+      "date": "1946-10-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10426_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B45%E6%9C%9F.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10426/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [
+        "ocr05/issue05-01.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10426；本地PDF第1页；work/domestic/guangmingbao_1946_early_05_06/issue05-01.png及ocr05/issue05-01.ocr.md；整期20页"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue06",
+      "title": "《光明報》新六號",
+      "date": "1946-11-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10427_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B46%E6%9C%9F.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10427/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [
+        "ocr06/issue06-01.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10427；本地PDF第1页；work/domestic/guangmingbao_1946_early_05_06/issue06-01.png及ocr06/issue06-01.ocr.md；整期16页"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue07",
+      "title": "《光明報》新七號",
+      "date": "1946-11-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10428_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B47%E6%9C%9F.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10428/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10428；本地PDF第1页；work/domestic/guangmingbao_1946_early_07/issue07-01.png；整期16页；SHA256 367165396035893b6a8"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue07-why-not-national-assembly",
+      "title": "我们为什么不参加国大",
+      "date": "1946-11-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10428_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B47%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10428/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10428；本地PDF第1页；work/domestic/guangmingbao_1946_early_07/issue07-01.png"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1",
+      "title": "《光明報》1948年1卷1期（1948-03-01）",
       "date": "1948-03-01",
       "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
       "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10484_光明報_1948年1卷1期.pdf",
-      "doc_type": "同期政论报刊文章／整期公开原刊影像",
+      "doc_type": "同期政论报刊原刊整期扫描",
       "ocr_paths": [
-        "work/domestic/guangmingbao_1948_1949/v1n1_ocr/page-04.ocr.md",
-        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0002.ocr.md",
-        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0004.ocr.md"
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0002.ocr.md"
       ],
       "missing_ocr": [],
-      "locator": "PDF第2页目录列于第4页；正文PDF第4页；work/domestic/guangmingbao_1948_1949/v1n1_pages/page-04.png；work/domestic/guangmingbao_1948_1949/"
+      "locator": "NLC404-01J000514-10484；本地PDF第1—2页；data/domestic/press_scans/NLC404-01J000514-10484_光明報_1948年1卷1期.pdf；SHA256 55ac4cedee42"
     },
     {
-      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12-article",
-      "title": "反對美國援蔣扶日",
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12",
+      "title": "《光明報》1948年1卷12期（1948-08-16）",
       "date": "1948-08-16",
       "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
       "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10514_光明報_1948年1卷12期.pdf",
-      "doc_type": "同期政论报刊文章／整期公开原刊影像",
+      "doc_type": "同期政论报刊原刊整期扫描",
       "ocr_paths": [
-        "work/domestic/guangmingbao_1948_1949/v1n12_ocr/page-02.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10514/ocr/page-0001.ocr.md",
         "work/domestic/month_20260728/pages/NLC404-01J000514-10514/ocr/page-0002.ocr.md"
       ],
       "missing_ocr": [],
-      "locator": "PDF第2页标题与正文；work/domestic/guangmingbao_1948_1949/v1n12_pages/page-02.png；work/domestic/guangmingbao_1948_1949/v1n12_ocr/"
+      "locator": "NLC404-01J000514-10514；本地PDF第1—2页；data/domestic/press_scans/NLC404-01J000514-10514_光明報_1948年1卷12期.pdf；SHA256 0ae20c45cbc"
     },
     {
-      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-final-war-political-platform",
-      "title": "中国民主同盟对抗战最后阶段的政治主张",
-      "date": "1944-10-10",
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1",
+      "title": "《光明報》1949年2卷1期（1949-01-10）",
+      "date": "1949-01-10",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10515_光明報_1949年2卷1期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10515/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10515/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10515；本地PDF第1—2页；data/domestic/press_scans/NLC404-01J000514-10515_光明報_1949年2卷1期.pdf；SHA256 71c72759499a"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1-article",
+      "title": "新政协问题笔谈",
+      "date": "1949-01-10",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10515_光明報_1949年2卷1期.pdf",
+      "doc_type": "同期政论报刊文章／整期公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10515/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10515；PDF第2页；work/domestic/guangmingbao_1948_1949/v2n1_pages/page-02.png；边界page-03.png；整期20页"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n12",
+      "title": "《光明報》1949年2卷12期（1949-02-12）",
+      "date": "1949-02-12",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72821_光明報_1949年2卷12期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72821/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72821/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72821；本地PDF第1—2页；data/domestic/press_scans/NLC404-01J000514-72821_光明報_1949年2卷12期.pdf；SHA256 48932502dcf"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n12-article",
+      "title": "我們對和平的態度",
+      "date": "1949-02-12",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72821_光明報_1949年2卷12期.pdf",
+      "doc_type": "同期政论报刊文章／整期公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72821/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72821/ocr/page-0003.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72821；PDF第2—3页；work/domestic/guangmingbao_1948_1949/v2n12_pages/page-02.png至page-03.png；边界page-04.png；整"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-v1n10-1944-12-20",
+      "title": "《民憲》第一卷第十期",
+      "date": "1944-12-20",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85451_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E5%8D%81%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85451/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85451/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85451；本地PDF第1—2页；共49页；SHA256 7383f69dd74477969acf50708456b2975e167c16eaa3d6ed7deb6243616b6328"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-whole",
+      "title": "《民主同盟文獻》",
+      "date": "1946-12",
+      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
+      "doc_type": "1946年民盟总部官方文献汇编",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032013012333-19131/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "PDF第2页书名页；第5—8页目录；整本176页；PDF共176页；SHA256 276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f；交替扫描：data/dome"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-formation-declaration",
+      "title": "中国民主政团同盟成立宣言",
+      "date": "1941-10-10",
       "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
       "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
       "doc_type": "1946年官方文献汇编中的同期文件",
       "ocr_paths": [
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0022.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0023.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0024.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0025.ocr.md"
+        "work/domestic/minmeng_wenxian_1946/formation_9_13_ocr/page-009.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032013012333-19131/ocr/page-0009.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032013012333-19131/ocr/page-0010.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032013012333-19131/ocr/page-0011.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0009.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0010.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0011.ocr.md"
       ],
-      "missing_ocr": [],
-      "locator": "PDF第22—25页；印刷页14—17；目录PDF第5页；PDF共176页；SHA256 276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f"
+      "missing_ocr": [
+        "page-011.ocr.md"
+      ],
+      "locator": "PDF第9—11页；印刷页1—3；目录PDF第5页；work/domestic/minmeng_wenxian_1946/formation_9_13_images/page-009.png至page-011.png；work/domest"
     },
     {
-      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-situation-declaration-1945-01-15",
-      "title": "时局宣言",
+      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-ten-program",
+      "title": "中国民主政团同盟对时局主张纲领",
+      "date": "1941-10-10",
+      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
+      "doc_type": "1946年官方文献汇编中的同期文件",
+      "ocr_paths": [
+        "work/domestic/minmeng_wenxian_1946/formation_9_13_ocr/page-012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032013012333-19131/ocr/page-0012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032013012333-19131/ocr/page-0013.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0013.ocr.md"
+      ],
+      "missing_ocr": [
+        "page-013.ocr.md"
+      ],
+      "locator": "PDF第12—13页；印刷页1—2；目录PDF第5页；work/domestic/minmeng_wenxian_1946/formation_9_13_images/page-012.png至page-013.png；work/domes"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-1947-12",
+      "title": "《光明報》新二十號（1947-01-08）",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-72818_光明報_1947年12期.pdf；共16页；SHA256 f61c03880c"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-1947-13",
+      "title": "《光明報》新十三號（1947-01-18）",
+      "date": "1947-01-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10453_光明報_1947年13期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10453/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10453；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-10453_光明報_1947年13期.pdf；共16页；SHA256 27209c1919"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-1947-14",
+      "title": "《光明報》新十四號（1947-01-28）",
+      "date": "1947-01-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10454_光明報_1947年14期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10454；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-10454_光明報_1947年14期.pdf；共20页；SHA256 86564d9d81"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-1947-15",
+      "title": "《光明報》新十五號（1947-02-08）",
+      "date": "1947-02-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10455_光明報_1947年15期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10455/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10455；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-10455_光明報_1947年15期.pdf；共16页；SHA256 42c7b19e6f"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-1947-16–17",
+      "title": "《光明報》新十六—十七號（1947-03-18）",
+      "date": "1947-03-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10456_光明報_1947年16–17期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10456/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10456；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-10456_光明報_1947年16–17期.pdf；共17页；SHA256 c545484"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-1947-18",
+      "title": "《光明報》新十八號（1947-05-14）",
+      "date": "1947-05-14",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10457_光明報_1947年18期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10457/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10457；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-10457_光明報_1947年18期.pdf；共16页；SHA256 d00c34801c"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-1947-19",
+      "title": "《光明報》新十九號（1947-10-28）",
+      "date": "1947-10-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10458_光明報_1947年19期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10458/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10458；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-10458_光明報_1947年19期.pdf；共16页；SHA256 ae1516a7c2"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-01",
+      "title": "《我们对于和平的态度》",
+      "date": "1947-10-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10458_光明報_1947年19期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/guangmingbao_1947_19_ocr/page-02.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10458/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [
+        "page-02.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10458；本地PDF第2—2页；work/domestic/guangmingbao_1947_19_pages/page-02.png至page-02.png；work/domestic/guangmi"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-02",
+      "title": "《民盟中央对于五参政员出席参政会之决定》",
+      "date": "1947-10-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10458_光明報_1947年19期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/guangmingbao_1947_19_ocr/page-06.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10458/ocr/page-0006.ocr.md"
+      ],
+      "missing_ocr": [
+        "page-06.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10458；本地PDF第6—6页；work/domestic/guangmingbao_1947_19_pages/page-06.png至page-06.png；work/domestic/guangmi"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-03",
+      "title": "《迎接学生运动新的高潮》",
+      "date": "1947-10-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10458_光明報_1947年19期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/guangmingbao_1947_19_ocr/page-07.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10458/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10458/ocr/page-0008.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10458/ocr/page-0009.ocr.md"
+      ],
+      "missing_ocr": [
+        "page-09.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10458；本地PDF第7—9页；work/domestic/guangmingbao_1947_19_pages/page-07.png至page-09.png；work/domestic/guangmi"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-04",
+      "title": "《独裁政府是怎样摧残新闻自由的？》",
+      "date": "1947-10-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10458_光明報_1947年19期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/guangmingbao_1947_19_ocr/page-10.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10458/ocr/page-0010.ocr.md"
+      ],
+      "missing_ocr": [
+        "page-10.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10458；本地PDF第10—10页；work/domestic/guangmingbao_1947_19_pages/page-10.png至page-10.png；work/domestic/guang"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-05",
+      "title": "《两种制度和两种问题》",
+      "date": "1947-10-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10458_光明報_1947年19期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/guangmingbao_1947_19_ocr/page-11.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10458/ocr/page-0011.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10458/ocr/page-0012.ocr.md"
+      ],
+      "missing_ocr": [
+        "page-12.ocr.md"
+      ],
+      "locator": "NLC404-01J000514-10458；本地PDF第11—12页；work/domestic/guangmingbao_1947_19_pages/page-11.png至page-12.png；work/domestic/guang"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-1947-20",
+      "title": "《光明報》新二十號（1947-06-23）",
+      "date": "1947-06-23",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10459_光明報_1947年20期.pdf",
+      "doc_type": "同期政论报刊原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10459/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10459；本地PDF第1页；data/domestic/press_scans/NLC404-01J000514-10459_光明報_1947年20期.pdf；共16页；SHA256 5b089bc981"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-85443-1944-05-01",
+      "title": "《民憲》第一卷第二期",
+      "date": "1944-05-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85443_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%BA%8C%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85443/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85443/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85443；本地PDF第1—2页封面/目录；整期共47页；SHA256 43c91c806af550c60d321793a81cc18bc7866774057f318e364915c70f543118"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-85444-1944-06-15",
+      "title": "《民憲》第一卷第三期",
+      "date": "1944-06-15",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85444_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%B8%89%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85444/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85444/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85444；本地PDF第1—2页封面/目录；整期共41页；SHA256 c21e3e8464473cf68cafdda3e65d69e32fb2bce986f88aa9593479150c612618"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-85445-1944-06-30",
+      "title": "《民憲》第一卷第四期",
+      "date": "1944-06-30",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85445_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E5%9B%9B%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85445/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85445/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85445；本地PDF第1—2页封面/目录；整期共47页；SHA256 c88a363f01432f1494adcde3f44c736414deeed2d528fbf550b37a5881f7f730"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-85446-1944-07-16",
+      "title": "《民憲》第一卷第五期",
+      "date": "1944-07-16",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85446_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%BA%94%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85446/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85446/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85446；本地PDF第1—2页封面/目录；整期共53页；SHA256 25d339490905fc06832f4ddbaf7a367d761ef06e0b40f8439c6c1a8c8d6fd69a"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-85448-1944-09-10",
+      "title": "《民憲》第一卷第七期",
+      "date": "1944-09-10",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85448_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%B8%83%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85448/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85448/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85448；本地PDF第1—2页封面/目录；整期共51页；SHA256 a1e2269150fea87cfcca1e2016662ecc953f9a9b2a151184aad62fad776f09e0"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-85449-1944-10-12",
+      "title": "《民憲》第一卷第八期",
+      "date": "1944-10-12",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85449_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E5%85%AB%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85449/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85449/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85449；本地PDF第1—2页封面/目录；整期共55页；SHA256 867fcca3821c8cc3deb67ba1aae6a76e62f192c0c849805fa2fda4cc9835aa19"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-85452-1945-01-15",
+      "title": "《民憲》第一卷第十一期",
       "date": "1945-01-15",
-      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
-      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
-      "doc_type": "1946年官方文献汇编中的同期文件",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85452_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E5%8D%81%E4%B8%80%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
       "ocr_paths": [
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0026.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0027.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0028.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0029.ocr.md"
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85452/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85452/ocr/page-0002.ocr.md"
       ],
       "missing_ocr": [],
-      "locator": "PDF第26—29页；印刷页18起至下一件文件前；目录PDF第5页；PDF共176页；SHA256 276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f"
+      "locator": "NLC404-00J001436-85452；本地PDF第1—2页封面/目录；整期共51页；SHA256 71edf42b8f1e532edb277c2899f2a9a548f531a1cd76c6f7b79a69b1fdce0d2e"
     },
     {
-      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
-      "title": "中国民主同盟纲领",
+      "candidate_id": "domestic:NLC:minxian-85453-1945-02-25",
+      "title": "《民憲》第一卷第十二期",
+      "date": "1945-02-25",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85453_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E5%8D%81%E4%BA%8C%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85453/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85453/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85453；本地PDF第1—2页封面/目录；整期共45页；SHA256 bd753ca717908b0556e04dad0fa18519830a8cd3470d25eafbceae17f3c6fe4a"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-85454-1945-05-15",
+      "title": "《民憲》第二卷第一期",
+      "date": "1945-05-15",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85454_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%BA%8C%E5%8D%B7%E7%AC%AC%E4%B8%80%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85454/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85454/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85454；本地PDF第1—2页封面/目录；整期共71页；SHA256 ea8481761246aa26c98f9a7a058e894597c551798fb5ad37f30c400a4cb34fcd"
+    },
+    {
+      "candidate_id": "domestic:NLC:minxian-85455-1945-06-13",
+      "title": "《民憲》第二卷第二期",
+      "date": "1945-06-13",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85455_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%BA%8C%E5%8D%B7%E7%AC%AC%E4%BA%8C%E6%9C%9F.pdf",
+      "doc_type": "同期政论刊物原刊整期扫描",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85455/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-00J001436-85455/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-00J001436-85455；本地PDF第1—2页封面/目录；整期共45页；SHA256 449086e77f910796d78a924782cc7cfc830e2a77b0df62c04e6c0fb209cfb7de"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue05-beijing-comrades-editorial",
+      "title": "為赴京的同盟同志們！",
+      "date": "1946-10-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10426_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B45%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10426/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10426；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue05/page-01.png；边界核验page-02.png；整期SHA256 "
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue9-anti-civil-war-conscription-editorial",
+      "title": "反對內戰，反對徵兵！",
+      "date": "1946-08-21",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10430_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B49%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10430/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10430；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue09/page-01.png；整期SHA256 b7ad7c28eb35d6f8"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue10-guangdong-kmt-protest-editorial",
+      "title": "向廣東國民黨當局抗議",
+      "date": "1946-08-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10431_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B410%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10431/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10431；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue10/page-01.png；整期SHA256 3ff69100868d575f"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n12-taiwan-liberation",
+      "title": "談台灣解放問題",
+      "date": "1949-02-12",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72821_光明報_1949年2卷12期.pdf",
+      "doc_type": "同期政论报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72821/ocr/page-0004.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72821；PDF第4页；work/domestic/guangmingbao_1948_1949/v2n12_pages/page-04.png；边界page-03.png（上一文末）、page-05.p"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue03-double-ten-task-article",
+      "title": "為完成雙十節的歷史任務而奮鬥",
+      "date": "1946-10-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10424_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B43%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10424/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10424；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue03/page-01.png；边界page-02.png；整期16页；SHA25"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue03-ceasefire-telegram",
+      "title": "民盟呼吁停战恢复和平电文",
+      "date": "1946-10-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10424_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B43%E6%9C%9F.pdf",
+      "doc_type": "同期报刊电文／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10424/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10424；PDF第2页；work/domestic/guangmingbao_1946_phase2_pages/issue03/page-02.png"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-current-tasks-zhangbojun",
+      "title": "略論民主同盟當前的任務",
+      "date": "1948-03-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10484_光明報_1948年1卷1期.pdf",
+      "doc_type": "同期政论报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0005.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10484；PDF第5页；work/domestic/guangmingbao_1948_1949/v1n1_pages/page-05.png；边界page-04.png、page-06.png；整期SH"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-refute-hu-shi-gaoji",
+      "title": "駁胡適《國際形勢裏的兩個問題》",
+      "date": "1948-03-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10484_光明報_1948年1卷1期.pdf",
+      "doc_type": "同期政论报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10484/ocr/page-0008.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10484；PDF第6—8页；work/domestic/guangmingbao_1948_1949/v1n1_pages/page-06.png至page-08.png；边界page-09.png；整期"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12-three-premises-li-xiangfu",
+      "title": "三個前提與五項原則",
+      "date": "1948-08-16",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10514_光明報_1948年1卷12期.pdf",
+      "doc_type": "同期政论报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10514/ocr/page-0003.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10514/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10514/ocr/page-0005.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10514；PDF第3—5页；work/domestic/guangmingbao_1948_1949/v1n12_pages/page-03.png至page-05.png；边界page-02.png；整"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-congratulate-second-plenum-editorial",
+      "title": "祝民盟二中全會",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第2页；work/domestic/continue_pages/1947_12/page-02.png；封面目录page-01.png；整期SHA256 f61c03880c043ff7"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-fight-for-human-rights-editorial",
+      "title": "為爭取基本的人權而奮鬥",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊社论／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0003.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第2—3页；work/domestic/continue_pages/1947_22/page-02.png；page-03.png；边界page-04.png；封面目录page-01.p"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-si-tan-guo-shi",
+      "title": "肆談國事",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0005.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0006.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第4—6页；work/domestic/continue_pages/1947_12/page-04.png至page-06.png；封面目录page-01.png；整期SHA256 f6"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-respond-anti-us-military",
+      "title": "響應反對美軍暴行運動",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0007.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第6—7页；work/domestic/continue_pages/1947_12/page-06.png至page-07.png；封面目录page-01.png；整期SHA256 f6"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-second-plenum-domestic-situation",
+      "title": "民盟二中全會與國內局勢",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0008.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0009.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第8—9页；work/domestic/continue_pages/1947_12/page-08.png至page-09.png；封面目录page-01.png；整期SHA256 f6"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-interview-shen-junru",
+      "title": "訪問沈鈞儒先生",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0010.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0011.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第10—11页；work/domestic/continue_pages/1947_12/page-10.png至page-11.png；封面目录page-01.png；整期SHA256 "
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-statement-one-sided-constitution",
+      "title": "對於片面憲法民盟發表聲明",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0011.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第11页；work/domestic/continue_pages/1947_12/page-11.png；封面目录page-01.png；整期SHA256 f61c03880c043ff"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-qingmo-democracy-two-paths",
+      "title": "清末民主運動的兩條路線",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0013.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第12—13页；work/domestic/continue_pages/1947_12/page-12.png至page-13.png；封面目录page-01.png；整期SHA256 "
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-oppose-us-atrocities-shanghai",
+      "title": "反對美軍暴行",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0014.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0015.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第14—15页；work/domestic/continue_pages/1947_12/page-14.png至page-15.png；封面目录page-01.png；整期SHA256 "
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-shanghai-democrats-on-us-atrocities",
+      "title": "滬民主人士對美軍暴行意見",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0014.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0015.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第14—15页；work/domestic/continue_pages/1947_12/page-14.png至page-15.png；封面目录page-01.png；整期SHA256 "
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-12-students-letter-to-truman",
+      "title": "學生致杜魯門總統書",
+      "date": "1947-01-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-72818_光明報_1947年12期.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-72818/ocr/page-0016.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-72818；PDF第16页；work/domestic/continue_pages/1947_12/page-16.png；封面目录page-01.png；整期SHA256 f61c03880c043ff"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-middle-route-again-deng",
+      "title": "再論中間路線問題",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0005.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第4—5页；work/domestic/continue_pages/1947_22/page-04.png至work/domestic/continue_pages/1947_22/pa"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-one-year-war-result-lu",
+      "title": "打了一年多以後的結果",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0008.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第6—8页；work/domestic/continue_pages/1947_22/page-06.png至work/domestic/continue_pages/1947_22/pa"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-cry-recall-xingzhi-deng",
+      "title": "哭憶行知",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0009.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第9—9页；work/domestic/continue_pages/1947_22/page-09.png；封面目录 work/domestic/continue_pages/1947_"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-gongpu-still-beside-zhang",
+      "title": "公樸，你還在我的身邊",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0010.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第10—10页；work/domestic/continue_pages/1947_22/page-10.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-learn-taofen-spirit-hu",
+      "title": "習韜奮精神",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0011.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第11—11页；work/domestic/continue_pages/1947_22/page-11.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-patriotic-poet-wen-hong",
+      "title": "愛國詩人聞一多",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0012.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第12—12页；work/domestic/continue_pages/1947_22/page-12.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-hengshe-tonghua-sa",
+      "title": "由衡舍桐花談起",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0013.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第13—13页；work/domestic/continue_pages/1947_22/page-13.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-action-memorial-peng",
+      "title": "用行動來紀念鄒李聞陶四先生",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0014.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第14—14页；work/domestic/continue_pages/1947_22/page-14.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-double-effort-people-shen",
+      "title": "加倍為人民事業努力",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0014.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第14—14页；work/domestic/continue_pages/1947_22/page-14.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-wipe-out-killers-li",
+      "title": "撲滅殺人的兇手",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0015.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第15—15页；work/domestic/continue_pages/1947_22/page-15.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-pass-the-test-hu-sheng",
+      "title": "過關",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0015.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第15—15页；work/domestic/continue_pages/1947_22/page-15.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-liwen-anniversary-qian",
+      "title": "李聞週年祭",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0015.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第15—15页；work/domestic/continue_pages/1947_22/page-15.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-painful-memorial-chen",
+      "title": "沉痛紀念鄒李聞陶四先生",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0016.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第16—16页；work/domestic/continue_pages/1947_22/page-16.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-mourn-and-spur-song",
+      "title": "悼念逝者，鞭策自己",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0016.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第16—16页；work/domestic/continue_pages/1947_22/page-16.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-dare-not-forget-chen",
+      "title": "不敢忘",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0016.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第16—16页；work/domestic/continue_pages/1947_22/page-16.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-dictators-killed-them-ye",
+      "title": "是獨裁者殺死了他們！",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0016.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第16—16页；work/domestic/continue_pages/1947_22/page-16.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-gongpu-rest-in-peace-simu",
+      "title": "公樸，安眠吧！",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0017.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第17—17页；work/domestic/continue_pages/1947_22/page-17.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-one-falls-thousands-rise-lu",
+      "title": "一個倒下去千百個起來",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0017.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第17—17页；work/domestic/continue_pages/1947_22/page-17.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-history-essays-shen-gong",
+      "title": "讀史隨筆",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0018.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第18—18页；work/domestic/continue_pages/1947_22/page-18.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-shantou-black-terror",
+      "title": "汕頭的黑色恐怖",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0018.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第18—18页；work/domestic/continue_pages/1947_22/page-18.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-meixian-recent-look",
+      "title": "梅縣近貌",
+      "date": "1947-08-01",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10483/ocr/page-0020.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10483；PDF第20—20页；work/domestic/continue_pages/1947_22/page-20.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue01-shen-zhiyuan-minmeng-current-situation-proposal",
+      "title": "民盟对当前时局的主张",
+      "date": "1946-09-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10834_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B41%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10834/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10834；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue01/page-01.png；200 DPI 渲染；整期24页；SHA256 2"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue01-liu-simou-youth-degeneration",
+      "title": "青年的堕落",
+      "date": "1946-09-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10834_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B41%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10834/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10834；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue01/page-01.png；200 DPI 渲染；整期24页；SHA256 2"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue02-huang-yaomian-us-imperialism-china",
+      "title": "美帝國主義對中國的侵略",
+      "date": "1946-09-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10835_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B42%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10835/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10835；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue02/page-01.png；200 DPI 渲染；整期16页；SHA256 c"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue04-yang-bokai-jiang-jieshi-speech-review",
+      "title": "評蔣介石先生最近講詞",
+      "date": "1946-10-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10425_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B44%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10425/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10425；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue04/page-01.png；200 DPI 渲染；整期16页；SHA256 c"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue04-di-chaobai-us-basic-attitude",
+      "title": "我們對美國的基本態度",
+      "date": "1946-10-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10425_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B44%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10425/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10425；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue04/page-01.png；200 DPI 渲染；整期16页；SHA256 c"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue07-shen-zhiyuan-truce-statement-review",
+      "title": "評蔣主席的停戰令和時局聲明",
+      "date": "1946-11-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10428_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B47%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10428/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10428；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue07/page-01.png；200 DPI 渲染；整期16页；SHA256 3"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue07-qian-jiaju-unequal-treaty",
+      "title": "不平等待遇的新條約",
+      "date": "1946-11-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10428_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B47%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10428/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10428；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue07/page-01.png；200 DPI 渲染；整期16页；SHA256 3"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue8-zhang-tiesheng-republican-withdraw-us-diplomacy",
+      "title": "共和黨勝利後的美國外交",
+      "date": "1946-11-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10429/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10429/ocr/page-0007.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10429；PDF第6—7页；work/domestic/guangmingbao_1946_phase2_pages/issue8/page-06.png至page-07.png；封面目录 page-01"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue8-qiu-xini-guangdong-shengtianli",
+      "title": "廣東聖天里",
+      "date": "1946-11-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10429/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10429；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue8/page-01.png；200 DPI 渲染；整期16页；SHA256 a0"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue06-editorial-pcc-ten-months",
+      "title": "從政協決議成立到今天已十個月了",
+      "date": "1946-11-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10427_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B46%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10427/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10427；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue06/page-01.png；200 DPI 渲染；整期16页；SHA256 a"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue06-shen-zhiyuan-truce-statement-review",
+      "title": "評蔣主席的停戰令和時局聲明",
+      "date": "1946-11-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10427_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B46%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10427/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10427；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue06/page-01.png；200 DPI 渲染；整期16页；SHA256 a"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1946-issue06-qian-jiaju-unequal-treaty",
+      "title": "不平等待遇的新條約",
+      "date": "1946-11-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000514-10427_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B46%E6%9C%9F.pdf",
+      "doc_type": "同期报刊文章／公开原刊影像",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10427/ocr/page-0001.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10427；PDF第1页；work/domestic/guangmingbao_1946_phase2_pages/issue06/page-01.png；200 DPI 渲染；整期16页；SHA256 a"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-yanlunji-1945-whole",
+      "title": "《中國民主同盟言論集》",
       "date": "1945-10",
       "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
-      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
-      "doc_type": "1946年官方文献汇编中的同期文件",
-      "ocr_paths": [
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0048.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0049.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0050.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0051.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0052.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0053.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0054.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0055.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0056.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0057.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0058.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0059.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0060.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0061.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0062.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0063.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0064.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0065.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0066.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0067.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0068.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0069.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0070.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0071.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0072.ocr.md"
-      ],
-      "missing_ocr": [],
-      "locator": "PDF第48—72页；印刷页40—64；目录PDF第6页；PDF共176页；SHA256 276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f"
-    },
-    {
-      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
-      "title": "中国民主同盟临时全国代表大会宣言",
-      "date": "1945-10-16",
-      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
-      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
-      "doc_type": "1946年官方文献汇编中的同期文件",
-      "ocr_paths": [
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0073.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0074.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0075.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0076.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0077.ocr.md",
-        "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/ocr/page-0078.ocr.md"
-      ],
-      "missing_ocr": [],
-      "locator": "PDF第73—78页；印刷页65—70；目录PDF第6页；PDF共176页；SHA256 276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f"
-    },
-    {
-      "candidate_id": "domestic:NLC:minmeng-yanlunji-1945-congress-political-report",
-      "title": "中国民主同盟临时全国代表大会政治报告（言论集／民主星期刊转载）",
-      "date": "1945-10-11",
-      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
       "source_url": "https://commons.wikimedia.org/wiki/File:NLC511-027032016010761-42571_%E4%B8%AD%E5%9C%8B%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E8%A8%80%E8%AB%96%E9%9B%86.pdf",
-      "doc_type": "1945年同期期刊转载之大会政治报告／选辑扫描",
+      "doc_type": "1945年同期言论汇编／《民主星期刊》选辑公开扫描",
       "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0001.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0003.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0005.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0008.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0009.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0010.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0011.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0013.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0014.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0015.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0016.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0017.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0018.ocr.md",
         "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0019.ocr.md",
         "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0020.ocr.md",
         "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0021.ocr.md",
@@ -145,28 +1749,342 @@
         "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0033.ocr.md",
         "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0034.ocr.md",
         "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0035.ocr.md",
-        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0036.ocr.md"
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0036.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0037.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0038.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0039.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0040.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0041.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0042.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0043.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0044.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0045.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0046.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0047.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0048.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0049.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0050.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0051.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0052.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0053.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0054.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0055.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0056.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0057.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0058.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0059.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0060.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0061.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0062.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0063.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0064.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0065.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0066.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0067.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0068.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0069.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0070.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0071.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0072.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0073.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0074.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0075.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0076.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0077.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0078.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0079.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0080.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0081.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0082.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0083.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0084.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0085.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0086.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0087.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0088.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0089.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0090.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0091.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0092.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0093.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0094.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0095.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0096.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0097.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0098.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0099.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0100.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0101.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0102.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0103.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0104.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0105.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0106.ocr.md",
+        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0107.ocr.md"
       ],
       "missing_ocr": [],
-      "locator": "目录PDF第4页；题名/编者PDF第19页；正文PDF第20—36页上栏（印刷15—31）；全文单元含题名页计PDF第19—36页（印刷14—31）；下一文（章伯钧）同页PDF第36页起；页图 work/domestic/yanlunji_"
+      "locator": "PDF共107页；SHA256 386faf360e73fd31e39d1f0a584877dddc76855f0d0be6157e01e06ac4234ef1；本地：data/domestic/sourcebooks/NLC511-027"
     },
     {
-      "candidate_id": "domestic:NLC:minmeng-yanlunji-1945-congress-declaration",
-      "title": "中国民主同盟临时全国代表大会宣言（言论集／民主星期刊转载）",
-      "date": "1945-10-16",
-      "repo": "中国国家图书馆数字化民国图书（Wikimedia Commons镜像）",
-      "source_url": "https://commons.wikimedia.org/wiki/File:NLC511-027032016010761-42571_%E4%B8%AD%E5%9C%8B%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E8%A8%80%E8%AB%96%E9%9B%86.pdf",
-      "doc_type": "1945年同期期刊转载之大会宣言／选辑扫描",
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue13-our-attitude-editorial",
+      "title": "我們的態度",
+      "date": "1947-01-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10453_光明報_1947年13期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
       "ocr_paths": [
-        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0014.ocr.md",
-        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0015.ocr.md",
-        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0016.ocr.md",
-        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0017.ocr.md",
-        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0018.ocr.md",
-        "work/domestic/month_20260728/pages/NLC511-027032016010761-42571/ocr/page-0019.ocr.md"
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10453/ocr/page-0002.ocr.md"
       ],
       "missing_ocr": [],
-      "locator": "目录PDF第4页；正文PDF第14—19页（印刷9—14）；起页 page-014.png；末页/边界 page-019.png（上栏「謹此宣言」收束，下栏政治报告题名）；SHA256 386faf360e73fd31e39d1f0a584"
+      "locator": "NLC404-01J000514-10453；本地PDF第2—2页；work/domestic/continue_pages/1947_13/page-02.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue13-zhang-lan-plenum-opening",
+      "title": "民盟張瀾主席在一屆二中全會開幕講詞",
+      "date": "1947-01-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10453_光明報_1947年13期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10453/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10453/ocr/page-0005.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10453；本地PDF第4—5页；work/domestic/continue_pages/1947_13/page-04.png至page-05.png；封面目录 work/domestic/contin"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue13-zhang-lan-plenum-closing",
+      "title": "民盟二中全會張瀾主席閉幕詞",
+      "date": "1947-01-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10453_光明報_1947年13期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10453/ocr/page-0005.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10453；本地PDF第5—5页；work/domestic/continue_pages/1947_13/page-05.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue13-plenum-clippings",
+      "title": "民盟二中全會剪影輯",
+      "date": "1947-01-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10453_光明報_1947年13期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10453/ocr/page-0006.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10453；本地PDF第6—6页；work/domestic/continue_pages/1947_13/page-06.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue14-pcc-anniversary-editorial",
+      "title": "政協決議一週年",
+      "date": "1947-01-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10454_光明報_1947年14期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10454；本地PDF第2—2页；work/domestic/continue_pages/1947_14/page-02.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue14-plenum-political-report",
+      "title": "民盟二中全會政治報告全文",
+      "date": "1947-01-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10454_光明報_1947年14期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0005.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0006.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0007.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0008.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0009.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0010.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0011.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10454；本地PDF第4—11页；work/domestic/continue_pages/1947_14/page-04.png至page-11.png；封面目录 work/domestic/conti"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue14-shen-zhiyuan-plenum-impression",
+      "title": "我對於民盟二中全會的觀感",
+      "date": "1947-01-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10454_光明報_1947年14期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0012.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0013.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10454；本地PDF第12—13页；work/domestic/continue_pages/1947_14/page-12.png至page-13.png；封面目录 work/domestic/cont"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue14-li-boqiu-plenum-gains",
+      "title": "二中全會的收穫",
+      "date": "1947-01-28",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10454_光明報_1947年14期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10454/ocr/page-0014.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10454；本地PDF第14—14页；work/domestic/continue_pages/1947_14/page-14.png；封面目录 work/domestic/continue_pages/1"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue15-heavier-task-editorial",
+      "title": "民盟的任務更繁重了",
+      "date": "1947-02-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10455_光明報_1947年15期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10455/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10455；本地PDF第2—2页；work/domestic/continue_pages/1947_15/page-02.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue15-huang-yaomian-pcc-line",
+      "title": "政協決議與政協路線",
+      "date": "1947-02-08",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10455_光明報_1947年15期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10455/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10455/ocr/page-0005.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10455/ocr/page-0006.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10455；本地PDF第4—6页；work/domestic/continue_pages/1947_15/page-04.png至page-06.png；封面目录 work/domestic/contin"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue16-17-li-jishen-situation-views",
+      "title": "李濟深將軍對時局意見",
+      "date": "1947-03-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10456_光明報_1947年16–17期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10456/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10456；本地PDF第2—2页；work/domestic/continue_pages/1947_16-17/page-02.png；封面目录 work/domestic/continue_pages/"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue16-17-minmeng-situation-declaration",
+      "title": "中國民主同盟對時局宣言",
+      "date": "1947-03-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10456_光明報_1947年16–17期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10456/ocr/page-0003.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10456；本地PDF第3—3页；work/domestic/continue_pages/1947_16-17/page-03.png；封面目录 work/domestic/continue_pages/"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue16-17-respond-li-jishen-editorial",
+      "title": "響應李濟深先生對時局主張",
+      "date": "1947-03-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10456_光明報_1947年16–17期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10456/ocr/page-0004.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10456；本地PDF第4—4页；work/domestic/continue_pages/1947_16-17/page-04.png；封面目录 work/domestic/continue_pages/"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue16-17-moscow-conference-china-editorial",
+      "title": "莫斯科會議應該討論中國問題",
+      "date": "1947-03-18",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10456_光明報_1947年16–17期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10456/ocr/page-0004.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10456；本地PDF第4—4页；work/domestic/continue_pages/1947_16-17/page-04.png；封面目录 work/domestic/continue_pages/"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue18-people-cannot-endure-editorial",
+      "title": "老百姓是再也不能忍耐了",
+      "date": "1947-05-14",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10457_光明報_1947年18期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10457/ocr/page-0002.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10457/ocr/page-0003.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10457；本地PDF第2—3页；work/domestic/continue_pages/1947_18/page-02.png至page-03.png；封面目录 work/domestic/contin"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue18-nantotal-press-reception",
+      "title": "民盟南總支部招待中外記者誌詳",
+      "date": "1947-05-14",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10457_光明報_1947年18期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10457/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10457；本地PDF第2—2页；work/domestic/continue_pages/1947_18/page-02.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue18-peng-zemin-statement",
+      "title": "民盟南總支部申明態度——主任委員彭澤民發表書面談話",
+      "date": "1947-05-14",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10457_光明報_1947年18期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10457/ocr/page-0004.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10457；本地PDF第4—4页；work/domestic/continue_pages/1947_18/page-04.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue21-critique-dictatorship-new-policy-editorial",
+      "title": "評獨裁派的所謂「新政策」",
+      "date": "1947-07-05",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10460_光明報_1947年21期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0002.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10460；本地PDF第2—2页；work/domestic/continue_pages/1947_21/page-02.png；封面目录 work/domestic/continue_pages/194"
+    },
+    {
+      "candidate_id": "domestic:NLC:guangmingbao-1947-issue21-deng-chumin-middle-route",
+      "title": "中間路線沒有現實的根據",
+      "date": "1947-07-05",
+      "repo": "中国国家图书馆数字化民国期刊（Wikimedia Commons镜像）",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10460_光明報_1947年21期.pdf",
+      "doc_type": "同期政论报刊文章（整期原刊内文章）",
+      "ocr_paths": [
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0004.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0005.ocr.md",
+        "work/domestic/month_20260728/pages/NLC404-01J000514-10460/ocr/page-0006.ocr.md"
+      ],
+      "missing_ocr": [],
+      "locator": "NLC404-01J000514-10460；本地PDF第4—6页；work/domestic/continue_pages/1947_21/page-04.png至page-06.png；封面目录 work/domestic/contin"
     }
   ]
 }
