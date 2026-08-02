@@ -29,9 +29,9 @@ RESEARCH_1942_1943_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_
 ACADEMIC_PDF_OCR_PILOT_REPORT_PATH = ROOT / "work" / "domestic" / "academic_ocr_pilot_20260730" / "REPORT.json"
 ACADEMIC_PDF_OCR_BATCH_REPORT_PATH = ROOT / "work" / "domestic" / "academic_ocr_batch_pilot_20260730" / "REPORT.json"
 ACADEMIC_1943_TARGET_REPORT_PATH = ROOT / "work" / "domestic" / "academic_ocr_1943_target_20260730" / "REPORT.json"
-GROK_GAP_WAVE2_AUDIT_REPORT_PATH = ROOT / "work" / "domestic" / "grok_next_stage_20260730" / "10_gap_wave2_period_page_chain" / "CODEX_AUDIT_REPORT.json"
-W2_SHA_REPAIR_REPORT_PATH = ROOT / "work" / "domestic" / "minimax_two_month_20260730" / "w2" / "SOURCE_SHA_REPAIR_REPORT.json"
-W2_SHA_SUPPLEMENT_REPORT_PATH = ROOT / "work" / "domestic" / "minimax_two_month_20260730" / "w2" / "SOURCE_SHA_SUPPLEMENT_REPORT.json"
+GAP_WAVE2_AUDIT_REPORT_PATH = ROOT / "work" / "domestic" / "next_stage_20260730" / "10_gap_wave2_period_page_chain" / "AUDIT_REPORT.json"
+W2_SHA_REPAIR_REPORT_PATH = ROOT / "work" / "domestic" / "two_month_20260730" / "w2" / "SOURCE_SHA_REPAIR_REPORT.json"
+W2_SHA_SUPPLEMENT_REPORT_PATH = ROOT / "work" / "domestic" / "two_month_20260730" / "w2" / "SOURCE_SHA_SUPPLEMENT_REPORT.json"
 MMDA_1942_1943_QUEUE_PATH = ROOT / "work" / "domestic" / "MMDA_1942_1943_PRIORITY_QUEUE_20260728.jsonl"
 MMDA_P1_INTAKE_REPORT_PATH = ROOT / "work" / "domestic" / "mmda_p1_intake_20260730" / "REPORT.json"
 MMDA_ORIGINAL_PENDING_REPORT_PATH = ROOT / "work" / "domestic" / "mmda_p1_intake_20260730" / "MMDA_1942_1943_ORIGINAL_PENDING_REPORT.json"
@@ -2695,12 +2695,12 @@ def domestic_quality_page() -> bytes:
             academic_1943_target_report = json.loads(ACADEMIC_1943_TARGET_REPORT_PATH.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             academic_1943_target_report = {}
-    grok_gap_wave2_audit_report: dict = {}
-    if GROK_GAP_WAVE2_AUDIT_REPORT_PATH.exists():
+    gap_wave2_audit_report: dict = {}
+    if GAP_WAVE2_AUDIT_REPORT_PATH.exists():
         try:
-            grok_gap_wave2_audit_report = json.loads(GROK_GAP_WAVE2_AUDIT_REPORT_PATH.read_text(encoding="utf-8"))
+            gap_wave2_audit_report = json.loads(GAP_WAVE2_AUDIT_REPORT_PATH.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
-            grok_gap_wave2_audit_report = {}
+            gap_wave2_audit_report = {}
     w2_sha_repair_report: dict = {}
     if W2_SHA_REPAIR_REPORT_PATH.exists():
         try:
@@ -2948,9 +2948,9 @@ def domestic_quality_page() -> bytes:
             "academic_pdf_ocr_pilot_pages": academic_pdf_ocr_pilot_report.get("completed_pages", 0) + academic_pdf_ocr_batch_report.get("completed_pages", 0),
             "academic_pdf_ocr_low_confidence_pages": sum(1 for value in academic_pdf_ocr_batch_report.get("mean_confidences", {}).values() if float(value) < 0.85),
             "academic_1943_staged_pages": academic_1943_target_report.get("completed_pages", 0),
-            "grok_page_chain_rows": grok_gap_wave2_audit_report.get("page_chain_rows", 0),
-            "grok_page_chain_conflicts": grok_gap_wave2_audit_report.get("1942_1943_phase_conflict_rows", 0),
-            "grok_clean_1942_1943_page_rows": grok_gap_wave2_audit_report.get("clean_1942_1943_rows_for_core_gap", 0),
+            "gap_wave2_page_chain_rows": gap_wave2_audit_report.get("page_chain_rows", 0),
+            "gap_wave2_page_chain_conflicts": gap_wave2_audit_report.get("1942_1943_phase_conflict_rows", 0),
+            "gap_wave2_clean_1942_1943_page_rows": gap_wave2_audit_report.get("clean_1942_1943_rows_for_core_gap", 0),
             "w2_sha_repair_sources": w2_sha_repair_report.get("source_records", 0),
             "w2_sha_repair_pages": w2_sha_repair_report.get("page_rows", 0),
             "w2_sha_supplement_sources": w2_sha_supplement_report.get("verified_supplement_sources", 0),
@@ -3082,9 +3082,9 @@ def domestic_quality_page() -> bytes:
   <div class="stat"><strong>{h(counts['academic_pdf_ocr_pilot_pages'])}</strong><span>本地 OCR 试跑页</span></div>
   <div class="stat"><strong>{h(counts['academic_pdf_ocr_low_confidence_pages'])}</strong><span>OCR 低置信待复核</span></div>
   <div class="stat"><strong>{h(counts['academic_1943_staged_pages'])}</strong><span>1943 汇编 staging 页</span></div>
-  <div class="stat"><strong>{h(counts['grok_page_chain_rows'])}</strong><span>Grok 页链机器完整</span></div>
-  <div class="stat"><strong>{h(counts['grok_page_chain_conflicts'])}</strong><span>1942/43 时期冲突</span></div>
-  <div class="stat"><strong>{h(counts['grok_clean_1942_1943_page_rows'])}</strong><span>1942/43 可计核心页链</span></div>
+  <div class="stat"><strong>{h(counts['gap_wave2_page_chain_rows'])}</strong><span>页链机器完整</span></div>
+  <div class="stat"><strong>{h(counts['gap_wave2_page_chain_conflicts'])}</strong><span>1942/43 时期冲突</span></div>
+  <div class="stat"><strong>{h(counts['gap_wave2_clean_1942_1943_page_rows'])}</strong><span>1942/43 可计核心页链</span></div>
   <div class="stat"><strong>{h(counts['w2_sha_repair_sources'])}</strong><span>W2 原 manifest 待补来源</span></div>
   <div class="stat"><strong>{h(counts['w2_sha_supplement_pages'])}</strong><span>W2 staging SHA 已验证页</span></div>
   <div class="stat"><strong>{h(counts['mmda_original_pending'])}</strong><span>MMDA 1942/43 原件待取</span></div>
