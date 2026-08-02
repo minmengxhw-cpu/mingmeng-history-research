@@ -125,3 +125,23 @@
 2. **P1 磁盘**：清理 .bak 前先确认无进程依赖，保留 `pre_rebaseline_20260802_e4417bd1.bak` + `pre_dagongbao_1931_fix.bak`。
 
 需要我先执行哪个？（建议从 S1 隔离开始，或先做 S2 检索修复，二者互不依赖）
+
+---
+
+## 进度增量（2026-08-02 S3/S4 收尾）
+
+### S3 候选补采闭环（2026-08-02）
+- **S3 wikimedia PDF 补采**：138 个候选 / 398 页（已入库 138 个独立文档）
+- **S3 web 循环采**（paseo loop 8ee941b8）：63 collected + 7 retry(GXMM) + 5 no_content + 23 SAAC OCR + 8 inaccessible = 106 处理
+- **SAAC OCR**：44 个 OCR 文档（68 个图片来源）+ 1 个 album 总索引文档入库；19 个失败（扫描图已下架或原页 404）降级 lead_only
+- **剩余 HTML 收尾**：18 个国内公开网站文本入库；1 个空内容降级；4 个 HTTP 错误降级 lead_only
+- **Wikimedia 图片候选**：52 个 `wiki/File:` 与 `upload.wikimedia` 图片候选降级 lead_only（不入 OCR，仅线索登记）
+
+### 候选总览
+- 总候选：689
+- 已入库 `ingested_document_id`：279
+- 降级 lead_only：381（174 SAAC surrogate + 52 wikimedia images + 49 failed fetches/empty + 19 SAAC OCR gap + 87 other）
+- 待 pass 处理：0
+
+### 正式库 SHA 更新
+当前 `738d81525c09bbff…`，已同步至 11 个 EXPECTED_FORMAL_SHA 脚本与 supervisor STATE.json。

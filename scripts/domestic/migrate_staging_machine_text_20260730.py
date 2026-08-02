@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DB = ROOT / "work/domestic/staging_20260730/domestic_staging.sqlite"
 QUEUE = ROOT / "work/domestic/grok_next_stage_20260730/05_handoff/DOMESTIC_MACHINE_TEXT_QUEUE.jsonl"
 FORMAL_DB = ROOT / "data/research_index.sqlite"
-EXPECTED_FORMAL_SHA = "857e2b3fc485af17c2852c39aede6a8e4129f8efe7ddecca8c16129d4312f07d"
+EXPECTED_FORMAL_SHA = "738d81525c09bbff09266db00e54916bf1ec220ee169751bf1b64f3fb0626944"
 
 
 def sha256(path: Path) -> str:

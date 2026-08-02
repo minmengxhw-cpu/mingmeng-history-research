@@ -1,0 +1,688 @@
+{
+  "done": [
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p01-dde04",
+      "status": "ok",
+      "document_id": 1510,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:49:58+00:00",
+      "elapsed_s": 14.0
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p01-dde08-i3",
+      "status": "ok",
+      "document_id": 1511,
+      "pages": 5,
+      "new_doc": true,
+      "imgs": 5,
+      "ts": "2026-08-02T07:50:57+00:00",
+      "elapsed_s": 43.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p01-dde13",
+      "status": "ok",
+      "document_id": 1512,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T07:51:04+00:00",
+      "elapsed_s": 6.8
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p01-dde14",
+      "status": "ok",
+      "document_id": 1513,
+      "pages": 5,
+      "new_doc": true,
+      "imgs": 5,
+      "ts": "2026-08-02T07:51:40+00:00",
+      "elapsed_s": 36.6
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p01-dde15-i3",
+      "status": "ok",
+      "document_id": 1514,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T07:51:47+00:00",
+      "elapsed_s": 7.0
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p01-dde20",
+      "status": "ok",
+      "document_id": 1515,
+      "pages": 3,
+      "new_doc": true,
+      "imgs": 3,
+      "ts": "2026-08-02T07:51:58+00:00",
+      "elapsed_s": 10.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p01-dde21",
+      "status": "ok",
+      "document_id": 1516,
+      "pages": 3,
+      "new_doc": true,
+      "imgs": 3,
+      "ts": "2026-08-02T07:52:08+00:00",
+      "elapsed_s": 9.9
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p01-dde22-i3",
+      "status": "ok",
+      "document_id": 1517,
+      "pages": 5,
+      "new_doc": true,
+      "imgs": 5,
+      "ts": "2026-08-02T07:52:27+00:00",
+      "elapsed_s": 19.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde01-f1",
+      "status": "ok",
+      "document_id": 1518,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T07:52:31+00:00",
+      "elapsed_s": 4.0
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde03-f1",
+      "status": "ok",
+      "document_id": 1519,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T07:52:44+00:00",
+      "elapsed_s": 13.1
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde04-f1",
+      "status": "ok",
+      "document_id": 1520,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T07:52:54+00:00",
+      "elapsed_s": 9.1
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde05-f1",
+      "status": "ok",
+      "document_id": 1521,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:53:07+00:00",
+      "elapsed_s": 13.8
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde06-f1",
+      "status": "ok",
+      "document_id": 1522,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:53:43+00:00",
+      "elapsed_s": 35.5
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde07-f1",
+      "status": "ok",
+      "document_id": 1523,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T07:53:59+00:00",
+      "elapsed_s": 16.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde08-f1",
+      "status": "ok",
+      "document_id": 1524,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T07:54:09+00:00",
+      "elapsed_s": 10.0
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p03-dde01-f1",
+      "status": "ok",
+      "document_id": 1525,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:54:15+00:00",
+      "elapsed_s": 5.9
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p03-dde02-f1",
+      "status": "ok",
+      "document_id": 1526,
+      "pages": 4,
+      "new_doc": true,
+      "imgs": 4,
+      "ts": "2026-08-02T07:54:29+00:00",
+      "elapsed_s": 13.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p03-dde03-f1",
+      "status": "ok",
+      "document_id": 1527,
+      "pages": 5,
+      "new_doc": true,
+      "imgs": 5,
+      "ts": "2026-08-02T07:54:46+00:00",
+      "elapsed_s": 17.1
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p03-dde04-f1",
+      "status": "ok",
+      "document_id": 1528,
+      "pages": 5,
+      "new_doc": true,
+      "imgs": 5,
+      "ts": "2026-08-02T07:54:57+00:00",
+      "elapsed_s": 11.5
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p03-dde05-f1",
+      "status": "ok",
+      "document_id": 1529,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:55:04+00:00",
+      "elapsed_s": 6.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde01-i3",
+      "status": "ok",
+      "document_id": 1530,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:55:08+00:00",
+      "elapsed_s": 4.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde02-i3",
+      "status": "ok",
+      "document_id": 1531,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:55:19+00:00",
+      "elapsed_s": 10.8
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde03-i3",
+      "status": "ok",
+      "document_id": 1532,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:55:34+00:00",
+      "elapsed_s": 15.0
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde04",
+      "status": "ok",
+      "document_id": 1533,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T07:55:49+00:00",
+      "elapsed_s": 15.8
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde05",
+      "status": "ok",
+      "document_id": 1534,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:56:05+00:00",
+      "elapsed_s": 15.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde01-i3",
+      "status": "ok",
+      "document_id": 1535,
+      "pages": 3,
+      "new_doc": true,
+      "imgs": 3,
+      "ts": "2026-08-02T07:56:15+00:00",
+      "elapsed_s": 8.1
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde11-f1",
+      "status": "ok",
+      "document_id": 1536,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T07:58:08+00:00",
+      "elapsed_s": 30.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p01-dde07",
+      "status": "ok",
+      "document_id": 1537,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T08:01:06+00:00",
+      "elapsed_s": 16.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde02",
+      "status": "ok",
+      "document_id": 1538,
+      "pages": 22,
+      "new_doc": true,
+      "imgs": 22,
+      "ts": "2026-08-02T08:05:10+00:00",
+      "elapsed_s": 242.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde03-i3",
+      "status": "ok",
+      "document_id": 1539,
+      "pages": 3,
+      "new_doc": true,
+      "imgs": 3,
+      "ts": "2026-08-02T08:05:20+00:00",
+      "elapsed_s": 10.6
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde04-i3",
+      "status": "ok",
+      "document_id": 1540,
+      "pages": 3,
+      "new_doc": true,
+      "imgs": 3,
+      "ts": "2026-08-02T08:05:41+00:00",
+      "elapsed_s": 20.5
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde05-i3",
+      "status": "ok",
+      "document_id": 1541,
+      "pages": 6,
+      "new_doc": true,
+      "imgs": 6,
+      "ts": "2026-08-02T08:05:56+00:00",
+      "elapsed_s": 15.7
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde06-i3",
+      "status": "ok",
+      "document_id": 1542,
+      "pages": 4,
+      "new_doc": true,
+      "imgs": 4,
+      "ts": "2026-08-02T08:07:04+00:00",
+      "elapsed_s": 67.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde07-i3",
+      "status": "ok",
+      "document_id": 1543,
+      "pages": 2,
+      "new_doc": true,
+      "imgs": 2,
+      "ts": "2026-08-02T08:07:19+00:00",
+      "elapsed_s": 15.5
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde01-f1",
+      "status": "ok",
+      "document_id": 1544,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T08:07:35+00:00",
+      "elapsed_s": 5.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde02-f1",
+      "status": "ok",
+      "document_id": 1545,
+      "pages": 3,
+      "new_doc": true,
+      "imgs": 3,
+      "ts": "2026-08-02T08:08:45+00:00",
+      "elapsed_s": 69.8
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde03-f1",
+      "status": "ok",
+      "document_id": 1546,
+      "pages": 4,
+      "new_doc": true,
+      "imgs": 4,
+      "ts": "2026-08-02T08:09:02+00:00",
+      "elapsed_s": 17.5
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde04-f1",
+      "status": "ok",
+      "document_id": 1547,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T08:09:08+00:00",
+      "elapsed_s": 6.0
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde05-f1",
+      "status": "ok",
+      "document_id": 1548,
+      "pages": 4,
+      "new_doc": true,
+      "imgs": 4,
+      "ts": "2026-08-02T08:09:29+00:00",
+      "elapsed_s": 21.0
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde06-f1",
+      "status": "ok",
+      "document_id": 1549,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T08:09:36+00:00",
+      "elapsed_s": 6.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde07-f1",
+      "status": "ok",
+      "document_id": 1550,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T08:09:38+00:00",
+      "elapsed_s": 2.7
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde08-f1",
+      "status": "ok",
+      "document_id": 1551,
+      "pages": 14,
+      "new_doc": true,
+      "imgs": 14,
+      "ts": "2026-08-02T08:11:27+00:00",
+      "elapsed_s": 109.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde09-f1",
+      "status": "ok",
+      "document_id": 1552,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T08:11:37+00:00",
+      "elapsed_s": 9.6
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde10-f1",
+      "status": "ok",
+      "document_id": 1554,
+      "pages": 1,
+      "new_doc": true,
+      "imgs": 1,
+      "ts": "2026-08-02T08:14:19+00:00",
+      "elapsed_s": 10.8
+    }
+  ],
+  "errors": [
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde02-f1",
+      "status": "no_image",
+      "ts": "2026-08-02T07:52:31+00:00",
+      "elapsed_s": 0.5
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde06-i3",
+      "status": "detail_404",
+      "ts": "2026-08-02T07:56:05+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde07",
+      "status": "detail_404",
+      "ts": "2026-08-02T07:56:06+00:00",
+      "elapsed_s": 0.7
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde08-i3",
+      "status": "detail_404",
+      "ts": "2026-08-02T07:56:07+00:00",
+      "elapsed_s": 0.6
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde12",
+      "status": "detail_404",
+      "ts": "2026-08-02T07:56:07+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde12-f1",
+      "status": "no_image",
+      "ts": "2026-08-02T07:58:08+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde02-f1",
+      "status": "no_image",
+      "ts": "2026-08-02T08:01:06+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde06-i3",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:01:06+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde07",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:01:07+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde08-i3",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:01:07+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde12",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:01:07+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde08-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:07:20+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde09-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:07:20+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde10",
+      "status": "no_image",
+      "ts": "2026-08-02T08:07:20+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde11",
+      "status": "no_image",
+      "ts": "2026-08-02T08:07:21+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde12-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:07:21+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde13-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:07:21+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde14-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:07:23+00:00",
+      "elapsed_s": 1.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde15",
+      "status": "no_image",
+      "ts": "2026-08-02T08:07:23+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde16",
+      "status": "ocr_empty",
+      "imgs": 3,
+      "ts": "2026-08-02T08:07:30+00:00",
+      "elapsed_s": 6.6
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde02-f1",
+      "status": "no_image",
+      "ts": "2026-08-02T08:13:52+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde06-i3",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:13:52+00:00",
+      "elapsed_s": 0.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde07",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:13:53+00:00",
+      "elapsed_s": 0.5
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde08-i3",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:13:53+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde12",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:13:53+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p02-dde02-f1",
+      "status": "no_image",
+      "ts": "2026-08-02T08:13:58+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde06-i3",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:13:58+00:00",
+      "elapsed_s": 0.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde07",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:13:58+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde08-i3",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:13:59+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p04-dde12",
+      "status": "detail_404",
+      "ts": "2026-08-02T08:13:59+00:00",
+      "elapsed_s": 0.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde08-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:13:59+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde09-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:14:01+00:00",
+      "elapsed_s": 1.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde10",
+      "status": "no_image",
+      "ts": "2026-08-02T08:14:01+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde11",
+      "status": "no_image",
+      "ts": "2026-08-02T08:14:01+00:00",
+      "elapsed_s": 0.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde12-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:14:01+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde13-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:14:02+00:00",
+      "elapsed_s": 0.4
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde14-i3",
+      "status": "no_image",
+      "ts": "2026-08-02T08:14:02+00:00",
+      "elapsed_s": 0.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde15",
+      "status": "no_image",
+      "ts": "2026-08-02T08:14:02+00:00",
+      "elapsed_s": 0.2
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p05-dde16",
+      "status": "ocr_empty",
+      "imgs": 3,
+      "ts": "2026-08-02T08:14:09+00:00",
+      "elapsed_s": 6.3
+    },
+    {
+      "candidate_id": "domestic:SAAC:51koukou-p06-dde12-f1",
+      "status": "no_image",
+      "ts": "2026-08-02T08:14:20+00:00",
+      "elapsed_s": 0.3
+    }
+  ]
+}

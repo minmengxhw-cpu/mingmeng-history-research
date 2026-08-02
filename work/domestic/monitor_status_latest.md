@@ -28,7 +28,7 @@
 | 项 | 值 |
 |---|---|
 | formal path | `data/research_index.sqlite` |
-| **live SHA256** | **`857e2b3fc485af17c2852c39aede6a8e4129f8efe7ddecca8c16129d4312f07d`** |
+| **live SHA256** | **`738d81525c09bbff09266db00e54916bf1ec220ee169751bf1b64f3fb0626944`** |
 | live mtime | 2026-08-02 14:30:00 +08:00 |
 | live size | 675,368,960 bytes |
 | `PRAGMA integrity_check` | `ok` |
