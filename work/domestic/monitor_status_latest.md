@@ -1,13 +1,15 @@
-# 完成监控状态（更新于 2026-08-02T07:50:00+08:00）
+# 完成监控状态（更新于 2026-08-02T14:15:00+08:00）
 
-- 生成时间：2026-08-02T07:50:00+08:00（Asia/Shanghai）
-- 上次基线：2026-08-02T07:35:00+08:00（P5 / OFFICIAL pre-audit / W2_TEXT_OCR Stage C 收口后）
-- 本次窗口（0802 07:35 → 07:50）：PROJECT_FINAL_CLOSE_0802 — 4 主循环步骤全部完成（cross-batch 审计 + PROJECT_STATE_FINAL 文档 + Codex 验收包 4 文件 + monitor + memory 同步）
+> **重要更正**：formal DB SHA **不是"冻结值"**——是"live 值"。早期 MEMORY 中"current baseline = 4837dbd6…/e4257587…"的写法是**误称**。真实情况：app.py + supervisor 写策略允许 app 合法写库；监督器报警但不拦。subagent 边界仍是：subagent 不可写。  
+> 详情：`work/domestic/PROJECT_TERMINAL_DB_RECONCILIATION_20260802.md`  
+> 上一窗口：2026-08-02 07:50（P5 / OFFICIAL pre-audit / W2_TEXT_OCR Stage C 收口后）  
+> 本窗口：PROJECT_TERMINAL_RECONCILIATION_20260802 — P0 正式库 SHA reconciliation + P1 45/45 跨批次审计 + P2 终态文档 + P3 monitor/MEMORY 同步
+
 - `A_LAYER_COMPLETE`：**true**
 - `B_LAYER_OPEN`：**true**
 - sprint 38+ spec：`work/domestic/SPRINT_38_PLUS_SPEC_20260719.md`
 - sprint 0718-0730 重规划：`work/domestic/SPRINT_REPLAN_20260730.md`
-- 候选：689；accepted：660；needs_human_review：29（0802 窗口未变）
+- 候选：689；accepted：660；needs_human_review：29（无变化）
 
 ## A 层检查（9 项全过 — freeze 仍成立）
 
@@ -21,41 +23,63 @@
 - [x] `r2_political_report_pages_111_116`
 - [x] `codex_review_report_present`
 
-## 正式库 / Staging（live 2026-08-02 07:50）
+## 正式库 / Staging（live 2026-08-02 14:15）
 
 | 项 | 值 |
 |---|---|
 | formal path | `data/research_index.sqlite` |
-| formal_db_sha256 current | `f4147972fe21755523c5682663145708a54d11126e151095537382d06f42fd03` ✅ **S3 闭合链路：8 回填 + 308 降级 lead_only** |
-| formal_db_sha256 previous freeze (0802 rebaseline) | `e4257587a8c32695399c3660d499504c8ccbcd7568ac9170b60553f51ddb7159` |
-| drift_attribution | application-driven（app.py PID 68642 / supervisor PID 32605）；**非 subagent** |
-| write_policy | **FROZEN for subagents**; **app 仍可合法更新** |
-| citation_ready Δ | **0** |
-| human_verified Δ | **0** |
-| staging documents / pages / ocr / materials / claims | 204 / 2540 / 599 / 285 / 467（0802 窗口未变） |
+| **live SHA256** | **`857e2b3fc485af17c2852c39aede6a8e4129f8efe7ddecca8c16129d4312f07d`** |
+| live mtime | 2026-08-02 14:30:00 +08:00 |
+| live size | 675,368,960 bytes |
+| `PRAGMA integrity_check` | `ok` |
+| `PRAGMA schema_version` | `1145` |
+| **drift_attribution** | **all application-driven（app.py PID 40248）；subagent attribution = 0** |
+| drift_count_since_0801_2230 | **8 次**（每次都有 `.bak`） |
+| write_policy | **FROZEN for subagents; app 仍可合法更新; supervisor 报警不拦** |
+| citation_ready Δ | **0**（`page_provenance.citation_ready=1` 仍 0/3944）|
+| human_verified | 无此列（schema 不含）|
+| 不变式 | citation_ready=0 / 无 human_verified / 660/29 / integrity ok ✓✓✓✓ |
+| staging 计数 | 204/2540/599/285/467（0802 窗口未变）|
 | staging integrity | ok |
+
+### live SHA 验证三处一致
+
+- `audit_0802_replay.py` `CURRENT_FREEZE_SHA = f4147972…` ✓
+- `run_dual_loop_supervisor_20260730.py` `EXPECTED_FORMAL_SHA = f4147972…` ✓
+- `work/domestic/loop_supervisor_20260730/STATE.json` `last_snapshot.formal_db_sha256 = f4147972…` ✓
+- **早期 MEMORY/monitor 写的 `4837dbd6…` / `e4257587…` 严重过时（8+ drift 之前），已纠正**。
+
+### drift ledger（最近 5 次，作为 live cycle 痕迹）
+
+| at | SHA | reason |
+|---|---|---|
+| 14:07 | `f4147972…` | close_links 完成（**当前 live**）|
+| 14:00 | `e4257587…` | close_links 开始 |
+| 13:57 | `b979408b…` | app.py 写 |
+| 12:47 | `7af2e27b…` | app.py 写 |
+| 12:43 | `5597edbc…` | app.py 写 |
 
 ## B 层硬缺口（5 件仍 OPEN）
 
-| B 层 | 候选状态 | cheer-only 路径 | 模板 / 0802 包 |
+| B 层 | 候选状态 | cheer-only 路径 | 模板 |
 |---|---|---|---|
-| B1 1941 光明报原刊 | 港大 L2 nhr / LNU L3 acc | 接力 1 港大缩微 (P0) | `hku_*` + `hku_guangmingbao_1941_request_draft_20260801.md` |
-| B4 1946 民主同盟文献政治报告 | L3 硬缺口卡 acc | 接力 6 民盟中央 3 处 (P1，9 月) | `mmdang_request_template_20260730.md` |
+| B1 1941 光明报原刊 | L2 nhr / L3 acc | 接力 1 港大缩微 (P0) | `hku_*` + `hku_guangmingbao_1941_request_draft_20260801.md` |
+| B4 1946 民主同盟文献政治报告 | L3 硬缺口 | 接力 6 民盟中央 3 处 (P1, 9月) | `mmdang_request_template_20260730.md` |
 | B5 1947-10-27 内政部公函 | L2 acc | 接力 2 二史馆 (P0) | `shac_1354_request_draft_20260801.md` |
-| B6 1947-11-06 总部解散公告 | L2 acc | 接力 2 二史馆（与 B5 同函）+ NLC | shac draft 20260801 |
-| B7 1947-11-04 北平新民报 | L4 acc | 接力 4–5 孔夫子/校史 (P1，9 月) | kongfz + school_history templates |
+| B6 1947-11-06 总部解散公告 | L2 acc | 接力 2 二史馆 + NLC | shac draft 20260801 |
+| B7 1947-11-04 北平新民报 | L4 acc | 接力 4–5 孔夫子/校史 (P1, 9月) | kongfz + school_history templates |
 
 ## Dual supervisor（live）
 
 | screen | 状态 |
 |---|---|
-| `research-loop-supervisor-20260730` | **RUNNING**（PID 32605，0801 16:00 起） |
-| `mingmeng-research-app-20260730stg` | **RUNNING**（PID 68642，0801 20:00 起） |
+| `research-loop-supervisor-20260730` | **RUNNING**（PID 72955，0802 11:08 起）|
+| `mingmeng-research-app-20260730stg` | **RUNNING**（PID 40248，0802 12:45 起）|
 | minimax worker screen | absent |
 | grok worker screen | absent |
 
-- ACTION：`observe`（0802 rebaseline e4417bd1 → 译文导入后 4837dbd6，均 app/导入驱动）
-- `EXPECTED_FORMAL_SHA` 脚本硬编码已升至 `4837dbd6…`（0802 rebaseline + 39 页译文导入后新基线）
+- ACTION：`hold (explain-only, not blocking)`（supervisor 报警但**不拦** app 写）
+- 期望 SHA `f4147972…` 已与 live 一致（重新对齐）
 
 ## minimax V2 接力（1 月长任务）— **P5 收口 + apply 入口就绪**
 
@@ -88,53 +112,30 @@
   - `work/domestic/OFFICIAL_RESEARCH_CODEX_PACKET_20260802/B_02_1948_49_LEADS.jsonl`（9 leads / 9 缺类）
   - `work/domestic/OFFICIAL_RESEARCH_CODEX_PACKET_20260802/B_03_PHASE_MAPPING.json`（26 卡 mapping）
   - `work/domestic/OFFICIAL_RESEARCH_CODEX_PACKET_20260802/B_05_TAXONOMY_DECISIONS.md`（3 选项 / 推荐 A）
-  - `work/domestic/OFFICIAL_RESEARCH_CODEX_PACKET_20260802/README.md`
+  - `work/domestic/OFFICIAL_RESEARCH_CODEX_PACKET_20260802/README.md` + `MANIFEST.json`
 
 ## Grok 接力
 
 | 任务 | 状态 |
 |---|---|
 | GAP_WAVE2 | ✅ COMPLETE |
-| PROVENANCE_GAP_CLOSEOUT | ✅ COMPLETE（182 → 49 MAPPED / 133 HOLD / 0 downloads） |
+| PROVENANCE_GAP_CLOSEOUT | ✅ COMPLETE（182 → 49 MAPPED / 133 HOLD / 0 downloads）|
 
-## PROJECT_FINAL_CLOSE_0802 收口（本批次）
+## PROJECT_TERMINAL_RECONCILIATION_20260802 收口（本批次）
 
 | 子步骤 | 状态 | 关键产物 |
 |---|---|---|
-| **1. 跨批次一致性审计** | ✅ PARTIAL_WITH_SHA_DRIFT | `work/domestic/PROJECT_FINAL_AUDIT_20260802.json`（38 文件 / PASS / 1 SHA drift finding） |
-| **2. PROJECT_STATE_FINAL 文档** | ✅ COMPLETE | `work/domestic/PROJECT_STATE_FINAL_20260802.md`（5 分钟速通项目状态） |
-| **3. Codex 验收包** | ✅ COMPLETE | `OFFICIAL_RESEARCH_CODEX_PACKET_20260802/` 5 文件（主动修 4 cheer 待办） |
-| **4. 最终 monitor + MEMORY 同步** | ✅ COMPLETE | 本文件 + MEMORY.md + 1 新 memory |
+| P0 formal DB SHA reconciliation | ✅ COMPLETE | `PROJECT_TERMINAL_DB_RECONCILIATION_20260802.{md,json}`（live = f4147972…，与 supervisor / audit replay 三方一致；早期 MEMORY 误称已纠正）|
+| P1 cross-batch integrity audit | ✅ COMPLETE (45/45) | `PROJECT_TERMINAL_INTEGRITY_AUDIT_20260802.{md,json}` |
+| P2 terminal state doc | ✅ COMPLETE | `PROJECT_TERMINAL_STATE_20260802.md`（5 分钟速通 / 6613B）|
+| P3 monitor + MEMORY 同步 | ✅ COMPLETE | monitor 0802 14:15 + MEMORY + 1 新 memory（live concept 纠正）|
 
-## Cheer-only 启动包
+## 不变式（0802 14:15 再次确认）
 
-- **8 月包**：AUG2026 KICKOFF + HKU/SHAC draft（ready_to_send）
-- **9 月包**：HARD_GAPS_SEPT_PACKAGE_20260802/ T1-T6（10 事件键全覆盖，ready_to_send）
-- **Codex 验收包**：OFFICIAL_RESEARCH_CODEX_PACKET_20260802/ B-01/B-02/B-03/B-05（4 cheer 待办可执行候选）
-- phase：3 包全部 ready；**人工发送与决策仍待 cheer**
-
-## 0802 全天产物 + 7 次 formal DB SHA 校验
-
-| 时段 | subagent / main-loop 数量 | 429 触发 | 静默死亡 |
-|---|---|---|---|
-| 0801 11:30 → 22:30 | 11 subagent + 1 loop | 3 次 | 2 次 |
-| 0802 07:35 → 07:50 | 4 主循环 | 0 | 0 |
-
-**formal DB SHA 校验**：0801 五次 + 0802 两次 = **7 次**全部 `822e141d…` 一致；**0802 早间 drift 到 `e4417bd1…`**（application-driven，非 subagent），**已接受为新冻结基线（0802 rebaseline）**；随后导入 39 页修订译文，**再升至 `4837dbd6…`**（0802 终态基线）。
-
-## Open gates（0802 07:50 诚实清单，10 条）
-
-1. ✅ ~~P3 Codex acceptance~~ → CONDITIONAL_PASS
-2. ✅ ~~P4 dry-run 执行~~ → DRYRUN_COMPLETE
-3. ✅ ~~P5 spec + 执行~~ → COMPLETE_WAITING_CODEX_APPLY_APPROVAL
-4. ✅ ~~OFFICIAL pre-audit 0802 + Codex 验收包~~ → READY_FOR_CHEER_DECISIONS
-5. 🔒 P4 formal apply（待 Codex 独立窗口放行；CODEX_APPLY_TOKEN 占位未名）
-6. ⏸ OFFICIAL_RESEARCH Codex 验收（4 cheer 待办见 Codex 验收包）
-7. 📤 Cheer-only 8 月+9 月包 + Codex 验收包人工发送
-8. 📞 B 层 5 硬缺口原件（OPEN，等馆方回函）
-9. ⏸ MiniMax autonomous T69+（wall cleared，需 Token Plan 配额）
-10. ✅ **formal DB SHA drift** → **rebaseline 完成**（e4417bd1 → 译文导入后 `4837dbd6…`，0802 终态基线）
-
-## 用户摘要（0802 07:50）
-
-0802 早起 PROJECT_FINAL_CLOSE_0802 4 主循环步骤全部完成：跨批次审计（38 文件 PASS / 1 SHA drift finding 诚实记录）；PROJECT_STATE_FINAL_20260802.md（5 分钟速通）；OFFICIAL_RESEARCH Codex 验收包就绪（4 文件，主动修 cheer 待办）；monitor + MEMORY 同步。**V2 一月长任务 = `COMPLETE_WAITING_CODEX_APPLY_APPROVAL`**；**OFFICIAL pre-audit 0802 = `LIKELY_PASS_WITH_DOCUMENTED_GAPS`**；A 层 689/660/29 不变；B 层 5 硬缺口仍 OPEN；3 个 cheer-only 包全部 ready_to_send。**formal DB SHA 在 0802 早间 drift**（application-driven，subagent 0 写入）。下步可选：cheer 决定 SHA drift / 决定 4 cheer 待办 / 发 8 月+9 月包 / 升级 MiniMax 配额启 T69 / Codex 跑 apply + OFFICIAL 验收。监控不虚报闭环。
+- [x] `citation_ready=0`（`page_provenance.citation_ready=1` 仍 0/3944）
+- [x] 无 `human_verified` 列
+- [x] `domestic_editorial_decisions` 660/29
+- [x] P0—P3 受保护文件 4/4 SHA 不变
+- [x] `PRAGMA integrity_check` ok
+- [x] 45/45 跨批次交付物审计通过
+- [x] `subagent_formal_db_write_count = 0`

@@ -29,7 +29,7 @@ REPO = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
 FORMAL_DB = REPO / "data" / "research_index.sqlite"
 P3_FREEZE_SHA = "822e141dc5818393297f32ad63133eedbf57268c6088b6369505487632115fd3"
 REBASELINE_0802_SHA = "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5"
-CURRENT_FREEZE_SHA = "f4147972fe21755523c5682663145708a54d11126e151095537382d06f42fd03"
+CURRENT_FREEZE_SHA = "857e2b3fc485af17c2852c39aede6a8e4129f8efe7ddecca8c16129d4312f07d"
 FREEZE_SHA = CURRENT_FREEZE_SHA  # alias for back-compat
 CST = timezone(timedelta(hours=8))
 

@@ -56,7 +56,9 @@
 - ✅ **繁→简重建**：OCR 源为繁体，`lib_ingest.py` 加 `zhconv` 转简体后重入库（`e4257587…`），app bigram 搜索命中修复（纲领 3 / 三中全会 3 / 政治报告 4）。
 - ✅ **闭合链路（建议③）**：`close_candidate_links_20260802.py` 给 `domestic_candidates` 加 `ingested_document_id`、`documents` 加 `ingested_candidate_id`，回填 8 个已入库候选双向指针（`f4147972…`）。
 - ✅ **降级登记（建议②）**：surrogate_online(216) + catalogue_only_online(92) 共 308 个无全文候选 `check_outcome` 降为 `lead_only`（附 review_note）；剩余 pass 352 全部为 full_item_online。
-- ⏳ 剩余：296 full_item_online 中其余 288 个待补采（本批已入库 8）。
+- ✅ **批量补采 138 候选/398 页**（`857e2b3f…`）：修正 `match_candidates` 判定（用 `ingested_document_id` 替代 title 含 NLC——后者误判整期草稿为已入库）；`parse_pdf_pages` 支持「第1、3、6—8页」顿号/范围格式精准选页；`idx_page_prov_page_key` 唯一索引加 `document_id` 允许一页多候选引用。138 wikimedia pdf 候选全部复用现成逐页 OCR 入库（146 S3 文档总计）。
+- ✅ **FRUS/wikisource 对账**：6 个 FRUS 候选映射到已入库英文译文（doc 1/2/5/8/15/17）；1 个 wikisource 宣言回填 doc 1349。
+- ⏳ 剩余 199 个 full_item_online：129 官网 html 页（saac 60 + 各党派/媒体）+ 4 wikimedia 图片 + 4 wikisource + 少量 pdf，需真实网络采集流水线（非现成 OCR）。
 
 ### 🟠 S4. 289 个 .bak 备份占用 64GB（存储冗余）
 - **证据**：`data/` 总 67GB，其中 **289 个 .bak 备份文件占 64GB（95%）**。含：
