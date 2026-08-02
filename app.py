@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 from __future__ import annotations
 
 import datetime
@@ -18,7 +19,41 @@ _request = threading.local()
 
 
 ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / "scripts" / "legacy"))
 DB_PATH = ROOT / "data" / "research_index.sqlite"
+DOMESTIC_STAGING_DB_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "domestic_staging.sqlite"
+PHASE2_INVENTORY_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "REPORT.json"
+CORE_GAP_MATRIX_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "core_gap_matrix_20260730" / "CORE_GAP_MATRIX.json"
+SUPPLEMENTAL_1942_1943_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "supplemental_1942_1943" / "REPORT.json"
+RESEARCH_1942_1943_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "research_1942_1943" / "REPORT.json"
+ACADEMIC_PDF_OCR_PILOT_REPORT_PATH = ROOT / "work" / "domestic" / "academic_ocr_pilot_20260730" / "REPORT.json"
+ACADEMIC_PDF_OCR_BATCH_REPORT_PATH = ROOT / "work" / "domestic" / "academic_ocr_batch_pilot_20260730" / "REPORT.json"
+ACADEMIC_1943_TARGET_REPORT_PATH = ROOT / "work" / "domestic" / "academic_ocr_1943_target_20260730" / "REPORT.json"
+GROK_GAP_WAVE2_AUDIT_REPORT_PATH = ROOT / "work" / "domestic" / "grok_next_stage_20260730" / "10_gap_wave2_period_page_chain" / "CODEX_AUDIT_REPORT.json"
+W2_SHA_REPAIR_REPORT_PATH = ROOT / "work" / "domestic" / "minimax_two_month_20260730" / "w2" / "SOURCE_SHA_REPAIR_REPORT.json"
+W2_SHA_SUPPLEMENT_REPORT_PATH = ROOT / "work" / "domestic" / "minimax_two_month_20260730" / "w2" / "SOURCE_SHA_SUPPLEMENT_REPORT.json"
+MMDA_1942_1943_QUEUE_PATH = ROOT / "work" / "domestic" / "MMDA_1942_1943_PRIORITY_QUEUE_20260728.jsonl"
+MMDA_P1_INTAKE_REPORT_PATH = ROOT / "work" / "domestic" / "mmda_p1_intake_20260730" / "REPORT.json"
+MMDA_ORIGINAL_PENDING_REPORT_PATH = ROOT / "work" / "domestic" / "mmda_p1_intake_20260730" / "MMDA_1942_1943_ORIGINAL_PENDING_REPORT.json"
+MMDA_ORIGINAL_PENDING_QUEUE_PATH = ROOT / "work" / "domestic" / "mmda_p1_intake_20260730" / "MMDA_1942_1943_ORIGINAL_PENDING_QUEUE.jsonl"
+MACHINE_STRUCTURE_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "MACHINE_EVIDENCE_STRUCTURE_AUDIT_REPORT.json"
+CLAIM_DUPLICATE_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "claim_duplicate_audit" / "REPORT.json"
+P0_P1_MACHINE_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "p0_p1_machine_assessment" / "REPORT.json"
+P0_P1_CONSISTENCY_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "p0_p1_source_consistency" / "REPORT.json"
+CLAIM_CROSSWALK_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "claim_research_crosswalk" / "REPORT.json"
+CROSSWALK_QUEUE_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "crosswalk_review_queue" / "REPORT.json"
+CROSSWALK_MATERIAL_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "crosswalk_material_review_queue" / "REPORT.json"
+FULLTEXT_CONTENT_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "crosswalk_fulltext_content_audit" / "REPORT.json"
+FULLTEXT_LOCATOR_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "fulltext_locator_candidates" / "REPORT.json"
+FULLTEXT_SEMANTIC_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "fulltext_semantic_signal_queue" / "REPORT.json"
+FULLTEXT_OVERLAP_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "fulltext_text_overlap_queue" / "REPORT.json"
+FULLTEXT_REVIEW_CARDS_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "fulltext_semantic_review_cards" / "REPORT.json"
+STRUCTURED_RELATION_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "structured_relation_signals" / "REPORT.json"
+STRUCTURED_RELATION_ROWS_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "structured_relation_signals" / "SIGNALS.jsonl"
+CONSERVATIVE_RELATION_ROWS_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "conservative_relation_adjudication" / "ADJUDICATION_QUEUE.jsonl"
+LOCAL_PRIVATE_OCR_REPORT_PATH = ROOT / "work" / "domestic" / "local_private_ocr_metadata_20260730" / "REPORT.json"
+LOCAL_PRIVATE_NORMALIZATION_REPORT_PATH = ROOT / "work" / "domestic" / "local_private_ocr_metadata_20260730" / "NORMALIZATION_REPORT.json"
+LOCAL_SEMANTIC_SIGNALS_REPORT_PATH = ROOT / "work" / "domestic" / "local_private_ocr_metadata_20260730" / "semantic_signals" / "REPORT.json"
 HOME_FOCUS_PATH = ROOT / "data" / "home_focus.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
@@ -736,7 +771,7 @@ ICONS_SVG = """
 
 
 NAV_GROUPS = [
-    ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/domestic", "国内史料"), ("/domestic/sources", "国内来源"), ("/domestic/events", "国内事件"), ("/domestic/acquisition", "调档清单"), ("/domestic/review", "国内复核"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
+    ("library", "i-library", "资料库", [("/", "首页"), ("/about", "项目介绍"), ("/docs", "全部文档"), ("/domestic/library", "已收国内资料"), ("/domestic", "国内候选目录"), ("/domestic/search", "国内检索"), ("/domestic/quality", "国内质量底座"), ("/domestic/sources", "国内来源"), ("/domestic/events", "国内事件"), ("/domestic/acquisition", "调档清单"), ("/domestic/review", "国内复核"), ("/papers", "研究论文"), ("/sourcebooks", "史料长编"), ("/standards", "收录标准"), ("/timeline", "年表"), ("/glossary", "术语表")]),
     ("workbench", "i-edit", "研究工作台", [("/align", "多源对位"), ("/cards", "证据卡片库"), ("/tasks", "校订任务"), ("/quality", "质量检查"), ("/drnh-review", "DRNH校订"), ("/first-person", "第一人称史料"), ("/hk-press", "香港报刊源"), ("/l1-board", "L1升级看板"), ("/external-acquisition", "外部调档"), ("/open-sources", "开放资料源"), ("/dashboard", "进度仪表盘")]),
     ("topics", "i-people", "人物索引", [("/people", "人物"), ("/places", "地点"), ("/organizations", "机构")]),
 ]
@@ -928,11 +963,18 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
   <div class="pstatus {meta["status_class"]}">{h(status_text)}</div>
 </a>''')
     domestic_docs = plat_counts.get("domestic", 0)
+    try:
+        domestic_pages = c.execute(
+            "SELECT count(*) FROM pages p JOIN documents d ON p.document_id=d.id "
+            "WHERE d.source_platform='domestic'"
+        ).fetchone()[0]
+    except sqlite3.OperationalError:
+        domestic_pages = 0
     cards.append(f'''
-<a class="platform-card active" href="/domestic">
-  <h3>国内史料层</h3>
-  <div class="pmeta">同期报刊 · 公开扫描 · 民盟目录 · 官方来源</div>
-  <div class="pdesc">已收 {domestic_docs} 篇国内资料文档；OCR 默认是检索草稿，证据等级与人工复核状态单独保留。</div>
+<a class="platform-card active" href="/domestic/library">
+  <h3>国内资料库</h3>
+  <div class="pmeta">国内史料层 · 同期报刊 · 公开扫描 · 官方来源</div>
+  <div class="pdesc">已收 {domestic_docs} 篇国内资料文档、{domestic_pages} 个页面；可查看已收文献，候选目录与复核状态另行保留。</div>
   <div class="pstatus ok">已上线 · {domestic_docs} 篇</div>
 </a>''')
     return '<section class="platforms">' + "".join(cards) + "</section>"
@@ -1418,20 +1460,76 @@ def rows_for_search(
             out.append(row)
             seen.add(row["page_id"])
 
-    # 路径 1: FTS5 trigram（适合 3+ 字符词），把 tokens 用 AND 组合
-    # FTS5 query 语法: token1 AND token2，trigram 至少 3 字符才能命中
+    # 路径 1: FTS5（中文走 bigram 表，英文走 trigram 表），多 token AND
+    # - CJK 词 → bigram phrase（预切 bigram，2 字词单 token 命中，多字相邻命中）
+    # - 纯英文 3+ 词 → trigram 表（原逻辑）
+    # 两类都命中才返回（跨表结果按 page_id 去重合并）
+    cjk_re = re.compile(r"[\u3400-\u9fff]+")
     try:
-        # 任一变体满足即可（OR），多 token 之间 AND
-        fts_parts = []
+        # CJK token → bigram 表子句（phrase）
+        bg_parts = []
+        # 纯英文 token（>=3 字符）→ trigram 表子句
+        tr_parts = []
         for variants in expanded_tokens:
-            valid = [v for v in variants if len(v) >= 3]
-            if valid:
-                # FTS5 quote: "..."，双引号需转义为 ""，否则用户输入里的 " 能提前闭合短语、
-                # 注入 FTS5 查询语法（如列过滤器/布尔操作符）
-                quoted = " OR ".join('"{}"'.format(v.replace('"', '""')) for v in valid)
-                fts_parts.append(f"({quoted})")
-        if fts_parts:
-            fts_q = " AND ".join(fts_parts)
+            any_cjk = any(cjk_re.search(v) for v in variants)
+            if any_cjk:
+                # 任一变体满足即可（OR），多 token 之间 AND
+                phrases = []
+                for v in variants:
+                    # 把该变体内的连续 CJK 段切成相邻 bigram phrase
+                    v_phrases = []
+                    for m in cjk_re.finditer(v):
+                        seg = m.group(0)
+                        bgs = [seg[i : i + 2] for i in range(len(seg) - 1)]
+                        if bgs:
+                            v_phrases.append('"' + " ".join(bgs) + '"')
+                    # 变体内英文片段单独作为词（unicode61 空格分词）
+                    for m in re.finditer(r"[A-Za-z0-9]+", v):
+                        v_phrases.append(f'"{m.group(0)}"')
+                    if v_phrases:
+                        phrases.append("(" + " AND ".join(v_phrases) + ")")
+                if phrases:
+                    bg_parts.append("(" + " OR ".join(phrases) + ")")
+            else:
+                valid = [v for v in variants if len(v) >= 3]
+                if valid:
+                    # FTS5 quote: "..."，双引号需转义为 ""，否则用户输入里的 " 能提前闭合短语、
+                    # 注入 FTS5 查询语法（如列过滤器/布尔操作符）
+                    quoted = " OR ".join('"{}"'.format(v.replace('"', '""')) for v in valid)
+                    tr_parts.append(f"({quoted})")
+
+        if bg_parts:
+            bg_q = " AND ".join(bg_parts)
+            sql = f"""
+                {SELECT_BASE}
+                FROM page_fts_bigram
+                JOIN pages ON pages.id = page_fts_bigram.rowid
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+                LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+                WHERE page_fts_bigram MATCH ?
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                  {filter_clause}
+                LIMIT ?
+            """
+            _add_rows(sql, (bg_q,) + tuple(filter_params) + (limit,))
+            sql2 = f"""
+                {SELECT_BASE}
+                FROM translation_fts_bigram
+                JOIN translations ON translations.id = translation_fts_bigram.rowid
+                JOIN pages ON pages.id = translations.page_id
+                JOIN documents ON documents.id = pages.document_id
+                LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+                WHERE translation_fts_bigram MATCH ?
+                  AND translations.language='zh-CN'
+                  AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                  {filter_clause}
+                LIMIT ?
+            """
+            _add_rows(sql2, (bg_q,) + tuple(filter_params) + (limit,))
+
+        if tr_parts:
+            tr_q = " AND ".join(tr_parts)
             sql = f"""
                 {SELECT_BASE}
                 FROM page_fts
@@ -1444,8 +1542,7 @@ def rows_for_search(
                   {filter_clause}
                 LIMIT ?
             """
-            _add_rows(sql, (fts_q,) + tuple(filter_params) + (limit,))
-            # 同样查 translation_fts（简体翻译里搜）
+            _add_rows(sql, (tr_q,) + tuple(filter_params) + (limit,))
             sql2 = f"""
                 {SELECT_BASE}
                 FROM translation_fts
@@ -1459,16 +1556,22 @@ def rows_for_search(
                   {filter_clause}
                 LIMIT ?
             """
-            _add_rows(sql2, (fts_q,) + tuple(filter_params) + (limit,))
+            _add_rows(sql2, (tr_q,) + tuple(filter_params) + (limit,))
     except sqlite3.OperationalError:
         pass
 
     # 路径 2: LIKE 兜底（处理短词 < 3 字符 + 中文模糊匹配）
+    # 路径 2: LIKE 兜底（处理 1 字中文 + 非 CJK 短词 <3 字符，bigram 表已覆盖 2+ 字中文）
     # 每个 token 用任一变体 LIKE 都算命中（OR），多 token 用 AND 取交
-    if not out or any(len(t) < 3 for t in tokens):
+    need_like = any(len(t) < 3 and not cjk_re.search(t) for t in tokens) or any(len(t) < 2 for t in tokens)
+    if (not out or need_like) and need_like:
         like_conds_parts = []
         like_params: list = []
         for variants in expanded_tokens:
+            # bigram 表已覆盖 2+ 字中文，此处只对「1 字中文 / 非 CJK 短词」走 LIKE
+            skip = all(cjk_re.search(v) and len(v) >= 2 for v in variants)
+            if skip:
+                continue
             # 对单 token 的多变体：在 (text OR title OR matched_terms OR translations.text) 任一字段 LIKE
             sub_parts = []
             for v in variants:
@@ -2276,6 +2379,87 @@ def open_sources_page() -> bytes:
     return layout("开放资料源探勘", body, active_path="/open-sources")
 
 
+def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
+    """国内正式收录文档入口；与境外平台页一样展示已入库资料，不混入候选线索。"""
+    query = query or {}
+    term = query.get("q", [""])[0].strip()
+    like = f"%{term}%"
+    with conn() as c:
+        rows = c.execute(
+            """
+            SELECT
+                d.id, d.doc_key, d.title, d.date_guess, d.url, d.volume_title,
+                d.doc_id, d.doc_number, d.source_id,
+                COUNT(p.id) AS page_count
+            FROM documents d
+            LEFT JOIN pages p ON p.document_id = d.id
+            WHERE d.source_platform = 'domestic'
+              AND (? = '' OR d.title LIKE ? OR d.doc_key LIKE ? OR COALESCE(d.volume_title, '') LIKE ?)
+            GROUP BY d.id
+            ORDER BY COALESCE(d.date_guess, '9999-99-99'), d.id
+            """,
+            (term, like, like, like),
+        ).fetchall()
+        total_docs = c.execute(
+            "SELECT count(*) FROM documents WHERE source_platform='domestic'"
+        ).fetchone()[0]
+        total_pages = c.execute(
+            """
+            SELECT count(*) FROM pages p
+            JOIN documents d ON d.id=p.document_id
+            WHERE d.source_platform='domestic'
+            """
+        ).fetchone()[0]
+        source_count = c.execute(
+            "SELECT count(DISTINCT source_id) FROM documents WHERE source_platform='domestic'"
+        ).fetchone()[0]
+
+    body = breadcrumb_html([("/", "首页"), (None, "已收国内资料")]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>已收国内资料</h1>
+    <div class="meta">国内史料层正式收录文档；候选线索、staging 材料和待复核记录不混入本列表。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/domestic">国内候选目录</a>
+    <a class="button" href="/domestic/search?scope=documents">国内检索</a>
+    <a class="button secondary" href="/domestic/sources">来源地图</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(total_docs)}</strong><span>已收文档</span></div>
+  <div class="stat"><strong>{h(total_pages)}</strong><span>物理页面</span></div>
+  <div class="stat"><strong>{h(source_count)}</strong><span>来源</span></div>
+  <div class="stat"><strong>{h(len(rows))}</strong><span>当前结果</span></div>
+</section>
+<div class="notice">资料页保留来源、页面和复核状态。OCR 文本用于检索不等于逐字可靠；引用前请进入文献详情核对原件定位。</div>
+<form method="get" action="/domestic/library" class="filter-form">
+  <label>检索已收资料 <input name="q" value="{h(term)}" placeholder="题名、档号或来源"></label>
+  <button class="button" type="submit">筛选</button>
+  <a class="button secondary" href="/domestic/library">清除</a>
+</form>
+<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>国内已收文档（{h(len(rows))} 篇）</h2></div>
+<section class="result-list">
+"""
+    if not rows:
+        body += '<div class="notice">当前筛选没有找到已收国内资料。</div>'
+    else:
+        for row in rows:
+            href = f"/doc/{quote(row['doc_key'])}" if row["doc_key"] else "/domestic/library"
+            source_href = row["url"] or "#"
+            body += f"""
+<article class="result">
+  <div>
+    {title_block(row["title"] or "未题名国内资料", href)}
+    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(row["volume_title"] or row["source_id"] or "来源未标注")} · {h(row["page_count"])} 页</div>
+    <div class="tagline"><span class="tag">正式收录</span><span class="tag">国内史料层</span></div>
+  </div>
+  <div class="cite"><a href="{h(source_href)}" target="_blank" rel="noreferrer">原始来源</a><br><a href="{h(href)}">查看文献</a></div>
+</article>"""
+    body += "</section>"
+    return layout("已收国内资料", body, active_path="/domestic/library")
+
+
 def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
     """国内史料来源卡与候选清单；候选默认全部处于人工复核区。"""
     query = query or {}
@@ -2353,7 +2537,7 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
     <h1>国内民盟史与多党合作史资料</h1>
     <div class="meta">上海视角 · 公开来源注册表与待复核候选</div>
   </div>
-  <div class="doc-tools"><a class="button" href="/standards">收录标准</a></div>
+  <div class="doc-tools"><a class="button" href="/domestic/library">已收资料库</a><a class="button" href="/domestic/search">国内检索</a><a class="button" href="/domestic/quality">质量底座</a><a class="button" href="/domestic/acquisition">调档清单</a><a class="button secondary" href="/domestic/sources">来源地图</a><a class="button secondary" href="/standards">收录标准</a></div>
 </section>
 <section class="stats">
   <div class="stat"><strong>{h(len(sources))}</strong><span>来源卡</span></div>
@@ -2363,6 +2547,7 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
   <div class="stat"><strong>{h(accepted_count)}</strong><span>已接受记录</span></div>
 </section>
 <div class="notice">L1/L3 是拟议等级，不代表人工验收完成；没有档号、期号、页码或原件定位的记录不会直接作为已接受一手档案。</div>
+<div class="notice">研究入口分为四层：候选目录、staging 检索、质量底座、原件调档。目录线索、近似 OCR 和未核验研究资料不会自动显示为 citation-ready。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-calendar"/></svg>九个关键事件覆盖</h2></div>
 <section class="result-list">
 {''.join(f'''<article class="result">
@@ -2458,6 +2643,886 @@ def _domestic_rows() -> list[sqlite3.Row]:
     if getattr(_request, "public_mode", False):
         rows = [row for row in rows if row["authenticity_level_proposed"] in {"L0", "L1", "L2", "L3"}]
     return rows
+
+
+def domestic_quality_page() -> bytes:
+    """展示 canonical 国内 staging 层的可信规模和质量警告。"""
+    if not DOMESTIC_STAGING_DB_PATH.exists():
+        return layout(
+            "国内质量底座",
+            '<div class="notice">国内 staging 数据库尚未建立。请先运行 Phase 0 reconciliation 与 staging 构建。</div>',
+            active_path="/domestic/quality",
+        )
+    phase2_report: dict = {}
+    if PHASE2_INVENTORY_REPORT_PATH.exists():
+        try:
+            phase2_report = json.loads(PHASE2_INVENTORY_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            phase2_report = {}
+    core_gap_report: dict = {}
+    if CORE_GAP_MATRIX_REPORT_PATH.exists():
+        try:
+            core_gap_report = json.loads(CORE_GAP_MATRIX_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            core_gap_report = {}
+    supplemental_1942_1943_report: dict = {}
+    if SUPPLEMENTAL_1942_1943_REPORT_PATH.exists():
+        try:
+            supplemental_1942_1943_report = json.loads(SUPPLEMENTAL_1942_1943_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            supplemental_1942_1943_report = {}
+    research_1942_1943_report: dict = {}
+    if RESEARCH_1942_1943_REPORT_PATH.exists():
+        try:
+            research_1942_1943_report = json.loads(RESEARCH_1942_1943_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            research_1942_1943_report = {}
+    academic_pdf_ocr_pilot_report: dict = {}
+    if ACADEMIC_PDF_OCR_PILOT_REPORT_PATH.exists():
+        try:
+            academic_pdf_ocr_pilot_report = json.loads(ACADEMIC_PDF_OCR_PILOT_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            academic_pdf_ocr_pilot_report = {}
+    academic_pdf_ocr_batch_report: dict = {}
+    if ACADEMIC_PDF_OCR_BATCH_REPORT_PATH.exists():
+        try:
+            academic_pdf_ocr_batch_report = json.loads(ACADEMIC_PDF_OCR_BATCH_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            academic_pdf_ocr_batch_report = {}
+    academic_1943_target_report: dict = {}
+    if ACADEMIC_1943_TARGET_REPORT_PATH.exists():
+        try:
+            academic_1943_target_report = json.loads(ACADEMIC_1943_TARGET_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            academic_1943_target_report = {}
+    grok_gap_wave2_audit_report: dict = {}
+    if GROK_GAP_WAVE2_AUDIT_REPORT_PATH.exists():
+        try:
+            grok_gap_wave2_audit_report = json.loads(GROK_GAP_WAVE2_AUDIT_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            grok_gap_wave2_audit_report = {}
+    w2_sha_repair_report: dict = {}
+    if W2_SHA_REPAIR_REPORT_PATH.exists():
+        try:
+            w2_sha_repair_report = json.loads(W2_SHA_REPAIR_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            w2_sha_repair_report = {}
+    w2_sha_supplement_report: dict = {}
+    if W2_SHA_SUPPLEMENT_REPORT_PATH.exists():
+        try:
+            w2_sha_supplement_report = json.loads(W2_SHA_SUPPLEMENT_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            w2_sha_supplement_report = {}
+    mmda_gap_rows: list[dict] = []
+    if MMDA_1942_1943_QUEUE_PATH.exists():
+        try:
+            mmda_gap_rows = [
+                json.loads(line)
+                for line in MMDA_1942_1943_QUEUE_PATH.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
+        except (OSError, json.JSONDecodeError):
+            mmda_gap_rows = []
+    mmda_intake_report: dict = {}
+    if MMDA_P1_INTAKE_REPORT_PATH.exists():
+        try:
+            mmda_intake_report = json.loads(MMDA_P1_INTAKE_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            mmda_intake_report = {}
+    mmda_original_pending_report: dict = {}
+    if MMDA_ORIGINAL_PENDING_REPORT_PATH.exists():
+        try:
+            mmda_original_pending_report = json.loads(MMDA_ORIGINAL_PENDING_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            mmda_original_pending_report = {}
+    machine_structure_report: dict = {}
+    if MACHINE_STRUCTURE_REPORT_PATH.exists():
+        try:
+            machine_structure_report = json.loads(MACHINE_STRUCTURE_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            machine_structure_report = {}
+    claim_duplicate_report: dict = {}
+    if CLAIM_DUPLICATE_REPORT_PATH.exists():
+        try:
+            claim_duplicate_report = json.loads(CLAIM_DUPLICATE_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            claim_duplicate_report = {}
+    p0_p1_machine_report: dict = {}
+    if P0_P1_MACHINE_REPORT_PATH.exists():
+        try:
+            p0_p1_machine_report = json.loads(P0_P1_MACHINE_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            p0_p1_machine_report = {}
+    p0_p1_consistency_report: dict = {}
+    if P0_P1_CONSISTENCY_REPORT_PATH.exists():
+        try:
+            p0_p1_consistency_report = json.loads(P0_P1_CONSISTENCY_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            p0_p1_consistency_report = {}
+    claim_crosswalk_report: dict = {}
+    if CLAIM_CROSSWALK_REPORT_PATH.exists():
+        try:
+            claim_crosswalk_report = json.loads(CLAIM_CROSSWALK_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            claim_crosswalk_report = {}
+    crosswalk_queue_report: dict = {}
+    if CROSSWALK_QUEUE_REPORT_PATH.exists():
+        try:
+            crosswalk_queue_report = json.loads(CROSSWALK_QUEUE_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            crosswalk_queue_report = {}
+    crosswalk_material_report: dict = {}
+    if CROSSWALK_MATERIAL_REPORT_PATH.exists():
+        try:
+            crosswalk_material_report = json.loads(CROSSWALK_MATERIAL_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            crosswalk_material_report = {}
+    fulltext_content_report: dict = {}
+    if FULLTEXT_CONTENT_REPORT_PATH.exists():
+        try:
+            fulltext_content_report = json.loads(FULLTEXT_CONTENT_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            fulltext_content_report = {}
+    fulltext_locator_report: dict = {}
+    if FULLTEXT_LOCATOR_REPORT_PATH.exists():
+        try:
+            fulltext_locator_report = json.loads(FULLTEXT_LOCATOR_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            fulltext_locator_report = {}
+    fulltext_semantic_report: dict = {}
+    if FULLTEXT_SEMANTIC_REPORT_PATH.exists():
+        try:
+            fulltext_semantic_report = json.loads(FULLTEXT_SEMANTIC_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            fulltext_semantic_report = {}
+    fulltext_overlap_report: dict = {}
+    if FULLTEXT_OVERLAP_REPORT_PATH.exists():
+        try:
+            fulltext_overlap_report = json.loads(FULLTEXT_OVERLAP_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            fulltext_overlap_report = {}
+    fulltext_review_cards_report: dict = {}
+    if FULLTEXT_REVIEW_CARDS_REPORT_PATH.exists():
+        try:
+            fulltext_review_cards_report = json.loads(FULLTEXT_REVIEW_CARDS_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            fulltext_review_cards_report = {}
+    structured_relation_report: dict = {}
+    if STRUCTURED_RELATION_REPORT_PATH.exists():
+        try:
+            structured_relation_report = json.loads(STRUCTURED_RELATION_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            structured_relation_report = {}
+    local_private_ocr_report: dict = {}
+    if LOCAL_PRIVATE_OCR_REPORT_PATH.exists():
+        try:
+            local_private_ocr_report = json.loads(LOCAL_PRIVATE_OCR_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            local_private_ocr_report = {}
+    local_private_normalization: dict = {}
+    if LOCAL_PRIVATE_NORMALIZATION_REPORT_PATH.exists():
+        try:
+            local_private_normalization = json.loads(LOCAL_PRIVATE_NORMALIZATION_REPORT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            local_private_normalization = {}
+    try:
+        c = sqlite3.connect(DOMESTIC_STAGING_DB_PATH)
+        c.row_factory = sqlite3.Row
+        run = c.execute("SELECT * FROM ingest_runs ORDER BY created_at DESC LIMIT 1").fetchone()
+        has_machine_text = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='machine_text_records'"
+        ).fetchone() is not None
+        has_ocr = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='ocr_versions'"
+        ).fetchone() is not None
+        has_gate = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='citation_gate_results'"
+        ).fetchone() is not None
+        has_claims = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_claim_candidates'"
+        ).fetchone() is not None
+        has_annotations = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_candidate_annotations'"
+        ).fetchone() is not None
+        has_claim_locator_audit = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_claim_locator_audit'"
+        ).fetchone() is not None
+        has_claim_triage = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_claim_semantic_triage'"
+        ).fetchone() is not None
+        has_claim_cards = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_claim_cards'"
+        ).fetchone() is not None
+        has_claim_review_units = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_claim_review_units'"
+        ).fetchone() is not None
+        has_semantic_queue = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='semantic_review_queue'"
+        ).fetchone() is not None
+        has_local_source = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_source_objects'"
+        ).fetchone() is not None
+        has_local_text_audit = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_text_audit'"
+        ).fetchone() is not None
+        has_local_semantic = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_semantic_signals'"
+        ).fetchone() is not None
+        has_local_cards = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_evidence_cards'"
+        ).fetchone() is not None
+        has_research_materials = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='domestic_research_materials'"
+        ).fetchone() is not None
+        counts = {
+            "documents": c.execute("SELECT count(*) FROM documents").fetchone()[0],
+            "page_assets": c.execute("SELECT count(*) FROM page_assets").fetchone()[0],
+            "pdf_or_scan": c.execute("SELECT count(*) FROM page_assets WHERE file_kind = 'pdf_original_or_scan'").fetchone()[0],
+            "page_images": c.execute("SELECT count(*) FROM page_assets WHERE file_kind = 'page_image'").fetchone()[0],
+            "scholarly": c.execute("SELECT count(*) FROM scholarly_fulltexts").fetchone()[0],
+            "local_sources": c.execute("SELECT count(*) FROM local_source_objects").fetchone()[0] if has_local_source else 0,
+            "local_related_primary": c.execute("SELECT count(*) FROM local_source_objects WHERE document_class='historical_primary_related_source'").fetchone()[0] if has_local_source else 0,
+            "local_text_ready": c.execute("SELECT count(*) FROM local_text_audit WHERE quality_status='TEXT_STRUCTURE_READY'").fetchone()[0] if has_local_text_audit else 0,
+            "local_text_holds": c.execute("SELECT count(*) FROM local_text_audit WHERE quality_status != 'TEXT_STRUCTURE_READY'").fetchone()[0] if has_local_text_audit else 0,
+            "local_semantic_signals": c.execute("SELECT count(*) FROM local_semantic_signals").fetchone()[0] if has_local_semantic else 0,
+            "local_evidence_cards": c.execute("SELECT count(*) FROM local_evidence_cards").fetchone()[0] if has_local_cards else 0,
+            "research_materials": c.execute("SELECT count(*) FROM domestic_research_materials").fetchone()[0] if has_research_materials else 0,
+            "research_fulltext_candidates": c.execute("SELECT count(*) FROM domestic_research_materials WHERE fulltext_status IN ('FULLTEXT_PDF','FULLTEXT_HTML_CANDIDATE')").fetchone()[0] if has_research_materials else 0,
+            "machine_text": c.execute("SELECT count(*) FROM machine_text_records").fetchone()[0] if has_machine_text else 0,
+            "ocr_versions": c.execute("SELECT count(*) FROM ocr_versions").fetchone()[0] if has_ocr else 0,
+            "evidence_units": c.execute("SELECT count(*) FROM evidence_units").fetchone()[0] if has_ocr else 0,
+            "ocr_holds": c.execute("SELECT count(*) FROM ocr_provenance_flags").fetchone()[0] if has_ocr else 0,
+            "citation_candidates": c.execute("SELECT count(*) FROM citation_gate_results WHERE eligible=1").fetchone()[0] if has_gate else 0,
+            "citation_holds": c.execute("SELECT count(*) FROM citation_gate_results WHERE eligible=0").fetchone()[0] if has_gate else 0,
+            "claim_candidates": c.execute("SELECT count(*) FROM evidence_claim_candidates").fetchone()[0] if has_claims else 0,
+            "claim_annotations": c.execute("SELECT count(*) FROM evidence_candidate_annotations").fetchone()[0] if has_annotations else 0,
+            "claim_locator_ready": c.execute("SELECT count(*) FROM evidence_claim_locator_audit WHERE audit_status='STRUCTURE_READY_CLAIM_INDEX'").fetchone()[0] if has_claim_locator_audit else 0,
+            "claim_locator_holds": c.execute("SELECT count(*) FROM evidence_claim_locator_audit WHERE audit_status!='STRUCTURE_READY_CLAIM_INDEX'").fetchone()[0] if has_claim_locator_audit else 0,
+            "claim_triage_ready": c.execute("SELECT count(*) FROM evidence_claim_semantic_triage").fetchone()[0] if has_claim_triage else 0,
+            "claim_triage_event": c.execute("SELECT count(*) FROM evidence_claim_semantic_triage WHERE triage_class='EVENT_ENTITY_CANDIDATE'").fetchone()[0] if has_claim_triage else 0,
+            "claim_cards": c.execute("SELECT count(*) FROM evidence_claim_cards").fetchone()[0] if has_claim_cards else 0,
+            "claim_review_units": c.execute("SELECT count(*) FROM evidence_claim_review_units").fetchone()[0] if has_claim_review_units else 0,
+            "claim_review_p0p1": c.execute("SELECT count(*) FROM evidence_claim_review_units WHERE priority IN ('P0','P1')").fetchone()[0] if has_claim_review_units else 0,
+            "claim_exact_unique_estimate": claim_duplicate_report.get("exact_text_unique_units_estimate", 0),
+            "claim_exact_duplicate_groups": claim_duplicate_report.get("exact_text_duplicate_groups", 0),
+            "claim_same_page_groups": claim_duplicate_report.get("same_canonical_page_groups", 0),
+            "p0_p1_machine_assessed": p0_p1_machine_report.get("input_review_units", 0),
+            "p0_p1_machine_weak": p0_p1_machine_report.get("machine_assessment_counts", {}).get("MACHINE_REVIEW_WEAK", 0),
+            "p0_p1_source_consistent": p0_p1_consistency_report.get("status_counts", {}).get("SOURCE_CONSISTENT_LOCATABLE", 0),
+            "crosswalk_specific": claim_crosswalk_report.get("crosswalk_status_counts", {}).get("METADATA_CROSSWALK_REVIEW_REQUIRED", 0),
+            "crosswalk_generic_hold": claim_crosswalk_report.get("generic_only_rows", 0),
+            "crosswalk_review_first": crosswalk_queue_report.get("priority_band_counts", {}).get("A_REVIEW_FIRST", 0),
+            "crosswalk_fulltext_rows": crosswalk_queue_report.get("fulltext_candidate_rows", 0),
+            "crosswalk_material_objects": crosswalk_material_report.get("distinct_material_objects", 0),
+            "crosswalk_material_a": crosswalk_material_report.get("priority_band_counts", {}).get("A_REVIEW_FIRST", 0),
+            "crosswalk_material_fulltext": crosswalk_material_report.get("fulltext_material_objects", 0),
+            "fulltext_content_pass": sum(
+                count for status, count in fulltext_content_report.get("status_counts", {}).items()
+                if status.startswith("CONTENT_")
+            ),
+            "fulltext_content_holds": sum(
+                count for status, count in fulltext_content_report.get("status_counts", {}).items()
+                if status.startswith("HOLD_")
+            ),
+            "fulltext_locator_found": fulltext_locator_report.get("locator_status_counts", {}).get("TEXT_LOCATOR_FOUND", 0),
+            "fulltext_locator_holds": fulltext_locator_report.get("locator_status_counts", {}).get("HOLD_CONTENT_LAYER", 0),
+            "fulltext_possible_support": fulltext_semantic_report.get("machine_relation_status_counts", {}).get("POSSIBLE_SUPPORT_SIGNAL_REVIEW_REQUIRED", 0),
+            "fulltext_possible_conflict": fulltext_semantic_report.get("machine_relation_status_counts", {}).get("POSSIBLE_CONFLICT_SIGNAL_REVIEW_REQUIRED", 0),
+            "fulltext_semantic_unknown": fulltext_semantic_report.get("machine_relation_status_counts", {}).get("UNKNOWN_CONTENT_LAYER_HOLD", 0),
+            "fulltext_overlap_strong": fulltext_overlap_report.get("text_overlap_status_counts", {}).get("STRONG_TEXT_OVERLAP_REVIEW_REQUIRED", 0),
+            "fulltext_overlap_weak": fulltext_overlap_report.get("text_overlap_status_counts", {}).get("WEAK_TEXT_OVERLAP_REVIEW_REQUIRED", 0),
+            "fulltext_overlap_unknown": fulltext_overlap_report.get("text_overlap_status_counts", {}).get("UNKNOWN_CONTENT_LAYER_HOLD", 0) + fulltext_overlap_report.get("text_overlap_status_counts", {}).get("UNKNOWN_NO_TEXT_OVERLAP", 0),
+            "fulltext_semantic_review_cards": fulltext_review_cards_report.get("review_cards", 0),
+            "structured_same_context": structured_relation_report.get("relation_signal_counts", {}).get("POTENTIAL_SAME_CONTEXT_REVIEW_REQUIRED", 0),
+            "structured_context_only": structured_relation_report.get("relation_signal_counts", {}).get("POTENTIAL_CONTEXT_ONLY_REVIEW_REQUIRED", 0),
+            "structured_unknown": structured_relation_report.get("relation_signal_counts", {}).get("UNKNOWN_NO_SUBJECT_HIT", 0),
+            "core_zero_phases": len(core_gap_report.get("zero_canonical_phases", [])),
+            "core_gap_worklist": core_gap_report.get("gap_worklist_rows", 0),
+            "supplemental_1942_1943": supplemental_1942_1943_report.get("records", 0),
+            "supplemental_primary_candidates": supplemental_1942_1943_report.get("candidate_class_counts", {}).get("PRIMARY_SOURCE_CANDIDATE_UNVERIFIED", 0),
+            "supplemental_foreign_comparative": supplemental_1942_1943_report.get("candidate_class_counts", {}).get("FOREIGN_COMPARATIVE_SNAPSHOT", 0),
+            "research_1942_1943": research_1942_1943_report.get("rows", 0),
+            "research_1942_1943_metadata_only": research_1942_1943_report.get("fulltext_status_counts", {}).get("METADATA_ONLY", 0),
+            "research_1942_1943_extractable": research_1942_1943_report.get("local_extractable_content", 0),
+            "research_1942_1943_pdf_ocr": research_1942_1943_report.get("pdf_needs_ocr", 0),
+            "academic_pdf_ocr_pilot_pages": academic_pdf_ocr_pilot_report.get("completed_pages", 0) + academic_pdf_ocr_batch_report.get("completed_pages", 0),
+            "academic_pdf_ocr_low_confidence_pages": sum(1 for value in academic_pdf_ocr_batch_report.get("mean_confidences", {}).values() if float(value) < 0.85),
+            "academic_1943_staged_pages": academic_1943_target_report.get("completed_pages", 0),
+            "grok_page_chain_rows": grok_gap_wave2_audit_report.get("page_chain_rows", 0),
+            "grok_page_chain_conflicts": grok_gap_wave2_audit_report.get("1942_1943_phase_conflict_rows", 0),
+            "grok_clean_1942_1943_page_rows": grok_gap_wave2_audit_report.get("clean_1942_1943_rows_for_core_gap", 0),
+            "w2_sha_repair_sources": w2_sha_repair_report.get("source_records", 0),
+            "w2_sha_repair_pages": w2_sha_repair_report.get("page_rows", 0),
+            "w2_sha_supplement_sources": w2_sha_supplement_report.get("verified_supplement_sources", 0),
+            "w2_sha_supplement_pages": w2_sha_supplement_report.get("verified_supplement_pages", 0),
+            "mmda_original_pending": mmda_original_pending_report.get("rows", 0),
+            "mmda_original_pending_1942": mmda_original_pending_report.get("phase_counts", {}).get("1942", 0),
+            "mmda_original_pending_1943": mmda_original_pending_report.get("phase_counts", {}).get("1943", 0),
+            "semantic_ready": c.execute("SELECT count(*) FROM semantic_review_queue WHERE review_stage='READY_SEMANTIC_REVIEW'").fetchone()[0] if has_semantic_queue else 0,
+            "semantic_holds": c.execute("SELECT count(*) FROM semantic_review_queue WHERE review_stage='HOLD_MACHINE_TRIAGE'").fetchone()[0] if has_semantic_queue else 0,
+            "structure_ready": machine_structure_report.get("stage_counts", {}).get("STRUCTURE_READY_SEMANTIC_REVIEW", 0),
+            "structure_holds": machine_structure_report.get("stage_counts", {}).get("HOLD_STRUCTURE", 0),
+            "local_private_ocr": local_private_normalization.get("domestic_scope_objects", local_private_ocr_report.get("rows", 0)),
+            "local_private_excluded": local_private_normalization.get("overseas_excluded_objects", 0),
+            "flags": c.execute("SELECT count(*) FROM quality_flags").fetchone()[0],
+        }
+        phases = c.execute(
+            "SELECT dominant_phase, count(*) n FROM documents GROUP BY dominant_phase ORDER BY n DESC"
+        ).fetchall()
+        kinds = c.execute(
+            "SELECT file_kind, count(*) n FROM page_assets GROUP BY file_kind ORDER BY n DESC"
+        ).fetchall()
+        flags = c.execute(
+            "SELECT flag_type, severity, count(*) n FROM quality_flags GROUP BY flag_type, severity ORDER BY n DESC"
+        ).fetchall()
+        c.close()
+    except sqlite3.Error as exc:
+        return layout(
+            "国内质量底座",
+            f'<div class="notice">staging 数据库读取失败：{h(exc)}</div>',
+            active_path="/domestic/quality",
+        )
+
+    phase_html = "".join(
+        f'<article class="result"><div><h2>{h(row["dominant_phase"] or "unknown")}</h2>'
+        f'<div class="meta">canonical 文献 {h(row["n"])} 个</div></div></article>'
+        for row in phases
+    )
+    phase2_counts = phase2_report.get("phase_document_counts", {})
+    phase2_html = (
+        f'<article class="result"><div><h2>1941—1946 核心资料</h2>'
+        f'<div class="meta">已入 staging 文献 {h(phase2_report.get("document_rows", 0))} 个 · 页/文件资产 {h(phase2_report.get("page_asset_rows", 0))} 个 · 1942—1943 原件 {h(phase2_counts.get("1942-1943", 0))} 个 · 核心零覆盖时期 {h(len(core_gap_report.get("zero_canonical_phases", [])))} 个 · MMDA 目录候选 {h(len(mmda_gap_rows))} 条（P1 {h(sum(1 for row in mmda_gap_rows if row.get("queue_rank") == 1))}）· P1 待接收 {h(mmda_intake_report.get("records_waiting", 0))} 条 · 原件待取队列 {h(mmda_original_pending_report.get("rows", 0))} 条</div></div>'
+        f'<div class="cite"><a href="/domestic/search?scope=documents&amp;q=1941">查看</a></div></article>'
+        if phase2_report
+        else '<div class="notice">1941—1946 核心资料覆盖表尚未生成。</div>'
+    )
+    local_scope_counts = local_private_normalization.get("scope_counts", {})
+    local_scope_html = "".join(
+        f'<article class="result"><div><h2>{h(label)}</h2><div class="meta">{h(count)} 个（文件级分类，待来源/正文复核）</div></div></article>'
+        for label, count in sorted(local_scope_counts.items())
+    ) or '<div class="notice">本地私有 OCR 文献分层尚未生成。</div>'
+    kind_html = "".join(
+        f'<article class="result"><div><h2>{h(row["file_kind"])}</h2>'
+        f'<div class="meta">资产 {h(row["n"])} 个</div></div></article>'
+        for row in kinds
+    )
+    flag_html = "".join(
+        f'<article class="result"><div><h2>{h(row["flag_type"])}</h2>'
+        f'<div class="meta">{h(row["severity"])} · {h(row["n"])} 组</div></div></article>'
+        for row in flags
+    ) or '<div class="notice">当前没有 staging 质量警告。</div>'
+    formal_status = "未改变" if run and run["formal_db_unchanged"] else "需复核"
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, "质量底座")]) + f"""
+<section class="doc-head"><div><h1>国内资料质量底座</h1><div class="meta">canonical 文献、物理页资产、学术全文与机器质量警告</div></div><div class="doc-tools"><a class="button" href="/domestic/search">国内检索</a><a class="button secondary" href="/domestic">国内候选目录</a></div></section>
+<section class="stats">
+  <div class="stat"><strong>{h(counts['documents'])}</strong><span>canonical 文献</span></div>
+  <div class="stat"><strong>{h(counts['page_assets'])}</strong><span>物理页/文件资产</span></div>
+  <div class="stat"><strong>{h(counts['pdf_or_scan'])}</strong><span>PDF/扫描文件</span></div>
+  <div class="stat"><strong>{h(counts['page_images'])}</strong><span>页图资产</span></div>
+  <div class="stat"><strong>{h(counts['scholarly'])}</strong><span>学术全文</span></div>
+  <div class="stat"><strong>{h(counts['local_sources'])}</strong><span>本地 staging 对象</span></div>
+  <div class="stat"><strong>{h(counts['local_related_primary'])}</strong><span>关联本地一手</span></div>
+  <div class="stat"><strong>{h(counts['local_text_ready'])}</strong><span>本地文本结构通过</span></div>
+  <div class="stat"><strong>{h(counts['local_text_holds'])}</strong><span>本地文本结构 HOLD</span></div>
+  <div class="stat"><strong>{h(counts['local_semantic_signals'])}</strong><span>本地机器语义信号</span></div>
+  <div class="stat"><strong>{h(counts['local_evidence_cards'])}</strong><span>本地证据卡片草稿</span></div>
+  <div class="stat"><strong>{h(counts['research_materials'])}</strong><span>国内研究资料</span></div>
+  <div class="stat"><strong>{h(counts['research_fulltext_candidates'])}</strong><span>研究全文候选</span></div>
+  <div class="stat"><strong>{h(counts['machine_text'])}</strong><span>官方/机器文本</span></div>
+  <div class="stat"><strong>{h(counts['ocr_versions'])}</strong><span>OCR 版本</span></div>
+  <div class="stat"><strong>{h(counts['evidence_units'])}</strong><span>证据定位单元</span></div>
+  <div class="stat"><strong>{h(counts['ocr_holds'])}</strong><span>OCR 绑定 HOLD</span></div>
+  <div class="stat"><strong>{h(counts['citation_candidates'])}</strong><span>citation 候选</span></div>
+  <div class="stat"><strong>{h(counts['citation_holds'])}</strong><span>citation 闸门 HOLD</span></div>
+  <div class="stat"><strong>{h(counts['claim_candidates'])}</strong><span>语义候选片段</span></div>
+  <div class="stat"><strong>{h(counts['claim_annotations'])}</strong><span>机器标签候选</span></div>
+  <div class="stat"><strong>{h(counts['claim_locator_ready'])}</strong><span>claim 定位结构通过</span></div>
+  <div class="stat"><strong>{h(counts['claim_locator_holds'])}</strong><span>claim 定位 HOLD</span></div>
+  <div class="stat"><strong>{h(counts['claim_triage_ready'])}</strong><span>语义分流索引</span></div>
+  <div class="stat"><strong>{h(counts['claim_triage_event'])}</strong><span>事件实体候选</span></div>
+  <div class="stat"><strong>{h(counts['claim_cards'])}</strong><span>claim 卡片索引</span></div>
+  <div class="stat"><strong>{h(counts['claim_review_units'])}</strong><span>去重后复核单元</span></div>
+  <div class="stat"><strong>{h(counts['claim_review_p0p1'])}</strong><span>P0/P1 复核单元</span></div>
+  <div class="stat"><strong>{h(counts['claim_exact_unique_estimate'])}</strong><span>精确文本唯一估计</span></div>
+  <div class="stat"><strong>{h(counts['claim_exact_duplicate_groups'])}</strong><span>精确重复组</span></div>
+  <div class="stat"><strong>{h(counts['claim_same_page_groups'])}</strong><span>同页多候选组</span></div>
+  <div class="stat"><strong>{h(counts['p0_p1_machine_assessed'])}</strong><span>P0/P1 机器评估</span></div>
+  <div class="stat"><strong>{h(counts['p0_p1_machine_weak'])}</strong><span>P0/P1 高风险</span></div>
+  <div class="stat"><strong>{h(counts['p0_p1_source_consistent'])}</strong><span>P0/P1 来源可定位</span></div>
+  <div class="stat"><strong>{h(counts['crosswalk_specific'])}</strong><span>跨源具体匹配候选</span></div>
+  <div class="stat"><strong>{h(counts['crosswalk_generic_hold'])}</strong><span>跨源泛词 HOLD</span></div>
+  <div class="stat"><strong>{h(counts['crosswalk_review_first'])}</strong><span>跨源优先复核</span></div>
+  <div class="stat"><strong>{h(counts['crosswalk_fulltext_rows'])}</strong><span>跨源全文候选行</span></div>
+  <div class="stat"><strong>{h(counts['crosswalk_material_objects'])}</strong><span>跨源资料对象</span></div>
+  <div class="stat"><strong>{h(counts['crosswalk_material_a'])}</strong><span>资料对象优先复核</span></div>
+  <div class="stat"><strong>{h(counts['crosswalk_material_fulltext'])}</strong><span>资料对象全文优先</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_content_pass'])}</strong><span>全文正文可读对象</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_content_holds'])}</strong><span>全文内容层 HOLD</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_locator_found'])}</strong><span>全文可定位候选</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_locator_holds'])}</strong><span>全文定位 HOLD</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_possible_support'])}</strong><span>全文可能支持提示</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_possible_conflict'])}</strong><span>全文可能冲突提示</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_semantic_unknown'])}</strong><span>全文语义未知/HOLD</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_overlap_strong'])}</strong><span>全文强重叠提示</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_overlap_weak'])}</strong><span>全文弱重叠提示</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_overlap_unknown'])}</strong><span>全文重叠未知/HOLD</span></div>
+  <div class="stat"><strong>{h(counts['fulltext_semantic_review_cards'])}</strong><span>全文语义复核卡片</span></div>
+  <div class="stat"><strong>{h(counts['structured_same_context'])}</strong><span>可能同一语境</span></div>
+  <div class="stat"><strong>{h(counts['structured_context_only'])}</strong><span>可能背景关联</span></div>
+  <div class="stat"><strong>{h(counts['structured_unknown'])}</strong><span>主体未命中</span></div>
+  <div class="stat"><strong>{h(counts['core_zero_phases'])}</strong><span>核心零覆盖时期</span></div>
+  <div class="stat"><strong>{h(counts['core_gap_worklist'])}</strong><span>核心补证工作单</span></div>
+  <div class="stat"><strong>{h(counts['supplemental_1942_1943'])}</strong><span>1942/43 补充线索</span></div>
+  <div class="stat"><strong>{h(counts['supplemental_primary_candidates'])}</strong><span>1942/43 一手候选（未核原件）</span></div>
+  <div class="stat"><strong>{h(counts['supplemental_foreign_comparative'])}</strong><span>1942/43 外部对照</span></div>
+  <div class="stat"><strong>{h(counts['research_1942_1943'])}</strong><span>1942/43 研究资料</span></div>
+  <div class="stat"><strong>{h(counts['research_1942_1943_metadata_only'])}</strong><span>其中仅元数据</span></div>
+  <div class="stat"><strong>{h(counts['research_1942_1943_extractable'])}</strong><span>可提取全文候选</span></div>
+  <div class="stat"><strong>{h(counts['research_1942_1943_pdf_ocr'])}</strong><span>PDF 待 OCR</span></div>
+  <div class="stat"><strong>{h(counts['academic_pdf_ocr_pilot_pages'])}</strong><span>本地 OCR 试跑页</span></div>
+  <div class="stat"><strong>{h(counts['academic_pdf_ocr_low_confidence_pages'])}</strong><span>OCR 低置信待复核</span></div>
+  <div class="stat"><strong>{h(counts['academic_1943_staged_pages'])}</strong><span>1943 汇编 staging 页</span></div>
+  <div class="stat"><strong>{h(counts['grok_page_chain_rows'])}</strong><span>Grok 页链机器完整</span></div>
+  <div class="stat"><strong>{h(counts['grok_page_chain_conflicts'])}</strong><span>1942/43 时期冲突</span></div>
+  <div class="stat"><strong>{h(counts['grok_clean_1942_1943_page_rows'])}</strong><span>1942/43 可计核心页链</span></div>
+  <div class="stat"><strong>{h(counts['w2_sha_repair_sources'])}</strong><span>W2 原 manifest 待补来源</span></div>
+  <div class="stat"><strong>{h(counts['w2_sha_supplement_pages'])}</strong><span>W2 staging SHA 已验证页</span></div>
+  <div class="stat"><strong>{h(counts['mmda_original_pending'])}</strong><span>MMDA 1942/43 原件待取</span></div>
+  <div class="stat"><strong>{h(counts['mmda_original_pending_1942'])}</strong><span>其中 1942 待取</span></div>
+  <div class="stat"><strong>{h(counts['mmda_original_pending_1943'])}</strong><span>其中 1943 待取</span></div>
+  <div class="stat"><strong>{h(counts['semantic_ready'])}</strong><span>语义复核队列</span></div>
+  <div class="stat"><strong>{h(counts['semantic_holds'])}</strong><span>语义机器 HOLD</span></div>
+  <div class="stat"><strong>{h(counts['structure_ready'])}</strong><span>结构条件通过</span></div>
+  <div class="stat"><strong>{h(counts['structure_holds'])}</strong><span>结构条件 HOLD</span></div>
+  <div class="stat"><strong>{h(counts['local_private_ocr'])}</strong><span>国内私有 OCR 待审</span></div>
+  <div class="stat"><strong>{h(counts['local_private_excluded'])}</strong><span>私有 OCR 海外排除</span></div>
+  <div class="stat"><strong>{h(counts['flags'])}</strong><span>质量警告</span></div>
+</section>
+<div class="notice">这是独立 staging 层，不等同于正式 SQLite。正式库状态：{h(formal_status)}。页图数量不会被当作文献数量；目录、网页快照、未核验 OCR、机器语义信号和 locator-only evidence unit 不会自动成为 citation-ready。“1942/43 一手候选（未核原件）”只是机器筛选线索，不代表已取得原件；claim 卡片数包含同页/同文本的 provenance 候选，精确唯一估计与重复组单独显示。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-calendar"/></svg>文献对象时期分布</h2></div>
+<section class="result-list">{phase_html}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>核心早期资料覆盖</h2></div>
+<section class="result-list">{phase2_html}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>本地私有 OCR 文献分层</h2></div>
+<section class="result-list">{local_scope_html}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>资产类型分布</h2></div>
+<section class="result-list">{kind_html}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-check"/></svg>质量警告</h2></div>
+<section class="result-list">{flag_html}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>数据说明</h2></div>
+<div class="notice">本页由 {h(run['run_id'] if run else 'unknown')} staging run 生成，来源：canonical reconciliation、machine-text migration、OCR provenance migration、citation gate、claim-candidate extraction、rule annotation 与 semantic triage。{h(counts['semantic_ready'])} 条进入语义复核队列，{h(counts['semantic_holds'])} 条保留机器 HOLD；正式库 citation-ready 仍为 0。</div>
+"""
+    return layout("国内质量底座", body, active_path="/domestic/quality")
+
+
+def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> bytes:
+    """在独立 staging 层分开检索文献对象和物理页资产。"""
+    query = query or {}
+    raw_q = (query.get("q", [""])[0] or "").strip()[:200]
+    scope = (query.get("scope", ["documents"])[0] or "documents").strip()
+    if scope not in {"documents", "pages", "machine", "ocr", "claims", "local", "research"}:
+        scope = "documents"
+    phase = (query.get("phase", [""])[0] or "").strip()[:80]
+    if not DOMESTIC_STAGING_DB_PATH.exists():
+        return layout(
+            "国内检索",
+            '<div class="notice">国内 staging 数据库尚未建立。请先运行 Phase 0 reconciliation 与 staging 构建。</div>',
+            active_path="/domestic/search",
+        )
+    structured_relation_rows: dict[str, dict] = {}
+    if STRUCTURED_RELATION_ROWS_PATH.exists():
+        try:
+            for line in STRUCTURED_RELATION_ROWS_PATH.read_text(encoding="utf-8").splitlines():
+                if line.strip():
+                    item = json.loads(line)
+                    structured_relation_rows[item["representative_candidate_id"]] = item
+        except (OSError, json.JSONDecodeError, KeyError):
+            structured_relation_rows = {}
+    conservative_relation_rows: dict[str, dict] = {}
+    if CONSERVATIVE_RELATION_ROWS_PATH.exists():
+        try:
+            for line in CONSERVATIVE_RELATION_ROWS_PATH.read_text(encoding="utf-8").splitlines():
+                if line.strip():
+                    item = json.loads(line)
+                    conservative_relation_rows[item["representative_candidate_id"]] = item
+        except (OSError, json.JSONDecodeError, KeyError):
+            conservative_relation_rows = {}
+    like = f"%{raw_q}%"
+    try:
+        c = sqlite3.connect(DOMESTIC_STAGING_DB_PATH)
+        c.row_factory = sqlite3.Row
+        if scope == "documents":
+            clauses = []
+            params: list[object] = []
+            if raw_q:
+                clauses.append("(d.canonical_document_key LIKE ? OR d.title LIKE ? OR d.dominant_phase LIKE ?)")
+                params.extend([like, like, like])
+            if phase:
+                clauses.append("d.dominant_phase = ?")
+                params.append(phase)
+            where = " WHERE " + " AND ".join(clauses) if clauses else ""
+            rows = c.execute(
+                f"""SELECT d.canonical_document_key, d.title, d.dominant_phase,
+                           d.source_row_count, d.page_row_count, d.file_row_count,
+                           d.unique_sha256_count, d.evidence_status
+                    FROM documents d{where}
+                    ORDER BY d.dominant_phase, d.canonical_document_key
+                    LIMIT 100""",
+                params,
+            ).fetchall()
+        elif scope == "pages":
+            clauses = []
+            params = []
+            if raw_q:
+                clauses.append("(p.object_id LIKE ? OR p.local_path LIKE ? OR p.title LIKE ? OR p.historical_phase LIKE ? OR p.reclass_bucket LIKE ?)")
+                params.extend([like, like, like, like, like])
+            if phase:
+                clauses.append("p.historical_phase = ?")
+                params.append(phase)
+            where = " WHERE " + " AND ".join(clauses) if clauses else ""
+            rows = c.execute(
+                f"""SELECT p.object_id, d.canonical_document_key, p.local_path,
+                           p.page_no, p.sha256, p.file_kind, p.historical_phase,
+                           p.reclass_bucket, p.title
+                    FROM page_assets p JOIN documents d ON d.id = p.document_id{where}
+                    ORDER BY p.historical_phase, d.canonical_document_key, p.page_no
+                    LIMIT 100""",
+                params,
+            ).fetchall()
+        elif scope == "machine":
+            has_machine_text = c.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='machine_text_records'"
+            ).fetchone() is not None
+            if not has_machine_text:
+                rows = []
+            else:
+                clauses = []
+                params = []
+                if raw_q:
+                    clauses.append("(m.object_id LIKE ? OR m.title LIKE ? OR m.formation_institution LIKE ? OR m.document_type LIKE ? OR m.evidence_tier LIKE ? OR m.historical_phase LIKE ?)")
+                    params.extend([like, like, like, like, like, like])
+                if phase:
+                    clauses.append("m.historical_phase = ?")
+                    params.append(phase)
+                where = " WHERE " + " AND ".join(clauses) if clauses else ""
+                rows = c.execute(
+                    f"""SELECT m.object_id, m.title, m.formation_institution,
+                               m.document_type, m.source_url, m.local_path, m.sha256,
+                               m.evidence_tier, m.historical_phase, m.access_status,
+                               m.rights_note
+                        FROM machine_text_records m{where}
+                        ORDER BY m.historical_phase, m.object_id
+                        LIMIT 100""",
+                    params,
+                ).fetchall()
+        elif scope == "ocr":
+            has_ocr = c.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='ocr_versions'"
+            ).fetchone() is not None
+            if not has_ocr:
+                rows = []
+            else:
+                clauses = []
+                params = []
+                if raw_q:
+                    clauses.append("(o.provenance_id LIKE ? OR o.source_id LIKE ? OR o.source_title LIKE ? OR o.source_file LIKE ? OR o.period LIKE ? OR o.ocr_md_path LIKE ?)")
+                    params.extend([like, like, like, like, like, like])
+                if phase:
+                    clauses.append("o.period LIKE ?")
+                    params.append(f"%{phase}%")
+                where = " WHERE " + " AND ".join(clauses) if clauses else ""
+                rows = c.execute(
+                    f"""SELECT o.provenance_id, o.canonical_document_key, o.source_id,
+                               o.source_title, o.source_file, o.physical_page_no,
+                               o.pdf_page_no, o.ocr_md_path, o.ocr_md_sha256,
+                               o.ocr_confidence, o.text_structure_status,
+                               o.machine_visual_status, o.valid, o.citation_ready,
+                               o.human_verified, o.year, o.period, o.binding_status
+                        FROM ocr_versions o{where}
+                        ORDER BY o.year, o.source_id, o.physical_page_no
+                        LIMIT 100""",
+                    params,
+                ).fetchall()
+        elif scope == "local":
+            has_local_source = c.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_source_objects'"
+            ).fetchone() is not None
+            if not has_local_source:
+                rows = []
+            else:
+                has_local_semantic = c.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_semantic_signals'"
+                ).fetchone() is not None
+                has_local_cards = c.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_evidence_cards'"
+                ).fetchone() is not None
+                clauses = []
+                params = []
+                if raw_q:
+                    clauses.append("(l.object_id LIKE ? OR l.title LIKE ? OR l.document_date LIKE ? OR l.document_class LIKE ? OR l.relation_status LIKE ?)")
+                    params.extend([like, like, like, like, like])
+                if phase:
+                    clauses.append("l.document_date LIKE ?")
+                    params.append(f"%{phase}%")
+                where = " WHERE " + " AND ".join(clauses) if clauses else ""
+                semantic_join = "LEFT JOIN local_semantic_signals s ON s.object_id=l.object_id" if has_local_semantic else ""
+                semantic_select = ", s.machine_signal_status, s.signal_json" if has_local_semantic else ", NULL AS machine_signal_status, NULL AS signal_json"
+                card_join = "LEFT JOIN local_evidence_cards ec ON ec.object_id=l.object_id" if has_local_cards else ""
+                card_select = ", ec.card_status" if has_local_cards else ", NULL AS card_status"
+                rows = c.execute(
+                    f"""SELECT l.object_id, l.title, l.document_date, l.source_path,
+                               l.source_sha256, l.derived_text_path,
+                               l.derived_text_sha256, l.source_layer,
+                               l.document_class, l.relation_status,
+                               l.evidence_status, l.citation_ready,
+                               l.human_verified, a.quality_status, a.char_count,
+                               a.han_character_count{semantic_select}{card_select}
+                        FROM local_source_objects l
+                        LEFT JOIN local_text_audit a ON a.object_id=l.object_id
+                        {semantic_join}
+                        {card_join}{where}
+                        ORDER BY l.document_date, l.object_id
+                        LIMIT 100""",
+                    params,
+                ).fetchall()
+        elif scope == "research":
+            has_research_materials = c.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='domestic_research_materials'"
+            ).fetchone() is not None
+            if not has_research_materials:
+                rows = []
+            else:
+                clauses = []
+                params = []
+                if raw_q:
+                    clauses.append("(r.external_id LIKE ? OR r.title LIKE ? OR r.author LIKE ? OR r.institution LIKE ? OR r.research_type LIKE ? OR r.fulltext_status LIKE ?)")
+                    params.extend([like, like, like, like, like, like])
+                if phase:
+                    clauses.append("(r.publication_date LIKE ? OR json_extract(r.metadata_json, '$.research_theme_phase') LIKE ?)")
+                    params.extend([f"%{phase}%", f"%{phase}%"])
+                where = " WHERE " + " AND ".join(clauses) if clauses else ""
+                rows = c.execute(
+                    f"""SELECT r.external_id, r.title, r.author, r.institution,
+                               r.layer, r.publication_date, r.research_type, r.quality_tier,
+                               r.source_url, r.local_path, r.fulltext_status,
+                               r.review_status, r.citation_ready, r.human_verified
+                        FROM domestic_research_materials r{where}
+                        ORDER BY r.quality_tier, r.publication_date, r.external_id
+                        LIMIT 100""",
+                    params,
+                ).fetchall()
+        else:
+            has_claims = c.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_claim_candidates'"
+            ).fetchone() is not None
+            if not has_claims:
+                rows = []
+            else:
+                has_claim_locator_audit = c.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_claim_locator_audit'"
+                ).fetchone() is not None
+                locator_select = ", la.audit_status AS locator_audit_status" if has_claim_locator_audit else ", NULL AS locator_audit_status"
+                locator_join = "LEFT JOIN evidence_claim_locator_audit la ON la.candidate_id=e.candidate_id" if has_claim_locator_audit else ""
+                has_claim_triage = c.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_claim_semantic_triage'"
+                ).fetchone() is not None
+                triage_select = ", ct.triage_class, ct.triage_status" if has_claim_triage else ", NULL AS triage_class, NULL AS triage_status"
+                triage_join = "LEFT JOIN evidence_claim_semantic_triage ct ON ct.candidate_id=e.candidate_id" if has_claim_triage else ""
+                has_claim_cards = c.execute(
+                    "SELECT 1 FROM sqlite_master WHERE type='table' AND name='evidence_claim_cards'"
+                ).fetchone() is not None
+                card_select = ", cc.card_status" if has_claim_cards else ", NULL AS card_status"
+                card_join = "LEFT JOIN evidence_claim_cards cc ON cc.candidate_id=e.candidate_id" if has_claim_cards else ""
+                clauses = []
+                params = []
+                if raw_q:
+                    clauses.append("(e.candidate_id LIKE ? OR e.canonical_document_key LIKE ? OR e.source_title LIKE ? OR e.candidate_text LIKE ? OR e.period LIKE ?)")
+                    params.extend([like, like, like, like, like])
+                if phase:
+                    clauses.append("e.period LIKE ?")
+                    params.append(f"%{phase}%")
+                where = " WHERE " + " AND ".join(clauses) if clauses else ""
+                rows = c.execute(
+                    f"""SELECT e.candidate_id, e.canonical_document_key,
+                               e.physical_page_no, e.source_title, e.period,
+                               e.candidate_text, e.candidate_text_sha256,
+                               e.claim_status, e.source_ocr_md_path,
+                               a.claim_family, a.matched_terms_json,
+                               s.review_stage, s.priority{locator_select}{triage_select}{card_select}
+                        FROM evidence_claim_candidates e
+                        LEFT JOIN evidence_candidate_annotations a ON a.candidate_id=e.candidate_id
+                        LEFT JOIN semantic_review_queue s ON s.candidate_id=e.candidate_id
+                        {locator_join}
+                        {triage_join}
+                        {card_join}{where}
+                        ORDER BY e.period, e.canonical_document_key, e.physical_page_no
+                        LIMIT 100""",
+                    params,
+                ).fetchall()
+        c.close()
+    except sqlite3.Error as exc:
+        return layout(
+            "国内检索",
+            f'<div class="notice">staging 数据库读取失败：{h(exc)}</div>',
+            active_path="/domestic/search",
+        )
+
+    def document_title(raw: object) -> str:
+        try:
+            value = json.loads(str(raw or ""))
+            if isinstance(value, list) and value:
+                return "；".join(str(x) for x in value[:2])
+        except (TypeError, json.JSONDecodeError):
+            pass
+        return str(raw or "未命名文献")
+
+    if scope == "documents":
+        result_html = "".join(
+            f'''<article class="result"><div><h2>{h(document_title(row["title"]))}</h2>
+            <div class="meta">{h(row["canonical_document_key"])} · 时期 {h(row["dominant_phase"] or "unknown")} · 页资产 {h(row["page_row_count"])} · 文件 {h(row["file_row_count"])}</div>
+            <div class="snippet">来源行 {h(row["source_row_count"])} · 唯一 SHA {h(row["unique_sha256_count"])} · 状态 {h(row["evidence_status"])}</div></div><div class="cite"><a href="/domestic/document?key={quote(str(row["canonical_document_key"]), safe='')}">打开文献</a></div></article>'''
+            for row in rows
+        )
+    elif scope == "pages":
+        result_html = "".join(
+            f'''<article class="result"><div><h2>{h(row["title"] or row["object_id"] or "未命名页资产")}</h2>
+            <div class="meta">{h(row["canonical_document_key"])} · 物理页 {h(row["page_no"] or "未标注")} · {h(row["historical_phase"] or "unknown")} · {h(row["file_kind"])}</div>
+            <div class="snippet">{h(row["local_path"] or "无本地路径")} · SHA {h((row["sha256"] or "")[:16])}… · {h(row["reclass_bucket"] or "unknown")}</div></div><div class="cite"><a href="/domestic/document?key={quote(str(row["canonical_document_key"]), safe='')}">查看文献</a></div></article>'''
+            for row in rows
+        )
+    elif scope == "machine":
+        result_html = "".join(
+            f'''<article class="result"><div><h2>{h(row["title"] or row["object_id"] or "未命名官方文本")}</h2>
+            <div class="meta">{h(row["object_id"])} · {h(row["formation_institution"] or "机构未标注")} · 时期 {h(row["historical_phase"] or "unknown")}</div>
+            <div class="snippet">{h(row["document_type"] or "未标注类型")} · {h(row["evidence_tier"])} · {h(row["access_status"] or "unknown")} · SHA {h((row["sha256"] or "")[:16])}…</div></div><div class="cite"><a href="{h(row["source_url"] or row["local_path"] or "#")}">来源入口</a></div></article>'''
+            for row in rows
+        )
+    elif scope == "ocr":
+        result_html = "".join(
+            f'''<article class="result"><div><h2>{h(row["source_title"] or row["source_id"] or row["provenance_id"])}</h2>
+            <div class="meta">{h(row["source_id"])} · 物理页 {h(row["physical_page_no"] or "未标注")} · {h(row["period"] or "unknown")} · {h(row["binding_status"])}</div>
+            <div class="snippet">OCR {h(row["text_structure_status"])} · 置信度 {h(row["ocr_confidence"] or "NA")} · valid={h(row["valid"])} · SHA {h((row["ocr_md_sha256"] or "")[:16])}… · {h(row["ocr_md_path"] or "无 OCR 路径")}</div></div></article>'''
+            for row in rows
+        )
+    elif scope == "local":
+        result_html = "".join(
+            f'''<article class="result"><div><h2>{h(row["title"] or row["object_id"])}</h2>
+            <div class="meta">{h(row["object_id"])} · 日期 {h(row["document_date"] or "unknown")} · {h(row["document_class"])} · {h(row["relation_status"])}</div>
+            <div class="snippet">原件/来源 SHA {h((row["source_sha256"] or "")[:16])}… · 派生文本 SHA {h((row["derived_text_sha256"] or "")[:16])}… · 文本结构 {h(row["quality_status"] or "未审计")} · 机器语义 {h(row["machine_signal_status"] or "未提取")} · 证据卡片 {h(row["card_status"] or "未生成")} · 字符 {h(row["char_count"] or 0)} · citation_ready={h(row["citation_ready"])}</div></div></article>'''
+            for row in rows
+        )
+    elif scope == "research":
+        result_html = "".join(
+            f'''<article class="result"><div><h2>{h(row["title"] or row["external_id"])}</h2>
+            <div class="meta">{h(row["external_id"])} · {h(row["layer"] or "研究资料")} · {h(row["research_type"] or "未标注类型")} · 质量 {h(row["quality_tier"] or "未分级")}</div>
+            <div class="snippet">{h(row["institution"] or "机构未标注")} · 出版/发表 {h(row["publication_date"] or "未标注")} · {h(row["fulltext_status"])} · citation_ready={h(row["citation_ready"])} · human_verified={h(row["human_verified"])}</div></div><div class="cite"><a href="{h(row["source_url"] or "#")}">来源入口</a></div></article>'''
+            for row in rows
+        )
+    else:
+        claim_results = []
+        for row in rows:
+            relation = structured_relation_rows.get(row["candidate_id"], {})
+            adjudication = conservative_relation_rows.get(row["candidate_id"], {})
+            relation_text = (
+                f'全文关系 {h(adjudication.get("adjudicated_relation_candidate") or relation.get("relation_signal") or "未建立")} '
+                f'· 验证 {h(adjudication.get("verification_status") or relation.get("relation_status") or "未验证")}'
+            ) if relation or adjudication else "全文关系 未进入复核卡片"
+            claim_results.append(
+                f'''<article class="result"><div><h2>{h(row["source_title"] or row["candidate_id"])}</h2>
+                <div class="meta">{h(row["canonical_document_key"] or "未绑定")} · 物理页 {h(row["physical_page_no"] or "未标注")} · {h(row["period"] or "unknown")} · {h(row["claim_status"])} · 标签 {h(row["claim_family"] or "未标注")} · 定位 {h(row["locator_audit_status"] or "未审计")} · 分流 {h(row["triage_class"] or "未分流")} · 卡片 {h(row["card_status"] or "未生成")} · {h(row["review_stage"] or "未排队")} {h(row["priority"] or "")} · {relation_text}</div>
+                <div class="snippet">{h(compact(row["candidate_text"], 360))} · 片段 SHA {h((row["candidate_text_sha256"] or "")[:16])}…</div></div></article>'''
+            )
+        result_html = "".join(claim_results)
+    if not result_html:
+        result_html = '<div class="notice">没有匹配结果。可以换用来源编号、报刊名、时期或文件类型搜索。</div>'
+    doc_cls = "button" if scope == "documents" else "button secondary"
+    page_cls = "button" if scope == "pages" else "button secondary"
+    machine_cls = "button" if scope == "machine" else "button secondary"
+    ocr_cls = "button" if scope == "ocr" else "button secondary"
+    claims_cls = "button" if scope == "claims" else "button secondary"
+    local_cls = "button" if scope == "local" else "button secondary"
+    research_cls = "button" if scope == "research" else "button secondary"
+    scope_label = {"documents": "文献对象", "pages": "物理页资产", "machine": "官方/机器文本", "ocr": "OCR provenance", "claims": "语义候选片段", "local": "本地 staging 对象", "research": "国内研究资料"}[scope]
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""
+<section class="doc-head"><div><h1>国内 staging 检索</h1><div class="meta">文献对象、物理页资产、官方/机器文本、OCR provenance、语义候选、本地 staging 材料和研究资料分开计数；结果来自独立 staging，不会修改正式库</div></div><div class="doc-tools"><a class="{doc_cls}" href="/domestic/search?scope=documents&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">文献对象</a><a class="{page_cls}" href="/domestic/search?scope=pages&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">物理页</a><a class="{machine_cls}" href="/domestic/search?scope=machine&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">官方/机器文本</a><a class="{ocr_cls}" href="/domestic/search?scope=ocr&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">OCR provenance</a><a class="{claims_cls}" href="/domestic/search?scope=claims&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">语义候选片段</a><a class="{local_cls}" href="/domestic/search?scope=local&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">本地 staging</a><a class="{research_cls}" href="/domestic/search?scope=research&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">研究资料</a></div></section>
+<form class="filter-form" method="get" action="/domestic/search">
+  <input type="hidden" name="scope" value="{h(scope)}">
+  <label>关键词 <input name="q" value="{h(raw_q)}" placeholder="报刊名、来源编号、时期、文件类型"></label>
+  <label>时期 <input name="phase" value="{h(phase)}" placeholder="如 1947"></label>
+  <button class="button" type="submit">检索</button>
+</form>
+<div class="notice">最多显示 100 条。路径和 SHA 只用于 provenance 追踪；机器 OCR、目录和未核验页不会自动成为 citation-ready。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-search"/></svg>{scope_label}（{len(rows)} 条）</h2></div>
+<section class="result-list">{result_html}</section>
+"""
+    return layout("国内检索", body, active_path="/domestic/search")
+
+
+def domestic_staging_document_page(query: dict[str, list[str]] | None = None) -> bytes:
+    """展示一个 staging canonical 文献及其物理页资产。"""
+    query = query or {}
+    key = (query.get("key", [""])[0] or "").strip()[:500]
+    if not key:
+        return layout(
+            "国内文献",
+            '<div class="notice">缺少 canonical 文献键。请从国内检索结果进入。</div>',
+            active_path="/domestic/search",
+        )
+    if not DOMESTIC_STAGING_DB_PATH.exists():
+        return layout(
+            "国内文献",
+            '<div class="notice">国内 staging 数据库尚未建立。</div>',
+            active_path="/domestic/search",
+        )
+    try:
+        c = sqlite3.connect(DOMESTIC_STAGING_DB_PATH)
+        c.row_factory = sqlite3.Row
+        document = c.execute(
+            """SELECT id, canonical_document_key, title, dominant_phase,
+                      source_row_count, page_row_count, file_row_count,
+                      unique_sha256_count, unique_path_count, evidence_status
+               FROM documents WHERE canonical_document_key = ?""",
+            (key,),
+        ).fetchone()
+        pages = c.execute(
+            """SELECT object_id, local_path, page_no, sha256, file_kind,
+                      historical_phase, reclass_bucket, title
+               FROM page_assets WHERE document_id = ?
+               ORDER BY page_no, local_path LIMIT 500""",
+            (document["id"],),
+        ).fetchall() if document else []
+        c.close()
+    except sqlite3.Error as exc:
+        return layout("国内文献", f'<div class="notice">staging 数据库读取失败：{h(exc)}</div>', active_path="/domestic/search")
+    if document is None:
+        return layout("国内文献", f'<div class="notice">未找到 canonical 文献：{h(key)}</div>', active_path="/domestic/search")
+
+    title = document["title"] or "未命名文献"
+    try:
+        parsed_title = json.loads(str(title))
+        if isinstance(parsed_title, list):
+            title = "；".join(str(x) for x in parsed_title[:4])
+    except (TypeError, json.JSONDecodeError):
+        pass
+    page_html = "".join(
+        f'''<article class="result"><div><h2>物理页 {h(row["page_no"] or "未标注")}</h2>
+        <div class="meta">{h(row["file_kind"])} · 来源时期 {h(row["historical_phase"] or "unknown")} · 重分类 {h(row["reclass_bucket"] or "unknown")}</div>
+        <div class="snippet">{h(row["local_path"] or "无路径")} · SHA-256 {h(row["sha256"] or "缺失")} · object {h(row["object_id"] or "unknown")}</div></div></article>'''
+        for row in pages
+    ) or '<div class="notice">该文献目前没有物理页资产。</div>'
+    body = breadcrumb_html([("/domestic", "国内史料"), ("/domestic/search", "国内检索"), (None, "文献详情")]) + f"""
+<section class="doc-head"><div><h1>{h(title)}</h1><div class="meta">{h(document["canonical_document_key"])}</div></div><div class="doc-tools"><a class="button" href="/domestic/search?scope=pages&amp;q={quote(key)}">检索此文献页</a></div></section>
+<section class="stats">
+  <div class="stat"><strong>{h(document["page_row_count"])}</strong><span>页资产</span></div>
+  <div class="stat"><strong>{h(document["file_row_count"])}</strong><span>文件资产</span></div>
+  <div class="stat"><strong>{h(document["unique_sha256_count"])}</strong><span>唯一 SHA</span></div>
+  <div class="stat"><strong>{h(document["dominant_phase"] or "unknown")}</strong><span>来源时期标签</span></div>
+</section>
+<div class="notice">证据状态：{h(document["evidence_status"])}。本页展示的是 staging canonical 对象和物理资产，不代表已经完成 OCR、证据单元或 citation-ready 验收。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>物理页与文件资产（最多显示 500 条）</h2></div>
+<section class="result-list">{page_html}</section>
+"""
+    return layout("国内文献", body, active_path="/domestic/search")
 
 
 def domestic_sources_page() -> bytes:
@@ -2563,10 +3628,28 @@ def domestic_acquisition_page() -> bytes:
     bullets = re.findall(r"^- (.+)$", text, flags=re.MULTILINE)
     rows = _domestic_rows()
     with_archive = sum(1 for row in rows if row["archive_fonds"] or row["archive_file"] or row["archive_item"])
+    mmda_pending_rows: list[dict] = []
+    if MMDA_ORIGINAL_PENDING_QUEUE_PATH.exists():
+        try:
+            mmda_pending_rows = [
+                json.loads(line)
+                for line in MMDA_ORIGINAL_PENDING_QUEUE_PATH.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
+        except (OSError, json.JSONDecodeError):
+            mmda_pending_rows = []
+    mmda_pending_cards = "".join(
+        f'<article class="result"><div><h2>{h(item.get("title") or item.get("queue_id"))}</h2>'
+        f'<div class="meta">{h(item.get("phase"))} · {h(item.get("source_evidence"))} · {h(item.get("acquisition_status"))}</div>'
+        f'<div class="snippet">{h(item.get("next_action") or "等待原件获取")}</div></div>'
+        f'<div class="cite"><a href="/domestic/review">保持待核</a></div></article>'
+        for item in mmda_pending_rows
+    )
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "调档清单")]) + f"""
 <section class="doc-head"><div><h1>国内史料调档与获取清单</h1><div class="meta">记录级档号、卷期、影像和权利的下一步任务</div></div><div class="doc-tools"><a class="button" href="/domestic/review">复核看板</a></div></section>
-<section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>候选记录</span></div><div class="stat"><strong>{h(with_archive)}</strong><span>含档号字段</span></div><div class="stat"><strong>{h(len(rows) - with_archive)}</strong><span>待定位</span></div></section>
+<section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>候选记录</span></div><div class="stat"><strong>{h(with_archive)}</strong><span>含档号字段</span></div><div class="stat"><strong>{h(len(rows) - with_archive)}</strong><span>待定位</span></div><div class="stat"><strong>{h(len(mmda_pending_rows))}</strong><span>MMDA 原件待取</span></div></section>
 <div class="notice">本页只列调档元数据和公开入口；受限扫描件、PDF、图片和本地缓存不会通过公开 URL 提供。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>1942—1943 MMDA 原件待取</h2></div><section class="result-list">{mmda_pending_cards or '<div class="notice">当前没有待取条目。</div>'}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>当前未闭环重点</h2></div><section class="result-list">{''.join(f'<article class="result"><div><div class="title">{h(item)}</div><div class="snippet">需要回到馆藏目录、同期报刊或正式汇编，补齐档号/卷期、影像和权利字段。</div></div><div class="cite"><a href="/domestic/review">进入复核</a></div></article>' for item in bullets)}</section>"""
     return layout("国内调档清单", body, active_path="/domestic/acquisition")
 
@@ -6688,6 +7771,14 @@ class Handler(BaseHTTPRequestHandler):
             payload = about_page()
         elif parsed.path == "/public":
             payload = public_page()
+        elif parsed.path == "/domestic/document":
+            payload = domestic_staging_document_page(qs)
+        elif parsed.path == "/domestic/library":
+            payload = domestic_library_page(qs)
+        elif parsed.path == "/domestic/search":
+            payload = domestic_staging_search_page(qs)
+        elif parsed.path == "/domestic/quality":
+            payload = domestic_quality_page()
         elif parsed.path == "/domestic/sources":
             payload = domestic_sources_page()
         elif parsed.path == "/domestic/events":

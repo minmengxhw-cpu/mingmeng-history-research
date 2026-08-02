@@ -735,43 +735,45 @@
   },
   {
     "source_id": "domestic:source:nlc_dagongbao_1947_v113",
-    "source_name": "中国国家图书馆《大公报》第113卷公开原刊扫描",
+    "canonical_source_id": "domestic:source:nlc_dagongbao_1931_v113",
+    "source_name": "中国国家图书馆《大公报》第113卷（1931年11月）公开原刊扫描",
     "institution": "中国国家图书馆；Wikimedia Commons公开镜像",
     "source_type": "民国报刊原刊影像／合订卷公开数字化扫描",
     "authority_level": "国家图书馆馆藏标识对应的原刊扫描；具体再利用权利按原始机构和平台规则复核",
     "official_url": "https://commons.wikimedia.org/wiki/File:NLC511-012031312030001-21905_%E5%A4%A7%E5%85%AC%E5%A0%B1_%E7%AC%AC113%E5%8D%B7.pdf",
     "record_or_search_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/NLC511-012031312030001-21905_%E5%A4%A7%E5%85%AC%E5%A0%B1_%E7%AC%AC113%E5%8D%B7.pdf",
     "material_types": [
-      "1947年11月上海《大公报》原刊版面",
-      "民盟被宣布非法与被迫解散事件同期报刊核查",
-      "张澜及民盟相关报道追索"
+      "1931年11月《大公报》原刊版面",
+      "民盟成立前历史报刊",
+      "不纳入1941—1949国内民盟史证据统计"
     ],
-    "shanghai_relevance": "极高；直接覆盖1947年11月6日前后上海版《大公报》原刊版面核查",
+    "shanghai_relevance": "不适用；该卷实际为1931年11月，早于民盟成立，排除出当前国内盟史证据范围",
     "access_mode": "Wikimedia Commons公开PDF；馆藏标识 NLC511-012031312030001-21905",
     "rights_status": "公开扫描页面标注公版；国家图书馆数字副本具体再利用规则仍待核对",
-    "verification_note": "已下载本地副本 data/domestic/press_scans/NLC511-012031312030001-21905_大公報_第113卷.pdf，共232页、A3、未加密、92,180,675 bytes，SHA256 为 31060177686a64a99f1c8b464d972d3a5271f00c6ee47e8616b5340b8f771c84。人工可视核验合订卷 PDF 第41页为1947-11-06第1版，第42页为第2版，第43—48页为第3—8版；当前已核看的11月6日版面尚未定位到后期整理页所称‘民盟今日解散’标题，因此本源作为原刊追索入口登记，不新增目标报道候选。",
-    "checked_at": "2026-07-18",
-    "status": "verified_entry"
+    "verification_note": "2026-07-29纠错：W2逐页报头映射确认本卷232页覆盖1931-11-01至1931-11-30；首日报头含‘中华民国二十年十一月一日’，期号4564。此前1947年判断作废。原PDF与SHA256保持不变，仅纠正元数据；本卷不得作为1947年民盟受压迫、非法化或解散证据。",
+    "checked_at": "2026-07-29",
+    "status": "corrected_misdated_out_of_scope"
   },
   {
     "source_id": "domestic:source:nlc_dagongbao_1947_v114",
-    "source_name": "中国国家图书馆《大公报》第114卷公开原刊扫描",
+    "canonical_source_id": "domestic:source:nlc_dagongbao_1931_v114",
+    "source_name": "中国国家图书馆《大公报》第114卷（1931年12月）公开原刊扫描",
     "institution": "中国国家图书馆；Wikimedia Commons公开镜像",
     "source_type": "民国报刊原刊影像／合订卷公开数字化扫描",
     "authority_level": "国家图书馆馆藏标识对应的原刊扫描；具体再利用权利按原始机构和平台规则复核",
     "official_url": "https://commons.wikimedia.org/wiki/File:NLC511-012031312030001-21906_%E5%A4%A7%E5%85%AC%E5%A0%B1_%E7%AC%AC114%E5%8D%B7.pdf",
     "record_or_search_url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/NLC511-012031312030001-21906_%E5%A4%A7%E5%85%AC%E5%A0%B1_%E7%AC%AC114%E5%8D%B7.pdf",
     "material_types": [
-      "1947年11月上海《大公报》原刊版面",
-      "民盟被宣布非法与被迫解散事件同期报刊核查",
-      "张澜及民盟相关报道追索"
+      "1931年12月《大公报》原刊版面",
+      "民盟成立前历史报刊",
+      "不纳入1941—1949国内民盟史证据统计"
     ],
-    "shanghai_relevance": "极高；直接覆盖1947年11月6日前后上海版《大公报》原刊版面核查",
+    "shanghai_relevance": "不适用；该卷实际为1931年12月，早于民盟成立，排除出当前国内盟史证据范围",
     "access_mode": "Wikimedia Commons公开PDF；馆藏标识 NLC511-012031312030001-21906",
     "rights_status": "公开扫描页面标注公版；国家图书馆数字副本具体再利用规则仍待核对",
-    "verification_note": "已下载本地副本 data/domestic/press_scans/NLC511-012031312030001-21906_大公報_第114卷.pdf，共248页、未加密、111,330,592 bytes，SHA256 为 80d5daea555bfa6e5df03baaa71b4b0dc251510adb89752ab93da3ce932bb0bd。人工可视核验合订卷 PDF 第1页为1947-11-01；第41—48页为1947-11-06第1—8版。当前核看的8个版面均未定位后期整理页所称‘民盟今日解散’标题，因此本源作为相邻卷册原刊追索和负向核查入口登记，不新增目标报道候选。",
-    "checked_at": "2026-07-18",
-    "status": "verified_entry"
+    "verification_note": "2026-07-29纠错：W2逐页报头映射确认本卷248页覆盖1931-12-01至1931-12-31；首日报头含‘中华民国二十年十二月一日’，期号4593。此前1947年判断作废。原PDF与SHA256保持不变，仅纠正元数据；本卷不得作为1947年民盟受压迫、非法化或解散证据。",
+    "checked_at": "2026-07-29",
+    "status": "corrected_misdated_out_of_scope"
   },
   {
     "source_id": "domestic:source:udndata_dagongbao_1902_1949",

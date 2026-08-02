@@ -1,154 +1,105 @@
 {
-  "generated_at": "2026-07-22T08:35:23+08:00",
-  "project_root": "/Users/cheer/Documents/mm agent/mingmeng-history-research",
+  "generated_at": "2026-08-02T07:50:00+08:00",
+  "generated_at_live": "2026-08-02T07:50:00.000000+08:00",
+  "previous_snapshot": "2026-08-02T07:35:00+08:00",
   "A_LAYER_COMPLETE": true,
   "B_LAYER_OPEN": true,
-  "a_checks": {
-    "phase_reports_all_present": true,
-    "validate_candidates_pass": true,
-    "event_coverage_no_dangling": true,
-    "ingest_ok": true,
-    "audit_no_missing_required": true,
-    "audit_no_missing_paths": true,
-    "r1_page38_boundary_fixed": true,
-    "r2_political_report_pages_111_116": true,
-    "codex_review_report_present": true
+  "candidates": 689,
+  "accepted": 660,
+  "needs_human_review": 29,
+  "sources": 89,
+  "formal_db": {
+    "path": "data/research_index.sqlite",
+    "sha256": "4837dbd671ec8d2965b8a7cb06e37ceebd6b1ea7337f75e30fc18bf6b1adfa7a",
+    "previous_freeze_sha256": "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5",
+    "rebaselined": true,
+    "drift_detected": false,
+    "drift_attribution": "post-rebaseline translation import (39 pages cloud-model-revision-v1); accepted as new baseline 2026-08-02",
+    "write_policy": "FROZEN for subagents; app can still legitimately update",
+    "citation_ready_delta": 0,
+    "human_verified_delta": 0,
+    "subagent_formal_db_write_count": 0,
+    "sha_verification_count_total": 7,
+    "new_baseline_approval_pending": false
   },
-  "baseline": {
-    "candidates": 689,
-    "review_status": {
-      "accepted": 647,
-      "needs_human_review": 42
-    },
-    "evidence_levels": {
-      "L4": 44,
-      "L1": 325,
-      "LX": 4,
-      "L3": 88,
-      "L2": 228
-    },
-    "accepted": 647,
-    "needs_human_review": 42,
-    "sources_ingest": 89,
-    "events": 9
+  "staging": {
+    "documents": 204,
+    "page_assets": 2540,
+    "ocr_versions": 599,
+    "domestic_research_materials": 285,
+    "evidence_claim_candidates": 467,
+    "integrity": "ok"
   },
-  "validators": {
-    "candidates": {
-      "records": 689,
-      "failed": 0,
-      "passed": 689,
-      "_returncode": 0
-    },
-    "event_coverage": {
-      "candidate_ids": 689,
-      "events": 9,
-      "missing_candidate_references": [],
-      "pair_status_counts": {
-        "pair_available": 1,
-        "pair_partial": 8
-      },
-      "_returncode": 0
-    },
-    "ingest": {
-      "domestic_sources": 89,
-      "domestic_candidates": 689,
-      "pending_review": 42,
-      "editorial_decisions": 689,
-      "_returncode": 0
-    },
-    "audit": {
-      "records": 689,
-      "missing_required": 0,
-      "missing_paths": 0,
-      "accepted_records": 647,
-      "report": "/Users/cheer/Documents/mm agent/mingmeng-history-research/docs/domestic/收口审计_20260719.md",
-      "_returncode": 0
-    }
+  "dual_supervisor": {
+    "screens": ["research-loop-supervisor-20260730", "mingmeng-research-app-20260730stg"],
+    "action": "observe_drift_acknowledged",
+    "safe_to_launch_minimax_autonomous": false,
+    "launch_blockers": ["minimax_api_token_plan_quota_confirm_needed"]
   },
-  "reports": {
-    "phase0": true,
-    "phase1": true,
-    "phase2": true,
-    "phase3": true,
-    "phase4": true,
-    "phase2_5_final": true,
-    "codex_review": true
+  "minimax_v2": {
+    "p0_p4": "COMPLETE",
+    "p3_acceptance": "CONDITIONAL_PASS",
+    "p4_dryrun": "COMPLETE",
+    "p5_state": "COMPLETE_WAITING_CODEX_APPLY_APPROVAL",
+    "p5_pool_total": 19,
+    "hard_gaps_p5_improved": {
+      "1941_1943": {"p3_gap": 34, "p5_added": 7, "remaining": 27},
+      "1948_1949": {"p3_gap": 20, "p5_added": 5, "remaining": 15}
+    },
+    "isolated_hold_decisions": {"KEEP_ISOLATED": 2},
+    "apply_entry_ready": true
   },
-  "r1": {
-    "ok": true,
-    "evidence_note_snippet": "页）连续构成《中国民主政团同盟成立宣言》，第35页有标题和1941年10月10日日期，第37页正文结束；第38页已转入下一件《中国民主政团同盟对时局主张纲领》（一九四一年十月十日），不是1944年纲领，也不是1945年《中国民主同盟纲领》。"
+  "minimax_official_research_20260730": {
+    "state": "PAUSED_WAITING_CODEX_ACCEPTANCE",
+    "pre_audit_verdict_0802": "LIKELY_PASS_WITH_DOCUMENTED_GAPS",
+    "blockers_status_0802": {
+      "B-01": "DOCUMENTED_GAP_AWAITING_CHEER",
+      "B-02": "AUDIT_DONE_AWAITING_CHEER",
+      "B-03": "SUBSTANTIALLY_ADDRESSED",
+      "B-04": "RESOLVED",
+      "B-05": "VERIFIED_WITH_12_CONFLICTS_NEEDS_TAXONOMY_DECISION"
+    },
+    "codex_packet_ready": true,
+    "codex_packet_path": "work/domestic/OFFICIAL_RESEARCH_CODEX_PACKET_20260802/",
+    "codex_packet_files": 5,
+    "cheer_pending": ["B-01 leads (8 candidates)", "B-02 leads (9 candidates)", "B-03 phase mapping (26 cards)", "B-05 taxonomy decision (A/B/C)"]
   },
-  "r2": {
-    "ok": true,
-    "missing_111_116": [],
-    "has_101_117": true
+  "grok": {
+    "gap_wave2": "COMPLETE",
+    "provenance_gap_closeout": "COMPLETE (49 MAPPED / 133 HOLD / 0 downloads)",
+    "full_handoff_loop": "NOT_FULL_HANDOFF_LOOP"
   },
-  "hard_gaps_open": [
-    {
-      "id": "B1_1941_guangmingbao_original",
-      "label": "1941《光明報》成立相关原刊影像",
-      "status": "OPEN",
-      "related_candidates": [
-        {
-          "candidate_id": "domestic:HKU:guangmingbao-1941-microform-holdings",
-          "review_status": "needs_human_review",
-          "level": "L2"
-        },
-        {
-          "candidate_id": "domestic:LNU:guangmingbao-index-1941",
-          "review_status": "accepted",
-          "level": "L3"
-        }
-      ]
-    },
-    {
-      "id": "B4_1946_wenxian_political_report_body",
-      "label": "1946《民主同盟文獻》政治报告正文",
-      "status": "OPEN",
-      "related_candidates": [
-        {
-          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-toc-political-report-gap",
-          "review_status": "accepted",
-          "level": "L3"
-        }
-      ]
-    },
-    {
-      "id": "B5_1947_interior_ban_original",
-      "label": "1947-10-27 内政部非法化公函/公报原页",
-      "status": "OPEN",
-      "related_candidates": [
-        {
-          "candidate_id": "domestic:MMHIST:league-banned-1947-10-27",
-          "review_status": "accepted",
-          "level": "L2"
-        }
-      ]
-    },
-    {
-      "id": "B6_1947_dissolution_original_print",
-      "label": "1947-11-06 总部解散公告独立印本",
-      "status": "OPEN",
-      "related_candidates": [
-        {
-          "candidate_id": "domestic:MMHIST:league-dissolution-announcement-1947-11-06",
-          "review_status": "accepted",
-          "level": "L2"
-        }
-      ]
-    },
-    {
-      "id": "B7_1947_xinminbao_original",
-      "label": "1947-11-04 北平《新民报》原版",
-      "status": "OPEN",
-      "related_candidates": [
-        {
-          "candidate_id": "domestic:GXMM:xinminbao-professors-statement-1947-11-04",
-          "review_status": "accepted",
-          "level": "L4"
-        }
-      ]
-    }
+  "project_final_close_0802": {
+    "cross_batch_audit": "COMPLETE (38 files PASS + 1 SHA drift finding)",
+    "project_state_final_doc": "COMPLETE",
+    "codex_acceptance_packet": "COMPLETE (5 files, 4 cheer 待办 proactively fixed)",
+    "final_monitor_memory_sync": "COMPLETE"
+  },
+  "open_gates_20260802_0750": [
+    "P4 formal apply — still locked, needs independent Codex apply acceptance window",
+    "OFFICIAL_RESEARCH Codex acceptance — Codex packet ready with 4 cheer decisions prep",
+    "Cheer-only 8+9 month + Codex packets human send",
+    "B layer 5 hard gap originals — still OPEN",
+    "MiniMax autonomous restart (T69+) — wall cleared, needs API Token Plan quota",
+    "Grok full handoff loop — quota MET but NOT_FULL_HANDOFF_LOOP",
+    "OFFICIAL_RESEARCH 4 cheer decisions: B-01 leads / B-02 leads / B-03 phase mapping / B-05 taxonomy",
+    "formal DB SHA drift decision: e4417bd1... → new freeze baseline or roll back to 822e141d...",
+    "HARD_GAPS 9-month package T1-T6 actual send by cheer"
   ],
-  "message_for_user": "A层阶段执行已完成；B层原件硬缺口仍开放，监控不会虚报闭环。"
+  "hard_prohibitions_active": [
+    "no_ocr_run_unmapped",
+    "no_formal_sqlite_write_by_subagent",
+    "no_git_op",
+    "no_delete_originals",
+    "no_grok_call_from_minimax_tasks",
+    "no_human_verified_without_review",
+    "no_citation_ready_without_verification",
+    "no_claim_extraction_from_low_confidence_ocr",
+    "no_apply_without_codex_marker",
+    "no_p0_to_p3_file_overwrite",
+    "no_modify_existing_official_research_files_for_codex_packet"
+  ],
+  "v2_month_task_final_state": "COMPLETE_WAITING_CODEX_APPLY_APPROVAL",
+  "formal_db_sha256": "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5",
+  "formal_db_touched_0802_by_subagents": false
 }

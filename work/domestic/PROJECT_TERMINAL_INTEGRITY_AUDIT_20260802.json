@@ -1,0 +1,295 @@
+{
+  "observed_at": "2026-08-02T14:15:04.402266+08:00",
+  "task_id": "PROJECT_TERMINAL_INTEGRITY_AUDIT_20260802",
+  "mode": "read-only, no writes",
+  "scope": "all 0801-0802 cross-batch deliverables + protected P0-P3 invariants",
+  "live_formal_db_sha256": "f4147972fe21755523c5682663145708a54d11126e151095537382d06f42fd03",
+  "A_protected_p0_p3": {
+    "invariant": "subagents must not modify these files",
+    "files": [
+      {
+        "label": "P0 sample V2",
+        "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/02_sample_v2/V2_SAMPLE_1500.jsonl",
+        "sha256": "cd226897c52e44108681a19e02dab6041feb67f39ac356f8506ec059924b7228"
+      },
+      {
+        "label": "P3 evidence candidates",
+        "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/06_period_evidence/EVIDENCE_CANDIDATES_300.jsonl",
+        "sha256": "b805eeb68dec8303f72e3f73fe5cacd0d99acb5e9b2b71cd4b92320ae7281d65"
+      },
+      {
+        "label": "P3 hard gaps",
+        "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/06_period_evidence/HARD_GAPS.md",
+        "sha256": "cbee8215c07aad6afd2666d95010fe5f983952c4f92fcce9ced4881bb39a3fd0"
+      },
+      {
+        "label": "P3 observer screening",
+        "path": "work/domestic/minimax_domestic_evidence_v2_month_20260729/06_period_evidence/OBSERVER_V3_SCREENING.json",
+        "sha256": "71728353d3d2f56557c5ba95d8088d19191e91bb550308810ec3672b3fe69d4c"
+      }
+    ],
+    "all_present": true
+  },
+  "B_p5_files": {
+    "all_present": true,
+    "files": [
+      {
+        "path": "06_period_evidence/P5_HARD_GAP_POOL.jsonl",
+        "exists": true,
+        "sha256_prefix": "354060c58db3921e",
+        "size": 6727
+      },
+      {
+        "path": "06_period_evidence/P5_HARD_GAP_POOL_REJECTS.jsonl",
+        "exists": true,
+        "sha256_prefix": "c97ec4fba3f0787a",
+        "size": 388
+      },
+      {
+        "path": "09_reports/P5_HARD_GAP_NOTES.md",
+        "exists": true,
+        "sha256_prefix": "f09155fe01566f62",
+        "size": 4748
+      },
+      {
+        "path": "09_reports/P5_OBSERVER_HOLD_DECISION.json",
+        "exists": true,
+        "sha256_prefix": "9a78555231787f0e",
+        "size": 3522
+      },
+      {
+        "path": "09_reports/CODEX_APPLY_ACCEPTANCE_ENTRY.md",
+        "exists": true,
+        "sha256_prefix": "9aade1b33bec0945",
+        "size": 4812
+      },
+      {
+        "path": "09_reports/P5_CHECKPOINT.md",
+        "exists": true,
+        "sha256_prefix": "68ee8f9cdacb69a4",
+        "size": 3949
+      }
+    ]
+  },
+  "C_official_pre_audit_0802": [
+    {
+      "path": "06_reports/PRE_CODEX_AUDIT_BLOCKERS_20260802.json",
+      "verdict": "LIKELY_PASS_WITH_DOCUMENTED_GAPS",
+      "sha256_prefix": "47ad7e25469dd168"
+    },
+    {
+      "path": "06_reports/PRE_CODEX_AUDIT_BLOCKERS_20260802.md",
+      "lines": 57,
+      "sha256_prefix": "4f830ea3de96de19"
+    },
+    {
+      "path": "06_reports/B05_VERIFICATION.jsonl",
+      "lines": 26,
+      "sha256_prefix": "b62880d178973797"
+    },
+    {
+      "path": "06_reports/B03_RELATIONS_POPULATION.jsonl",
+      "lines": 600,
+      "sha256_prefix": "9dca9bfbfc0f3bff"
+    },
+    {
+      "path": "06_reports/B03_RELATIONS_SUMMARY.json",
+      "top_keys": [
+        "completion_date",
+        "task",
+        "source_edition_cards_total",
+        "cards_populated",
+        "cards_skipped_no_phase_match"
+      ],
+      "sha256_prefix": "e546aee8454a77f1"
+    },
+    {
+      "path": "05_cards/RESEARCH_CARDS_WITH_PRIMARY_RELATIONS_20260802.jsonl",
+      "lines": 95,
+      "sha256_prefix": "4818a04c936ccd4c"
+    }
+  ],
+  "D_w2_text_ocr": [
+    {
+      "file": "PDF_TEXT_LAYER_FINAL.jsonl",
+      "lines": 144,
+      "sha256_prefix": "282a01c7a56dc6c0"
+    },
+    {
+      "file": "P0_OCR_PILOT_MANIFEST.jsonl",
+      "lines": 28,
+      "sha256_prefix": "03ae314387229b4e"
+    },
+    {
+      "file": "P0_OCR_HOLD.jsonl",
+      "lines": 0,
+      "sha256_prefix": "e3b0c44298fc1c14"
+    },
+    {
+      "file": "MINIMAX_W2_TEXT_OCR_STATUS.json",
+      "state": "COMPLETE",
+      "sha256_prefix": "803da71f9c799e5d"
+    },
+    {
+      "file": "MINIMAX_W2_TEXT_OCR_CHECKPOINT.md",
+      "lines": 92,
+      "sha256_prefix": "fbded078fd23b994"
+    }
+  ],
+  "E_codex_packet": [
+    {
+      "name": "B_01_NON_MMDA_LEADS.jsonl",
+      "size": 5947,
+      "sha256_prefix": "c150bbd75509a7e4"
+    },
+    {
+      "name": "B_02_1948_49_LEADS.jsonl",
+      "size": 5541,
+      "sha256_prefix": "1c77a310b29d988b"
+    },
+    {
+      "name": "B_03_PHASE_MAPPING.json",
+      "size": 6128,
+      "sha256_prefix": "6a484c6a9c36fc35"
+    },
+    {
+      "name": "B_05_TAXONOMY_DECISIONS.md",
+      "size": 3162,
+      "sha256_prefix": "133c064b196708bc"
+    },
+    {
+      "name": "MANIFEST.json",
+      "size": 6708,
+      "sha256_prefix": "921aa7a83a56012d"
+    },
+    {
+      "name": "README.md",
+      "size": 2658,
+      "sha256_prefix": "e62b282ec33a0b96"
+    }
+  ],
+  "F_sept_package": [
+    {
+      "name": "HARD_GAPS_SEPT_TRACKER_20260802.jsonl",
+      "size": 3203,
+      "sha256_prefix": "19f8c111c6eeb69e"
+    },
+    {
+      "name": "OLD_PROCESS_NOTE.md",
+      "size": 494,
+      "sha256_prefix": "dd814332fde1087d"
+    },
+    {
+      "name": "README_20260802.md",
+      "size": 3197,
+      "sha256_prefix": "d4eebe5c61382986"
+    },
+    {
+      "name": "SEPT_PACKAGE_STATUS.json",
+      "size": 387,
+      "sha256_prefix": "6e20d5ad945e0012"
+    },
+    {
+      "name": "T1_重庆市档案馆_1941_桂系与民盟早期_request_draft_20260802.md",
+      "size": 4220,
+      "sha256_prefix": "0dd2eb7677b69b4d"
+    },
+    {
+      "name": "T2_中央社会主义学院_院史与三中全会_request_draft_20260802.md",
+      "size": 4123,
+      "sha256_prefix": "dd32af70755555ef"
+    },
+    {
+      "name": "T3_民盟中央党史办_1941_1949_中央文件_request_draft_20260802.md",
+      "size": 4362,
+      "sha256_prefix": "06a892a1cb447c11"
+    },
+    {
+      "name": "T4_重庆特园_1941_1945_民盟活动地_request_draft_20260802.md",
+      "size": 4774,
+      "sha256_prefix": "e941ec0340280f54"
+    },
+    {
+      "name": "T5_全国政协中央统战部_1949_政协筹备与统战档案_request_draft_20260802.md",
+      "size": 4885,
+      "sha256_prefix": "7129f3aa3ecbc15e"
+    },
+    {
+      "name": "T6_NLC_1948_49_光明报大公报_缩微复制_request_draft_20260802.md",
+      "size": 4446,
+      "sha256_prefix": "7994b63802c80ac0"
+    }
+  ],
+  "G_monitoring_memory": {
+    "monitor_status_latest_json": {
+      "state": "COMPLETE_WAITING_CODEX_APPLY_APPROVAL",
+      "keys": 21
+    },
+    "monitor_status_latest_md": {
+      "lines": 140
+    },
+    "memory_md": {
+      "lines": 10
+    },
+    "audit_0802_replay": {
+      "script_size": 10836,
+      "snapshots": [
+        "audit_0802_replay_20260802T101911.json",
+        "audit_0802_replay_20260802T103644.json"
+      ]
+    }
+  },
+  "H_final_docs": [
+    {
+      "path": "work/domestic/CHEER_NEXT_ACTIONS.md",
+      "size": 5359,
+      "sha256_prefix": "f2bced4ffdfe2573"
+    },
+    {
+      "path": "work/domestic/PROJECT_STATE_FINAL_20260802.md",
+      "size": 10087,
+      "sha256_prefix": "5184753b6c5e02d7"
+    },
+    {
+      "path": "work/domestic/PROJECT_POST_0802_SUMMARY.md",
+      "size": 9506,
+      "sha256_prefix": "b836b1ff69aa00e9"
+    },
+    {
+      "path": "work/domestic/PROJECT_FINAL_AUDIT_20260802.json",
+      "size": 14465,
+      "sha256_prefix": "346bd63941e66816"
+    },
+    {
+      "path": "work/domestic/INDEX.md",
+      "size": 6285,
+      "sha256_prefix": "6535afa0c2ddb61b"
+    }
+  ],
+  "I_invariants": {
+    "citation_ready_zero": true,
+    "no_human_verified_col": true,
+    "editorial_660_29": true,
+    "p0_p3_sha_unchanged": true,
+    "integrity_check_ok": true
+  },
+  "J_findings": {
+    "all_p5_intact": true,
+    "all_official_intact": true,
+    "all_w2_intact": true,
+    "all_codex_packet_intact": true,
+    "all_sept_package_intact": true,
+    "monitor_present": true,
+    "memory_present": true,
+    "audit_replay_present": true,
+    "final_docs_present": true,
+    "protected_files_unchanged": true,
+    "no_constraint_violations": true
+  },
+  "_stale_notice": {
+    "marked_at": "2026-08-02T13:48Z",
+    "reason": "旧基线 SHA 已过期",
+    "superseded_by": "work/model_runs/minimax_next_stage_20260802/P0_BASELINE_DRIFT_REPORT.md",
+    "current_formal_db_sha256": "bdebdbb0d4c5b250cf59487dfb023cdaf9d219e3d1c4e51c8e5edd8980729d2e"
+  }
+}
