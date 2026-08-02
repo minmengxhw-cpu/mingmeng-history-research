@@ -26,7 +26,7 @@ ACTION_PATH = CONTROL / "ACTION.json"
 DISPATCH_LOG = CONTROL / "DISPATCH.log"
 PROMPT_PATH = ROOT / "work/domestic/LOOP_SUPERVISOR_SMALL_AGENT_PROMPT_20260730.md"
 FORMAL_DB = ROOT / "data/research_index.sqlite"
-EXPECTED_FORMAL_SHA = "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5"
+EXPECTED_FORMAL_SHA = "4837dbd671ec8d2965b8a7cb06e37ceebd6b1ea7337f75e30fc18bf6b1adfa7a"
 
 MINIMAX_CONTROL = (
     ROOT / "work/domestic/minimax_autonomous_research_20260730/00_control"

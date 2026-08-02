@@ -26,8 +26,8 @@
 | 项 | 值 |
 |---|---|
 | formal path | `data/research_index.sqlite` |
-| formal_db_sha256 current | `e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5` ✅ **新冻结基线（0802 rebaseline）** |
-| formal_db_sha256 previous freeze (P3) | `822e141dc5818393297f32ad63133eedbf57268c6088b6369505487632115fd3` |
+| formal_db_sha256 current | `4837dbd671ec8d2965b8a7cb06e37ceebd6b1ea7337f75e30fc18bf6b1adfa7a` ✅ **新冻结基线（0802 rebaseline + 译文导入后）** |
+| formal_db_sha256 previous freeze (0802 rebaseline) | `e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5` |
 | drift_attribution | application-driven（app.py PID 68642 / supervisor PID 32605）；**非 subagent** |
 | write_policy | **FROZEN for subagents**; **app 仍可合法更新** |
 | citation_ready Δ | **0** |
@@ -54,8 +54,8 @@
 | minimax worker screen | absent |
 | grok worker screen | absent |
 
-- ACTION：`observe`（formal SHA drift 是 app-driven 非 subagent）
-- `EXPECTED_FORMAL_SHA` 脚本硬编码已升至 `e4417bd1…`（0802 rebaseline 完成，新基线已批准；QC 表重建为唯一漂移源）
+- ACTION：`observe`（0802 rebaseline e4417bd1 → 译文导入后 4837dbd6，均 app/导入驱动）
+- `EXPECTED_FORMAL_SHA` 脚本硬编码已升至 `4837dbd6…`（0802 rebaseline + 39 页译文导入后新基线）
 
 ## minimax V2 接力（1 月长任务）— **P5 收口 + apply 入口就绪**
 
@@ -120,7 +120,7 @@
 | 0801 11:30 → 22:30 | 11 subagent + 1 loop | 3 次 | 2 次 |
 | 0802 07:35 → 07:50 | 4 主循环 | 0 | 0 |
 
-**formal DB SHA 校验**：0801 五次 + 0802 两次 = **7 次**全部 `822e141d…` 一致；**0802 早间 drift 到 `e4417bd1…`**（application-driven，非 subagent），**已接受为新冻结基线（0802 rebaseline）**。
+**formal DB SHA 校验**：0801 五次 + 0802 两次 = **7 次**全部 `822e141d…` 一致；**0802 早间 drift 到 `e4417bd1…`**（application-driven，非 subagent），**已接受为新冻结基线（0802 rebaseline）**；随后导入 39 页修订译文，**再升至 `4837dbd6…`**（0802 终态基线）。
 
 ## Open gates（0802 07:50 诚实清单，10 条）
 
@@ -133,7 +133,7 @@
 7. 📤 Cheer-only 8 月+9 月包 + Codex 验收包人工发送
 8. 📞 B 层 5 硬缺口原件（OPEN，等馆方回函）
 9. ⏸ MiniMax autonomous T69+（wall cleared，需 Token Plan 配额）
-10. ✅ **formal DB SHA drift** → **rebaseline 完成**（新冻结基线 `e4417bd1…`，0802）
+10. ✅ **formal DB SHA drift** → **rebaseline 完成**（e4417bd1 → 译文导入后 `4837dbd6…`，0802 终态基线）
 
 ## 用户摘要（0802 07:50）
 
