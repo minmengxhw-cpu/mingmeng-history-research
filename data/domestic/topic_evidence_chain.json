@@ -52,12 +52,28 @@
           "caveat": "可用于定位和文本对读，不能替代改组会议记录。"
         },
         {
-          "label": "《民憲》第一卷第一期",
-          "page_id": 20285,
-          "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n1-1944-05-16",
-          "status": "review_only",
-          "role": "1944年同期机关刊物入口",
-          "caveat": "当前页仍待人工复核，不能直接作为正式引用页。"
+        "label": "《民憲》第一卷第一期目录页",
+        "page_id": 20286,
+        "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n1-1944-05-16",
+        "status": "strict_citation",
+        "role": "1944-05-16同期政论刊物的期次/目录页交叉材料",
+        "caveat": "严格门禁只覆盖刊名、卷期、出版日和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
+      },
+      {
+        "label": "《民憲》第一卷第六期目录页",
+        "page_id": 20288,
+        "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n6-1944-08-15",
+        "status": "strict_citation",
+        "role": "1944-08-15改组前夕同期政论刊物的期次/目录页交叉材料",
+        "caveat": "严格门禁只覆盖刊名、卷期、出版日和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
+      },
+      {
+        "label": "《民憲》第一卷第九期目录页",
+        "page_id": 20290,
+        "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n9-1944-11-20",
+        "status": "strict_citation",
+        "role": "1944-11-20改组后同期政论刊物的期次/目录页交叉材料",
+        "caveat": "严格门禁只覆盖刊名、卷期、出版日、馆藏日期戳和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
         }
       ],
       "negative_checks": [],
@@ -70,7 +86,7 @@
         }
       ]
     },
-    "chain_note": "1944专题目前以同期刊物和汇编材料做导航，事件定义原件仍缺。"
+    "chain_note": "1944专题现有同期刊物目录页已绑定真实PDF并通过页级引用门禁，但只支持期次、出版日和目录页身份；改组会议、改名决定和同期正式文件原件仍缺。"
   },
   {
     "event_id": "domestic-1945-first-congress",

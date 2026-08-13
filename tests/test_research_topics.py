@@ -152,6 +152,48 @@ def test_domestic_strict_citation_uses_domestic_provenance_format(live_server, d
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_domestic_document_entry_uses_domestic_citation_boundary(live_server, db_missing_reason):
+    """国内文档总页不能把文献级入口误写成 FRUS 引用。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证国内文档入口: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        row = connection.execute(
+            """SELECT d.doc_key
+               FROM documents d
+               JOIN pages p ON p.document_id=d.id
+               JOIN page_provenance pp ON pp.page_id=p.id
+               WHERE d.source_platform='domestic'
+                 AND pp.citation_ready=1
+                 AND pp.review_status='human_verified'
+               ORDER BY p.id
+               LIMIT 1"""
+        ).fetchone()
+    assert row is not None
+    status, body = fetch(live_server, f"/doc/{quote(row[0], safe='')}")
+    assert status == 200
+    assert body is not None
+    assert "国内史料入口（页级引用）" in body
+    assert "文献级来源入口" in body
+    assert "正式可引用" in body
+    assert "Foreign Relations of the United States" not in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
+def test_minxian_contents_citation_is_scope_limited(live_server, db_missing_reason):
+    """目录页只开放刊期/日期/页码身份，不把未校勘 OCR 导出成逐字引文。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证《民憲》目录页引用范围: {db_missing_reason}")
+    status, body = fetch(live_server, "/cite/20290")
+    assert status == 200
+    assert body is not None
+    assert "机器识别内容（仅供定位，不作逐字引文）" in body
+    assert "证据范围：本页人工复核仅覆盖刊名、卷期、出版日、目录页身份及页码锚点。" in body
+    assert "原文摘录：" not in body
+    assert "来源文件 SHA256" in body
+    assert "PDF 第 2 页" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
 def test_domestic_non_strict_citation_stays_blocked(live_server, db_missing_reason):
     """国内未通过人工门禁的页仍只能阅读，不能生成引用卡。"""
     if db_missing_reason:

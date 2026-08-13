@@ -5963,6 +5963,33 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
         )
         return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
+    # ============ 国内史料文献级入口（正式引用仍以页卡为准） ============
+    if platform == "domestic":
+        source_title = str(doc["volume_title"] or "国内史料")
+        source_id = str(docnum or doc["doc_key"] or "")
+        bibkey = f"Domestic_{source_id}".replace(".", "_").replace("-", "_").replace("/", "_")[:96]
+        note = "文献级入口；正式引用请进入具体页的页级引用卡，并核对 human_verified 与 citation_ready 门禁"
+        bibtex = (
+            f"@misc{{{bibkey},\n"
+            f"  title = {{{title_zh}}},\n"
+            f"  author = {{{source_title}}},\n"
+            f"  howpublished = {{{source_title}; 国内史料文献级入口}},\n"
+            f"  year = {{{year}}},\n"
+            f"  note = {{{note}}},\n"
+            f"  url = {{{url}}},\n"
+            f"  urldate = {{{today}}}\n"
+            f"}}"
+        )
+        chicago = (
+            f"{source_title}. \"{title_zh}.\" {date or '日期未注明'}. "
+            f"国内史料研究库，文献级入口。{url}。注：{note}。"
+        )
+        gb = (
+            f"{source_title}. {title_zh}[G/OL]. {date or '日期未注明'}. "
+            f"国内史料研究库，文献级入口[{today}]. {url}. 注：{note}。"
+        )
+        return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
+
     # ============ CIA Records Reading Room 解密档案 ============
     if platform == "cia":
         rdp_id = docnum  # archive.org identifier，含 RDP 编号
@@ -6228,7 +6255,9 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
                 COALESCE(pp.citation_ready, 0) AS citation_ready,
                 COALESCE(pp.needs_human_review, 1) AS needs_human_review,
                 COALESCE(pp.review_status, 'missing') AS provenance_review_status,
-                COALESCE(pp.human_review_note, '') AS human_review_note
+                COALESCE(pp.human_review_note, '') AS human_review_note,
+                COALESCE(pp.source_file, '') AS provenance_source_file,
+                COALESCE(pp.source_sha256, '') AS provenance_source_sha256
             FROM pages
             LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
             LEFT JOIN page_provenance pp ON pp.page_id = pages.id
@@ -6427,12 +6456,23 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
                 related_docs.append({"title": f"人物关联: {p['name']}", "docs": related_people})
             break
 
-    citation_heading = "引用草稿（待复核）" if is_domestic_academic else "学术引用"
+    if is_domestic_academic:
+        citation_heading = "引用草稿（待复核）"
+    elif platform == "domestic":
+        citation_heading = "国内史料入口（页级引用）"
+    else:
+        citation_heading = "学术引用"
     citation_notice = (
         '<div class="notice">该条目属于学术解释层：当前全文仅供检索和研究，不是正式可引用证据；'
         '需完成版本、页码/章节、来源哈希和人工复核后，才可申请 citation-ready。</div>'
         if is_domestic_academic else ""
     )
+    if platform == "domestic" and not is_domestic_academic:
+        citation_notice = (
+            '<div class="notice">这里是文献级来源入口，不是整篇文档的正式引文。请从具体页进入页级引用卡；'
+            '只有该页同时通过 <code>human_verified</code>、<code>needs_human_review=0</code>、'
+            '<code>citation_ready=1</code> 并有人工复核说明时，才可正式引用。</div>'
+        )
     body += f"""
 <section class="meta-card{' cia-cite' if is_cia else ''}" id="cite-card">
   <div class="meta-card-head">
@@ -6616,10 +6656,31 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
                         f'<pre style="white-space:pre-wrap;margin-top:10px;">{h(original_text)}</pre>'
                         '</details>'
                     )
+            domestic_page_status = ""
+            domestic_page_action = "摘录卡片"
+            if platform == "domestic":
+                strict_page = bool(
+                    int(row["citation_ready"] or 0) == 1
+                    and int(row["needs_human_review"] or 0) == 0
+                    and str(row["provenance_review_status"] or "") == "human_verified"
+                    and str(row["human_review_note"] or "").strip()
+                )
+                anchored_page = bool(
+                    str(row["provenance_source_file"] or "").strip()
+                    and re.fullmatch(r"[0-9a-fA-F]{64}", str(row["provenance_source_sha256"] or ""))
+                )
+                domestic_page_status = (
+                    "正式可引用"
+                    if strict_page
+                    else "原件已锚定 · 待复核"
+                    if anchored_page
+                    else "不可直接引用"
+                )
+                domestic_page_action = "引用卡片" if strict_page else "引用门禁（未通过）"
             body += f"""
   <div class="segment">
     <article class="pane"{selected}>
-      <div class="pane-head"><span>{'清洗 OCR · ' if platform == "newspapersg" else '原文 · '}{h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
+      <div class="pane-head"><span>{'清洗 OCR · ' if platform == "newspapersg" else '原文 · '}{h(page)}{f' · <strong>{h(domestic_page_status)}</strong>' if domestic_page_status else ''}</span><span><a href="/cite/{h(row["page_id"])}">{domestic_page_action}</a> · <a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
       <div class="pane-body">{h(display_original)}{original_note}</div>
     </article>
     <article class="pane zh-pane">
@@ -8520,7 +8581,8 @@ def citation_page(page_id: int) -> bytes:
                 COALESCE(pp.page_image_path, '') AS page_image_path,
                 COALESCE(pp.ocr_engine, '') AS ocr_engine,
                 COALESCE(pp.ocr_model, '') AS ocr_model,
-                COALESCE(pp.ocr_mode, '') AS ocr_mode
+                COALESCE(pp.ocr_mode, '') AS ocr_mode,
+                COALESCE(pp.event_tags, '') AS event_tags
             FROM pages
             JOIN documents ON documents.id = pages.document_id
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
@@ -8576,12 +8638,23 @@ def citation_page(page_id: int) -> bytes:
 </section>
 """
         return layout("引用门禁未通过", body)
+    metadata_scope_only = (
+        row["source_platform"] == "domestic"
+        and "review_scope=issue_identity_contents_only" in str(row["event_tags"] or "")
+    )
     if row["source_platform"] in {"domestic", "drnh"}:
-        citation = (
-            f"{domestic_citation_text(row)}\n\n"
-            f"原文摘录：\n{row['original_text']}\n\n"
-            f"中文译文（{row['zh_status'] or '未标注'}）：\n{row['zh_text'] or ''}"
-        )
+        if metadata_scope_only:
+            citation = (
+                f"{domestic_citation_text(row)}\n\n"
+                "证据范围：本页人工复核仅覆盖刊名、卷期、出版日、目录页身份及页码锚点。"
+                "下方机器识别文本只用于定位，未作逐字校勘，不得作为文章正文或逐字引文。"
+            )
+        else:
+            citation = (
+                f"{domestic_citation_text(row)}\n\n"
+                f"原文摘录：\n{row['original_text']}\n\n"
+                f"中文译文（{row['zh_status'] or '未标注'}）：\n{row['zh_text'] or ''}"
+            )
     else:
         citation = (
             f"短引文：{short_citation(row)}\n"
@@ -8614,7 +8687,7 @@ def citation_page(page_id: int) -> bytes:
 </section>
 <section class="reader">
   <article class="pane">
-    <div class="pane-head"><span>原文摘录</span><span>{h(page)}</span></div>
+    <div class="pane-head"><span>{'机器识别内容（仅供定位，不作逐字引文）' if metadata_scope_only else '原文摘录'}</span><span>{h(page)}</span></div>
     <div class="pane-body">{h(row["original_text"])}</div>
   </article>
   <article class="pane">
