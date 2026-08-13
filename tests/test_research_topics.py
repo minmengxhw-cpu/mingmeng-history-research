@@ -162,6 +162,102 @@ def test_academic_topic_match_uses_metadata_only(tmp_path, monkeypatch):
     assert "闻一多" in result["rows"][0]["matched_terms"]
 
 
+def test_academic_formal_search_link_and_citation_label(tmp_path, monkeypatch):
+    """学术 staging 结果必须能回到正式全文页，引用模板不得伪装成 FRUS。"""
+    import app
+
+    staging = tmp_path / "staging.sqlite"
+    with sqlite3.connect(staging) as connection:
+        connection.execute(
+            """CREATE TABLE domestic_research_materials (
+                external_id TEXT, title TEXT, author TEXT, institution TEXT,
+                publication_date TEXT, research_type TEXT, quality_tier TEXT,
+                source_url TEXT, local_path TEXT, fulltext_status TEXT,
+                review_status TEXT, citation_ready INTEGER, human_verified INTEGER,
+                metadata_json TEXT, layer TEXT
+            )"""
+        )
+        connection.execute(
+            """INSERT INTO domestic_research_materials VALUES
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                "ACAD-FORMAL-001",
+                "测试学术全文",
+                "测试作者",
+                "测试机构",
+                "2019",
+                "SCHOLARLY_ARTICLE",
+                "A",
+                "https://example.test/formal",
+                "data/domestic/test.html",
+                "FULLTEXT_HTML_CANDIDATE",
+                "review_only",
+                0,
+                0,
+                "{}",
+                "SCHOLARLY_RESEARCH",
+            ),
+        )
+    formal = tmp_path / "formal.sqlite"
+    with sqlite3.connect(formal) as connection:
+        connection.execute(
+            """CREATE TABLE documents (
+                id INTEGER PRIMARY KEY, doc_key TEXT, doc_id TEXT, title TEXT,
+                source_platform TEXT, hit_type TEXT
+            )"""
+        )
+        connection.execute(
+            """CREATE TABLE pages (
+                id INTEGER PRIMARY KEY, document_id INTEGER, text TEXT
+            )"""
+        )
+        connection.execute(
+            "INSERT INTO documents VALUES (1, ?, ?, ?, 'domestic', 'domestic_academic_fulltext')",
+            ("domestic-academic/ACAD-FORMAL-001", "ACAD-FORMAL-001", "测试学术全文"),
+        )
+        connection.execute("INSERT INTO pages VALUES (1, 1, '测试正文')")
+    monkeypatch.setattr(app, "DOMESTIC_STAGING_DB_PATH", staging)
+    monkeypatch.setattr(app, "DB_PATH", formal)
+
+    body = app.domestic_staging_search_page({"scope": ["research"], "q": ["ACAD-FORMAL-001"]}).decode("utf-8")
+    assert "/doc/domestic-academic%2FACAD-FORMAL-001" in body
+    assert "正式全文页" in body
+
+    citation = app._build_citations(
+        {
+            "title": "测试学术全文",
+            "volume_id": "DOMESTIC-ACADEMIC",
+            "doc_id": "ACAD-FORMAL-001",
+            "date_guess": "2019",
+            "url": "https://example.test/formal",
+            "source_platform": "domestic",
+            "hit_type": "domestic_academic_fulltext",
+        }
+    )
+    assert "美国国务院" not in citation["gb"]
+    assert "citation_ready=0" in citation["gb"]
+
+
+def test_academic_formal_index_fallback_without_staging(tmp_path, monkeypatch, db_missing_reason):
+    """清洁 checkout 缺 staging 时，正式学术层仍可检索和回接专题。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证 formal academic fallback: {db_missing_reason}")
+    import app
+
+    monkeypatch.setattr(app, "DOMESTIC_STAGING_DB_PATH", tmp_path / "staging-does-not-exist.sqlite")
+    snapshot = app._academic_layer_snapshot()
+    assert snapshot["fallback"] == "formal_index"
+    assert snapshot["academic_records"] >= 15
+    result = app._research_academic_matches(
+        {"event_tags": ["1948"]},
+        {"academic_terms": ["五一口号", "1948"]},
+    )
+    assert result["total"] >= 1
+    body = app.domestic_formal_academic_search_page("五一", "").decode("utf-8")
+    assert "正式全文页" in body
+    assert "citation_ready=0" in body
+
+
 def test_domestic_evidence_review_smoke(live_server, db_missing_reason):
     if db_missing_reason:
         pytest.skip(f"数据库缺失,无法验证页级证据复核: {db_missing_reason}")

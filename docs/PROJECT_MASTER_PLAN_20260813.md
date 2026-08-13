@@ -11,8 +11,8 @@
 ## 当前事实基线
 
 - 境外资料已具备平台、人物、事件、年表、多源对位和论文入口。
-- 国内正式库当前有 525 篇文档、6,157 个页/片段。
-- 国内 5,086/5,087 个页已有本地源文件和 SHA256 锚定；仍有 1 页缺本地快照、17 篇日期待核。
+- 国内正式库当前有 540 篇文档、6,204 个页/片段；其中 15 篇、47 页是学术解释层全文。
+- 国内 5,133/5,134 个页已有本地源文件和 SHA256 锚定；仍有 1 页缺本地快照、17 篇日期待核。
 - 国内 `research_events` 关联当前为 0；统一专题目前使用声明式覆盖表回接国内候选，并在运行时继续回接到 `documents/pages/page_provenance`。这解决了导航断裂，但不把候选自动写成事件事实。
 - 正式人工可引用页当前为 101；这 101 页来自本地 PDF 的精确页级定位，并记录了授权代理视觉复核说明。不能用 OCR、机器命中或候选接受状态替代人工复核；其余国内页继续保持待核/机器可阅层。
 
@@ -52,7 +52,7 @@
 
 本轮已完成 `data/domestic/topic_comparison_cards.json`：每个专题明确国内材料能回答什么、境外材料能回答什么、不能直接互证的边界、学术材料的职责和下一步补证动作。专题详情页已经接入对读卡，统一入口不再只是两个检索链接的并列。
 
-新增 `/domestic/academic` 学术研究层和 `data/domestic/academic_source_policy.json`。当前 staging 元数据审计快照为 285 条研究/官方资料，其中 152 条学术研究、96 条学术文章、119 条 S/A 优先学术记录；citation-ready 与 human_verified 仍为 0，符合“学术解释层不替代一手页级证据”的口径。审计脚本为 `scripts/domestic/audit_academic_source_layer_20260813.py`，只读元数据，不读取正文。
+新增 `/domestic/academic` 学术研究层和 `data/domestic/academic_source_policy.json`。当前 staging 元数据审计快照为 285 条研究/官方资料，其中 152 条学术研究、96 条学术文章、119 条 S/A 优先学术记录；citation-ready 与 human_verified 仍为 0，符合“学术解释层不替代一手页级证据”的口径。正式 SQLite 已索引 12 条 HTML 全文和 3 条可提取 PDF（47 页），全部保持 `review_only / citation_ready=0`；2 条扫描型 PDF 继续 OCR HOLD。审计脚本为 `scripts/domestic/audit_academic_source_layer_20260813.py`，只读元数据，不读取正文。
 
 学术专题 crosswalk 已接入专题详情页，当前按结构化元数据得到 150 条专题候选匹配；1945 年一大和 1946 年拒绝国民大会目前没有足够精确的学术元数据匹配，页面保留为明确缺口，等待补充专门研究而不使用宽泛关键词填充。
 
@@ -78,6 +78,13 @@
 - 国内学术层有独立入口、来源分级、全文/引用状态说明和机构元数据分布。
 - 国内外统计只来自可重算的当前数据库/覆盖表。
 - `python3 -B -m pytest -q`：23 passed，1 warning。
+
+## 当前收口验收结果
+
+- 学术研究检索结果可以回到正式全文页；学术全文页使用独立的“引用草稿（待复核）”格式，不再套用 FRUS 引用模板。
+- 清洁 checkout 没有 staging 时，`MINGMENG_DATA_ROOT`、`MINGMENG_WORK_ROOT`、`MINGMENG_STAGING_DB` 可指向外部数据盘；正式 SQLite 中已入库学术全文仍可通过 formal-index fallback 检索。
+- 12 条 HTML 和 3 条可提取 PDF 的正文均有 SHA、页/文档链和 FTS；47 页全部 `review_only`，严格可引用页仍为 101。
+- `python3 -B -m pytest -q` 在更新快照后应覆盖当前新增的 academic search/link/citation 回归。
 
 ## 下一阶段收口指标
 

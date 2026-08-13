@@ -75,6 +75,18 @@ python3 scripts/closeout/verify_research_index_manifest.py \
 MINGMENG_RESEARCH_DB=/absolute/path/research_index.sqlite python3 app.py
 ```
 
+国内 staging 资料库默认位于 `work/domestic/staging_20260730/domestic_staging.sqlite`，它包含学术元数据、OCR provenance 和机器复核队列，通常不随 Git 发布。若资料放在外部数据盘，可同时指定：
+
+```bash
+MINGMENG_RESEARCH_DB=/path/data/research_index.sqlite \
+MINGMENG_DATA_ROOT=/path/data \
+MINGMENG_WORK_ROOT=/path/work \
+MINGMENG_STAGING_DB=/path/work/domestic/staging_20260730/domestic_staging.sqlite \
+python3 app.py
+```
+
+没有 staging 时，平台仍会从正式 SQLite 展示已入库的国内学术全文，并提供 `/domestic/search?scope=research` 和正式全文页；这部分统一标为 `review_only / citation_ready=0`。staging 恢复后，作者、机构、版本和专题元数据会自动补回。学术资料是解释层，不能替代国内一手页级证据。
+
 数据库 manifest 中的哈希、行数和完整性检查必须全部匹配后，才能作为正式研究基线。代码测试通过不等于数据库内容已通过学术引用门禁。
 
 ### 4.（可选）下载台北档案的访客水印图

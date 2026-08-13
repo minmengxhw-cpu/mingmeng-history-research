@@ -21,6 +21,7 @@
 - staging `citation_ready` 和 `human_verified` 均为 0；这些条目目前是研究导航和补证队列，不是正式可引用页。
 - 规范化题名重复组 15 组、涉及 30 条记录；同文不同版本需要保留版本关系，不能按条目数重复计算论据。
 - 机构字段中出现中国社会科学院、民盟中央或高校信号，但这只是元数据匹配，不是独立的985认定或作者任职核验。
+- 正式 SQLite 当前已有 15 条学术全文文档：12 条 HTML、3 条可按页提取的 PDF，共 47 页；全部是 `review_only / citation_ready=0`。另外 2 条 S/A PDF（29 页、622 页）无可用电子文本，继续留在 OCR HOLD。
 
 ## 分级与引用链
 
@@ -61,7 +62,7 @@ python3 scripts/domestic/audit_academic_source_layer_20260813.py \
 4. 学术资料与国内一手页级证据在专题页形成可点击的对读关系。
 5. 任何学术条目只有在独立来源、稳定全文/页码、哈希和复核齐全后，才可申请正式引用；否则继续保持研究层状态。
 
-专题页的学术候选匹配使用 `events`、`historical_periods`、`people`、`places` 等结构化元数据，并辅以题名/作者/机构字段；它不是正文语义判断。每条候选都提供“研究资料”“一手对照”和来源入口，读者可以从解释层回到对应专题的一手证据区。
+专题页的学术候选匹配使用 `events`、`historical_periods`、`people`、`places` 等结构化元数据，并辅以题名/作者/机构字段；它不是正文语义判断。每条候选都提供“研究资料”“一手对照”和来源入口，读者可以从解释层回到对应专题的一手证据区。研究资料检索结果还会在正式全文已入库时显示“正式全文页”；没有 staging 的清洁 checkout 会回退到正式 SQLite 的学术全文索引。
 
 ```bash
 python3 scripts/domestic/audit_academic_topic_crosswalk_20260813.py \

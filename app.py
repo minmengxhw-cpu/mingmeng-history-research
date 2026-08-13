@@ -21,51 +21,55 @@ _request = threading.local()
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "scripts" / "legacy"))
+DATA_ROOT = Path(os.environ.get("MINGMENG_DATA_ROOT", str(ROOT / "data"))).expanduser().resolve()
+WORK_ROOT = Path(os.environ.get("MINGMENG_WORK_ROOT", str(ROOT / "work"))).expanduser().resolve()
 DB_PATH = Path(
-    os.environ.get("MINGMENG_RESEARCH_DB", str(ROOT / "data" / "research_index.sqlite"))
+    os.environ.get("MINGMENG_RESEARCH_DB", str(DATA_ROOT / "research_index.sqlite"))
 ).expanduser().resolve()
-DOMESTIC_STAGING_DB_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "domestic_staging.sqlite"
-PHASE2_INVENTORY_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "REPORT.json"
-CORE_GAP_MATRIX_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "core_gap_matrix_20260730" / "CORE_GAP_MATRIX.json"
-SUPPLEMENTAL_1942_1943_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "supplemental_1942_1943" / "REPORT.json"
-RESEARCH_1942_1943_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "research_1942_1943" / "REPORT.json"
-ACADEMIC_PDF_OCR_PILOT_REPORT_PATH = ROOT / "work" / "domestic" / "academic_ocr_pilot_20260730" / "REPORT.json"
-ACADEMIC_PDF_OCR_BATCH_REPORT_PATH = ROOT / "work" / "domestic" / "academic_ocr_batch_pilot_20260730" / "REPORT.json"
-ACADEMIC_1943_TARGET_REPORT_PATH = ROOT / "work" / "domestic" / "academic_ocr_1943_target_20260730" / "REPORT.json"
-GAP_WAVE2_AUDIT_REPORT_PATH = ROOT / "work" / "domestic" / "next_stage_20260730" / "10_gap_wave2_period_page_chain" / "AUDIT_REPORT.json"
-W2_SHA_REPAIR_REPORT_PATH = ROOT / "work" / "domestic" / "two_month_20260730" / "w2" / "SOURCE_SHA_REPAIR_REPORT.json"
-W2_SHA_SUPPLEMENT_REPORT_PATH = ROOT / "work" / "domestic" / "two_month_20260730" / "w2" / "SOURCE_SHA_SUPPLEMENT_REPORT.json"
-MMDA_1942_1943_QUEUE_PATH = ROOT / "work" / "domestic" / "MMDA_1942_1943_PRIORITY_QUEUE_20260728.jsonl"
-MMDA_P1_INTAKE_REPORT_PATH = ROOT / "work" / "domestic" / "mmda_p1_intake_20260730" / "REPORT.json"
-MMDA_ORIGINAL_PENDING_REPORT_PATH = ROOT / "work" / "domestic" / "mmda_p1_intake_20260730" / "MMDA_1942_1943_ORIGINAL_PENDING_REPORT.json"
-MMDA_ORIGINAL_PENDING_QUEUE_PATH = ROOT / "work" / "domestic" / "mmda_p1_intake_20260730" / "MMDA_1942_1943_ORIGINAL_PENDING_QUEUE.jsonl"
-MACHINE_STRUCTURE_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "MACHINE_EVIDENCE_STRUCTURE_AUDIT_REPORT.json"
-CLAIM_DUPLICATE_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "claim_duplicate_audit" / "REPORT.json"
-P0_P1_MACHINE_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "p0_p1_machine_assessment" / "REPORT.json"
-P0_P1_CONSISTENCY_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "p0_p1_source_consistency" / "REPORT.json"
-CLAIM_CROSSWALK_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "claim_research_crosswalk" / "REPORT.json"
-CROSSWALK_QUEUE_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "crosswalk_review_queue" / "REPORT.json"
-CROSSWALK_MATERIAL_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "crosswalk_material_review_queue" / "REPORT.json"
-FULLTEXT_CONTENT_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "crosswalk_fulltext_content_audit" / "REPORT.json"
-FULLTEXT_LOCATOR_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "fulltext_locator_candidates" / "REPORT.json"
-FULLTEXT_SEMANTIC_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "fulltext_semantic_signal_queue" / "REPORT.json"
-FULLTEXT_OVERLAP_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "fulltext_text_overlap_queue" / "REPORT.json"
-FULLTEXT_REVIEW_CARDS_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "fulltext_semantic_review_cards" / "REPORT.json"
-STRUCTURED_RELATION_REPORT_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "structured_relation_signals" / "REPORT.json"
-STRUCTURED_RELATION_ROWS_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "structured_relation_signals" / "SIGNALS.jsonl"
-CONSERVATIVE_RELATION_ROWS_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "conservative_relation_adjudication" / "ADJUDICATION_QUEUE.jsonl"
-LOCAL_PRIVATE_OCR_REPORT_PATH = ROOT / "work" / "domestic" / "local_private_ocr_metadata_20260730" / "REPORT.json"
-LOCAL_PRIVATE_NORMALIZATION_REPORT_PATH = ROOT / "work" / "domestic" / "local_private_ocr_metadata_20260730" / "NORMALIZATION_REPORT.json"
-LOCAL_SEMANTIC_SIGNALS_REPORT_PATH = ROOT / "work" / "domestic" / "local_private_ocr_metadata_20260730" / "semantic_signals" / "REPORT.json"
-HOME_FOCUS_PATH = ROOT / "data" / "home_focus.json"
-TOPIC_COMPARISON_CARDS_PATH = ROOT / "data" / "domestic" / "topic_comparison_cards.json"
-ACADEMIC_SOURCE_POLICY_PATH = ROOT / "data" / "domestic" / "academic_source_policy.json"
+DOMESTIC_STAGING_DB_PATH = Path(
+    os.environ.get("MINGMENG_STAGING_DB", str(WORK_ROOT / "domestic" / "staging_20260730" / "domestic_staging.sqlite"))
+).expanduser().resolve()
+PHASE2_INVENTORY_REPORT_PATH = WORK_ROOT / "domestic" / "phase2_inventory_20260730" / "REPORT.json"
+CORE_GAP_MATRIX_REPORT_PATH = WORK_ROOT / "domestic" / "phase2_inventory_20260730" / "core_gap_matrix_20260730" / "CORE_GAP_MATRIX.json"
+SUPPLEMENTAL_1942_1943_REPORT_PATH = WORK_ROOT / "domestic" / "phase2_inventory_20260730" / "supplemental_1942_1943" / "REPORT.json"
+RESEARCH_1942_1943_REPORT_PATH = WORK_ROOT / "domestic" / "phase2_inventory_20260730" / "research_1942_1943" / "REPORT.json"
+ACADEMIC_PDF_OCR_PILOT_REPORT_PATH = WORK_ROOT / "domestic" / "academic_ocr_pilot_20260730" / "REPORT.json"
+ACADEMIC_PDF_OCR_BATCH_REPORT_PATH = WORK_ROOT / "domestic" / "academic_ocr_batch_pilot_20260730" / "REPORT.json"
+ACADEMIC_1943_TARGET_REPORT_PATH = WORK_ROOT / "domestic" / "academic_ocr_1943_target_20260730" / "REPORT.json"
+GAP_WAVE2_AUDIT_REPORT_PATH = WORK_ROOT / "domestic" / "next_stage_20260730" / "10_gap_wave2_period_page_chain" / "AUDIT_REPORT.json"
+W2_SHA_REPAIR_REPORT_PATH = WORK_ROOT / "domestic" / "two_month_20260730" / "w2" / "SOURCE_SHA_REPAIR_REPORT.json"
+W2_SHA_SUPPLEMENT_REPORT_PATH = WORK_ROOT / "domestic" / "two_month_20260730" / "w2" / "SOURCE_SHA_SUPPLEMENT_REPORT.json"
+MMDA_1942_1943_QUEUE_PATH = WORK_ROOT / "domestic" / "MMDA_1942_1943_PRIORITY_QUEUE_20260728.jsonl"
+MMDA_P1_INTAKE_REPORT_PATH = WORK_ROOT / "domestic" / "mmda_p1_intake_20260730" / "REPORT.json"
+MMDA_ORIGINAL_PENDING_REPORT_PATH = WORK_ROOT / "domestic" / "mmda_p1_intake_20260730" / "MMDA_1942_1943_ORIGINAL_PENDING_REPORT.json"
+MMDA_ORIGINAL_PENDING_QUEUE_PATH = WORK_ROOT / "domestic" / "mmda_p1_intake_20260730" / "MMDA_1942_1943_ORIGINAL_PENDING_QUEUE.jsonl"
+MACHINE_STRUCTURE_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "MACHINE_EVIDENCE_STRUCTURE_AUDIT_REPORT.json"
+CLAIM_DUPLICATE_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "claim_duplicate_audit" / "REPORT.json"
+P0_P1_MACHINE_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "p0_p1_machine_assessment" / "REPORT.json"
+P0_P1_CONSISTENCY_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "p0_p1_source_consistency" / "REPORT.json"
+CLAIM_CROSSWALK_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "claim_research_crosswalk" / "REPORT.json"
+CROSSWALK_QUEUE_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "crosswalk_review_queue" / "REPORT.json"
+CROSSWALK_MATERIAL_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "crosswalk_material_review_queue" / "REPORT.json"
+FULLTEXT_CONTENT_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "crosswalk_fulltext_content_audit" / "REPORT.json"
+FULLTEXT_LOCATOR_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "fulltext_locator_candidates" / "REPORT.json"
+FULLTEXT_SEMANTIC_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "fulltext_semantic_signal_queue" / "REPORT.json"
+FULLTEXT_OVERLAP_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "fulltext_text_overlap_queue" / "REPORT.json"
+FULLTEXT_REVIEW_CARDS_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "fulltext_semantic_review_cards" / "REPORT.json"
+STRUCTURED_RELATION_REPORT_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "structured_relation_signals" / "REPORT.json"
+STRUCTURED_RELATION_ROWS_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "structured_relation_signals" / "SIGNALS.jsonl"
+CONSERVATIVE_RELATION_ROWS_PATH = WORK_ROOT / "domestic" / "staging_20260730" / "conservative_relation_adjudication" / "ADJUDICATION_QUEUE.jsonl"
+LOCAL_PRIVATE_OCR_REPORT_PATH = WORK_ROOT / "domestic" / "local_private_ocr_metadata_20260730" / "REPORT.json"
+LOCAL_PRIVATE_NORMALIZATION_REPORT_PATH = WORK_ROOT / "domestic" / "local_private_ocr_metadata_20260730" / "NORMALIZATION_REPORT.json"
+LOCAL_SEMANTIC_SIGNALS_REPORT_PATH = WORK_ROOT / "domestic" / "local_private_ocr_metadata_20260730" / "semantic_signals" / "REPORT.json"
+HOME_FOCUS_PATH = DATA_ROOT / "home_focus.json"
+TOPIC_COMPARISON_CARDS_PATH = DATA_ROOT / "domestic" / "topic_comparison_cards.json"
+ACADEMIC_SOURCE_POLICY_PATH = DATA_ROOT / "domestic" / "academic_source_policy.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
 RESEARCH_PACKAGE_DIR = ROOT / "output" / "research_packages"
 PAPER_PDF_DIR = ROOT / "output" / "pdf"
-TITLE_TRANSLATIONS_CSV = ROOT / "data" / "newspapersg" / "title_translations.csv"
-NEWSPAPERSG_CLEAN_DIR = ROOT / "data" / "newspapersg" / "documents_clean"
+TITLE_TRANSLATIONS_CSV = DATA_ROOT / "newspapersg" / "title_translations.csv"
+NEWSPAPERSG_CLEAN_DIR = DATA_ROOT / "newspapersg" / "documents_clean"
 
 
 def h(value: object) -> str:
@@ -2098,7 +2102,7 @@ def read_csv_rows(path: Path, limit: int = 200) -> list[dict[str, str]]:
 
 
 def drnh_review_page(active_tier: str = "") -> bytes:
-    all_rows = read_csv_rows(ROOT / "data" / "drnh_review_layers.csv", 1000)
+    all_rows = read_csv_rows(DATA_ROOT / "drnh_review_layers.csv", 1000)
     rows = [row for row in all_rows if not active_tier or row.get("tier") == active_tier]
     counts: dict[str, int] = {}
     for row in all_rows:
@@ -2157,7 +2161,7 @@ def drnh_review_page(active_tier: str = "") -> bytes:
 
 def l1_board_page() -> bytes:
     """L1 证据等级升级看板（读 data/l1_upgrade_queue.csv）。"""
-    rows = read_csv_rows(ROOT / "data" / "l1_upgrade_queue.csv", 200)
+    rows = read_csv_rows(DATA_ROOT / "l1_upgrade_queue.csv", 200)
     pri: dict[str, int] = {}
     for row in rows:
         p = (row.get("priority") or "其他").strip()
@@ -2203,7 +2207,7 @@ def l1_board_page() -> bytes:
 
 def hk_press_page() -> bytes:
     """香港报刊开放源（读 data/hk_press_sources.csv）——IA 港报可抓源登记。"""
-    rows = read_csv_rows(ROOT / "data" / "hk_press_sources.csv", 100)
+    rows = read_csv_rows(DATA_ROOT / "hk_press_sources.csv", 100)
     grab = sum(1 for r in rows if "可抓" in (r.get("status") or ""))
     body = breadcrumb_html([("/", "首页"), ("/dashboard", "研究工作台"), (None, "香港报刊源")]) + f"""
 <section class="doc-head">
@@ -2244,7 +2248,7 @@ def hk_press_page() -> bytes:
 
 def first_person_page() -> bytes:
     """民盟第一人称一手史料获取清单（读 data/first_person_acquisition.csv）。"""
-    rows = read_csv_rows(ROOT / "data" / "first_person_acquisition.csv", 200)
+    rows = read_csv_rows(DATA_ROOT / "first_person_acquisition.csv", 200)
     pri: dict[str, int] = {}
     for row in rows:
         p = (row.get("priority") or "其他").strip()
@@ -2301,7 +2305,7 @@ def first_person_page() -> bytes:
 
 
 def external_acquisition_page() -> bytes:
-    rows = read_csv_rows(ROOT / "data" / "external_acquisition_queue.csv", 200)
+    rows = read_csv_rows(DATA_ROOT / "external_acquisition_queue.csv", 200)
     counts: dict[str, int] = {}
     for row in rows:
         archive = row.get("archive") or "未分馆藏"
@@ -2353,8 +2357,8 @@ def external_acquisition_page() -> bytes:
 
 
 def open_sources_page() -> bytes:
-    rows = read_csv_rows(ROOT / "data" / "open_source_probe.csv", 200)
-    records = read_csv_rows(ROOT / "data" / "open_source_records.csv", 200)
+    rows = read_csv_rows(DATA_ROOT / "open_source_probe.csv", 200)
+    records = read_csv_rows(DATA_ROOT / "open_source_records.csv", 200)
     groups: dict[str, list[dict[str, str]]] = {}
     for row in rows:
         groups.setdefault(row.get("source_line") or "未分组", []).append(row)
@@ -2660,7 +2664,7 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
         ("1949开国大典", "1949开国大典"),
     ]
     try:
-        coverage_path = ROOT / "data" / "domestic" / "event_coverage.json"
+        coverage_path = DATA_ROOT / "domestic" / "event_coverage.json"
         coverage = json.loads(coverage_path.read_text(encoding="utf-8")) if coverage_path.exists() else []
         with conn() as c:
             total_candidates = c.execute("SELECT count(*) FROM domestic_candidates").fetchone()[0]
@@ -3509,7 +3513,7 @@ def domestic_academic_page() -> bytes:
         if isinstance(tier, dict)
     )
     tier_counts = snapshot.get("tiers") or {}
-    tier_summary = " · ".join(f"{h(key)} {h(value)} 条" for key, value in tier_counts.items()) or "尚无 staging 统计"
+    tier_summary = " · ".join(f"{h(key)} {h(value)} 条" for key, value in tier_counts.items()) or "尚无学术统计"
     status_summary = " · ".join(
         f"{h(key)} {h(value)} 条"
         for key, value in list((snapshot.get("fulltext_statuses") or {}).items())[:8]
@@ -3519,7 +3523,7 @@ def domestic_academic_page() -> bytes:
         <div class="meta">{h(row.get("count"))} 条记录</div></div></article>'''
         for row in snapshot.get("institutions", [])
         if isinstance(row, dict)
-    ) or '<div class="notice">staging 尚未提供机构分布。</div>'
+    ) or '<div class="notice">当前层没有机构分布；正式库 fallback 不复制 staging 机构字段。</div>'
     if snapshot.get("available"):
         availability = f'''<section class="stats">
   <div class="stat"><strong>{h(snapshot["records"])}</strong><span>研究/官方资料</span></div>
@@ -3529,7 +3533,9 @@ def domestic_academic_page() -> bytes:
   <div class="stat"><strong>{h(snapshot["citation_ready"])}</strong><span>staging citation-ready</span></div>
 </section>'''
     else:
-        availability = '<div class="notice">当前 checkout 没有可读的国内 staging 数据库；学术口径文件和入口仍可用，资料统计将在 staging 可用时自动显示。</div>'
+        availability = '<div class="notice">当前 checkout 没有可读的国内 staging 数据库；正式学术全文索引也尚未可读，研究资料统计将在 staging 或正式数据库恢复后显示。</div>'
+    if snapshot.get("fallback") == "formal_index":
+        availability += '<div class="notice">当前显示的是正式 SQLite 中已索引的学术全文 fallback；书目机构字段仍以 staging 为准，正文仅为 review_only 检索层。</div>'
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "学术研究层")]) + f"""
 <section class="doc-head"><div><h1>国内学术研究层</h1><div class="meta">把学术论文、专著、档案指南和民盟中央研究资料放入解释层，并与一手史料分开管理。</div></div><div class="doc-tools"><a class="button" href="/domestic/search?scope=research">检索研究资料</a><a class="button secondary" href="/research">多源专题</a></div></section>
 {availability}
@@ -3552,6 +3558,80 @@ def domestic_academic_page() -> bytes:
     return layout("国内学术研究层", body, active_path="/domestic/academic")
 
 
+def _formal_academic_documents(external_ids: list[str]) -> dict[str, sqlite3.Row]:
+    """为 staging 学术记录补上正式库全文入口；不改变任何证据等级。"""
+    if not external_ids or not DB_PATH.exists():
+        return {}
+    placeholders = ",".join("?" for _ in external_ids)
+    try:
+        with conn() as c:
+            rows = c.execute(
+                f"""SELECT d.doc_key, d.doc_id, d.title,
+                           count(DISTINCT p.id) AS page_count,
+                           COALESCE(sum(length(COALESCE(p.text, ''))), 0) AS text_chars
+                    FROM documents d
+                    LEFT JOIN pages p ON p.document_id=d.id
+                    WHERE d.source_platform='domestic'
+                      AND d.hit_type='domestic_academic_fulltext'
+                      AND d.doc_id IN ({placeholders})
+                    GROUP BY d.id, d.doc_key, d.doc_id, d.title""",
+                external_ids,
+            ).fetchall()
+    except sqlite3.Error:
+        return {}
+    return {str(row["doc_id"]): row for row in rows}
+
+
+def domestic_formal_academic_search_page(raw_q: str = "", phase: str = "") -> bytes:
+    """没有 staging 时，用正式库中已索引的学术全文提供可用的研究检索。"""
+    clauses = [
+        "d.source_platform='domestic'",
+        "d.hit_type='domestic_academic_fulltext'",
+    ]
+    params: list[object] = []
+    if raw_q:
+        like = f"%{raw_q}%"
+        clauses.append("(d.doc_id LIKE ? OR d.title LIKE ? OR d.matched_terms LIKE ? OR p.text LIKE ?)")
+        params.extend([like, like, like, like])
+    if phase:
+        clauses.append("d.date_guess LIKE ?")
+        params.append(f"%{phase}%")
+    try:
+        with conn() as c:
+            rows = c.execute(
+                f"""SELECT d.doc_key, d.doc_id, d.title, d.date_guess, d.url,
+                           d.matched_terms, count(p.id) AS page_count,
+                           sum(length(COALESCE(p.text,''))) AS text_chars
+                    FROM documents d JOIN pages p ON p.document_id=d.id
+                    WHERE {' AND '.join(clauses)}
+                    GROUP BY d.id, d.doc_key, d.doc_id, d.title, d.date_guess, d.url, d.matched_terms
+                    ORDER BY d.date_guess, d.doc_id LIMIT 100""",
+                params,
+            ).fetchall()
+    except sqlite3.Error as exc:
+        return layout("国内检索", f'<div class="notice">正式学术索引读取失败：{h(exc)}</div>', active_path="/domestic/search")
+    result_html = "".join(
+        f'''<article class="result"><div><h2>{h(row["title"] or row["doc_id"])}</h2>
+        <div class="meta">{h(row["doc_id"])} · 正式学术全文索引 · {h(row["date_guess"] or "未标注")}</div>
+        <div class="snippet">{h(row["page_count"])} 页 · {h(row["text_chars"] or 0)} 字 · review_only · citation_ready=0</div></div>
+        <div class="cite"><a href="{h(source_href(row["url"] or "#"))}">来源入口</a> · <a href="/doc/{quote(str(row["doc_key"]), safe="")}">正式全文页</a></div></article>'''
+        for row in rows
+    ) or '<div class="notice">正式学术全文索引中没有匹配结果。</div>'
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""
+<section class="doc-head"><div><h1>国内研究资料检索</h1><div class="meta">formal SQLite academic fallback · staging 不可用时仍可检索已入库全文</div></div><div class="doc-tools"><a class="button secondary" href="/domestic/academic">学术层说明</a></div></section>
+<form class="filter-form" method="get" action="/domestic/search">
+  <input type="hidden" name="scope" value="research">
+  <label>关键词 <input name="q" value="{h(raw_q)}" placeholder="题名、作者、事件词"></label>
+  <label>时期 <input name="phase" value="{h(phase)}" placeholder="如 1946"></label>
+  <button class="button" type="submit">检索</button>
+</form>
+<div class="notice">这是解释层全文，不是正式一手证据；当前条目统一保持 review_only / citation_ready=0。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-search"/></svg>正式学术全文（{len(rows)} 条）</h2></div>
+<section class="result-list">{result_html}</section>
+"""
+    return layout("国内检索", body, active_path="/domestic/search")
+
+
 def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> bytes:
     """在独立 staging 层分开检索文献对象和物理页资产。"""
     query = query or {}
@@ -3561,6 +3641,8 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
         scope = "documents"
     phase = (query.get("phase", [""])[0] or "").strip()[:80]
     if not DOMESTIC_STAGING_DB_PATH.exists():
+        if scope == "research":
+            return domestic_formal_academic_search_page(raw_q, phase)
         return layout(
             "国内检索",
             '<div class="notice">国内 staging 数据库尚未建立。请先运行 Phase 0 reconciliation 与 staging 构建。</div>',
@@ -3804,6 +3886,10 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
             active_path="/domestic/search",
         )
 
+    formal_academic = _formal_academic_documents(
+        [str(row["external_id"]) for row in rows]
+    ) if scope == "research" else {}
+
     def document_title(raw: object) -> str:
         try:
             value = json.loads(str(raw or ""))
@@ -3852,7 +3938,7 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
         result_html = "".join(
             f'''<article class="result"><div><h2>{h(row["title"] or row["external_id"])}</h2>
             <div class="meta">{h(row["external_id"])} · {h(row["layer"] or "研究资料")} · {h(row["research_type"] or "未标注类型")} · 质量 {h(row["quality_tier"] or "未分级")}</div>
-            <div class="snippet">{h(row["institution"] or "机构未标注")} · 出版/发表 {h(row["publication_date"] or "未标注")} · {h(row["fulltext_status"])} · citation_ready={h(row["citation_ready"])} · human_verified={h(row["human_verified"])}</div></div><div class="cite"><a href="{h(source_href(row["source_url"] or "#"))}">来源入口</a></div></article>'''
+            <div class="snippet">{h(row["institution"] or "机构未标注")} · 出版/发表 {h(row["publication_date"] or "未标注")} · {h(row["fulltext_status"])} · citation_ready={h(row["citation_ready"])} · human_verified={h(row["human_verified"])}</div></div><div class="cite"><a href="{h(source_href(row["source_url"] or "#"))}">来源入口</a>{f' · <a href="/doc/{quote(str(formal_academic[str(row["external_id"])] ["doc_key"]), safe="")}">正式全文页</a> <span class="meta">{h(formal_academic[str(row["external_id"])] ["page_count"])}页</span>' if str(row["external_id"]) in formal_academic else ' · <span class="meta">尚未进入正式全文层</span>'}</div></article>'''
             for row in rows
         )
     else:
@@ -4011,7 +4097,7 @@ def domestic_events_page(query: dict[str, list[str]] | None = None) -> bytes:
     """九个关键事件的国内候选与境外对位索引。"""
     query = query or {}
     selected = query.get("event", [""])[0].strip()
-    coverage_path = ROOT / "data" / "domestic" / "event_coverage.json"
+    coverage_path = DATA_ROOT / "domestic" / "event_coverage.json"
     coverage = json.loads(coverage_path.read_text(encoding="utf-8")) if coverage_path.exists() else []
     rows = _domestic_rows()
     by_id = {row["candidate_id"]: row for row in rows}
@@ -4046,7 +4132,7 @@ def _load_domestic_event_coverage() -> list[dict[str, object]]:
     foreign_event_slugs 只是指向境外专题入口。正式证据仍须回到文档页、
     原件 provenance 和人工复核门禁。
     """
-    coverage_path = ROOT / "data" / "domestic" / "event_coverage.json"
+    coverage_path = DATA_ROOT / "domestic" / "event_coverage.json"
     if not coverage_path.is_file():
         return []
     try:
@@ -4097,6 +4183,38 @@ def _academic_layer_snapshot() -> dict[str, object]:
         "institutions": [],
     }
     if not DOMESTIC_STAGING_DB_PATH.exists():
+        # 清洁 checkout 可能只有正式 SQLite，没有本地 staging。此时仍显示
+        # 已正式建索引的学术全文，并明确标注为 formal-index fallback。
+        try:
+            with conn() as c:
+                rows = c.execute(
+                    """SELECT title, matched_terms
+                       FROM documents
+                       WHERE source_platform='domestic'
+                         AND hit_type='domestic_academic_fulltext'"""
+                ).fetchall()
+        except sqlite3.Error:
+            return snapshot
+        tiers: dict[str, int] = {}
+        for row in rows:
+            tier_match = re.search(r"quality_tier=([^,]+)", str(row["matched_terms"] or ""))
+            tier = tier_match.group(1) if tier_match else "未分级"
+            tiers[tier] = tiers.get(tier, 0) + 1
+        snapshot.update(
+            {
+                "available": bool(rows),
+                "records": len(rows),
+                "academic_records": len(rows),
+                "high_priority": sum(value for key, value in tiers.items() if key in {"S", "A"}),
+                "articles": sum("research_type=SCHOLARLY_ARTICLE" in str(row["matched_terms"] or "") for row in rows),
+                "citation_ready": 0,
+                "human_verified": 0,
+                "tiers": dict(sorted(tiers.items())),
+                "fulltext_statuses": {"FORMAL_INDEX_REVIEW_ONLY": len(rows)} if rows else {},
+                "institutions": [],
+                "fallback": "formal_index",
+            }
+        )
         return snapshot
     try:
         c = sqlite3.connect(DOMESTIC_STAGING_DB_PATH)
@@ -4338,8 +4456,6 @@ def _research_academic_matches(
 ) -> dict[str, object]:
     """把 staging 学术元数据按专题词做候选匹配，不读取正文、不升级引用。"""
     result: dict[str, object] = {"rows": [], "total": 0}
-    if not DOMESTIC_STAGING_DB_PATH.exists():
-        return result
     terms = [
         str(term).strip()
         for term in (
@@ -4350,25 +4466,46 @@ def _research_academic_matches(
     ]
     if not terms:
         return result
-    try:
-        c = sqlite3.connect(DOMESTIC_STAGING_DB_PATH)
-        c.row_factory = sqlite3.Row
-        exists = c.execute(
-            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='domestic_research_materials'"
-        ).fetchone()
-        if not exists:
+    if DOMESTIC_STAGING_DB_PATH.exists():
+        try:
+            c = sqlite3.connect(DOMESTIC_STAGING_DB_PATH)
+            c.row_factory = sqlite3.Row
+            exists = c.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='domestic_research_materials'"
+            ).fetchone()
+            if not exists:
+                c.close()
+                return result
+            source_rows = c.execute(
+                """SELECT external_id, title, author, institution, publication_date,
+                          research_type, quality_tier, source_url, fulltext_status,
+                          review_status, citation_ready, human_verified, metadata_json
+                   FROM domestic_research_materials
+                   WHERE layer='SCHOLARLY_RESEARCH'"""
+            ).fetchall()
             c.close()
+        except sqlite3.Error:
             return result
-        source_rows = c.execute(
-            """SELECT external_id, title, author, institution, publication_date,
-                      research_type, quality_tier, source_url, fulltext_status,
-                      review_status, citation_ready, human_verified, metadata_json
-               FROM domestic_research_materials
-               WHERE layer='SCHOLARLY_RESEARCH'"""
-        ).fetchall()
-        c.close()
-    except sqlite3.Error:
-        return result
+    else:
+        # 没有 staging 时，从正式 SQLite 的学术全文层回退；这只使用题名和
+        # 已写入的机器标签，仍不读取正文语义，也不改变引用门禁。
+        try:
+            with conn() as c:
+                source_rows = c.execute(
+                    """SELECT d.doc_id AS external_id, d.title,
+                              '' AS author, '' AS institution, d.date_guess AS publication_date,
+                              CASE WHEN d.matched_terms LIKE '%research_type=SCHOLARLY_ARTICLE%' THEN 'SCHOLARLY_ARTICLE' ELSE 'SCHOLARLY_RESEARCH' END AS research_type,
+                              CASE WHEN d.matched_terms LIKE '%quality_tier=S%' THEN 'S'
+                                   WHEN d.matched_terms LIKE '%quality_tier=A%' THEN 'A' ELSE '未分级' END AS quality_tier,
+                              d.url AS source_url, 'FORMAL_INDEX_REVIEW_ONLY' AS fulltext_status,
+                              'review_only' AS review_status, 0 AS citation_ready,
+                              0 AS human_verified, '' AS metadata_json, d.matched_terms
+                       FROM documents d
+                       WHERE d.source_platform='domestic'
+                         AND d.hit_type='domestic_academic_fulltext'"""
+                ).fetchall()
+        except sqlite3.Error:
+            return result
 
     matches: list[dict[str, object]] = []
     tier_score = {"S": 4, "A": 3, "B": 2, "C": 1}
@@ -4393,7 +4530,8 @@ def _research_academic_matches(
                 structured_values.extend(str(part) for part in value)
             elif value:
                 structured_values.append(str(value))
-        structured = " ".join(structured_values)
+        source_tags = str(source["matched_terms"] or "") if "matched_terms" in source.keys() else ""
+        structured = " ".join(structured_values) + " " + source_tags
         general = " ".join(
             str(source[key] or "")
             for key in ("title", "author", "institution", "publication_date", "research_type")
@@ -5138,6 +5276,26 @@ def search(query: str, platform: str | None = None, year: str = "", grade: str =
     return layout(f"搜索 {query}", body, query)
 
 
+def _academic_metadata_for_citation(external_id: str) -> dict[str, object]:
+    """读取学术条目的书目元数据，避免用境外档案模板生成错误引文。"""
+    if not external_id or not DOMESTIC_STAGING_DB_PATH.is_file():
+        return {}
+    try:
+        with sqlite3.connect(f"file:{DOMESTIC_STAGING_DB_PATH}?mode=ro", uri=True) as c:
+            c.row_factory = sqlite3.Row
+            row = c.execute(
+                """SELECT author, institution, research_type, quality_tier,
+                          fulltext_status, citation_ready, human_verified
+                   FROM domestic_research_materials
+                   WHERE external_id=? AND layer='SCHOLARLY_RESEARCH'
+                   LIMIT 1""",
+                (external_id,),
+            ).fetchone()
+    except sqlite3.Error:
+        return {}
+    return dict(row) if row else {}
+
+
 def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
     """生成 GB/T 7714-2015 / BibTeX / Chicago 三种引用格式（按 source_platform 分支）。
 
@@ -5162,6 +5320,37 @@ def _build_citations(doc: sqlite3.Row) -> dict[str, str]:
         m = re.search(r"\b(19\d{2})\b", vol)
         if m:
             year = m.group(1)
+
+    # ============ 国内学术研究全文（解释层） ============
+    if platform == "domestic" and doc["hit_type"] == "domestic_academic_fulltext":
+        metadata = _academic_metadata_for_citation(str(docnum))
+        author = str(metadata.get("author") or "作者未标注")
+        institution = str(metadata.get("institution") or "机构未标注")
+        research_type = str(metadata.get("research_type") or "")
+        material_code = "J/OL" if research_type == "SCHOLARLY_ARTICLE" else "M/OL"
+        bibkey = f"DomesticAcademic_{docnum}".replace(".", "_").replace("-", "_")[:80]
+        note = "本地全文检索层；review_only，citation_ready=0，须完成版本、页码和人工复核后方可正式引用"
+        bibtex = (
+            f"@misc{{{bibkey},\n"
+            f"  author = {{{author}}},\n"
+            f"  title = {{{title_en}}},\n"
+            f"  howpublished = {{{institution}; 国内学术研究解释层}},\n"
+            f"  year = {{{year}}},\n"
+            f"  note = {{{note}}},\n"
+            f"  url = {{{url}}},\n"
+            f"  urldate = {{{today}}}\n"
+            f"}}"
+        )
+        chicago = (
+            f'{author}. "{title_en}." {institution}, {date}. '
+            f'国内学术研究解释层（本地全文检索稿，待复核）. '
+            f'Accessed {today}. {url}.'
+        )
+        gb = (
+            f"{author}. {title_zh}[{material_code}]. {institution}, ({date}). "
+            f"国内学术研究解释层[{today}]. {url}. 注：{note}。"
+        )
+        return {"bibtex": bibtex, "chicago": chicago, "gb": gb}
 
     # ============ CIA Records Reading Room 解密档案 ============
     if platform == "cia":
@@ -5423,6 +5612,11 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             (doc["id"],),
         ).fetchall()
 
+    platform = doc["source_platform"] or "frus"
+    is_domestic_academic = (
+        platform == "domestic" and doc["hit_type"] == "domestic_academic_fulltext"
+    )
+    academic_metadata = _academic_metadata_for_citation(str(doc["doc_id"] or "")) if is_domestic_academic else {}
     source_link = h(source_href(doc["url"] or ""))
     citations = _build_citations(doc)
     paper_backlinks = paper_backlinks_html(doc["doc_key"])
@@ -5433,9 +5627,31 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
     )
 
     # 按 source_platform 决定头部按钮和元数据卡片
-    platform = doc["source_platform"] or "frus"
     is_cia = (platform == "cia")
-    if is_cia:
+    if is_domestic_academic:
+        academic_status = str(academic_metadata.get("fulltext_status") or "review_only")
+        academic_author = str(academic_metadata.get("author") or "作者未标注")
+        academic_institution = str(academic_metadata.get("institution") or "机构未标注")
+        tools_html = (
+            f'<a class="button" href="{source_link}" target="_blank" rel="noreferrer">'
+            f'<svg class="ico"><use href="#i-globe"/></svg>来源入口</a>'
+            f'<a class="button" href="/domestic/search?scope=research&amp;q={quote(str(doc["doc_id"] or doc["title"]))}">'
+            f'<svg class="ico"><use href="#i-search"/></svg>研究资料检索</a>'
+            f'<a class="button secondary" href="/domestic/events">'
+            f'<svg class="ico"><use href="#i-archive"/></svg>一手对照</a>'
+        )
+        platform_badge = (
+            '<span class="src-badge" style="background:#6b4e71;color:#fff;">'
+            '<svg class="ico"><use href="#i-book"/></svg>国内学术研究 · 解释层 · review_only'
+            '</span>'
+        )
+        meta_card_foot = (
+            f'<span><strong>作者</strong> {h(academic_author)}</span>'
+            f'<span><strong>机构</strong> {h(academic_institution)}</span>'
+            f'<span><strong>全文状态</strong> {h(academic_status)}</span>'
+            f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
+        )
+    elif is_cia:
         rdp_id = doc["doc_id"] or ""
         archive_detail_url = doc["url"] or f"https://archive.org/details/{rdp_id}"
         pdf_url = f"https://archive.org/download/{rdp_id}/{rdp_id}.pdf"
@@ -5473,10 +5689,10 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         has_preview = len(cached_images) > 0
         # 该台北档案是否存在访客水印图——仅「有水印图」的档案才展示「史料意旨」摘要卡片
         _drnh_img_dir_name = doc["doc_key"].replace(":", "__").replace("/", "_")
-        _drnh_img_dirs = [ROOT / "data" / "drnh_images" / _drnh_img_dir_name]
+        _drnh_img_dirs = [DATA_ROOT / "drnh_images" / _drnh_img_dir_name]
         # 兼容旧的 drnh__<典藏号> 和下载器当前生成的 <典藏号> 目录。
         if _drnh_img_dir_name.startswith("drnh__"):
-            _drnh_img_dirs.append(ROOT / "data" / "drnh_images" / _drnh_img_dir_name.removeprefix("drnh__"))
+            _drnh_img_dirs.append(DATA_ROOT / "drnh_images" / _drnh_img_dir_name.removeprefix("drnh__"))
         _drnh_img_dir = next((p for p in _drnh_img_dirs if p.is_dir()), _drnh_img_dirs[0])
         has_watermark_img = _drnh_img_dir.is_dir() and any(
             list(_drnh_img_dir.glob("p*.jpg")) + list(_drnh_img_dir.glob("page_*.jpg"))
@@ -5585,10 +5801,16 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
                 related_docs.append({"title": f"人物关联: {p['name']}", "docs": related_people})
             break
 
+    citation_heading = "引用草稿（待复核）" if is_domestic_academic else "学术引用"
+    citation_notice = (
+        '<div class="notice">该条目属于学术解释层：当前全文仅供检索和研究，不是正式可引用证据；'
+        '需完成版本、页码/章节、来源哈希和人工复核后，才可申请 citation-ready。</div>'
+        if is_domestic_academic else ""
+    )
     body += f"""
 <section class="meta-card{' cia-cite' if is_cia else ''}" id="cite-card">
   <div class="meta-card-head">
-    <h3><svg class="ico"><use href="#i-quote"/></svg>学术引用</h3>
+    <h3><svg class="ico"><use href="#i-quote"/></svg>{citation_heading}</h3>
     <div class="cite-tabs">
       <button type="button" class="cite-tab active" data-fmt="gb">GB/T 7714</button>
       <button type="button" class="cite-tab" data-fmt="bibtex">BibTeX</button>
@@ -5599,6 +5821,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   <pre class="cite-content" id="cite-content" data-bibtex="{h(citations['bibtex'])}" data-chicago="{h(citations['chicago'])}" data-gb="{h(citations['gb'])}">{h(citations['gb'])}</pre>
   <div class="meta-card-foot">{meta_card_foot}</div>
 </section>
+{citation_notice}
 {paper_backlinks}
 {event_backlinks}
 """
@@ -6196,7 +6419,7 @@ def docs(active_grade: str = "", active_translation: str = "", platform: str = "
 def glossary_page() -> bytes:
     """术语表页面，从 data/translation_glossary.csv 读 109 条标准译名。"""
     import csv as _csv
-    glossary_path = ROOT / "data" / "translation_glossary.csv"
+    glossary_path = DATA_ROOT / "translation_glossary.csv"
     entries = []
     if glossary_path.exists():
         with open(glossary_path, encoding="utf-8") as f:
@@ -9261,7 +9484,7 @@ class Handler(BaseHTTPRequestHandler):
                 # 防穿越
                 if "/" in fname or ".." in fname or ".." in doc_key_safe:
                     raise ValueError("path traversal")
-                root_resolved = (ROOT / "data" / "drnh_images").resolve()
+                root_resolved = (DATA_ROOT / "drnh_images").resolve()
                 sub_name = doc_key_safe.replace(":", "__").replace("/", "_")
                 sub_candidates = [root_resolved / sub_name]
                 if sub_name.startswith("drnh__"):
