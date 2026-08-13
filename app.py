@@ -4457,7 +4457,24 @@ def domestic_review_page() -> bytes:
             SELECT p.id AS page_id, p.page_label, d.doc_key, d.title, d.date_guess,
                    COALESCE(pp.review_status, 'missing') AS review_status,
                    COALESCE(pp.source_file, '') AS source_file,
-                   COALESCE(pp.source_sha256, '') AS source_sha256
+                   COALESCE(pp.source_sha256, '') AS source_sha256,
+                   COALESCE((
+                       SELECT COALESCE(c.authenticity_level_accepted, c.authenticity_level_proposed)
+                       FROM domestic_candidates c
+                       WHERE c.ingested_document_id=d.id
+                       ORDER BY CASE COALESCE(c.authenticity_level_accepted, c.authenticity_level_proposed)
+                                  WHEN 'L0' THEN 0 WHEN 'L1' THEN 1 WHEN 'L2' THEN 2
+                                  WHEN 'L3' THEN 3 ELSE 4 END,
+                                CASE WHEN c.review_status='accepted' THEN 0 ELSE 1 END, c.id
+                       LIMIT 1
+                   ), '未关联') AS candidate_level,
+                   COALESCE((
+                       SELECT c.event_tags
+                       FROM domestic_candidates c
+                       WHERE c.ingested_document_id=d.id
+                       ORDER BY CASE WHEN c.review_status='accepted' THEN 0 ELSE 1 END, c.id
+                       LIMIT 1
+                   ), '') AS candidate_event_tags
             FROM pages p
             JOIN documents d ON d.id=p.document_id
             LEFT JOIN page_provenance pp ON pp.page_id=p.id
@@ -4467,6 +4484,16 @@ def domestic_review_page() -> bytes:
               CASE WHEN pp.page_id IS NULL THEN 0 ELSE 1 END,
               CASE WHEN trim(COALESCE(pp.source_file, ''))<>''
                          AND length(trim(COALESCE(pp.source_sha256, '')))=64 THEN 0 ELSE 1 END,
+              CASE COALESCE((
+                       SELECT COALESCE(c.authenticity_level_accepted, c.authenticity_level_proposed)
+                       FROM domestic_candidates c
+                       WHERE c.ingested_document_id=d.id
+                       ORDER BY CASE COALESCE(c.authenticity_level_accepted, c.authenticity_level_proposed)
+                                  WHEN 'L0' THEN 0 WHEN 'L1' THEN 1 WHEN 'L2' THEN 2
+                                  WHEN 'L3' THEN 3 ELSE 4 END, c.id
+                       LIMIT 1
+                   ), 'LX')
+                WHEN 'L0' THEN 0 WHEN 'L1' THEN 1 WHEN 'L2' THEN 2 WHEN 'L3' THEN 3 ELSE 4 END,
               d.date_guess, p.id
             LIMIT 18
             """
@@ -4483,8 +4510,8 @@ def domestic_review_page() -> bytes:
     status_cards = "".join(f'<article class="result"><div><h2>{h(status)}</h2><div class="meta">{count} 条</div></div><div class="cite"><a href="/domestic?review={h(status)}">查看</a></div></article>' for status, count in sorted(statuses.items()))
     page_queue_cards = "".join(
         f'''<article class="result"><div><h3><a href="/domestic/evidence-review/{row["page_id"]}">{h(row["title"] or row["doc_key"])}</a></h3>
-        <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(source_page_label(row))} · {h(row["review_status"])}</div>
-        <div class="snippet">{h(row["doc_key"])} · SHA {h((row["source_sha256"] or "")[:16] or "未绑定")}…</div></div>
+        <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(source_page_label(row))} · {h(row["review_status"])} · {h(row["candidate_level"])}</div>
+        <div class="snippet">{h(row["doc_key"])} · SHA {h((row["source_sha256"] or "")[:16] or "未绑定")}… · 事件 {h(row["candidate_event_tags"] or "未标注")}</div></div>
         <div class="cite"><a href="/domestic/evidence-review/{row["page_id"]}">页级复核</a></div></article>'''
         for row in page_review_queue
     )
