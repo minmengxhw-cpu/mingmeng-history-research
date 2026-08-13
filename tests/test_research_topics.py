@@ -6,6 +6,7 @@ import sqlite3
 from pathlib import Path
 
 import pytest
+import requests
 
 from tests._http import fetch
 from tests.conftest import DB_PATH
@@ -82,3 +83,47 @@ def test_event_coverage_has_no_dangling_links(db_missing_reason):
         if not (event_by_slug(slug) or topic_by_slug(slug))
     )
     assert not dangling_foreign
+
+
+def test_domestic_evidence_review_smoke(live_server, db_missing_reason):
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证页级证据复核: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        row = connection.execute(
+            """
+            SELECT p.id
+            FROM pages p JOIN documents d ON d.id=p.document_id
+            WHERE d.source_platform='domestic'
+            ORDER BY p.id LIMIT 1
+            """
+        ).fetchone()
+    assert row
+    status, body = fetch(live_server, f"/domestic/evidence-review/{row[0]}")
+    assert status == 200
+    assert body is not None
+    assert "页级证据复核" in body
+    assert "SHA256" in body
+    assert "人工核验可引用" in body
+
+    with sqlite3.connect(DB_PATH) as connection:
+        before = connection.execute(
+            "SELECT citation_ready, needs_human_review, review_status, human_review_note FROM page_provenance WHERE page_id=?",
+            (row[0],),
+        ).fetchone()
+    response = requests.post(
+        f"{live_server}/domestic/evidence-review/{row[0]}",
+        data={
+            "review_status": "human_verified",
+            "reviewer": "test-only",
+            "human_review_note": "test validation must not auto-upgrade",
+        },
+        timeout=10,
+    )
+    assert response.status_code == 400
+    assert "必须确认" in response.text
+    with sqlite3.connect(DB_PATH) as connection:
+        after = connection.execute(
+            "SELECT citation_ready, needs_human_review, review_status, human_review_note FROM page_provenance WHERE page_id=?",
+            (row[0],),
+        ).fetchone()
+    assert after == before

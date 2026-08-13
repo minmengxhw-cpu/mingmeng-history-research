@@ -838,7 +838,8 @@ NAV_GROUPS = [
 # 通过 cookie public_mode=1 或 query ?public=1 开启
 PUBLIC_HIDDEN_GROUPS = {"workbench"}
 PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisition",
-                        "/open-sources", "/dashboard", "/review", "/excluded", "/domestic/review"}
+                        "/open-sources", "/dashboard", "/review", "/excluded", "/domestic/review",
+                        "/domestic/evidence-review"}
 
 
 def nav_active(path: str) -> str:
@@ -4319,6 +4320,7 @@ def research_topic_page(event_id: str) -> bytes:
         page_tools = (
             f'<br><a href="/review/{h(first_page_id)}">校订</a>'
             f'<br><a href="/cite/{h(first_page_id)}">引用门禁</a>'
+            f'<br><a href="/domestic/evidence-review/{h(first_page_id)}">证据复核</a>'
             if first_page_id else ""
         )
         domestic_evidence_cards.append(f"""
@@ -4440,6 +4442,35 @@ def domestic_review_page() -> bytes:
     rows = _domestic_rows()
     with conn() as c:
         decision_count = c.execute("SELECT count(*) FROM domestic_editorial_decisions").fetchone()[0]
+        page_review_count = c.execute(
+            """
+            SELECT count(*)
+            FROM pages p
+            JOIN documents d ON d.id=p.document_id
+            LEFT JOIN page_provenance pp ON pp.page_id=p.id
+            WHERE d.source_platform='domestic'
+              AND COALESCE(pp.citation_ready, 0)=0
+            """
+        ).fetchone()[0]
+        page_review_queue = c.execute(
+            """
+            SELECT p.id AS page_id, p.page_label, d.doc_key, d.title, d.date_guess,
+                   COALESCE(pp.review_status, 'missing') AS review_status,
+                   COALESCE(pp.source_file, '') AS source_file,
+                   COALESCE(pp.source_sha256, '') AS source_sha256
+            FROM pages p
+            JOIN documents d ON d.id=p.document_id
+            LEFT JOIN page_provenance pp ON pp.page_id=p.id
+            WHERE d.source_platform='domestic'
+              AND COALESCE(pp.citation_ready, 0)=0
+            ORDER BY
+              CASE WHEN pp.page_id IS NULL THEN 0 ELSE 1 END,
+              CASE WHEN trim(COALESCE(pp.source_file, ''))<>''
+                         AND length(trim(COALESCE(pp.source_sha256, '')))=64 THEN 0 ELSE 1 END,
+              d.date_guess, p.id
+            LIMIT 18
+            """
+        ).fetchall()
     levels: dict[str, int] = {}
     statuses: dict[str, int] = {}
     missing_archive = 0
@@ -4450,13 +4481,171 @@ def domestic_review_page() -> bytes:
             missing_archive += 1
     level_cards = "".join(f'<article class="result"><div><h2>{h(level)}</h2><div class="meta">{count} 条候选</div><div class="snippet">{h("核心或公开展示" if level in {"L0", "L1", "L2", "L3"} else "仅线索/待核")}</div></div><div class="cite"><a href="/domestic?level={h(level)}">查看</a></div></article>' for level, count in sorted(levels.items()))
     status_cards = "".join(f'<article class="result"><div><h2>{h(status)}</h2><div class="meta">{count} 条</div></div><div class="cite"><a href="/domestic?review={h(status)}">查看</a></div></article>' for status, count in sorted(statuses.items()))
+    page_queue_cards = "".join(
+        f'''<article class="result"><div><h3><a href="/domestic/evidence-review/{row["page_id"]}">{h(row["title"] or row["doc_key"])}</a></h3>
+        <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(source_page_label(row))} · {h(row["review_status"])}</div>
+        <div class="snippet">{h(row["doc_key"])} · SHA {h((row["source_sha256"] or "")[:16] or "未绑定")}…</div></div>
+        <div class="cite"><a href="/domestic/evidence-review/{row["page_id"]}">页级复核</a></div></article>'''
+        for row in page_review_queue
+    )
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "复核看板")]) + f"""
 <section class="doc-head"><div><h1>国内史料复核看板</h1><div class="meta">原始性等级、字段缺口、人工验收和编辑边界</div></div><div class="doc-tools"><a class="button" href="/domestic/acquisition">调档清单</a></div></section>
-<section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>候选</span></div><div class="stat"><strong>{h(statuses.get('accepted', 0))}</strong><span>已接受</span></div><div class="stat"><strong>{h(statuses.get('needs_human_review', 0))}</strong><span>待人工复核</span></div><div class="stat"><strong>{h(missing_archive)}</strong><span>缺档号/卷期</span></div><div class="stat"><strong>{h(decision_count)}</strong><span>编辑决策</span></div></section>
+<section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>候选</span></div><div class="stat"><strong>{h(statuses.get('accepted', 0))}</strong><span>已接受</span></div><div class="stat"><strong>{h(statuses.get('needs_human_review', 0))}</strong><span>待人工复核</span></div><div class="stat"><strong>{h(missing_archive)}</strong><span>缺档号/卷期</span></div><div class="stat"><strong>{h(decision_count)}</strong><span>编辑决策</span></div><div class="stat"><strong>{h(page_review_count)}</strong><span>待页级引用复核</span></div></section>
 <div class="notice">只有完成形成者、日期、档号/卷期、页码/影像和权利核验的记录，才可从 needs_human_review 升级为 accepted；本看板不把拟议等级当作验收结论。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-layer"/></svg>原始性分布</h2></div><section class="result-list">{level_cards}</section>
-<div class="section-head"><h2><svg class="ico"><use href="#i-edit"/></svg>编辑状态</h2></div><section class="result-list">{status_cards}</section>"""
+<div class="section-head"><h2><svg class="ico"><use href="#i-edit"/></svg>编辑状态</h2></div><section class="result-list">{status_cards}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-quote"/></svg>页级证据复核队列</h2><span class="meta">未通过 citation_ready {h(page_review_count)} 页，当前展示优先项</span></div>
+<div class="notice">优先处理已有源文件和 SHA256 锚定的页；完成原件/影像对照后，从卡片进入页级复核。没有人工说明的页面仍不能生成正式引文。</div>
+<section class="result-list">{page_queue_cards or '<div class="notice">当前没有待复核页。</div>'}</section>"""
     return layout("国内复核看板", body, active_path="/domestic/review")
+
+
+def _domestic_evidence_review_row(page_id: int) -> sqlite3.Row | None:
+    with conn() as c:
+        return c.execute(
+            """
+            SELECT
+                p.id AS page_id, p.page_label, p.page_url, p.text AS original_text,
+                d.doc_key, d.volume_id, d.doc_id, d.title, d.date_guess,
+                d.source_platform, d.hit_type,
+                pp.source_file, pp.source_sha256, pp.source_file_size,
+                pp.pdf_page_no, pp.physical_page_no, pp.printed_page,
+                pp.page_image_path, pp.ocr_engine, pp.ocr_model, pp.ocr_mode,
+                pp.text_chars, pp.citation_ready, pp.needs_human_review,
+                pp.review_status, pp.machine_review_note, pp.human_review_note
+            FROM pages p
+            JOIN documents d ON d.id=p.document_id
+            LEFT JOIN page_provenance pp ON pp.page_id=p.id
+            WHERE p.id=? AND d.source_platform='domestic'
+            """,
+            (page_id,),
+        ).fetchone()
+
+
+def domestic_evidence_review_page(page_id: int, saved: bool = False, error: str = "") -> bytes:
+    """国内页级证据复核：只有人工确认才允许打开 citation_ready 门禁。"""
+    row = _domestic_evidence_review_row(page_id)
+    if not row:
+        return layout("国内证据页未找到", '<div class="notice">未找到国内证据页。</div>', active_path="/domestic/review")
+
+    current_status = str(row["review_status"] or "review_only")
+    saved_html = '<div class="notice" style="margin-bottom:14px;">页级证据复核已保存；引用状态仍以当前门禁字段为准。</div>' if saved else ""
+    error_html = f'<div class="notice" style="border-left-color:#a33b2b;">{h(error)}</div>' if error else ""
+    status_options = [
+        ("review_only", "待人工复核"),
+        ("needs_revision", "需补证/需修订"),
+        ("human_verified", "人工核验可引用"),
+    ]
+    options = "".join(
+        f'<option value="{h(value)}"{" selected" if value == current_status else ""}>{h(label)}</option>'
+        for value, label in status_options
+    )
+    page = source_page_label(row)
+    doc_href = f"/doc/{quote(str(row['doc_key']))}?page_id={row['page_id']}"
+    source_url = row["page_url"] or ""
+    citation_ready = int(row["citation_ready"] or 0)
+    provenance_label = "已有页级 provenance" if row["source_file"] and row["source_sha256"] else "缺少页级 provenance"
+    body = f"""
+{saved_html}{error_html}
+<section class="doc-head">
+  <div>
+    {title_block(row["title"], None, "h1")}
+    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(page)} · {h(row["hit_type"] or "domestic")} · {h(row["review_status"] or "missing")}</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="{doc_href}">并排阅读</a>
+    <a class="button secondary" href="/cite/{row['page_id']}">引用门禁</a>
+    <a class="button secondary" href="/domestic/review">复核看板</a>
+    <a class="button secondary" href="{h(source_href(source_url))}" target="_blank" rel="noreferrer">原始来源</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(citation_ready)}</strong><span>citation_ready</span></div>
+  <div class="stat"><strong>{h(row["physical_page_no"] or row["pdf_page_no"] or "未标注")}</strong><span>物理页</span></div>
+  <div class="stat"><strong>{h(row["text_chars"] or 0)}</strong><span>页文字数</span></div>
+  <div class="stat"><strong>{h(provenance_label)}</strong><span>来源绑定</span></div>
+</section>
+<div class="notice"><strong>复核门槛：</strong>只有你实际对照原件/影像、页码、形成日期和来源文件后，才可以选择“人工核验可引用”。机器 OCR、候选 accepted、文件存在或 SHA 锚定都不能单独完成这一步。</div>
+<section class="reader">
+  <article class="pane">
+    <div class="pane-head"><span>国内原文 / OCR · {h(page)}</span><span>{h(row["ocr_engine"] or "OCR 引擎未标注")}</span></div>
+    <div class="pane-body">{h(row["original_text"])}</div>
+  </article>
+  <article class="pane">
+    <div class="pane-head"><span>页级 provenance</span><span>{h(row["review_status"] or "missing")}</span></div>
+    <div class="pane-body">
+      <p><strong>源文件：</strong>{h(row["source_file"] or "缺失")}</p>
+      <p><strong>SHA256：</strong>{h(row["source_sha256"] or "缺失")}</p>
+      <p><strong>文件大小：</strong>{h(row["source_file_size"] or "未标注")}</p>
+      <p><strong>物理页 / 印刷页：</strong>{h(row["physical_page_no"] or "未标注")} / {h(row["printed_page"] or "未标注")}</p>
+      <p><strong>机器说明：</strong>{h(row["machine_review_note"] or "无")}</p>
+      <p><strong>已有人工说明：</strong>{h(row["human_review_note"] or "无")}</p>
+    </div>
+  </article>
+</section>
+<section class="doc-head" style="margin-top:20px;background:var(--panel-warm);border-left:4px solid var(--accent);">
+  <div><h2>保存页级复核结论</h2><div class="meta">复核者标识和说明会写入本页 provenance；选择人工核验时两者均为必填。</div></div>
+</section>
+<form method="post" action="/domestic/evidence-review/{row['page_id']}" class="filter-panel">
+  <label>结论
+    <select name="review_status">{options}</select>
+  </label>
+  <label>复核者标识
+    <input name="reviewer" value="" placeholder="例如：xiaoban / 研究者姓名" autocomplete="off">
+  </label>
+  <label style="display:block;margin-top:10px;">复核说明
+    <textarea class="review-text" name="human_review_note" placeholder="记录你核对了哪些原件、页码、日期、文字差异和不确定性。" style="min-height:150px;">{h(row["human_review_note"] or "")}</textarea>
+  </label>
+  <label style="display:block;margin-top:10px;"><input type="checkbox" name="source_confirm" value="1"> 我已对照原件/影像、页码和来源文件；我理解这不是对 OCR 自动结果的确认。</label>
+  <div class="formbar"><button class="button" type="submit">保存复核结论</button><a class="button secondary" href="{doc_href}">取消</a></div>
+</form>
+"""
+    return layout("国内页级证据复核", body, active_path="/domestic/review")
+
+
+def save_domestic_evidence_review(page_id: int, form: dict[str, list[str]]) -> tuple[bool, str]:
+    status = (form.get("review_status", ["review_only"])[0] or "review_only").strip()
+    note = (form.get("human_review_note", [""])[0] or "").strip()
+    reviewer = (form.get("reviewer", [""])[0] or "").strip()
+    confirmed = form.get("source_confirm", [""])[0] == "1"
+    allowed = {"review_only", "needs_revision", "human_verified"}
+    if status not in allowed:
+        return False, "无效的复核状态。"
+    row = _domestic_evidence_review_row(page_id)
+    if not row:
+        return False, "未找到国内证据页。"
+    if status == "human_verified":
+        if not confirmed:
+            return False, "选择人工核验可引用前，必须确认已对照原件/影像、页码和来源文件。"
+        if not reviewer:
+            return False, "人工核验必须填写复核者标识。"
+        if len(note) < 12:
+            return False, "人工核验说明至少需要 12 个字符，记录实际核对内容。"
+        if not row["source_file"] or len(str(row["source_sha256"] or "")) != 64:
+            return False, "当前页没有完整的源文件与 SHA256 provenance，不能升级为正式引用。"
+    stored_note = f"审核者：{reviewer}；{note}" if reviewer and note else (note or None)
+    now = datetime.datetime.now().isoformat(timespec="seconds")
+    with conn() as c:
+        c.execute(
+            """
+            UPDATE page_provenance
+               SET citation_ready=?, needs_human_review=?, review_status=?,
+                   human_review_note=?, updated_at=?
+             WHERE page_id=?
+            """,
+            (
+                1 if status == "human_verified" else 0,
+                0 if status == "human_verified" else 1,
+                status,
+                stored_note,
+                now,
+                page_id,
+            ),
+        )
+        if c.total_changes != 1:
+            return False, "当前页没有可更新的 provenance 记录，请先补齐来源绑定。"
+        c.commit()
+    return True, ""
 
 
 def save_home_focus(form: dict[str, list[str]]) -> tuple[bool, str]:
@@ -8602,6 +8791,12 @@ class Handler(BaseHTTPRequestHandler):
             payload = _domestic_facet_page("places")
         elif parsed.path == "/domestic/acquisition":
             payload = domestic_acquisition_page()
+        elif parsed.path.startswith("/domestic/evidence-review/"):
+            try:
+                page_id_int = int(parsed.path.removeprefix("/domestic/evidence-review/"))
+            except ValueError:
+                page_id_int = 0
+            payload = domestic_evidence_review_page(page_id_int, qs.get("saved", [""])[0] == "1")
         elif parsed.path == "/domestic/review":
             payload = domestic_review_page()
         elif parsed.path == "/domestic":
@@ -8881,6 +9076,26 @@ class Handler(BaseHTTPRequestHandler):
                 return
             payload = focus_page(error=error)
             self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(payload)))
+            self.end_headers()
+            self.wfile.write(payload)
+            return
+        if parsed.path.startswith("/domestic/evidence-review/"):
+            try:
+                page_id_int = int(parsed.path.removeprefix("/domestic/evidence-review/"))
+            except ValueError:
+                page_id_int = 0
+            length = int(self.headers.get("Content-Length", "0"))
+            body = self.rfile.read(length).decode("utf-8")
+            ok, error = save_domestic_evidence_review(page_id_int, parse_qs(body))
+            if ok:
+                self.send_response(303)
+                self.send_header("Location", f"/domestic/evidence-review/{page_id_int}?saved=1")
+                self.end_headers()
+                return
+            payload = domestic_evidence_review_page(page_id_int, error=error)
+            self.send_response(400)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(payload)))
             self.end_headers()

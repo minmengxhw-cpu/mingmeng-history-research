@@ -32,6 +32,8 @@
 - `/research/<event_id>`：专题对读页，展示国内已入库文档/物理页、国内候选、境外机器命中和缺口。
 - `/sources/domestic`：国内史料层的平台画像与文档入口。
 - `/timeline?platform=domestic`：把国内材料纳入全站年表过滤器。
+- `/domestic/review`：国内候选与页级引用复核队列。
+- `/domestic/evidence-review/<page_id>`：对照原件、页码和 SHA256 后，人工写入复核说明；未确认不会升级 `citation_ready`。
 - 关联状态只作为导航，不自动改变 `citation_ready`。
 
 ### B. 国内核心证据样板
