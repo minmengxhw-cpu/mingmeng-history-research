@@ -3,7 +3,7 @@
   "report": "DOMESTIC_CITATION_EVENT_LINKS_20260813",
   "status": "navigation_only",
   "body_read_by_linker": false,
-  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813 plus gdc0021_1947_1030_review_20260813",
+  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813 plus gdc0021_1947_1030_review_20260813 plus guangmingbao_1946_issue7_visual_review_20260814",
   "policy": "These links expose already human-verified page anchors inside a topic. They do not assert that the page is a direct event record, do not alter citation gates, and do not replace missing original declarations or meeting files.",
   "links": [
     {
@@ -61,6 +61,13 @@
       "page_label": "02",
       "navigation_title": "民盟拒绝参加国大与反对伪宪的回顾页",
       "rationale": "1947年《光明報》页内明确回述民盟拒绝参加国大并反对伪宪；这是事后回顾，需与1946年民盟正式声明或报刊原件互校。"
+    },
+    {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "doc_key": "domestic-page/NLC404-01J000514-10428",
+      "page_label": "1",
+      "navigation_title": "1946年《光明報》新七號《我们为什么不参加国大》页",
+      "rationale": "1946年11月18日《光明報》新七號首版视觉清晰显示刊期、日期和社论题名；这是同期机关报政治表达的页级入口，引用范围限于页身份和题名，不替代正式拒参声明或会议档案。"
     },
     {
       "event_id": "domestic-1947-illegal-dissolution",

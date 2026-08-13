@@ -194,6 +194,22 @@ def test_minxian_contents_citation_is_scope_limited(live_server, db_missing_reas
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_guangmingbao_issue_identity_citation_is_scope_limited(live_server, db_missing_reason):
+    """同期报刊页只开放刊期、日期、页码、版面和题名身份，不导出未校勘正文。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证《光明報》1946年新七號引用范围: {db_missing_reason}")
+    status, body = fetch(live_server, "/cite/16351")
+    assert status == 200
+    assert body is not None
+    assert "机器识别内容（仅供定位，不作逐字引文）" in body
+    assert "证据范围：本页人工复核仅覆盖刊名、期号、出版日、PDF 页码、版面及社论题名。" in body
+    assert "目录页身份及页码锚点" not in body
+    assert "原文摘录：" not in body
+    assert "来源文件 SHA256" in body
+    assert "PDF 第 1 页" in body
+    assert "Traceback" not in body
+
+
 def test_minmeng_compiled_1944_text_citation_is_scope_limited(live_server, db_missing_reason):
     """官方汇编中的1944文本只开放题名、日期和页码身份，不输出未校勘正文。"""
     if db_missing_reason:
@@ -799,3 +815,32 @@ def test_domestic_manifest_and_strict_citation_gate(db_missing_reason):
         assert re.fullmatch(r"[0-9a-f]{64}", str(source_sha256 or "").lower()), page_id
         assert re.search(r"#page=0*%d(?:$|[^0-9])" % int(pdf_page_no), str(page_url or "")), page_id
         assert "Codex" in str(note)
+
+
+def test_research_question_benchmark_covers_all_domestic_topics(tmp_path, db_missing_reason):
+    """真实研究问题必须能进入专题链，但不得被误报为一手闭环。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法运行研究问题基准: {db_missing_reason}")
+    script = Path(__file__).resolve().parents[1] / "scripts" / "domestic" / "build_research_question_benchmark_20260814.py"
+    output = tmp_path / "research-question-benchmark.json"
+    result = subprocess.run(
+        [sys.executable, str(script), "--output", str(output)],
+        cwd=str(script.parents[2]),
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert result.stdout.strip()
+    report = json.loads(output.read_text(encoding="utf-8"))
+    assert report["question_count"] == 36
+    assert report["path_ready_count"] == 36
+    assert report["failed_path_count"] == 0
+    assert report["topic_count"] == 9
+    assert report["body_read"] is False
+    assert report["report_does_not_copy_page_text"] is True
+    assert all(item["questions"] == 4 for item in report["topics"].values())
+    assert all(item["path_ready"] == 4 for item in report["topics"].values())
+    assert all(
+        check["primary_evidence_status"] == "partial"
+        for check in report["checks"]
+    )

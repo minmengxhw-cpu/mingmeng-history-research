@@ -457,6 +457,14 @@
           "caveat": "可证明民盟机关报的后续立场，不能直接替代1946年正式拒参声明。"
         },
         {
+          "label": "《光明報》1946年新七號首版",
+          "page_id": 16351,
+          "doc_key": "domestic-page/NLC404-01J000514-10428",
+          "status": "strict_citation",
+          "role": "1946年民盟机关报同期社论《我们为什么不参加国大》的页级进入点；引用范围限于刊期、出版日、页码、版面和题名。",
+          "caveat": "这是同期机关报政治表达，不替代民盟正式拒参声明、函电或国民大会原始会议档案；机器 OCR 不作为逐字引文。"
+        },
+        {
           "label": "论有条件参加国大（汇编/专题页）",
           "page_id": 20284,
           "doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue8-conditional-national-assembly",

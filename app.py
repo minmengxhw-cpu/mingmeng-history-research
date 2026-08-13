@@ -8645,8 +8645,12 @@ def citation_page(page_id: int) -> bytes:
             for scope in (
                 "review_scope=issue_identity_contents_only",
                 "review_scope=compiled_text_title_date_page_identity",
+                "review_scope=periodical_issue_identity_editorial_title",
             )
         )
+    )
+    periodical_issue_scope = (
+        "review_scope=periodical_issue_identity_editorial_title" in str(row["event_tags"] or "")
     )
     compiled_text_scope = (
         "review_scope=compiled_text_title_date_page_identity" in str(row["event_tags"] or "")
@@ -8664,6 +8668,8 @@ def citation_page(page_id: int) -> bytes:
             scope_label = (
                 f"官方汇编中的 {compiled_year} 文本：本页人工复核仅覆盖汇编版本、篇名、标注日期、PDF 页码和页界。"
                 if compiled_text_scope
+                else "本页人工复核仅覆盖刊名、期号、出版日、PDF 页码、版面及社论题名。"
+                if periodical_issue_scope
                 else "本页人工复核仅覆盖刊名、卷期、出版日、目录页身份及页码锚点。"
             )
             citation = (
