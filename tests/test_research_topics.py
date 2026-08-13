@@ -39,6 +39,8 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
     assert "证据边界" in body
     assert "国内—境外对读卡" in body
     assert "学术解释层" in body
+    assert "学术研究资料（解释层）" in body
+    assert "一手对照" in body
     assert "下一步核验" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
@@ -105,13 +107,59 @@ def test_topic_comparison_cards_complete():
     cards = json.loads((root / "data/domestic/topic_comparison_cards.json").read_text(encoding="utf-8"))
     coverage_ids = {item["event_id"] for item in coverage}
     card_ids = {item["event_id"] for item in cards}
-    required = {"research_question", "domestic_anchor", "foreign_anchor", "difference", "boundary", "next_action", "academic_use"}
+    required = {"research_question", "academic_terms", "domestic_anchor", "foreign_anchor", "difference", "boundary", "next_action", "academic_use"}
     assert coverage_ids == card_ids
     assert len(cards) == 9
     for card in cards:
         assert required <= set(card)
+        assert isinstance(card["academic_terms"], list) and card["academic_terms"]
         assert all(str(card[field]).strip() for field in required)
         assert "不能" in card["boundary"] or "不得" in card["boundary"]
+
+
+def test_academic_topic_match_uses_metadata_only(tmp_path, monkeypatch):
+    """专题学术候选匹配只读结构化 metadata，不依赖正文。"""
+    import app
+
+    staging = tmp_path / "staging.sqlite"
+    with sqlite3.connect(staging) as connection:
+        connection.execute(
+            """CREATE TABLE domestic_research_materials (
+                external_id TEXT, title TEXT, author TEXT, institution TEXT,
+                publication_date TEXT, research_type TEXT, quality_tier TEXT,
+                source_url TEXT, fulltext_status TEXT, review_status TEXT,
+                citation_ready INTEGER, human_verified INTEGER,
+                metadata_json TEXT, layer TEXT
+            )"""
+        )
+        connection.execute(
+            """INSERT INTO domestic_research_materials VALUES
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                "ACAD-TEST-001",
+                "闻一多与1946年昆明民主运动",
+                "测试作者",
+                "测试研究机构",
+                "2001",
+                "SCHOLARLY_ARTICLE",
+                "A",
+                "https://example.test/article",
+                "METADATA_ONLY",
+                "machine_accepted",
+                0,
+                0,
+                json.dumps({"events": ["闻一多"], "historical_periods": ["1946"]}, ensure_ascii=False),
+                "SCHOLARLY_RESEARCH",
+            ),
+        )
+    monkeypatch.setattr(app, "DOMESTIC_STAGING_DB_PATH", staging)
+    result = app._research_academic_matches(
+        {"event_tags": ["1946李闻血案"]},
+        {"academic_terms": ["闻一多", "1946"]},
+    )
+    assert result["total"] == 1
+    assert result["rows"][0]["external_id"] == "ACAD-TEST-001"
+    assert "闻一多" in result["rows"][0]["matched_terms"]
 
 
 def test_domestic_evidence_review_smoke(live_server, db_missing_reason):

@@ -20,6 +20,7 @@ DEFAULT_CARDS = ROOT / "data/domestic/topic_comparison_cards.json"
 REQUIRED = {
     "event_id",
     "research_question",
+    "academic_terms",
     "domestic_anchor",
     "foreign_anchor",
     "difference",
@@ -56,7 +57,10 @@ def validate(coverage_path: Path, cards_path: Path) -> dict:
         for field in sorted(REQUIRED - set(card)):
             errors.append(f"card[{index}] missing {field}")
         for field in sorted(REQUIRED - {"event_id"}):
-            if field in card and not str(card[field]).strip():
+            if field == "academic_terms":
+                if not isinstance(card.get(field), list) or not any(str(value).strip() for value in card.get(field, [])):
+                    errors.append(f"card[{index}] empty {field}")
+            elif field in card and not str(card[field]).strip():
                 errors.append(f"card[{index}] empty {field}")
         if "不能" not in str(card.get("boundary", "")) and "不得" not in str(card.get("boundary", "")):
             errors.append(f"card[{index}] boundary does not state a non-equivalence rule")

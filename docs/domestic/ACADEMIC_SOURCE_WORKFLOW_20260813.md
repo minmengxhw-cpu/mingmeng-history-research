@@ -60,3 +60,13 @@ python3 scripts/domestic/audit_academic_source_layer_20260813.py \
 3. 优先的全文候选完成页码或章节定位；无页码的网页只保留为研究入口。
 4. 学术资料与国内一手页级证据在专题页形成可点击的对读关系。
 5. 任何学术条目只有在独立来源、稳定全文/页码、哈希和复核齐全后，才可申请正式引用；否则继续保持研究层状态。
+
+专题页的学术候选匹配使用 `events`、`historical_periods`、`people`、`places` 等结构化元数据，并辅以题名/作者/机构字段；它不是正文语义判断。每条候选都提供“研究资料”“一手对照”和来源入口，读者可以从解释层回到对应专题的一手证据区。
+
+```bash
+python3 scripts/domestic/audit_academic_topic_crosswalk_20260813.py \
+  --db work/domestic/staging_20260730/domestic_staging.sqlite \
+  --output work/domestic/academic_source_audit_20260813/TOPIC_CROSSWALK.json
+```
+
+交叉审计报告必须保留 `body_read=false`；某专题匹配为 0 时应显示为资料缺口，而不是用宽泛关键词强行填充。

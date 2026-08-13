@@ -4333,6 +4333,120 @@ def _research_domestic_evidence_rows(
     return result
 
 
+def _research_academic_matches(
+    item: dict[str, object], comparison: dict[str, object], limit: int = 10
+) -> dict[str, object]:
+    """把 staging 学术元数据按专题词做候选匹配，不读取正文、不升级引用。"""
+    result: dict[str, object] = {"rows": [], "total": 0}
+    if not DOMESTIC_STAGING_DB_PATH.exists():
+        return result
+    terms = [
+        str(term).strip()
+        for term in (
+            list(comparison.get("academic_terms", []))
+            + list(item.get("event_tags", []))
+        )
+        if str(term).strip()
+    ]
+    if not terms:
+        return result
+    try:
+        c = sqlite3.connect(DOMESTIC_STAGING_DB_PATH)
+        c.row_factory = sqlite3.Row
+        exists = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='domestic_research_materials'"
+        ).fetchone()
+        if not exists:
+            c.close()
+            return result
+        source_rows = c.execute(
+            """SELECT external_id, title, author, institution, publication_date,
+                      research_type, quality_tier, source_url, fulltext_status,
+                      review_status, citation_ready, human_verified, metadata_json
+               FROM domestic_research_materials
+               WHERE layer='SCHOLARLY_RESEARCH'"""
+        ).fetchall()
+        c.close()
+    except sqlite3.Error:
+        return result
+
+    matches: list[dict[str, object]] = []
+    tier_score = {"S": 4, "A": 3, "B": 2, "C": 1}
+    fulltext_score = {
+        "FULLTEXT_PDF": 3,
+        "FULLTEXT_HTML": 3,
+        "ACQUIRED_PUBLIC_HTML": 2,
+        "FULLTEXT_HTML_CANDIDATE": 1,
+        "FULLTEXT_PDF_CANDIDATE": 1,
+    }
+    for source in source_rows:
+        try:
+            metadata = json.loads(str(source["metadata_json"] or "{}"))
+        except (TypeError, json.JSONDecodeError):
+            metadata = {}
+        if not isinstance(metadata, dict):
+            metadata = {}
+        structured_values: list[str] = []
+        for key in ("events", "historical_periods", "people", "places", "research_type"):
+            value = metadata.get(key, [])
+            if isinstance(value, list):
+                structured_values.extend(str(part) for part in value)
+            elif value:
+                structured_values.append(str(value))
+        structured = " ".join(structured_values)
+        general = " ".join(
+            str(source[key] or "")
+            for key in ("title", "author", "institution", "publication_date", "research_type")
+        )
+        matched: list[str] = []
+        score = 0
+        for term in dict.fromkeys(terms):
+            if term in str(source["title"] or ""):
+                matched.append(term)
+                score += 8
+            elif term in structured:
+                matched.append(term)
+                score += 5
+            elif term in general:
+                matched.append(term)
+                score += 2
+        specific_match = any(not re.fullmatch(r"\d{4}", term) for term in matched)
+        if not matched or not specific_match:
+            continue
+        quality = str(source["quality_tier"] or "C")
+        fulltext_status = str(source["fulltext_status"] or "")
+        score += tier_score.get(quality, 0) + fulltext_score.get(fulltext_status, 0)
+        matches.append(
+            {
+                "external_id": source["external_id"],
+                "title": source["title"],
+                "author": source["author"],
+                "institution": source["institution"],
+                "publication_date": source["publication_date"],
+                "research_type": source["research_type"],
+                "quality_tier": quality,
+                "source_url": source["source_url"],
+                "fulltext_status": fulltext_status,
+                "review_status": source["review_status"],
+                "citation_ready": int(source["citation_ready"] or 0),
+                "human_verified": int(source["human_verified"] or 0),
+                "matched_terms": matched[:6],
+                "match_score": score,
+            }
+        )
+    matches.sort(
+        key=lambda row: (
+            -int(row["match_score"]),
+            -tier_score.get(str(row["quality_tier"]), 0),
+            str(row["publication_date"] or "9999"),
+            str(row["external_id"]),
+        )
+    )
+    result["total"] = len(matches)
+    result["rows"] = matches[:limit]
+    return result
+
+
 def _research_topic_rows() -> list[dict[str, object]]:
     """为统一专题首页生成国内候选数、境外机器命中数和入口信息。"""
     coverage = _load_domestic_event_coverage()
@@ -4348,6 +4462,8 @@ def _research_topic_rows() -> list[dict[str, object]]:
             candidate_ids = [str(value) for value in item.get("domestic_candidate_ids", [])]
             linked = [domestic_by_id[value] for value in candidate_ids if value in domestic_by_id]
             domestic_evidence = _research_domestic_evidence_rows(c, linked)
+            comparison = comparison_cards.get(str(item.get("event_id")), {})
+            academic_matches = _research_academic_matches(item, comparison)
             foreign_defs = [
                 definition
                 for slug in item.get("foreign_event_slugs", [])
@@ -4359,7 +4475,9 @@ def _research_topic_rows() -> list[dict[str, object]]:
             ]
             result.append({
                 "item": item,
-                "comparison": comparison_cards.get(str(item.get("event_id")), {}),
+                "comparison": comparison,
+                "academic_rows": academic_matches["rows"],
+                "academic_total": academic_matches["total"],
                 "domestic_rows": linked,
                 "domestic_evidence": domestic_evidence,
                 "domestic_documents": len(domestic_evidence),
@@ -4380,12 +4498,13 @@ def research_topics_page() -> bytes:
     total_domestic_documents = sum(int(topic["domestic_documents"]) for topic in topics)
     total_domestic_pages = sum(int(topic["domestic_pages"]) for topic in topics)
     total_foreign = sum(int(topic["foreign_pages"]) for topic in topics)
+    total_academic = sum(int(topic.get("academic_total", 0)) for topic in topics)
     body = breadcrumb_html([("/", "首页"), (None, "多源专题研究")]) + f"""
 <section class="hero hero-compact">
   <div class="hero-eyebrow">UNIFIED RESEARCH TOPICS</div>
   <h1>多源专题研究</h1>
   <p class="hero-sub">把国内候选、境外档案和证据缺口放进同一条研究路径。这里的关联是检索与编排层，正式引用仍必须回到原件、页码、哈希和人工复核。</p>
-  <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_domestic_documents}</b> 篇国内已入库文档</span><span><b>{total_domestic_pages}</b> 个国内物理页</span><span><b>{total_foreign}</b> 个境外机器命中页</span></div>
+  <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_domestic_documents}</b> 篇国内已入库文档</span><span><b>{total_domestic_pages}</b> 个国内物理页</span><span><b>{total_foreign}</b> 个境外机器命中页</span><span><b>{total_academic}</b> 条学术解释候选</span></div>
 </section>
 <div class="notice"><strong>阅读纪律：</strong>“国内候选”来自事件覆盖表，“境外机器命中”来自关键词检索；二者都不是自动事实确认。打开专题后，可以分别回到国内候选记录、境外原文页和证据缺口说明。</div>
 <section class="result-list">
@@ -4399,7 +4518,7 @@ def research_topics_page() -> bytes:
 <article class="result">
   <div>
     <h2><a href="/research/{quote(str(item['event_id']))}">{h(item.get('event_name'))}</a></h2>
-    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · {h(item.get('domestic_status'))}</div>
+    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · 学术解释候选 {h(topic.get('academic_total', 0))} 条 · {h(item.get('domestic_status'))}</div>
     <div class="tagline"><span class="pstatus {status_cls}">{h(status)}</span>{''.join(f'<span class="tag">{h(tag)}</span>' for tag in item.get('event_tags', []))}</div>
     <div class="snippet">{h(item.get('review_note'))}</div>
     <div class="snippet"><strong>对读差异：</strong>{h(comparison.get('difference') or '尚未配置差异卡，暂只显示两侧检索入口。')}</div>
@@ -4446,6 +4565,24 @@ def research_topic_page(event_id: str) -> bytes:
   <div class="snippet">{h(row['evidence_note'] or row['uncertainty_note'])}</div>
 </div><div class="cite"><a href="/domestic?q={query}">候选记录</a></div></article>""")
     domestic_html = "".join(domestic_cards) or '<div class="notice">该专题当前没有可见的国内候选记录。</div>'
+
+    academic_cards = []
+    for academic in topic.get("academic_rows", []):
+        source_url = source_href(academic.get("source_url") or "#")
+        search_href = f"/domestic/search?scope=research&amp;q={quote(str(academic.get('title') or academic.get('external_id') or ''))}"
+        tier = str(academic.get("quality_tier") or "未分级")
+        tier_class = "ok" if tier in {"S", "A"} else "warn"
+        academic_cards.append(f"""
+<article class="result compact-result"><div>
+  <h3>{h(academic.get('title') or academic.get('external_id'))}</h3>
+  <div class="meta">{h(academic.get('author') or '作者未标注')} · {h(academic.get('institution') or '机构未标注')} · {h(academic.get('publication_date') or '日期未标注')}</div>
+  <div class="tagline"><span class="pstatus {tier_class}">学术 {h(tier)}</span><span class="tag">{h(academic.get('research_type') or '研究资料')}</span><span class="tag">命中：{h('、'.join(academic.get('matched_terms') or []))}</span></div>
+  <div class="snippet">全文状态：{h(academic.get('fulltext_status') or '未标注')} · citation_ready={h(academic.get('citation_ready'))} · 该条目只作为解释层候选，不自动替代国内一手页级证据。</div>
+</div><div class="cite"><a href="{search_href}">研究资料</a> · <a href="/domestic/events?event={quote(str(item.get('event_id')))}">一手对照</a>{f' · <a href="{h(source_url)}" target="_blank" rel="noreferrer">来源入口</a>' if source_url != '#' else ''}</div></article>""")
+    academic_total = int(topic.get("academic_total", 0))
+    academic_html = "".join(academic_cards) or f'<div class="notice">当前 staging 没有匹配到该专题的学术元数据；这不代表学术资料不存在，只表示本地 staging 尚未提供可重算匹配。请先回到 <a href="/domestic/events?event={quote(str(item.get("event_id")))}">一手对照</a>。</div>'
+    if academic_total > len(academic_cards):
+        academic_html += f'<div class="notice">当前显示前 {len(academic_cards)} 条，共匹配 {academic_total} 条；请进入研究资料检索继续筛选。</div>'
 
     domestic_evidence_cards = []
     for evidence in topic["domestic_evidence"]:
@@ -4536,6 +4673,9 @@ def research_topic_page(event_id: str) -> bytes:
 </section>
 <div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。</div>
 {comparison_html}
+<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>学术研究资料（解释层）</h2><span class="meta">{h(academic_total)} 条机器主题候选</span></div>
+<div class="notice">学术材料用于解释、争议定位和检索扩展；只有全文/页码/哈希/复核齐全后才可能进入正式引用。下方命中依据是书目元数据和结构化主题字段，不是正文语义确认。</div>
+<section class="result-list">{academic_html}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国内已入库证据样本</h2><span class="meta">{h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页</span></div>
 <section class="result-list">{domestic_evidence_html}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国内候选记录</h2><span class="meta">{len(topic['domestic_rows'])} 条可见候选</span></div>

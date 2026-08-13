@@ -54,6 +54,8 @@
 
 新增 `/domestic/academic` 学术研究层和 `data/domestic/academic_source_policy.json`。当前 staging 元数据审计快照为 285 条研究/官方资料，其中 152 条学术研究、96 条学术文章、119 条 S/A 优先学术记录；citation-ready 与 human_verified 仍为 0，符合“学术解释层不替代一手页级证据”的口径。审计脚本为 `scripts/domestic/audit_academic_source_layer_20260813.py`，只读元数据，不读取正文。
 
+学术专题 crosswalk 已接入专题详情页，当前按结构化元数据得到 150 条专题候选匹配；1945 年一大和 1946 年拒绝国民大会目前没有足够精确的学术元数据匹配，页面保留为明确缺口，等待补充专门研究而不使用宽泛关键词填充。
+
 ### D. 研究体验和持续治理
 
 - 统一搜索按平台、形成者、时期、证据等级、复核状态筛选。
