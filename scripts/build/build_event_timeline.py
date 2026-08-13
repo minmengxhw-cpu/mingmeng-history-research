@@ -3,10 +3,18 @@ from __future__ import annotations
 
 import re
 import sqlite3
+import sys
 from pathlib import Path
 
 
 DB_PATH = Path.cwd() / "data" / "research_index.sqlite"
+SCRIPT_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(SCRIPT_ROOT / "scripts" / "domestic"))
+from link_domestic_event_pages_20260813 import (  # noqa: E402
+    collect_links,
+    insert_links,
+    load_coverage,
+)
 
 
 TOPICS = [
@@ -316,6 +324,14 @@ def main() -> None:
         total += insert_events(conn, "topic", topic["slug"], topic["name"], topic["terms"])
     for person in PEOPLE:
         total += insert_events(conn, "person", person["slug"], person["name"], person["terms"])
+    domestic_coverage = SCRIPT_ROOT / "data" / "domestic" / "event_coverage.json"
+    if domestic_coverage.is_file():
+        domestic_links = collect_links(conn, load_coverage(domestic_coverage))
+        domestic_inserted = insert_links(conn, domestic_links)
+        print(
+            f"Linked domestic navigation events: {domestic_inserted} new rows "
+            f"from {len(domestic_links)} page links."
+        )
     conn.commit()
     scopes = conn.execute("SELECT scope_type, scope_slug, count(*) FROM research_events GROUP BY scope_type, scope_slug").fetchall()
     conn.close()

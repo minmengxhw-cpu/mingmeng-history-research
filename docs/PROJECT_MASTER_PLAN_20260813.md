@@ -13,7 +13,7 @@
 - 境外资料已具备平台、人物、事件、年表、多源对位和论文入口。
 - 国内正式库当前有 540 篇文档、6,204 个页/片段；其中 15 篇、47 页是学术解释层全文。
 - 国内 5,133/5,134 个页已有本地源文件和 SHA256 锚定；仍有 1 页缺本地快照、17 篇日期待核。
-- 国内 `research_events` 关联当前为 0；统一专题目前使用声明式覆盖表回接国内候选，并在运行时继续回接到 `documents/pages/page_provenance`。这解决了导航断裂，但不把候选自动写成事件事实。
+- 国内专题已接入共享 `research_events` 事件索引：9 个专题新增 500 条页级导航关联，覆盖 486 个国内物理页；关联只来自声明式覆盖表和已入库国内文档，不把候选自动写成事件事实，也不改变引用门禁。总事件节点为 2,409。
 - 正式人工可引用页当前为 101；这 101 页来自本地 PDF 的精确页级定位，并记录了授权代理视觉复核说明。不能用 OCR、机器命中或候选接受状态替代人工复核；其余国内页继续保持待核/机器可阅层。
 
 ## 产品结构
@@ -32,9 +32,11 @@
 - `/research/<event_id>`：专题对读页，展示国内已入库文档/物理页、国内候选、境外机器命中和缺口。
 - `/sources/domestic`：国内史料层的平台画像与文档入口。
 - `/timeline?platform=domestic`：把国内材料纳入全站年表过滤器。
+- `/events?topic=domestic-1941-formation`：国内专题进入与境外专题相同的事件线索页，可回到国内原文页、证据复核和专题对读。
 - `/domestic/review`：国内候选与页级引用复核队列。
 - `/domestic/evidence-review/<page_id>`：对照原件、页码和 SHA256 后，人工写入复核说明；未确认不会升级 `citation_ready`。
 - 关联状态只作为导航，不自动改变 `citation_ready`。
+- `scripts/domestic/link_domestic_event_pages_20260813.py` 负责幂等、可审计的增量关联；`scripts/build/build_event_timeline.py` 重建事件索引时会保留这条国内关联链。
 
 ### B. 国内核心证据样板
 
@@ -77,14 +79,15 @@
 - 九个专题都有国内候选、境外入口和差异卡；缺口仍明确展示。
 - 国内学术层有独立入口、来源分级、全文/引用状态说明和机构元数据分布。
 - 国内外统计只来自可重算的当前数据库/覆盖表。
-- `python3 -B -m pytest -q`：23 passed，1 warning。
+- `python3 -B -m pytest -q`：28 passed，1 warning。
 
 ## 当前收口验收结果
 
 - 学术研究检索结果可以回到正式全文页；学术全文页使用独立的“引用草稿（待复核）”格式，不再套用 FRUS 引用模板。
 - 清洁 checkout 没有 staging 时，`MINGMENG_DATA_ROOT`、`MINGMENG_WORK_ROOT`、`MINGMENG_STAGING_DB` 可指向外部数据盘；正式 SQLite 中已入库学术全文仍可通过 formal-index fallback 检索。
 - 12 条 HTML 和 3 条可提取 PDF 的正文均有 SHA、页/文档链和 FTS；47 页全部 `review_only`，严格可引用页仍为 101。
-- `python3 -B -m pytest -q` 在更新快照后应覆盖当前新增的 academic search/link/citation 回归。
+- 国内 9 个专题已进入共享事件索引：500 条页级关联、486 个不同国内页；抽查统一事件页可回到原文、国内证据复核和专题对读，所有关联页仍保持原有 `review_only`/机器可阅/人工核验状态。
+- `python3 -B -m pytest -q`：28 passed，1 warning；覆盖 academic search/link/citation 与国内共享事件索引回归。
 
 ## 下一阶段收口指标
 

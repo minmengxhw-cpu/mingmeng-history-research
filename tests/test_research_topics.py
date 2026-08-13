@@ -72,6 +72,44 @@ def test_domestic_platform_and_timeline_smoke(live_server, db_missing_reason):
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_domestic_event_index_smoke(live_server, db_missing_reason):
+    """国内专题可以进入与境外专题相同的事件线索页。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证国内事件索引: {db_missing_reason}")
+    status, body = fetch(live_server, "/events?topic=domestic-1941-formation")
+    assert status == 200
+    assert body is not None
+    assert "1941年中国民主政团同盟成立事件线索" in body
+    assert "国内关联来自声明式覆盖表" in body
+    assert "国内原始入口" in body
+    assert "证据复核" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
+def test_domestic_event_index_links_only_domestic_pages(db_missing_reason):
+    """共享事件表的国内专题行必须只指向国内正式页，且覆盖九个专题。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法核对国内事件索引: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        scopes, rows, pages, bad = connection.execute(
+            """
+            SELECT
+                COUNT(DISTINCT e.scope_slug),
+                COUNT(*),
+                COUNT(DISTINCT e.page_id),
+                SUM(CASE WHEN d.source_platform <> 'domestic' THEN 1 ELSE 0 END)
+            FROM research_events e
+            JOIN pages p ON p.id=e.page_id
+            JOIN documents d ON d.id=p.document_id
+            WHERE e.scope_slug LIKE 'domestic-%'
+            """
+        ).fetchone()
+    assert scopes == 9
+    assert rows >= 400
+    assert pages >= 400
+    assert bad == 0
+
+
 def test_event_coverage_has_no_dangling_links(db_missing_reason):
     if db_missing_reason:
         pytest.skip(f"数据库缺失,无法核对专题覆盖: {db_missing_reason}")

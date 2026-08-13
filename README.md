@@ -130,6 +130,7 @@ python3 app.py
 | `/domestic` | 国内史料候选、证据等级和复核状态 |
 | `/domestic/sources` | 国内来源家族、机构入口、访问方式与权利状态 |
 | `/domestic/events` | 国内史料关联的关键事件线索 |
+| `/events?topic=domestic-1941-formation` | 国内专题进入共享事件线索、原文页与证据复核链 |
 | `/domestic/review` | 国内候选和 OCR 人工复核看板 |
 | `/docs?platform=<plat>` | 单平台全文档列表 |
 | `/doc/<doc_key>` | 单条档案详情 |

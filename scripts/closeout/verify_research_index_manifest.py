@@ -102,6 +102,22 @@ def main() -> None:
         ),
         "pages": scalar(conn, "SELECT COUNT(*) FROM pages"),
         "page_fts": scalar(conn, "SELECT COUNT(*) FROM page_fts"),
+        "research_events": scalar(conn, "SELECT COUNT(*) FROM research_events"),
+        "domestic_research_event_rows": scalar(
+            conn, "SELECT COUNT(*) FROM research_events WHERE scope_slug LIKE 'domestic-%'"
+        ),
+        "domestic_research_event_pages": scalar(
+            conn,
+            """SELECT COUNT(DISTINCT e.page_id)
+               FROM research_events e
+               JOIN pages p ON p.id=e.page_id
+               JOIN documents d ON d.id=p.document_id
+               WHERE e.scope_slug LIKE 'domestic-%'
+                 AND d.source_platform='domestic'""",
+        ),
+        "domestic_research_event_scopes": scalar(
+            conn, "SELECT COUNT(DISTINCT scope_slug) FROM research_events WHERE scope_slug LIKE 'domestic-%'"
+        ),
         "domestic_candidates": scalar(conn, "SELECT COUNT(*) FROM domestic_candidates"),
         "domestic_file_backed_provenance": scalar(
             conn,

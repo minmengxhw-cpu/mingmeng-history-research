@@ -1391,6 +1391,37 @@ def topic_by_slug(slug: str) -> dict[str, object] | None:
     for topic in TOPICS:
         if topic["slug"] == slug:
             return topic
+    # Domestic topics use the same event-index route as the foreign topics,
+    # but remain explicitly marked as a domestic navigation layer.  The
+    # loader is defined later in this module; runtime lookup is safe after
+    # module initialization and keeps the JSON coverage table authoritative.
+    domestic_loader = globals().get("domestic_event_by_slug")
+    if domestic_loader:
+        return domestic_loader(slug)
+    return None
+
+
+def domestic_event_by_slug(slug: str) -> dict[str, object] | None:
+    """Return a domestic coverage event in the shared event-index shape."""
+    coverage_loader = globals().get("_load_domestic_event_coverage")
+    if not coverage_loader:
+        return None
+    for item in coverage_loader():
+        if str(item.get("event_id")) != str(slug):
+            continue
+        cards_loader = globals().get("_load_topic_comparison_cards")
+        cards = cards_loader() if cards_loader else {}
+        comparison = cards.get(str(slug), {})
+        academic_terms = comparison.get("academic_terms", []) if isinstance(comparison, dict) else []
+        return {
+            "slug": str(slug),
+            "event_id": str(slug),
+            "name": item.get("event_name", slug),
+            "brief": item.get("domestic_status", "国内专题导航"),
+            "terms": [str(term) for term in academic_terms if str(term).strip()],
+            "source": "domestic",
+            "domestic_status": item.get("domestic_status", ""),
+        }
     return None
 
 
@@ -4111,12 +4142,13 @@ def domestic_events_page(query: dict[str, list[str]] | None = None) -> bytes:
         foreign_links = []
         for slug in item.get("foreign_event_slugs", []):
             foreign_links.append(f'<a href="{h("/events/key/" + slug if event_by_slug(slug) else "/topics/" + slug)}">{h(slug)}</a>')
+        unified_link = f'/events?topic={quote(str(item["event_id"]))}'
         cards.append(f"""
 <article class="result"><div><h2>{h(item['event_name'])}</h2>
   <div class="meta">国内候选 {len(linked)} 条 · {h(item['domestic_status'])}</div>
   <div class="tagline"><span class="tag">{h(item['pair_status'])}</span><span class="pstatus {'ok' if item['pair_status'] == 'pair_available' else 'warn'}">{'境外已关联' if item.get('foreign_event_slugs') else '境外待补'}</span></div>
   <div class="snippet">{h(item['review_note'])}</div></div>
-  <div class="cite"><a href="{h(domestic_link)}">查看国内记录</a>{' · ' + ' · '.join(foreign_links) if foreign_links else ''}</div></article>""")
+  <div class="cite"><a href="{h(unified_link)}">统一事件线索</a> · <a href="{h(domestic_link)}">查看国内记录</a>{' · ' + ' · '.join(foreign_links) if foreign_links else ''}</div></article>""")
     selector = '<a class="button secondary" href="/domestic/events">显示全部</a>' if selected else ''
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "关键事件")]) + f"""
 <section class="doc-head"><div><h1>国内关键事件覆盖</h1><div class="meta">国内记录、境外对位和仍待调档的差异说明</div></div><div class="doc-tools"><a class="button" href="/domestic">候选目录</a>{selector}</div></section>
@@ -4275,7 +4307,7 @@ def _research_foreign_definition(slug: str) -> dict[str, object] | None:
             "entry": f"/events/key/{quote(slug)}",
         }
     topic = topic_by_slug(slug)
-    if topic:
+    if topic and topic.get("source") != "domestic":
         return {
             "slug": slug,
             "name": topic.get("name", slug),
@@ -4798,7 +4830,7 @@ def research_topic_page(event_id: str) -> bytes:
     body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
 <section class="doc-head">
   <div><h1>{h(item.get('event_name'))}</h1><div class="meta">{h(item.get('domestic_status'))}</div></div>
-  <div class="doc-tools"><a class="button" href="/research">专题索引</a><a class="button secondary" href="{event_link}">国内覆盖</a></div>
+  <div class="doc-tools"><a class="button" href="/research">专题索引</a><a class="button secondary" href="/events?topic={quote(event_id)}">统一事件线索</a><a class="button secondary" href="{event_link}">国内覆盖</a></div>
 </section>
 <section class="stats">
   <div class="stat"><strong>{len(topic['domestic_rows'])}</strong><span>国内候选关联</span></div>
@@ -8176,7 +8208,7 @@ def event_overview() -> bytes:
 <section class="doc-head">
   <div>
     <h1>事件线索</h1>
-    <div class="meta">把专题和人物命中的材料压缩成可浏览事件节点。每个节点都能回到原文、译文、摘录卡片和 FRUS 来源。</div>
+    <div class="meta">把国内外专题和人物命中的材料压缩成可浏览事件节点。每个节点都能回到原文、译文、摘录卡片和对应来源；国内关联仍是导航层，不等于事实确认。</div>
   </div>
   <div class="doc-tools">
     <a class="button" href="/timeline">文档年表</a>
@@ -8190,21 +8222,29 @@ def event_overview() -> bytes:
         body += '<div class="notice">暂无事件线索。</div>'
         return layout("事件线索", body)
 
-    labels = {"topic": "专题事件", "person": "人物事件"}
-    for scope_type in ["topic", "person"]:
-        group = [row for row in rows if row["scope_type"] == scope_type]
+    groups = [
+        ("topic", "境外专题事件", lambda row: not str(row["scope_slug"]).startswith("domestic-")),
+        ("topic", "国内专题事件", lambda row: str(row["scope_slug"]).startswith("domestic-")),
+        ("person", "人物事件", lambda row: True),
+    ]
+    for scope_type, label, predicate in groups:
+        group = [
+            row for row in rows
+            if row["scope_type"] == scope_type and predicate(row)
+        ]
         if not group:
             continue
-        body += f'<h2 style="font-size:18px;margin:18px 0 8px;">{h(labels[scope_type])}</h2><section class="result-list">'
+        body += f'<h2 style="font-size:18px;margin:18px 0 8px;">{h(label)}</h2><section class="result-list">'
         for row in group:
             query_key = "topic" if scope_type == "topic" else "person"
             href = f"/events?{query_key}={quote(row['scope_slug'])}"
-            related_href = f"/timeline?{query_key}={quote(row['scope_slug'])}"
+            domestic = str(row["scope_slug"]).startswith("domestic-")
+            related_href = "/timeline?platform=domestic" if domestic else f"/timeline?{query_key}={quote(row['scope_slug'])}"
             body += f"""
 <article class="result">
   <div>
     <h2><a href="{h(href)}">{h(row["scope_name"])}</a></h2>
-    <div class="meta">{row["event_count"]} 个事件节点 · {row["page_count"]} 个资料片段</div>
+    <div class="meta">{row["event_count"]} 个事件节点 · {row["page_count"]} 个资料片段 · {"国内导航关联" if domestic else "境外/统一检索"}</div>
   </div>
   <div class="cite"><a href="{h(href)}">查看事件</a><br><a href="{h(related_href)}">文档年表</a></div>
 </article>"""
@@ -8392,6 +8432,7 @@ def events(
     known = topic_by_slug(scope_slug) if scope_type == "topic" else person_by_slug(scope_slug)
     if not known:
         return layout("未找到事件线索", '<div class="notice">未找到对应的事件线索。</div>')
+    is_domestic = bool(known.get("source") == "domestic")
 
     try:
         rows = fetch_event_rows(scope_type, scope_slug)
@@ -8411,9 +8452,12 @@ def events(
         rows = [row for row in rows if active_place in split_terms(row["places"])]
     if active_org:
         rows = [row for row in rows if active_org in split_terms(row["organizations"])]
-    back_href = "/people"
-    timeline_href = f"/timeline?{scope_type}={quote(scope_slug)}"
-    source_href = f"/{scope_type}s/{quote(scope_slug)}" if scope_type == "topic" else f"/people/{quote(scope_slug)}"
+    back_href = "/domestic/events" if is_domestic else "/people"
+    timeline_href = "/timeline?platform=domestic" if is_domestic else f"/timeline?{scope_type}={quote(scope_slug)}"
+    if is_domestic:
+        related_href = f"/research/{quote(scope_slug)}"
+    else:
+        related_href = f"/{scope_type}s/{quote(scope_slug)}" if scope_type == "topic" else f"/people/{quote(scope_slug)}"
     title = f"{scope_name}事件线索"
     years: dict[str, list[sqlite3.Row]] = {}
     for row in rows:
@@ -8423,13 +8467,13 @@ def events(
 <section class="doc-head">
   <div>
     <h1>{h(title)}</h1>
-    <div class="meta">按事件节点组织资料。事件摘要来自中文译文和术语规则，适合快速定位线索；正式引用仍以原文、页码和 FRUS 来源为准。</div>
+    <div class="meta">按事件节点组织资料。{"国内关联来自声明式覆盖表与已入库页，适合快速定位线索；" if is_domestic else "事件摘要来自中文译文和术语规则，适合快速定位线索；"}正式引用仍以原文、页码、来源哈希和人工复核为准。</div>
     <div class="meta">{len(rows)} 个事件节点 · {len({row["page_id"] for row in rows})} 个资料片段 · {len({row["doc_key"] for row in rows})} 篇文档</div>
   </div>
   <div class="doc-tools">
     <a class="button" href="/events">事件总览</a>
     <a class="button" href="{h(back_href)}">返回索引</a>
-    <a class="button" href="{h(source_href)}">资料列表</a>
+    <a class="button" href="{h(related_href)}">{"专题对读" if is_domestic else "资料列表"}</a>
     <a class="button" href="{h(timeline_href)}">文档年表</a>
     <a class="button" href="/events/cards?{h(scope_type)}={h(scope_slug)}">研究卡片</a>
   </div>
@@ -8448,6 +8492,8 @@ def events(
                 topic_tags_html = "".join(f'<span class="tag">{h(value)}</span>' for value in split_terms(row["tags"]))
                 place_tags_html = "".join(f'<span class="tag">{h(value)}</span>' for value in split_terms(row["places"]))
                 org_tags_html = "".join(f'<span class="tag">{h(value)}</span>' for value in split_terms(row["organizations"]))
+                source_label = "国内原始入口" if is_domestic else "境外原始入口"
+                review_href = f"/domestic/evidence-review/{row['page_id']}" if is_domestic else f"/review/{row['page_id']}"
                 body += f"""
 <article class="result">
   <div>
@@ -8457,7 +8503,7 @@ def events(
     <div class="snippet">原文: {h(compact(row["original_text"], 220))}</div>
     <div class="tagline">{actor_tags}{topic_tags_html}{place_tags_html}{org_tags_html}<span class="tag">重要度 {h(row["importance"])}</span></div>
   </div>
-  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">FRUS</a></div>
+  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="{h(review_href)}">{"证据复核" if is_domestic else "校订"}</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">{source_label}</a></div>
 </article>"""
             body += "</section>"
     return layout(title, body)
