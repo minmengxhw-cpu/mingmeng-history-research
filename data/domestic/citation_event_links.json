@@ -3,7 +3,7 @@
   "report": "DOMESTIC_CITATION_EVENT_LINKS_20260813",
   "status": "navigation_only",
   "body_read_by_linker": false,
-  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus dissolution_1947_review_20260813",
+  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813",
   "policy": "These links expose already human-verified page anchors inside a topic. They do not assert that the page is a direct event record, do not alter citation gates, and do not replace missing original declarations or meeting files.",
   "links": [
     {
@@ -89,6 +89,20 @@
       "page_label": "1",
       "navigation_title": "1947年11月6日《大剛報》民盟正式宣告解散页",
       "rationale": "同期报刊第1页主标题清晰刊出民盟正式宣告解散及通告各地盟员停止活动；这是报刊页级直接报道，不替代民盟公告原件或政府公报全文。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/NLC:dagongbao-shanghai-1947-11-06-page2-ocr",
+      "page_label": "01",
+      "navigation_title": "1947年11月6日《大公報》上海版第2版民盟今日解散页",
+      "rationale": "上海版第2版完整 PDF 第1页视觉可见“民盟今日解散”“张澜等昨开会决定”“通告各地盟员停止政治活动”等标题；作为城市版本对读入口，不替代民盟公告原件或政府档案全文。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/NLC:dagongbao-tianjin-1947-11-06-page2-ocr",
+      "page_label": "01",
+      "navigation_title": "1947年11月6日《大公報》天津版第2版民盟宣布解散页",
+      "rationale": "天津版第2版完整 PDF 第1页视觉可见“民盟宣布解散”“公告与政府洽商之经过”“通知盟员停止政治活动”等标题；作为城市版本对读入口，不替代民盟公告原件或政府档案全文。"
     },
     {
       "event_id": "domestic-1947-illegal-dissolution",
