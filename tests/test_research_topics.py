@@ -113,6 +113,27 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert "中文译文（" not in body
 
 
+def test_li_wen_packet_exposes_official_compilation_entries_without_promoting_them():
+    """李闻专题应能回链官方汇编声明页，但不能把 machine_verified 当成严格引用。"""
+    import app
+
+    app._request.public_mode = False
+    from scripts.domestic.research_packet import build_research_packet, packet_json_bytes
+
+    packet = build_research_packet("domestic-1946-li-wen")
+    assert packet is not None
+    assert packet["counts"]["evidence_chain_page_items"] == 5
+    assert packet["counts"]["evidence_chain_resolved_page_items"] == 5
+    assert packet["counts"]["evidence_chain_strict_gate_passed"] == 1
+    assert [row["page_id"] for row in packet["evidence_chain"]["primary"]] == [18936, 18945, 18948]
+    assert all(row["status"] == "review_only" for row in packet["evidence_chain"]["primary"])
+    assert packet["audit"]["body_text_included"] is False
+    assert packet["audit"]["ocr_text_included"] is False
+    raw = packet_json_bytes("domestic-1946-li-wen").decode("utf-8")
+    assert '"text"' not in raw
+    assert "/Users/" not in raw
+
+
 def test_research_packet_route_and_json(live_server, db_missing_reason):
     """研究包页面和 JSON 下载路由必须从真实 HTTP 入口可用。"""
     if db_missing_reason:
@@ -637,7 +658,7 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
     assert summary["evidence_chain_ready"] == 9
-    assert summary["evidence_chain_page_items"] == 73
+    assert summary["evidence_chain_page_items"] == 76
     assert summary["evidence_chain_strict_items"] == 65
     assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
@@ -665,7 +686,7 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
-    assert report["page_items"] == 73
+    assert report["page_items"] == 76
     assert report["strict_citation_items"] == 65
 
 
