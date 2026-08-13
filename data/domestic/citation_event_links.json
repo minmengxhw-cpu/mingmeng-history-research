@@ -3,7 +3,7 @@
   "report": "DOMESTIC_CITATION_EVENT_LINKS_20260813",
   "status": "navigation_only",
   "body_read_by_linker": false,
-  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813",
+  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus dissolution_1947_review_20260813",
   "policy": "These links expose already human-verified page anchors inside a topic. They do not assert that the page is a direct event record, do not alter citation gates, and do not replace missing original declarations or meeting files.",
   "links": [
     {
@@ -75,6 +75,34 @@
       "page_label": "09",
       "navigation_title": "1947年民盟机关刊物与民主运动受压的页",
       "rationale": "页内涉及民盟机关刊物、地方民主运动遭受阻挠与监视压制；用于组织危机专题的同期报刊导航，不能单独证明正式解散公告。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/NLC:dagangbao-1947-11-04-full-ocr",
+      "page_label": "1",
+      "navigation_title": "1947年11月4日《大剛報》民盟解散前报道页",
+      "rationale": "同期报刊第1页清晰刊出张群书面通知民盟、应允保障盟员安全及民盟将召开中常会讨论解散等报道入口；这是解散前页级证据，不替代政府原始文件或完整报道链。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/NLC:dagangbao-1947-11-06-full-ocr",
+      "page_label": "1",
+      "navigation_title": "1947年11月6日《大剛報》民盟正式宣告解散页",
+      "rationale": "同期报刊第1页主标题清晰刊出民盟正式宣告解散及通告各地盟员停止活动；这是报刊页级直接报道，不替代民盟公告原件或政府公报全文。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/NLC:observer-1947-v3n11-selected-ocr",
+      "page_label": "03",
+      "navigation_title": "《观察》周炳琳等关于政府压迫民盟的声明页",
+      "rationale": "《观察》第3卷第11期第3页刊出“我们对于政府压迫民盟的看法”，署周炳琳等四十八人；属于同期公共声明页，引用范围限于本页，不扩写为全文结论。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/NLC:observer-1947-v3n11-selected-ocr",
+      "page_label": "04",
+      "navigation_title": "《观察》董时进关于取缔民盟的感想页",
+      "rationale": "《观察》第3卷第11期第4页刊出董时进“我对于政府取缔民盟的感想”；属于同期评论页，引用范围限于本页，不替代民盟或政府正式文件。"
     },
     {
       "event_id": "domestic-1946-li-wen",
