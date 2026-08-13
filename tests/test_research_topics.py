@@ -46,6 +46,11 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
     assert "一手对照" in body
     assert "一手证据部分闭环" in body
     assert "一手闭环缺口" in body
+    assert "四层证据链" in body
+    assert "主证据（页级）" in body
+    assert "同期交叉" in body
+    assert "负向核查" in body
+    assert "仍待补原件" in body
     assert "下一步核验" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
@@ -221,6 +226,42 @@ def test_event_coverage_has_no_dangling_links(db_missing_reason):
         if not (event_by_slug(slug) or topic_by_slug(slug))
     )
     assert not dangling_foreign
+
+
+def test_topic_evidence_chain_is_page_traceable(db_missing_reason):
+    """四层证据链的页级条目必须回到正式库同一文档和严格门禁。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法核对专题证据链: {db_missing_reason}")
+    chain_path = Path(__file__).resolve().parents[1] / "data" / "domestic" / "topic_evidence_chain.json"
+    chains = json.loads(chain_path.read_text(encoding="utf-8"))
+    assert len(chains) == 9
+    assert len({item["event_id"] for item in chains}) == 9
+    expected_layers = {"primary", "cross_source", "negative_checks", "missing_primary"}
+    with sqlite3.connect(DB_PATH) as connection:
+        for chain in chains:
+            assert set(chain["layers"]) == expected_layers
+            assert chain["layers"]["missing_primary"]
+            for layer, items in chain["layers"].items():
+                for item in items:
+                    if "page_id" not in item:
+                        continue
+                    row = connection.execute(
+                        """SELECT d.doc_key, pp.review_status, pp.citation_ready,
+                                  pp.needs_human_review
+                           FROM pages p JOIN documents d ON d.id=p.document_id
+                           LEFT JOIN page_provenance pp ON pp.page_id=p.id
+                           WHERE p.id=?""",
+                        (item["page_id"],),
+                    ).fetchone()
+                    assert row is not None, (chain["event_id"], layer, item["page_id"])
+                    assert row[0] == item["doc_key"]
+                    if item["status"] == "strict_citation":
+                        assert row[1:] == ("human_verified", 1, 0)
+
+    dissolution = next(item for item in chains if item["event_id"] == "domestic-1947-illegal-dissolution")
+    assert len(dissolution["layers"]["primary"]) >= 3
+    assert len(dissolution["layers"]["negative_checks"]) >= 2
+    assert any("1947-10-27政府公函" in item["target"] for item in dissolution["layers"]["missing_primary"])
 
 
 def test_topic_comparison_cards_complete():

@@ -1,0 +1,420 @@
+[
+  {
+    "event_id": "domestic-1941-formation",
+    "last_audited": "2026-08-14",
+    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文，不把汇编转载升级为原始底本。",
+    "layers": {
+      "primary": [
+        {
+          "label": "1941成立文件页组（OCR试点）",
+          "page_id": 1473,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "《民主同盟文獻》中的成立文件页级记录",
+          "caveat": "页面已通过人工复核并可引用，但仍是1946年文献汇编中的成立文件页，不能单独证明独立原始底本和版本关系。"
+        }
+      ],
+      "cross_source": [
+        {
+          "label": "中国民主政团同盟成立宣言（汇编页）",
+          "page_id": 20339,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-formation-declaration",
+          "status": "review_only",
+          "role": "同一文本的页级检索入口",
+          "caveat": "机器/OCR层，尚未进入正式引用层。"
+        }
+      ],
+      "negative_checks": [],
+      "missing_primary": [
+        {
+          "target": "1941年成立宣言或成立会议的独立原件影像、馆藏档号和版本关系",
+          "why_it_matters": "决定“成立时间、签署主体、文本版本”能否以原始底本作严格引用。",
+          "status": "open",
+          "next_action": "沿国家图书馆民国文献、上海/香港报刊馆藏和民盟档案目录回追原件；取得后建立页级 provenance。"
+        }
+      ]
+    },
+    "chain_note": "当前能严谨支持的是成立文件的汇编页和同期线索；成立原件尚未闭环。"
+  },
+  {
+    "event_id": "domestic-1944-reorganization",
+    "last_audited": "2026-08-14",
+    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
+    "layers": {
+      "primary": [],
+      "cross_source": [
+        {
+          "label": "中国民主同盟对抗战最后阶段的政治主张",
+          "page_id": 20141,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-final-war-political-platform",
+          "status": "review_only",
+          "role": "1944年政治文本的汇编页级入口",
+          "caveat": "可用于定位和文本对读，不能替代改组会议记录。"
+        },
+        {
+          "label": "《民憲》第一卷第一期",
+          "page_id": 20285,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n1-1944-05-16",
+          "status": "review_only",
+          "role": "1944年同期机关刊物入口",
+          "caveat": "当前页仍待人工复核，不能直接作为正式引用页。"
+        }
+      ],
+      "negative_checks": [],
+      "missing_primary": [
+        {
+          "target": "1944年改组会议记录、改名决定和同期原刊的独立原版",
+          "why_it_matters": "要把“改组/更名”从后来的汇编叙述还原为可定位的会议或同期刊物证据。",
+          "status": "open",
+          "next_action": "先核对1944年《民憲》连续期，再追改组会议档案、编印底本和页码关系。"
+        }
+      ]
+    },
+    "chain_note": "1944专题目前以同期刊物和汇编材料做导航，事件定义原件仍缺。"
+  },
+  {
+    "event_id": "domestic-1945-first-congress",
+    "last_audited": "2026-08-14",
+    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
+    "layers": {
+      "primary": [
+        {
+          "label": "临时全国代表大会政治报告",
+          "page_id": 1443,
+          "doc_key": "domestic-ocr/MMHIST:political-report-1945:ocr-pilot",
+          "status": "strict_citation",
+          "role": "民盟大会政治报告页级记录",
+          "caveat": "页面可正式引用，但仍需与大会原始档案或可靠底本完成版本互校。"
+        },
+        {
+          "label": "临时全国代表大会宣言",
+          "page_id": 1445,
+          "doc_key": "domestic-ocr/MMHIST:congress-declaration-1945:ocr-pilot",
+          "status": "strict_citation",
+          "role": "民盟大会宣言页级记录",
+          "caveat": "页面可正式引用，但不自动覆盖整份大会档案和缺页问题。"
+        }
+      ],
+      "cross_source": [
+        {
+          "label": "1945文件页组（续）",
+          "page_id": 1505,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "国家图书馆文献汇编的同期文件页组",
+          "caveat": "用于同文互校和页界定位，不等同于大会档案原件。"
+        },
+        {
+          "label": "中国民主同盟纲领（汇编页）",
+          "page_id": 20149,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "review_only",
+          "role": "大会纲领文本的补充检索入口",
+          "caveat": "尚未进入正式引用层。"
+        }
+      ],
+      "negative_checks": [],
+      "missing_primary": [
+        {
+          "target": "1945年大会完整原始档案、会议记录、宣言/政治报告的底本和缺页关系",
+          "why_it_matters": "现有页级材料已能支撑部分文本，但不能据此宣称大会档案链完整。",
+          "status": "open",
+          "next_action": "建立政治报告、宣言、组织规程的版本对照表，逐件补馆藏档号、页码和复制权利。"
+        }
+      ]
+    },
+    "chain_note": "1945是国内平台目前较强的早期专题之一：已有可引用的大会文本页，但仍需要完整档案链。"
+  },
+  {
+    "event_id": "domestic-1946-pcc",
+    "last_audited": "2026-08-14",
+    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
+    "layers": {
+      "primary": [],
+      "cross_source": [
+        {
+          "label": "《光明報》1947年新十九號关键页",
+          "page_id": 1518,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-19-key-pages",
+          "status": "strict_citation",
+          "role": "民盟机关报对政协议题的后续同期回顾",
+          "caveat": "属于后续回顾和政治表达，不是1946年政协正式会议档案。"
+        },
+        {
+          "label": "《光明報》新一號复刊词",
+          "page_id": 20313,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue01-refounding-editorial",
+          "status": "review_only",
+          "role": "1946年民盟机关报复刊后的政治语境入口",
+          "caveat": "机器/OCR层，尚未进入正式引用层。"
+        }
+      ],
+      "negative_checks": [],
+      "missing_primary": [
+        {
+          "target": "1946年旧政协正式会议档案、民盟代表发言/提案和完整日期轴",
+          "why_it_matters": "只有正式会议档案才能把报刊表达与会议程序、代表身份和具体日期逐条对位。",
+          "status": "open",
+          "next_action": "先建立政协会议日期—议题—民盟代表三列索引，再补会议记录、提案和发言原页。"
+        }
+      ]
+    },
+    "chain_note": "旧政协专题已有机关报和境外档案对读入口，但正式会议档案尚未进入主证据层。"
+  },
+  {
+    "event_id": "domestic-1946-refuse-national-assembly",
+    "last_audited": "2026-08-14",
+    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
+    "layers": {
+      "primary": [],
+      "cross_source": [
+        {
+          "label": "《光明報》1947年新十五號",
+          "page_id": 1578,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-15-full-ocr",
+          "status": "strict_citation",
+          "role": "民盟机关报对国民大会问题的后续政治表达",
+          "caveat": "可证明民盟机关报的后续立场，不能直接替代1946年正式拒参声明。"
+        },
+        {
+          "label": "论有条件参加国大（汇编/专题页）",
+          "page_id": 20284,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue8-conditional-national-assembly",
+          "status": "review_only",
+          "role": "同期政治论述的检索入口",
+          "caveat": "尚未进入正式引用层。"
+        }
+      ],
+      "negative_checks": [],
+      "missing_primary": [
+        {
+          "target": "1946年民盟正式拒绝参加国民大会的声明、函电或可定位同期原刊",
+          "why_it_matters": "要区分民盟正式组织决定、机关报评论和政协相关背景文件。",
+          "status": "open",
+          "next_action": "追民盟中央文件、张澜/罗隆基等代表函电及1946年11月同期报刊完整版。"
+        }
+      ]
+    },
+    "chain_note": "现有材料能研究“立场形成和报刊表达”，但“正式拒参决定”仍需独立原件。"
+  },
+  {
+    "event_id": "domestic-1946-li-wen",
+    "last_audited": "2026-08-14",
+    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
+    "layers": {
+      "primary": [],
+      "cross_source": [
+        {
+          "label": "《光明報》新二十二號首版",
+          "page_id": 1768,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-issue22-front-ocr",
+          "status": "strict_citation",
+          "role": "民盟机关报对李闻事件及纪念反应的后续专题入口",
+          "caveat": "属于1947年后续纪念和政治表达，不是1946年案件行政/司法原件。"
+        },
+        {
+          "label": "《光明報》新八號",
+          "page_id": 20204,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue8",
+          "status": "review_only",
+          "role": "1946年同期机关报入口",
+          "caveat": "机器/OCR层，尚未进入正式引用层。"
+        }
+      ],
+      "negative_checks": [],
+      "missing_primary": [
+        {
+          "target": "《民主周刊》原版、民盟抗议文件以及司法/行政档案的页级链",
+          "why_it_matters": "要把遇害事实、民盟反应、社会舆论和后续纪念分别落到可核验的原始来源。",
+          "status": "open",
+          "next_action": "优先补1946年7月同期《民主周刊》与民盟抗议声明，再建立案件报道和纪念文章的时间轴。"
+        }
+      ]
+    },
+    "chain_note": "李闻专题不能只靠后来的纪念文章；原始刊物、抗议文件和司法材料必须分层补齐。"
+  },
+  {
+    "event_id": "domestic-1947-illegal-dissolution",
+    "last_audited": "2026-08-14",
+    "audit_basis": "正式库页级元数据、既有人工复核决定、源文件哈希和负向公报核查登记；本文件不读取正文。",
+    "layers": {
+      "primary": [
+        {
+          "label": "《大剛報》1947年11月6日第1页",
+          "page_id": 1752,
+          "doc_key": "domestic-ocr/NLC:dagangbao-1947-11-06-full-ocr",
+          "status": "strict_citation",
+          "role": "同期报刊对民盟解散公开报道的页级证据",
+          "caveat": "证明报刊报道和公开舆论，不替代政府公函或民盟总部公告原件。"
+        },
+        {
+          "label": "《大公報》上海版1947年11月6日第2版",
+          "page_id": 1773,
+          "doc_key": "domestic-ocr/NLC:dagongbao-shanghai-1947-11-06-page2-ocr",
+          "status": "strict_citation",
+          "role": "同期上海版报道的页级证据",
+          "caveat": "试用数据库导出的单页副本，已记录来源哈希和复核状态；不等同于完整馆藏下载授权。"
+        },
+        {
+          "label": "《大公報》天津版1947年11月6日第2版",
+          "page_id": 1774,
+          "doc_key": "domestic-ocr/NLC:dagongbao-tianjin-1947-11-06-page2-ocr",
+          "status": "strict_citation",
+          "role": "同期天津版报道的页级证据",
+          "caveat": "试用数据库导出的单页副本，已记录来源哈希和复核状态；不等同于行政原件。"
+        }
+      ],
+      "cross_source": [
+        {
+          "label": "《大剛報》1947年11月4日第1页",
+          "page_id": 1748,
+          "doc_key": "domestic-ocr/NLC:dagangbao-1947-11-04-full-ocr",
+          "status": "strict_citation",
+          "role": "解散前交涉和组织反应的同期前置报道",
+          "caveat": "只能支持报刊所载过程，不能替代政府来函原件。"
+        },
+        {
+          "label": "《觀察》第三卷第十一期第3页",
+          "page_id": 1770,
+          "doc_key": "domestic-ocr/NLC:observer-1947-v3n11-selected-ocr",
+          "status": "strict_citation",
+          "role": "同期知识界/政论刊物的交叉反应",
+          "caveat": "属于同期评论和声明传播，不是行政命令。"
+        },
+        {
+          "label": "《大剛報》1947年10月30日第1页（GDC-0021）",
+          "page_id": 20899,
+          "doc_key": "domestic-ocr/NLC:dagangbao-1947-10-30-gdc0021",
+          "status": "strict_citation",
+          "role": "10月27日后公开宣布非法相关报道的前置交叉页",
+          "caveat": "证明同期报刊公开报道，不等同于10月27日政府公函本身。"
+        }
+      ],
+      "negative_checks": [
+        {
+          "label": "《国民政府公報》第2964号（1947-10-27）",
+          "page_id": 1793,
+          "doc_key": "domestic-ocr/COLLECTION:P3-016:ocr-draft-20260727",
+          "status": "negative_control",
+          "role": "已下载官方公报的负向核查对象",
+          "caveat": "本期核查未发现目标公文，只说明本地这份公开扫描未命中，不证明文件不存在。"
+        },
+        {
+          "label": "《国民政府公報》第2973号（1947-11-06）",
+          "page_id": 1792,
+          "doc_key": "domestic-ocr/COLLECTION:P3-018:ocr-draft-20260727",
+          "status": "negative_control",
+          "role": "解散日期当期官方公报的负向核查对象",
+          "caveat": "本期核查未发现目标公文，只说明本地这份公开扫描未命中，不证明行政原件不存在。"
+        }
+      ],
+      "missing_primary": [
+        {
+          "target": "1947-10-27政府公函、1947-11-06行政/组织解散公告及完整底本",
+          "why_it_matters": "这是把“同期报道”提升为“行政决定/组织正式公告”所必需的事件定义原件。",
+          "status": "open",
+          "next_action": "沿第二历史档案馆、上海市档案馆、民盟档案目录和报刊引文反查档号；取得后逐页记录主体、日期、版本、哈希和权利。"
+        }
+      ]
+    },
+    "chain_note": "1947专题已有国内证据链中最强的同期报刊互证，但关键行政原件仍明确缺位，因此状态保持“部分闭环”。"
+  },
+  {
+    "event_id": "domestic-1948-third-plenum-may-day",
+    "last_audited": "2026-08-14",
+    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
+    "layers": {
+      "primary": [
+        {
+          "label": "《光明報》1948年第一卷第一期第4页",
+          "page_id": 1629,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1948-v1n1-full-ocr",
+          "status": "strict_citation",
+          "role": "民盟机关报对三中全会/五一口号语境的同期页级证据",
+          "caveat": "可支持机关报表达和传播，不自动等同于三中全会完整会议记录。"
+        },
+        {
+          "label": "《光明報》1948年第一卷第一期第5页",
+          "page_id": 1630,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1948-v1n1-full-ocr",
+          "status": "strict_citation",
+          "role": "同一期连续页的页级交叉证据",
+          "caveat": "仍需与中央档案专题原件和会议档案逐条对位。"
+        }
+      ],
+      "cross_source": [
+        {
+          "label": "民盟三中全会的成就（文章页）",
+          "page_id": 20136,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v1n1-article",
+          "status": "review_only",
+          "role": "专题文章级检索入口",
+          "caveat": "尚未进入正式引用层。"
+        }
+      ],
+      "negative_checks": [],
+      "missing_primary": [
+        {
+          "target": "三中全会、五一口号及香港传播的独立档案原页、档号和复制权利",
+          "why_it_matters": "需要把机关报报道、中央档案和民盟内部会议拆成不同证据单元，避免一篇报道承担全部结论。",
+          "status": "open",
+          "next_action": "按“三中全会—五一口号—香港传播”拆分三条证据线，逐条补档号、原页和权利信息。"
+        }
+      ]
+    },
+    "chain_note": "1948已有较好的同期机关报页级入口，但中央档案和会议原页仍是收口关键。"
+  },
+  {
+    "event_id": "domestic-1949-new-pcc",
+    "last_audited": "2026-08-14",
+    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
+    "layers": {
+      "primary": [
+        {
+          "label": "《光明報》1949年第二卷第一期第1页",
+          "page_id": 1670,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
+          "status": "strict_citation",
+          "role": "民主人士北上、新政协筹备语境的同期机关报页级证据",
+          "caveat": "支持机关报公开表达和报道，不替代政协会议记录或代表档案。"
+        },
+        {
+          "label": "《光明報》1949年第二卷第一期第2页",
+          "page_id": 1671,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
+          "status": "strict_citation",
+          "role": "同一期连续页的页级交叉证据",
+          "caveat": "仍需与新政协正式会议档案和代表名册对位。"
+        },
+        {
+          "label": "《光明報》1949年第二卷第一期第4页",
+          "page_id": 1673,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
+          "status": "strict_citation",
+          "role": "同一期后段页级证据",
+          "caveat": "不能单独承担完整会议史叙述。"
+        }
+      ],
+      "cross_source": [
+        {
+          "label": "《光明報》1949年第二卷第一期（机器专题页）",
+          "page_id": 20328,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v2n1",
+          "status": "review_only",
+          "role": "整期和文章级检索入口",
+          "caveat": "尚未进入正式引用层。"
+        }
+      ],
+      "negative_checks": [],
+      "missing_primary": [
+        {
+          "target": "1949年新政协筹备会议记录、代表名册、发言和第一届全体会议原始档案",
+          "why_it_matters": "只有正式会议记录和代表档案才能核对人物、程序、日期和民盟角色。",
+          "status": "open",
+          "next_action": "沿中央档案馆/全国政协文史资料和民盟内部文献建立代表—会议—发言三张关联表。"
+        }
+      ]
+    },
+    "chain_note": "1949专题有机关报连续页作为公开表达入口，会议档案与代表级原件仍需补齐。"
+  }
+]

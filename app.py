@@ -63,6 +63,7 @@ LOCAL_PRIVATE_NORMALIZATION_REPORT_PATH = WORK_ROOT / "domestic" / "local_privat
 LOCAL_SEMANTIC_SIGNALS_REPORT_PATH = WORK_ROOT / "domestic" / "local_private_ocr_metadata_20260730" / "semantic_signals" / "REPORT.json"
 HOME_FOCUS_PATH = DATA_ROOT / "home_focus.json"
 TOPIC_COMPARISON_CARDS_PATH = DATA_ROOT / "domestic" / "topic_comparison_cards.json"
+TOPIC_EVIDENCE_CHAIN_PATH = DATA_ROOT / "domestic" / "topic_evidence_chain.json"
 ACADEMIC_SOURCE_POLICY_PATH = DATA_ROOT / "domestic" / "academic_source_policy.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
@@ -4422,6 +4423,88 @@ def _load_topic_comparison_cards() -> dict[str, dict[str, object]]:
     }
 
 
+def _load_topic_evidence_chains() -> dict[str, dict[str, object]]:
+    """读取专题的四层证据链，不从页面正文反推证据等级。"""
+    if not TOPIC_EVIDENCE_CHAIN_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(TOPIC_EVIDENCE_CHAIN_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return {
+        str(item["event_id"]): item
+        for item in payload
+        if isinstance(item, dict) and item.get("event_id")
+    }
+
+
+CHAIN_LAYER_META = {
+    "primary": ("主证据（页级）", "说明事件定义或组织表达的直接页级材料"),
+    "cross_source": ("同期交叉", "来自不同刊物、版别或相邻时间点的对读材料"),
+    "negative_checks": ("负向核查", "已经检查但没有命中的官方/目录来源；不等同于不存在"),
+    "missing_primary": ("仍待补原件", "决定事件定义能否严格闭环的开放目标"),
+}
+
+
+def _evidence_chain_item_html(item: dict[str, object], layer: str) -> str:
+    """渲染证据链元数据；正文仍由原文页路由负责展示。"""
+    label = str(item.get("label") or item.get("target") or "未命名证据")
+    status = str(item.get("status") or "open")
+    status_label = {
+        "strict_citation": "正式可引用页",
+        "review_only": "待人工复核",
+        "negative_control": "负向核查",
+        "open": "开放缺口",
+    }.get(status, status)
+    status_class = "ok" if status == "strict_citation" else "warn"
+    page_id = item.get("page_id")
+    doc_key = str(item.get("doc_key") or "")
+    if page_id and doc_key:
+        href = f"/doc/{quote(doc_key)}?page_id={quote(str(page_id))}"
+        link_html = f'<a href="{h(href)}">回到原文页 #{h(page_id)}</a>'
+    else:
+        link_html = ""
+    role = str(item.get("role") or item.get("why_it_matters") or "")
+    caveat = str(item.get("caveat") or item.get("next_action") or "")
+    return f"""
+<article class="result compact-result evidence-chain-item">
+  <div>
+    <h3>{h(label)}</h3>
+    <div class="tagline"><span class="pstatus {status_class}">{h(status_label)}</span>{f'<span class="tag">页 {h(page_id)}</span>' if page_id else ''}</div>
+    <div class="snippet">{h(role)}</div>
+    {f'<div class="snippet"><strong>边界：</strong>{h(caveat)}</div>' if caveat else ''}
+  </div>
+  <div class="cite">{link_html}</div>
+</article>"""
+
+
+def _topic_evidence_chain_html(chain: dict[str, object] | None) -> str:
+    """把四层证据链呈现为可回溯的小节。"""
+    if not chain:
+        return '<div class="notice">该专题尚未登记结构化证据链；请回到国内复核和调档清单。</div>'
+    layers = chain.get("layers") if isinstance(chain.get("layers"), dict) else {}
+    sections: list[str] = []
+    for layer, (title, description) in CHAIN_LAYER_META.items():
+        rows = layers.get(layer, []) if isinstance(layers, dict) else []
+        if not isinstance(rows, list):
+            rows = []
+        cards = "".join(
+            _evidence_chain_item_html(item, layer)
+            for item in rows
+            if isinstance(item, dict)
+        )
+        empty = '<div class="notice">当前没有登记条目。</div>'
+        sections.append(f"""
+<div class="section-head"><h3>{h(title)}</h3><span class="meta">{h(description)}</span></div>
+<section class="result-list">{cards or empty}</section>""")
+    audit_basis = str(chain.get("audit_basis") or "")
+    chain_note = str(chain.get("chain_note") or "")
+    return f"""
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>四层证据链</h2><span class="meta">最后审计 {h(chain.get('last_audited') or '未标注')}</span></div>
+<div class="notice"><strong>证据链纪律：</strong>主证据、同期交叉、负向核查和待补原件分开登记；报刊报道不能自动升级为行政原件，机器文本不能自动升级为正式引用。{f'<br>{h(chain_note)}' if chain_note else ''}{f'<br><span class="meta">{h(audit_basis)}</span>' if audit_basis else ''}</div>
+{''.join(sections)}"""
+
+
 def _load_academic_source_policy() -> dict[str, object]:
     """读取学术层口径；缺文件时返回安全的空策略。"""
     if not ACADEMIC_SOURCE_POLICY_PATH.is_file():
@@ -4854,6 +4937,7 @@ def _research_topic_rows() -> list[dict[str, object]]:
     """为统一专题首页生成国内候选数、境外机器命中数和入口信息。"""
     coverage = _load_domestic_event_coverage()
     comparison_cards = _load_topic_comparison_cards()
+    evidence_chains = _load_topic_evidence_chains()
     try:
         domestic_rows = _domestic_rows()
     except sqlite3.OperationalError:
@@ -4879,6 +4963,7 @@ def _research_topic_rows() -> list[dict[str, object]]:
             result.append({
                 "item": item,
                 "comparison": comparison,
+                "evidence_chain": evidence_chains.get(str(item.get("event_id")), {}),
                 "academic_rows": academic_matches["rows"],
                 "academic_total": academic_matches["total"],
                 "domestic_rows": linked,
@@ -4950,6 +5035,7 @@ def research_topic_page(event_id: str) -> bytes:
     item = topic["item"]
     comparison = topic.get("comparison") or {}
     primary = _primary_evidence_display(item)
+    evidence_chain = topic.get("evidence_chain") or {}
     foreign_samples: list[dict[str, object]] = []
     with conn() as c:
         for entry in topic["foreign_stats"]:
@@ -5061,6 +5147,7 @@ def research_topic_page(event_id: str) -> bytes:
   <article class="result compact-result"><div><h3>学术解释层</h3><div class="snippet">{h(comparison.get('academic_use') or '学术资料用于解释和对读，不替代一手来源。')}</div></div><div class="cite"><a href="/domestic/academic">打开学术层</a></div></article>
 </section>
 """
+    evidence_chain_html = _topic_evidence_chain_html(evidence_chain)
 
     event_link = f"/domestic/events?event={quote(event_id)}"
     body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
@@ -5080,6 +5167,7 @@ def research_topic_page(event_id: str) -> bytes:
 </section>
 <div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br><strong>一手闭环缺口：</strong>{h(primary['gap'])}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。</div>
 {comparison_html}
+{evidence_chain_html}
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>学术研究资料（解释层）</h2><span class="meta">{h(academic_total)} 条机器主题候选</span></div>
 <div class="notice">学术材料用于解释、争议定位和检索扩展；只有全文/页码/哈希/复核齐全后才可能进入正式引用。下方命中依据是书目元数据和结构化主题字段，不是正文语义确认。</div>
 <section class="result-list">{academic_html}</section>
