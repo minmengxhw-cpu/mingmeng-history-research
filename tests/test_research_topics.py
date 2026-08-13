@@ -179,6 +179,58 @@ def test_domestic_non_strict_citation_stays_blocked(live_server, db_missing_reas
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_drnh_preview_is_not_presented_as_citable_original(live_server, db_missing_reason):
+    """DRNH 水印/锁定图必须在阅读页也保持预览与正文的证据边界。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证 DRNH 预览边界: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        row = connection.execute(
+            """
+            SELECT d.doc_key
+            FROM documents d
+            JOIN drnh_images i ON i.document_id=d.id
+            WHERE d.source_platform='drnh'
+            ORDER BY d.id
+            LIMIT 1
+            """
+        ).fetchone()
+    assert row is not None
+    status, body = fetch(live_server, f"/doc/{quote(row[0], safe='')}")
+    assert status == 200
+    assert body is not None
+    assert "国史馆官方访客预览" in body
+    assert "目录卡片（非正文）" in body
+    assert "不可直接引用" in body
+    assert "点击查看无水印原图" not in body
+    assert "台北档案史料原档释读" not in body
+    assert "Traceback" not in body
+
+
+def test_drnh_catalogue_card_citation_is_blocked(live_server, db_missing_reason):
+    """DRNH 目录卡不能绕过页级人工复核门禁生成正式引文。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证 DRNH 引用门禁: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        row = connection.execute(
+            """
+            SELECT p.id
+            FROM pages p
+            JOIN documents d ON d.id=p.document_id
+            WHERE d.source_platform='drnh' AND p.page_label='catalogue-card'
+            ORDER BY p.id
+            LIMIT 1
+            """
+        ).fetchone()
+    assert row is not None
+    status, body = fetch(live_server, f"/cite/{row[0]}")
+    assert status == 200
+    assert body is not None
+    assert "DRNH 引用门禁未通过" in body
+    assert "目录卡片/访客预览（不可直接引用）" in body
+    assert "引用摘录卡片" not in body
+    assert "Traceback" not in body
+
+
 def test_domestic_event_index_smoke(live_server, db_missing_reason):
     """国内专题可以进入与境外专题相同的事件线索页。"""
     if db_missing_reason:

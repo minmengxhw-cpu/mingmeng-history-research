@@ -6224,9 +6224,14 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
                 pages.page_url,
                 pages.text AS original_text,
                 translations.text AS zh_text,
-                translations.status AS zh_status
+                translations.status AS zh_status,
+                COALESCE(pp.citation_ready, 0) AS citation_ready,
+                COALESCE(pp.needs_human_review, 1) AS needs_human_review,
+                COALESCE(pp.review_status, 'missing') AS provenance_review_status,
+                COALESCE(pp.human_review_note, '') AS human_review_note
             FROM pages
             LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+            LEFT JOIN page_provenance pp ON pp.page_id = pages.id
             WHERE pages.document_id=?
             ORDER BY pages.id
             """,
@@ -6322,7 +6327,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
 
         preview_btn = (
             f'<a class="button" href="#drnh-workspace-start"><svg class="ico"><use href="#i-book"/></svg>'
-            f'访客水印原档 · {len(cached_images)} 页</a>'
+            f'官方访客预览 · {len(cached_images)} 页</a>'
             if has_preview else ''
         )
         tools_html = (
@@ -6334,7 +6339,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         )
         platform_badge = (
             '<span class="src-badge" style="background:#1F4E78;color:#fff;">'
-            '<svg class="ico"><use href="#i-archive"/></svg>台北档案史料· 数位档 · 访客可见（会员看原图）'
+            '<svg class="ico"><use href="#i-archive"/></svg>国史馆官方访客预览 · 非正文'
             '</span>'
         )
         meta_card_foot = (
@@ -6468,7 +6473,8 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
 <div class="drnh-archive-notice">
   <svg class="ico"><use href="#i-book"/></svg>
   <span>
-    <strong>台北档案史料访客模式：</strong> 图像中含「请登入」绿色水印，仅供学术研究参考。正式引用如需无水印原图，请至
+    <strong>国史馆官方访客预览：</strong> 本地影像含重复馆藏水印与「请登入」锁定提示，仅用于确认档号、页数和页面结构；右侧内容是目录卡片，不是扫描正文转录。
+    当前页面不会把预览图当作正式引文；只有通过 <code>human_verified</code> 与 <code>citation_ready</code> 门禁的页才会生成正式引用。正式引用如需无水印原图，请至
     <a href="{source_link}" target="_blank" rel="noreferrer">原档系统</a>
     注册会员以查看无水印原图。
   </span>
@@ -6499,6 +6505,13 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
 
         # drnh 是中文原档：去双栏（不展示「中文译文」副栏），只显简体单栏
         if platform == "drnh":
+            strict_page = bool(
+                int(row["citation_ready"] or 0) == 1
+                and int(row["needs_human_review"] or 0) == 0
+                and str(row["provenance_review_status"] or "") == "human_verified"
+                and str(row["human_review_note"] or "").strip()
+            )
+            page_citation_label = "正式可引用" if strict_page else "不可直接引用"
             img_url = None
             seg_img = None
             if cached_images:
@@ -6547,22 +6560,23 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
     <div class="drnh-workspace-row">
       <div class="drnh-archive-image-col">
         <figure class="drnh-image-figure">
-          <a href="{img_url}" target="_blank" title="点击查看无水印原图">
+          <a href="{img_url}" target="_blank" title="查看国史馆官方访客预览（不可直接引用）">
             <img class="drnh-archive-image" src="{img_url}" loading="lazy" />
           </a>
-          <figcaption class="drnh-image-caption">访客水印原档预览 · 第 {h(row['page_label'])} 页</figcaption>
+          <figcaption class="drnh-image-caption">国史馆官方访客预览 · 第 {h(row['page_label'])} 页 · {page_citation_label}</figcaption>
         </figure>
       </div>
       <div class="drnh-transcription-col">
         <article class="{pane_cls}">
           <div class="drnh-pane-header">
-            <span class="drnh-academic-badge">✦ 台北档案史料原档释读 · {h(page)}</span>
+            <span class="drnh-academic-badge">✦ 目录卡片（非正文） · {h(page)} · {page_citation_label}</span>
             <span class="drnh-actions">
-              <a href="/cite/{h(row["page_id"])}">摘录卡片</a> · 
-              <a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">{source_label}</a>
+              <a href="/cite/{h(row["page_id"])}">{('引用卡片' if strict_page else '引用门禁（未通过）')}</a> ·
+              <a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">国史馆来源入口</a>
             </span>
           </div>
           <div class="drnh-pane-body">
+            <div class="notice">该页为国史馆官方访客影像的页级预览；下方仅显示本库目录卡片，不是原件正文转录。</div>
             <div class="drnh-original-text">{h(row["original_text"])}</div>
           </div>
         </article>
@@ -6575,13 +6589,14 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
   <div class="drnh-page-segment-container" id="page-{seg_anchor}"{selected}>
     <article class="{pane_cls}" style="width: 100%;">
       <div class="drnh-pane-header">
-        <span class="drnh-academic-badge">✦ 台北档案史料原档释读 · {h(page)}</span>
+        <span class="drnh-academic-badge">✦ 目录卡片（非正文） · {h(page)} · {page_citation_label}</span>
         <span class="drnh-actions">
-          <a href="/cite/{h(row["page_id"])}">摘录卡片</a> · 
-          <a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">{source_label}</a>
+          <a href="/cite/{h(row["page_id"])}">{('引用卡片' if strict_page else '引用门禁（未通过）')}</a> ·
+          <a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">国史馆来源入口</a>
         </span>
       </div>
       <div class="drnh-pane-body">
+        <div class="notice">当前没有绑定页级影像；下方内容仅为目录卡片，不是原件正文转录。</div>
         <div class="drnh-original-text">{h(row["original_text"])}</div>
       </div>
     </article>
@@ -8527,28 +8542,41 @@ def citation_page(page_id: int) -> bytes:
                 )
     page = source_page_label(row)
     source_url = row["page_url"] or row["doc_url"] or ""
-    if row["source_platform"] == "domestic" and not _domestic_citation_is_strict(row):
+    citation_gated_platform = row["source_platform"] in {"domestic", "drnh"}
+    if citation_gated_platform and not _domestic_citation_is_strict(row):
+        if row["source_platform"] == "drnh":
+            gate_notice = (
+                "<strong>DRNH 引用门禁未通过：</strong>本页是国史馆目录卡片或官方访客预览，"
+                "当前不含可逐字核验的清洁原件正文；它可以用于检索、档号定位和研究导航，不能生成正式引文。"
+            )
+            gate_label = "目录卡片/访客预览（不可直接引用）"
+        else:
+            gate_notice = (
+                "<strong>引用门禁未通过：</strong>本页可以用于检索和研究阅读，但尚无 human_verified "
+                "人工复核记录及复核说明，因此不生成正式引文。"
+            )
+            gate_label = "国内史料"
         body = f"""
 <section class="doc-head">
   <div>
     {title_block(row["title"], None, "h1")}
-    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(page)} · 国内史料</div>
+    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(page)} · {gate_label}</div>
   </div>
   <div class="doc-tools">
     <a class="button" href="/doc/{quote(row["doc_key"])}?page_id={h(row["page_id"])}">返回阅读</a>
     <a class="button secondary" href="{h(source_href(source_url))}" target="_blank" rel="noreferrer">查看来源</a>
   </div>
 </section>
-<div class="notice"><strong>引用门禁未通过：</strong>本页可以用于检索和研究阅读，但尚无 human_verified 人工复核记录及复核说明，因此不生成正式引文。当前状态：{h(row["provenance_review_status"])}。</div>
+<div class="notice">{gate_notice} 当前状态：{h(row["provenance_review_status"])}。</div>
 <section class="reader">
   <article class="pane">
-    <div class="pane-head"><span>检索文本（不可直接引用）</span><span>{h(page)}</span></div>
+    <div class="pane-head"><span>{gate_label}</span><span>{h(page)}</span></div>
     <div class="pane-body">{h(row["original_text"])}</div>
   </article>
 </section>
 """
         return layout("引用门禁未通过", body)
-    if row["source_platform"] == "domestic":
+    if row["source_platform"] in {"domestic", "drnh"}:
         citation = (
             f"{domestic_citation_text(row)}\n\n"
             f"原文摘录：\n{row['original_text']}\n\n"
@@ -8569,7 +8597,7 @@ def citation_page(page_id: int) -> bytes:
         )
     domestic_panel = (
         domestic_provenance_summary(row)
-        if row["source_platform"] == "domestic"
+        if row["source_platform"] in {"domestic", "drnh"}
         else ""
     )
     body = f"""
