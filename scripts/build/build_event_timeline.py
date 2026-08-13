@@ -15,6 +15,12 @@ from link_domestic_event_pages_20260813 import (  # noqa: E402
     insert_links,
     load_coverage,
 )
+from link_citation_event_pages_20260813 import (  # noqa: E402
+    collect_links as collect_citation_links,
+    insert_links as insert_citation_links,
+    load_coverage as load_citation_coverage,
+    load_payload as load_citation_payload,
+)
 
 
 TOPICS = [
@@ -331,6 +337,18 @@ def main() -> None:
         print(
             f"Linked domestic navigation events: {domestic_inserted} new rows "
             f"from {len(domestic_links)} page links."
+        )
+    citation_links_path = SCRIPT_ROOT / "data" / "domestic" / "citation_event_links.json"
+    if citation_links_path.is_file() and domestic_coverage.is_file():
+        citation_links = collect_citation_links(
+            conn,
+            load_citation_payload(citation_links_path),
+            load_citation_coverage(domestic_coverage),
+        )
+        citation_inserted = insert_citation_links(conn, citation_links)
+        print(
+            f"Linked strict citation navigation events: {citation_inserted} new rows "
+            f"from {len(citation_links)} curated page links."
         )
     conn.commit()
     scopes = conn.execute("SELECT scope_type, scope_slug, count(*) FROM research_events GROUP BY scope_type, scope_slug").fetchall()
