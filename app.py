@@ -1103,7 +1103,7 @@ def sourcebook_links_html(platform_key: str, button_class: str = "button") -> st
 
 
 def source_page(platform_key: str) -> bytes:
-    """单个境外档案平台的专属栏目页。"""
+    """单个档案平台或国内史料层的专属栏目页。"""
     meta = PLATFORM_META.get(platform_key)
     if not meta:
         return layout("未知平台", '<div class="notice">未知的平台。可选：' + " / ".join(PLATFORM_META.keys()) + "</div>")
@@ -1180,7 +1180,8 @@ def source_page(platform_key: str) -> bytes:
     else:
         status_text = "待开发"
 
-    body = breadcrumb_html([("/", "首页"), (None, f"境外档案平台 · {meta['name']}")]) + f"""
+    platform_scope = "国内研究平台" if platform_key == "domestic" else "境外档案平台"
+    body = breadcrumb_html([("/", "首页"), (None, f"{platform_scope} · {meta['name']}")]) + f"""
 <section class="hero" style="padding:32px 36px;">
   <h1>{h(meta['name'])} <span style="font-size:18px;color:var(--muted);font-weight:400;">· {h(meta['cn_name'])}</span></h1>
   <p class="hero-sub">{h(meta['intro'])}</p>
@@ -1232,7 +1233,7 @@ def source_page(platform_key: str) -> bytes:
   <p style="margin:0;font-family:var(--serif);line-height:1.85;">{h(todo_note_str or "暂无说明。")}</p>
 </section>
 '''
-    return layout(f"{meta['name']} · 境外档案平台", body)
+    return layout(f"{meta['name']} · {platform_scope}", body)
 
 
 def stats_html(c: sqlite3.Connection) -> str:
@@ -3015,7 +3016,7 @@ def _domestic_rows() -> list[sqlite3.Row]:
                       archive_item, catalog_reference, source_url,
                       authenticity_level_proposed, relevance_grade_proposed,
                       review_status, event_tags, person_tags, place_tags,
-                      evidence_note, uncertainty_note
+                      evidence_note, uncertainty_note, ingested_document_id
                FROM domestic_candidates ORDER BY id"""
         ).fetchall()
     if getattr(_request, "public_mode", False):
@@ -4105,6 +4106,85 @@ def _research_foreign_match_rows(
         return []
 
 
+def _research_domestic_evidence_rows(
+    c: sqlite3.Connection, candidates: list[sqlite3.Row], limit: int = 40
+) -> list[dict[str, object]]:
+    """把专题候选回接到已入库国内文档和物理页。
+
+    候选表是编辑层，documents/pages/page_provenance 才是阅读与证据层。
+    这里仅做可重算的导航聚合，不把 accepted 候选或 OCR 自动升级为正式引用。
+    """
+    by_document: dict[int, list[sqlite3.Row]] = {}
+    for candidate in candidates:
+        raw_document_id = candidate["ingested_document_id"]
+        if raw_document_id is None:
+            continue
+        try:
+            document_id = int(raw_document_id)
+        except (TypeError, ValueError):
+            continue
+        by_document.setdefault(document_id, []).append(candidate)
+    if not by_document:
+        return []
+
+    placeholders = ",".join("?" for _ in by_document)
+    try:
+        rows = c.execute(
+            f"""
+            SELECT d.id AS document_id, d.doc_key, d.title, d.date_guess, d.url, d.hit_type,
+                   COUNT(DISTINCT p.id) AS page_count,
+                   SUM(length(COALESCE(p.text, ''))) AS text_chars,
+                   COUNT(DISTINCT CASE WHEN pp.page_id IS NOT NULL THEN p.id END) AS provenance_pages,
+                   COUNT(DISTINCT CASE
+                       WHEN trim(COALESCE(pp.source_file, '')) <> ''
+                        AND length(trim(COALESCE(pp.source_sha256, ''))) = 64
+                       THEN p.id END) AS file_backed_pages,
+                   COUNT(DISTINCT CASE WHEN {DOMESTIC_STRICT_CITATION_SQL} THEN p.id END) AS strict_citation_pages,
+                   COUNT(DISTINCT CASE WHEN {DOMESTIC_MACHINE_READABLE_SQL} THEN p.id END) AS machine_readable_pages,
+                   (SELECT p0.id FROM pages p0 WHERE p0.document_id=d.id ORDER BY p0.id LIMIT 1) AS first_page_id,
+                   (SELECT p0.page_label FROM pages p0 WHERE p0.document_id=d.id ORDER BY p0.id LIMIT 1) AS first_page_label
+            FROM documents d
+            LEFT JOIN pages p ON p.document_id=d.id
+            LEFT JOIN page_provenance pp ON pp.page_id=p.id
+            WHERE d.source_platform='domestic' AND d.id IN ({placeholders})
+            GROUP BY d.id
+            ORDER BY strict_citation_pages DESC, machine_readable_pages DESC,
+                     file_backed_pages DESC, d.date_guess, d.id
+            LIMIT ?
+            """,
+            tuple(by_document) + (limit,),
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+
+    result: list[dict[str, object]] = []
+    for row in rows:
+        document_id = int(row["document_id"])
+        linked = by_document.get(document_id, [])
+        result.append({
+            "document_id": document_id,
+            "doc_key": row["doc_key"],
+            "title": row["title"],
+            "date_guess": row["date_guess"],
+            "url": row["url"],
+            "hit_type": row["hit_type"],
+            "page_count": int(row["page_count"] or 0),
+            "text_chars": int(row["text_chars"] or 0),
+            "provenance_pages": int(row["provenance_pages"] or 0),
+            "file_backed_pages": int(row["file_backed_pages"] or 0),
+            "strict_citation_pages": int(row["strict_citation_pages"] or 0),
+            "machine_readable_pages": int(row["machine_readable_pages"] or 0),
+            "first_page_id": row["first_page_id"],
+            "first_page_label": row["first_page_label"],
+            "candidate_ids": [str(item["candidate_id"]) for item in linked],
+            "candidate_titles": [str(item["title"] or "") for item in linked],
+            "candidate_levels": sorted({
+                _domestic_level(item) for item in linked if _domestic_level(item)
+            }),
+        })
+    return result
+
+
 def _research_topic_rows() -> list[dict[str, object]]:
     """为统一专题首页生成国内候选数、境外机器命中数和入口信息。"""
     coverage = _load_domestic_event_coverage()
@@ -4118,6 +4198,7 @@ def _research_topic_rows() -> list[dict[str, object]]:
         for item in coverage:
             candidate_ids = [str(value) for value in item.get("domestic_candidate_ids", [])]
             linked = [domestic_by_id[value] for value in candidate_ids if value in domestic_by_id]
+            domestic_evidence = _research_domestic_evidence_rows(c, linked)
             foreign_defs = [
                 definition
                 for slug in item.get("foreign_event_slugs", [])
@@ -4130,6 +4211,11 @@ def _research_topic_rows() -> list[dict[str, object]]:
             result.append({
                 "item": item,
                 "domestic_rows": linked,
+                "domestic_evidence": domestic_evidence,
+                "domestic_documents": len(domestic_evidence),
+                "domestic_pages": sum(int(row["page_count"]) for row in domestic_evidence),
+                "domestic_file_pages": sum(int(row["file_backed_pages"]) for row in domestic_evidence),
+                "domestic_citation_pages": sum(int(row["strict_citation_pages"]) for row in domestic_evidence),
                 "foreign_stats": foreign_stats,
                 "foreign_pages": sum(int(entry["stats"]["pages"]) for entry in foreign_stats),
                 "foreign_documents": sum(int(entry["stats"]["documents"]) for entry in foreign_stats),
@@ -4141,13 +4227,15 @@ def research_topics_page() -> bytes:
     """国内外共享的专题研究入口。"""
     topics = _research_topic_rows()
     total_domestic = sum(len(topic["domestic_rows"]) for topic in topics)
+    total_domestic_documents = sum(int(topic["domestic_documents"]) for topic in topics)
+    total_domestic_pages = sum(int(topic["domestic_pages"]) for topic in topics)
     total_foreign = sum(int(topic["foreign_pages"]) for topic in topics)
     body = breadcrumb_html([("/", "首页"), (None, "多源专题研究")]) + f"""
 <section class="hero hero-compact">
   <div class="hero-eyebrow">UNIFIED RESEARCH TOPICS</div>
   <h1>多源专题研究</h1>
   <p class="hero-sub">把国内候选、境外档案和证据缺口放进同一条研究路径。这里的关联是检索与编排层，正式引用仍必须回到原件、页码、哈希和人工复核。</p>
-  <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_foreign}</b> 个境外机器命中页</span></div>
+  <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_domestic_documents}</b> 篇国内已入库文档</span><span><b>{total_domestic_pages}</b> 个国内物理页</span><span><b>{total_foreign}</b> 个境外机器命中页</span></div>
 </section>
 <div class="notice"><strong>阅读纪律：</strong>“国内候选”来自事件覆盖表，“境外机器命中”来自关键词检索；二者都不是自动事实确认。打开专题后，可以分别回到国内候选记录、境外原文页和证据缺口说明。</div>
 <section class="result-list">
@@ -4160,7 +4248,7 @@ def research_topics_page() -> bytes:
 <article class="result">
   <div>
     <h2><a href="/research/{quote(str(item['event_id']))}">{h(item.get('event_name'))}</a></h2>
-    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · {h(item.get('domestic_status'))}</div>
+    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · {h(item.get('domestic_status'))}</div>
     <div class="tagline"><span class="pstatus {status_cls}">{h(status)}</span>{''.join(f'<span class="tag">{h(tag)}</span>' for tag in item.get('event_tags', []))}</div>
     <div class="snippet">{h(item.get('review_note'))}</div>
   </div>
@@ -4205,6 +4293,43 @@ def research_topic_page(event_id: str) -> bytes:
 </div><div class="cite"><a href="/domestic?q={query}">候选记录</a></div></article>""")
     domestic_html = "".join(domestic_cards) or '<div class="notice">该专题当前没有可见的国内候选记录。</div>'
 
+    domestic_evidence_cards = []
+    for evidence in topic["domestic_evidence"]:
+        doc_key = str(evidence["doc_key"] or "")
+        first_page_id = evidence["first_page_id"]
+        href = f"/doc/{quote(doc_key)}"
+        if first_page_id:
+            href += f"?page_id={quote(str(first_page_id))}"
+        strict = int(evidence["strict_citation_pages"])
+        machine = int(evidence["machine_readable_pages"])
+        file_backed = int(evidence["file_backed_pages"])
+        pages = int(evidence["page_count"])
+        if strict:
+            status_label = f"正式可引用 {strict} 页"
+            status_class = "ok"
+        elif machine:
+            status_label = f"机器核验可阅 {machine} 页"
+            status_class = "warn"
+        else:
+            status_label = "OCR/原文待人工复核"
+            status_class = "warn"
+        candidate_label = "；".join(evidence["candidate_titles"][:2])
+        if len(evidence["candidate_titles"]) > 2:
+            candidate_label += f" 等 {len(evidence['candidate_titles'])} 条候选"
+        page_tools = (
+            f'<br><a href="/review/{h(first_page_id)}">校订</a>'
+            f'<br><a href="/cite/{h(first_page_id)}">引用门禁</a>'
+            if first_page_id else ""
+        )
+        domestic_evidence_cards.append(f"""
+<article class="result compact-result"><div>
+  <h3><a href="{href}">{h(evidence['title'] or doc_key or '未题名国内文档')}</a></h3>
+  <div class="meta">{h(evidence['date_guess'] or '日期未注明')} · {h(evidence['hit_type'] or 'domestic')} · {h(pages)} 页 · {h(evidence['text_chars'])} 字</div>
+  <div class="tagline"><span class="pstatus {status_class}">{h(status_label)}</span><span class="tag">源文件锚定 {h(file_backed)}/{h(pages)} 页</span><span class="tag">provenance {h(evidence['provenance_pages'])}/{h(pages)}</span></div>
+  <div class="snippet">候选关联：{h(candidate_label or '未标注候选')}。机器可阅与源文件锚定不等于人工确认。</div>
+</div><div class="cite"><a href="{href}">打开原文页</a>{page_tools}</div></article>""")
+    domestic_evidence_html = "".join(domestic_evidence_cards) or '<div class="notice">该专题当前没有已回接到文档页的国内证据样本；候选记录仍可用于调档和追踪。</div>'
+
     foreign_sections = []
     for sample in foreign_samples:
         definition = sample["definition"]
@@ -4237,11 +4362,16 @@ def research_topic_page(event_id: str) -> bytes:
 </section>
 <section class="stats">
   <div class="stat"><strong>{len(topic['domestic_rows'])}</strong><span>国内候选关联</span></div>
+  <div class="stat"><strong>{h(topic['domestic_documents'])}</strong><span>国内已入库文档</span></div>
+  <div class="stat"><strong>{h(topic['domestic_file_pages'])}/{h(topic['domestic_pages'])}</strong><span>源文件锚定页</span></div>
+  <div class="stat"><strong>{h(topic['domestic_citation_pages'])}</strong><span>正式可引用页</span></div>
   <div class="stat"><strong>{h(topic['foreign_documents'])}</strong><span>境外机器命中文档</span></div>
   <div class="stat"><strong>{h(topic['foreign_pages'])}</strong><span>境外机器命中页</span></div>
   <div class="stat"><strong>{h(item.get('pair_status') or '待核')}</strong><span>对位状态</span></div>
 </section>
 <div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国内已入库证据样本</h2><span class="meta">{h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页</span></div>
+<section class="result-list">{domestic_evidence_html}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国内候选记录</h2><span class="meta">{len(topic['domestic_rows'])} 条可见候选</span></div>
 <section class="result-list">{domestic_html}</section>
 {foreign_html}
@@ -7076,7 +7206,7 @@ def citation_page(page_id: int) -> bytes:
     return layout("引用摘录卡片", body)
 
 
-# 7 平台元数据（用于 timeline 徽章 + 过滤按钮）
+# 境外七源 + 国内史料层（用于 timeline 徽章 + 过滤按钮）
 TIMELINE_PLATFORMS = [
     ("frus",        "FRUS",        "#0f6b5b"),  # 美方公开外交
     ("cia",         "CIA",         "#8b5e34"),  # 美方情报
@@ -7085,6 +7215,7 @@ TIMELINE_PLATFORMS = [
     ("wilson",      "Wilson",      "#5a3a26"),  # 苏方
     ("hoover",      "Hoover",      "#6b6356"),  # 民盟创始人私函
     ("newspapersg", "NewspaperSG", "#157f73"),  # 南洋报刊
+    ("domestic",    "国内史料",   "#b45131"),  # 国内史料层
 ]
 TIMELINE_PLAT_LABEL = {k: lab for k, lab, _ in TIMELINE_PLATFORMS}
 TIMELINE_PLAT_COLOR = {k: col for k, _, col in TIMELINE_PLATFORMS}
@@ -7092,7 +7223,7 @@ TIMELINE_PLAT_COLOR = {k: col for k, _, col in TIMELINE_PLATFORMS}
 
 def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "") -> bytes:
     title = "民盟材料年表"
-    subtitle = "按年份排列七平台档案片段，含校订、摘录与原始来源入口。"
+    subtitle = "按年份排列境内外档案片段，含校订、摘录与原始来源入口。"
     where = ""
     params: list[str] = []
     filter_links = []
@@ -7122,7 +7253,7 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
         person = person_by_slug(person_slug)
         if person:
             title = f"{person['name']}年表"
-            subtitle = "按时间排列该人物在七平台档案中的出现。"
+            subtitle = "按时间排列该人物在境内外平台档案中的出现。"
             where, params = alias_where(
                 ["documents.matched_terms", "documents.title", "pages.text", "translations.text"],
                 person["aliases"],
