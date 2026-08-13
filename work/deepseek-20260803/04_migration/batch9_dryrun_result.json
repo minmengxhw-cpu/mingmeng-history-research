@@ -1,0 +1,20 @@
+{
+  "mode": "dry-run",
+  "database": "/Users/cheer/Documents/mm agent/mingmeng-history-research-github-main-20260803/work/deepseek-20260803/04_migration/research_index.batch9.dryrun.sqlite",
+  "source_sha256": "bdebdbb0d4c5b250cf59487dfb023cdaf9d219e3d1c4e51c8e5edd8980729d2e",
+  "result_sha256": "43b0acdecd5f336d9f6285206e502dbcf4fa1f11296519c3186a28d1aa921958",
+  "backup": null,
+  "stats": {
+    "review_rows_updated": 29,
+    "orphans_deleted": 15,
+    "citation_pass_candidates": 284,
+    "citation_linked_documents": 170,
+    "provenance_rows_reconciled": 0,
+    "foreign_key_violations": 5,
+    "tolerated_preexisting_fk_violations": 5,
+    "unexpected_fk_violations": 0,
+    "integrity_check": "ok",
+    "remaining_classification_orphans": 0
+  },
+  "timestamp": "2026-08-03T15:47:52.559453"
+}

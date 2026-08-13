@@ -1,0 +1,67 @@
+candidate_id,field,issue,recommendation
+domestic:NLC:minmeng-yanlunji-1945-congress-declaration,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-xia,date_range,日期为区间/多值: 1946-1949,按起始日排序，区间保留
+domestic:WS:pcc-national-assembly-resolution-1946,level_consistency,LX 未定等级,按 L1—L4 定义复核
+domestic:FRUS:1943-07-31-d232-ringwalt-liang-shuming-interview,level_proposed_vs_accepted,proposed L3 → accepted L2,核对等级赋值依据
+domestic:FRUS:1943-09-18-d272-atcheson-federation-platform,level_proposed_vs_accepted,proposed L3 → accepted L2,核对等级赋值依据
+domestic:MM1941:outline-1942-1949-xian-minmeng-xibei-zongzhibu-mimi-huodongdi,date_range,日期为区间/多值: 1942-1949,按起始日排序，区间保留
+domestic:SAAC:1949-03-12-01,date_range,日期为区间/多值: 1949-03-12/1949-03-23,按起始日排序，区间保留
+domestic:NLC:minmeng-wenxian-1946-whole,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:MMZY:lead-楚图南-民盟文章,date_range,日期为区间/多值: 1945—1949,按起始日排序，区间保留
+domestic:MMHIST:yannan-meeting-minutes-1945-07-04,date_range,日期为区间/多值: 1945-07-01/1945-07-04,按起始日排序，区间保留
+domestic:LNU:guangmingbao-index-1941,level_consistency,L3 但标 full_item_online（疑似低估）,按 L1—L4 定义复核
+domestic:LNU:guangmingbao-index-1941,date_range,日期为区间/多值: 1941-10/1941-11,按起始日排序，区间保留
+domestic:MMZY:1945-first-congress-page,date_range,日期为区间/多值: 1945-10-01/1945-10-12,按起始日排序，区间保留
+domestic:NLC:minmeng-wenxian-1946-final-war-political-platform,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-zhong,date_range,日期为区间/多值: 1946-1949,按起始日排序，区间保留
+domestic:MM1941:outline-1942-1949-minmeng-zai-shaanxi-jing,date_range,日期为区间/多值: 1942-1949,按起始日排序，区间保留
+domestic:FRUS:1944-04-21-d329-gauss-service-minority-parties,level_proposed_vs_accepted,proposed L3 → accepted L2,核对等级赋值依据
+domestic:MM1941:outline-1941-1953-wuxi-meng-biannian-shi,date_range,日期为区间/多值: 1941-1953,按起始日排序，区间保留
+domestic:WS:democratic-league-declaration-1941,level_consistency,LX 未定等级,按 L1—L4 定义复核
+domestic:MM1941:outline-shanghai-minmeng-biannian-shi,date_range,日期为区间/多值: 1945-2018,按起始日排序，区间保留
+domestic:WS:dagongbao-1946-pcc-five-agreements-1946-01-31,level_consistency,L1 但资料类型为二手（网页转述/官网史志不能作为 L1 原件）,按 L1—L4 定义复核
+domestic:FRUS:1944-07-11-d380-langdon-kunming-democratic-league,level_proposed_vs_accepted,proposed L3 → accepted L2,核对等级赋值依据
+domestic:MM1941:outline-1946-1949-minmeng-zongbu-shanghai,date_range,日期为区间/多值: 1946-1949,按起始日排序，区间保留
+domestic:FRUS:1944-10-30-d478-gauss-war-final-stage-proposals,level_proposed_vs_accepted,proposed L3 → accepted L2,核对等级赋值依据
+domestic:BJTZB:lead-人民民主统一战线的巩固和扩大,date_range,日期为区间/多值: 1947—1948,按起始日排序，区间保留
+domestic:MM1941:outline-1946-1953-jiangsu-meng-biannian-shi,date_range,日期为区间/多值: 1946-1953,按起始日排序，区间保留
+domestic:WM:xinan-lianda-jiuzhi-1946-meng,level_consistency,L3 但标 full_item_online（疑似低估）,按 L1—L4 定义复核
+domestic:MM1941:outline-1944-1946-minmeng-zongbu-chongqing,date_range,日期为区间/多值: 1944-1946,按起始日排序，区间保留
+domestic:FRUS:1944-09-22-d445-sprouse-democratic-league-principles,level_proposed_vs_accepted,proposed L3 → accepted L2,核对等级赋值依据
+domestic:MM1941:outline-1939-1950-sichuan-meng-biannian-shi,date_range,日期为区间/多值: 1939-1950,按起始日排序，区间保留
+domestic:MMYunnan:democracy-weekly-run-1944-1946,date_range,日期为区间/多值: 1944-12-09/1946-08-02,按起始日排序，区间保留
+domestic:FJMM:lead-福建民盟盟史导言,date_range,日期为区间/多值: 1941—1947,按起始日排序，区间保留
+domestic:MMZY:lead-周恩来与第一届人民政协会议的召开,date_range,日期为区间/多值: 1945—1949,按起始日排序，区间保留
+domestic:MM1941:outline-1942-1949-minmeng-zai-shaanxi,date_range,日期为区间/多值: 1942-1949,按起始日排序，区间保留
+domestic:WM:zhang-lan-tomb,level_consistency,L3 但标 full_item_online（疑似低估）,按 L1—L4 定义复核
+domestic:WS:democratic-movement-editorial-1941,level_consistency,L3 但标 full_item_online（疑似低估）,按 L1—L4 定义复核
+domestic:NLC:minmeng-wenxian-1946-situation-declaration-1945-01-15,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:WS:peace-building-program-1946,level_consistency,LX 未定等级,按 L1—L4 定义复核
+domestic:NLC:minmeng-wenxian-1946-toc-political-report-gap,level_consistency,L3 但标 full_item_online（疑似低估）,按 L1—L4 定义复核
+domestic:MM1941:outline-1949qian-beijing-minmeng-biannian-shi,date_range,日期为区间/多值: 1945-1949,按起始日排序，区间保留
+domestic:HNMM:lead-民盟精神解析,date_range,日期为区间/多值: 1941—1948,按起始日排序，区间保留
+domestic:NLC:minmeng-wenxian-1946-formation-declaration,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:MMSH:lead-新中国成立前民盟对政治协商制度的贡献,date_range,日期为区间/多值: 1941—1949,按起始日排序，区间保留
+domestic:YADS:yanan-record-1945-07-04,level_consistency,L3 但标 full_item_online（疑似低估）,按 L1—L4 定义复核
+domestic:MM1941:outline-1942-2012-shaanxi-meng-70nian,date_range,日期为区间/多值: 1942-2012,按起始日排序，区间保留
+domestic:HKU:guangmingbao-primo-record,date_range,日期为区间/多值: 1941—1949,按起始日排序，区间保留
+domestic:GXMM:NLC-dagongbao-tianjin-1947-11-06-page2-excerpt,level_consistency,L1 但资料类型为二手（网页转述/官网史志不能作为 L1 原件）,按 L1—L4 定义复核
+domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:WS:dagongbao-1946-refuse-national-assembly-minmeng-1946-11-14,level_consistency,L1 但资料类型为二手（网页转述/官网史志不能作为 L1 原件）,按 L1—L4 定义复核
+domestic:NLC:minmeng-yanlunji-1945-whole,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-shang,date_range,日期为区间/多值: 1946-1949,按起始日排序，区间保留
+domestic:MM1941:outline-1941-2014-chongqing-meng-shi-jing,date_range,日期为区间/多值: 1941-2014,按起始日排序，区间保留
+domestic:WS:wen-yiduo-last-testament-1946,level_consistency,L3 但标 full_item_online（疑似低估）,按 L1—L4 定义复核
+domestic:MM1941:outline-1947-1949-zhongyang-zongzhanhui-lianhehuiyi,date_range,日期为区间/多值: 1947-1949,按起始日排序，区间保留
+domestic:MM1941:outline-1941-1989-gansu-meng-jianzhi,date_range,日期为区间/多值: 1941-1989,按起始日排序，区间保留
+domestic:SAAC:1949-02-01-01,date_range,日期为区间/多值: 1949-02-01/1949-02-02,按起始日排序，区间保留
+domestic:WS:pcc-government-reorganization-1946,level_consistency,LX 未定等级,按 L1—L4 定义复核
+domestic:HKU:guangmingbao-1941-microform-holdings,date_range,日期为区间/多值: 1941-09-18—1941-12-12,按起始日排序，区间保留
+domestic:SAAC:catalog-01-01_17,date_range,日期为区间/多值: 1949-03-21/1949-03-22,按起始日排序，区间保留
+domestic:MM1941:outline-1946-1949-nanfang-mengshi-shiling,date_range,日期为区间/多值: 1946-1949,按起始日排序，区间保留
+domestic:NLC:minmeng-yanlunji-1945-congress-political-report,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:SAAC:1949-09-21-03,date_range,日期为区间/多值: 1949-09-21/1949-09-30,按起始日排序，区间保留
+domestic:NLC:minmeng-wenxian-1946-ten-program,level_consistency,完整原刊整期扫描标 L2（疑似低估，应按原件影像升 L1）,按 L1—L4 定义复核
+domestic:MM1941:outline-shaanxi-minmeng-shi,date_range,日期为区间/多值: 1942-2012,按起始日排序，区间保留
+domestic:HNMM:response-may-day-1948,level_consistency,L3 但标 full_item_online（疑似低估）,按 L1—L4 定义复核

@@ -67,10 +67,8 @@ def test_domestic_snapshot(live_server):
         ("timeline", "/timeline"),
     ],
 )
-def test_db_dependent_snapshot_skipped(live_server, db_missing_reason, name, path):
-    """首页/dashboard/timeline 目前必然因数据库缺失而拿不到真实内容,记录 skip 原因,
-    不假装它们已经被快照覆盖。数据库补上之后,把这个测试换成真正的 _assert_snapshot。
-    """
+def test_db_dependent_snapshot(live_server, db_missing_reason, name, path):
+    """首页/dashboard/timeline 依赖 research_index.sqlite；库缺失时只校验 500 兜底页。"""
     status, body = fetch(live_server, path)
     if db_missing_reason:
         assert status == 500, (
@@ -79,7 +77,6 @@ def test_db_dependent_snapshot_skipped(live_server, db_missing_reason, name, pat
         )
         assert body is not None and "Traceback" not in body
         pytest.skip(f"{path} 因数据库缺失只拿到 500 兜底页,当前无法生成真实内容的快照基线: {db_missing_reason}")
-    pytest.fail(
-        f"{path} 数据库已健全但仍走了这条 skip 分支(状态 {status})—— "
-        "说明数据库状态发生了变化,请把这条测试换成真正的 _assert_snapshot 逻辑。"
-    )
+    assert status == 200
+    assert body is not None and "Traceback" not in body
+    _assert_snapshot(name, body)

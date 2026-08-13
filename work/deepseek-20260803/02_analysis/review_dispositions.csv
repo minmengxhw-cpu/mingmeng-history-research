@@ -1,0 +1,30 @@
+candidate_id,title,repository_code,proposed_level,accepted_level,disposition,final_level,conclusion,baseline_10_marker
+domestic:HKU:guangmingbao-1941-microform-holdings,《光明報》1941年9月18日—12月12日馆藏缩微胶卷记录,HKU,L2,,保留为目录线索,L3,机构级馆藏记录（缩微胶卷 1941-09-18—12-12），非原文影像；作《光明报》创刊期获取入口线索，禁止 citation,需确认
+domestic:HKU:guangmingbao-primo-record,《光明報》1941—1949港大 JULAС/Primo 书目记录,HKU,L2,,保留为目录线索,L3,港大 Primo 书目记录（1941—1949），与上条互证馆藏；无影像，禁止 citation,需确认
+domestic:SHPRESS:zhanglan-shidai-ribao-1947-11-07-lead,张澜个人书面谈话（1947-11-07《时代日报》等出处线索）,SHPRESS,L4,,保留为线索,L4,盟史后期转述（山东民盟页）引《时代日报》张澜谈话；传播链线索，需《时代日报》原件核验后方可升级,需确认
+domestic:WS:dagongbao-1946-pcc-five-agreements-1946-01-31,政协五项协议通过（《大公报》1946-01-31 报道）,WS,L1,,降级为目录线索,L3,《大公报》1946-01-31 政协闭幕报道；多源综述无原刊 PDF 核验，原 L1 错误，改 L3 待 NLC 视检,需确认
+domestic:XHB:xinhuaribao-1946-pcc-five-agreements-1946-01-31,政协五项协议通过（《新华日报》1946-01-31 报道）,XHB,L1,,降级为目录线索,L3,《新华日报》同事件报道；无原刊核验，同前,需确认
+domestic:WH:wenhuibao-1946-pcc-five-agreements-1946-01-31,政协会议闭幕五项协议通过（《文汇报》1946-01-31 报道）,WH,L1,,降级为目录线索,L3,《文汇报》同事件报道；无原刊核验，同前,需确认
+domestic:WS:dagongbao-1946-refuse-national-assembly-minmeng-1946-11-14,民盟正式拒绝参加国大（《大公报》1946-11-14 报道）,WS,L1,,降级为目录线索,L3,《大公报》1946-11-14 民盟拒国大报道；无原刊核验，原 L1 错误,需确认
+domestic:XHB:xinhuaribao-1946-refuse-national-assembly-editorial-1946-11-25,立刻解散非法的国大（《新华日报》1946-11-25 社论）,XHB,L1,,降级为目录线索,L3,《新华日报》1946-11-25 社论；目录状态 pending，无原刊核验,需确认
+domestic:WH:wenhuibao-1946-refuse-national-assembly-shanghai-1946-11-25,民盟不参加国大上海声明（《文汇报》1946-11-25 报道）,WH,L1,,降级为目录线索,L3,《文汇报》上海声明报道；无原刊核验,需确认
+domestic:KMY:minzhuzhoukan-1946-li-wen-wen-yiduo-1946-07,闻一多在《民主周刊》的社论与追悼文章（1946-07）,KMY,L1,,保留为线索,L4,《民主周刊》1946-07 社论/悼文线索（闻一多任社长）；需原刊或影印核对,需确认
+domestic:XHB:xinhuaribao-1946-li-wen-mao-zhu-condolence-1946-07-21,毛泽东朱德唁电李公朴闻一多家属（《新华日报》1946-07-21 转载）,XHB,L1,,降级为目录线索,L3,《新华日报》1946-07-21 唁电转载；目录状态 pending，无原刊核验,需确认
+domestic:NLC:observer-1947-3-11-article-government-oppression-minmeng,我们对于政府压迫民盟的看法（《观察》第3卷第11期 1947-11-08 头条）,NLC,L1,,待影像核验后升级,L1→L2,《观察》第3卷第11期已有公开 PDF（NLC 镜像），可升级；文章边界需人工核对（P3-023 教训），核验后定 L1,需确认
+domestic:SHDPZ:zlc-chapter5-line571-shi-liang-1942-join,史良 1942 年加入民盟条目（《上海民主党派志》资料长编 第五章）,SHDPZ,L3,,保留为二手方志证据,L4,《上海民主党派志》资料长编人物条目（1942 入盟）；方志为后出二手，日期须与一手互证,需确认
+domestic:SHDPZ:zlc-characters-line527-shang-ding-1943-join,尚丁 1943 年参加中国民主同盟条目（《上海民主党派志》资料长编 人物）,SHDPZ,L3,,保留为二手方志证据,L4,同上：尚丁 1943 入盟条目,需确认
+domestic:SHDPZ:zlc-characters-line79-liu-simou-1942-return,刘思慕 1942 年春回国条目（《上海民主党派志》资料长编 人物）,SHDPZ,L3,,保留为二手方志证据,L4,同上：刘思慕 1942 年春回国条目（非入盟，为人物经历）,需确认
+domestic:SHDPZ:printed-page816-su-yanbin-1943-11-join,苏延宾 1943 年 11 月参加中国民主同盟条目（《上海民主党派志》印刷厂验收稿正文）,SHDPZ,L3,,保留为二手方志证据,L4,《上海民主党派志》印刷版人物条目：苏延宾 1943-11 入盟,需确认
+domestic:SHDPZ:printed-page840-shang-ding-1943-10-join,尚丁 1943 年 10 月加入中国民主同盟条目（《上海民主党派志》印刷厂验收稿正文）,SHDPZ,L3,,保留为二手方志证据,L4,同上：尚丁 1943-10 入盟（与 zlc-characters 条目重复，合并处理）,需确认
+domestic:SHDPZ:printed-page820-zhou-gucheng-federation-consultant-1942,周谷城 1942 年后被聘为民主政团同盟顾问条目（《上海民主党派志》印刷厂验收稿正文）,SHDPZ,L3,,保留为二手方志证据,L4,同上：周谷城 1942 任民主政团同盟顾问,需确认
+domestic:MX:cheng-boren-1942-join-northwest-org,成柏仁 1942 年加入民盟条目（《盟贤》第 47 页）,MX,L3,,保留为内部汇编线索,L4,《盟贤》内部传记汇编（非正式出版物）；成柏仁 1942 入盟，二手证据,需确认
+domestic:MX:shang-ding-1943-11-join-mengxian,尚丁 1943 年 11 月加入民盟条目（《盟贤》第 63 页；与 SHDPZ 印刷厂正文 1943-10 互证）,MX,L3,,保留为内部汇编线索,L4,同上：尚丁 1943-11 入盟；与 SHDPZ/RCL 多条互为印证,需确认
+domestic:MX:ding-cong-1942-chongqing-artist,丁聪 1942 年在桂林/重庆/成都/昆明美术设计活动条目（《盟贤》第 158 页）,MX,L3,,保留为人物背景线索,L4,丁聪 1942 艺术活动条目，非民盟组织证据，仅人物背景,需确认
+domestic:MX:shang-ding-1942-journalist-secretary,尚丁 1942 年任黄炎培秘书 + 政团同盟组织协调条目（《盟贤》第 63 页，1942 关键人物活动）,MX,L3,,保留为内部汇编线索,L4,尚丁 1942 任黄炎培秘书+组织协调条目，二手,需确认
+domestic:MX:wang-lingu-1942-art-troupe,王林谷 1942 年入中国艺术剧社条目（《盟贤》，1946-12 入盟）,MX,L3,,保留为人物背景线索,L4,王林谷 1942 中国艺术剧社条目（1946-12 才入盟），非民盟 1942 证据,需确认
+domestic:MX:lu-jinhua-1942-yueju-troupe,陆锦花 1942 年入袁雪芬领衔大来剧场条目（《盟贤》，1956-10 入盟）,MX,L3,,保留为人物背景线索,L4,陆锦花 1942 越剧条目（1956 入盟），非民盟 1942 证据，低相关,需确认
+domestic:RCL:wenliangmo-1942-join-national-anthem,刘良模 1942 年加入民盟条目（《民盟代表人士资料汇编·文化篇》）,RCL,L3,,保留为内部汇编线索,L4,《民盟代表人士资料汇编》人物条目（刘良模 1942 入盟），内部资料二手,需确认
+domestic:RCL:textile-engineer-1943-12-join,纺织工程专家 1943 年 12 月加入民盟条目（《民盟代表人士资料汇编·科技篇》）,RCL,L3,,保留为内部汇编线索,L4,同上：纺织专家 1943-12 入盟条目（人名待补），二手,需确认
+domestic:RCL:qian-weichang-1942-phd-meng-vice-chairman,钱伟长 1942 年获多伦多大学博士学位条目（《民盟代表人士资料汇编·领导篇》，1952 入盟，1983-1996 民盟,RCL,L3,,保留为人物背景线索,L4,钱伟长 1942 获博士条目（人物经历，非入盟时间证据），低相关,需确认
+domestic:MM1941:outline-1937-06-07-qijunzi-bianhu,1937-06-07 七君子和 21 位辩护律师合影,MM1941,L3,,归档为背景资料,L4,1937-06-07 七君子辩护律师合影，属 1941 前背景资料，不入 1941—1950 核心证据,需确认
+domestic:MM1941:outline-1937-qijunzi-yuzhong-zhao,1937 年救国会七君子在狱中合影,MM1941,L3,,归档为背景资料,L4,1937 七君子狱中合影，同上,需确认

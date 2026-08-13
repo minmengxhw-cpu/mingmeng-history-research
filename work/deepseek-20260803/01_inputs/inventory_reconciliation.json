@@ -1,0 +1,22 @@
+{
+  "produced_at": "2026-08-03",
+  "source_db": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
+  "counts": {
+    "domestic_documents": 525,
+    "candidates_total": 689,
+    "candidates_by_status": {
+      "accepted": 660,
+      "needs_human_review": 29
+    },
+    "classification_orphans": 15,
+    "events_total": 1914,
+    "events_domestic": 0,
+    "domestic_sources": 89,
+    "sources_total": 519
+  },
+  "staging": {
+    "staging_domestic_candidates": 664,
+    "staging_domestic_sources": 89,
+    "staging_dedup_clusters": 32
+  }
+}

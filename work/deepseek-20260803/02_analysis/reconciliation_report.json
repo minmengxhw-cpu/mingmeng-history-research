@@ -1,0 +1,37 @@
+{
+  "基线文档口径(2026-07-28验收)": {
+    "documents_total": 1003,
+    "domestic_documents": 142,
+    "accepted_candidates": 679,
+    "needs_human_review": 10,
+    "classification_orphans": 15
+  },
+  "生产库口径(本次只读导出)": {
+    "documents_total": "n/a",
+    "domestic_documents": 525,
+    "accepted_candidates": 660,
+    "needs_human_review": 29,
+    "classification_orphans": 15
+  },
+  "staging CSV 口径": {
+    "import_ready": 545,
+    "needs_review": 27,
+    "exclude_duplicates": 92,
+    "total": 664
+  },
+  "staging SQLite 口径": {
+    "staging_domestic_candidates": 664,
+    "accepted": 637,
+    "needs_human_review": 27
+  },
+  "data/domestic/candidates.jsonl 口径": {
+    "total": 689,
+    "accepted": 660,
+    "needs_human_review": 29
+  },
+  "差异说明": [
+    "基线验收(07-28)后、MiniMax 生产阶段将 679 条 accepted 候选导入正式库，国内文献 142→525",
+    "candidates 总量恒为 689；accepted 660 + needs_human_review 29；基线报告口径 679+10，19 条由 accepted 翻转为 needs_human_review（reviewed_at 未更新，见 Batch4）",
+    "staging CSV 与 staging SQLite 存在 12 条漂移（import_ready 557 vs SQLite 候选 664 的 accepted 637）：CSV 是三轮清单脚本输出，SQLite 是入库前终态"
+  ]
+}

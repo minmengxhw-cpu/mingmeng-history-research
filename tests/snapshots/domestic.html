@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>国内史料 · 民盟历史文献研究库</title>
+  <title>国内史料库 · 民盟历史文献研究库</title>
   <link rel="stylesheet" href="/static/fonts.css?v=NORMALIZED">
   <link rel="stylesheet" href="/static/style.css?v=NORMALIZED">
 </head>
@@ -32,7 +32,7 @@
   <header class="topbar">
     <a class="brand" href="/">
       <span>民盟历史文献研究库</span>
-      <span class="brand-sub">FRUS · CIA · Wilson · Hoover · HathiTrust · DRNH · NewspaperSG</span>
+      <span class="brand-sub">FRUS · CIA · Wilson · Hoover · HathiTrust · DRNH · NewspaperSG · 国内史料</span>
     </a>
     <button class="nav-toggle" type="button" aria-label="打开导航" aria-controls="mainnav" aria-expanded="false" onclick="(function(b){var n=document.getElementById('mainnav');var o=n.classList.toggle('is-open');b.setAttribute('aria-expanded',o);b.classList.toggle('is-open',o);})(this)">
       <svg class="ico ico-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -45,11 +45,11 @@
       
         <div class="nav-group active">
           <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#i-library"/></svg>资料库<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-          <div class="nav-flyout"><a class="nav-sub" href="/">首页</a><a class="nav-sub" href="/about">项目介绍</a><a class="nav-sub" href="/docs">全部文档</a><a class="nav-sub" href="/domestic/library">已收国内资料</a><a class="nav-sub current" href="/domestic">国内候选目录</a><a class="nav-sub" href="/domestic/search">国内检索</a><a class="nav-sub" href="/domestic/quality">国内质量底座</a><a class="nav-sub" href="/domestic/sources">国内来源</a><a class="nav-sub" href="/domestic/events">国内事件</a><a class="nav-sub" href="/domestic/acquisition">调档清单</a><a class="nav-sub" href="/domestic/review">国内复核</a><a class="nav-sub" href="/papers">研究论文</a><a class="nav-sub" href="/sourcebooks">史料长编</a><a class="nav-sub" href="/standards">收录标准</a><a class="nav-sub" href="/timeline">年表</a><a class="nav-sub" href="/glossary">术语表</a></div>
+          <div class="nav-flyout"><a class="nav-sub" href="/">首页</a><a class="nav-sub" href="/about">项目介绍</a><a class="nav-sub" href="/docs">全部文档</a><a class="nav-sub current" href="/domestic">国内史料库</a><a class="nav-sub" href="/domestic/library">国内核心可阅</a><a class="nav-sub" href="/domestic/events">国内事件墙</a><a class="nav-sub" href="/domestic/sources">国内来源</a><a class="nav-sub" href="/papers">研究论文</a><a class="nav-sub" href="/sourcebooks">史料长编</a><a class="nav-sub" href="/standards">收录标准</a><a class="nav-sub" href="/timeline">年表</a><a class="nav-sub" href="/glossary">术语表</a></div>
         </div>
         <div class="nav-group">
           <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#i-edit"/></svg>研究工作台<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-          <div class="nav-flyout"><a class="nav-sub" href="/align">多源对位</a><a class="nav-sub" href="/cards">证据卡片库</a><a class="nav-sub" href="/tasks">校订任务</a><a class="nav-sub" href="/quality">质量检查</a><a class="nav-sub" href="/drnh-review">DRNH校订</a><a class="nav-sub" href="/first-person">第一人称史料</a><a class="nav-sub" href="/hk-press">香港报刊源</a><a class="nav-sub" href="/l1-board">L1升级看板</a><a class="nav-sub" href="/external-acquisition">外部调档</a><a class="nav-sub" href="/open-sources">开放资料源</a><a class="nav-sub" href="/dashboard">进度仪表盘</a></div>
+          <div class="nav-flyout"><a class="nav-sub" href="/domestic?layer=background">国内背景线索</a><a class="nav-sub" href="/domestic/search">国内 staging 检索</a><a class="nav-sub" href="/domestic/quality">国内质量底座</a><a class="nav-sub" href="/domestic/acquisition">国内调档清单</a><a class="nav-sub" href="/domestic/review">国内复核</a><a class="nav-sub" href="/align">多源对位</a><a class="nav-sub" href="/cards">证据卡片库</a><a class="nav-sub" href="/tasks">校订任务</a><a class="nav-sub" href="/quality">质量检查</a><a class="nav-sub" href="/drnh-review">DRNH校订</a><a class="nav-sub" href="/first-person">第一人称史料</a><a class="nav-sub" href="/hk-press">香港报刊源</a><a class="nav-sub" href="/l1-board">L1升级看板</a><a class="nav-sub" href="/external-acquisition">外部调档</a><a class="nav-sub" href="/open-sources">开放资料源</a><a class="nav-sub" href="/dashboard">进度仪表盘</a></div>
         </div>
         <div class="nav-group">
           <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#i-people"/></svg>人物索引<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
@@ -57,7 +57,524 @@
         </div>
     </nav>
   </header>
-  <main><div class="notice">国内史料表尚未初始化，请先运行 scripts/domestic/ingest_domestic.py。</div></main>
+  <main><nav class="breadcrumb"><a href="/">首页</a><span class="sep">›</span><span class="current">国内史料库</span></nav>
+<section class="doc-head">
+  <div>
+    <h1>国内史料库</h1>
+    <div class="meta">与境外七源并列的国内阅读层：核心可阅文献 · 九大事件证据墙 · 背景线索与调档工作台分册</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/domestic">核心库首页</a>
+    <a class="button" href="/domestic/library?layer=core">核心可阅全文</a>
+    <a class="button secondary" href="/domestic/events">事件墙</a>
+    <a class="button secondary" href="/domestic?layer=background">背景线索</a>
+    <a class="button secondary" href="/domestic/acquisition">调档工作台</a>
+    <a class="button secondary" href="/standards">收录标准</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>230</strong><span>核心可阅文档</span></div>
+  <div class="stat"><strong>4271</strong><span>citation 页</span></div>
+  <div class="stat"><strong>418</strong><span>核心候选</span></div>
+  <div class="stat"><strong>271</strong><span>背景/线索</span></div>
+  <div class="stat"><strong>1</strong><span>待人工复核</span></div>
+  <div class="stat"><strong>525</strong><span>已收文档(含非核心)</span></div>
+</section>
+<div class="notice"><strong>阅读纪律：</strong>默认只展示核心可阅与一手/同期层。当代官网史志、新闻转载、白皮书、百科与二手论文进入「背景线索」，不得冒充 citation-ready 原件。「已接受候选」(688/689) 不等于可引用全文。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-calendar"/></svg>九大关键事件证据墙</h2></div>
+<section class="result-list">
+
+<article class="result">
+  <div>
+    <div class="title">1941年中国民主政团同盟成立</div>
+    <div class="meta">国内状态：有公开转录、同期报刊转录和正式汇编L2记录，原件影像待回追</div>
+    <div class="tagline">
+      <span class="tag">核心 3</span>
+      <span class="tag">背景 10</span>
+      <span class="pstatus warn">境外已关联</span>
+    </div>
+    <div class="snippet">FRUS 1945 文件回顾民盟1941年成立，但不是1941年成立当天的外方记录；国内原件影像仍待回追。</div>
+  </div>
+  <div class="cite"><a href="/domestic?layer=core&amp;event=1944%E6%94%B9%E7%BB%84%E6%9B%B4%E5%90%8D">查看核心证据</a><br>候选共 13 条</div>
+</article>
+<article class="result">
+  <div>
+    <div class="title">1944年改组并更名为中国民主同盟</div>
+    <div class="meta">国内状态：已补入1946年民盟总部官方文献汇编；原刊/原件互校仍待完成</div>
+    <div class="tagline">
+      <span class="tag">核心 19</span>
+      <span class="tag">背景 3</span>
+      <span class="pstatus warn">境外已关联</span>
+    </div>
+    <div class="snippet">FRUS 1944 文件记录民盟同期政治主张，但不是1944年改组会议记录；国内会议原件仍待查。| Claude Code 2026-07-19 L3→L2 升级（history.state.gov WebFetch 核读）：新增 6 条 FRUS L2 引用——d232/d272/d329/d380/d445/d478；FRUS 是美国国务院正式出版的外交档案集，hagi跳转级</div>
+  </div>
+  <div class="cite"><a href="/domestic?layer=core&amp;event=1944%E6%94%B9%E7%BB%84%E6%9B%B4%E5%90%8D">查看核心证据</a><br>候选共 22 条</div>
+</article>
+<article class="result">
+  <div>
+    <div class="title">1945年民盟第一次全国代表大会</div>
+    <div class="meta">国内状态：已补入《民憲》连续期同期原刊扫描；民盟正式组织文件仍需原件互校；新增1983《历史文献》组织规程L2页界记录；已挂NLC言论集1945宣言/政治报告L2转载链（同文双源，仍待原件）</div>
+    <div class="tagline">
+      <span class="tag">核心 11</span>
+      <span class="tag">背景 15</span>
+      <span class="pstatus warn">境外已关联</span>
+    </div>
+    <div class="snippet">FRUS 1945 文件提供民盟同期对外活动观察，但不是1945年10月第一次全国代表大会直接记录；大会原件仍待查。 2026-07-19 增挂 MMHIST 组织规程 L2 汇编页界候选（PDF124—127），仍不替代原件。 2026-07-19 挂接《中國民主同盟言論集》整本+政治报告+宣言（L2 1945同期选辑转载；与MMHIST 1983汇编为同文双源，≠原件、≠1946文獻正文缺口闭合）。</div>
+  </div>
+  <div class="cite"><a href="/domestic?layer=core&amp;event=1945%E6%B0%91%E7%9B%9F%E4%B8%80%E5%A4%A7">查看核心证据</a><br>候选共 26 条</div>
+</article>
+<article class="result">
+  <div>
+    <div class="title">1946年政治协商会议（旧政协）</div>
+    <div class="meta">国内状态：新增1946-09至11月《光明報》新一至新六号原刊及文章级记录；正式会议档案仍待核</div>
+    <div class="tagline">
+      <span class="tag">核心 11</span>
+      <span class="tag">背景 17</span>
+      <span class="pstatus warn">境外已关联</span>
+    </div>
+    <div class="snippet">境外事件页有PCC档案支撑；《光明報》原刊补足旧政协后民盟机关报的直接政治表达，但不替代正式会议档案。</div>
+  </div>
+  <div class="cite"><a href="/domestic?layer=core&amp;event=1946%E6%97%A7%E6%94%BF%E5%8D%8F">查看核心证据</a><br>候选共 28 条</div>
+</article>
+<article class="result">
+  <div>
+    <div class="title">1946年民盟拒绝参加国民大会</div>
+    <div class="meta">国内状态：有政协决议转录、官方线索和正式汇编L2发言记录，民盟正式声明原件待查</div>
+    <div class="tagline">
+      <span class="tag">核心 18</span>
+      <span class="tag">背景 7</span>
+      <span class="pstatus warn">境外已关联</span>
+    </div>
+    <div class="snippet">政协决议可作为背景和前置文件，不能直接等同于民盟拒参声明。</div>
+  </div>
+  <div class="cite"><a href="/domestic?layer=core&amp;event=1946%E6%8B%92%E7%BB%9D%E5%9B%BD%E6%B0%91%E5%A4%A7%E4%BC%9A">查看核心证据</a><br>候选共 25 条</div>
+</article>
+<article class="result">
+  <div>
+    <div class="title">1946年李公朴、闻一多遇害及各方反应</div>
+    <div class="meta">国内状态：已有闻一多演讲公开转录、官方出版史料、期刊追索卡和正式汇编L2声明；NLC《光明報》新二十二號（1947-08-01）邹李闻陶四烈士纪念特辑已完成文章级拆分（整期+社论+21篇目视确认文章，皆L1/needs_human_review或整期accepted），原件级闭环与全文转录仍待查</div>
+    <div class="tagline">
+      <span class="tag">核心 31</span>
+      <span class="tag">背景 8</span>
+      <span class="pstatus warn">境外已关联</span>
+    </div>
+    <div class="snippet">境外事件页有昆明暗杀相关材料；公开转录明确给出1946年7月15日演讲和发表信息；1947年8月1日《光明報》新二十二號特辑文章级页界已目视登记，仍不能替代《民主周刊》原版或民盟抗议文件原件。</div>
+  </div>
+  <div class="cite"><a href="/domestic?layer=core&amp;event=1945%E6%B0%91%E7%9B%9F%E4%B8%80%E5%A4%A7">查看核心证据</a><br>候选共 39 条</div>
+</article>
+<article class="result">
+  <div>
+    <div class="title">1947年民盟被宣布非法与组织解散</div>
+    <div class="meta">国内状态：已补入1947年《光明報》连续原刊；新十三至新十八、新二十一已完成首面/目录+关键文文章级页码定位（本轮新增19条L1/needs_human_review）；封面出版日已按版出日RTL重核为1947-01至05及07月（纠正常见的Aug–Oct误读）；10月27日公函、11月解散公告和全文转录仍待完成</div>
+    <div class="tagline">
+      <span class="tag">核心 59</span>
+      <span class="tag">背景 21</span>
+      <span class="pstatus warn">境外已关联</span>
+    </div>
+    <div class="snippet">境外事件证据较强；汉口版原刊补足11月4日交涉、11月6日解散报道的全国版别互证，但仍不能替代内政部公函或民盟总部解散公告原件。 | Claude Code 2026-07-19 抽样 accept：issue13/14/15/16-17/18/21 共 19 条 L1 文章级原刊记录级接受（pages 全部在 work/domestic/continue_pages/1947_{13,14,15,16-17,18,21}/ 下，题名/日期/页界与本地页图核对一致；accepted 仅表示记录级入口，不代表全文转录或复制权利完成）</div>
+  </div>
+  <div class="cite"><a href="/domestic?layer=core&amp;event=1947%E6%B0%91%E7%9B%9F%E8%A2%AB%E5%AE%A3%E5%B8%83%E9%9D%9E%E6%B3%95">查看核心证据</a><br>候选共 80 条</div>
+</article>
+<article class="result">
+  <div>
+    <div class="title">1948年一届三中全会及响应“五一口号”</div>
+    <div class="meta">国内状态：已补入1948—1949年《光明報》代表性原刊；逐页转录和大会档案互校仍待完成</div>
+    <div class="tagline">
+      <span class="tag">核心 17</span>
+      <span class="tag">背景 2</span>
+      <span class="pstatus ok">境外已关联</span>
+    </div>
+    <div class="snippet">中央档案馆官方条目页可直接追踪，但档号、页码和复制权利仍需人工复核。</div>
+  </div>
+  <div class="cite"><a href="/domestic?layer=core&amp;event=1948%E4%BA%94%E4%B8%80%E5%8F%A3%E5%8F%B7">查看核心证据</a><br>候选共 19 条</div>
+</article>
+<article class="result">
+  <div>
+    <div class="title">1949年新政协筹备、民主人士北上与第一届全体会议</div>
+    <div class="meta">国内状态：已补入1948—1949年《光明報》代表性原刊；逐页转录和大会档案互校仍待完成</div>
+    <div class="tagline">
+      <span class="tag">核心 166</span>
+      <span class="tag">背景 1</span>
+      <span class="pstatus warn">境外已关联</span>
+    </div>
+    <div class="snippet">2026-07-19激进瘦身：默认仅保留SAAC且L1（或题名明确一届全会/新政协/开国/筹备会）、NLC《光明報》v2n1/v2n12整期与文章，及题名/日期明确1949且直接相关的少量L2–L4线索（≤15）；已移出1948输送计划/进入解放区动员/纲领草案初稿与泛盟史L4。境外事件页仍偏北平和平接触，一届全会境外对应待建。</div>
+  </div>
+  <div class="cite"><a href="/domestic?layer=core&amp;event=1949%E7%AC%AC%E4%B8%80%E5%B1%8A%E6%94%BF%E5%8D%8F">查看核心证据</a><br>候选共 167 条</div>
+</article>
+</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>核心可阅库精选</h2>
+  <a class="button secondary" href="/domestic/library?layer=core">查看全部 230 篇</a>
+</div>
+<section class="result-list">
+
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/SSID-13679264">《觀察》第三卷第一至十二期合订本</a></h2>
+    <div class="meta">1947 · 278 页 · citation 269 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/SSID-13679264">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC416-01jh004281-12557">《民主同盟文獻》1946</a></h2>
+    <div class="meta">1946 · 176 页 · citation 167 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC416-01jh004281-12557">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-ocr/S3%3Adomestic%3ANLC%3Aminmeng-yanlunji-1945-whole">《中國民主同盟言論集》</a></h2>
+    <div class="meta">1945-10 · 107 页 · citation 100 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-ocr/S3%3Adomestic%3ANLC%3Aminmeng-yanlunji-1945-whole">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85454">《民憲》第二卷第一期</a></h2>
+    <div class="meta">1945 · 71 页 · citation 69 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85454">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85449">《民憲》第一卷第八期</a></h2>
+    <div class="meta">1944 · 55 页 · citation 54 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85449">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85446">《民憲》第一卷第五期</a></h2>
+    <div class="meta">1944 · 53 页 · citation 52 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85446">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85450">《民憲》第一卷第九期</a></h2>
+    <div class="meta">1944 · 51 页 · citation 50 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85450">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85448">《民憲》第一卷第七期</a></h2>
+    <div class="meta">1944 · 51 页 · citation 50 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85448">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85447">《民憲》第一卷第六期</a></h2>
+    <div class="meta">1944 · 51 页 · citation 50 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85447">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85452">《民憲》第一卷第十一期</a></h2>
+    <div class="meta">1945 · 51 页 · citation 50 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85452">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85451">《民憲》第一卷第十期</a></h2>
+    <div class="meta">1944 · 49 页 · citation 48 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85451">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85442">《民憲》第一卷第一期</a></h2>
+    <div class="meta">1944 · 47 页 · citation 46 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85442">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85445">《民憲》第一卷第四期</a></h2>
+    <div class="meta">1944 · 47 页 · citation 46 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85445">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85443">《民憲》第一卷第二期</a></h2>
+    <div class="meta">1944 · 47 页 · citation 46 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85443">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85455">《民憲》第二卷第二期</a></h2>
+    <div class="meta">1945 · 45 页 · citation 44 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85455">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85453">《民憲》第一卷第十二期</a></h2>
+    <div class="meta">1945 · 45 页 · citation 44 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85453">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-00J001436-85444">《民憲》第一卷第三期</a></h2>
+    <div class="meta">1944 · 41 页 · citation 40 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-00J001436-85444">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-ocr/S3%3Adomestic%3ANLC%3Aminmeng-wenxian-1946-minmeng-platform-1945">中国民主同盟纲领</a></h2>
+    <div class="meta">1945-10 · 25 页 · citation 25 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-ocr/S3%3Adomestic%3ANLC%3Aminmeng-wenxian-1946-minmeng-platform-1945">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-01J000514-10834">《光明報》1946 年1期</a></h2>
+    <div class="meta">1946 · 24 页 · citation 24 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-01J000514-10834">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-01J000514-10484">《光明報》1948 年1卷1期</a></h2>
+    <div class="meta">1948 · 24 页 · citation 23 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-01J000514-10484">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-01J000332-6817">《觀察》第三卷第十一期</a></h2>
+    <div class="meta">1947 · 20 页 · citation 20 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-01J000332-6817">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-ocr/S3%3Adomestic%3ANLC%3Aguangmingbao-1947-issue22">《光明報》新二十二號（1947年8月1日）</a></h2>
+    <div class="meta">1947-08-01 · 20 页 · citation 20 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-ocr/S3%3Adomestic%3ANLC%3Aguangmingbao-1947-issue22">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-01J000514-10483">《光明報》1947 年22期</a></h2>
+    <div class="meta">1947 · 20 页 · citation 20 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-01J000514-10483">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-page/NLC404-01J000514-10454">《光明報》1947 年14期</a></h2>
+    <div class="meta">1947 · 20 页 · citation 20 · domestic_page_ocr</div>
+    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-page/NLC404-01J000514-10454">阅读</a></div>
+</article>
+</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-building"/></svg>权威馆藏与报刊入口</h2>
+  <a class="button secondary" href="/domestic/sources">完整来源地图</a>
+</div>
+<section class="result-list">
+
+<article class="result">
+  <div>
+    <h2><a href="https://read.nlc.cn/">《光明報》新六號（1946-11-08）国家图书馆原刊扫描</a></h2>
+    <div class="meta">中国国家图书馆数字化民国期刊；Wikimedia Commons公开镜像 · 同期政论报刊原刊整期扫描／国家图书馆数字化镜像 · 权威 国家图书馆原刊数字化扫描的公开镜像；不是原始馆藏系统直链</div>
+    <div class="tagline"><span class="tag">上海相关：高；补充1946年11月国民大会开幕后民盟机关报的同期政治表达</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开 PDF；Commons文件清单提供原始下载入口</div>
+  </div>
+  <div class="cite"><a href="https://read.nlc.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://read.nlc.cn/">《民主同盟文獻》（1946）民盟总部编印公开扫描</a></h2>
+    <div class="meta">中国国家图书馆数字化民国图书；中国民主同盟总部编印；Wikimedia Commons公开镜像 · 1946年官方文献汇编／同期文件汇编扫描 · 权威 民盟总部同期编印的官方汇编公开扫描；不是单件原始印本的直链</div>
+    <div class="tagline"><span class="tag">上海相关：高；补充1941—1945民盟总部同期官方文献汇编，供原刊/原件追索和页码互校</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开PDF；Commons文件页提供原始下载入口</div>
+  </div>
+  <div class="cite"><a href="https://read.nlc.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://udndata.com/promo/tknewsc/interduce.html">天津版《大公报》1947年11月6日第2版完整报面影像</a></h2>
+    <div class="meta">中国国家图书馆独家授权图像；中国近代报刊资料库／大公报数据库 · 同期报刊原刊全版影像／数据库试用检索结果 · 权威 数据库提供的国家图书馆原刊图像；本地副本为试用查看器导出的单页 PDF，具体再利用权利按数据库和国家图书馆规则复核</div>
+    <div class="tagline"><span class="tag">上海相关：高；直接补齐天津版目标报道的日期、版次、整版版面和原文影像，并与上海版同期报道互校</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开试用检索；检索条件：民盟 AND DA=19471106:19471106；结果记录39443；原版查看器可读取</div>
+  </div>
+  <div class="cite"><a href="https://udndata.com/promo/tknewsc/interduce.html" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://read.nlc.cn/">《光明報》新七號（1946-11-18）国家图书馆原刊扫描</a></h2>
+    <div class="meta">中国国家图书馆数字化民国期刊；Wikimedia Commons公开镜像 · 同期政论报刊原刊整期扫描／国家图书馆数字化镜像 · 权威 国家图书馆原刊数字化扫描的公开镜像；不是原始馆藏系统直链</div>
+    <div class="tagline"><span class="tag">上海相关：高；直接补充1946年11月民盟机关报对拒绝参加国民大会的同期表达</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开 PDF；Commons文件清单提供原始下载入口</div>
+  </div>
+  <div class="cite"><a href="https://read.nlc.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://read.nlc.cn/">《光明報》新四號（1946-10-18）国家图书馆原刊扫描</a></h2>
+    <div class="meta">中国国家图书馆数字化民国期刊；Wikimedia Commons公开镜像 · 同期政论报刊原刊整期扫描／国家图书馆数字化镜像 · 权威 国家图书馆原刊数字化扫描的公开镜像；不是原始馆藏系统直链</div>
+    <div class="tagline"><span class="tag">上海相关：高；直接补充1946年10月民盟机关报对内战和国民大会的同期表达</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开 PDF；Commons文件清单提供原始下载入口</div>
+  </div>
+  <div class="cite"><a href="https://read.nlc.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://www.gxmm.gov.cn/index/index/artical/id/7063">天津版《大公报》1947年11月6日第2版《民盟宣布解散》嵌图截取</a></h2>
+    <div class="meta">中国民主同盟广西壮族自治区委员会公开文章；原刊据文章说明来自《大公报》 · 同期报刊原刊影像截取／后期官方文章嵌图 · 权威 可见原刊版面和目标标题，但为裁切转载图，完整页及原始馆藏元数据仍待补齐</div>
+    <div class="tagline"><span class="tag">上海相关：高；用于与上海版《大公报》目标报道及民盟解散公告互证</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开文章内嵌图片；直接图片 URL 可访问</div>
+  </div>
+  <div class="cite"><a href="https://www.gxmm.gov.cn/index/index/artical/id/7063" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://cn.govopendata.com/renminribao/1947/11/7/1/">《人民日报》1947年历史版面公开数字转录</a></h2>
+    <div class="meta">公开数据查询平台；页面标注人民日报电子版档案 · 公开数字化同期报刊文字转录入口 · 权威 按日期和版面组织的公开转录；未提供对应报面扫描，需与原刊影像或权威数据库复核</div>
+    <div class="tagline"><span class="tag">上海相关：高；用于1947年10月27日非法化与11月解散事件的同期中文报刊对照和事件时间线核验</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开网页浏览</div>
+  </div>
+  <div class="cite"><a href="https://cn.govopendata.com/renminribao/1947/11/7/1/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://whlyj.sh.gov.cn/cmsres/87/87d4d293b6c24280a7650666d4a1aa0c/23771e474dbca731946c814f88200362.pdf">上海市第二批革命文物名录：1945年10月中国民主同盟发布的《中国民主同盟纲领》</a></h2>
+    <div class="meta">上海市文化和旅游局；中国共产党第一次全国代表大会纪念馆 · 官方革命文物名录／馆藏实物追索入口 · 权威 上海市文化和旅游局官方名录；具体实物由中国共产党第一次全国代表大会纪念馆保管</div>
+    <div class="tagline"><span class="tag">上海相关：高；提供1945年民盟一大纲领实物的具体保管机构和官方目录编号</span><span class="pstatus ok">actionable_lead</span></div>
+    <div class="snippet">访问：官方名录公开；实物影像、馆藏编号和复制条件需向中国共产党第一次全国代表大会纪念馆核查</div>
+  </div>
+  <div class="cite"><a href="https://whlyj.sh.gov.cn/cmsres/87/87d4d293b6c24280a7650666d4a1aa0c/23771e474dbca731946c814f88200362.pdf" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://www.csspw.com.cn/booksdetail_15923_2060553_0.jhtml">《中国民主同盟历史文献 1941—1949》公开扫描</a></h2>
+    <div class="meta">中国民主同盟中央文史资料委员会；文史资料出版社 · 民盟中央文史资料委员会正式历史文献汇编与公开数字化扫描 · 权威 正式编纂汇编，公开扫描副本</div>
+    <div class="tagline"><span class="tag">上海相关：高；含上海支部和全国民盟文件，可与上海档案线索对读</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：在线公开浏览</div>
+  </div>
+  <div class="cite"><a href="https://www.csspw.com.cn/booksdetail_15923_2060553_0.jhtml" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://www.archives.sh.cn/">上海档案馆上档Q6-5-947社会团体管理案卷追索线索</a></h2>
+    <div class="meta">上海档案馆；公开学术论文引注 · 档案馆案号的学术引注与档案目录追索入口 · 权威 档案案号线索，当前未取得上海档案馆官方目录页或原件影像</div>
+    <div class="tagline"><span class="tag">上海相关：高；可用于追查上海市社会局在1947年10月24—27日收到的市参议会公函、上海市政府训令及其与11月民盟解散执行的关系</span><span class="pstatus ok">lead_only</span></div>
+    <div class="snippet">访问：公开学术论文 PDF 可核对脚注；档案原件需向上海档案馆申请目录确认、阅览或复制</div>
+  </div>
+  <div class="cite"><a href="https://www.archives.sh.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://read.nlc.cn/">《光明報》新二號（1946-09-28）国家图书馆原刊扫描</a></h2>
+    <div class="meta">中国国家图书馆数字化民国期刊；Wikimedia Commons公开镜像 · 同期政论报刊原刊整期扫描／国家图书馆数字化镜像 · 权威 国家图书馆原刊数字化扫描的公开镜像；不是原始馆藏系统直链</div>
+    <div class="tagline"><span class="tag">上海相关：高；作为1946年旧政协后民盟机关报连续出版物，补充拒绝内战和民主政治主张的同期语境</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开 PDF；Commons文件清单提供原始下载入口</div>
+  </div>
+  <div class="cite"><a href="https://read.nlc.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://read.nlc.cn/">《光明報》新一號（1946-09-18）国家图书馆原刊扫描</a></h2>
+    <div class="meta">中国国家图书馆数字化民国期刊；Wikimedia Commons公开镜像 · 同期政论报刊原刊整期扫描／国家图书馆数字化镜像 · 权威 国家图书馆原刊数字化扫描的公开镜像；不是原始馆藏系统直链</div>
+    <div class="tagline"><span class="tag">上海相关：高；作为1946年旧政协后、李闻事件和拒绝国大争论前的民盟机关报原刊背景</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开 PDF；Commons文件清单提供原始下载入口</div>
+  </div>
+  <div class="cite"><a href="https://read.nlc.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://read.nlc.cn/">《光明報》新三號（1946-10-08）国家图书馆原刊扫描</a></h2>
+    <div class="meta">中国国家图书馆数字化民国期刊；Wikimedia Commons公开镜像 · 同期政论报刊原刊整期扫描／国家图书馆数字化镜像 · 权威 国家图书馆原刊数字化扫描的公开镜像；不是原始馆藏系统直链</div>
+    <div class="tagline"><span class="tag">上海相关：高；作为1946年旧政协后、国民大会争论期的民盟机关报连续出版物</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开 PDF；Commons文件清单提供原始下载入口</div>
+  </div>
+  <div class="cite"><a href="https://read.nlc.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://read.nlc.cn/">《光明報》新五號（1946-10-28）国家图书馆原刊扫描</a></h2>
+    <div class="meta">中国国家图书馆数字化民国期刊；Wikimedia Commons公开镜像 · 同期政论报刊原刊整期扫描／国家图书馆数字化镜像 · 权威 国家图书馆原刊数字化扫描的公开镜像；不是原始馆藏系统直链</div>
+    <div class="tagline"><span class="tag">上海相关：高；作为1946年10月底民盟赴京和国民大会争议期的同期机关报</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：公开 PDF；Commons文件清单提供原始下载入口</div>
+  </div>
+  <div class="cite"><a href="https://read.nlc.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://www.saac.gov.cn/daj/gqzt/index.html">国家档案局／中央档案馆“从五一口号到开国大典”档案文献专题</a></h2>
+    <div class="meta">国家档案局、中央档案馆 · 官方档案数字专题 · 权威 中央档案馆馆藏档案数字影像入口</div>
+    <div class="tagline"><span class="tag">上海相关：高；专题中多条记录涉及港沪民主人士、新政协和民盟代表</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：在线浏览公开数字影像替身；完整馆藏档号依馆方查档</div>
+  </div>
+  <div class="cite"><a href="https://www.saac.gov.cn/daj/gqzt/index.html" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://www.library.sh.cn/">上海图书馆《馆藏中文报纸目录1862—1949》中的《民主报》馆藏记录</a></h2>
+    <div class="meta">上海图书馆；公开目录扫描副本 · 近代报纸馆藏目录与期号追索入口 · 权威 馆藏目录线索，不是《民主报》原刊影像</div>
+    <div class="tagline"><span class="tag">上海相关：高；上海图书馆馆藏目录可为1946年民盟机关报原刊申请、馆际互借或馆内复制提供具体期号依据</span><span class="pstatus ok">lead_only</span></div>
+    <div class="snippet">访问：公开目录 PDF；原刊阅览/复制需按上海图书馆或馆藏机构权限申请</div>
+  </div>
+  <div class="cite"><a href="https://www.library.sh.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://www.shac.net.cn/">中国第二历史档案馆</a></h2>
+    <div class="meta">中国第二历史档案馆 · 民国档案馆 · 权威 一手档案入口</div>
+    <div class="tagline"><span class="tag">上海相关：高</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：目录、预约查档、现场利用</div>
+  </div>
+  <div class="cite"><a href="https://www.shac.net.cn/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="https://mgwxbh.nlc.cn/zyk/">国家图书馆民国时期文献保护计划资源库</a></h2>
+    <div class="meta">国家图书馆 · 官方文献数据库 · 权威 一手原件数字化入口</div>
+    <div class="tagline"><span class="tag">上海相关：高</span><span class="pstatus ok">verified_entry</span></div>
+    <div class="snippet">访问：在线目录与部分阅览</div>
+  </div>
+  <div class="cite"><a href="https://mgwxbh.nlc.cn/zyk/" target="_blank" rel="noreferrer">打开入口</a></div>
+</article></section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-edit"/></svg>研究工作台（次级）</h2></div>
+<section class="result-list">
+<article class="result"><div><div class="title">背景与线索目录</div><div class="meta">网页史志、二手与官网锚点 · 271 条</div><div class="snippet">用于检索导航与调档线索，不进入默认核心库。</div></div><div class="cite"><a href="/domestic?layer=background">打开</a></div></article>
+<article class="result"><div><div class="title">staging 检索 / 质量底座</div><div class="meta">文献对象、物理页、OCR provenance</div><div class="snippet">工程与质量层，不等于前台可引用库。</div></div><div class="cite"><a href="/domestic/search">检索</a> · <a href="/domestic/quality">质量</a></div></article>
+<article class="result"><div><div class="title">调档与复核</div><div class="meta">待复核 1 · 候选总量 689</div><div class="snippet">档号、影像、权利与人工验收。</div></div><div class="cite"><a href="/domestic/acquisition">调档</a> · <a href="/domestic/review">复核</a></div></article>
+<article class="result"><div><div class="title">全部候选（含背景）</div><div class="meta">工作清单模式</div><div class="snippet">需要逐条筛查时使用，不作为阅读主入口。</div></div><div class="cite"><a href="/domestic?layer=all">打开</a></div></article>
+</section>
+</main>
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-top">

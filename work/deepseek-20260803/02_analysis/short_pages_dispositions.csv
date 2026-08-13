@@ -1,0 +1,221 @@
+﻿page_id,document_id,doc_key,batch7_bucket,disposition_code,disposition_label,priority_queue,reocr_priority,citation_eligible,citation_ready_conflict,demote_citation_ready,text_length,recommended_action
+20708,1527,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde03-f1,Q0_EMPTY,D0_EMPTY_LIKELY_BLANK,空文本且影像偏小（疑似空白/低信息页）,P0_EMPTY,1,no,no,no,0,保留结构页；低优先级重 OCR；citation 禁止
+20718,1530,domestic-ocr/SAAC:domestic:SAAC:51koukou-p04-dde01-i3,Q0_EMPTY,D0_EMPTY_NEEDS_REOCR,空文本但有影像（OCR 失败）,P0_EMPTY,3,no,no,no,0,高优先级重 OCR；核验前 citation 禁止
+20762,1541,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde05-i3,Q0_EMPTY,D0_EMPTY_HANDWRITING,空文本且题名/语境提示签到手写,P0_EMPTY,3,no,no,no,0,高优先级手写/版式 OCR 或人工著录要点；citation 禁止
+20763,1541,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde05-i3,Q0_EMPTY,D0_EMPTY_HANDWRITING,空文本且题名/语境提示签到手写,P0_EMPTY,3,no,no,no,0,高优先级手写/版式 OCR 或人工著录要点；citation 禁止
+20764,1541,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde05-i3,Q0_EMPTY,D0_EMPTY_HANDWRITING,空文本且题名/语境提示签到手写,P0_EMPTY,3,no,no,no,0,高优先级手写/版式 OCR 或人工著录要点；citation 禁止
+20766,1541,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde05-i3,Q0_EMPTY,D0_EMPTY_HANDWRITING,空文本且题名/语境提示签到手写,P0_EMPTY,3,no,no,no,0,高优先级手写/版式 OCR 或人工著录要点；citation 禁止
+1650,1067,domestic-ocr/NLC:guangmingbao-1948-v1n12-full-ocr,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,11,对照影像判断截断/图注；citation 禁止
+1775,1109,domestic-ocr/NLC:minmeng-wenxian-1946-alternate-front-ocr,Q3_OCR_SUSPECT,D2_LIBRARY_STAMP,馆藏章/索书号页,P1_OCR_OR_FRAGMENT,0,no,no,no,14,保留结构用途；不作为正文证据；citation 禁止
+1776,1109,domestic-ocr/NLC:minmeng-wenxian-1946-alternate-front-ocr,Q3_OCR_SUSPECT,D2_LIBRARY_STAMP,馆藏章/索书号页,P1_OCR_OR_FRAGMENT,0,no,no,no,27,保留结构用途；不作为正文证据；citation 禁止
+1778,1110,domestic-ocr/NLC:minmeng-yanlunji-1945-front-ocr,Q3_OCR_SUSPECT,D4_COVER_TITLE,封面/版权/题名页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,23,结构保留；citation 禁止（可用作题名辅助）
+18448,1242,domestic-page/SSID-13679264,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,1,对照影像判断截断/图注；citation 禁止
+17435,1246,domestic-page/NLC404-00J001436-85454,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,11,保留刊期定位；不作为正文引用
+17123,1247,domestic-page/NLC404-00J001436-85448,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,11,保留刊期定位；不作为正文引用
+17174,1248,domestic-page/NLC404-00J001436-85452,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,9,保留刊期定位；不作为正文引用
+17327,1249,domestic-page/NLC404-00J001436-85446,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,11,保留刊期定位；不作为正文引用
+17380,1250,domestic-page/NLC404-00J001436-85449,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,11,保留刊期定位；不作为正文引用
+17074,1251,domestic-page/NLC404-00J001436-85451,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,12,保留刊期定位；不作为正文引用
+16933,1252,domestic-page/NLC404-00J001436-85443,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,11,保留刊期定位；不作为正文引用
+16980,1253,domestic-page/NLC404-00J001436-85445,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,9,保留刊期定位；不作为正文引用
+17225,1254,domestic-page/NLC404-00J001436-85447,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,11,保留刊期定位；不作为正文引用
+16843,1255,domestic-page/NLC404-00J001436-85453,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,12,保留刊期定位；不作为正文引用
+17276,1256,domestic-page/NLC404-00J001436-85450,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,11,保留刊期定位；不作为正文引用
+16888,1257,domestic-page/NLC404-00J001436-85455,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,13,保留刊期定位；不作为正文引用
+17027,1258,domestic-page/NLC404-00J001436-85442,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,9,保留刊期定位；不作为正文引用
+16802,1259,domestic-page/NLC404-00J001436-85444,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,11,保留刊期定位；不作为正文引用
+16694,1286,domestic-page/NLC404-01J000514-10514,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,24,对照影像判断截断/图注；citation 禁止
+19385,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,7,对照影像判断截断/图注；citation 禁止
+19386,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,9,对照影像判断截断/图注；citation 禁止
+19387,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,1,对照影像判断截断/图注；citation 禁止
+19931,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,7,对照影像判断截断/图注；citation 禁止
+19932,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,14,对照影像判断截断/图注；citation 禁止
+19933,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,7,对照影像判断截断/图注；citation 禁止
+20048,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,5,对照影像判断截断/图注；citation 禁止
+20049,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,7,对照影像判断截断/图注；citation 禁止
+20135,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,7,对照影像判断截断/图注；citation 禁止
+19346,1291,domestic-page/SRC-257bb7be70,Q3_OCR_SUSPECT,D4_COVER_TITLE,封面/版权/题名页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,14,结构保留；citation 禁止（可用作题名辅助）
+17506,1292,domestic-page/NLC511-027032016010761-42571,Q3_OCR_SUSPECT,D4_COVER_TITLE,封面/版权/题名页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,24,结构保留；citation 禁止（可用作题名辅助）
+17610,1292,domestic-page/NLC511-027032016010761-42571,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,11,对照影像判断截断/图注；citation 禁止
+17612,1292,domestic-page/NLC511-027032016010761-42571,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,10,对照影像判断截断/图注；citation 禁止
+17613,1293,domestic-page/NLC416-01jh004281-12557,Q3_OCR_SUSPECT,D4_COVER_TITLE,封面/版权/题名页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,6,结构保留；citation 禁止（可用作题名辅助）
+17614,1293,domestic-page/NLC416-01jh004281-12557,Q3_OCR_SUSPECT,D4_COVER_TITLE,封面/版权/题名页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,29,结构保留；citation 禁止（可用作题名辅助）
+17788,1293,domestic-page/NLC416-01jh004281-12557,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,7,对照影像判断截断/图注；citation 禁止
+17789,1294,domestic-page/NLC511-027032013012333-19131,Q3_OCR_SUSPECT,D2_LIBRARY_STAMP,馆藏章/索书号页,P1_OCR_OR_FRAGMENT,0,no,no,no,14,保留结构用途；不作为正文证据；citation 禁止
+17790,1294,domestic-page/NLC511-027032013012333-19131,Q3_OCR_SUSPECT,D2_LIBRARY_STAMP,馆藏章/索书号页,P1_OCR_OR_FRAGMENT,0,no,no,no,27,保留结构用途；不作为正文证据；citation 禁止
+17965,1294,domestic-page/NLC511-027032013012333-19131,Q3_OCR_SUSPECT,D2_LIBRARY_STAMP,馆藏章/索书号页,P1_OCR_OR_FRAGMENT,0,no,no,no,27,保留结构用途；不作为正文证据；citation 禁止
+17966,1294,domestic-page/NLC511-027032013012333-19131,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,7,保留刊期定位；不作为正文引用
+20623,1468,domestic-web/DL-20260802-049,Q4_FRAGMENT,D1_BINARY_GARBAGE,正文槽位写入二进制/图片头,P1_OCR_OR_FRAGMENT,0,no,no,no,5,清空伪文本并改挂影像 provenance；citation 禁止
+20679,1515,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde20,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,16,对照影像判断截断/图注；citation 禁止
+20681,1515,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde20,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,4,对照影像判断截断/图注；citation 禁止
+20684,1516,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde21,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,22,对照影像判断截断/图注；citation 禁止
+20689,1517,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde22-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,26,对照影像判断截断/图注；citation 禁止
+20700,1525,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde01-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,17,对照影像判断截断/图注；citation 禁止
+20701,1526,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde02-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,8,对照影像判断截断/图注；citation 禁止
+20705,1527,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde03-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,11,对照影像判断截断/图注；citation 禁止
+20711,1528,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde04-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,10,对照影像判断截断/图注；citation 禁止
+20712,1528,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde04-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,26,对照影像判断截断/图注；citation 禁止
+20713,1528,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde04-f1,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,4,保留刊期定位；不作为正文引用
+20716,1529,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde05-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,12,对照影像判断截断/图注；citation 禁止
+20717,1530,domestic-ocr/SAAC:domestic:SAAC:51koukou-p04-dde01-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,1,对照影像判断截断/图注；citation 禁止
+20720,1531,domestic-ocr/SAAC:domestic:SAAC:51koukou-p04-dde02-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,28,对照影像判断截断/图注；citation 禁止
+20724,1534,domestic-ocr/SAAC:domestic:SAAC:51koukou-p04-dde05,Q3_OCR_SUSPECT,D3_ISSUE_HEADER,卷期封面标题行,P1_OCR_OR_FRAGMENT,0,no,no,no,1,保留刊期定位；不作为正文引用
+20726,1535,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde01-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,25,对照影像判断截断/图注；citation 禁止
+20727,1535,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde01-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,13,对照影像判断截断/图注；citation 禁止
+20728,1535,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde01-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,13,对照影像判断截断/图注；citation 禁止
+20755,1539,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,29,对照影像判断截断/图注；citation 禁止
+20756,1539,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,22,对照影像判断截断/图注；citation 禁止
+20761,1541,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde05-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,3,对照影像判断截断/图注；citation 禁止
+20765,1541,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde05-i3,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,2,对照影像判断截断/图注；citation 禁止
+20778,1546,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde03-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,12,对照影像判断截断/图注；citation 禁止
+20780,1546,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde03-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,19,对照影像判断截断/图注；citation 禁止
+20782,1548,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde05-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,25,对照影像判断截断/图注；citation 禁止
+20787,1550,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde07-f1,Q3_OCR_SUSPECT,D6_OCR_GARBLED,极短碎片（无法独立引用）,P1_OCR_OR_FRAGMENT,2,no,no,no,2,对照影像判断截断/图注；citation 禁止
+18463,1242,domestic-page/SSID-13679264,Q5_SHORT_REVIEW,D5_AD_OR_CARTOON,广告/漫画/木刻页短文本,P2_SHORT_BODY,0,no,yes,yes,104,非政论正文；citation 默认禁止
+18485,1242,domestic-page/SSID-13679264,Q5_SHORT_REVIEW,D5_AD_OR_CARTOON,广告/漫画/木刻页短文本,P2_SHORT_BODY,0,no,yes,yes,115,非政论正文；citation 默认禁止
+18535,1242,domestic-page/SSID-13679264,Q5_SHORT_REVIEW,D5_AD_OR_CARTOON,广告/漫画/木刻页短文本,P2_SHORT_BODY,0,no,yes,yes,108,非政论正文；citation 默认禁止
+18559,1242,domestic-page/SSID-13679264,Q5_SHORT_REVIEW,D5_AD_OR_CARTOON,广告/漫画/木刻页短文本,P2_SHORT_BODY,0,no,yes,yes,97,非政论正文；citation 默认禁止
+18584,1242,domestic-page/SSID-13679264,Q5_SHORT_REVIEW,D5_AD_OR_CARTOON,广告/漫画/木刻页短文本,P2_SHORT_BODY,0,no,yes,yes,88,非政论正文；citation 默认禁止
+18605,1242,domestic-page/SSID-13679264,Q5_SHORT_REVIEW,D6_OCR_GARBLED,短文本质量不足（乱码或信息密度低）,P2_SHORT_BODY,2,no,yes,yes,115,重 OCR 或人工复核；citation 禁止
+17505,1246,domestic-page/NLC404-00J001436-85454,Q5_SHORT_REVIEW,D5_AD_OR_CARTOON,广告/漫画/木刻页短文本,P2_SHORT_BODY,0,no,yes,yes,106,非政论正文；citation 默认禁止
+16778,1285,domestic-page/NLC404-01J000514-10484,Q5_SHORT_REVIEW,D6_OCR_GARBLED,短文本质量不足（乱码或信息密度低）,P2_SHORT_BODY,2,no,yes,yes,116,重 OCR 或人工复核；citation 禁止
+16714,1288,domestic-page/NLC404-01J000514-10515,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,101,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19474,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,89,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19498,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,99,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19632,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,108,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19636,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,106,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19702,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,97,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19766,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,102,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19887,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,102,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19914,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,113,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19999,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,97,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18726,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,90,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18763,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,101,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18858,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,96,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18862,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,86,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18878,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,96,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18880,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,106,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18891,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,85,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18906,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,104,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18937,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,97,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18947,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,88,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18959,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,86,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18962,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,116,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18963,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,116,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18983,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,83,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19043,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,106,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19078,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,81,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19081,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,100,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19132,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,100,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19203,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,104,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19206,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,113,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19233,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,96,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19258,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,109,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19280,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,112,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19290,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,107,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19294,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,90,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19304,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,90,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17625,1293,domestic-page/NLC416-01jh004281-12557,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,82,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17641,1293,domestic-page/NLC416-01jh004281-12557,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,80,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17772,1293,domestic-page/NLC416-01jh004281-12557,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,94,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17802,1294,domestic-page/NLC511-027032013012333-19131,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,83,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17818,1294,domestic-page/NLC511-027032013012333-19131,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,84,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17949,1294,domestic-page/NLC511-027032013012333-19131,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,97,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17953,1294,domestic-page/NLC511-027032013012333-19131,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,117,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20148,1304,domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-situation-declaration-1945-01-15,Q5_SHORT_REVIEW,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P2_SHORT_BODY,2,no,yes,yes,113,重 OCR 或人工对照影像；citation 禁止
+20326,1342,domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v1n12,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,yes,yes,57,重 OCR 或人工对照影像；citation 禁止
+20331,1345,domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v2n12,Q5_SHORT_REVIEW,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P2_SHORT_BODY,2,no,yes,yes,95,重 OCR 或人工对照影像；citation 禁止
+20337,1348,domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-whole,Q5_SHORT_REVIEW,D4_COVER_TITLE,封面/版权/题名页短文本,P2_SHORT_BODY,0,no,yes,yes,62,结构保留；citation 禁止（可用作题名辅助）
+20338,1348,domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-whole,Q5_SHORT_REVIEW,D2_LIBRARY_STAMP,馆藏章/索书号页,P2_SHORT_BODY,0,no,yes,yes,60,保留结构用途；不作为正文证据；citation 禁止
+20350,1350,domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-ten-program,Q5_SHORT_REVIEW,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P2_SHORT_BODY,2,no,yes,yes,115,重 OCR 或人工对照影像；citation 禁止
+20462,1427,domestic-ocr/S3:domestic:NLC:minmeng-yanlunji-1945-whole,Q3_OCR_SUSPECT,D4_COVER_TITLE,封面/版权/题名页短文本,P1_OCR_OR_FRAGMENT,0,no,yes,yes,57,结构保留；citation 禁止（可用作题名辅助）
+20463,1427,domestic-ocr/S3:domestic:NLC:minmeng-yanlunji-1945-whole,Q5_SHORT_REVIEW,D2_LIBRARY_STAMP,馆藏章/索书号页,P2_SHORT_BODY,0,no,yes,yes,65,保留结构用途；不作为正文证据；citation 禁止
+20464,1427,domestic-ocr/S3:domestic:NLC:minmeng-yanlunji-1945-whole,Q5_SHORT_REVIEW,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P2_SHORT_BODY,2,no,yes,yes,99,重 OCR 或人工对照影像；citation 禁止
+20467,1427,domestic-ocr/S3:domestic:NLC:minmeng-yanlunji-1945-whole,Q5_SHORT_REVIEW,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P2_SHORT_BODY,2,no,yes,yes,92,重 OCR 或人工对照影像；citation 禁止
+20567,1427,domestic-ocr/S3:domestic:NLC:minmeng-yanlunji-1945-whole,Q5_SHORT_REVIEW,D2_LIBRARY_STAMP,馆藏章/索书号页,P2_SHORT_BODY,0,no,yes,yes,66,保留结构用途；不作为正文证据；citation 禁止
+20675,1513,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde14,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,104,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20676,1513,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde14,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,95,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20677,1513,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde14,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,100,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20690,1518,domestic-ocr/SAAC:domestic:SAAC:51koukou-p02-dde01-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,82,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20699,1525,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde01-f1,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,yes,yes,56,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20702,1526,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde02-f1,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,yes,yes,51,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20704,1526,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde02-f1,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,yes,yes,58,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20707,1527,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde03-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,93,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20709,1527,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde03-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,107,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20710,1528,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde04-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,64,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20714,1528,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde04-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,76,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20715,1529,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde05-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,79,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20725,1534,domestic-ocr/SAAC:domestic:SAAC:51koukou-p04-dde05,Q5_SHORT_REVIEW,D6_OCR_GARBLED,短文本质量不足（乱码或信息密度低）,P2_SHORT_BODY,2,no,yes,yes,63,重 OCR 或人工复核；citation 禁止
+20773,1544,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde01-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,114,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20777,1546,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde03-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,64,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20785,1548,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde05-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,71,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20786,1549,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde06-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,96,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20793,1551,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde08-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,82,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20801,1551,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde08-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,82,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20802,1552,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde09-f1,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,yes,yes,110,人工对照影像确认完整性后，方可个案解除 citation 禁令
+1486,1054,domestic-ocr/NLC:minmeng-wenxian-1946-early-group:ocr-pilot,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,79,人工对照影像确认完整性后，方可个案解除 citation 禁令
+1626,1066,domestic-ocr/NLC:guangmingbao-1948-v1n1-full-ocr,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,119,人工对照影像确认完整性后，方可个案解除 citation 禁令
+1690,1069,domestic-ocr/NLC:guangmingbao-1949-v2n12-full-ocr,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,64,人工对照影像确认完整性后，方可个案解除 citation 禁令
+1777,1109,domestic-ocr/NLC:minmeng-wenxian-1946-alternate-front-ocr,Q3_OCR_SUSPECT,D4_COVER_TITLE,封面/版权/题名页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,38,结构保留；citation 禁止（可用作题名辅助）
+1779,1110,domestic-ocr/NLC:minmeng-yanlunji-1945-front-ocr,Q3_OCR_SUSPECT,D2_LIBRARY_STAMP,馆藏章/索书号页,P1_OCR_OR_FRAGMENT,0,no,no,no,33,保留结构用途；不作为正文证据；citation 禁止
+1780,1110,domestic-ocr/NLC:minmeng-yanlunji-1945-front-ocr,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,67,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18447,1242,domestic-page/SSID-13679264,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,31,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18656,1242,domestic-page/SSID-13679264,Q3_OCR_SUSPECT,D5_AD_OR_CARTOON,广告/漫画/木刻页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,59,非政论正文；citation 默认禁止
+16734,1289,domestic-page/NLC404-01J000514-72821,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,62,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19583,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,76,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19621,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,65,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19943,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,71,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19955,1290,domestic-page/SRC-088458899f,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,66,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20011,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D6_OCR_GARBLED,短文本质量不足（乱码或信息密度低）,P1_OCR_OR_FRAGMENT,2,no,no,no,38,重 OCR 或人工复核；citation 禁止
+20021,1290,domestic-page/SRC-088458899f,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,52,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18725,1291,domestic-page/SRC-257bb7be70,Q3_OCR_SUSPECT,D4_COVER_TITLE,封面/版权/题名页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,53,结构保留；citation 禁止（可用作题名辅助）
+18901,1291,domestic-page/SRC-257bb7be70,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,51,人工对照影像确认完整性后，方可个案解除 citation 禁令
+18978,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,63,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19097,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,73,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19163,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,71,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19241,1291,domestic-page/SRC-257bb7be70,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,54,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19251,1291,domestic-page/SRC-257bb7be70,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,57,人工对照影像确认完整性后，方可个案解除 citation 禁令
+19310,1291,domestic-page/SRC-257bb7be70,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,72,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17507,1292,domestic-page/NLC511-027032016010761-42571,Q3_OCR_SUSPECT,D2_LIBRARY_STAMP,馆藏章/索书号页,P1_OCR_OR_FRAGMENT,0,no,no,no,32,保留结构用途；不作为正文证据；citation 禁止
+17508,1292,domestic-page/NLC511-027032016010761-42571,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,66,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17511,1292,domestic-page/NLC511-027032016010761-42571,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,59,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17611,1292,domestic-page/NLC511-027032016010761-42571,Q3_OCR_SUSPECT,D2_LIBRARY_STAMP,馆藏章/索书号页,P1_OCR_OR_FRAGMENT,0,no,no,no,33,保留结构用途；不作为正文证据；citation 禁止
+17719,1293,domestic-page/NLC416-01jh004281-12557,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,64,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17742,1293,domestic-page/NLC416-01jh004281-12557,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,58,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17764,1293,domestic-page/NLC416-01jh004281-12557,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,64,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17791,1294,domestic-page/NLC511-027032013012333-19131,Q3_OCR_SUSPECT,D4_COVER_TITLE,封面/版权/题名页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,38,结构保留；citation 禁止（可用作题名辅助）
+17896,1294,domestic-page/NLC511-027032013012333-19131,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,65,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17919,1294,domestic-page/NLC511-027032013012333-19131,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,60,人工对照影像确认完整性后，方可个案解除 citation 禁令
+17941,1294,domestic-page/NLC511-027032013012333-19131,Q5_SHORT_REVIEW,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P2_SHORT_BODY,1,no,no,no,62,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20285,1320,domestic-ocr/S3:domestic:NLC:minxian-v1n1-1944-05-16,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,42,重 OCR 或人工对照影像；citation 禁止
+20287,1321,domestic-ocr/S3:domestic:NLC:minxian-v1n6-1944-08-15,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,44,重 OCR 或人工对照影像；citation 禁止
+20289,1322,domestic-ocr/S3:domestic:NLC:minxian-v1n9-1944-11-20,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,44,重 OCR 或人工对照影像；citation 禁止
+20335,1347,domestic-ocr/S3:domestic:NLC:minxian-v1n10-1944-12-20,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,45,重 OCR 或人工对照影像；citation 禁止
+20372,1364,domestic-ocr/S3:domestic:NLC:minxian-85443-1944-05-01,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,44,重 OCR 或人工对照影像；citation 禁止
+20374,1365,domestic-ocr/S3:domestic:NLC:minxian-85444-1944-06-15,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,44,重 OCR 或人工对照影像；citation 禁止
+20376,1366,domestic-ocr/S3:domestic:NLC:minxian-85445-1944-06-30,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,42,重 OCR 或人工对照影像；citation 禁止
+20378,1367,domestic-ocr/S3:domestic:NLC:minxian-85446-1944-07-16,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,44,重 OCR 或人工对照影像；citation 禁止
+20380,1368,domestic-ocr/S3:domestic:NLC:minxian-85448-1944-09-10,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,44,重 OCR 或人工对照影像；citation 禁止
+20382,1369,domestic-ocr/S3:domestic:NLC:minxian-85449-1944-10-12,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,44,重 OCR 或人工对照影像；citation 禁止
+20384,1370,domestic-ocr/S3:domestic:NLC:minxian-85452-1945-01-15,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,42,重 OCR 或人工对照影像；citation 禁止
+20386,1371,domestic-ocr/S3:domestic:NLC:minxian-85453-1945-02-25,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,45,重 OCR 或人工对照影像；citation 禁止
+20388,1372,domestic-ocr/S3:domestic:NLC:minxian-85454-1945-05-15,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,44,重 OCR 或人工对照影像；citation 禁止
+20390,1373,domestic-ocr/S3:domestic:NLC:minxian-85455-1945-06-13,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,46,重 OCR 或人工对照影像；citation 禁止
+20566,1427,domestic-ocr/S3:domestic:NLC:minmeng-yanlunji-1945-whole,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,44,重 OCR 或人工对照影像；citation 禁止
+20568,1427,domestic-ocr/S3:domestic:NLC:minmeng-yanlunji-1945-whole,Q3_OCR_SUSPECT,D6_OCR_GARBLED,OCR 乱码/截断/伪完成标记,P1_OCR_OR_FRAGMENT,2,no,no,no,43,重 OCR 或人工对照影像；citation 禁止
+20680,1515,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde20,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,34,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20682,1516,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde21,Q3_OCR_SUSPECT,D5_AD_OR_CARTOON,广告/漫画/木刻页短文本,P1_OCR_OR_FRAGMENT,0,no,no,no,31,非政论正文；citation 默认禁止
+20683,1516,domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde21,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,43,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20703,1526,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde02-f1,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,36,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20706,1527,domestic-ocr/SAAC:domestic:SAAC:51koukou-p03-dde03-f1,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,39,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20733,1538,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,38,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20741,1538,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,44,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20743,1538,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,32,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20746,1538,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,38,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20748,1538,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,32,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20750,1538,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,37,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20757,1539,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,32,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20758,1540,domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde04-i3,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,32,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20779,1546,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde03-f1,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,39,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20788,1551,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde08-f1,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,44,人工对照影像确认完整性后，方可个案解除 citation 禁令
+20796,1551,domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde08-f1,Q3_OCR_SUSPECT,D7_SHORT_BODY_CANDIDATE,短正文候选（需人工抽检影像）,P1_OCR_OR_FRAGMENT,1,no,no,no,44,人工对照影像确认完整性后，方可个案解除 citation 禁令
