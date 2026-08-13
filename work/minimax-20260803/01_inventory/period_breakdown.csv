@@ -1,0 +1,19 @@
+metric,p1941_1943,p1944_1945,p1946_1950,total
+by_authenticity_level,,,
+  L1,0,15,310,325
+  L2,45,42,140,227
+  L3,33,24,12,69
+  L4,7,11,21,39
+  LX,1,0,3,4
+
+by_media_class,,,
+  catalogue_only,38,23,22,83
+  fully_digital,36,52,252,340
+  no_digital_only_offline,9,6,1,16
+  surrogate_digital,3,11,211,225
+
+by_review_status,,,
+  accepted,75,86,476,637
+  needs_human_review,11,6,10,27
+  rejected,0,0,0,0
+  duplicate,0,0,0,0

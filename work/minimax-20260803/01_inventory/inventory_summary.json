@@ -1,0 +1,46 @@
+{
+  "batch_id": "minimax-20260803-phase1-inventory",
+  "produced_at": "2026-08-03",
+  "scope": "1941-1950 三个重点期（1941-1943 / 1944-1945 / 1946-1950）",
+  "input_totals": {
+    "candidates_total": 689,
+    "candidates_accepted": 660,
+    "candidates_pending_human_review": 29,
+    "candidates_rejected_or_duplicate": 0,
+    "sources": 89
+  },
+  "in_scope_totals": {
+    "1941-1943": 86,
+    "1944-1945": 92,
+    "1946-1950": 486,
+    "total": 664
+  },
+  "by_authenticity_level": {
+    "L4": 39,
+    "L1": 325,
+    "LX": 4,
+    "L3": 69,
+    "L2": 227
+  },
+  "by_media_class": {
+    "fully_digital": 340,
+    "surrogate_digital": 225,
+    "catalogue_only": 83,
+    "no_digital_only_offline": 16
+  },
+  "by_source_family": {
+    "民盟自身与盟史": 83,
+    "国内党政机关与档案馆": 421,
+    "公共数字化/学术/海外": 96,
+    "政协/统一战线/官方媒体": 30,
+    "其他": 34
+  },
+  "needs_ocr_candidates": 249,
+  "needs_human_review_candidates": 27,
+  "outputs": {
+    "inventory_full_jsonl": "work/minimax-20260803/01_inventory/inventory_full.jsonl",
+    "provenance_full_jsonl": "work/minimax-20260803/01_inventory/provenance_full.jsonl",
+    "period_breakdown_csv": "work/minimax-20260803/01_inventory/period_breakdown.csv",
+    "repository_breakdown_csv": "work/minimax-20260803/01_inventory/repository_breakdown.csv"
+  }
+}

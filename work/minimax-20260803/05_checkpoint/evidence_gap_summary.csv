@@ -1,0 +1,10 @@
+event_id,event_name,total_candidates,L1,L2,L3,L4,LX,import_ready,needs_review,exclude,citation_ready,meng_self,gov_archives,tongzhan,public_digital,gaps
+domestic-1941-formation,1941 中国民主政团同盟成立,13,1,4,2,4,0,9,2,2,4,5,3,1,4,OK
+domestic-1944-reorganization,1944 改组并更名为中国民主同盟,22,11,9,0,2,0,20,0,2,19,3,13,0,6,来源家族缺失: 政协/统一战线
+domestic-1945-first-congress,1945 民盟第一次全国代表大会,26,4,15,4,3,0,23,0,3,12,12,14,0,0,"来源家族缺失: 政协/统一战线, 公共数字化/学术"
+domestic-1946-pcc,1946 政治协商会议（旧政协）,28,14,10,0,1,0,25,3,0,14,10,11,0,6,来源家族缺失: 政协/统一战线; needs_review 过多（3 条）; 仅 1 个时期：1946-1950
+domestic-1946-refuse-national-assembly,1946 民盟拒绝参加国民大会,25,17,3,0,1,0,18,4,3,18,3,17,1,3,needs_review 过多（4 条）
+domestic-1946-li-wen,1946 李公朴、闻一多遇害及各方反应,39,28,5,1,2,0,15,3,21,28,5,31,1,2,needs_review 过多（3 条）
+domestic-1947-illegal-dissolution,1947 民盟被宣布非法与组织解散,80,51,10,0,18,0,46,1,33,53,15,60,2,2,OK
+domestic-1948-third-plenum-may-day,"1948 一届三中全会及响应""五一口号""",19,17,0,1,1,0,15,0,4,7,1,17,0,0,"L2 缺失; 来源家族缺失: 政协/统一战线, 公共数字化/学术; 仅 1 个时期：1946-1950"
+domestic-1949-new-pcc,1949 新政协筹备、民主人士北上与第一届全体会议,167,166,0,0,1,0,164,0,3,5,1,166,0,0,"L2 缺失; 来源家族缺失: 政协/统一战线, 公共数字化/学术"

@@ -1,0 +1,37 @@
+{
+  "batch_id": "minimax-20260803-phase3-ocr-manifest",
+  "produced_at": "2026-08-03",
+  "input_source_manifest": "work/minimax-20260803/02_manifests/source_manifest.jsonl",
+  "input_download_manifest": "data/domestic/collection_download_manifest_20260726.jsonl",
+  "totals": {
+    "unique_source_urls": 498,
+    "ocr_plan_rows": 216,
+    "ocr_skip_rows": 228,
+    "ocr_done_rows": 69,
+    "acquisition_required": 10
+  },
+  "ocr_plan_by_priority": {
+    "p1": 174,
+    "p2": 34,
+    "p3": 8
+  },
+  "ocr_plan_by_level": {
+    "L1": 174,
+    "L2": 34,
+    "L3": 8
+  },
+  "ocr_plan_by_period": {
+    "1946-1950": 187,
+    "1944-1945": 12,
+    "1941-1943": 17
+  },
+  "ocr_skip_reasons": {
+    "full_item_online": 228
+  },
+  "outputs": {
+    "ocr_plan_jsonl": "work/minimax-20260803/03_ocr/ocr_plan.jsonl",
+    "ocr_done_manifest_jsonl": "work/minimax-20260803/03_ocr/ocr_done_manifest.jsonl",
+    "ocr_skip_manifest_jsonl": "work/minimax-20260803/03_ocr/ocr_skip_manifest.jsonl",
+    "acquisition_required_jsonl": "work/minimax-20260803/03_ocr/acquisition_required.jsonl"
+  }
+}

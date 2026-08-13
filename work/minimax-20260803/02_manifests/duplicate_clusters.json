@@ -1,0 +1,1444 @@
+{
+  "produced_at": "2026-08-03",
+  "inventory_input": "work/minimax-20260803/01_inventory/inventory_full.jsonl",
+  "total_clusters": 32,
+  "total_duplicates": 92,
+  "clusters": [
+    {
+      "cluster_id": "DCL-0001",
+      "size": 2,
+      "canonical_candidate_id": "domestic:SAAC:1949-index-c01",
+      "canonical_title": "中国人民政治协商会议第一届全体会议会场",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "SAAC",
+      "members": [
+        {
+          "candidate_id": "domestic:SAAC:1949-index-c01",
+          "title": "中国人民政治协商会议第一届全体会议会场",
+          "period": "1946-1950",
+          "repo": "SAAC",
+          "level": "L1",
+          "availability": "surrogate_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:SAAC:catalog-05-05_01",
+          "title": "中国人民政治协商会议第一届全体会议会场",
+          "period": "1946-1950",
+          "repo": "SAAC",
+          "level": "L1",
+          "availability": "surrogate_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0002",
+      "size": 2,
+      "canonical_candidate_id": "domestic:GXMM:dagongbao-dissolution-report-1947-11-06",
+      "canonical_title": "民盟今日解散·张澜等昨开会决定·通告各地盟员停止政治活动",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "GXMM",
+      "members": [
+        {
+          "candidate_id": "domestic:GXMM:dagongbao-dissolution-report-1947-11-06",
+          "title": "民盟今日解散·张澜等昨开会决定·通告各地盟员停止政治活动",
+          "period": "1946-1950",
+          "repo": "GXMM",
+          "level": "L4",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:GXMM:dagongbao-tianjin-dissolution-1947-11-06",
+          "title": "《民盟宣布解散》——《大公报》天津版第2版",
+          "period": "1946-1950",
+          "repo": "GXMM",
+          "level": "L4",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0003",
+      "size": 22,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1947-issue22",
+      "canonical_title": "《光明報》新二十二號（1947年8月1日）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22",
+          "title": "《光明報》新二十二號（1947年8月1日）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-middle-route-again-deng",
+          "title": "再論中間路線問題",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-one-year-war-result-lu",
+          "title": "打了一年多以後的結果",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-cry-recall-xingzhi-deng",
+          "title": "哭憶行知",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-gongpu-still-beside-zhang",
+          "title": "公樸，你還在我的身邊",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-learn-taofen-spirit-hu",
+          "title": "習韜奮精神",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-patriotic-poet-wen-hong",
+          "title": "愛國詩人聞一多",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-hengshe-tonghua-sa",
+          "title": "由衡舍桐花談起",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-action-memorial-peng",
+          "title": "用行動來紀念鄒李聞陶四先生",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-double-effort-people-shen",
+          "title": "加倍為人民事業努力",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-wipe-out-killers-li",
+          "title": "撲滅殺人的兇手",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-pass-the-test-hu-sheng",
+          "title": "過關",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-liwen-anniversary-qian",
+          "title": "李聞週年祭",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-painful-memorial-chen",
+          "title": "沉痛紀念鄒李聞陶四先生",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-mourn-and-spur-song",
+          "title": "悼念逝者，鞭策自己",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-dare-not-forget-chen",
+          "title": "不敢忘",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-dictators-killed-them-ye",
+          "title": "是獨裁者殺死了他們！",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-gongpu-rest-in-peace-simu",
+          "title": "公樸，安眠吧！",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-one-falls-thousands-rise-lu",
+          "title": "一個倒下去千百個起來",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-history-essays-shen-gong",
+          "title": "讀史隨筆",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-shantou-black-terror",
+          "title": "汕頭的黑色恐怖",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-meixian-recent-look",
+          "title": "梅縣近貌",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0004",
+      "size": 2,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1946-issue11",
+      "canonical_title": "《光明報》新十一號（1946年9月13日）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue11",
+          "title": "《光明報》新十一號（1946年9月13日）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-anti-one-party-constitution",
+          "title": "反对一党独裁的宪法！",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0005",
+      "size": 2,
+      "canonical_candidate_id": "domestic:NLC:dagongbao-shanghai-1947-11-06-page2-full",
+      "canonical_title": "民盟今日解散·张澜等昨开会决定·通告各地盟员停止政治活动",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:dagongbao-shanghai-1947-11-06-page2-full",
+          "title": "民盟今日解散·张澜等昨开会决定·通告各地盟员停止政治活动",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:dagongbao-tianjin-1947-11-06-page2-full",
+          "title": "民盟宣布解散·公告与政府洽商之经过·通知盟员停止政治活动·一律免除登记可享合法自由",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0006",
+      "size": 2,
+      "canonical_candidate_id": "domestic:NLC:minxian-v1n9-1944-11-20",
+      "canonical_title": "《民憲》第一卷第九期",
+      "canonical_period": "1944-1945",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:minxian-v1n9-1944-11-20",
+          "title": "《民憲》第一卷第九期",
+          "period": "1944-1945",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-v1n9-democracy-vs-nondemocracy-1944-11-20",
+          "title": "民主政治與非民主政治",
+          "period": "1944-1945",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0007",
+      "size": 3,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1946-issue11-zhang-lan-shanghai-welcome-speech",
+      "canonical_title": "张澜在上海各人民团体欢迎茶会演讲词",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-zhang-lan-shanghai-welcome-speech",
+          "title": "张澜在上海各人民团体欢迎茶会演讲词",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-china-at-1947-threshold",
+          "title": "中国，在一九四七年的门槛上",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-truman-december-18-statement",
+          "title": "评杜鲁门总统十二月十八日的声明",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0008",
+      "size": 2,
+      "canonical_candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
+      "canonical_title": "张群书面通知民盟：应允保障盟员安全",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
+          "title": "张群书面通知民盟：应允保障盟员安全",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-04-league-dissolution-meeting",
+          "title": "民盟将召开中常会讨论解散",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0009",
+      "size": 3,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1946-issue01-refounding-editorial",
+      "canonical_title": "复刊词",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue01-refounding-editorial",
+          "title": "复刊词",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue01-shen-zhiyuan-minmeng-current-situation-proposal",
+          "title": "民盟对当前时局的主张",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue01-liu-simou-youth-degeneration",
+          "title": "青年的堕落",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0010",
+      "size": 2,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1946-issue02-people-power-editorial",
+      "canonical_title": "我们相信人民的力量",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue02-people-power-editorial",
+          "title": "我们相信人民的力量",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue02-huang-yaomian-us-imperialism-china",
+          "title": "美帝國主義對中國的侵略",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0011",
+      "size": 3,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1946-issue04-urgent-situation-editorial",
+      "canonical_title": "时机紧急中我们的态度",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue04-urgent-situation-editorial",
+          "title": "时机紧急中我们的态度",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue04-yang-bokai-jiang-jieshi-speech-review",
+          "title": "評蔣介石先生最近講詞",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue04-di-chaobai-us-basic-attitude",
+          "title": "我們對美國的基本態度",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0012",
+      "size": 6,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1946-issue07-why-not-national-assembly",
+      "canonical_title": "我们为什么不参加国大",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue07-why-not-national-assembly",
+          "title": "我们为什么不参加国大",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue07-shen-zhiyuan-truce-statement-review",
+          "title": "評蔣主席的停戰令和時局聲明",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue07-qian-jiaju-unequal-treaty",
+          "title": "不平等待遇的新條約",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue06-editorial-pcc-ten-months",
+          "title": "從政協決議成立到今天已十個月了",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue06-shen-zhiyuan-truce-statement-review",
+          "title": "評蔣主席的停戰令和時局聲明",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue06-qian-jiaju-unequal-treaty",
+          "title": "不平等待遇的新條約",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0013",
+      "size": 3,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1",
+      "canonical_title": "《光明報》1948年1卷1期（1948-03-01）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1",
+          "title": "《光明報》1948年1卷1期（1948-03-01）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-article",
+          "title": "民盟三中全会的成就",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-refute-hu-shi-gaoji",
+          "title": "駁胡適《國際形勢裏的兩個問題》",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0014",
+      "size": 3,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12",
+      "canonical_title": "《光明報》1948年1卷12期（1948-08-16）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12",
+          "title": "《光明報》1948年1卷12期（1948-08-16）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12-article",
+          "title": "反對美國援蔣扶日",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12-three-premises-li-xiangfu",
+          "title": "三個前提與五項原則",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0015",
+      "size": 2,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1",
+      "canonical_title": "《光明報》1949年2卷1期（1949-01-10）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1",
+          "title": "《光明報》1949年2卷1期（1949-01-10）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1-article",
+          "title": "新政协问题笔谈",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0016",
+      "size": 2,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n12",
+      "canonical_title": "《光明報》1949年2卷12期（1949-02-12）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n12",
+          "title": "《光明報》1949年2卷12期（1949-02-12）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n12-article",
+          "title": "我們對和平的態度",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0017",
+      "size": 7,
+      "canonical_candidate_id": "domestic:NLC:minmeng-wenxian-1946-whole",
+      "canonical_title": "《民主同盟文獻》",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-whole",
+          "title": "《民主同盟文獻》",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-formation-declaration",
+          "title": "中国民主政团同盟成立宣言",
+          "period": "1941-1943",
+          "repo": "NLC",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-ten-program",
+          "title": "中国民主政团同盟对时局主张纲领",
+          "period": "1941-1943",
+          "repo": "NLC",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-final-war-political-platform",
+          "title": "中国民主同盟对抗战最后阶段的政治主张",
+          "period": "1944-1945",
+          "repo": "NLC",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-situation-declaration-1945-01-15",
+          "title": "时局宣言",
+          "period": "1944-1945",
+          "repo": "NLC",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "title": "中国民主同盟纲领",
+          "period": "1944-1945",
+          "repo": "NLC",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+          "title": "中国民主同盟临时全国代表大会宣言",
+          "period": "1944-1945",
+          "repo": "NLC",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0018",
+      "size": 8,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1947-1947-12",
+      "canonical_title": "《光明報》新二十號（1947-01-08）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-1947-12",
+          "title": "《光明報》新二十號（1947-01-08）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-si-tan-guo-shi",
+          "title": "肆談國事",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-respond-anti-us-military",
+          "title": "響應反對美軍暴行運動",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-second-plenum-domestic-situation",
+          "title": "民盟二中全會與國內局勢",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-interview-shen-junru",
+          "title": "訪問沈鈞儒先生",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-qingmo-democracy-two-paths",
+          "title": "清末民主運動的兩條路線",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-oppose-us-atrocities-shanghai",
+          "title": "反對美軍暴行",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-shanghai-democrats-on-us-atrocities",
+          "title": "滬民主人士對美軍暴行意見",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0019",
+      "size": 5,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1947-1947-13",
+      "canonical_title": "《光明報》新十三號（1947-01-18）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-1947-13",
+          "title": "《光明報》新十三號（1947-01-18）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue13-our-attitude-editorial",
+          "title": "我們的態度",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue13-zhang-lan-plenum-opening",
+          "title": "民盟張瀾主席在一屆二中全會開幕講詞",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue13-zhang-lan-plenum-closing",
+          "title": "民盟二中全會張瀾主席閉幕詞",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue13-plenum-clippings",
+          "title": "民盟二中全會剪影輯",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0020",
+      "size": 5,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1947-1947-14",
+      "canonical_title": "《光明報》新十四號（1947-01-28）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-1947-14",
+          "title": "《光明報》新十四號（1947-01-28）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue14-pcc-anniversary-editorial",
+          "title": "政協決議一週年",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue14-plenum-political-report",
+          "title": "民盟二中全會政治報告全文",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue14-shen-zhiyuan-plenum-impression",
+          "title": "我對於民盟二中全會的觀感",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue14-li-boqiu-plenum-gains",
+          "title": "二中全會的收穫",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0021",
+      "size": 3,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1947-1947-15",
+      "canonical_title": "《光明報》新十五號（1947-02-08）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-1947-15",
+          "title": "《光明報》新十五號（1947-02-08）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue15-heavier-task-editorial",
+          "title": "民盟的任務更繁重了",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue15-huang-yaomian-pcc-line",
+          "title": "政協決議與政協路線",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0022",
+      "size": 5,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1947-1947-16–17",
+      "canonical_title": "《光明報》新十六—十七號（1947-03-18）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-1947-16–17",
+          "title": "《光明報》新十六—十七號（1947-03-18）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue16-17-li-jishen-situation-views",
+          "title": "李濟深將軍對時局意見",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue16-17-minmeng-situation-declaration",
+          "title": "中國民主同盟對時局宣言",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue16-17-respond-li-jishen-editorial",
+          "title": "響應李濟深先生對時局主張",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue16-17-moscow-conference-china-editorial",
+          "title": "莫斯科會議應該討論中國問題",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0023",
+      "size": 4,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1947-1947-18",
+      "canonical_title": "《光明報》新十八號（1947-05-14）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-1947-18",
+          "title": "《光明報》新十八號（1947-05-14）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue18-people-cannot-endure-editorial",
+          "title": "老百姓是再也不能忍耐了",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue18-nantotal-press-reception",
+          "title": "民盟南總支部招待中外記者誌詳",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue18-peng-zemin-statement",
+          "title": "民盟南總支部申明態度——主任委員彭澤民發表書面談話",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0024",
+      "size": 6,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1947-1947-19",
+      "canonical_title": "《光明報》新十九號（1947-10-28）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-1947-19",
+          "title": "《光明報》新十九號（1947-10-28）",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-01",
+          "title": "《我们对于和平的态度》",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-02",
+          "title": "《民盟中央对于五参政员出席参政会之决定》",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-03",
+          "title": "《迎接学生运动新的高潮》",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-04",
+          "title": "《独裁政府是怎样摧残新闻自由的？》",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-19-article-05",
+          "title": "《两种制度和两种问题》",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0025",
+      "size": 2,
+      "canonical_candidate_id": "domestic:NLC:guangmingbao-1947-issue21-critique-dictatorship-new-policy-editorial",
+      "canonical_title": "評獨裁派的所謂「新政策」",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "NLC",
+      "members": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue21-critique-dictatorship-new-policy-editorial",
+          "title": "評獨裁派的所謂「新政策」",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue21-deng-chumin-middle-route",
+          "title": "中間路線沒有現實的根據",
+          "period": "1946-1950",
+          "repo": "NLC",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0026",
+      "size": 2,
+      "canonical_candidate_id": "domestic:MM1941:outline-1946-beiyoudang-tewu-qinfeng-bao",
+      "canonical_title": "1946 年被国民党特务捣毁的《秦风报》报社",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "MM1941",
+      "members": [
+        {
+          "candidate_id": "domestic:MM1941:outline-1946-beiyoudang-tewu-qinfeng-bao",
+          "title": "1946 年被国民党特务捣毁的《秦风报》报社",
+          "period": "1946-1950",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:MM1941:outline-1946-nian-shengming-jianghua-neirong",
+          "title": "1946 年声明讲话内容",
+          "period": "1946-1950",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0027",
+      "size": 5,
+      "canonical_candidate_id": "domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-shang",
+      "canonical_title": "建国前福建盟史资料汇编（上）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "MM1941",
+      "members": [
+        {
+          "candidate_id": "domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-shang",
+          "title": "建国前福建盟史资料汇编（上）",
+          "period": "1946-1950",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-zhong",
+          "title": "建国前福建盟史资料汇编（中）",
+          "period": "1946-1950",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-xia",
+          "title": "建国前福建盟史资料汇编（下）",
+          "period": "1946-1950",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:MM1941:outline-1946-1949-minmeng-zongbu-shanghai",
+          "title": "民盟总部在沪活动纪实",
+          "period": "1946-1950",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:MM1941:outline-1946-1949-nanfang-mengshi-shiling",
+          "title": "南方盟史拾零",
+          "period": "1946-1950",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0028",
+      "size": 3,
+      "canonical_candidate_id": "domestic:MM1941:outline-1942-1949-minmeng-zai-shaanxi",
+      "canonical_title": "民盟在陕西",
+      "canonical_period": "1941-1943",
+      "canonical_repo": "MM1941",
+      "members": [
+        {
+          "candidate_id": "domestic:MM1941:outline-1942-1949-minmeng-zai-shaanxi",
+          "title": "民盟在陕西",
+          "period": "1941-1943",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:MM1941:outline-1942-1949-minmeng-zai-shaanxi-jing",
+          "title": "民盟在陕西（精）",
+          "period": "1941-1943",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:MM1941:outline-1942-1949-xian-minmeng-xibei-zongzhibu-mimi-huodongdi",
+          "title": "西安市民盟西北总支部秘密活动地",
+          "period": "1941-1943",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0029",
+      "size": 2,
+      "canonical_candidate_id": "domestic:MM1941:outline-1942-2012-shaanxi-meng-70nian",
+      "canonical_title": "陕西民盟 70 年",
+      "canonical_period": "1941-1943",
+      "canonical_repo": "MM1941",
+      "members": [
+        {
+          "candidate_id": "domestic:MM1941:outline-1942-2012-shaanxi-meng-70nian",
+          "title": "陕西民盟 70 年",
+          "period": "1941-1943",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:MM1941:outline-shaanxi-minmeng-shi",
+          "title": "陕西民盟史",
+          "period": "1941-1943",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0030",
+      "size": 2,
+      "canonical_candidate_id": "domestic:MM1941:outline-1942-shaanxi-tongzhanbu-meng-zhibu-renxuan",
+      "canonical_title": "陕西省委统战部关于民盟陕西省支部委员人选文件",
+      "canonical_period": "1941-1943",
+      "canonical_repo": "MM1941",
+      "members": [
+        {
+          "candidate_id": "domestic:MM1941:outline-1942-shaanxi-tongzhanbu-meng-zhibu-renxuan",
+          "title": "陕西省委统战部关于民盟陕西省支部委员人选文件",
+          "period": "1941-1943",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:MM1941:outline-shaanxi-sheng-zhibu-choubei-weiyuanhui-mingdan",
+          "title": "陕西省支部筹备委员会名单",
+          "period": "1941-1943",
+          "repo": "MM1941",
+          "level": "L3",
+          "availability": "catalogue_only_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0031",
+      "size": 2,
+      "canonical_candidate_id": "domestic:WM:1949-xinzhengxie-choubeihui-changwei-maxulun-categorized",
+      "canonical_title": "1949 新政协筹备会常委合影（马叙伦分类 - 1174×759 高分辨率）",
+      "canonical_period": "1946-1950",
+      "canonical_repo": "WM",
+      "members": [
+        {
+          "candidate_id": "domestic:WM:1949-xinzhengxie-choubeihui-changwei-heying",
+          "title": "1949 新政协筹备会常委合影（含民盟核心代表）",
+          "period": "1946-1950",
+          "repo": "WM",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:WM:1949-xinzhengxie-choubeihui-changwei-maxulun-categorized",
+          "title": "1949 新政协筹备会常委合影（马叙伦分类 - 1174×759 高分辨率）",
+          "period": "1946-1950",
+          "repo": "WM",
+          "level": "L1",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    },
+    {
+      "cluster_id": "DCL-0032",
+      "size": 2,
+      "canonical_candidate_id": "domestic:GMD:2022-12-22-minmeng-baodao",
+      "canonical_title": "《光明日报》2022-12-22 关于中国民主同盟的报道（新华社北京 12 月 21 日电，第 02 版）",
+      "canonical_period": "1941-1943",
+      "canonical_repo": "GMD",
+      "members": [
+        {
+          "candidate_id": "domestic:GMD:2022-12-22-minmeng-baodao",
+          "title": "《光明日报》2022-12-22 关于中国民主同盟的报道（新华社北京 12 月 21 日电，第 02 版）",
+          "period": "1941-1943",
+          "repo": "GMD",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        },
+        {
+          "candidate_id": "domestic:GMD:2022-12-22-zhongguo-minmeng-baojing",
+          "title": "《中国民主同盟》新闻背景报道（光明日报 2022-12-22 第 02 版，新华社 12-21 电）",
+          "period": "1941-1943",
+          "repo": "GMD",
+          "level": "L2",
+          "availability": "full_item_online",
+          "review_status": "accepted"
+        }
+      ]
+    }
+  ]
+}

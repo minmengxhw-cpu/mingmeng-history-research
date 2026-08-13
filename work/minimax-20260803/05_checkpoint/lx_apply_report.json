@@ -1,0 +1,13 @@
+{
+  "produced_at": "2026-08-03",
+  "applied": 4,
+  "applied_this_run": 0,
+  "failed": 0,
+  "verified": [
+    "domestic:WS:democratic-league-declaration-1941",
+    "domestic:WS:peace-building-program-1946",
+    "domestic:WS:pcc-national-assembly-resolution-1946",
+    "domestic:WS:pcc-government-reorganization-1946"
+  ],
+  "not_upgraded": []
+}

@@ -1,0 +1,1004 @@
+{
+  "batch_id": "minimax-20260803-phase2-source-manifest",
+  "produced_at": "2026-08-03",
+  "input_inventory": "work/minimax-20260803/01_inventory/inventory_full.jsonl",
+  "input_dedup_clusters": "work/minimax-20260803/02_manifests/duplicate_clusters.json",
+  "totals": {
+    "manifest_rows": 664,
+    "moves_total": 664,
+    "move_breakdown": {
+      "accepted_ready_for_staging": 541,
+      "accepted_lx_pending_human": 4,
+      "duplicate_skip_ingest": 92,
+      "pending_human_review": 27
+    },
+    "gate": "PASS",
+    "gate_fail_reasons": {}
+  },
+  "by_period": {
+    "1944-1945": {
+      "L4_secondary": 11,
+      "L2_page_cite": 42,
+      "L3_press_surrogate": 24,
+      "L1_citation_ready": 15
+    },
+    "1946-1950": {
+      "L4_secondary": 21,
+      "L1_needs_review": 184,
+      "LX_unverified": 3,
+      "L3_press_surrogate": 12,
+      "L2_page_cite": 140,
+      "L1_citation_ready": 126
+    },
+    "1941-1943": {
+      "LX_unverified": 1,
+      "L4_secondary": 7,
+      "L3_press_surrogate": 33,
+      "L2_page_cite": 45
+    }
+  },
+  "by_repository": {
+    "MMSH": {
+      "L4_secondary": 6
+    },
+    "DAJS": {
+      "L1_needs_review": 1
+    },
+    "SAAC": {
+      "L1_needs_review": 174,
+      "L2_page_cite": 60
+    },
+    "WS": {
+      "LX_unverified": 4,
+      "L3_press_surrogate": 2,
+      "L1_needs_review": 2
+    },
+    "MMZY": {
+      "L4_secondary": 3
+    },
+    "HNMM": {
+      "L3_press_surrogate": 1,
+      "L4_secondary": 1
+    },
+    "FJMM": {
+      "L4_secondary": 2
+    },
+    "93JS": {
+      "L4_secondary": 2
+    },
+    "GXMM": {
+      "L4_secondary": 9,
+      "L1_citation_ready": 1
+    },
+    "BJTZB": {
+      "L4_secondary": 1
+    },
+    "HBMJ": {
+      "L4_secondary": 1
+    },
+    "ZJMG": {
+      "L4_secondary": 1
+    },
+    "BJDCMM": {
+      "L4_secondary": 1,
+      "L3_press_surrogate": 1
+    },
+    "HLJMM": {
+      "L4_secondary": 1
+    },
+    "SHAC": {
+      "L4_secondary": 1
+    },
+    "SCU": {
+      "L2_page_cite": 2
+    },
+    "MMYunnan": {
+      "L4_secondary": 1
+    },
+    "MMHIST": {
+      "L2_page_cite": 23
+    },
+    "ZL1872": {
+      "L4_secondary": 2
+    },
+    "ZJMM": {
+      "L4_secondary": 1
+    },
+    "YADS": {
+      "L3_press_surrogate": 1
+    },
+    "LNU": {
+      "L3_press_surrogate": 1
+    },
+    "DRNH": {
+      "L2_page_cite": 10
+    },
+    "HKU": {
+      "L2_page_cite": 2
+    },
+    "NLC": {
+      "L1_citation_ready": 138,
+      "L2_page_cite": 10,
+      "L3_press_surrogate": 1,
+      "L1_needs_review": 1
+    },
+    "RMrb": {
+      "L2_page_cite": 3
+    },
+    "SHCM": {
+      "L3_press_surrogate": 1
+    },
+    "SHPRESS": {
+      "L4_secondary": 1
+    },
+    "CPPCC": {
+      "L4_secondary": 1
+    },
+    "XHB": {
+      "L1_needs_review": 3,
+      "L3_press_surrogate": 1
+    },
+    "WH": {
+      "L1_needs_review": 2
+    },
+    "KMY": {
+      "L1_needs_review": 1
+    },
+    "SHDPZ": {
+      "L3_press_surrogate": 6
+    },
+    "FRUS": {
+      "L2_page_cite": 6
+    },
+    "ZLWEB": {
+      "L4_secondary": 2
+    },
+    "JFB": {
+      "L4_secondary": 1
+    },
+    "VOC": {
+      "L3_press_surrogate": 1
+    },
+    "MH": {
+      "L4_secondary": 1,
+      "L3_press_surrogate": 1
+    },
+    "MX": {
+      "L3_press_surrogate": 6
+    },
+    "RCL": {
+      "L3_press_surrogate": 3
+    },
+    "QY": {
+      "L2_page_cite": 15
+    },
+    "CQ": {
+      "L2_page_cite": 1,
+      "L3_press_surrogate": 1
+    },
+    "HB": {
+      "L3_press_surrogate": 1
+    },
+    "GZ": {
+      "L3_press_surrogate": 1
+    },
+    "SN": {
+      "L3_press_surrogate": 1
+    },
+    "GD": {
+      "L3_press_surrogate": 1
+    },
+    "ZJ": {
+      "L2_page_cite": 1
+    },
+    "JS": {
+      "L3_press_surrogate": 2
+    },
+    "FJ": {
+      "L2_page_cite": 1
+    },
+    "HE": {
+      "L3_press_surrogate": 1
+    },
+    "HN": {
+      "L2_page_cite": 1
+    },
+    "YN": {
+      "L3_press_surrogate": 1
+    },
+    "SC": {
+      "L3_press_surrogate": 1
+    },
+    "AH": {
+      "L3_press_surrogate": 1
+    },
+    "BJ": {
+      "L3_press_surrogate": 1
+    },
+    "MM1941": {
+      "L3_press_surrogate": 27
+    },
+    "MG": {
+      "L2_page_cite": 1
+    },
+    "CJD": {
+      "L2_page_cite": 2
+    },
+    "MJ": {
+      "L2_page_cite": 1
+    },
+    "NGD": {
+      "L2_page_cite": 3
+    },
+    "ZG": {
+      "L2_page_cite": 2
+    },
+    "93": {
+      "L2_page_cite": 3
+    },
+    "TM": {
+      "L2_page_cite": 3
+    },
+    "NJSH": {
+      "L3_press_surrogate": 1
+    },
+    "WM": {
+      "L2_page_cite": 44,
+      "L3_press_surrogate": 3,
+      "L1_citation_ready": 2
+    },
+    "MMC": {
+      "L2_page_cite": 4
+    },
+    "GMD": {
+      "L2_page_cite": 4
+    },
+    "WP": {
+      "L2_page_cite": 1
+    },
+    "RMTZ": {
+      "L2_page_cite": 2
+    },
+    "PP": {
+      "L2_page_cite": 3
+    },
+    "CDMM": {
+      "L2_page_cite": 1
+    },
+    "BJMM": {
+      "L2_page_cite": 1
+    },
+    "MGCH": {
+      "L2_page_cite": 2
+    },
+    "8P": {
+      "L2_page_cite": 1
+    },
+    "RMZXW": {
+      "L2_page_cite": 2
+    },
+    "ACAD": {
+      "L2_page_cite": 2
+    },
+    "SCIO": {
+      "L2_page_cite": 1
+    },
+    "XINHUA": {
+      "L2_page_cite": 1
+    },
+    "RMZXB": {
+      "L2_page_cite": 2
+    },
+    "CAIXIN": {
+      "L2_page_cite": 1
+    },
+    "ZSY": {
+      "L2_page_cite": 1
+    },
+    "CSSN": {
+      "L2_page_cite": 1
+    },
+    "CPC": {
+      "L2_page_cite": 1
+    },
+    "SH": {
+      "L2_page_cite": 2
+    }
+  },
+  "by_evidence_grade": {
+    "L4_secondary": 39,
+    "L1_needs_review": 184,
+    "LX_unverified": 4,
+    "L3_press_surrogate": 69,
+    "L2_page_cite": 227,
+    "L1_citation_ready": 141
+  },
+  "three_buckets": {
+    "import_ready": {
+      "count": 545,
+      "candidate_ids": [
+        "domestic:MMSH:web-history",
+        "domestic:MMSH:web-office-history",
+        "domestic:MMSH:web-political-cooperation",
+        "domestic:MMSH:web-liukaiqu",
+        "domestic:DAJS:guangming-suzhou-1949",
+        "domestic:SAAC:1948-04-30-01",
+        "domestic:SAAC:1948-04-30-02",
+        "domestic:SAAC:1948-05-01-01",
+        "domestic:SAAC:1948-08-01-01",
+        "domestic:SAAC:1948-10-01-01",
+        "domestic:SAAC:1948-10-08-01",
+        "domestic:SAAC:1949-01-08-01",
+        "domestic:SAAC:1949-02-01-01",
+        "domestic:SAAC:1949-02-14-01",
+        "domestic:SAAC:1949-03-12-01",
+        "domestic:SAAC:1949-09-21-01",
+        "domestic:SAAC:1949-09-21-02",
+        "domestic:SAAC:1949-09-21-03",
+        "domestic:SAAC:1949-09-21-04",
+        "domestic:SAAC:1949-09-21-05",
+        "domestic:SAAC:1949-09-21-06",
+        "domestic:SAAC:1949-09-21-07",
+        "domestic:SAAC:1949-09-22-01",
+        "domestic:SAAC:1949-09-22-02",
+        "domestic:SAAC:1949-09-23-01",
+        "domestic:SAAC:1949-09-25-01",
+        "domestic:SAAC:1949-09-26-01",
+        "domestic:SAAC:1949-09-27-01",
+        "domestic:SAAC:1949-09-27-02",
+        "domestic:SAAC:1949-09-28-01",
+        "domestic:SAAC:1949-09-29-01",
+        "domestic:SAAC:1949-09-29-02",
+        "domestic:SAAC:1949-09-30-01",
+        "domestic:SAAC:1949-09-30-02",
+        "domestic:SAAC:1949-09-30-03",
+        "domestic:SAAC:1949-index-c01",
+        "domestic:SAAC:1949-index-c02",
+        "domestic:SAAC:1949-index-c03",
+        "domestic:SAAC:1949-index-c04",
+        "domestic:SAAC:1949-index-c05",
+        "domestic:SAAC:1949-index-c06",
+        "domestic:SAAC:1949-index-c07",
+        "domestic:SAAC:1949-index-c08",
+        "domestic:SAAC:1949-index-c09",
+        "domestic:SAAC:1949-index-c10",
+        "domestic:SAAC:1949-index-c11",
+        "domestic:SAAC:1949-index-c12",
+        "domestic:SAAC:1949-index-c13",
+        "domestic:SAAC:1949-index-c14",
+        "domestic:SAAC:1949-index-c15",
+        "domestic:SAAC:1949-index-c16",
+        "domestic:SAAC:1949-index-c17",
+        "domestic:SAAC:1949-index-c18",
+        "domestic:SAAC:1949-index-c19",
+        "domestic:SAAC:1949-index-c20",
+        "domestic:SAAC:1949-index-c21",
+        "domestic:SAAC:1949-index-c22",
+        "domestic:SAAC:1949-index-c23",
+        "domestic:SAAC:1949-index-c24",
+        "domestic:SAAC:1949-index-c25",
+        "domestic:SAAC:1949-index-c26",
+        "domestic:SAAC:1949-index-c27",
+        "domestic:SAAC:1949-index-c28",
+        "domestic:SAAC:1949-index-c29",
+        "domestic:SAAC:1949-index-c30",
+        "domestic:SAAC:1949-index-c31",
+        "domestic:SAAC:1949-index-c32",
+        "domestic:SAAC:1949-item-a01",
+        "domestic:SAAC:1949-item-a02",
+        "domestic:SAAC:1949-item-a03",
+        "domestic:SAAC:1949-item-a04",
+        "domestic:SAAC:1949-item-a05",
+        "domestic:SAAC:1949-item-a06",
+        "domestic:SAAC:1949-item-a07",
+        "domestic:SAAC:1949-item-a08",
+        "domestic:SAAC:1949-item-a09",
+        "domestic:SAAC:1949-item-a10",
+        "domestic:SAAC:1949-item-a11",
+        "domestic:SAAC:1949-item-a12",
+        "domestic:SAAC:1949-item-a13",
+        "domestic:SAAC:1949-item-a14",
+        "domestic:SAAC:1949-item-a15",
+        "domestic:SAAC:1949-item-a16",
+        "domestic:SAAC:1949-item-a17",
+        "domestic:WS:democratic-league-declaration-1941",
+        "domestic:WS:peace-building-program-1946",
+        "domestic:MMZY:1945-first-congress-page",
+        "domestic:HNMM:response-may-day-1948",
+        "domestic:SAAC:catalog-01-01_03",
+        "domestic:SAAC:catalog-01-01_05",
+        "domestic:SAAC:catalog-01-01_09",
+        "domestic:SAAC:catalog-01-01_10",
+        "domestic:SAAC:catalog-01-01_11",
+        "domestic:SAAC:catalog-01-01_13",
+        "domestic:SAAC:catalog-01-01_17",
+        "domestic:SAAC:catalog-01-01_18",
+        "domestic:SAAC:catalog-01-01_19",
+        "domestic:SAAC:catalog-01-01_20",
+        "domestic:SAAC:catalog-01-01_21",
+        "domestic:SAAC:catalog-01-01_22",
+        "domestic:SAAC:catalog-02-02_01",
+        "domestic:SAAC:catalog-02-02_02",
+        "domestic:SAAC:catalog-02-02_03",
+        "domestic:SAAC:catalog-02-02_04",
+        "domestic:SAAC:catalog-02-02_05",
+        "domestic:SAAC:catalog-02-02_06",
+        "domestic:SAAC:catalog-02-02_07",
+        "domestic:SAAC:catalog-02-02_08",
+        "domestic:SAAC:catalog-02-02_09",
+        "domestic:SAAC:catalog-02-02_10",
+        "domestic:SAAC:catalog-02-02_11",
+        "domestic:SAAC:catalog-02-02_12",
+        "domestic:SAAC:catalog-02-02_13",
+        "domestic:SAAC:catalog-02-02_14",
+        "domestic:SAAC:catalog-02-02_15",
+        "domestic:SAAC:catalog-02-02_16",
+        "domestic:SAAC:catalog-02-02_17",
+        "domestic:SAAC:catalog-03-03_01_01",
+        "domestic:SAAC:catalog-03-03_01_02",
+        "domestic:SAAC:catalog-03-03_02_01",
+        "domestic:SAAC:catalog-03-03_02_02",
+        "domestic:SAAC:catalog-03-03_02_03",
+        "domestic:SAAC:catalog-03-03_02_04",
+        "domestic:SAAC:catalog-03-03_03_01",
+        "domestic:SAAC:catalog-03-03_03_02",
+        "domestic:SAAC:catalog-03-03_03_03",
+        "domestic:SAAC:catalog-03-03_03_04",
+        "domestic:SAAC:catalog-03-03_03_05",
+        "domestic:SAAC:catalog-03-03_04_01",
+        "domestic:SAAC:catalog-03-03_04_02",
+        "domestic:SAAC:catalog-03-03_04_03",
+        "domestic:SAAC:catalog-03-03_04_04",
+        "domestic:SAAC:catalog-03-03_04_05",
+        "domestic:SAAC:catalog-03-03_05_01",
+        "domestic:SAAC:catalog-03-03_05_02",
+        "domestic:SAAC:catalog-03-03_06_01",
+        "domestic:SAAC:catalog-03-03_06_02",
+        "domestic:SAAC:catalog-03-03_06_03",
+        "domestic:SAAC:catalog-03-03_06_04",
+        "domestic:SAAC:catalog-03-03_06_05",
+        "domestic:SAAC:catalog-03-03_06_06",
+        "domestic:SAAC:catalog-03-03_06_07",
+        "domestic:SAAC:catalog-03-03_06_08",
+        "domestic:SAAC:catalog-03-03_06_09",
+        "domestic:SAAC:catalog-04-04_01",
+        "domestic:SAAC:catalog-04-04_02",
+        "domestic:SAAC:catalog-04-04_03",
+        "domestic:SAAC:catalog-04-04_04",
+        "domestic:SAAC:catalog-04-04_05",
+        "domestic:SAAC:catalog-05-05_19",
+        "domestic:SAAC:catalog-05-05_21",
+        "domestic:SAAC:catalog-05-05_22",
+        "domestic:SAAC:catalog-05-05_35",
+        "domestic:SAAC:catalog-05-05_36",
+        "domestic:SAAC:catalog-05-05_37",
+        "domestic:SAAC:catalog-05-05_38",
+        "domestic:SAAC:catalog-05-05_40",
+        "domestic:SAAC:catalog-05-05_60",
+        "domestic:SAAC:catalog-05-05_74",
+        "domestic:SAAC:catalog-05-05_77",
+        "domestic:SAAC:catalog-05-05_78",
+        "domestic:SAAC:catalog-05-05_79",
+        "domestic:SAAC:catalog-05-05_81",
+        "domestic:SAAC:catalog-05-05_83",
+        "domestic:SAAC:catalog-05-05_85",
+        "domestic:SAAC:catalog-05-05_86",
+        "domestic:SAAC:catalog-05-05_87",
+        "domestic:SAAC:catalog-05-05_88",
+        "domestic:SAAC:catalog-05-05_89",
+        "domestic:SAAC:catalog-05-05_90",
+        "domestic:SAAC:catalog-06-06_01",
+        "domestic:SAAC:catalog-06-06_02",
+        "domestic:SAAC:catalog-06-06_03",
+        "domestic:SAAC:catalog-06-06_04",
+        "domestic:SAAC:catalog-06-06_05",
+        "domestic:SAAC:catalog-06-06_06",
+        "domestic:SAAC:catalog-06-06_07",
+        "domestic:SAAC:catalog-06-06_08",
+        "domestic:SAAC:catalog-06-06_09",
+        "domestic:SAAC:catalog-06-06_10",
+        "domestic:SAAC:catalog-06-06_11",
+        "domestic:SAAC:catalog-06-06_12",
+        "domestic:FJMM:lead-福建民盟盟史导言",
+        "domestic:93JS:lead-九三学社1947年大事记",
+        "domestic:HNMM:lead-民盟精神解析",
+        "domestic:GXMM:lead--大公报-和-观察-对民盟被迫解散的不同反应",
+        "domestic:93JS:lead-历史的必然-郑重的选择-中共中央发布-五一口号-的历史由",
+        "domestic:MMZY:lead-周恩来与第一届人民政协会议的召开",
+        "domestic:MMZY:lead-楚图南-民盟文章",
+        "domestic:BJTZB:lead-人民民主统一战线的巩固和扩大",
+        "domestic:HBMJ:lead-民建简史第三章-迎接新中国的诞生",
+        "domestic:ZJMG:lead-中国国民党革命委员会60年-一-",
+        "domestic:MMSH:lead-新中国成立前民盟对政治协商制度的贡献",
+        "domestic:FJMM:lead-少年记忆-初识民盟",
+        "domestic:WS:democratic-movement-editorial-1941",
+        "domestic:WS:pcc-national-assembly-resolution-1946",
+        "domestic:WS:pcc-government-reorganization-1946",
+        "domestic:BJDCMM:reorganization-1944",
+        "domestic:HLJMM:first-congress-files-1945",
+        "domestic:WS:wen-yiduo-last-testament-1946",
+        "domestic:GXMM:dagongbao-dissolution-report-1947-11-06",
+        "domestic:GXMM:xinminbao-professors-statement-1947-11-04",
+        "domestic:GXMM:observer-professors-statement-1947-11-08",
+        "domestic:SHAC:6-5-1216-meng-illegal-transfer-1947",
+        "domestic:SCU:democratic-league-anti-civil-war-talk-1945-11-02",
+        "domestic:SCU:democratic-league-situation-talk-1946-01-02",
+        "domestic:MMYunnan:democracy-weekly-run-1944-1946",
+        "domestic:MMHIST:formation-declaration-1941",
+        "domestic:MMHIST:program-draft-1944-09-19",
+        "domestic:MMHIST:platform-1945",
+        "domestic:MMHIST:political-report-1945",
+        "domestic:MMHIST:congress-declaration-1945",
+        "domestic:MMHIST:li-gongpu-protest-1946-07-12",
+        "domestic:MMHIST:wen-yiduo-emergency-statement-1946-07-16",
+        "domestic:MMHIST:li-gongpu-statement-1946-07-17",
+        "domestic:MMHIST:league-banned-1947-10-27",
+        "domestic:MMHIST:league-dissolution-announcement-1947-11-06",
+        "domestic:MMHIST:lo-lung-chi-national-assembly-1946-01-17",
+        "domestic:MMHIST:chang-po-chun-national-assembly-1946-01-17",
+        "domestic:MMHIST:situation-talk-1946-01-02",
+        "domestic:MMHIST:chang-lan-pcc-opening-1946-01-10",
+        "domestic:MMHIST:chang-dong-sun-freedom-1946-01-14",
+        "domestic:MMHIST:lo-lung-chi-government-reorganization-1946-01-14",
+        "domestic:MMHIST:league-military-proposal-1946-01-16",
+        "domestic:MMHIST:zhang-bo-jun-common-program-1946-01-16",
+        "domestic:MMHIST:huang-yan-pei-common-program-1946-01-16",
+        "domestic:MMHIST:lo-lung-chi-common-program-1946-01-16",
+        "domestic:MMHIST:huang-yan-pei-constitution-draft-1946-01-19",
+        "domestic:ZL1872:chang-lan-pcc-opening-transcript-1946",
+        "domestic:MMSH:guangmingbao-formation-editorial-1941",
+        "domestic:ZL1872:chang-lan-dissolution-statement-1947",
+        "domestic:ZJMM:yann-an-meeting-minmeng-1945-07-01",
+        "domestic:MMHIST:yannan-meeting-minutes-1945-07-04",
+        "domestic:YADS:yanan-record-1945-07-04",
+        "domestic:LNU:guangmingbao-index-1941",
+        "domestic:DRNH:002-080200-00321-036",
+        "domestic:DRNH:002-020400-00012-067",
+        "domestic:DRNH:002-060100-00229-023",
+        "domestic:DRNH:002-020400-00011-053",
+        "domestic:DRNH:002-080200-00537-081",
+        "domestic:DRNH:002-080200-00537-095",
+        "domestic:DRNH:002-080200-00301-062",
+        "domestic:DRNH:002-080200-00301-070",
+        "domestic:DRNH:002-090300-00016-114",
+        "domestic:DRNH:002-090300-00017-115",
+        "domestic:NLC:guangmingbao-1946-issue8",
+        "domestic:NLC:guangmingbao-1947-issue21",
+        "domestic:NLC:guangmingbao-1947-issue22",
+        "domestic:NLC:guangmingbao-1946-issue9",
+        "domestic:NLC:guangmingbao-1946-issue10",
+        "domestic:NLC:guangmingbao-1946-issue11",
+        "domestic:NLC:observer-1947-v3n11",
+        "domestic:RMrb:1947-11-07-page1-league-dissolution",
+        "domestic:NLC:observer-1947-v3n11-dong-shijin",
+        "domestic:RMrb:1947-11-04-page1-league-illegal-report",
+        "domestic:GXMM:NLC-dagongbao-tianjin-1947-11-06-page2-excerpt",
+        "domestic:NLC:dagongbao-shanghai-1947-11-06-page2-full",
+        "domestic:GXMM:forced-dissolution-1947-11-05",
+        "domestic:NLC:observer-1947-v3n11-han-depei",
+        "domestic:NLC:guangmingbao-1946-issue8-conditional-national-assembly",
+        "domestic:BJDCMM:1945-congress-declaration-platform-clipping",
+        "domestic:RMrb:1946-11-19-national-assembly-boycott",
+        "domestic:NLC:minxian-v1n1-1944-05-16",
+        "domestic:NLC:minxian-v1n6-1944-08-15",
+        "domestic:NLC:minxian-v1n9-1944-11-20",
+        "domestic:NLC:guangmingbao-1946-issue11-zhang-lan-shanghai-welcome-speech",
+        "domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
+        "domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
+        "domestic:NLC:guangmingbao-1946-issue01",
+        "domestic:NLC:guangmingbao-1946-issue01-refounding-editorial",
+        "domestic:NLC:guangmingbao-1946-issue02",
+        "domestic:NLC:guangmingbao-1946-issue02-people-power-editorial",
+        "domestic:NLC:guangmingbao-1946-issue03",
+        "domestic:NLC:guangmingbao-1946-issue04",
+        "domestic:NLC:guangmingbao-1946-issue04-urgent-situation-editorial",
+        "domestic:NLC:guangmingbao-1946-issue05",
+        "domestic:NLC:guangmingbao-1946-issue06",
+        "domestic:NLC:guangmingbao-1946-issue07",
+        "domestic:NLC:guangmingbao-1946-issue07-why-not-national-assembly",
+        "domestic:GXMM:dagongbao-1947-10-28-illegal-declaration",
+        "domestic:GXMM:dagongbao-1947-10-29-self-surrender",
+        "domestic:GXMM:dagongbao-1947-10-30-ban-activities",
+        "domestic:SHCM:revolutionary-relics-1945-minmeng-platform",
+        "domestic:NLC:guangmingbao-1948-1949-v1n1",
+        "domestic:NLC:guangmingbao-1948-1949-v1n12",
+        "domestic:NLC:guangmingbao-1948-1949-v2n1",
+        "domestic:NLC:guangmingbao-1948-1949-v2n12",
+        "domestic:NLC:minxian-v1n10-1944-12-20",
+        "domestic:NLC:minmeng-wenxian-1946-whole",
+        "domestic:NLC:guangmingbao-1947-1947-12",
+        "domestic:NLC:guangmingbao-1947-1947-13",
+        "domestic:NLC:guangmingbao-1947-1947-14",
+        "domestic:NLC:guangmingbao-1947-1947-15",
+        "domestic:NLC:guangmingbao-1947-1947-16–17",
+        "domestic:NLC:guangmingbao-1947-1947-18",
+        "domestic:NLC:guangmingbao-1947-1947-19",
+        "domestic:NLC:guangmingbao-1947-1947-20",
+        "domestic:NLC:minxian-85443-1944-05-01",
+        "domestic:NLC:minxian-85444-1944-06-15",
+        "domestic:NLC:minxian-85445-1944-06-30",
+        "domestic:NLC:minxian-85446-1944-07-16",
+        "domestic:NLC:minxian-85448-1944-09-10",
+        "domestic:NLC:minxian-85449-1944-10-12",
+        "domestic:NLC:minxian-85452-1945-01-15",
+        "domestic:NLC:minxian-85453-1945-02-25",
+        "domestic:NLC:minxian-85454-1945-05-15",
+        "domestic:NLC:minxian-85455-1945-06-13",
+        "domestic:MMHIST:organization-regulation-1945",
+        "domestic:NLC:guangmingbao-1946-issue05-beijing-comrades-editorial",
+        "domestic:NLC:guangmingbao-1946-issue9-anti-civil-war-conscription-editorial",
+        "domestic:NLC:guangmingbao-1946-issue10-guangdong-kmt-protest-editorial",
+        "domestic:NLC:minmeng-wenxian-1946-toc-political-report-gap",
+        "domestic:NLC:guangmingbao-1948-1949-v2n12-taiwan-liberation",
+        "domestic:NLC:guangmingbao-1946-issue03-double-ten-task-article",
+        "domestic:CPPCC:liang-shuming-guangmingbao-founding-2020",
+        "domestic:NLC:guangmingbao-1946-issue03-ceasefire-telegram",
+        "domestic:NLC:guangmingbao-1948-1949-v1n1-current-tasks-zhangbojun",
+        "domestic:NLC:guangmingbao-1947-12-congratulate-second-plenum-editorial",
+        "domestic:NLC:guangmingbao-1947-issue22-fight-for-human-rights-editorial",
+        "domestic:NLC:guangmingbao-1947-12-statement-one-sided-constitution",
+        "domestic:NLC:guangmingbao-1947-12-students-letter-to-truman",
+        "domestic:NLC:guangmingbao-1946-issue8-zhang-tiesheng-republican-withdraw-us-diplomacy",
+        "domestic:NLC:guangmingbao-1946-issue8-qiu-xini-guangdong-shengtianli",
+        "domestic:NLC:minmeng-yanlunji-1945-whole",
+        "domestic:NLC:minmeng-yanlunji-1945-congress-political-report",
+        "domestic:NLC:minmeng-yanlunji-1945-congress-declaration",
+        "domestic:NLC:guangmingbao-1947-issue21-critique-dictatorship-new-policy-editorial",
+        "domestic:FRUS:1943-09-18-d272-atcheson-federation-platform",
+        "domestic:FRUS:1944-09-22-d445-sprouse-democratic-league-principles",
+        "domestic:FRUS:1943-07-31-d232-ringwalt-liang-shuming-interview",
+        "domestic:FRUS:1944-10-30-d478-gauss-war-final-stage-proposals",
+        "domestic:FRUS:1944-04-21-d329-gauss-service-minority-parties",
+        "domestic:FRUS:1944-07-11-d380-langdon-kunming-democratic-league",
+        "domestic:ZLWEB:1943-09-18-zhang-lan-china-needs-real-democracy",
+        "domestic:ZLWEB:1943-09-17-jiang-zhang-chongqing-exchange",
+        "domestic:JFB:1944-02-22-jiefang-ribao-zhang-lan-booklet-review",
+        "domestic:XHB:reprint-1938-1947-1987-shanghai-bookstore",
+        "domestic:VOC:guoxun-1942-issue253-cnbksy-index",
+        "domestic:MH:modernhistory-periodical-guoxun",
+        "domestic:MH:platform-anchor-modernhistory-2026",
+        "domestic:QY:zhongguo-minmengtongmengshi-2012-qunyan",
+        "domestic:QY:chongqing-minmengshi-2014-qunyan",
+        "domestic:QY:zhongguo-minmengtongmeng-50nian-chongqing-2014",
+        "domestic:CQ:chongqing-minmeng-xu-chaojian-2002",
+        "domestic:HB:hubei-minmengshi-2014-xiangbiwu",
+        "domestic:GZ:guizhou-minmengshi-2013",
+        "domestic:SN:shaanxi-minmengshi-chenxitao",
+        "domestic:GD:guangdong-minmengshi-2012-lijingxian",
+        "domestic:ZJ:zhejiang-sheng-minzhudangpai-zhi-2002",
+        "domestic:JS:jiangsu-minmengshi-gao-2004",
+        "domestic:JS:zhongguo-minmengtongmeng-jiangsu-jianshi-2012",
+        "domestic:FJ:zhongguo-minmengtongmeng-fujian-jianshi-2018",
+        "domestic:HE:zhongguo-minmengtongmeng-shijiazhuang-shi-zhi-2013",
+        "domestic:HN:hunan-minmengrenwu-2020",
+        "domestic:YN:yunan-minmengshi-2021-chenguang",
+        "domestic:SC:sichuan-minmengshi-sichuan-renmin",
+        "domestic:AH:anhui-minzhudangpai-shi-meng-zhangjie-2009",
+        "domestic:BJ:beijing-minmeng-zuzhi-chengli-70-zhounian-2016",
+        "domestic:MM1941:platform-anchor-minmeng1941-cn",
+        "domestic:MM1941:outline-1937-jiuguohui-jiguan-bao",
+        "domestic:MM1941:outline-1941-1989-gansu-meng-jianzhi",
+        "domestic:MM1941:outline-1941-zhongguo-minzhengtongmeng-chengli-huizhi",
+        "domestic:MM1941:outline-1946-beiyoudang-tewu-qinfeng-bao",
+        "domestic:MM1941:outline-1949qian-beijing-minmeng-biannian-shi",
+        "domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-shang",
+        "domestic:MM1941:outline-1946-1953-jiangsu-meng-biannian-shi",
+        "domestic:MM1941:outline-1941-1953-wuxi-meng-biannian-shi",
+        "domestic:MM1941:outline-1942-1949-minmeng-zai-shaanxi",
+        "domestic:MM1941:outline-1944-1946-minmeng-zongbu-chongqing",
+        "domestic:MM1941:outline-1942-2012-shaanxi-meng-70nian",
+        "domestic:MM1941:outline-1942-shaanxi-tongzhanbu-meng-zhibu-renxuan",
+        "domestic:MM1941:outline-shanghai-minmeng-biannian-shi",
+        "domestic:MM1941:outline-1939-1950-sichuan-meng-biannian-shi",
+        "domestic:MM1941:outline-1943-xibei-ju-ierkuozhang-huiyi",
+        "domestic:MM1941:outline-1947-1949-zhongyang-zongzhanhui-lianhehuiyi",
+        "domestic:MM1941:outline-1941-2014-chongqing-meng-shi-jing",
+        "domestic:SAAC:album-51koukou-kaoguodadian",
+        "domestic:MG:minge-gov-cn-history-1948-hongkong",
+        "domestic:CJD:cndca-gov-cn-history-1945-chongqing",
+        "domestic:MJ:minj-gov-cn-history-1945-shanghai",
+        "domestic:NGD:ngd-org-cn-history-1930-shanghai",
+        "domestic:ZG:zg-org-cn-history-1925-america",
+        "domestic:93:93-gov-cn-history-1945-chongqing",
+        "domestic:TM:taimeng-org-cn-history-1947-hongkong",
+        "domestic:CQ:Teyuan-China-Democratic-Parties-Museum-2024",
+        "domestic:NJSH:2nd-Historical-Archives-1912-1949-220w-juan",
+        "domestic:SAAC:51koukou-p01-dde04",
+        "domestic:SAAC:51koukou-p01-dde07",
+        "domestic:SAAC:51koukou-p01-dde13",
+        "domestic:SAAC:51koukou-p01-dde14",
+        "domestic:SAAC:51koukou-p01-dde20",
+        "domestic:SAAC:51koukou-p01-dde21",
+        "domestic:SAAC:51koukou-p04-dde04",
+        "domestic:SAAC:51koukou-p04-dde05",
+        "domestic:SAAC:51koukou-p04-dde07",
+        "domestic:SAAC:51koukou-p04-dde12",
+        "domestic:SAAC:51koukou-p05-dde02",
+        "domestic:SAAC:51koukou-p05-dde11",
+        "domestic:SAAC:51koukou-p05-dde10",
+        "domestic:SAAC:51koukou-p05-dde16",
+        "domestic:SAAC:51koukou-p05-dde15",
+        "domestic:WM:1946-zhonggong-weituo-minmeng-daiguanfangchan-xin",
+        "domestic:WM:1947-zhonggong-minmeng-kangyi-zhengfu-jiesan-minmeng",
+        "domestic:SAAC:51koukou-p02-dde01-f1",
+        "domestic:SAAC:51koukou-p02-dde02-f1",
+        "domestic:SAAC:51koukou-p02-dde03-f1",
+        "domestic:SAAC:51koukou-p02-dde04-f1",
+        "domestic:SAAC:51koukou-p02-dde05-f1",
+        "domestic:SAAC:51koukou-p02-dde06-f1",
+        "domestic:SAAC:51koukou-p02-dde07-f1",
+        "domestic:SAAC:51koukou-p02-dde08-f1",
+        "domestic:SAAC:51koukou-p03-dde01-f1",
+        "domestic:SAAC:51koukou-p03-dde02-f1",
+        "domestic:SAAC:51koukou-p03-dde03-f1",
+        "domestic:SAAC:51koukou-p03-dde04-f1",
+        "domestic:SAAC:51koukou-p03-dde05-f1",
+        "domestic:SAAC:51koukou-p06-dde01-f1",
+        "domestic:SAAC:51koukou-p06-dde02-f1",
+        "domestic:SAAC:51koukou-p06-dde03-f1",
+        "domestic:SAAC:51koukou-p06-dde04-f1",
+        "domestic:SAAC:51koukou-p06-dde05-f1",
+        "domestic:SAAC:51koukou-p06-dde06-f1",
+        "domestic:SAAC:51koukou-p06-dde07-f1",
+        "domestic:SAAC:51koukou-p06-dde08-f1",
+        "domestic:SAAC:51koukou-p06-dde09-f1",
+        "domestic:SAAC:51koukou-p06-dde10-f1",
+        "domestic:SAAC:51koukou-p06-dde11-f1",
+        "domestic:SAAC:51koukou-p06-dde12-f1",
+        "domestic:WM:1949-zhouenlai-minmeng-daibiao-xinzhengxie",
+        "domestic:WM:1949-minmeng-leaders-see-CCP-mission-off",
+        "domestic:WM:1949-minmeng-daibiao-zhonggong-daibiao-huitan",
+        "domestic:WM:1945-zhanglan-chongqing-tanpan-gongkai-xin",
+        "domestic:WM:1949-zhanglan-zhouenlai-zhongyang-zhengfu-heying",
+        "domestic:WM:1946-li-gongpu-wen-yiduo-lieshi-jinian",
+        "domestic:WM:1947-du-bincheng-lieshi-minmeng-xibei",
+        "domestic:WM:people-of-china-democratic-league-anchor",
+        "domestic:WM:1946-10-18-zhouenlai-minmeng-shanghai-tanpan",
+        "domestic:WM:1949-xinzhengxie-kaimushi-zhuxitai",
+        "domestic:WM:1949-zhongyang-renmin-zhengfu-zhuxi-fuzhuxi",
+        "domestic:WM:1949-maozedong-zhude-daoda-beiping",
+        "domestic:WM:1946-qieshi-baozhang-renmin-quanli-an",
+        "domestic:WM:1946-taoxingzhi-zangli",
+        "domestic:WM:1949-wei-sakongliao-songxing",
+        "domestic:WM:1949-zhongyang-zhengfu-shouge-fuxinjiang-weiwentuan",
+        "domestic:WM:1949-liushaoqi-huangyanpei",
+        "domestic:WM:1949-yijie-zhengxie-nvdaibiao",
+        "domestic:WM:1946-dengyingchao-daoci-li-wen",
+        "domestic:WM:1949-song-ching-ling-1st-cppcc",
+        "domestic:WM:1949-xianfa-caogao-zuotanhui-di8zu-heying",
+        "domestic:WM:1949-cai-chang-shiliang-tiananmen",
+        "domestic:WM:1949-shiliang-tiananmen-cropped",
+        "domestic:WM:1946-zhouenlai-shougao-daoci-li-wen",
+        "domestic:WM:1946-li-gongpu-yiguanzhong-highres",
+        "domestic:WM:1946-pengdehuai-tici-li-gongpu",
+        "domestic:WM:1946-nierongzhen-tici-li-gongpu",
+        "domestic:WM:1945-liucanzhengyuan-fangwen-yanan",
+        "domestic:WM:1945-liucanzhengyuan-fangwen-yanan-2",
+        "domestic:WM:1945-maozedong-zhude-liucanzhengyuan",
+        "domestic:WM:1946-06-23-xiaguan-can'an-maxulun",
+        "domestic:WM:1949-minjin-daibiao-heying-yijie-zhengxie",
+        "domestic:WM:1946-ship-huazhong-minjin-dongbei-jiefangqu",
+        "domestic:WM:1946-zhouenlai-luolongji-zhengxie",
+        "domestic:WM:1949-xinzhengxie-choubeihui-changwei-maxulun-categorized",
+        "domestic:WM:1949-zhouenlai-maxulun-masicong",
+        "domestic:WM:1940s-zhang-lan-portrait-zhang-lan-tomb",
+        "domestic:WM:1949-zhang-lan-mao-zedong-heying",
+        "domestic:WM:zhang-lan-tomb",
+        "domestic:WM:1940s-zhang-junmai-portrait-1",
+        "domestic:WM:taoxingzhi-heweigui-hengfu",
+        "domestic:WM:1940s-luo-longji-portrait",
+        "domestic:MMC:lingdao-jiegou-2026",
+        "domestic:MMC:lijie-zhongyang-weiyuanhui-index",
+        "domestic:MMC:zhangcheng-latest",
+        "domestic:MMC:zuzhi-jiegou",
+        "domestic:GMD:2022-12-22-minmeng-baodao",
+        "domestic:WM:1946-wen-yiduo-yiguanzhong",
+        "domestic:WM:wen-yiduo-xi-nan-lian-da-yin-zhang",
+        "domestic:WM:xinan-lianda-jiuzhi-1946-meng",
+        "domestic:WM:wen-yiduo-portrait",
+        "domestic:WP:1949-1988-minmeng-wenwu-1991",
+        "domestic:QY:qunyan-chubanshe-meng-zhongyang",
+        "domestic:SAAC:51koukou-p01-dde08-i3",
+        "domestic:SAAC:51koukou-p01-dde15-i3",
+        "domestic:SAAC:51koukou-p01-dde22-i3",
+        "domestic:SAAC:51koukou-p04-dde01-i3",
+        "domestic:SAAC:51koukou-p04-dde02-i3",
+        "domestic:SAAC:51koukou-p04-dde03-i3",
+        "domestic:SAAC:51koukou-p04-dde06-i3",
+        "domestic:SAAC:51koukou-p04-dde08-i3",
+        "domestic:SAAC:51koukou-p05-dde01-i3",
+        "domestic:SAAC:51koukou-p05-dde03-i3",
+        "domestic:SAAC:51koukou-p05-dde04-i3",
+        "domestic:SAAC:51koukou-p05-dde05-i3",
+        "domestic:SAAC:51koukou-p05-dde06-i3",
+        "domestic:SAAC:51koukou-p05-dde07-i3",
+        "domestic:SAAC:51koukou-p05-dde08-i3",
+        "domestic:SAAC:51koukou-p05-dde09-i3",
+        "domestic:SAAC:51koukou-p05-dde12-i3",
+        "domestic:SAAC:51koukou-p05-dde13-i3",
+        "domestic:SAAC:51koukou-p05-dde14-i3",
+        "domestic:QY:1991-zhongguo-minmeng-jianshi-1941-1949",
+        "domestic:QY:1991-zhongguo-minmeng-shi-1941-1949",
+        "domestic:QY:1991-wo-yu-minmeng-50zhounian-jinianwenji",
+        "domestic:QY:mengtuan-lishiwenxian-congshu-anchor",
+        "domestic:QY:2011-zhongguo-minmeng-qishinian",
+        "domestic:QY:2013-minmeng-taoxingzhi",
+        "domestic:QY:2013-minmeng-chutunan",
+        "domestic:QY:2014-minmeng-tongdizhou",
+        "domestic:QY:2014-minmeng-dubincheng",
+        "domestic:QY:2021-qingyang-minmeng-shi",
+        "domestic:QY:mengtuan-lishi-renwu-congshu-anchor",
+        "domestic:RMTZ:dangshi-minmeng-zaili-chengli",
+        "domestic:PP:menshi-zonglan-minmeng-chengli-4-gaizu",
+        "domestic:PP:huishi-daxuexi-difang-zuzhi-jianshe-1",
+        "domestic:CDMM:website-anchor",
+        "domestic:BJMM:website-anchor",
+        "domestic:PP:menshi-zonglan-series-anchor",
+        "domestic:MGCH:TJPRESS-minjizhongtian-zhuguan",
+        "domestic:MGCH:mengge-qianbei-chuanji-congshu-2025",
+        "domestic:CJD:1945-minjian-dansheng-chongqing",
+        "domestic:8P:8-dangpai-zhongyang-chubanshe",
+        "domestic:RMZXW:2025-05-21-minmeng-chengli-80-zhounian",
+        "domestic:RMZXW:website-anchor-1949",
+        "domestic:NGD:website-jianjie-anchor",
+        "domestic:NGD:jie-fang-qian-jiao-tuan-ji-fengyun",
+        "domestic:ZG:website-anchor",
+        "domestic:93:bsjs-jsjj-jianyao-1945-1949",
+        "domestic:93:bsjs-ljzywyh-anchor",
+        "domestic:TM:tmly-tmjj-jianyao-1947",
+        "domestic:TM:tmly-tmzc-zhangcheng",
+        "domestic:GMD:2017-12-07-xinwen-beijing-zhongguo-minmeng",
+        "domestic:GMD:epaper-meng-1941-1949-aggregate",
+        "domestic:ACAD:1977-shaheen-cdl-politics-1939-1947-phd",
+        "domestic:ACAD:wuhan-united-front-1940s-cambridge-quarterly",
+        "domestic:SCIO:2021-12-china-political-party-system",
+        "domestic:XINHUA:2017-12-11-cdl-12th-congress-english",
+        "domestic:RMZXB:2015-04-09-guangming-bao-chibaijiafan",
+        "domestic:CAIXIN:2023-10-18-liangshuming-yushenghua-guangmingbao",
+        "domestic:RMTZ:2013-01-24-liangshuming-xianggang-guangmingbao",
+        "domestic:ZSY:website-anchor-1941-1949",
+        "domestic:CSSN:lishi-zhuanti-1941-1949",
+        "domestic:RMZXB:2024-12-10-huangyanpei-jiuxinzheng",
+        "domestic:CPC:2024-09-30-fengyutongzhou-gongyi-guoshi",
+        "domestic:SH:1946-junzi-xieding-jiuxinzheng",
+        "domestic:SH:2010-01-10-zhenxie-huifu"
+      ]
+    },
+    "needs_review": {
+      "count": 27,
+      "candidate_ids": [
+        "domestic:HKU:guangmingbao-1941-microform-holdings",
+        "domestic:HKU:guangmingbao-primo-record",
+        "domestic:SHPRESS:zhanglan-shidai-ribao-1947-11-07-lead",
+        "domestic:WS:dagongbao-1946-pcc-five-agreements-1946-01-31",
+        "domestic:XHB:xinhuaribao-1946-pcc-five-agreements-1946-01-31",
+        "domestic:WH:wenhuibao-1946-pcc-five-agreements-1946-01-31",
+        "domestic:WS:dagongbao-1946-refuse-national-assembly-minmeng-1946-11-14",
+        "domestic:XHB:xinhuaribao-1946-refuse-national-assembly-editorial-1946-11-25",
+        "domestic:WH:wenhuibao-1946-refuse-national-assembly-shanghai-1946-11-25",
+        "domestic:KMY:minzhuzhoukan-1946-li-wen-wen-yiduo-1946-07",
+        "domestic:XHB:xinhuaribao-1946-li-wen-mao-zhu-condolence-1946-07-21",
+        "domestic:NLC:observer-1947-3-11-article-government-oppression-minmeng",
+        "domestic:SHDPZ:zlc-chapter5-line571-shi-liang-1942-join",
+        "domestic:SHDPZ:zlc-characters-line527-shang-ding-1943-join",
+        "domestic:SHDPZ:zlc-characters-line79-liu-simou-1942-return",
+        "domestic:SHDPZ:printed-page816-su-yanbin-1943-11-join",
+        "domestic:SHDPZ:printed-page840-shang-ding-1943-10-join",
+        "domestic:SHDPZ:printed-page820-zhou-gucheng-federation-consultant-1942",
+        "domestic:MX:cheng-boren-1942-join-northwest-org",
+        "domestic:MX:shang-ding-1943-11-join-mengxian",
+        "domestic:MX:ding-cong-1942-chongqing-artist",
+        "domestic:MX:shang-ding-1942-journalist-secretary",
+        "domestic:MX:wang-lingu-1942-art-troupe",
+        "domestic:MX:lu-jinhua-1942-yueju-troupe",
+        "domestic:RCL:wenliangmo-1942-join-national-anthem",
+        "domestic:RCL:textile-engineer-1943-12-join",
+        "domestic:RCL:qian-weichang-1942-phd-meng-vice-chairman"
+      ]
+    },
+    "exclude": {
+      "count": 92,
+      "candidate_ids": [
+        "domestic:SAAC:catalog-05-05_01",
+        "domestic:GXMM:dagongbao-tianjin-dissolution-1947-11-06",
+        "domestic:NLC:dagongbao-tianjin-1947-11-06-page2-full",
+        "domestic:NLC:guangmingbao-1946-issue11-anti-one-party-constitution",
+        "domestic:NLC:minxian-v1n9-democracy-vs-nondemocracy-1944-11-20",
+        "domestic:NLC:guangmingbao-1946-issue11-china-at-1947-threshold",
+        "domestic:NLC:guangmingbao-1946-issue11-truman-december-18-statement",
+        "domestic:NLC:dagongbao-hankow-1947-11-04-league-dissolution-meeting",
+        "domestic:NLC:guangmingbao-1948-1949-v1n1-article",
+        "domestic:NLC:guangmingbao-1948-1949-v1n12-article",
+        "domestic:NLC:guangmingbao-1948-1949-v2n1-article",
+        "domestic:NLC:guangmingbao-1948-1949-v2n12-article",
+        "domestic:NLC:minmeng-wenxian-1946-formation-declaration",
+        "domestic:NLC:minmeng-wenxian-1946-ten-program",
+        "domestic:NLC:minmeng-wenxian-1946-final-war-political-platform",
+        "domestic:NLC:minmeng-wenxian-1946-situation-declaration-1945-01-15",
+        "domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+        "domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+        "domestic:NLC:guangmingbao-1947-19-article-01",
+        "domestic:NLC:guangmingbao-1947-19-article-02",
+        "domestic:NLC:guangmingbao-1947-19-article-03",
+        "domestic:NLC:guangmingbao-1947-19-article-04",
+        "domestic:NLC:guangmingbao-1947-19-article-05",
+        "domestic:NLC:guangmingbao-1948-1949-v1n1-refute-hu-shi-gaoji",
+        "domestic:NLC:guangmingbao-1948-1949-v1n12-three-premises-li-xiangfu",
+        "domestic:NLC:guangmingbao-1947-12-si-tan-guo-shi",
+        "domestic:NLC:guangmingbao-1947-12-respond-anti-us-military",
+        "domestic:NLC:guangmingbao-1947-12-second-plenum-domestic-situation",
+        "domestic:NLC:guangmingbao-1947-12-interview-shen-junru",
+        "domestic:NLC:guangmingbao-1947-12-qingmo-democracy-two-paths",
+        "domestic:NLC:guangmingbao-1947-12-oppose-us-atrocities-shanghai",
+        "domestic:NLC:guangmingbao-1947-12-shanghai-democrats-on-us-atrocities",
+        "domestic:NLC:guangmingbao-1947-issue22-middle-route-again-deng",
+        "domestic:NLC:guangmingbao-1947-issue22-one-year-war-result-lu",
+        "domestic:NLC:guangmingbao-1947-issue22-cry-recall-xingzhi-deng",
+        "domestic:NLC:guangmingbao-1947-issue22-gongpu-still-beside-zhang",
+        "domestic:NLC:guangmingbao-1947-issue22-learn-taofen-spirit-hu",
+        "domestic:NLC:guangmingbao-1947-issue22-patriotic-poet-wen-hong",
+        "domestic:NLC:guangmingbao-1947-issue22-hengshe-tonghua-sa",
+        "domestic:NLC:guangmingbao-1947-issue22-action-memorial-peng",
+        "domestic:NLC:guangmingbao-1947-issue22-double-effort-people-shen",
+        "domestic:NLC:guangmingbao-1947-issue22-wipe-out-killers-li",
+        "domestic:NLC:guangmingbao-1947-issue22-pass-the-test-hu-sheng",
+        "domestic:NLC:guangmingbao-1947-issue22-liwen-anniversary-qian",
+        "domestic:NLC:guangmingbao-1947-issue22-painful-memorial-chen",
+        "domestic:NLC:guangmingbao-1947-issue22-mourn-and-spur-song",
+        "domestic:NLC:guangmingbao-1947-issue22-dare-not-forget-chen",
+        "domestic:NLC:guangmingbao-1947-issue22-dictators-killed-them-ye",
+        "domestic:NLC:guangmingbao-1947-issue22-gongpu-rest-in-peace-simu",
+        "domestic:NLC:guangmingbao-1947-issue22-one-falls-thousands-rise-lu",
+        "domestic:NLC:guangmingbao-1947-issue22-history-essays-shen-gong",
+        "domestic:NLC:guangmingbao-1947-issue22-shantou-black-terror",
+        "domestic:NLC:guangmingbao-1947-issue22-meixian-recent-look",
+        "domestic:NLC:guangmingbao-1946-issue01-shen-zhiyuan-minmeng-current-situation-proposal",
+        "domestic:NLC:guangmingbao-1946-issue01-liu-simou-youth-degeneration",
+        "domestic:NLC:guangmingbao-1946-issue02-huang-yaomian-us-imperialism-china",
+        "domestic:NLC:guangmingbao-1946-issue04-yang-bokai-jiang-jieshi-speech-review",
+        "domestic:NLC:guangmingbao-1946-issue04-di-chaobai-us-basic-attitude",
+        "domestic:NLC:guangmingbao-1946-issue07-shen-zhiyuan-truce-statement-review",
+        "domestic:NLC:guangmingbao-1946-issue07-qian-jiaju-unequal-treaty",
+        "domestic:NLC:guangmingbao-1946-issue06-editorial-pcc-ten-months",
+        "domestic:NLC:guangmingbao-1946-issue06-shen-zhiyuan-truce-statement-review",
+        "domestic:NLC:guangmingbao-1946-issue06-qian-jiaju-unequal-treaty",
+        "domestic:NLC:guangmingbao-1947-issue13-our-attitude-editorial",
+        "domestic:NLC:guangmingbao-1947-issue13-zhang-lan-plenum-opening",
+        "domestic:NLC:guangmingbao-1947-issue13-zhang-lan-plenum-closing",
+        "domestic:NLC:guangmingbao-1947-issue13-plenum-clippings",
+        "domestic:NLC:guangmingbao-1947-issue14-pcc-anniversary-editorial",
+        "domestic:NLC:guangmingbao-1947-issue14-plenum-political-report",
+        "domestic:NLC:guangmingbao-1947-issue14-shen-zhiyuan-plenum-impression",
+        "domestic:NLC:guangmingbao-1947-issue14-li-boqiu-plenum-gains",
+        "domestic:NLC:guangmingbao-1947-issue15-heavier-task-editorial",
+        "domestic:NLC:guangmingbao-1947-issue15-huang-yaomian-pcc-line",
+        "domestic:NLC:guangmingbao-1947-issue16-17-li-jishen-situation-views",
+        "domestic:NLC:guangmingbao-1947-issue16-17-minmeng-situation-declaration",
+        "domestic:NLC:guangmingbao-1947-issue16-17-respond-li-jishen-editorial",
+        "domestic:NLC:guangmingbao-1947-issue16-17-moscow-conference-china-editorial",
+        "domestic:NLC:guangmingbao-1947-issue18-people-cannot-endure-editorial",
+        "domestic:NLC:guangmingbao-1947-issue18-nantotal-press-reception",
+        "domestic:NLC:guangmingbao-1947-issue18-peng-zemin-statement",
+        "domestic:NLC:guangmingbao-1947-issue21-deng-chumin-middle-route",
+        "domestic:MM1941:outline-1946-nian-shengming-jianghua-neirong",
+        "domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-zhong",
+        "domestic:MM1941:outline-jianguoqian-fujian-mengshi-ziliao-xia",
+        "domestic:MM1941:outline-1942-1949-minmeng-zai-shaanxi-jing",
+        "domestic:MM1941:outline-1946-1949-minmeng-zongbu-shanghai",
+        "domestic:MM1941:outline-1946-1949-nanfang-mengshi-shiling",
+        "domestic:MM1941:outline-shaanxi-minmeng-shi",
+        "domestic:MM1941:outline-shaanxi-sheng-zhibu-choubei-weiyuanhui-mingdan",
+        "domestic:MM1941:outline-1942-1949-xian-minmeng-xibei-zongzhibu-mimi-huodongdi",
+        "domestic:WM:1949-xinzhengxie-choubeihui-changwei-heying",
+        "domestic:GMD:2022-12-22-zhongguo-minmeng-baojing"
+      ]
+    }
+  },
+  "next_actions": [
+    "将 bucket.import_ready 经 staging 表入 staging.db；不直接写 research_index.sqlite",
+    "OCR 草稿一律保持 citation_ready=False；待人工复核后才能升级",
+    "对 bucket.needs_review 调用 needs_human_review 流程补档号/影像/页码",
+    "cluster_id 标记的 run内已记录去重关系；后续入库时跳过 duplicate_skip_ingest",
+    "after staging review, run minimax_20260803_staging.py 创建 staging 库"
+  ]
+}

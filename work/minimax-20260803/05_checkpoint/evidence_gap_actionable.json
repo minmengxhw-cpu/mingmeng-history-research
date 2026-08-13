@@ -1,0 +1,78 @@
+{
+  "produced_at": "2026-08-03",
+  "totals": {
+    "acquire_new_source": 5,
+    "human_review_needed": 3
+  },
+  "items": [
+    {
+      "event_id": "domestic-1944-reorganization",
+      "type": "acquire_new_source",
+      "priority": "p1",
+      "reason": "该事件缺失 政协/统一战线 来源家族，建议补查二史馆/民盟中央/政协史料",
+      "candidate_ids": []
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "type": "acquire_new_source",
+      "priority": "p1",
+      "reason": "该事件缺失 政协/统一战线 来源家族，建议补查二史馆/民盟中央/政协史料",
+      "candidate_ids": []
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "type": "acquire_new_source",
+      "priority": "p1",
+      "reason": "该事件缺失 政协/统一战线 来源家族，建议补查二史馆/民盟中央/政协史料",
+      "candidate_ids": []
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "type": "human_review_needed",
+      "priority": "p1",
+      "reason": "该事件 needs_review 过多 (3 条)，需人工复核",
+      "candidate_ids": [
+        "domestic:WS:dagongbao-1946-pcc-five-agreements-1946-01-31",
+        "domestic:XHB:xinhuaribao-1946-pcc-five-agreements-1946-01-31",
+        "domestic:WH:wenhuibao-1946-pcc-five-agreements-1946-01-31"
+      ]
+    },
+    {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "type": "human_review_needed",
+      "priority": "p1",
+      "reason": "该事件 needs_review 过多 (4 条)，需人工复核",
+      "candidate_ids": [
+        "domestic:WS:dagongbao-1946-refuse-national-assembly-minmeng-1946-11-14",
+        "domestic:XHB:xinhuaribao-1946-refuse-national-assembly-editorial-1946-11-25",
+        "domestic:WH:wenhuibao-1946-refuse-national-assembly-shanghai-1946-11-25",
+        "domestic:NLC:observer-1947-3-11-article-government-oppression-minmeng"
+      ]
+    },
+    {
+      "event_id": "domestic-1946-li-wen",
+      "type": "human_review_needed",
+      "priority": "p1",
+      "reason": "该事件 needs_review 过多 (3 条)，需人工复核",
+      "candidate_ids": [
+        "domestic:KMY:minzhuzhoukan-1946-li-wen-wen-yiduo-1946-07",
+        "domestic:XHB:xinhuaribao-1946-li-wen-mao-zhu-condolence-1946-07-21",
+        "domestic:NLC:observer-1947-3-11-article-government-oppression-minmeng"
+      ]
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "type": "acquire_new_source",
+      "priority": "p1",
+      "reason": "该事件缺失 政协/统一战线 来源家族，建议补查二史馆/民盟中央/政协史料",
+      "candidate_ids": []
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "type": "acquire_new_source",
+      "priority": "p1",
+      "reason": "该事件缺失 政协/统一战线 来源家族，建议补查二史馆/民盟中央/政协史料",
+      "candidate_ids": []
+    }
+  ]
+}
