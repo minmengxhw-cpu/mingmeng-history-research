@@ -3,7 +3,7 @@
   "report": "DOMESTIC_CITATION_EVENT_LINKS_20260813",
   "status": "navigation_only",
   "body_read_by_linker": false,
-  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813",
+  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813 plus gdc0021_1947_1030_review_20260813",
   "policy": "These links expose already human-verified page anchors inside a topic. They do not assert that the page is a direct event record, do not alter citation gates, and do not replace missing original declarations or meeting files.",
   "links": [
     {
@@ -89,6 +89,13 @@
       "page_label": "1",
       "navigation_title": "1947年11月6日《大剛報》民盟正式宣告解散页",
       "rationale": "同期报刊第1页主标题清晰刊出民盟正式宣告解散及通告各地盟员停止活动；这是报刊页级直接报道，不替代民盟公告原件或政府公报全文。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/NLC:dagangbao-1947-10-30-gdc0021",
+      "page_label": "1",
+      "navigation_title": "1947年10月30日《大剛報》政府宣布民盟非法相关报道页",
+      "rationale": "公开扫描的同期《大剛報》第1页视觉可见“民盟准备解散”“张澜宣布暂时停止活动”及政府宣布民盟非法相关标题；这是10月30日报刊报道页，不替代1947年10月27日政府公函、民盟公告原件或完整政府法令链。"
     },
     {
       "event_id": "domestic-1947-illegal-dissolution",
