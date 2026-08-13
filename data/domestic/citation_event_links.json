@@ -70,6 +70,27 @@
       "rationale": "1946年11月18日《光明報》新七號首版视觉清晰显示刊期、日期和社论题名；这是同期机关报政治表达的页级入口，引用范围限于页身份和题名，不替代正式拒参声明或会议档案。"
     },
     {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "doc_key": "domestic-page/NLC404-01J000514-10429",
+      "page_label": "1",
+      "navigation_title": "1946年《光明報》新八號《论有条件参加国大》页",
+      "rationale": "新八號首版视觉确认刊期、日期和社论题名；这是同期机关报立场形成的页级入口，引用范围限于页身份和题名，不替代正式拒参声明或会议档案。"
+    },
+    {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "doc_key": "domestic-page/NLC404-01J000514-23806",
+      "page_label": "1",
+      "navigation_title": "1946年《光明報》新十一號目录页",
+      "rationale": "新十一號第1页视觉确认刊期、日期和《反对一党独裁宪法（社论）》目录题名；这是文章定位入口，不把目录当作正文或正式拒参声明。"
+    },
+    {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "doc_key": "domestic-page/NLC404-01J000514-23806",
+      "page_label": "3",
+      "navigation_title": "1946年《光明報》新十一號《反对一党独裁的宪法！》页",
+      "rationale": "新十一號第3页视觉确认社论正文首页标题；这是同期机关报政治表达的页级入口，引用范围限于页身份和题名，不替代正式拒参声明或会议档案。"
+    },
+    {
       "event_id": "domestic-1947-illegal-dissolution",
       "doc_key": "domestic-ocr/NLC:guangmingbao-1947-15-full-ocr",
       "page_label": "07",

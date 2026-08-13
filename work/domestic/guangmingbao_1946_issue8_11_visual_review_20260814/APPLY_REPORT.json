@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-13T22:00:45+00:00",
+  "mode": "apply",
+  "database_sha_before": "94746937a0b71be94c18af474ef285503dabe95f0cee5dd652459d5216e1ae1b",
+  "database_sha_after": "5f43ad9f651f51afb4472ec3b815155dd41f5a0e2f76890244100efc619960b9",
+  "page_ids": [
+    16367,
+    16634,
+    16636
+  ],
+  "accepted_decisions": 3,
+  "validation_errors": [],
+  "strict_citation_count_before": 168,
+  "strict_citation_count_after": 171,
+  "backup": "/private/tmp/research_index.sqlite.before_guangmingbao_1946_issue8_11_visual_review_20260814.sqlite",
+  "citation_scope": "periodical_issue_identity_editorial_title",
+  "body_text_modified": false,
+  "source_pdf_modified": false
+}
