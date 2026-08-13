@@ -4343,6 +4343,7 @@ def domestic_events_page(query: dict[str, list[str]] | None = None) -> bytes:
             continue
         linked = [by_id[cid] for cid in item.get("domestic_candidate_ids", []) if cid in by_id]
         tag = (item.get("event_tags") or [""])[0]
+        primary = _primary_evidence_display(item)
         domestic_link = f"/domestic?event={quote(tag)}" if tag else "/domestic"
         foreign_links = []
         for slug in item.get("foreign_event_slugs", []):
@@ -4351,13 +4352,13 @@ def domestic_events_page(query: dict[str, list[str]] | None = None) -> bytes:
         cards.append(f"""
 <article class="result"><div><h2>{h(item['event_name'])}</h2>
   <div class="meta">国内候选 {len(linked)} 条 · {h(item['domestic_status'])}</div>
-  <div class="tagline"><span class="tag">{h(item['pair_status'])}</span><span class="pstatus {'ok' if item['pair_status'] == 'pair_available' else 'warn'}">{'境外已关联' if item.get('foreign_event_slugs') else '境外待补'}</span></div>
+  <div class="tagline"><span class="tag">{h(item['pair_status'])}</span><span class="pstatus {'ok' if item['pair_status'] == 'pair_available' else 'warn'}">{'境外已关联' if item.get('foreign_event_slugs') else '境外待补'}</span><span class="pstatus {primary['class']}">{h(primary['label'])}</span></div>
   <div class="snippet">{h(item['review_note'])}</div></div>
   <div class="cite"><a href="{h(unified_link)}">统一事件线索</a> · <a href="{h(domestic_link)}">查看国内记录</a>{' · ' + ' · '.join(foreign_links) if foreign_links else ''}</div></article>""")
     selector = '<a class="button secondary" href="/domestic/events">显示全部</a>' if selected else ''
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "关键事件")]) + f"""
 <section class="doc-head"><div><h1>国内关键事件覆盖</h1><div class="meta">国内记录、境外对位和仍待调档的差异说明</div></div><div class="doc-tools"><a class="button" href="/domestic">候选目录</a>{selector}</div></section>
-<div class="notice">“已关联”只表示存在可追踪的境外事件入口，不代表国内原件已经取得；L4/LX 仍停留在线索层。</div>
+<div class="notice">“已关联”只表示存在可追踪的境外事件入口，不代表国内原件已经取得；“一手证据部分闭环”也不等于事件定义原件已完成闭环。L4/LX 仍停留在线索层。</div>
 <section class="result-list">{''.join(cards) or '<div class="notice">未找到该事件。</div>'}</section>"""
     return layout("国内关键事件", body, active_path="/domestic/events")
 
@@ -4377,6 +4378,33 @@ def _load_domestic_event_coverage() -> list[dict[str, object]]:
     except (OSError, json.JSONDecodeError):
         return []
     return [item for item in payload if isinstance(item, dict) and item.get("event_id")]
+
+
+PRIMARY_EVIDENCE_STATUS_META = {
+    "closed": ("一手证据已闭环", "ok"),
+    "partial": ("一手证据部分闭环", "warn"),
+    "unclassified": ("一手证据状态未标注", "warn"),
+}
+
+
+def _primary_evidence_display(item: dict[str, object]) -> dict[str, str]:
+    """Return the declared primary-source closure state without inferring it.
+
+    The event coverage table is an editorial acceptance record. Page counts,
+    OCR status, and foreign links cannot promote a topic to ``closed`` by
+    themselves, so the UI only displays the explicit declaration and gap.
+    """
+    status = str(item.get("primary_evidence_status") or "unclassified")
+    label, css_class = PRIMARY_EVIDENCE_STATUS_META.get(
+        status,
+        (str(item.get("primary_evidence_label") or "一手证据状态未标注"), "warn"),
+    )
+    return {
+        "status": status,
+        "label": str(item.get("primary_evidence_label") or label),
+        "class": css_class,
+        "gap": str(item.get("primary_evidence_gap") or "覆盖表未提供一手证据闭环说明。"),
+    }
 
 
 def _load_topic_comparison_cards() -> dict[str, dict[str, object]]:
@@ -4881,7 +4909,7 @@ def research_topics_page() -> bytes:
   <p class="hero-sub">把国内候选、境外档案和证据缺口放进同一条研究路径。这里的关联是检索与编排层，正式引用仍必须回到原件、页码、哈希和人工复核。</p>
   <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_domestic_documents}</b> 篇国内已入库文档</span><span><b>{total_domestic_pages}</b> 个国内物理页</span><span><b>{total_foreign}</b> 个境外机器命中页</span><span><b>{total_academic}</b> 条学术解释候选</span></div>
 </section>
-<div class="notice"><strong>阅读纪律：</strong>“国内候选”来自事件覆盖表，“境外机器命中”来自关键词检索；二者都不是自动事实确认。打开专题后，可以分别回到国内候选记录、境外原文页和证据缺口说明。</div>
+<div class="notice"><strong>阅读纪律：</strong>“国内候选”来自事件覆盖表，“境外机器命中”来自关键词检索；二者都不是自动事实确认。页面将“研究导航可用”和“一手证据闭环”分开显示：当前有入口不等于关键原件已经取得。打开专题后，可以分别回到国内候选记录、境外原文页和证据缺口说明。</div>
 <section class="result-list">
 """
     for topic in topics:
@@ -4889,13 +4917,15 @@ def research_topics_page() -> bytes:
         comparison = topic.get("comparison") or {}
         status = str(item.get("pair_status") or "待核")
         status_cls = "ok" if status == "pair_available" else "warn"
+        primary = _primary_evidence_display(item)
         body += f"""
 <article class="result">
   <div>
     <h2><a href="/research/{quote(str(item['event_id']))}">{h(item.get('event_name'))}</a></h2>
     <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · 学术解释候选 {h(topic.get('academic_total', 0))} 条 · {h(item.get('domestic_status'))}</div>
-    <div class="tagline"><span class="pstatus {status_cls}">{h(status)}</span>{''.join(f'<span class="tag">{h(tag)}</span>' for tag in item.get('event_tags', []))}</div>
+    <div class="tagline"><span class="pstatus {status_cls}">{h(status)}</span><span class="pstatus {primary['class']}">{h(primary['label'])}</span>{''.join(f'<span class="tag">{h(tag)}</span>' for tag in item.get('event_tags', []))}</div>
     <div class="snippet">{h(item.get('review_note'))}</div>
+    <div class="snippet"><strong>一手闭环缺口：</strong>{h(primary['gap'])}</div>
     <div class="snippet"><strong>对读差异：</strong>{h(comparison.get('difference') or '尚未配置差异卡，暂只显示两侧检索入口。')}</div>
   </div>
   <div class="cite"><a href="/research/{quote(str(item['event_id']))}">打开专题</a><br><a href="/domestic/events?event={quote(str(item['event_id']))}">国内覆盖</a></div>
@@ -4919,6 +4949,7 @@ def research_topic_page(event_id: str) -> bytes:
         return layout("专题未找到", '<div class="notice">没有找到该专题，返回 <a href="/research">多源专题研究</a>。</div>', active_path="/research")
     item = topic["item"]
     comparison = topic.get("comparison") or {}
+    primary = _primary_evidence_display(item)
     foreign_samples: list[dict[str, object]] = []
     with conn() as c:
         for entry in topic["foreign_stats"]:
@@ -5045,8 +5076,9 @@ def research_topic_page(event_id: str) -> bytes:
   <div class="stat"><strong>{h(topic['foreign_documents'])}</strong><span>境外机器命中文档</span></div>
   <div class="stat"><strong>{h(topic['foreign_pages'])}</strong><span>境外机器命中页</span></div>
   <div class="stat"><strong>{h(item.get('pair_status') or '待核')}</strong><span>对位状态</span></div>
+  <div class="stat"><strong>{h(primary['label'])}</strong><span>一手证据闭环</span></div>
 </section>
-<div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。</div>
+<div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br><strong>一手闭环缺口：</strong>{h(primary['gap'])}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。</div>
 {comparison_html}
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>学术研究资料（解释层）</h2><span class="meta">{h(academic_total)} 条机器主题候选</span></div>
 <div class="notice">学术材料用于解释、争议定位和检索扩展；只有全文/页码/哈希/复核齐全后才可能进入正式引用。下方命中依据是书目元数据和结构化主题字段，不是正文语义确认。</div>

@@ -5,6 +5,8 @@ import json
 import hashlib
 import re
 import sqlite3
+import subprocess
+import sys
 from pathlib import Path
 from urllib.parse import quote
 
@@ -42,6 +44,8 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
     assert "学术解释层" in body
     assert "学术研究资料（解释层）" in body
     assert "一手对照" in body
+    assert "一手证据部分闭环" in body
+    assert "一手闭环缺口" in body
     assert "下一步核验" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
@@ -233,6 +237,38 @@ def test_topic_comparison_cards_complete():
         assert isinstance(card["academic_terms"], list) and card["academic_terms"]
         assert all(str(card[field]).strip() for field in required)
         assert "不能" in card["boundary"] or "不得" in card["boundary"]
+
+
+def test_primary_evidence_status_is_explicit():
+    """专题导航不能把页级入口自动升级成一手原件闭环。"""
+    root = Path(__file__).resolve().parents[1]
+    coverage = json.loads((root / "data/domestic/event_coverage.json").read_text(encoding="utf-8"))
+    assert len(coverage) == 9
+    assert all(item.get("primary_evidence_status") in {"partial", "closed"} for item in coverage)
+    assert all(str(item.get("primary_evidence_label")).strip() for item in coverage)
+    assert all(str(item.get("primary_evidence_gap")).strip() for item in coverage)
+    assert sum(item["primary_evidence_status"] == "partial" for item in coverage) == 9
+
+
+def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
+    """可导航专题与已完成一手闭环专题必须是两个独立统计。"""
+    root = Path(__file__).resolve().parents[1]
+    output = tmp_path / "parity.json"
+    command = [
+        sys.executable,
+        str(root / "scripts/domestic/build_domestic_parity_matrix_20260813.py"),
+        "--output",
+        str(output),
+    ]
+    result = subprocess.run(command, cwd=root, capture_output=True, text=True, check=False)
+    assert result.returncode == 0, result.stderr
+    report = json.loads(output.read_text(encoding="utf-8"))
+    summary = report["summary"]
+    assert summary["navigation_ready"] == 9
+    assert summary["research_ready"] == 0
+    assert summary["primary_evidence_partial"] == 9
+    assert all(row["navigation_ready"] for row in report["topics"])
+    assert all(not row["research_ready"] for row in report["topics"])
 
 
 def test_academic_topic_match_uses_metadata_only(tmp_path, monkeypatch):

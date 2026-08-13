@@ -5,6 +5,13 @@
 
 ## 2026-08-14
 
+### 国内专题：拆分导航就绪与一手证据闭环
+
+- `data/domestic/event_coverage.json` 为九个专题补充 `primary_evidence_status`、可读标签和逐专题 `primary_evidence_gap`。
+- `scripts/domestic/build_domestic_parity_matrix_20260813.py` 将原先宽泛的 `research_ready` 拆成 `navigation_ready` 与严格的一手闭环统计；当前九个专题为导航就绪、但一手证据部分闭环。
+- `/domestic/events`、`/research` 和专题详情页同时显示对位状态、一手证据状态及下一步原件缺口。
+- 新增真实数据库回归测试，防止有导航页、严格页或学术元数据时自动宣称关键一手原件已闭环。
+
 ### 国内外统一研究入口：搜索结果补充页级证据状态
 
 - `/search` 的国内命中现在显示 `国内史料` 标签，并从 `page_provenance` 补充“正式可引用”“机器可阅”“原件已锚定·待复核”或“证据待补”。

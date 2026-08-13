@@ -25,6 +25,9 @@
     ],
     "domestic_status": "有公开转录、同期报刊转录和正式汇编L2记录，原件影像待回追",
     "pair_status": "pair_partial",
+    "primary_evidence_status": "partial",
+    "primary_evidence_label": "一手证据部分闭环",
+    "primary_evidence_gap": "成立宣言原件影像、档号与版本关系仍待回追；现有转录和汇编不能替代原始底本。",
     "review_note": "FRUS 1945 文件回顾民盟1941年成立，但不是1941年成立当天的外方记录；国内原件影像仍待回追。"
   },
   {
@@ -62,6 +65,9 @@
     ],
     "domestic_status": "已补入1946年民盟总部官方文献汇编；原刊/原件互校仍待完成",
     "pair_status": "pair_partial",
+    "primary_evidence_status": "partial",
+    "primary_evidence_label": "一手证据部分闭环",
+    "primary_evidence_gap": "改组会议原件、同期刊物原版与1946年汇编之间的版本关系仍待互校。",
     "review_note": "FRUS 1944 文件记录民盟同期政治主张，但不是1944年改组会议记录；国内会议原件仍待查。| Claude Code 2026-07-19 L3→L2 升级（history.state.gov WebFetch 核读）：新增 6 条 FRUS L2 引用——d232/d272/d329/d380/d445/d478；FRUS 是美国国务院正式出版的外交档案集，hagi跳转级"
   },
   {
@@ -103,6 +109,9 @@
     ],
     "domestic_status": "已补入《民憲》连续期同期原刊扫描；民盟正式组织文件仍需原件互校；新增1983《历史文献》组织规程L2页界记录；已挂NLC言论集1945宣言/政治报告L2转载链（同文双源，仍待原件）",
     "pair_status": "pair_partial",
+    "primary_evidence_status": "partial",
+    "primary_evidence_label": "一手证据部分闭环",
+    "primary_evidence_gap": "大会原件或可靠底本的页级链、政治报告/宣言/组织规程的版本和缺页仍待核对。",
     "review_note": "FRUS 1945 文件提供民盟同期对外活动观察，但不是1945年10月第一次全国代表大会直接记录；大会原件仍待查。 2026-07-19 增挂 MMHIST 组织规程 L2 汇编页界候选（PDF124—127），仍不替代原件。 2026-07-19 挂接《中國民主同盟言論集》整本+政治报告+宣言（L2 1945同期选辑转载；与MMHIST 1983汇编为同文双源，≠原件、≠1946文獻正文缺口闭合）。"
   },
   {
@@ -146,6 +155,9 @@
     ],
     "domestic_status": "新增1946-09至11月《光明報》新一至新六号原刊及文章级记录；正式会议档案仍待核",
     "pair_status": "pair_partial",
+    "primary_evidence_status": "partial",
+    "primary_evidence_label": "一手证据部分闭环",
+    "primary_evidence_gap": "正式会议档案、会议日期轴与民盟报刊/人物发言的逐条页级对位仍待核。",
     "review_note": "境外事件页有PCC档案支撑；《光明報》原刊补足旧政协后民盟机关报的直接政治表达，但不替代正式会议档案。"
   },
   {
@@ -186,6 +198,9 @@
     ],
     "domestic_status": "有政协决议转录、官方线索和正式汇编L2发言记录，民盟正式声明原件待查",
     "pair_status": "pair_partial",
+    "primary_evidence_status": "partial",
+    "primary_evidence_label": "一手证据部分闭环",
+    "primary_evidence_gap": "民盟正式声明、函电或可定位的同期报道原件仍待取得，并需记录主体、日期和版本差异。",
     "review_note": "政协决议可作为背景和前置文件，不能直接等同于民盟拒参声明。"
   },
   {
@@ -240,6 +255,9 @@
     ],
     "domestic_status": "已有闻一多演讲公开转录、官方出版史料、期刊追索卡和正式汇编L2声明；NLC《光明報》新二十二號（1947-08-01）邹李闻陶四烈士纪念特辑已完成文章级拆分（整期+社论+21篇目视确认文章，皆L1/needs_human_review或整期accepted），原件级闭环与全文转录仍待查",
     "pair_status": "pair_partial",
+    "primary_evidence_status": "partial",
+    "primary_evidence_label": "一手证据部分闭环",
+    "primary_evidence_gap": "《民主周刊》原版、民盟抗议文件或司法/行政原件的页级闭环与全文转录仍待查。",
     "review_note": "境外事件页有昆明暗杀相关材料；公开转录明确给出1946年7月15日演讲和发表信息；1947年8月1日《光明報》新二十二號特辑文章级页界已目视登记，仍不能替代《民主周刊》原版或民盟抗议文件原件。"
   },
   {
@@ -335,6 +353,9 @@
     ],
     "domestic_status": "已补入1947年《光明報》连续原刊；新十三至新十八、新二十一已完成首面/目录+关键文文章级页码定位（本轮新增19条L1/needs_human_review）；封面出版日已按版出日RTL重核为1947-01至05及07月（纠正常见的Aug–Oct误读）；10月27日公函、11月解散公告和全文转录仍待完成",
     "pair_status": "pair_partial",
+    "primary_evidence_status": "partial",
+    "primary_evidence_label": "一手证据部分闭环",
+    "primary_evidence_gap": "1947-10-27政府公函、1947-11-06解散/宣布非法公告及全文页级转录仍待完成；报刊报道不能替代行政原件。",
     "review_note": "境外事件证据较强；汉口版原刊补足11月4日交涉、11月6日解散报道的全国版别互证，但仍不能替代内政部公函或民盟总部解散公告原件。 | Claude Code 2026-07-19 抽样 accept：issue13/14/15/16-17/18/21 共 19 条 L1 文章级原刊记录级接受（pages 全部在 work/domestic/continue_pages/1947_{13,14,15,16-17,18,21}/ 下，题名/日期/页界与本地页图核对一致；accepted 仅表示记录级入口，不代表全文转录或复制权利完成）"
   },
   {
@@ -370,6 +391,9 @@
     ],
     "domestic_status": "已补入1948—1949年《光明報》代表性原刊；逐页转录和大会档案互校仍待完成",
     "pair_status": "pair_available",
+    "primary_evidence_status": "partial",
+    "primary_evidence_label": "一手证据部分闭环",
+    "primary_evidence_gap": "中央档案条目的原始页、档号、页码和复制权利仍待人工复核；三中全会、五一口号和香港传播需拆成独立证据单元。",
     "review_note": "中央档案馆官方条目页可直接追踪，但档号、页码和复制权利仍需人工复核。"
   },
   {
@@ -553,6 +577,9 @@
     ],
     "domestic_status": "已补入1948—1949年《光明報》代表性原刊；逐页转录和大会档案互校仍待完成",
     "pair_status": "pair_partial",
+    "primary_evidence_status": "partial",
+    "primary_evidence_label": "一手证据部分闭环",
+    "primary_evidence_gap": "1949年新政协正式会议档案、代表名单、发言和民盟内部文件仍待逐页取得与对位；现有报刊样本不等同于完整会议档案。",
     "review_note": "2026-07-19激进瘦身：默认仅保留SAAC且L1（或题名明确一届全会/新政协/开国/筹备会）、NLC《光明報》v2n1/v2n12整期与文章，及题名/日期明确1949且直接相关的少量L2–L4线索（≤15）；已移出1948输送计划/进入解放区动员/纲领草案初稿与泛盟史L4。境外事件页仍偏北平和平接触，一届全会境外对应待建。"
   }
 ]

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Build a metadata-only domestic/foreign/academic parity acceptance matrix.
 
-The matrix is a gap detector, not a claim generator.  It measures whether
-each declared domestic topic has a navigation chain, a strictly human-verified
-domestic page, a metadata-matched academic explanation, and a shared foreign
-event index entry.  It never reads page bodies and never changes a database.
+The matrix is a gap detector, not a claim generator. It measures navigation
+readiness, strict page availability, metadata-matched academic explanation,
+shared foreign event indexing, and the separately declared primary-evidence
+closure status. It never reads page bodies and never changes a database.
 """
 
 from __future__ import annotations
@@ -103,7 +103,8 @@ def main() -> int:
                 gaps.append("no_metadata_matched_academic_record")
             if not any(value["rows"] for value in foreign.values()):
                 gaps.append("foreign_slug_not_in_shared_event_index")
-            status = "research_ready" if not gaps else ("citation_gap" if domestic["pages"] and domestic["citation_pages"] == 0 else "navigation_gap")
+            navigation_status = "navigation_ready" if not gaps else ("citation_gap" if domestic["pages"] and domestic["citation_pages"] == 0 else "navigation_gap")
+            primary_status = str(item.get("primary_evidence_status") or "unclassified")
             topics.append(
                 {
                     "event_id": event_id,
@@ -116,7 +117,15 @@ def main() -> int:
                         "shown_record_ids": academic.get("shown_record_ids", []),
                     },
                     "foreign": foreign,
-                    "status": status,
+                    # Keep navigation and primary-source closure separate. A
+                    # topic can be usable for discovery while still lacking
+                    # the event-defining original document.
+                    "status": navigation_status,
+                    "navigation_ready": navigation_status == "navigation_ready",
+                    "primary_evidence_status": primary_status,
+                    "primary_evidence_label": item.get("primary_evidence_label", "一手证据状态未标注"),
+                    "primary_evidence_gap": item.get("primary_evidence_gap", "覆盖表未提供一手证据闭环说明。"),
+                    "research_ready": navigation_status == "navigation_ready" and primary_status == "closed",
                     "gaps": gaps,
                     "next_action": cards.get(event_id, {}).get("next_action", "")
                 }
@@ -124,7 +133,15 @@ def main() -> int:
 
         summary = {
             "topics": len(topics),
-            "research_ready": sum(row["status"] == "research_ready" for row in topics),
+            # `research_ready` is intentionally strict: it no longer means
+            # merely that a topic has navigation, academic metadata and one
+            # strict page. The former broad count is exposed as
+            # `navigation_ready` instead.
+            "research_ready": sum(row["research_ready"] for row in topics),
+            "navigation_ready": sum(row["navigation_ready"] for row in topics),
+            "primary_evidence_partial": sum(row["primary_evidence_status"] == "partial" for row in topics),
+            "primary_evidence_closed": sum(row["primary_evidence_status"] == "closed" for row in topics),
+            "primary_evidence_unclassified": sum(row["primary_evidence_status"] == "unclassified" for row in topics),
             "citation_gap": sum(row["status"] == "citation_gap" for row in topics),
             "navigation_gap": sum(row["status"] == "navigation_gap" for row in topics),
             "topics_with_strict_citation": sum(row["domestic"]["citation_pages"] > 0 for row in topics),
