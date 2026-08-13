@@ -6,6 +6,7 @@ import hashlib
 import re
 import sqlite3
 from pathlib import Path
+from urllib.parse import quote
 
 import pytest
 import requests
@@ -108,6 +109,43 @@ def test_domestic_event_index_links_only_domestic_pages(db_missing_reason):
     assert rows >= 400
     assert pages >= 400
     assert bad == 0
+
+
+def test_domestic_candidate_detail_is_traceable(live_server, db_missing_reason):
+    """候选目录必须能进入集中展示来源链、权利和复核状态的详情页。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证国内候选详情: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        candidate_id = connection.execute(
+            "SELECT candidate_id FROM domestic_candidates ORDER BY id LIMIT 1"
+        ).fetchone()[0]
+    status, body = fetch(live_server, f"/domestic/candidate/{quote(candidate_id, safe='')}")
+    assert status == 200
+    assert body is not None
+    assert "形成与目录" in body
+    assert "获取与权利" in body
+    assert "证据边界" in body
+    assert candidate_id in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
+def test_public_mode_hides_internal_candidate_detail(live_server, db_missing_reason):
+    """公开模式不能通过直接猜 URL 读取 L4/LX 内部线索详情。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证公开模式: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        row = connection.execute(
+            "SELECT candidate_id FROM domestic_candidates WHERE authenticity_level_proposed IN ('L4', 'LX') ORDER BY id LIMIT 1"
+        ).fetchone()
+    if row is None:
+        pytest.skip("没有 L4/LX 候选可用于公开模式边界测试")
+    candidate_id = row[0]
+    status, body = fetch(live_server, f"/domestic/candidate/{quote(candidate_id, safe='')}?public=1")
+    assert status == 200
+    assert body is not None
+    assert "国内候选未找到" in body
+    assert candidate_id not in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
 
 
 def test_event_coverage_has_no_dangling_links(db_missing_reason):

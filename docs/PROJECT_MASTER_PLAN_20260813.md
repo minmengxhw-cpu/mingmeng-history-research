@@ -34,6 +34,7 @@
 - `/timeline?platform=domestic`：把国内材料纳入全站年表过滤器。
 - `/events?topic=domestic-1941-formation`：国内专题进入与境外专题相同的事件线索页，可回到国内原文页、证据复核和专题对读。
 - `/domestic/review`：国内候选与页级引用复核队列。
+- `/domestic/candidate/<candidate_id>`：单条候选的形成者、馆藏、档号/卷期、访问权利、证据说明、编辑状态和已入库原件回链；只展示追溯字段，不把候选自动变成正式引文。
 - `/domestic/evidence-review/<page_id>`：对照原件、页码和 SHA256 后，人工写入复核说明；未确认不会升级 `citation_ready`。
 - 关联状态只作为导航，不自动改变 `citation_ready`。
 - `scripts/domestic/link_domestic_event_pages_20260813.py` 负责幂等、可审计的增量关联；`scripts/build/build_event_timeline.py` 重建事件索引时会保留这条国内关联链。
@@ -81,9 +82,10 @@
 
 - 专题索引可从首页和国内页进入。
 - 九个专题都有国内候选、境外入口和差异卡；缺口仍明确展示。
+- 国内候选从筛选结果可进入独立详情页，形成者、保管机构、档号/卷期、访问权利、事件/人物/地点标签和编辑状态集中可追溯；已入库文档保留回链。
 - 国内学术层有独立入口、来源分级、全文/引用状态说明和机构元数据分布。
 - 国内外统计只来自可重算的当前数据库/覆盖表。
-- `python3 -B -m pytest -q`：28 passed，1 warning。
+- `python3 -B -m pytest -q`：30 passed，1 warning；包含候选详情、公开模式边界、专题对读、学术层和国内事件索引回归。
 
 ## 当前收口验收结果
 

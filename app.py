@@ -3013,19 +3013,20 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
             display_rows = list_rows[:120]
             for row in display_rows:
                 link = row["source_url"] or "#"
+                detail_link = f"/domestic/candidate/{quote(str(row['candidate_id']), safe='')}"
                 lvl = _domestic_level(row)
                 bg = _domestic_is_background_candidate(row)
                 layer_tag = "背景线索" if bg else "核心候选"
                 body += f"""
 <article class="result">
   <div>
-    {title_block(row["title"], link)}
+    {title_block(row["title"], detail_link)}
     <div class="meta">{h(row["document_type"])} · 等级 {h(lvl or row["authenticity_level_proposed"])} · 相关度 {h(row["relevance_grade_proposed"])}</div>
     <div class="tagline"><span class="tag">{h(layer_tag)}</span><span class="tag">{h(row["candidate_id"])}</span><span class="pstatus warn">{h(row["review_status"])}</span></div>
     <div class="snippet">{h(row["evidence_note"])}</div>
     <div class="snippet"><strong>不确定性：</strong>{h(row["uncertainty_note"])}</div>
   </div>
-  <div class="cite"><a href="{h(link)}" target="_blank" rel="noreferrer">打开来源</a></div>
+  <div class="cite"><a href="{h(detail_link)}">记录详情</a><br><a href="{h(source_href(link))}" target="_blank" rel="noreferrer">打开来源</a></div>
 </article>"""
             if len(list_rows) > len(display_rows):
                 body += f'<div class="notice">仅显示前 {h(len(display_rows))} 条，请用筛选缩小范围。共 {h(len(list_rows))} 条。</div>'
@@ -3061,6 +3062,115 @@ def _domestic_rows() -> list[sqlite3.Row]:
     if getattr(_request, "public_mode", False):
         rows = [row for row in rows if row["authenticity_level_proposed"] in {"L0", "L1", "L2", "L3"}]
     return rows
+
+
+def _domestic_candidate_row(candidate_id: str) -> sqlite3.Row | None:
+    """读取单条国内候选的完整追溯字段；不读取本地正文。"""
+    with conn() as c:
+        return c.execute(
+            "SELECT * FROM domestic_candidates WHERE candidate_id=?",
+            (candidate_id,),
+        ).fetchone()
+
+
+def domestic_candidate_page(candidate_id: str) -> bytes:
+    """国内候选详情：把目录、来源、权利和复核状态集中展示。"""
+    row = _domestic_candidate_row(candidate_id)
+    if getattr(_request, "public_mode", False) and row and row["authenticity_level_proposed"] not in {"L0", "L1", "L2", "L3"}:
+        row = None
+    if not row:
+        return layout(
+            "国内候选未找到",
+            '<div class="notice">没有找到这条国内候选记录，请返回 <a href="/domestic">国内史料库</a>。</div>',
+            active_path="/domestic",
+        )
+
+    level = row["authenticity_level_accepted"] or row["authenticity_level_proposed"] or "未分级"
+    source_url = source_href(row["source_url"])
+    source_link = (
+        f'<a class="button" href="{h(source_url)}" target="_blank" rel="noreferrer">打开来源入口</a>'
+        if source_url != "#" else
+        '<span class="button secondary">暂无公开来源入口</span>'
+    )
+    document = None
+    if row["ingested_document_id"]:
+        with conn() as c:
+            document = c.execute(
+                "SELECT doc_key,title FROM documents WHERE id=? AND source_platform='domestic'",
+                (row["ingested_document_id"],),
+            ).fetchone()
+    document_link = ""
+    if document:
+        document_link = (
+            f'<a class="button secondary" href="/doc/{quote(str(document["doc_key"]))}">'
+            f'打开已入库原件：{h(document["title"] or document["doc_key"])}'
+            "</a>"
+        )
+
+    def field(name: str, empty: str = "未标注") -> str:
+        value = row[name]
+        return h(value if value not in (None, "") else empty)
+
+    event_tags = _domestic_tag_values(row["event_tags"])
+    person_tags = _domestic_tag_values(row["person_tags"])
+    place_tags = _domestic_tag_values(row["place_tags"])
+    event_links = "、".join(
+        f'<a href="/domestic?event={quote(tag)}">{h(tag)}</a>' for tag in event_tags
+    ) or "未标注"
+    body = breadcrumb_html([
+        ("/domestic", "国内史料"),
+        (None, str(row["title"] or row["candidate_id"])),
+    ]) + f"""
+<section class="doc-head">
+  <div>
+    <h1>{h(row["title"] or row["candidate_id"])}</h1>
+    <div class="meta">候选 ID：{h(row["candidate_id"])} · {h(row["review_status"] or "未标注")}</div>
+  </div>
+  <div class="doc-tools">{source_link}{document_link}<a class="button secondary" href="/domestic/review">进入复核看板</a></div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{h(level)}</strong><span>原始性等级</span></div>
+  <div class="stat"><strong>{field("relevance_grade_accepted", field("relevance_grade_proposed", "未分级"))}</strong><span>相关度</span></div>
+  <div class="stat"><strong>{field("review_status")}</strong><span>复核状态</span></div>
+  <div class="stat"><strong>{field("rights_status")}</strong><span>权利状态</span></div>
+</section>
+<div class="notice"><strong>证据边界：</strong>本页是候选记录的来源链和编辑状态，不代表已经取得原件全文。只有页级 provenance、原件/影像对照和人工复核门禁齐全后，才可生成正式引文。</div>
+<section class="reader">
+  <article class="pane">
+    <div class="pane-head"><span>形成与目录</span><span>{h(row["document_type"] or "资料")}</span></div>
+    <div class="pane-body">
+      <p><strong>形成者：</strong>{field("creator")}</p>
+      <p><strong>形成日期：</strong>{field("document_date")}</p>
+      <p><strong>载体/介质：</strong>{field("medium")}</p>
+      <p><strong>保管机构：</strong>{field("repository_name")}</p>
+      <p><strong>来源代码：</strong>{field("repository_code")}</p>
+      <p><strong>馆藏名称：</strong>{field("collection_name")}</p>
+      <p><strong>档号/卷期：</strong>{field("catalog_reference")}</p>
+      <p><strong>全宗：</strong>{field("archive_fonds")} · <strong>案卷：</strong>{field("archive_file")} · <strong>件：</strong>{field("archive_item")}</p>
+      <p><strong>来源入口角色：</strong>{field("source_url_role")}</p>
+    </div>
+  </article>
+  <article class="pane">
+    <div class="pane-head"><span>获取与权利</span><span>{h(row["access_mode"] or "未标注")}</span></div>
+    <div class="pane-body">
+      <p><strong>访问方式：</strong>{field("access_mode")}</p>
+      <p><strong>在线可得性：</strong>{field("online_availability")}</p>
+      <p><strong>访问说明：</strong>{field("access_note")}</p>
+      <p><strong>权利状态：</strong>{field("rights_status")}</p>
+      <p><strong>再利用依据：</strong>{field("rights_basis")}</p>
+      <p><strong>复制许可：</strong>{field("copy_allowed")}</p>
+      <p><strong>获取日期：</strong>{field("checked_at")}</p>
+      <p><strong>核验者：</strong>{field("checked_by")}</p>
+    </div>
+  </article>
+</section>
+<section class="result-list">
+  <article class="result"><div><h2>研究归属</h2><div class="meta">事件：{event_links}</div><div class="meta">人物：{h("、".join(person_tags) or "未标注")} · 地点：{h("、".join(place_tags) or "未标注")}</div></div></article>
+  <article class="result"><div><h2>证据说明</h2><div class="snippet">{field("evidence_note")}</div><div class="snippet"><strong>不确定性：</strong>{field("uncertainty_note")}</div></div></article>
+  <article class="result"><div><h2>编辑记录</h2><div class="meta">拟议等级：{field("authenticity_level_proposed")} · 接受等级：{field("authenticity_level_accepted")} · 相关度：{field("relevance_grade_proposed")}</div><div class="snippet">复核备注：{field("review_note")}<br>处理结论：{field("check_outcome")}</div></div></article>
+</section>
+"""
+    return layout("国内候选详情", body, active_path="/domestic")
 
 
 def domestic_quality_page() -> bytes:
@@ -9379,6 +9489,9 @@ class Handler(BaseHTTPRequestHandler):
             payload = domestic_quality_page()
         elif parsed.path == "/domestic/academic":
             payload = domestic_academic_page()
+        elif parsed.path.startswith("/domestic/candidate/"):
+            candidate_id = unquote(parsed.path.removeprefix("/domestic/candidate/"))
+            payload = domestic_candidate_page(candidate_id)
         elif parsed.path == "/domestic/sources":
             payload = domestic_sources_page()
         elif parsed.path == "/domestic/events":
