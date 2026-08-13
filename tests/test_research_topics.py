@@ -68,12 +68,62 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
     assert "一手证据部分闭环" in body
     assert "一手闭环缺口" in body
     assert "四层证据链" in body
+    assert "打开研究包" in body
     assert "主证据（页级）" in body
     assert "同期交叉" in body
     assert "负向核查" in body
     assert "仍待补原件" in body
     assert "下一步核验" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
+
+
+def test_research_packet_is_metadata_only_and_page_traceable():
+    """专题研究包必须可回链到页级证据，且不得复制正文。"""
+    import app
+
+    app._request.public_mode = False
+    from scripts.domestic.research_packet import build_research_packet, packet_json_bytes, research_packet_page
+
+    packet = build_research_packet("domestic-1945-first-congress")
+    assert packet is not None
+    assert packet["counts"]["evidence_chain_page_items"] == 34
+    assert packet["counts"]["evidence_chain_resolved_page_items"] == 34
+    assert packet["counts"]["evidence_chain_strict_gate_passed"] == 34
+    assert packet["audit"]["body_text_included"] is False
+    assert packet["audit"]["ocr_text_included"] is False
+    assert packet["audit"]["verbatim_quote_included"] is False
+    assert packet["audit"]["page_rows_all_resolved"] is True
+    raw = packet_json_bytes("domestic-1945-first-congress").decode("utf-8")
+    assert '"text"' not in raw
+    assert "原文摘录：" not in raw
+    assert "/cite/20149" in raw
+    body = research_packet_page("domestic-1945-first-congress").decode("utf-8")
+    assert "专题研究包" in body
+    assert "正文未复制" in body
+    assert "仍待补原件" in body
+    assert "数据库 SHA256" in body
+    assert "原文摘录：" not in body
+    assert "中文译文（" not in body
+
+
+def test_research_packet_route_and_json(live_server, db_missing_reason):
+    """研究包页面和 JSON 下载路由必须从真实 HTTP 入口可用。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证专题研究包路由: {db_missing_reason}")
+    status, body = fetch(live_server, "/research/domestic-1945-first-congress/packet")
+    assert status == 200
+    assert body is not None
+    assert "专题研究包" in body
+    assert "正文未复制" in body
+    assert "下载 JSON" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+    status, body = fetch(live_server, "/research/domestic-1945-first-congress/packet.json")
+    assert status == 200
+    assert body is not None
+    packet = json.loads(body)
+    assert packet["event_id"] == "domestic-1945-first-congress"
+    assert packet["audit"]["body_text_included"] is False
+    assert '"text"' not in body
 
 
 def test_domestic_academic_layer_smoke(live_server):
@@ -265,7 +315,7 @@ def test_domestic_non_strict_citation_stays_blocked(live_server, db_missing_reas
     assert status == 200
     assert body is not None
     assert "引用门禁未通过" in body
-    assert "不可直接引用" in body
+    assert "不生成正式引文" in body
     assert "国内页级 provenance" not in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
@@ -533,8 +583,8 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
     assert summary["evidence_chain_ready"] == 9
-    assert summary["evidence_chain_page_items"] == 69
-    assert summary["evidence_chain_strict_items"] == 61
+    assert summary["evidence_chain_page_items"] == 73
+    assert summary["evidence_chain_strict_items"] == 65
     assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
     assert all(row["evidence_chain_ready"] for row in report["topics"])
@@ -561,8 +611,8 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
-    assert report["page_items"] == 69
-    assert report["strict_citation_items"] == 61
+    assert report["page_items"] == 73
+    assert report["strict_citation_items"] == 65
 
 
 def test_1949_new_pcc_chain_contains_verified_saac_image_pages():
@@ -811,10 +861,13 @@ def test_domestic_manifest_and_strict_citation_gate(db_missing_reason):
     assert 100 <= len(strict_rows) <= 200
     assert manifest["counts"]["strict_human_citation_pages"] == len(strict_rows)
     for page_id, source_file, source_sha256, pdf_page_no, page_url, note in strict_rows:
-        assert str(source_file).lower().endswith(".pdf"), page_id
+        assert Path(str(source_file)).suffix.lower() in {".pdf", ".jpg", ".jpeg", ".png"}, page_id
         assert re.fullmatch(r"[0-9a-f]{64}", str(source_sha256 or "").lower()), page_id
-        assert re.search(r"#page=0*%d(?:$|[^0-9])" % int(pdf_page_no), str(page_url or "")), page_id
-        assert "Codex" in str(note)
+        if pdf_page_no:
+            assert re.search(r"#page=0*%d(?:$|[^0-9])" % int(pdf_page_no), str(page_url or "")), page_id
+        else:
+            assert Path(str(source_file)).suffix.lower() in {".jpg", ".jpeg", ".png"}, page_id
+        assert "codex" in str(note).lower()
 
 
 def test_research_question_benchmark_covers_all_domestic_topics(tmp_path, db_missing_reason):

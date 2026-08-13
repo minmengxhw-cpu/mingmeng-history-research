@@ -15,6 +15,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, quote, unquote, urlparse
 
+from scripts.domestic.research_packet import packet_json_bytes, research_packet_page
+
 # 当前请求路径的 thread-local 容器，layout() 用来自动 highlight 当前导航
 _request = threading.local()
 
@@ -4385,9 +4387,9 @@ def domestic_sources_page() -> bytes:
             f'</div><div class="cite"><a href="/domestic/sources?q={quote(family)}">查看</a></div></article>'
         )
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "来源地图")]) + f"""
-<section class="doc-head"><div><h1>国内来源与馆藏地图</h1><div class="meta">来源家族、权威入口、访问方式与上海关联度</div></div><div class="doc-tools"><a class="button" href="/domestic">候选目录</a></div></section>
+<section class="doc-head"><div><h1>国内研究平台：来源与馆藏地图</h1><div class="meta">来源家族、权威入口、访问方式与上海关联度</div></div><div class="doc-tools"><a class="button" href="/domestic">候选目录</a></div></section>
 <section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>来源卡</span></div><div class="stat"><strong>{h(sum(1 for row in rows if row['access_mode'] == 'open'))}</strong><span>开放入口</span></div><div class="stat"><strong>{h(sum(1 for row in rows if row['rights_status'] != 'public'))}</strong><span>权利待核</span></div></section>
-<div class="notice">来源卡是检索入口，不等于已取得原件；记录级档号、卷期、影像和复制权利仍以候选卡的复核结果为准。</div>
+<div class="notice"><strong>国内史料层：</strong>来源卡是检索入口，不等于已取得原件；记录级档号、卷期、影像和复制权利仍以候选卡的复核结果为准。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-building"/></svg>五个来源家族</h2></div><section class="result-list">{''.join(family_rows)}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>来源卡明细</h2></div><section class="result-list">"""
     for row in rows:
@@ -5262,7 +5264,7 @@ def research_topics_page() -> bytes:
     <div class="snippet"><strong>一手闭环缺口：</strong>{h(primary['gap'])}</div>
     <div class="snippet"><strong>对读差异：</strong>{h(comparison.get('difference') or '尚未配置差异卡，暂只显示两侧检索入口。')}</div>
   </div>
-  <div class="cite"><a href="/research/{quote(str(item['event_id']))}">打开专题</a><br><a href="/domestic/events?event={quote(str(item['event_id']))}">国内覆盖</a></div>
+  <div class="cite"><a href="/research/{quote(str(item['event_id']))}">打开专题</a><br><a href="/research/{quote(str(item['event_id']))}/packet">研究包</a><br><a href="/domestic/events?event={quote(str(item['event_id']))}">国内覆盖</a></div>
 </article>"""
     body += "</section>"
     body += """
@@ -5403,7 +5405,7 @@ def research_topic_page(event_id: str) -> bytes:
     body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
 <section class="doc-head">
   <div><h1>{h(item.get('event_name'))}</h1><div class="meta">{h(item.get('domestic_status'))}</div></div>
-  <div class="doc-tools"><a class="button" href="/research">专题索引</a><a class="button secondary" href="/events?topic={quote(event_id)}">统一事件线索</a><a class="button secondary" href="{event_link}">国内覆盖</a></div>
+  <div class="doc-tools"><a class="button" href="/research">专题索引</a><a class="button secondary" href="/research/{quote(event_id)}/packet">打开研究包</a><a class="button secondary" href="/events?topic={quote(event_id)}">统一事件线索</a><a class="button secondary" href="{event_link}">国内覆盖</a></div>
 </section>
 <section class="stats">
   <div class="stat"><strong>{len(topic['domestic_rows'])}</strong><span>国内候选关联</span></div>
@@ -10140,6 +10142,25 @@ class Handler(BaseHTTPRequestHandler):
             payload = research_topics_page()
         elif parsed.path == "/research/gaps":
             payload = research_gaps_page()
+        elif parsed.path.startswith("/research/") and parsed.path.endswith("/packet.json"):
+            packet_event_id = unquote(parsed.path.removeprefix("/research/").removesuffix("/packet.json").rstrip("/"))
+            packet_payload = packet_json_bytes(packet_event_id)
+            if packet_payload is None:
+                self.send_response(404)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(packet_payload)))
+            self.send_header("Content-Disposition", f"attachment; filename=\"{quote(packet_event_id, safe='-_.')}.json\"")
+            self.end_headers()
+            self.wfile.write(packet_payload)
+            return
+        elif parsed.path.startswith("/research/") and parsed.path.endswith("/packet"):
+            packet_event_id = unquote(parsed.path.removeprefix("/research/").removesuffix("/packet").rstrip("/"))
+            payload = research_packet_page(packet_event_id)
         elif parsed.path.startswith("/research/"):
             payload = research_topic_page(unquote(parsed.path.removeprefix("/research/")))
         elif parsed.path == "/domestic/people":
