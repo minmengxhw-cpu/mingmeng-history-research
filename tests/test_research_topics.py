@@ -33,6 +33,24 @@ def test_research_topics_smoke(live_server, db_missing_reason):
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_research_gap_dashboard_smoke(live_server, db_missing_reason):
+    """开放主证据目标必须能从专题索引进入执行看板。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证国内证据缺口看板: {db_missing_reason}")
+    status, body = fetch(live_server, "/research/gaps")
+    assert status == 200
+    assert body is not None
+    assert "国内一手证据收口看板" in body
+    assert "9" in body
+    assert "开放目标" in body
+    assert "为什么重要" in body
+    assert "下一步" in body
+    assert "1941年中国民主政团同盟成立" in body
+    assert "1949年新政协筹备" in body
+    assert "专题详情" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
 def test_research_topic_detail_smoke(live_server, db_missing_reason):
     if db_missing_reason:
         pytest.skip(f"数据库缺失,无法验证专题详情: {db_missing_reason}")

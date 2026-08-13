@@ -4599,6 +4599,139 @@ def _topic_evidence_chain_summary(chain: dict[str, object] | None) -> dict[str, 
     }
 
 
+def _research_gap_rows() -> list[dict[str, object]]:
+    """把专题证据链中的开放主证据目标展开成执行看板。
+
+    该看板只读取覆盖表、证据链和候选元数据，不读取正文，也不把候选
+    记录自动升级为原件。每一行都必须来自 ``missing_primary``，这样页面
+    显示的是明确登记的开放目标，而不是根据搜索结果臆测出的“缺口”。
+    """
+    coverage = _load_domestic_event_coverage()
+    comparison_cards = _load_topic_comparison_cards()
+    evidence_chains = _load_topic_evidence_chains()
+    try:
+        domestic_rows = _domestic_rows()
+    except sqlite3.OperationalError:
+        domestic_rows = []
+    domestic_by_id = {str(row["candidate_id"]): row for row in domestic_rows}
+    result: list[dict[str, object]] = []
+    for item in coverage:
+        event_id = str(item.get("event_id") or "")
+        chain = evidence_chains.get(event_id) or {}
+        layers = chain.get("layers") if isinstance(chain.get("layers"), dict) else {}
+        missing = layers.get("missing_primary", []) if isinstance(layers, dict) else []
+        if not isinstance(missing, list):
+            missing = []
+        comparison = comparison_cards.get(event_id) or {}
+        candidate_ids = [str(value) for value in item.get("domestic_candidate_ids", [])]
+        linked_candidates = [
+            domestic_by_id[candidate_id]
+            for candidate_id in candidate_ids
+            if candidate_id in domestic_by_id
+        ]
+        candidate_cards = [
+            {
+                "candidate_id": str(row["candidate_id"]),
+                "title": str(row["title"] or row["candidate_id"]),
+                "level": str(_domestic_level(row) or row["authenticity_level_proposed"] or "未分级"),
+                "review_status": str(row["review_status"] or "未标注"),
+            }
+            for row in linked_candidates
+        ]
+        layer_counts = {
+            layer: len(layers.get(layer, [])) if isinstance(layers.get(layer), list) else 0
+            for layer in CHAIN_LAYER_META
+        }
+        for index, target in enumerate(missing, start=1):
+            if not isinstance(target, dict):
+                continue
+            result.append(
+                {
+                    "gap_id": f"{event_id}#{index}",
+                    "event_id": event_id,
+                    "event_name": str(item.get("event_name") or event_id),
+                    "event_tags": item.get("event_tags") or [],
+                    "research_question": str(comparison.get("research_question") or ""),
+                    "primary_evidence_label": str(item.get("primary_evidence_label") or "一手证据状态未标注"),
+                    "primary_evidence_gap": str(item.get("primary_evidence_gap") or ""),
+                    "target": str(target.get("target") or target.get("label") or "未命名开放目标"),
+                    "why_it_matters": str(target.get("why_it_matters") or ""),
+                    "next_action": str(target.get("next_action") or ""),
+                    "status": str(target.get("status") or "open"),
+                    "candidate_count": len(candidate_cards),
+                    "candidates": candidate_cards[:6],
+                    "candidate_overflow": max(0, len(candidate_cards) - 6),
+                    "layer_counts": layer_counts,
+                }
+            )
+    return result
+
+
+def research_gaps_page() -> bytes:
+    """国内一手证据的开放目标看板；只展示可执行的元数据缺口。"""
+    gaps = _research_gap_rows()
+    event_ids = list(dict.fromkeys(str(row["event_id"]) for row in gaps))
+    open_count = sum(row["status"] == "open" for row in gaps)
+    candidate_count = sum(int(row["candidate_count"]) for row in gaps)
+    grouped: dict[str, list[dict[str, object]]] = {}
+    for gap in gaps:
+        grouped.setdefault(str(gap["event_id"]), []).append(gap)
+
+    topic_sections: list[str] = []
+    for event_id in event_ids:
+        event_gaps = grouped[event_id]
+        first = event_gaps[0]
+        target_cards: list[str] = []
+        for gap in event_gaps:
+            candidates = gap.get("candidates") or []
+            candidate_links = " · ".join(
+                f'<a href="/domestic/candidate/{quote(str(candidate["candidate_id"]), safe="")}">{h(candidate["title"])}</a>'
+                f' <span class="meta">{h(candidate["level"])} / {h(candidate["review_status"])}</span>'
+                for candidate in candidates
+            )
+            if int(gap["candidate_overflow"]):
+                candidate_links += f' · <span class="meta">另有 {h(gap["candidate_overflow"])} 条候选记录</span>'
+            if not candidate_links:
+                candidate_links = '<span class="meta">当前没有可见候选记录，需从来源目录重新定位。</span>'
+            layers = gap["layer_counts"]
+            target_cards.append(
+                f"""
+<article class="result compact-result evidence-gap-item">
+  <div>
+    <h3>{h(gap["target"])}</h3>
+    <div class="tagline"><span class="pstatus warn">{h(gap["status"])}</span><span class="tag">主证据 {h(layers["primary"])} 条</span><span class="tag">同期交叉 {h(layers["cross_source"])} 条</span><span class="tag">候选关联 {h(gap["candidate_count"])} 条</span></div>
+    <div class="snippet"><strong>为什么重要：</strong>{h(gap["why_it_matters"] or "证据链未登记原因，需先补充审计说明。")}</div>
+    <div class="snippet"><strong>下一步：</strong>{h(gap["next_action"] or "证据链未登记下一步，暂不进入收口。")}</div>
+    <div class="snippet"><strong>相关候选：</strong>{candidate_links}</div>
+  </div>
+  <div class="cite"><a href="/research/{quote(str(gap["event_id"]))}">专题详情</a><br><a href="/domestic/acquisition">调档清单</a></div>
+</article>"""
+            )
+        topic_sections.append(
+            f"""
+<div class="section-head"><h2><a href="/research/{quote(event_id)}">{h(first["event_name"])}</a></h2><span class="meta">{h(first["primary_evidence_label"])} · {len(event_gaps)} 个开放目标</span></div>
+<div class="notice"><strong>研究问题：</strong>{h(first["research_question"] or "尚未登记研究问题。")}<br><strong>专题边界：</strong>{h(first["primary_evidence_gap"] or "尚未登记一手闭环边界。")}</div>
+<section class="result-list">{"".join(target_cards)}</section>"""
+        )
+
+    body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, "一手证据收口看板")]) + f"""
+<section class="hero hero-compact">
+  <div class="hero-eyebrow">DOMESTIC PRIMARY EVIDENCE CLOSEOUT</div>
+  <h1>国内一手证据收口看板</h1>
+  <p class="hero-sub">把九个专题的开放主证据目标变成可执行的追索清单。这里显示的是证据链明确登记的缺口，不是“没有资料”的断言；候选记录、报刊报道和汇编页都不会自动替代待补原件。</p>
+  <div class="hero-chips"><span><b>{h(len(event_ids))}</b> 个专题</span><span><b>{h(open_count)}</b> 个开放目标</span><span><b>{h(candidate_count)}</b> 条候选关联</span><span><b>0</b> 项自动升级</span></div>
+</section>
+<div class="notice"><strong>执行规则：</strong>先按“下一步”取得或定位原件，再记录馆藏档号/卷期、版本关系、页级 provenance、源文件 SHA256 和人工复核结果；完成前保持开放状态。正式引用请回到专题详情和 <a href="/domestic/review">国内复核看板</a>，不要把本页当成原件正文。</div>
+{"".join(topic_sections) or '<div class="notice">当前没有从证据链读取到开放目标；请先运行证据链校验器。</div>'}
+<section class="doc-tools" style="margin-top:20px;justify-content:center;">
+  <a class="button" href="/research">返回专题索引</a>
+  <a class="button" href="/domestic/acquisition">完整调档清单</a>
+  <a class="button" href="/domestic/review">国内复核看板</a>
+</section>
+"""
+    return layout("国内一手证据收口看板", body, active_path="/research")
+
+
 def _load_academic_source_policy() -> dict[str, object]:
     """读取学术层口径；缺文件时返回安全的空策略。"""
     if not ACADEMIC_SOURCE_POLICY_PATH.is_file():
@@ -5125,6 +5258,7 @@ def research_topics_page() -> bytes:
     body += """
 <section class="doc-tools" style="margin-top:20px;justify-content:center;">
   <a class="button" href="/align">多源对位视图</a>
+  <a class="button" href="/research/gaps">一手证据收口看板</a>
   <a class="button" href="/domestic">国内史料库</a>
   <a class="button" href="/domestic/academic">学术研究层</a>
   <a class="button" href="/events/key">境外关键事件</a>
@@ -5284,7 +5418,7 @@ def research_topic_page(event_id: str) -> bytes:
 {foreign_html}
 <section class="doc-head" style="margin-top:20px;background:var(--panel-warm);border-left:4px solid var(--accent);">
   <div><h2>下一步核验</h2><div class="meta">优先核对原件、档号/卷期、日期冲突和页码；只有人工复核后才进入正式引用层。</div></div>
-  <div class="doc-tools"><a class="button" href="/domestic/review">国内复核看板</a><a class="button" href="/domestic/acquisition">调档清单</a></div>
+  <div class="doc-tools"><a class="button" href="/research/gaps">一手证据收口看板</a><a class="button" href="/domestic/review">国内复核看板</a><a class="button" href="/domestic/acquisition">调档清单</a></div>
 </section>
 """
     return layout(str(item.get("event_name")), body, active_path="/research")
@@ -9865,6 +9999,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = domestic_events_page(qs)
         elif parsed.path == "/research":
             payload = research_topics_page()
+        elif parsed.path == "/research/gaps":
+            payload = research_gaps_page()
         elif parsed.path.startswith("/research/"):
             payload = research_topic_page(unquote(parsed.path.removeprefix("/research/")))
         elif parsed.path == "/domestic/people":

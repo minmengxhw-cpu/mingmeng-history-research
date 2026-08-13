@@ -77,6 +77,13 @@ def validate(db_path: Path, coverage_path: Path, chain_path: Path) -> dict:
                         errors.append(f"{event_id}/{layer}[{index}]: missing label/target")
                     if layer == "missing_primary" and item.get("status") != "open":
                         errors.append(f"{event_id}/{layer}[{index}]: status must be open")
+                    if layer == "missing_primary":
+                        if not str(item.get("target") or "").strip():
+                            errors.append(f"{event_id}/{layer}[{index}]: missing target")
+                        if not str(item.get("why_it_matters") or "").strip():
+                            errors.append(f"{event_id}/{layer}[{index}]: missing why_it_matters")
+                        if not str(item.get("next_action") or "").strip():
+                            errors.append(f"{event_id}/{layer}[{index}]: missing next_action")
                     if "page_id" not in item:
                         continue
                     page_items += 1
