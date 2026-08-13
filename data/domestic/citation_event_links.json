@@ -3,7 +3,7 @@
   "report": "DOMESTIC_CITATION_EVENT_LINKS_20260813",
   "status": "navigation_only",
   "body_read_by_linker": false,
-  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813",
+  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813",
   "policy": "These links expose already human-verified page anchors inside a topic. They do not assert that the page is a direct event record, do not alter citation gates, and do not replace missing original declarations or meeting files.",
   "links": [
     {
@@ -33,6 +33,20 @@
       "page_label": "048",
       "navigation_title": "1945年民盟临时全国代表大会纲领页",
       "rationale": "页首明确标注《中国民主同盟纲领》为民国三十四年十月临时全国代表大会通过，属于大会文件页的直接导航锚点。"
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "doc_key": "domestic-ocr/MMHIST:political-report-1945:ocr-pilot",
+      "page_label": "101",
+      "navigation_title": "1945年民盟临时全国代表大会政治报告标题页",
+      "rationale": "公开编纂扫描件第101页为一九四五年十月十一日政治报告标题页；这是页级进入点，不代表政治报告全文或1945年档案原件已经逐页核验。"
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "doc_key": "domestic-ocr/MMHIST:congress-declaration-1945:ocr-pilot",
+      "page_label": "118",
+      "navigation_title": "1945年民盟临时全国代表大会宣言标题页",
+      "rationale": "公开编纂扫描件第118页为一九四五年十月十六日宣言标题页；这是页级进入点，不代表宣言全文或1945年档案原件已经逐页核验。"
     },
     {
       "event_id": "domestic-1946-pcc",
