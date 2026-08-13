@@ -73,6 +73,22 @@ def test_domestic_platform_and_timeline_smoke(live_server, db_missing_reason):
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_unified_search_labels_domestic_evidence(live_server, db_missing_reason):
+    """统一搜索中的国内命中必须显示来源层和页级证据状态。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证统一国内搜索: {db_missing_reason}")
+    status, body = fetch(live_server, "/search?q=%E6%B0%91%E7%9B%9F&platform=domestic")
+    assert status == 200
+    assert body is not None
+    assert "搜索：民盟" in body
+    assert "国内史料" in body
+    assert any(
+        label in body
+        for label in ("正式可引用", "机器可阅", "原件已锚定 · 待复核", "证据待补")
+    )
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
 def test_domestic_event_index_smoke(live_server, db_missing_reason):
     """国内专题可以进入与境外专题相同的事件线索页。"""
     if db_missing_reason:

@@ -1507,6 +1507,8 @@ def rows_for_search(
             pages.id AS page_id,
             documents.volume_id, documents.doc_id, documents.doc_key,
             documents.date_guess, documents.title, documents.matched_terms,
+            COALESCE(documents.source_platform, 'frus') AS source_platform,
+            documents.hit_type,
             dc.grade, dc.score,
             pages.page_label, pages.page_url,
             pages.text AS original_text,
@@ -1721,12 +1723,80 @@ def rows_for_search(
     return out[:limit]
 
 
-def result_html(row: sqlite3.Row) -> str:
+def _search_domestic_evidence_labels(
+    c: sqlite3.Connection, rows: list[sqlite3.Row]
+) -> dict[int, str]:
+    """给统一搜索结果补充国内页级证据状态，不读取正文。
+
+    境外结果沿用原有的档案分级；国内结果还需要告诉研究者“正式可引用”
+    和“机器可阅”不是同一件事。测试/全新 checkout 可能没有
+    ``page_provenance``，此时安静地返回空映射，不能让统一搜索失效。
+    """
+    domestic_ids = [
+        int(row["page_id"])
+        for row in rows
+        if str(row["source_platform"] or "frus") == "domestic"
+    ]
+    if not domestic_ids:
+        return {}
+    try:
+        exists = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='page_provenance'"
+        ).fetchone()
+        if not exists:
+            return {}
+        placeholders = ",".join("?" for _ in domestic_ids)
+        provenance_rows = c.execute(
+            f"""
+            SELECT page_id, source_file, source_sha256, citation_ready,
+                   needs_human_review, review_status, human_review_note
+            FROM page_provenance
+            WHERE page_id IN ({placeholders})
+            """,
+            tuple(domestic_ids),
+        ).fetchall()
+    except sqlite3.Error:
+        return {}
+
+    labels: dict[int, str] = {}
+    for row in provenance_rows:
+        page_id = int(row["page_id"])
+        strict = bool(
+            int(row["citation_ready"] or 0) == 1
+            and int(row["needs_human_review"] or 0) == 0
+            and str(row["review_status"] or "") == "human_verified"
+            and str(row["human_review_note"] or "").strip()
+        )
+        machine = bool(
+            int(row["needs_human_review"] or 0) == 0
+            and str(row["review_status"] or "") in {"machine_verified", "human_verified"}
+        )
+        anchored = bool(
+            str(row["source_file"] or "").strip()
+            and re.fullmatch(r"[0-9a-fA-F]{64}", str(row["source_sha256"] or ""))
+        )
+        if strict:
+            labels[page_id] = "正式可引用"
+        elif machine:
+            labels[page_id] = "机器可阅" + (" · 已锚定原件" if anchored else "")
+        elif anchored:
+            labels[page_id] = "原件已锚定 · 待复核"
+        else:
+            labels[page_id] = "证据待补"
+    return labels
+
+
+def result_html(row: sqlite3.Row, evidence_label: str = "") -> str:
     page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
     href = f"/doc/{quote(row['doc_key'])}?page_id={row['page_id']}"
     terms = [t.strip() for t in (row["matched_terms"] or "").split(";") if t.strip()]
     tags = "".join(f'<span class="tag">{h(t)}</span>' for t in terms[:6])
     grade = grade_badge(row)
+    platform = str(row["source_platform"] or "frus")
+    if platform == "domestic":
+        tags = '<span class="tag">国内史料</span>' + tags
+        if evidence_label:
+            tags += f'<span class="tag">{h(evidence_label)}</span>'
     zh = (
         f'<div class="zh">中文({h(row["zh_status"])}): {h(compact(row["zh_text"], 300))}</div>'
         if row["zh_text"]
@@ -5418,6 +5488,7 @@ def search_filter_form(query: str, platform: str | None, year: str, grade: str, 
 def search(query: str, platform: str | None = None, year: str = "", grade: str = "", person: str = "", cited: bool = False) -> bytes:
     with conn() as c:
         rows = rows_for_search(c, query, platform=platform, year=year, grade=grade, person=person, cited=cited)
+        domestic_evidence_labels = _search_domestic_evidence_labels(c, rows)
         body = stats_html(c)
         title_text = f"搜索：{query}" if query.strip() else "筛选档案"
         chips = []
@@ -5437,7 +5508,10 @@ def search(query: str, platform: str | None = None, year: str = "", grade: str =
         if chip_html:
             body += f'<div class="tagline" style="margin:-8px 0 14px;">{chip_html}<span class="tag">{len(rows)} 条结果</span></div>'
         if rows:
-            body += '<section class="result-list">' + "".join(result_html(row) for row in rows) + "</section>"
+            body += '<section class="result-list">' + "".join(
+                result_html(row, domestic_evidence_labels.get(int(row["page_id"]), ""))
+                for row in rows
+            ) + "</section>"
         else:
             body += '<div class="notice">没有找到结果。</div>'
     return layout(f"搜索 {query}", body, query)

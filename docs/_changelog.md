@@ -3,6 +3,15 @@
 > 记录代码 + 数据结构 + 数据治理的重要变更。
 > 数据库本体已脱离 git 追踪，备份在 `data/backups/`。
 
+## 2026-08-14
+
+### 国内外统一研究入口：搜索结果补充页级证据状态
+
+- `/search` 的国内命中现在显示 `国内史料` 标签，并从 `page_provenance` 补充“正式可引用”“机器可阅”“原件已锚定·待复核”或“证据待补”。
+- 国内状态只读 `page_provenance` 的门禁字段，不读取或修改正文，不会把机器 OCR、源文件存在或候选 accepted 自动升级为正式引用。
+- 新增真实数据库回归测试 `test_unified_search_labels_domestic_evidence`；完整测试为 `32 passed`。
+- 统一平台长期路线记录于 `docs/PLATFORM_UNIFIED_RESEARCH_PLAN_20260814.md`。
+
 ## 2026-05-20
 
 ### 数据治理：DRNH 平台 1941 时间硬切
