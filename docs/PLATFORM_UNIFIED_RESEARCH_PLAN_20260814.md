@@ -25,7 +25,7 @@
 - `/search`：国内外统一全文检索，可按平台、年份、人物和资料分级筛选。
 - `/research`：按研究问题进入国内外专题对读。
 - `/research/gaps`：按九个专题列出仍开放的主证据目标、重要性、下一步和候选记录，作为国内资料收口看板。
-- `/research/packets`：九个专题研究包的批量入口，显示证据链、专题回接页、严格门禁和开放原件目标。
+- `/research/packets`：九个专题研究包的批量入口，显示证据链、专题回接页、严格门禁和开放原件目标；专题详情和研究包均能回到同一页级来源集合。
 - `/timeline`：按日期和平台重建事件序列。
 - `/doc/<doc_key>`：回到文献及页面级原文、OCR 和来源。
 - `/cite/<page_id>`：只对满足门禁的页面生成正式摘录卡片；国内页面使用独立的中文页级引用格式，带来源版本、PDF/物理/印刷页、页级 URL、文件 SHA256 和人工复核说明，不套用境外 FRUS 书目模板。
@@ -95,7 +95,7 @@
 
 验收：真实数据库下 `/search?platform=domestic`、`/research`、`/timeline?platform=domestic`、专题详情和文献详情均返回 200；结果能回到页面级来源；无证据状态的页面不能出现“正式可引用”；专题的导航状态和一手闭环状态必须独立呈现。
 
-研究包验收：研究包 JSON 必须包含数据库 SHA256、页级来源 SHA256、复核状态和 `review_scope`；每一条页级记录都能回到 `/doc/<doc_key>?page_id=...` 与 `/cite/<page_id>`；`body_text_included`、`ocr_text_included`、`translation_text_included` 和 `verbatim_quote_included` 必须为 false。研究包是研究编排和引用导航，不是正文复制或自动生成引文。批量验收使用 `scripts/domestic/validate_all_research_packets.py`，要求九个包均能重建、页级记录均解析、正文边界保持关闭，并分别报告证据链页、专题事件回接页和候选回接页。
+研究包验收：研究包 JSON 必须包含数据库 SHA256、页级来源 SHA256、复核状态和 `review_scope`；每一条页级记录都能回到 `/doc/<doc_key>?page_id=...` 与 `/cite/<page_id>`；`body_text_included`、`ocr_text_included`、`translation_text_included` 和 `verbatim_quote_included` 必须为 false。研究包是研究编排和引用导航，不是正文复制或自动生成引文。批量验收使用 `scripts/domestic/validate_all_research_packets.py`，要求九个包均能重建、页级记录均解析、正文边界保持关闭，并分别报告证据链页、专题事件回接页和候选回接页。专题事件索引页也只导出页级元数据、provenance 和回链，不导出 `pages.text` 或事件摘要正文。
 
 ### 阶段二：核心证据收口
 

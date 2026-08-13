@@ -91,6 +91,8 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert packet["counts"]["evidence_chain_strict_gate_passed"] == 34
     assert packet["counts"]["topic_event_domestic_pages"] == 182
     assert packet["counts"]["topic_event_domestic_strict_pages"] == 34
+    assert packet["counts"]["topic_event_sample_rows"] == 24
+    assert all(row["body_text_included"] is False for row in packet["topic_event_pages"])
     assert packet["audit"]["body_text_included"] is False
     assert packet["audit"]["ocr_text_included"] is False
     assert packet["audit"]["verbatim_quote_included"] is False
@@ -105,6 +107,8 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert "仍待补原件" in body
     assert "数据库 SHA256" in body
     assert "专题回接严格页" in body
+    assert "专题事件索引页" in body
+    assert "专题回接" in body
     assert "原文摘录：" not in body
     assert "中文译文（" not in body
 

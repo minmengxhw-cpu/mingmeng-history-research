@@ -39,6 +39,15 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
         errors.append("resolved page count mismatch")
     if not audit.get("page_rows_all_resolved"):
         errors.append("not all evidence page rows resolved")
+    topic_rows = packet.get("topic_event_pages") or []
+    counts = packet.get("counts") or {}
+    if len(topic_rows) != counts.get("topic_event_sample_rows"):
+        errors.append("topic event sample count mismatch")
+    for row in topic_rows:
+        if row.get("body_text_included") is not False:
+            errors.append(f"topic event page {row.get('page_id')} exports body text")
+        if not row.get("page_id") or not row.get("reader_url"):
+            errors.append("topic event row missing page link")
     for row in rows:
         if not row.get("page_id"):
             errors.append("evidence row missing page_id")

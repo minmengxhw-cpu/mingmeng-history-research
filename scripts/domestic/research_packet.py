@@ -191,6 +191,45 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
         and row.get("citation_gate_passed") is True
     )
     resolved_count = sum(1 for row in all_page_rows if row.get("resolved") is True)
+    topic_event_rows = [
+        {
+            key: row[key]
+            for key in (
+                "page_id",
+                "event_title",
+                "event_date",
+                "event_year",
+                "event_tags",
+                "page_label",
+                "page_url",
+                "doc_key",
+                "title",
+                "date_guess",
+                "volume_title",
+                "source_file",
+                "source_sha256",
+                "source_file_size",
+                "pdf_page_no",
+                "physical_page_no",
+                "printed_page",
+                "provenance_review_status",
+                "citation_ready",
+                "needs_human_review",
+                "human_review_note",
+                "review_scope",
+                "strict",
+                "machine_readable",
+                "file_backed",
+                "status_label",
+                "status_class",
+                "reader_url",
+                "citation_url",
+            )
+            if key in row
+        }
+        | {"body_text_included": False}
+        for row in topic.get("topic_event_rows", [])
+    ]
 
     return {
         "schema_version": 2,
@@ -238,10 +277,12 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "evidence_chain_page_items": len(all_page_rows),
             "evidence_chain_resolved_page_items": resolved_count,
             "evidence_chain_strict_gate_passed": strict_count,
+            "topic_event_sample_rows": len(topic_event_rows),
             "academic_candidates": int(topic.get("academic_total") or 0),
             "foreign_machine_pages": int(topic.get("foreign_pages") or 0),
         },
         "evidence_chain": evidence_chain,
+        "topic_event_pages": topic_event_rows,
         "open_primary_targets": open_targets,
         "academic_candidates": [
             {
@@ -351,6 +392,16 @@ def research_packet_page(event_id: str) -> bytes:
         for row in packet["academic_candidates"]
     ) or '<div class="notice">当前没有匹配到学术解释候选。</div>'
 
+    topic_event_cards = "".join(
+        f'''<article class="result compact-result"><div>
+  <h3>{esc(row.get("event_title") or row.get("title") or row.get("doc_key"))}</h3>
+  <div class="meta">{esc(row.get("event_date") or row.get("date_guess") or "日期未注明")} · {esc(row.get("title") or row.get("doc_key"))} · {esc(row.get("page_label") or "页码未标注")} · page_id={esc(row.get("page_id"))}</div>
+  <div class="tagline"><span class="pstatus {esc(row.get("status_class"))}">{esc(row.get("status_label"))}</span><span class="tag">专题回接</span><span class="tag">源文件 {"已锚定" if row.get("file_backed") else "待补"}</span><span class="tag">正文未复制</span></div>
+  <div class="snippet">该条目来自共享专题事件索引，只提供页级定位和 provenance，不自动证明事件定义原件。</div>
+</div><div class="cite"><a href="{esc(row.get("reader_url"))}">打开原文页</a><br><a href="{esc(row.get("citation_url"))}">引用门禁</a></div></article>'''
+        for row in packet.get("topic_event_pages", [])
+    ) or '<div class="notice">当前没有可展示的专题事件索引页。</div>'
+
     scope = packet["scope"]
     counts = packet["counts"]
     event_id_safe = app.quote(str(packet["event_id"]))
@@ -364,6 +415,9 @@ def research_packet_page(event_id: str) -> bytes:
 {"".join(sections)}
 <div class="section-head"><h2>仍待补原件</h2><span class="meta">{len(packet['open_primary_targets'])} 项</span></div><section class="result-list">{targets}</section>
 <div class="section-head"><h2>学术研究（解释层）</h2><span class="meta">不替代一手证据</span></div><section class="result-list">{academic}</section>
+<div class="section-head"><h2>专题事件索引页</h2><span class="meta">显示 {len(packet.get('topic_event_pages', []))} 条 / 共 {counts['topic_event_domestic_pages']} 页 · 严格 {counts['topic_event_domestic_strict_pages']} 页</span></div>
+<div class="notice">专题事件索引页与候选资料回接是不同路径。本节只提供页级导航、来源 SHA256 和引用门禁，不复制正文；正式引用仍须遵守对应页面的 review_scope。</div>
+<section class="result-list">{topic_event_cards}</section>
 <div class="notice">数据库 SHA256：{esc(packet['database']['sha256'])} · 所有页级记录已解析：{esc(packet['audit']['page_rows_all_resolved'])} · 正文原件未复制：是。</div>
 """
     return app.layout(f"{packet['event_name']}研究包", body, active_path="/research")

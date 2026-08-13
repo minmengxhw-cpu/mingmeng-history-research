@@ -5083,6 +5083,123 @@ def _research_topic_event_page_stats(
     }
 
 
+def _research_topic_event_page_rows(
+    c: sqlite3.Connection, event_id: str, limit: int = 24
+) -> list[dict[str, object]]:
+    """Return a metadata-only sample from the shared topic event index.
+
+    Candidate aggregation and the shared event index are separate navigation
+    paths. This sample makes the latter visible on the topic page, especially
+    when a curated strict page is not attached to a domestic candidate row.
+    The query deliberately excludes ``pages.text`` and ``research_events.event_summary``;
+    only page identity, provenance and links are returned.
+    """
+    try:
+        rows = c.execute(
+            f"""
+            SELECT e.page_id, e.event_title, e.event_date, e.event_year, e.tags,
+                   p.page_label, p.page_url,
+                   d.doc_key, d.title, d.date_guess, d.volume_title,
+                   COALESCE(pp.source_file, '') AS source_file,
+                   COALESCE(pp.source_sha256, '') AS source_sha256,
+                   pp.source_file_size, pp.pdf_page_no, pp.physical_page_no,
+                   pp.printed_page,
+                   COALESCE(pp.review_status, 'missing') AS provenance_review_status,
+                   COALESCE(pp.citation_ready, 0) AS citation_ready,
+                   COALESCE(pp.needs_human_review, 1) AS needs_human_review,
+                   COALESCE(pp.human_review_note, '') AS human_review_note,
+                   COALESCE(pp.event_tags, '') AS provenance_event_tags
+            FROM research_events e
+            JOIN pages p ON p.id=e.page_id
+            JOIN documents d ON d.id=p.document_id
+            LEFT JOIN page_provenance pp ON pp.page_id=p.id
+            WHERE e.scope_type='topic'
+              AND e.scope_slug=?
+              AND d.source_platform='domestic'
+            ORDER BY
+              CASE
+                WHEN {DOMESTIC_STRICT_CITATION_SQL} THEN 0
+                WHEN {DOMESTIC_MACHINE_READABLE_SQL} THEN 1
+                WHEN trim(COALESCE(pp.source_file, '')) <> ''
+                 AND length(trim(COALESCE(pp.source_sha256, ''))) = 64 THEN 2
+                ELSE 3
+              END,
+              e.page_id
+            LIMIT ?
+            """,
+            (event_id, limit),
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+
+    public = bool(getattr(_request, "public_mode", False))
+    result: list[dict[str, object]] = []
+    for row in rows:
+        strict = _domestic_citation_is_strict(row)
+        machine = bool(
+            int(row["needs_human_review"] or 1) == 0
+            and str(row["provenance_review_status"] or "")
+            in {"machine_verified", "human_verified"}
+        )
+        file_backed = bool(
+            str(row["source_file"] or "").strip()
+            and len(str(row["source_sha256"] or "").strip()) == 64
+        )
+        if strict:
+            status_label, status_class = "正式可引用页", "ok"
+        elif machine:
+            status_label, status_class = "机器核验可阅", "warn"
+        elif file_backed:
+            status_label, status_class = "原件已锚定·待复核", "warn"
+        else:
+            status_label, status_class = "证据待补", "warn"
+        review_scope = ""
+        for part in str(row["provenance_event_tags"] or "").split(";"):
+            if part.startswith("review_scope="):
+                review_scope = part.split("=", 1)[1]
+                break
+        source_file = str(row["source_file"] or "未绑定")
+        if public:
+            source_file = "内部 provenance 已保存（公开模式隐藏本地路径）"
+        doc_key = str(row["doc_key"] or "")
+        page_id = int(row["page_id"])
+        result.append(
+            {
+                "page_id": page_id,
+                "event_title": str(row["event_title"] or ""),
+                "event_date": str(row["event_date"] or ""),
+                "event_year": str(row["event_year"] or ""),
+                "event_tags": str(row["tags"] or ""),
+                "page_label": str(row["page_label"] or ""),
+                "page_url": source_href(row["page_url"] or ""),
+                "doc_key": doc_key,
+                "title": str(row["title"] or ""),
+                "date_guess": str(row["date_guess"] or ""),
+                "volume_title": str(row["volume_title"] or ""),
+                "source_file": source_file,
+                "source_sha256": str(row["source_sha256"] or ""),
+                "source_file_size": int(row["source_file_size"] or 0),
+                "pdf_page_no": row["pdf_page_no"],
+                "physical_page_no": row["physical_page_no"],
+                "printed_page": row["printed_page"],
+                "provenance_review_status": str(row["provenance_review_status"] or "missing"),
+                "citation_ready": int(row["citation_ready"] or 0),
+                "needs_human_review": int(row["needs_human_review"] or 1),
+                "human_review_note": str(row["human_review_note"] or ""),
+                "review_scope": review_scope,
+                "strict": strict,
+                "machine_readable": machine,
+                "file_backed": file_backed,
+                "status_label": status_label,
+                "status_class": status_class,
+                "body_text_included": False,
+                "reader_url": f"/doc/{quote(doc_key)}?page_id={page_id}",
+                "citation_url": f"/cite/{page_id}",
+            }
+        )
+    return result
+
+
 def _research_academic_matches(
     item: dict[str, object], comparison: dict[str, object], limit: int = 10
 ) -> dict[str, object]:
@@ -5247,6 +5364,9 @@ def _research_topic_rows() -> list[dict[str, object]]:
             topic_event_stats = _research_topic_event_page_stats(
                 c, str(item.get("event_id") or "")
             )
+            topic_event_rows = _research_topic_event_page_rows(
+                c, str(item.get("event_id") or "")
+            )
             result.append({
                 "item": item,
                 "comparison": comparison,
@@ -5265,6 +5385,7 @@ def _research_topic_rows() -> list[dict[str, object]]:
                 "topic_event_domestic_pages": topic_event_stats["domestic_pages"],
                 "topic_event_domestic_file_backed_pages": topic_event_stats["domestic_file_backed_pages"],
                 "topic_event_domestic_strict_pages": topic_event_stats["domestic_strict_pages"],
+                "topic_event_rows": topic_event_rows,
                 "foreign_stats": foreign_stats,
                 "foreign_pages": sum(int(entry["stats"]["pages"]) for entry in foreign_stats),
                 "foreign_documents": sum(int(entry["stats"]["documents"]) for entry in foreign_stats),
@@ -5489,12 +5610,13 @@ def research_topic_page(event_id: str) -> bytes:
   <div class="stat"><strong>{h(topic['domestic_documents'])}</strong><span>国内已入库文档</span></div>
   <div class="stat"><strong>{h(topic['domestic_file_pages'])}/{h(topic['domestic_pages'])}</strong><span>源文件锚定页</span></div>
   <div class="stat"><strong>{h(topic['domestic_citation_pages'])}</strong><span>正式可引用页</span></div>
+  <div class="stat"><strong>{h(topic['topic_event_domestic_strict_pages'])}</strong><span>专题索引严格页</span></div>
   <div class="stat"><strong>{h(topic['foreign_documents'])}</strong><span>境外机器命中文档</span></div>
   <div class="stat"><strong>{h(topic['foreign_pages'])}</strong><span>境外机器命中页</span></div>
   <div class="stat"><strong>{h(item.get('pair_status') or '待核')}</strong><span>对位状态</span></div>
   <div class="stat"><strong>{h(primary['label'])}</strong><span>一手证据闭环</span></div>
 </section>
-<div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br><strong>一手闭环缺口：</strong>{h(primary['gap'])}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。</div>
+<div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br><strong>一手闭环缺口：</strong>{h(primary['gap'])}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。下方“专题事件索引页”与“国内已入库证据样本”是两条不同回接路径，严格页数字不能互相替代。</div>
 {comparison_html}
 {evidence_chain_html}
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>学术研究资料（解释层）</h2><span class="meta">{h(academic_total)} 条机器主题候选</span></div>
@@ -5502,6 +5624,15 @@ def research_topic_page(event_id: str) -> bytes:
 <section class="result-list">{academic_html}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国内已入库证据样本</h2><span class="meta">{h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页</span></div>
 <section class="result-list">{domestic_evidence_html}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-quote"/></svg>专题事件索引页</h2><span class="meta">显示 {h(len(topic.get('topic_event_rows', [])))} 条 / 共 {h(topic['topic_event_domestic_pages'])} 页 · 严格 {h(topic['topic_event_domestic_strict_pages'])} 页</span></div>
+<div class="notice">这些页面来自共享专题事件索引，不是根据候选记录临时推断。它们只提供页级定位、provenance 和回链；正式引用仍必须打开引用门禁，并遵守该页的 review_scope。</div>
+<section class="result-list">{''.join(f'''<article class="result compact-result"><div>
+  <h3>{h(row['event_title'] or row['title'] or row['doc_key'])}</h3>
+  <div class="meta">{h(row['event_date'] or row['date_guess'] or '日期未注明')} · {h(row['title'] or row['doc_key'])} · {h(row['page_label'] or '页码未标注')} · page_id={h(row['page_id'])}</div>
+  <div class="tagline"><span class="pstatus {h(row['status_class'])}">{h(row['status_label'])}</span><span class="tag">专题回接</span><span class="tag">源文件 {'已锚定' if row['file_backed'] else '待补'}</span><span class="tag">正文未复制</span></div>
+  <div class="snippet">事件索引标题：{h(row['event_title'] or '未标注')}。该条目只作为研究导航和页级来源定位，不自动证明事件定义原件。</div>
+</div><div class="cite"><a href="{h(row['reader_url'])}">打开原文页</a><br><a href="{h(row['citation_url'])}">引用门禁</a></div></article>''' for row in topic.get('topic_event_rows', [])) or '<div class="notice">当前没有可展示的专题事件索引页。</div>'}</section>
+{f'<div class="notice">当前显示前 {len(topic.get("topic_event_rows", []))} 条，共 {topic["topic_event_domestic_pages"]} 页；请通过研究包或国内覆盖继续筛选。</div>' if topic['topic_event_domestic_pages'] > len(topic.get('topic_event_rows', [])) else ''}
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国内候选记录</h2><span class="meta">{len(topic['domestic_rows'])} 条可见候选</span></div>
 <section class="result-list">{domestic_html}</section>
 {foreign_html}
