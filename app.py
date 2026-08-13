@@ -803,6 +803,7 @@ NAV_GROUPS = [
         ("/about", "项目介绍"),
         ("/docs", "全部文档"),
         ("/domestic", "国内史料库"),
+        ("/research", "多源专题研究"),
         ("/domestic/library", "国内核心可阅"),
         ("/domestic/events", "国内事件墙"),
         ("/domestic/sources", "国内来源"),
@@ -3977,6 +3978,279 @@ def domestic_events_page(query: dict[str, list[str]] | None = None) -> bytes:
 <div class="notice">“已关联”只表示存在可追踪的境外事件入口，不代表国内原件已经取得；L4/LX 仍停留在线索层。</div>
 <section class="result-list">{''.join(cards) or '<div class="notice">未找到该事件。</div>'}</section>"""
     return layout("国内关键事件", body, active_path="/domestic/events")
+
+
+def _load_domestic_event_coverage() -> list[dict[str, object]]:
+    """读取国内候选与境外事件的声明式关联表。
+
+    这张表是研究导航，不是事实断言：candidate_id 只是候选记录关联，
+    foreign_event_slugs 只是指向境外专题入口。正式证据仍须回到文档页、
+    原件 provenance 和人工复核门禁。
+    """
+    coverage_path = ROOT / "data" / "domestic" / "event_coverage.json"
+    if not coverage_path.is_file():
+        return []
+    try:
+        payload = json.loads(coverage_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    return [item for item in payload if isinstance(item, dict) and item.get("event_id")]
+
+
+def _research_foreign_definition(slug: str) -> dict[str, object] | None:
+    """把境外事件入口解析成标签和检索词，供专题页做机器命中统计。"""
+    event = event_by_slug(slug)
+    if event:
+        return {
+            "slug": slug,
+            "name": event.get("name", slug),
+            "terms": event.get("search_terms", []),
+            "entry": f"/events/key/{quote(slug)}",
+        }
+    topic = topic_by_slug(slug)
+    if topic:
+        return {
+            "slug": slug,
+            "name": topic.get("name", slug),
+            "terms": topic.get("terms", []),
+            "entry": f"/events?topic={quote(slug)}",
+        }
+    return None
+
+
+def _research_foreign_match_stats(c: sqlite3.Connection, definition: dict[str, object]) -> dict[str, object]:
+    """统计境外机器检索命中；不把它呈现为事件事实或人工确认。"""
+    terms = [str(term).strip() for term in definition.get("terms", []) if str(term).strip()]
+    if not terms:
+        return {"documents": 0, "pages": 0, "platforms": {}}
+    clauses: list[str] = []
+    params: list[str] = []
+    for term in terms:
+        like = f"%{term}%"
+        for column in ("d.title", "d.matched_terms", "p.text", "t.text"):
+            clauses.append(f"{column} LIKE ?")
+            params.append(like)
+    try:
+        row = c.execute(
+            f"""
+            SELECT count(DISTINCT d.id) AS documents, count(DISTINCT p.id) AS pages
+            FROM pages p
+            JOIN documents d ON d.id = p.document_id
+            LEFT JOIN translations t ON t.page_id = p.id AND t.language='zh-CN'
+            LEFT JOIN document_classifications dc ON dc.document_id = d.id
+            WHERE ({' OR '.join(clauses)})
+              AND COALESCE(d.source_platform, 'frus') <> 'domestic'
+              AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+            """,
+            tuple(params),
+        ).fetchone()
+        platforms = c.execute(
+            f"""
+            SELECT COALESCE(d.source_platform, 'frus') AS platform, count(DISTINCT p.id) AS pages
+            FROM pages p
+            JOIN documents d ON d.id = p.document_id
+            LEFT JOIN translations t ON t.page_id = p.id AND t.language='zh-CN'
+            LEFT JOIN document_classifications dc ON dc.document_id = d.id
+            WHERE ({' OR '.join(clauses)})
+              AND COALESCE(d.source_platform, 'frus') <> 'domestic'
+              AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+            GROUP BY platform ORDER BY pages DESC
+            """,
+            tuple(params),
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return {"documents": 0, "pages": 0, "platforms": {}}
+    return {
+        "documents": int(row["documents"] or 0),
+        "pages": int(row["pages"] or 0),
+        "platforms": {str(item["platform"]): int(item["pages"] or 0) for item in platforms},
+    }
+
+
+def _research_foreign_match_rows(
+    c: sqlite3.Connection, definition: dict[str, object], limit: int = 12
+) -> list[sqlite3.Row]:
+    """返回专题页的境外机器命中样本，供研究者回到原文核验。"""
+    terms = [str(term).strip() for term in definition.get("terms", []) if str(term).strip()]
+    if not terms:
+        return []
+    clauses: list[str] = []
+    params: list[str | int] = []
+    for term in terms:
+        like = f"%{term}%"
+        for column in ("d.title", "d.matched_terms", "p.text", "t.text"):
+            clauses.append(f"{column} LIKE ?")
+            params.append(like)
+    params.append(limit)
+    try:
+        return c.execute(
+            f"""
+            SELECT p.id AS page_id, p.page_label, p.page_url, d.doc_key, d.title,
+                   d.date_guess, COALESCE(d.source_platform, 'frus') AS platform,
+                   COALESCE(dc.grade, '') AS grade
+            FROM pages p
+            JOIN documents d ON d.id = p.document_id
+            LEFT JOIN translations t ON t.page_id = p.id AND t.language='zh-CN'
+            LEFT JOIN document_classifications dc ON dc.document_id = d.id
+            WHERE ({' OR '.join(clauses)})
+              AND COALESCE(d.source_platform, 'frus') <> 'domestic'
+              AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+            GROUP BY p.id
+            ORDER BY d.date_guess, d.doc_key, p.id
+            LIMIT ?
+            """,
+            tuple(params),
+        ).fetchall()
+    except sqlite3.OperationalError:
+        return []
+
+
+def _research_topic_rows() -> list[dict[str, object]]:
+    """为统一专题首页生成国内候选数、境外机器命中数和入口信息。"""
+    coverage = _load_domestic_event_coverage()
+    try:
+        domestic_rows = _domestic_rows()
+    except sqlite3.OperationalError:
+        domestic_rows = []
+    domestic_by_id = {str(row["candidate_id"]): row for row in domestic_rows}
+    result: list[dict[str, object]] = []
+    with conn() as c:
+        for item in coverage:
+            candidate_ids = [str(value) for value in item.get("domestic_candidate_ids", [])]
+            linked = [domestic_by_id[value] for value in candidate_ids if value in domestic_by_id]
+            foreign_defs = [
+                definition
+                for slug in item.get("foreign_event_slugs", [])
+                if (definition := _research_foreign_definition(str(slug))) is not None
+            ]
+            foreign_stats = [
+                {"definition": definition, "stats": _research_foreign_match_stats(c, definition)}
+                for definition in foreign_defs
+            ]
+            result.append({
+                "item": item,
+                "domestic_rows": linked,
+                "foreign_stats": foreign_stats,
+                "foreign_pages": sum(int(entry["stats"]["pages"]) for entry in foreign_stats),
+                "foreign_documents": sum(int(entry["stats"]["documents"]) for entry in foreign_stats),
+            })
+    return result
+
+
+def research_topics_page() -> bytes:
+    """国内外共享的专题研究入口。"""
+    topics = _research_topic_rows()
+    total_domestic = sum(len(topic["domestic_rows"]) for topic in topics)
+    total_foreign = sum(int(topic["foreign_pages"]) for topic in topics)
+    body = breadcrumb_html([("/", "首页"), (None, "多源专题研究")]) + f"""
+<section class="hero hero-compact">
+  <div class="hero-eyebrow">UNIFIED RESEARCH TOPICS</div>
+  <h1>多源专题研究</h1>
+  <p class="hero-sub">把国内候选、境外档案和证据缺口放进同一条研究路径。这里的关联是检索与编排层，正式引用仍必须回到原件、页码、哈希和人工复核。</p>
+  <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_foreign}</b> 个境外机器命中页</span></div>
+</section>
+<div class="notice"><strong>阅读纪律：</strong>“国内候选”来自事件覆盖表，“境外机器命中”来自关键词检索；二者都不是自动事实确认。打开专题后，可以分别回到国内候选记录、境外原文页和证据缺口说明。</div>
+<section class="result-list">
+"""
+    for topic in topics:
+        item = topic["item"]
+        status = str(item.get("pair_status") or "待核")
+        status_cls = "ok" if status == "pair_available" else "warn"
+        body += f"""
+<article class="result">
+  <div>
+    <h2><a href="/research/{quote(str(item['event_id']))}">{h(item.get('event_name'))}</a></h2>
+    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · {h(item.get('domestic_status'))}</div>
+    <div class="tagline"><span class="pstatus {status_cls}">{h(status)}</span>{''.join(f'<span class="tag">{h(tag)}</span>' for tag in item.get('event_tags', []))}</div>
+    <div class="snippet">{h(item.get('review_note'))}</div>
+  </div>
+  <div class="cite"><a href="/research/{quote(str(item['event_id']))}">打开专题</a><br><a href="/domestic/events?event={quote(str(item['event_id']))}">国内覆盖</a></div>
+</article>"""
+    body += "</section>"
+    body += """
+<section class="doc-tools" style="margin-top:20px;justify-content:center;">
+  <a class="button" href="/align">多源对位视图</a>
+  <a class="button" href="/domestic">国内史料库</a>
+  <a class="button" href="/events/key">境外关键事件</a>
+</section>
+"""
+    return layout("多源专题研究", body, active_path="/research")
+
+
+def research_topic_page(event_id: str) -> bytes:
+    """单个专题的国内候选 / 境外命中 / 缺口对读页。"""
+    topic = next((item for item in _research_topic_rows() if str(item["item"].get("event_id")) == event_id), None)
+    if not topic:
+        return layout("专题未找到", '<div class="notice">没有找到该专题，返回 <a href="/research">多源专题研究</a>。</div>', active_path="/research")
+    item = topic["item"]
+    foreign_samples: list[dict[str, object]] = []
+    with conn() as c:
+        for entry in topic["foreign_stats"]:
+            definition = entry["definition"]
+            foreign_samples.append({
+                "definition": definition,
+                "stats": entry["stats"],
+                "rows": _research_foreign_match_rows(c, definition),
+            })
+
+    domestic_cards = []
+    for row in topic["domestic_rows"][:24]:
+        query = quote(str(row["title"] or row["candidate_id"]))
+        domestic_cards.append(f"""
+<article class="result compact-result"><div>
+  <h3><a href="/domestic?q={query}">{h(row['title'])}</a></h3>
+  <div class="meta">{h(row['creator'])} · {h(row['document_date'])} · {h(row['document_type'])}</div>
+  <div class="tagline"><span class="tag">拟议 {h(row['authenticity_level_proposed'])}</span><span class="tag">{h(row['review_status'])}</span></div>
+  <div class="snippet">{h(row['evidence_note'] or row['uncertainty_note'])}</div>
+</div><div class="cite"><a href="/domestic?q={query}">候选记录</a></div></article>""")
+    domestic_html = "".join(domestic_cards) or '<div class="notice">该专题当前没有可见的国内候选记录。</div>'
+
+    foreign_sections = []
+    for sample in foreign_samples:
+        definition = sample["definition"]
+        stats = sample["stats"]
+        rows = sample["rows"]
+        platform_html = "".join(
+            f'<span class="tag">{h(PLATFORM_META.get(platform, {}).get("name", platform))} {h(count)} 页</span>'
+            for platform, count in stats["platforms"].items()
+        ) or '<span class="tag">暂无机器命中</span>'
+        cards = []
+        for row in rows:
+            href = f"/doc/{quote(str(row['doc_key']))}?page_id={row['page_id']}"
+            cards.append(f"""
+<article class="result compact-result"><div>
+  <h3><a href="{href}">{h(row['title'])}</a></h3>
+  <div class="meta">{h(row['platform'])} · {h(row['date_guess'])} · {h(row['page_label'] or '页码未标注')}</div>
+  <div class="tagline"><span class="tag">机器命中</span> {grade_badge(row)}</div>
+</div><div class="cite"><a href="{href}">查看原文</a></div></article>""")
+        foreign_sections.append(f"""
+<div class="section-head"><h2>{h(definition['name'])}</h2><a class="more" href="{h(definition['entry'])}">进入境外入口 →</a></div>
+<div class="tagline" style="margin-bottom:10px;"><span class="tag">{h(stats['documents'])} 篇文档</span><span class="tag">{h(stats['pages'])} 页</span>{platform_html}</div>
+<section class="result-list">{''.join(cards) or '<div class="notice">没有展示样本；请从境外入口继续检索。</div>'}</section>""")
+    foreign_html = "".join(foreign_sections) or '<div class="notice">尚未配置境外对位入口。</div>'
+
+    event_link = f"/domestic/events?event={quote(event_id)}"
+    body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
+<section class="doc-head">
+  <div><h1>{h(item.get('event_name'))}</h1><div class="meta">{h(item.get('domestic_status'))}</div></div>
+  <div class="doc-tools"><a class="button" href="/research">专题索引</a><a class="button secondary" href="{event_link}">国内覆盖</a></div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>{len(topic['domestic_rows'])}</strong><span>国内候选关联</span></div>
+  <div class="stat"><strong>{h(topic['foreign_documents'])}</strong><span>境外机器命中文档</span></div>
+  <div class="stat"><strong>{h(topic['foreign_pages'])}</strong><span>境外机器命中页</span></div>
+  <div class="stat"><strong>{h(item.get('pair_status') or '待核')}</strong><span>对位状态</span></div>
+</section>
+<div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国内候选记录</h2><span class="meta">{len(topic['domestic_rows'])} 条可见候选</span></div>
+<section class="result-list">{domestic_html}</section>
+{foreign_html}
+<section class="doc-head" style="margin-top:20px;background:var(--panel-warm);border-left:4px solid var(--accent);">
+  <div><h2>下一步核验</h2><div class="meta">优先核对原件、档号/卷期、日期冲突和页码；只有人工复核后才进入正式引用层。</div></div>
+  <div class="doc-tools"><a class="button" href="/domestic/review">国内复核看板</a><a class="button" href="/domestic/acquisition">调档清单</a></div>
+</section>
+"""
+    return layout(str(item.get("event_name")), body, active_path="/research")
 
 
 def _domestic_facet_page(kind: str) -> bytes:
@@ -8187,6 +8461,10 @@ class Handler(BaseHTTPRequestHandler):
             payload = domestic_sources_page()
         elif parsed.path == "/domestic/events":
             payload = domestic_events_page(qs)
+        elif parsed.path == "/research":
+            payload = research_topics_page()
+        elif parsed.path.startswith("/research/"):
+            payload = research_topic_page(unquote(parsed.path.removeprefix("/research/")))
         elif parsed.path == "/domestic/people":
             payload = _domestic_facet_page("people")
         elif parsed.path == "/domestic/places":
