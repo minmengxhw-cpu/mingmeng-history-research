@@ -3,8 +3,9 @@
 
 The matrix is a gap detector, not a claim generator. It measures navigation
 readiness, strict page availability, metadata-matched academic explanation,
-shared foreign event indexing, and the separately declared primary-evidence
-closure status. It never reads page bodies and never changes a database.
+shared foreign event indexing, the four-layer topic evidence chain, and the
+separately declared primary-evidence closure status. It never reads page
+bodies and never changes a database.
 """
 
 from __future__ import annotations
@@ -14,11 +15,14 @@ import json
 import sqlite3
 from pathlib import Path
 
+from validate_topic_evidence_chain import validate as validate_evidence_chain
+
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DB = ROOT / "data/research_index.sqlite"
 DEFAULT_COVERAGE = ROOT / "data/domestic/event_coverage.json"
 DEFAULT_CARDS = ROOT / "data/domestic/topic_comparison_cards.json"
+DEFAULT_EVIDENCE_CHAIN = ROOT / "data/domestic/topic_evidence_chain.json"
 DEFAULT_CROSSWALK = ROOT / "work/domestic/academic_source_audit_20260813/TOPIC_CROSSWALK_CURRENT.json"
 
 
@@ -74,12 +78,19 @@ def main() -> int:
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     parser.add_argument("--coverage", type=Path, default=DEFAULT_COVERAGE)
     parser.add_argument("--cards", type=Path, default=DEFAULT_CARDS)
+    parser.add_argument("--evidence-chain", type=Path, default=DEFAULT_EVIDENCE_CHAIN)
     parser.add_argument("--academic-crosswalk", type=Path, default=DEFAULT_CROSSWALK)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
     coverage = load_json(args.coverage)
     cards = {str(row["event_id"]): row for row in load_json(args.cards)}
+    evidence_chain_report = validate_evidence_chain(args.db, args.coverage, args.evidence_chain)
+    evidence_chains = {
+        str(row["event_id"]): row
+        for row in load_json(args.evidence_chain)
+        if isinstance(row, dict) and row.get("event_id")
+    }
     crosswalk = crosswalk_by_topic(args.academic_crosswalk)
     with sqlite3.connect(f"file:{args.db.resolve()}?mode=ro", uri=True) as conn:
         conn.row_factory = sqlite3.Row
@@ -105,6 +116,19 @@ def main() -> int:
                 gaps.append("foreign_slug_not_in_shared_event_index")
             navigation_status = "navigation_ready" if not gaps else ("citation_gap" if domestic["pages"] and domestic["citation_pages"] == 0 else "navigation_gap")
             primary_status = str(item.get("primary_evidence_status") or "unclassified")
+            chain = evidence_chains.get(event_id, {})
+            chain_layers = chain.get("layers") if isinstance(chain.get("layers"), dict) else {}
+            chain_layer_counts = {
+                layer: len(chain_layers.get(layer, [])) if isinstance(chain_layers.get(layer, []), list) else 0
+                for layer in ("primary", "cross_source", "negative_checks", "missing_primary")
+            }
+            chain_page_items = sum(
+                1
+                for values in chain_layers.values()
+                if isinstance(values, list)
+                for value in values
+                if isinstance(value, dict) and "page_id" in value
+            )
             topics.append(
                 {
                     "event_id": event_id,
@@ -125,6 +149,9 @@ def main() -> int:
                     "primary_evidence_status": primary_status,
                     "primary_evidence_label": item.get("primary_evidence_label", "一手证据状态未标注"),
                     "primary_evidence_gap": item.get("primary_evidence_gap", "覆盖表未提供一手证据闭环说明。"),
+                    "evidence_chain_ready": evidence_chain_report["status"] == "PASS" and event_id in evidence_chains,
+                    "evidence_chain_layers": chain_layer_counts,
+                    "evidence_chain_page_items": chain_page_items,
                     "research_ready": navigation_status == "navigation_ready" and primary_status == "closed",
                     "gaps": gaps,
                     "next_action": cards.get(event_id, {}).get("next_action", "")
@@ -149,6 +176,10 @@ def main() -> int:
             "total_domestic_navigation_pages": sum(row["domestic"]["pages"] for row in topics),
             "total_strict_citation_pages": sum(row["domestic"]["citation_pages"] for row in topics),
             "total_academic_metadata_matches": sum(row["academic"]["metadata_matches"] for row in topics),
+            "evidence_chain_ready": sum(row["evidence_chain_ready"] for row in topics),
+            "evidence_chain_page_items": sum(row["evidence_chain_page_items"] for row in topics),
+            "evidence_chain_strict_items": evidence_chain_report["strict_citation_items"],
+            "evidence_chain_open_targets": evidence_chain_report["layer_item_counts"].get("missing_primary", 0),
         }
         integrity = conn.execute("PRAGMA integrity_check").fetchone()[0]
 
@@ -156,11 +187,12 @@ def main() -> int:
         "report": "DOMESTIC_PARITY_MATRIX_20260813",
         "db_path": str(args.db),
         "body_read": False,
-        "matching_basis": "research_events plus strict page_provenance gates plus metadata-only academic crosswalk",
+        "matching_basis": "research_events plus strict page_provenance gates plus metadata-only academic crosswalk plus four-layer evidence-chain validation",
+        "evidence_chain": evidence_chain_report,
         "integrity_check": integrity,
         "summary": summary,
         "topics": topics,
-        "status": "PASS" if integrity == "ok" else "FAIL",
+        "status": "PASS" if integrity == "ok" and evidence_chain_report["status"] == "PASS" else "FAIL",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

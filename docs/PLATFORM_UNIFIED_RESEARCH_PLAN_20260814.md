@@ -132,4 +132,6 @@
 
 当前九个专题均已具备国内候选、境外入口、学术解释入口和至少一页严格页级导航，因此是 `navigation_ready=9`；但九个专题的事件定义原件仍各有缺口，当前均为 `primary_evidence_status=partial`，所以严格 `research_ready=0`。这不是平台退步，而是把“能找到研究路径”和“关键一手来源已经闭环”分成两个可审计指标。
 
+四层证据链当前为 `evidence_chain_ready=9`：共 29 个页级条目，其中 18 个满足正式引用门禁；同时保留 9 个待补原件目标。`scripts/domestic/validate_topic_evidence_chain.py` 会校验专题覆盖、页号、文档键、国内来源和 `page_provenance` 门禁，parity 矩阵及完成监控均使用这项检查。
+
 下一阶段不以继续增加候选数量为主要目标，而以九个专题的 `primary_evidence_gap` 逐项关闭为目标；每次关闭必须同时补齐原件入口、形成者/日期、档号或卷期、页级定位、来源哈希、权利状态和人工复核记录。

@@ -4505,6 +4505,37 @@ def _topic_evidence_chain_html(chain: dict[str, object] | None) -> str:
 {''.join(sections)}"""
 
 
+def _topic_evidence_chain_summary(chain: dict[str, object] | None) -> dict[str, int]:
+    """Return a compact, metadata-only summary for the topic index."""
+    layers = chain.get("layers") if isinstance(chain, dict) else {}
+    if not isinstance(layers, dict):
+        layers = {}
+    layer_count = sum(
+        1 for layer in CHAIN_LAYER_META if isinstance(layers.get(layer), list)
+    )
+    page_items = sum(
+        1
+        for values in layers.values()
+        if isinstance(values, list)
+        for value in values
+        if isinstance(value, dict) and "page_id" in value
+    )
+    return {
+        "layer_count": layer_count,
+        "page_items": page_items,
+        "strict_items": sum(
+            1
+            for values in layers.values()
+            if isinstance(values, list)
+            for value in values
+            if isinstance(value, dict) and value.get("status") == "strict_citation"
+        ),
+        "open_targets": len(layers.get("missing_primary", []))
+        if isinstance(layers.get("missing_primary"), list)
+        else 0,
+    }
+
+
 def _load_academic_source_policy() -> dict[str, object]:
     """读取学术层口径；缺文件时返回安全的空策略。"""
     if not ACADEMIC_SOURCE_POLICY_PATH.is_file():
@@ -4964,6 +4995,9 @@ def _research_topic_rows() -> list[dict[str, object]]:
                 "item": item,
                 "comparison": comparison,
                 "evidence_chain": evidence_chains.get(str(item.get("event_id")), {}),
+                "evidence_chain_summary": _topic_evidence_chain_summary(
+                    evidence_chains.get(str(item.get("event_id")), {})
+                ),
                 "academic_rows": academic_matches["rows"],
                 "academic_total": academic_matches["total"],
                 "domestic_rows": linked,
@@ -4987,14 +5021,22 @@ def research_topics_page() -> bytes:
     total_domestic_pages = sum(int(topic["domestic_pages"]) for topic in topics)
     total_foreign = sum(int(topic["foreign_pages"]) for topic in topics)
     total_academic = sum(int(topic.get("academic_total", 0)) for topic in topics)
+    total_chain_pages = sum(
+        int((topic.get("evidence_chain_summary") or {}).get("page_items", 0))
+        for topic in topics
+    )
+    total_chain_targets = sum(
+        int((topic.get("evidence_chain_summary") or {}).get("open_targets", 0))
+        for topic in topics
+    )
     body = breadcrumb_html([("/", "首页"), (None, "多源专题研究")]) + f"""
 <section class="hero hero-compact">
   <div class="hero-eyebrow">UNIFIED RESEARCH TOPICS</div>
   <h1>多源专题研究</h1>
   <p class="hero-sub">把国内候选、境外档案和证据缺口放进同一条研究路径。这里的关联是检索与编排层，正式引用仍必须回到原件、页码、哈希和人工复核。</p>
-  <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_domestic_documents}</b> 篇国内已入库文档</span><span><b>{total_domestic_pages}</b> 个国内物理页</span><span><b>{total_foreign}</b> 个境外机器命中页</span><span><b>{total_academic}</b> 条学术解释候选</span></div>
+  <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_domestic_documents}</b> 篇国内已入库文档</span><span><b>{total_domestic_pages}</b> 个国内物理页</span><span><b>{total_foreign}</b> 个境外机器命中页</span><span><b>{total_academic}</b> 条学术解释候选</span><span><b>{total_chain_pages}</b> 个页级证据链条目</span><span><b>{total_chain_targets}</b> 个待补原件目标</span></div>
 </section>
-<div class="notice"><strong>阅读纪律：</strong>“国内候选”来自事件覆盖表，“境外机器命中”来自关键词检索；二者都不是自动事实确认。页面将“研究导航可用”和“一手证据闭环”分开显示：当前有入口不等于关键原件已经取得。打开专题后，可以分别回到国内候选记录、境外原文页和证据缺口说明。</div>
+<div class="notice"><strong>阅读纪律：</strong>“国内候选”来自事件覆盖表，“境外机器命中”来自关键词检索；二者都不是自动事实确认。页面将“研究导航可用”和“一手证据闭环”分开显示：当前有入口不等于关键原件已经取得。每个专题还显示可重算的四层证据链摘要；打开专题后，可以分别回到国内候选记录、境外原文页、页级证据和待补原件说明。</div>
 <section class="result-list">
 """
     for topic in topics:
@@ -5003,11 +5045,12 @@ def research_topics_page() -> bytes:
         status = str(item.get("pair_status") or "待核")
         status_cls = "ok" if status == "pair_available" else "warn"
         primary = _primary_evidence_display(item)
+        chain_summary = topic.get("evidence_chain_summary") or {}
         body += f"""
 <article class="result">
   <div>
     <h2><a href="/research/{quote(str(item['event_id']))}">{h(item.get('event_name'))}</a></h2>
-    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · 学术解释候选 {h(topic.get('academic_total', 0))} 条 · {h(item.get('domestic_status'))}</div>
+    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · 学术解释候选 {h(topic.get('academic_total', 0))} 条 · 证据链 {h(chain_summary.get('layer_count', 0))}/4 层 · 页级 {h(chain_summary.get('page_items', 0))} 条 · 待补原件 {h(chain_summary.get('open_targets', 0))} 项 · {h(item.get('domestic_status'))}</div>
     <div class="tagline"><span class="pstatus {status_cls}">{h(status)}</span><span class="pstatus {primary['class']}">{h(primary['label'])}</span>{''.join(f'<span class="tag">{h(tag)}</span>' for tag in item.get('event_tags', []))}</div>
     <div class="snippet">{h(item.get('review_note'))}</div>
     <div class="snippet"><strong>一手闭环缺口：</strong>{h(primary['gap'])}</div>

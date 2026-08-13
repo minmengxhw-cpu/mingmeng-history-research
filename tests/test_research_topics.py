@@ -27,6 +27,9 @@ def test_research_topics_smoke(live_server, db_missing_reason):
     assert "国内候选" in body
     assert "国内已入库文档" in body
     assert "机器命中" in body
+    assert "证据链" in body
+    assert "页级" in body
+    assert "待补原件" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
@@ -308,8 +311,62 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["navigation_ready"] == 9
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
+    assert summary["evidence_chain_ready"] == 9
+    assert summary["evidence_chain_page_items"] == 29
+    assert summary["evidence_chain_strict_items"] == 18
+    assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
+    assert all(row["evidence_chain_ready"] for row in report["topics"])
     assert all(not row["research_ready"] for row in report["topics"])
+
+
+def test_evidence_chain_validator_is_reproducible(tmp_path):
+    """独立证据链校验器必须能从当前正式库重算 PASS。"""
+    root = Path(__file__).resolve().parents[1]
+    report_path = tmp_path / "evidence-chain.json"
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(root / "scripts/domestic/validate_topic_evidence_chain.py"),
+            "--report",
+            str(report_path),
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    assert report["status"] == "PASS"
+    assert report["topics"] == report["chains"] == 9
+    assert report["page_items"] == 29
+    assert report["strict_citation_items"] == 18
+
+
+def test_monitor_json_parser_accepts_pretty_json():
+    """完成监控不能把多行 JSON 校验器误读成最后一行。"""
+    from scripts.domestic.monitor_completion import run_py
+
+    result = run_py("validate_topic_evidence_chain.py")
+    assert result["_returncode"] == 0
+    assert result["status"] == "PASS"
+    assert result["topics"] == 9
+
+
+def test_completion_monitor_formal_check_is_read_only():
+    """完成监控读取正式库时不得把候选 JSONL 回写进 SQLite。"""
+    import scripts.domestic.monitor_completion as monitor
+
+    before = hashlib.sha256(DB_PATH.resolve().read_bytes()).hexdigest()
+    report = monitor.read_formal_index(monitor.load_candidates())
+    after = hashlib.sha256(DB_PATH.resolve().read_bytes()).hexdigest()
+    assert before == after
+    assert report["readonly"] is True
+    assert report["domestic_candidates"] == 689
+    assert report["pending_review"] == 1
+    assert report["integrity_check"] == "ok"
+    assert report["foreign_key_violations"] == 0
 
 
 def test_academic_topic_match_uses_metadata_only(tmp_path, monkeypatch):

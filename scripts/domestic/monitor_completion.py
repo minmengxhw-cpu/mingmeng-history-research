@@ -8,6 +8,8 @@ Does not upgrade evidence levels or invent original-document claims.
 from __future__ import annotations
 
 import json
+import re
+import sqlite3
 import subprocess
 import sys
 from collections import Counter
@@ -63,16 +65,41 @@ R1_ID = "domestic:MMHIST:formation-declaration-1941"
 R2_DIR = WORK / "mmhist_platform_1945_pages"
 R2_PAGES = [f"page-{i:03d}.png" for i in range(111, 117)]
 
+AUDIT_REQUIRED = (
+    "candidate_id", "title", "repository_code", "repository_name", "catalog_reference",
+    "access_mode", "access_note", "rights_status", "authenticity_level_proposed",
+    "relevance_grade_proposed", "event_tags", "person_tags", "place_tags", "evidence_note",
+    "evidence_type", "uncertainty_note", "checked_at", "checked_by", "review_status",
+)
+AUDIT_PATH_RE = re.compile(
+    r"(?<![A-Za-z0-9_.-])((?:data|work|index)/[^；，。、\s)]+?\.(?:pdf|png|jpg|jpeg|md|csv|sqlite))"
+)
+
 
 def run_py(script: str, *args: str) -> dict:
     cmd = [sys.executable, str(ROOT / "scripts" / "domestic" / script), *args]
     p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
-    out = (p.stdout or "").strip().splitlines()
-    last = out[-1] if out else "{}"
-    try:
-        payload = json.loads(last)
-    except json.JSONDecodeError:
-        payload = {"raw": last, "stderr": (p.stderr or "")[:500]}
+    output = (p.stdout or "").strip()
+    payload = None
+    if output:
+        try:
+            payload = json.loads(output)
+        except json.JSONDecodeError:
+            # Some validators pretty-print one JSON object over multiple
+            # lines.  Do not reduce that object to its final `}` line.
+            decoder = json.JSONDecoder()
+            for offset, char in enumerate(output):
+                if char not in "[{":
+                    continue
+                try:
+                    candidate, end = decoder.raw_decode(output[offset:])
+                except json.JSONDecodeError:
+                    continue
+                if end == len(output) - offset:
+                    payload = candidate
+                    break
+    if not isinstance(payload, dict):
+        payload = {"raw": output[-1000:] if output else "", "stderr": (p.stderr or "")[:500]}
     payload["_returncode"] = p.returncode
     return payload
 
@@ -84,6 +111,57 @@ def load_candidates() -> list[dict]:
         for line in path.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
+
+
+def read_formal_index(cands: list[dict]) -> dict:
+    """Read formal domestic-table counts without opening SQLite for writes."""
+    db = (ROOT / "data" / "research_index.sqlite").resolve()
+    try:
+        with sqlite3.connect(f"file:{db}?mode=ro", uri=True) as conn:
+            counts = {
+                "domestic_sources": conn.execute("SELECT count(*) FROM domestic_sources").fetchone()[0],
+                "domestic_candidates": conn.execute("SELECT count(*) FROM domestic_candidates").fetchone()[0],
+                "pending_review": conn.execute(
+                    "SELECT count(*) FROM domestic_candidates WHERE review_status != 'accepted'"
+                ).fetchone()[0],
+                "editorial_decisions": conn.execute(
+                    "SELECT count(*) FROM domestic_editorial_decisions"
+                ).fetchone()[0],
+                "integrity_check": conn.execute("PRAGMA integrity_check").fetchone()[0],
+                "foreign_key_violations": len(conn.execute("PRAGMA foreign_key_check").fetchall()),
+            }
+    except sqlite3.Error as exc:
+        return {
+            "db_path": str(db),
+            "readonly": True,
+            "error": str(exc),
+            "_returncode": 1,
+        }
+    counts.update({"db_path": str(db), "readonly": True, "_returncode": 0})
+    return counts
+
+
+def read_audit(cands: list[dict]) -> dict:
+    """Recompute the audit counters without writing the historical report file."""
+    missing = []
+    missing_paths = []
+    for row in cands:
+        absent = [key for key in AUDIT_REQUIRED if row.get(key) in (None, "")]
+        if absent:
+            missing.append((row.get("candidate_id"), absent))
+        for raw in AUDIT_PATH_RE.findall(row.get("evidence_locator") or ""):
+            candidate = ROOT / raw.rstrip("；，。")
+            if not candidate.exists():
+                missing_paths.append((row.get("candidate_id"), raw))
+    return {
+        "records": len(cands),
+        "missing_required": len(missing),
+        "missing_paths": len(missing_paths),
+        "accepted_records": sum(row.get("review_status") == "accepted" for row in cands),
+        "report": "not written by read-only completion monitor",
+        "readonly": True,
+        "_returncode": 0,
+    }
 
 
 def check_r1(cands: list[dict]) -> dict:
@@ -124,8 +202,19 @@ def main() -> int:
         str(DOM / "candidates.jsonl"),
         str(DOM / "event_coverage.json"),
     )
-    v_ing = run_py("ingest_domestic.py")
-    v_aud = run_py("audit_readiness_20260719.py")
+    v_chain = run_py(
+        "validate_topic_evidence_chain.py",
+        "--db",
+        str(ROOT / "data" / "research_index.sqlite"),
+        "--coverage",
+        str(DOM / "event_coverage.json"),
+        "--chain",
+        str(DOM / "topic_evidence_chain.json"),
+    )
+    # The monitor is an observer.  In particular, it must never invoke
+    # ingest_domestic.py: that script upserts the formal SQLite tables.
+    v_ing = read_formal_index(cands)
+    v_aud = read_audit(cands)
 
     r1 = check_r1(cands)
     r2 = check_r2()
@@ -135,8 +224,12 @@ def main() -> int:
         "validate_candidates_pass": v_cand.get("failed") == 0 and v_cand.get("_returncode") == 0,
         "event_coverage_no_dangling": v_ev.get("missing_candidate_references") == []
         and v_ev.get("_returncode") == 0,
-        "ingest_ok": v_ing.get("_returncode") == 0
-        and v_ing.get("domestic_candidates") == len(cands),
+        "topic_evidence_chain_valid": v_chain.get("status") == "PASS"
+        and v_chain.get("_returncode") == 0,
+        "formal_index_readonly_ok": v_ing.get("_returncode") == 0
+        and v_ing.get("domestic_candidates") == len(cands)
+        and v_ing.get("integrity_check") == "ok"
+        and v_ing.get("foreign_key_violations") == 0,
         "audit_no_missing_required": v_aud.get("missing_required") == 0,
         "audit_no_missing_paths": v_aud.get("missing_paths") == 0,
         "r1_page38_boundary_fixed": r1["ok"],
@@ -168,6 +261,7 @@ def main() -> int:
     payload = {
         "generated_at": now,
         "project_root": str(ROOT),
+        "readonly_monitor": True,
         "A_LAYER_COMPLETE": a_complete,
         "B_LAYER_OPEN": b_open,
         "a_checks": a_checks,
@@ -183,7 +277,8 @@ def main() -> int:
         "validators": {
             "candidates": v_cand,
             "event_coverage": v_ev,
-            "ingest": v_ing,
+            "topic_evidence_chain": v_chain,
+            "formal_index_readonly": v_ing,
             "audit": v_aud,
         },
         "reports": reports,

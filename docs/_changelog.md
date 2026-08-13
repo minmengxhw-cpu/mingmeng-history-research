@@ -17,6 +17,8 @@
 - 新增 `data/domestic/topic_evidence_chain.json`，为九个专题登记主证据、同期交叉、负向核查和待补原件。
 - `/research/<event_id>` 展示证据链条目，并可从已核页级条目回到 `/doc/<doc_key>?page_id=...`；缺口条目保留调档目标和下一步，不伪装为已取得原件。
 - 证据链只消费正式库页级元数据和既有复核决定，不读取正文，不改变 `page_provenance` 的引用门禁。
+- 新增 `scripts/domestic/validate_topic_evidence_chain.py`；parity 矩阵和完成监控现在会检查证据链是否断链、页号是否漂移以及严格条目是否仍满足正式引用门禁。
+- `/research` 专题索引增加证据链页级条目和待补原件目标摘要；当前验收基线为 9/9 链、29 个页级条目、18 个严格条目、9 个开放目标。
 
 ### 国内外统一研究入口：搜索结果补充页级证据状态
 
