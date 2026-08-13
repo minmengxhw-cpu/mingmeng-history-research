@@ -661,6 +661,69 @@ def bibliography_entry(row: sqlite3.Row) -> str:
     ).strip()
 
 
+def domestic_citation_text(row: sqlite3.Row) -> str:
+    """Build a Chinese page citation from the formal domestic provenance row.
+
+    Domestic materials do not have FRUS-style volume/document metadata.  The
+    citation therefore keeps the source edition, PDF/physical/printed page
+    anchors, stable page URL and the file hash together.  It is intentionally
+    derived from the page-level provenance record, not from candidate prose.
+    """
+    title = str(row["title"] or "未题名")
+    source_edition = str(row["volume_title"] or "国内史料页")
+    date = str(row["date_guess"] or "日期未注明")
+    page = source_page_label(row)
+    doc_id = str(row["doc_id"] or row["doc_key"] or "")
+    page_url = source_href(row["page_url"] or row["doc_url"] or "")
+    pdf_page = row["pdf_page_no"] or "未标注"
+    physical_page = row["physical_page_no"] or "未标注"
+    printed_page = row["printed_page"] or "未标注"
+    source_file = str(row["source_file"] or "未绑定")
+    source_sha = str(row["source_sha256"] or "未绑定")
+    if getattr(_request, "public_mode", False):
+        source_file = "内部 provenance 已保存（公开模式隐藏本地路径）"
+    return (
+        f"页级引用：{title}，{date}，{page}。\n"
+        f"出处：{source_edition}；文献标识：{doc_id}。\n"
+        f"页码锚点：PDF 第 {pdf_page} 页；物理页 {physical_page}；印刷页 {printed_page}。\n"
+        f"页级来源：{page_url}\n"
+        f"本地来源文件：{source_file}\n"
+        f"来源文件 SHA256：{source_sha}\n"
+        f"人工复核说明：{row['human_review_note'] or '未标注'}"
+    )
+
+
+def domestic_provenance_summary(row: sqlite3.Row) -> str:
+    """Return a compact provenance panel for a formally citable domestic page."""
+    public = getattr(_request, "public_mode", False)
+    source_file = (
+        "内部 provenance 已保存（公开模式隐藏本地路径）"
+        if public
+        else str(row["source_file"] or "未绑定")
+    )
+    image_path = (
+        "内部页图已保存（公开模式隐藏本地路径）"
+        if public
+        else str(row["page_image_path"] or "未绑定")
+    )
+    source_url = source_href(row["page_url"] or row["doc_url"] or "")
+    return f"""
+<section class="meta-card domestic-provenance-card">
+  <div class="meta-card-head"><h3><svg class="ico"><use href="#i-archive"/></svg>国内页级 provenance</h3><span class="pstatus ok">human_verified · citation_ready</span></div>
+  <div class="meta-card-foot">
+    <span><strong>PDF 页</strong> {h(row["pdf_page_no"] or "未标注")}</span>
+    <span><strong>物理页</strong> {h(row["physical_page_no"] or "未标注")}</span>
+    <span><strong>印刷页</strong> {h(row["printed_page"] or "未标注")}</span>
+    <span><strong>来源 SHA256</strong> {h(row["source_sha256"] or "未绑定")}</span>
+  </div>
+  <div class="snippet"><strong>来源文件：</strong>{h(source_file)}</div>
+  <div class="snippet"><strong>页图入口：</strong>{h(image_path)}</div>
+  <div class="snippet"><strong>页级 URL：</strong><a href="{h(source_url)}" target="_blank" rel="noreferrer">{h(source_url)}</a></div>
+  <div class="snippet"><strong>人工复核：</strong>{h(row["human_review_note"] or "未标注")}</div>
+</section>
+"""
+
+
 # 民盟相关度分级 → 前台统一标签（CSS 类 + 显示名）
 # 五级体系：核心 / 相关 / 人物关联 / 背景 / 已剔除（前台不展示）
 GRADE_CLASS = {
@@ -8288,7 +8351,17 @@ def citation_page(page_id: int) -> bytes:
                 COALESCE(pp.citation_ready, 0) AS citation_ready,
                 COALESCE(pp.needs_human_review, 1) AS needs_human_review,
                 COALESCE(pp.review_status, 'missing') AS provenance_review_status,
-                COALESCE(pp.human_review_note, '') AS human_review_note
+                COALESCE(pp.human_review_note, '') AS human_review_note,
+                COALESCE(pp.source_file, '') AS source_file,
+                COALESCE(pp.source_sha256, '') AS source_sha256,
+                pp.source_file_size,
+                pp.pdf_page_no,
+                pp.physical_page_no,
+                pp.printed_page,
+                COALESCE(pp.page_image_path, '') AS page_image_path,
+                COALESCE(pp.ocr_engine, '') AS ocr_engine,
+                COALESCE(pp.ocr_model, '') AS ocr_model,
+                COALESCE(pp.ocr_mode, '') AS ocr_mode
             FROM pages
             JOIN documents ON documents.id = pages.document_id
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
@@ -8331,17 +8404,29 @@ def citation_page(page_id: int) -> bytes:
 </section>
 """
         return layout("引用门禁未通过", body)
-    citation = (
-        f"短引文：{short_citation(row)}\n"
-        f"参考文献：{bibliography_entry(row)}\n\n"
-        f"题名：{translate_title(row['title'])}\n"
-        f"英文题名：{row['title']}\n"
-        f"卷册：{row['volume_id']} / {row['volume_title'] or ''}\n"
-        f"日期：{row['date_guess'] or ''}\n"
-        f"引用位置：{page}\n"
-        f"来源：{source_href(source_url)}\n\n"
-        f"原文摘录：\n{row['original_text']}\n\n"
-        f"中文译文（{row['zh_status'] or '未标注'}）：\n{row['zh_text'] or ''}"
+    if row["source_platform"] == "domestic":
+        citation = (
+            f"{domestic_citation_text(row)}\n\n"
+            f"原文摘录：\n{row['original_text']}\n\n"
+            f"中文译文（{row['zh_status'] or '未标注'}）：\n{row['zh_text'] or ''}"
+        )
+    else:
+        citation = (
+            f"短引文：{short_citation(row)}\n"
+            f"参考文献：{bibliography_entry(row)}\n\n"
+            f"题名：{translate_title(row['title'])}\n"
+            f"英文题名：{row['title']}\n"
+            f"卷册：{row['volume_id']} / {row['volume_title'] or ''}\n"
+            f"日期：{row['date_guess'] or ''}\n"
+            f"引用位置：{page}\n"
+            f"来源：{source_href(source_url)}\n\n"
+            f"原文摘录：\n{row['original_text']}\n\n"
+            f"中文译文（{row['zh_status'] or '未标注'}）：\n{row['zh_text'] or ''}"
+        )
+    domestic_panel = (
+        domestic_provenance_summary(row)
+        if row["source_platform"] == "domestic"
+        else ""
     )
     body = f"""
 <section class="doc-head">
@@ -8365,6 +8450,7 @@ def citation_page(page_id: int) -> bytes:
     <div class="pane-body">{h(row["zh_text"] or "")}</div>
   </article>
 </section>
+{domestic_panel}
 <section style="margin-top:14px;">
   <textarea class="copybox" readonly>{h(citation)}</textarea>
 </section>

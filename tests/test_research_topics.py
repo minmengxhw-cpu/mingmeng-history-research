@@ -101,6 +101,66 @@ def test_unified_search_labels_domestic_evidence(live_server, db_missing_reason)
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_domestic_strict_citation_uses_domestic_provenance_format(live_server, db_missing_reason):
+    """国内正式页必须导出国内来源链，而不是套用 FRUS 书目模板。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证国内正式引用卡: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        row = connection.execute(
+            """
+            SELECT pp.page_id
+            FROM page_provenance pp
+            JOIN pages p ON p.id=pp.page_id
+            JOIN documents d ON d.id=p.document_id
+            WHERE d.source_platform='domestic'
+              AND pp.citation_ready=1
+              AND pp.needs_human_review=0
+              AND pp.review_status='human_verified'
+              AND trim(COALESCE(pp.human_review_note,''))<>''
+            ORDER BY pp.page_id
+            LIMIT 1
+            """
+        ).fetchone()
+    assert row is not None
+    status, body = fetch(live_server, f"/cite/{row[0]}")
+    assert status == 200
+    assert body is not None
+    assert "国内页级 provenance" in body
+    assert "来源文件 SHA256" in body
+    assert "PDF 第" in body
+    assert "human_verified" in body
+    assert "Foreign Relations of the United States" not in body
+    assert "引用摘录卡片" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
+def test_domestic_non_strict_citation_stays_blocked(live_server, db_missing_reason):
+    """国内未通过人工门禁的页仍只能阅读，不能生成引用卡。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证国内引用门禁: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        row = connection.execute(
+            """
+            SELECT p.id
+            FROM pages p
+            JOIN documents d ON d.id=p.document_id
+            LEFT JOIN page_provenance pp ON pp.page_id=p.id
+            WHERE d.source_platform='domestic'
+              AND COALESCE(pp.citation_ready,0)=0
+            ORDER BY p.id
+            LIMIT 1
+            """
+        ).fetchone()
+    assert row is not None
+    status, body = fetch(live_server, f"/cite/{row[0]}")
+    assert status == 200
+    assert body is not None
+    assert "引用门禁未通过" in body
+    assert "不可直接引用" in body
+    assert "国内页级 provenance" not in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
 def test_domestic_event_index_smoke(live_server, db_missing_reason):
     """国内专题可以进入与境外专题相同的事件线索页。"""
     if db_missing_reason:
