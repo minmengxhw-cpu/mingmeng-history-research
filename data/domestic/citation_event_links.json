@@ -3,7 +3,7 @@
   "report": "DOMESTIC_CITATION_EVENT_LINKS_20260813",
   "status": "navigation_only",
   "body_read_by_linker": false,
-  "source_basis": "core_citation_batch_20260813",
+  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813",
   "policy": "These links expose already human-verified page anchors inside a topic. They do not assert that the page is a direct event record, do not alter citation gates, and do not replace missing original declarations or meeting files.",
   "links": [
     {
@@ -12,6 +12,13 @@
       "page_label": "038",
       "navigation_title": "1941年民盟成立的历史回顾页",
       "rationale": "张澜1945年在招待外国记者谈话中明确回顾中国民主同盟于1941年在重庆正式成立；这是后出回顾页，不是1941年成立当日原件。"
+    },
+    {
+      "event_id": "domestic-1941-formation",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+      "page_label": "009",
+      "navigation_title": "1941年中国民主政团同盟成立宣言原件页1",
+      "rationale": "《民主同盟文献》1946年汇编扫描件第9页为《中国民主政团同盟成立宣言》印刷页1；这是直接原件/官方汇编页级入口，但汇编本不等同于1941年档案馆原件。"
     },
     {
       "event_id": "domestic-1944-reorganization",
