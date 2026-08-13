@@ -11,8 +11,8 @@
 ## 当前事实基线
 
 - 境外资料已具备平台、人物、事件、年表、多源对位和论文入口。
-- 国内正式库当前有 540 篇文档、6,204 个页/片段；其中 15 篇、47 页是学术解释层全文。
-- 国内 5,133/5,134 个页已有本地源文件和 SHA256 锚定；仍有 1 页缺本地快照、17 篇日期待核。
+- 国内正式库当前有 541 篇文档、6,233 个页/片段；其中 16 篇、76 页是学术解释层全文。
+- 国内 5,162/5,163 个页已有本地源文件和 SHA256 锚定；仍有 1 页缺本地快照、10 篇日期待核（其中 1 篇学术文章的发表日期仍待书目核验）。
 - 国内专题已接入共享 `research_events` 事件索引：9 个专题新增 500 条页级导航关联，覆盖 486 个国内物理页；关联只来自声明式覆盖表和已入库国内文档，不把候选自动写成事件事实，也不改变引用门禁。总事件节点为 2,409。
 - 正式人工可引用页当前为 101；这 101 页来自本地 PDF 的精确页级定位，并记录了授权代理视觉复核说明。不能用 OCR、机器命中或候选接受状态替代人工复核；其余国内页继续保持待核/机器可阅层。
 
@@ -54,7 +54,7 @@
 
 本轮已完成 `data/domestic/topic_comparison_cards.json`：每个专题明确国内材料能回答什么、境外材料能回答什么、不能直接互证的边界、学术材料的职责和下一步补证动作。专题详情页已经接入对读卡，统一入口不再只是两个检索链接的并列。
 
-新增 `/domestic/academic` 学术研究层和 `data/domestic/academic_source_policy.json`。当前 staging 元数据审计快照为 285 条研究/官方资料，其中 152 条学术研究、96 条学术文章、119 条 S/A 优先学术记录；citation-ready 与 human_verified 仍为 0，符合“学术解释层不替代一手页级证据”的口径。正式 SQLite 已索引 12 条 HTML 全文和 3 条可提取 PDF（47 页），全部保持 `review_only / citation_ready=0`；2 条扫描型 PDF 继续 OCR HOLD。审计脚本为 `scripts/domestic/audit_academic_source_layer_20260813.py`，只读元数据，不读取正文。
+新增 `/domestic/academic` 学术研究层和 `data/domestic/academic_source_policy.json`。当前 staging 元数据审计快照为 285 条研究/官方资料，其中 152 条学术研究、96 条学术文章、119 条 S/A 优先学术记录；citation-ready 与 human_verified 仍为 0，符合“学术解释层不替代一手页级证据”的口径。正式 SQLite 已索引 12 条 HTML 全文、3 条可提取 PDF 和 1 条本地 PaddleOCR 扫描 PDF（合计 16 篇、76 页），全部保持 `review_only / citation_ready=0`。中研院文章的 29 页 OCR 已通过源 SHA、页图 SHA、空页和置信度检查后进入解释层；《中国民主同盟历史文献（1941—1949）》扫描候选不重复建库，已与现有 622 页国内一手扫描链区分。审计脚本为 `scripts/domestic/audit_academic_source_layer_20260813.py`，只读元数据，不读取正文。
 
 学术专题 crosswalk 已接入专题详情页，当前按结构化元数据得到 150 条专题候选匹配；1945 年一大和 1946 年拒绝国民大会目前没有足够精确的学术元数据匹配，页面保留为明确缺口，等待补充专门研究而不使用宽泛关键词填充。
 
@@ -85,7 +85,7 @@
 
 - 学术研究检索结果可以回到正式全文页；学术全文页使用独立的“引用草稿（待复核）”格式，不再套用 FRUS 引用模板。
 - 清洁 checkout 没有 staging 时，`MINGMENG_DATA_ROOT`、`MINGMENG_WORK_ROOT`、`MINGMENG_STAGING_DB` 可指向外部数据盘；正式 SQLite 中已入库学术全文仍可通过 formal-index fallback 检索。
-- 12 条 HTML 和 3 条可提取 PDF 的正文均有 SHA、页/文档链和 FTS；47 页全部 `review_only`，严格可引用页仍为 101。
+- 12 条 HTML、3 条可提取 PDF 和 1 条扫描 PDF 的正文均有 SHA、页/文档链和 FTS；76 页全部 `review_only`，严格可引用页仍为 101。
 - 国内 9 个专题已进入共享事件索引：500 条页级关联、486 个不同国内页；抽查统一事件页可回到原文、国内证据复核和专题对读，所有关联页仍保持原有 `review_only`/机器可阅/人工核验状态。
 - `python3 -B -m pytest -q`：28 passed，1 warning；覆盖 academic search/link/citation 与国内共享事件索引回归。
 
