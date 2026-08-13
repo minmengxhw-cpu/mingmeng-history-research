@@ -2705,6 +2705,29 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
             domestic_doc_total = c.execute(
                 "SELECT count(*) FROM documents WHERE source_platform='domestic'"
             ).fetchone()[0]
+            domestic_page_total = c.execute(
+                """SELECT count(*) FROM pages p
+                   JOIN documents d ON d.id=p.document_id
+                   WHERE d.source_platform='domestic'"""
+            ).fetchone()[0]
+            source_anchored_pages = c.execute(
+                """SELECT count(*) FROM page_provenance pp
+                   JOIN documents d ON d.id=pp.document_id
+                   WHERE d.source_platform='domestic'
+                     AND trim(COALESCE(pp.source_file,''))<>''
+                     AND length(trim(COALESCE(pp.source_sha256,'')))=64"""
+            ).fetchone()[0]
+            missing_provenance_pages = c.execute(
+                """SELECT count(*) FROM pages p
+                   JOIN documents d ON d.id=p.document_id
+                   LEFT JOIN page_provenance pp ON pp.page_id=p.id
+                   WHERE d.source_platform='domestic' AND pp.page_id IS NULL"""
+            ).fetchone()[0]
+            missing_date_documents = c.execute(
+                """SELECT count(*) FROM documents
+                   WHERE source_platform='domestic'
+                     AND trim(COALESCE(date_guess,''))=''"""
+            ).fetchone()[0]
             # 权威来源卡：优先档案/馆藏类，压低网站门户
             sources = c.execute(
                 """
@@ -2857,12 +2880,15 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
   <div class="stat"><strong>{h(core_docs_total)}</strong><span>核心可阅文档</span></div>
   <div class="stat"><strong>{h(cite_pages)}</strong><span>人工核验可引用页</span></div>
   <div class="stat"><strong>{h(machine_pages)}</strong><span>机器核验可阅页</span></div>
+  <div class="stat"><strong>{h(source_anchored_pages)}/{h(domestic_page_total)}</strong><span>源文件哈希已锚定</span></div>
+  <div class="stat"><strong>{h(missing_provenance_pages)}</strong><span>待补 provenance 页</span></div>
+  <div class="stat"><strong>{h(missing_date_documents)}</strong><span>日期待核文档</span></div>
   <div class="stat"><strong>{h(len(core_cands))}</strong><span>核心候选</span></div>
   <div class="stat"><strong>{h(len(background_cands))}</strong><span>背景/线索</span></div>
   <div class="stat"><strong>{h(pending)}</strong><span>待人工复核</span></div>
   <div class="stat"><strong>{h(domestic_doc_total)}</strong><span>已收文档(含非核心)</span></div>
 </section>
-<div class="notice"><strong>阅读纪律：</strong>默认展示核心可阅与一手/同期层，但机器核验和 OCR 仍不等于正式引用。当代官网史志、新闻转载、白皮书、百科与二手论文进入「背景线索」；只有 human_verified 且有人工复核说明的页面才能生成正式引文。「已接受候选」({h(accepted_count)}/{h(total_candidates)}) 不等于可引用全文。</div>
+<div class="notice"><strong>证据纪律：</strong>源文件哈希锚定只证明“当前文字能回到哪份本地原件”，不证明 OCR 内容正确。机器核验和 OCR 仍不等于正式引用；只有 human_verified 且有人工复核说明的页面才能生成正式引文。「已接受候选」({h(accepted_count)}/{h(total_candidates)}) 也不等于可引用全文。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-calendar"/></svg>九大关键事件证据墙</h2></div>
 <section class="result-list">
 {''.join(event_cards) if event_cards else '<div class="notice">事件覆盖表尚未生成。</div>'}

@@ -1,0 +1,55 @@
+{
+  "mode": "apply",
+  "database": "data/research_index.sqlite",
+  "before_sha256": "73674577a685fe1156d91522af51b21d486ba1b221d9aed48268018180e2aebf",
+  "after_sha256": "34958ac5a2c26dbf466eed66ddfe84d0e15354b73422aaac85a6057f1421fb03",
+  "backup": "research_index.sqlite.pre_evidence_chain_20260813T101005.bak",
+  "before": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "pages": 6157,
+    "page_fts": 6157,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0,
+    "domestic_pages_missing_provenance": 1,
+    "domestic_file_backed_provenance": 5086,
+    "domestic_documents_missing_date": 18,
+    "formal_citation_pages": 0
+  },
+  "changes": {
+    "provenance_inserted": 0,
+    "legacy_stubs_upgraded": 0,
+    "source_assets_hashed": 0,
+    "document_dates_backfilled": 1
+  },
+  "after": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "pages": 6157,
+    "page_fts": 6157,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0,
+    "domestic_pages_missing_provenance": 1,
+    "domestic_file_backed_provenance": 5086,
+    "domestic_documents_missing_date": 17,
+    "formal_citation_pages": 0
+  },
+  "unresolved": {
+    "provenance_pages": 1,
+    "document_dates": 17
+  },
+  "date_proposals": [
+    {
+      "document_id": 1174,
+      "doc_key": "domestic-web/DL-20260727-004",
+      "title": "中国民主同盟简介（民盟中央官方史叙）",
+      "proposed_date": "2023-02-09",
+      "reason": "single_heading_date",
+      "evidence_values": [
+        "2023-02-09"
+      ],
+      "source_file": "data/domestic/raw/public_sources/DL-20260727-004_mmzy_jianjie.html"
+    }
+  ],
+  "completed_at": "2026-08-13T10:10:11"
+}

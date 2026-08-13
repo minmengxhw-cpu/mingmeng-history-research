@@ -1,0 +1,38 @@
+{
+  "baseline_sha256": "326926341e6811a4687b4c08b4825468071aa3a4259e6a844f2dae0891a28491",
+  "final_sha256": "34958ac5a2c26dbf466eed66ddfe84d0e15354b73422aaac85a6057f1421fb03",
+  "backups": [
+    "research_index.sqlite.pre_evidence_chain_20260813T100741.bak",
+    "research_index.sqlite.pre_evidence_chain_20260813T101005.bak"
+  ],
+  "baseline_replay_report": "BASELINE_REPLAY.json",
+  "changes": {
+    "provenance_inserted": 576,
+    "legacy_locator_stubs_upgraded": 11,
+    "document_dates_backfilled": 62
+  },
+  "before": {
+    "domestic_pages_missing_provenance": 577,
+    "domestic_documents_missing_date": 79,
+    "formal_citation_pages": 0
+  },
+  "after": {
+    "domestic_pages_missing_provenance": 1,
+    "domestic_file_backed_provenance": 5086,
+    "domestic_documents_missing_date": 17,
+    "formal_citation_pages": 0
+  },
+  "source_file_audit": {
+    "source_files_checked": 663,
+    "source_file_bytes": 669394755,
+    "source_files_missing": 0,
+    "source_hash_mismatches": 0,
+    "absolute_source_paths": 0,
+    "source_files_outside_project": 0
+  },
+  "unresolved": {
+    "provenance_pages": 1,
+    "conflicting_date_records": 12,
+    "date_records_without_unambiguous_document_date": 5
+  }
+}

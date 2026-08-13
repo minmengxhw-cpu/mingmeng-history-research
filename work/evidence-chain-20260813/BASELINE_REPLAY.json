@@ -1,0 +1,787 @@
+{
+  "mode": "dry-run",
+  "database": "data/research_index.sqlite.pre_evidence_chain_20260813T100741.bak",
+  "before_sha256": "326926341e6811a4687b4c08b4825468071aa3a4259e6a844f2dae0891a28491",
+  "after_sha256": "326926341e6811a4687b4c08b4825468071aa3a4259e6a844f2dae0891a28491",
+  "backup": null,
+  "before": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "pages": 6157,
+    "page_fts": 6157,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0,
+    "domestic_pages_missing_provenance": 577,
+    "domestic_file_backed_provenance": 4510,
+    "domestic_documents_missing_date": 79,
+    "formal_citation_pages": 0
+  },
+  "changes": {
+    "provenance_inserted": 576,
+    "legacy_stubs_upgraded": 11,
+    "document_dates_backfilled": 62
+  },
+  "source_file_audit": {
+    "source_files_checked": 663,
+    "source_file_bytes": 669394755,
+    "source_files_missing": 0,
+    "source_hash_mismatches": 0,
+    "absolute_source_paths": 0,
+    "source_files_outside_project": 0
+  },
+  "after": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "pages": 6157,
+    "page_fts": 6157,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0,
+    "domestic_pages_missing_provenance": 1,
+    "domestic_file_backed_provenance": 5086,
+    "domestic_documents_missing_date": 17,
+    "formal_citation_pages": 0
+  },
+  "unresolved": {
+    "provenance_pages": 1,
+    "document_dates": 17
+  },
+  "date_proposals": [
+    {
+      "document_id": 1130,
+      "doc_key": "domestic-ocr/COLLECTION:P3-005:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85453_民憲_第一卷第十二期",
+      "proposed_date": "1945-02-25",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1945",
+        "1945-02-25"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85453_民憲_第一卷第十二期.pdf"
+    },
+    {
+      "document_id": 1131,
+      "doc_key": "domestic-ocr/COLLECTION:P3-007:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85445_民憲_第一卷第四期",
+      "proposed_date": "1944-06-30",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-06-30"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85445_民憲_第一卷第四期.pdf"
+    },
+    {
+      "document_id": 1132,
+      "doc_key": "domestic-ocr/COLLECTION:P3-003:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85449_民憲_第一卷第八期",
+      "proposed_date": "1944-10-12",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-10-12"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85449_民憲_第一卷第八期.pdf"
+    },
+    {
+      "document_id": 1153,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85442:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85442_民憲_第一卷第一期",
+      "proposed_date": "1944-05-16",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-05-16"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85442_民憲_第一卷第一期.pdf"
+    },
+    {
+      "document_id": 1154,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85444:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85444_民憲_第一卷第三期",
+      "proposed_date": "1944-06-15",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-06-15"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85444_民憲_第一卷第三期.pdf"
+    },
+    {
+      "document_id": 1155,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85446:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85446_民憲_第一卷第五期",
+      "proposed_date": "1944-07-16",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-07-16"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85446_民憲_第一卷第五期.pdf"
+    },
+    {
+      "document_id": 1156,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85447:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85447_民憲_第一卷第六期",
+      "proposed_date": "1944-08-15",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-08-15"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85447_民憲_第一卷第六期.pdf"
+    },
+    {
+      "document_id": 1157,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85448:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85448_民憲_第一卷第七期",
+      "proposed_date": "1944-09-10",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-09-10"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85448_民憲_第一卷第七期.pdf"
+    },
+    {
+      "document_id": 1165,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85443:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85443_民憲_第一卷第二期",
+      "proposed_date": "1944-05-01",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-05-01"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85443_民憲_第一卷第二期.pdf"
+    },
+    {
+      "document_id": 1166,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85450:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85450_民憲_第一卷第九期",
+      "proposed_date": "1944-11-20",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-11-20"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85450_民憲_第一卷第九期.pdf"
+    },
+    {
+      "document_id": 1167,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85451:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85451_民憲_第一卷第十期",
+      "proposed_date": "1944-12-20",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-12-20"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85451_民憲_第一卷第十期.pdf"
+    },
+    {
+      "document_id": 1168,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85452:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85452_民憲_第一卷第十一期",
+      "proposed_date": "1945-01-15",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1945",
+        "1945-01-15"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85452_民憲_第一卷第十一期.pdf"
+    },
+    {
+      "document_id": 1169,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85454:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85454_民憲_第二卷第一期",
+      "proposed_date": "1945-05-15",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1945",
+        "1945-05-15"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85454_民憲_第二卷第一期.pdf"
+    },
+    {
+      "document_id": 1170,
+      "doc_key": "domestic-ocr/COLLECTION:P3-85455:ocr-draft-20260727",
+      "title": "NLC404-00J001436-85455_民憲_第二卷第二期",
+      "proposed_date": "1945-06-13",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1945",
+        "1945-06-13"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85455_民憲_第二卷第二期.pdf"
+    },
+    {
+      "document_id": 1174,
+      "doc_key": "domestic-web/DL-20260727-004",
+      "title": "中国民主同盟简介（民盟中央官方史叙）",
+      "proposed_date": "2023-02-09",
+      "reason": "single_heading_date",
+      "evidence_values": [
+        "2023-02-09"
+      ],
+      "source_file": "data/domestic/raw/public_sources/DL-20260727-004_mmzy_jianjie.html"
+    },
+    {
+      "document_id": 1190,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-002",
+      "title": "NLC404-01J000514-10460_光明報_1947年21期.pdf · OCR检索草稿",
+      "proposed_date": "1947-07-05",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-07-05"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10460_光明報_1947年21期.pdf"
+    },
+    {
+      "document_id": 1191,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-003",
+      "title": "NLC404-00J001436-85449_民憲_第一卷第八期.pdf · OCR检索草稿",
+      "proposed_date": "1944-10-12",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-10-12"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85449_民憲_第一卷第八期.pdf"
+    },
+    {
+      "document_id": 1192,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-004",
+      "title": "NLC404-01J000514-10431_光明報_1946年10期.pdf · OCR检索草稿",
+      "proposed_date": "1946-08-28",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1946",
+        "1946-08-28"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10431_光明報_1946年10期.pdf"
+    },
+    {
+      "document_id": 1193,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-005",
+      "title": "NLC404-00J001436-85453_民憲_第一卷第十二期.pdf · OCR检索草稿",
+      "proposed_date": "1945-02-25",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1945",
+        "1945-02-25"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85453_民憲_第一卷第十二期.pdf"
+    },
+    {
+      "document_id": 1194,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-006",
+      "title": "NLC1080-00N000846-8631_新华日报_1941-10-10.pdf · OCR检索草稿",
+      "proposed_date": "1941-10-10",
+      "reason": "catalog_key_consensus+filename_day",
+      "evidence_values": [
+        "1941",
+        "1941-10-10"
+      ],
+      "source_file": "data/domestic/press_scans/NLC1080-00N000846-8631_新华日报_1941-10-10.pdf"
+    },
+    {
+      "document_id": 1195,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-007",
+      "title": "NLC404-00J001436-85445_民憲_第一卷第四期.pdf · OCR检索草稿",
+      "proposed_date": "1944-06-30",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-06-30"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85445_民憲_第一卷第四期.pdf"
+    },
+    {
+      "document_id": 1196,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-008",
+      "title": "NLC404-01J000514-10834_光明報_1946年1期.pdf · OCR检索草稿",
+      "proposed_date": "1946-09-18",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1946",
+        "1946-09-18"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10834_光明報_1946年1期.pdf"
+    },
+    {
+      "document_id": 1197,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-009",
+      "title": "NLC404-01J000332-6817_观察_1947年3卷11期.pdf · OCR检索草稿",
+      "proposed_date": "1947-11-08",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-11-08"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000332-6817_观察_1947年3卷11期.pdf"
+    },
+    {
+      "document_id": 1204,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-020",
+      "title": "GXMM_大公報_天津版_1947-11-06_第2版_民盟宣布解散_嵌图截取.png · OCR检索草稿",
+      "proposed_date": "1947-11-06",
+      "reason": "same_single_asset_date+filename_day",
+      "evidence_values": [
+        "1947",
+        "1947-11-06"
+      ],
+      "source_file": "data/domestic/press_scans/GXMM_大公報_天津版_1947-11-06_第2版_民盟宣布解散_嵌图截取.png"
+    },
+    {
+      "document_id": 1205,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-021",
+      "title": "LNU_PROFMKCHAN_INDEXLIST_14_光明報_1941.pdf · OCR检索草稿",
+      "proposed_date": "1941",
+      "reason": "same_single_asset_date",
+      "evidence_values": [
+        "1941"
+      ],
+      "source_file": "data/domestic/press_scans/LNU_PROFMKCHAN_INDEXLIST_14_光明報_1941.pdf"
+    },
+    {
+      "document_id": 1207,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10424",
+      "title": "NLC404-01J000514-10424_光明報_1946年3期.pdf · OCR检索草稿",
+      "proposed_date": "1946-10-08",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1946",
+        "1946-10-08"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10424_光明報_1946年3期.pdf"
+    },
+    {
+      "document_id": 1208,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10425",
+      "title": "NLC404-01J000514-10425_光明報_1946年4期.pdf · OCR检索草稿",
+      "proposed_date": "1946-10-18",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1946",
+        "1946-10-18"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10425_光明報_1946年4期.pdf"
+    },
+    {
+      "document_id": 1209,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10426",
+      "title": "NLC404-01J000514-10426_光明報_1946年5期.pdf · OCR检索草稿",
+      "proposed_date": "1946-10-28",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1946",
+        "1946-10-28"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10426_光明報_1946年5期.pdf"
+    },
+    {
+      "document_id": 1210,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10427",
+      "title": "NLC404-01J000514-10427_光明報_1946年6期.pdf · OCR检索草稿",
+      "proposed_date": "1946-11-08",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1946",
+        "1946-11-08"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10427_光明報_1946年6期.pdf"
+    },
+    {
+      "document_id": 1211,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10428",
+      "title": "NLC404-01J000514-10428_光明報_1946年7期.pdf · OCR检索草稿",
+      "proposed_date": "1946-11-18",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1946",
+        "1946-11-18"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10428_光明報_1946年7期.pdf"
+    },
+    {
+      "document_id": 1214,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10453",
+      "title": "NLC404-01J000514-10453_光明報_1947年13期.pdf · OCR检索草稿",
+      "proposed_date": "1947-01-18",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-01-18"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10453_光明報_1947年13期.pdf"
+    },
+    {
+      "document_id": 1215,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10454",
+      "title": "NLC404-01J000514-10454_光明報_1947年14期.pdf · OCR检索草稿",
+      "proposed_date": "1947-01-28",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-01-28"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10454_光明報_1947年14期.pdf"
+    },
+    {
+      "document_id": 1216,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10455",
+      "title": "NLC404-01J000514-10455_光明報_1947年15期.pdf · OCR检索草稿",
+      "proposed_date": "1947-02-08",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-02-08"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10455_光明報_1947年15期.pdf"
+    },
+    {
+      "document_id": 1217,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10456",
+      "title": "NLC404-01J000514-10456_光明報_1947年16–17期.pdf · OCR检索草稿",
+      "proposed_date": "1947-03-18",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-03-18"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10456_光明報_1947年16–17期.pdf"
+    },
+    {
+      "document_id": 1218,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10457",
+      "title": "NLC404-01J000514-10457_光明報_1947年18期.pdf · OCR检索草稿",
+      "proposed_date": "1947-05-14",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-05-14"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10457_光明報_1947年18期.pdf"
+    },
+    {
+      "document_id": 1219,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10458",
+      "title": "NLC404-01J000514-10458_光明報_1947年19期.pdf · OCR检索草稿",
+      "proposed_date": "1947-10-28",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-10-28"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10458_光明報_1947年19期.pdf"
+    },
+    {
+      "document_id": 1220,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10459",
+      "title": "NLC404-01J000514-10459_光明報_1947年20期.pdf · OCR检索草稿",
+      "proposed_date": "1947-06-23",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-06-23"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10459_光明報_1947年20期.pdf"
+    },
+    {
+      "document_id": 1221,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10483",
+      "title": "NLC404-01J000514-10483_光明報_1947年22期.pdf · OCR检索草稿",
+      "proposed_date": "1947-08-01",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1947",
+        "1947-08-01"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10483_光明報_1947年22期.pdf"
+    },
+    {
+      "document_id": 1222,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10484",
+      "title": "NLC404-01J000514-10484_光明報_1948年1卷1期.pdf · OCR检索草稿",
+      "proposed_date": "1948-03-01",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1948",
+        "1948-03-01"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10484_光明報_1948年1卷1期.pdf"
+    },
+    {
+      "document_id": 1223,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10514",
+      "title": "NLC404-01J000514-10514_光明報_1948年1卷12期.pdf · OCR检索草稿",
+      "proposed_date": "1948-08-16",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1948",
+        "1948-08-16"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10514_光明報_1948年1卷12期.pdf"
+    },
+    {
+      "document_id": 1225,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-10835",
+      "title": "NLC404-01J000514-10835_光明報_1946年2期.pdf · OCR检索草稿",
+      "proposed_date": "1946-09-28",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1946",
+        "1946-09-28"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10835_光明報_1946年2期.pdf"
+    },
+    {
+      "document_id": 1226,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-23806",
+      "title": "NLC404-01J000514-23806_光明報_1946年11期.pdf · OCR检索草稿",
+      "proposed_date": "1946-09-13",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1946",
+        "1946-09-13"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-23806_光明報_1946年11期.pdf"
+    },
+    {
+      "document_id": 1228,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85442",
+      "title": "NLC404-00J001436-85442_民憲_第一卷第一期.pdf · OCR检索草稿",
+      "proposed_date": "1944-05-16",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-05-16"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85442_民憲_第一卷第一期.pdf"
+    },
+    {
+      "document_id": 1229,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85443",
+      "title": "NLC404-00J001436-85443_民憲_第一卷第二期.pdf · OCR检索草稿",
+      "proposed_date": "1944-05-01",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-05-01"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85443_民憲_第一卷第二期.pdf"
+    },
+    {
+      "document_id": 1230,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85444",
+      "title": "NLC404-00J001436-85444_民憲_第一卷第三期.pdf · OCR检索草稿",
+      "proposed_date": "1944-06-15",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-06-15"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85444_民憲_第一卷第三期.pdf"
+    },
+    {
+      "document_id": 1231,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85446",
+      "title": "NLC404-00J001436-85446_民憲_第一卷第五期.pdf · OCR检索草稿",
+      "proposed_date": "1944-07-16",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-07-16"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85446_民憲_第一卷第五期.pdf"
+    },
+    {
+      "document_id": 1232,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85447",
+      "title": "NLC404-00J001436-85447_民憲_第一卷第六期.pdf · OCR检索草稿",
+      "proposed_date": "1944-08-15",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-08-15"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85447_民憲_第一卷第六期.pdf"
+    },
+    {
+      "document_id": 1233,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85448",
+      "title": "NLC404-00J001436-85448_民憲_第一卷第七期.pdf · OCR检索草稿",
+      "proposed_date": "1944-09-10",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-09-10"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85448_民憲_第一卷第七期.pdf"
+    },
+    {
+      "document_id": 1234,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85450",
+      "title": "NLC404-00J001436-85450_民憲_第一卷第九期.pdf · OCR检索草稿",
+      "proposed_date": "1944-11-20",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-11-20"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85450_民憲_第一卷第九期.pdf"
+    },
+    {
+      "document_id": 1235,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85451",
+      "title": "NLC404-00J001436-85451_民憲_第一卷第十期.pdf · OCR检索草稿",
+      "proposed_date": "1944-12-20",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1944",
+        "1944-12-20"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85451_民憲_第一卷第十期.pdf"
+    },
+    {
+      "document_id": 1236,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85452",
+      "title": "NLC404-00J001436-85452_民憲_第一卷第十一期.pdf · OCR检索草稿",
+      "proposed_date": "1945-01-15",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1945",
+        "1945-01-15"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85452_民憲_第一卷第十一期.pdf"
+    },
+    {
+      "document_id": 1237,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85454",
+      "title": "NLC404-00J001436-85454_民憲_第二卷第一期.pdf · OCR检索草稿",
+      "proposed_date": "1945-05-15",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1945",
+        "1945-05-15"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85454_民憲_第二卷第一期.pdf"
+    },
+    {
+      "document_id": 1238,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-85455",
+      "title": "NLC404-00J001436-85455_民憲_第二卷第二期.pdf · OCR检索草稿",
+      "proposed_date": "1945-06-13",
+      "reason": "catalog_key_consensus",
+      "evidence_values": [
+        "1945",
+        "1945-06-13"
+      ],
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85455_民憲_第二卷第二期.pdf"
+    },
+    {
+      "document_id": 1239,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-8658",
+      "title": "NLC1080-00N000846-8658_新华日报_1941-10-16.pdf · OCR检索草稿",
+      "proposed_date": "1941-10-16",
+      "reason": "catalog_key_consensus+filename_day",
+      "evidence_values": [
+        "1941",
+        "1941-10-16"
+      ],
+      "source_file": "data/domestic/press_scans/NLC1080-00N000846-8658_新华日报_1941-10-16.pdf"
+    },
+    {
+      "document_id": 1240,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-N1080-7604",
+      "title": "NLC1080-00N001037-7604_大剛報_1947年11月04日.pdf · OCR检索草稿",
+      "proposed_date": "1947-11-04",
+      "reason": "catalog_key_consensus+filename_day",
+      "evidence_values": [
+        "1947",
+        "1947-11-04"
+      ],
+      "source_file": "data/domestic/press_scans/NLC1080-00N001037-7604_大剛報_1947年11月04日.pdf"
+    },
+    {
+      "document_id": 1241,
+      "doc_key": "domestic-ocr/LOCALFULL:P3-N1080-7606",
+      "title": "NLC1080-00N001037-7606_大剛報_1947年11月06日.pdf · OCR检索草稿",
+      "proposed_date": "1947-11-06",
+      "reason": "catalog_key_consensus+filename_day",
+      "evidence_values": [
+        "1947",
+        "1947-11-06"
+      ],
+      "source_file": "data/domestic/press_scans/NLC1080-00N001037-7606_大剛報_1947年11月06日.pdf"
+    },
+    {
+      "document_id": 1470,
+      "doc_key": "domestic-web/DL-20260802-051",
+      "title": "12处上海民盟传统教育基地合集",
+      "proposed_date": "2019-10-17",
+      "reason": "html_publication_label",
+      "evidence_values": [
+        "2019-10-17"
+      ],
+      "source_file": "data/domestic/raw/public_sources/DL-20260802-051_mmsh_web_bases.html"
+    },
+    {
+      "document_id": 1471,
+      "doc_key": "domestic-web/DL-20260802-052",
+      "title": "雨过天晴月更明——张澜先生在迎接上海解放的日子里",
+      "proposed_date": "2022-01-06",
+      "reason": "html_publication_label",
+      "evidence_values": [
+        "2022-01-06"
+      ],
+      "source_file": "data/domestic/raw/public_sources/DL-20260802-052_mmsh_web_zhanglan.html"
+    },
+    {
+      "document_id": 1472,
+      "doc_key": "domestic-web/DL-20260802-053",
+      "title": "历史沿革",
+      "proposed_date": "2008-12-08",
+      "reason": "html_publication_label",
+      "evidence_values": [
+        "2008-12-08"
+      ],
+      "source_file": "data/domestic/raw/public_sources/DL-20260802-053_mmsh_web_history.html"
+    },
+    {
+      "document_id": 1473,
+      "doc_key": "domestic-web/DL-20260802-054",
+      "title": "民盟上海组织历届领导",
+      "proposed_date": "2017-04-07",
+      "reason": "html_publication_label",
+      "evidence_values": [
+        "2017-04-07"
+      ],
+      "source_file": "data/domestic/raw/public_sources/DL-20260802-054_mmsh_web_leaders.html"
+    },
+    {
+      "document_id": 1474,
+      "doc_key": "domestic-web/DL-20260802-055",
+      "title": "中国民主同盟上海市委员会简介",
+      "proposed_date": "2022-07-11",
+      "reason": "html_publication_label",
+      "evidence_values": [
+        "2022-07-11"
+      ],
+      "source_file": "data/domestic/raw/public_sources/DL-20260802-055_mmsh_web_intro.html"
+    },
+    {
+      "document_id": 1493,
+      "doc_key": "domestic-web/DL-20260802-074",
+      "title": "梁漱溟：中国民主同盟的创建（述及1941《光明报》创刊与10-10/10-16发表）",
+      "proposed_date": "2020-02-19",
+      "reason": "dated_article_url",
+      "evidence_values": [
+        "2020-02-19"
+      ],
+      "source_file": "data/domestic/raw/public_sources/DL-20260802-074_cppcc_liang_shuming_guangmingbao_founding_2020.html"
+    }
+  ],
+  "completed_at": "2026-08-13T10:18:16"
+}

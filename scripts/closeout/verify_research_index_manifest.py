@@ -32,6 +32,47 @@ def scalar(conn: sqlite3.Connection, sql: str) -> int | str:
     return conn.execute(sql).fetchone()[0]
 
 
+def audit_source_files(conn: sqlite3.Connection, project_root: Path) -> dict[str, int]:
+    rows = conn.execute(
+        """SELECT pp.source_file,
+                  group_concat(DISTINCT lower(pp.source_sha256)) AS expected_sha256
+           FROM page_provenance pp
+           JOIN documents d ON d.id=pp.document_id
+           WHERE d.source_platform='domestic'
+           GROUP BY pp.source_file"""
+    ).fetchall()
+    project_root = project_root.resolve()
+    missing = mismatched = absolute = outside = total_bytes = 0
+    for row in rows:
+        raw = str(row["source_file"] or "").strip()
+        path = Path(raw).expanduser()
+        if path.is_absolute():
+            absolute += 1
+        else:
+            path = project_root / path
+        path = path.resolve()
+        try:
+            path.relative_to(project_root)
+        except ValueError:
+            outside += 1
+            continue
+        if not path.is_file():
+            missing += 1
+            continue
+        actual_hash = sha256(path)
+        expected = set(str(row["expected_sha256"] or "").split(","))
+        mismatched += int(actual_hash not in expected)
+        total_bytes += path.stat().st_size
+    return {
+        "source_files_checked": len(rows),
+        "source_file_bytes": total_bytes,
+        "source_files_missing": missing,
+        "source_hash_mismatches": mismatched,
+        "absolute_source_paths": absolute,
+        "source_files_outside_project": outside,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
@@ -51,6 +92,7 @@ def main() -> None:
         raise SystemExit(f"database not found: {db}")
 
     conn = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+    conn.row_factory = sqlite3.Row
     actual = {
         "database_size_bytes": db.stat().st_size,
         "sha256": sha256(db),
@@ -61,6 +103,14 @@ def main() -> None:
         "pages": scalar(conn, "SELECT COUNT(*) FROM pages"),
         "page_fts": scalar(conn, "SELECT COUNT(*) FROM page_fts"),
         "domestic_candidates": scalar(conn, "SELECT COUNT(*) FROM domestic_candidates"),
+        "domestic_file_backed_provenance": scalar(
+            conn,
+            """SELECT COUNT(*) FROM page_provenance pp
+               JOIN documents d ON d.id=pp.document_id
+               WHERE d.source_platform='domestic'
+                 AND trim(COALESCE(pp.source_file,''))<>''
+                 AND length(trim(COALESCE(pp.source_sha256,'')))=64""",
+        ),
         "strict_human_citation_pages": scalar(
             conn, f"SELECT COUNT(*) FROM page_provenance WHERE {STRICT_CITATION_SQL}"
         ),
@@ -88,6 +138,7 @@ def main() -> None:
             "SELECT COUNT(*) FROM page_fts f LEFT JOIN pages p ON p.id=f.rowid WHERE p.id IS NULL",
         ),
     }
+    actual.update(audit_source_files(conn, db.parent.parent))
     conn.close()
 
     expected = {

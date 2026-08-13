@@ -1,0 +1,50 @@
+{
+  "mode": "dry-run",
+  "database": "data/research_index.sqlite",
+  "before_sha256": "34958ac5a2c26dbf466eed66ddfe84d0e15354b73422aaac85a6057f1421fb03",
+  "after_sha256": "34958ac5a2c26dbf466eed66ddfe84d0e15354b73422aaac85a6057f1421fb03",
+  "backup": null,
+  "before": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "pages": 6157,
+    "page_fts": 6157,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0,
+    "domestic_pages_missing_provenance": 1,
+    "domestic_file_backed_provenance": 5086,
+    "domestic_documents_missing_date": 17,
+    "formal_citation_pages": 0
+  },
+  "changes": {
+    "provenance_inserted": 0,
+    "legacy_stubs_upgraded": 0,
+    "document_dates_backfilled": 0
+  },
+  "source_file_audit": {
+    "source_files_checked": 663,
+    "source_file_bytes": 669394755,
+    "source_files_missing": 0,
+    "source_hash_mismatches": 0,
+    "absolute_source_paths": 0,
+    "source_files_outside_project": 0
+  },
+  "after": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "pages": 6157,
+    "page_fts": 6157,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0,
+    "domestic_pages_missing_provenance": 1,
+    "domestic_file_backed_provenance": 5086,
+    "domestic_documents_missing_date": 17,
+    "formal_citation_pages": 0
+  },
+  "unresolved": {
+    "provenance_pages": 1,
+    "document_dates": 17
+  },
+  "date_proposals": [],
+  "completed_at": "2026-08-13T10:19:35"
+}

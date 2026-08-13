@@ -63,8 +63,11 @@ pip3 install --user pypdf pillow openpyxl
 `data/research_index.sqlite` 和原始/OCR 资料不进入 Git。GitHub 代码库本身不能重建完整正式库；请从项目数据包恢复数据库，并用受版本控制的 `data/research_index.manifest.json` 校验 SHA256。
 
 ```bash
-shasum -a 256 /path/to/research_index.sqlite
+python3 scripts/closeout/verify_research_index_manifest.py \
+  --db /path/to/research_index.sqlite
 ```
+
+校验器不只比对数据库 SHA256 和行数，也会逐个读取国内史料来源文件，验证登记哈希、缺失文件、绝对路径和项目目录逃逸。通过校验只表示“数据库可复现且文字能回到登记原件”，不表示 OCR／转录已经人工核对。
 
 可以把数据库放入默认位置 `data/research_index.sqlite`，也可以保留在外部数据盘并通过环境变量启动：
 
