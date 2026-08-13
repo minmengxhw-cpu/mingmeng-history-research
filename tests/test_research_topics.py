@@ -194,6 +194,22 @@ def test_minxian_contents_citation_is_scope_limited(live_server, db_missing_reas
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_minmeng_compiled_1944_text_citation_is_scope_limited(live_server, db_missing_reason):
+    """官方汇编中的1944文本只开放题名、日期和页码身份，不输出未校勘正文。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证1944汇编页引用范围: {db_missing_reason}")
+    status, body = fetch(live_server, "/cite/20141")
+    assert status == 200
+    assert body is not None
+    assert "机器识别内容（仅供定位，不作逐字引文）" in body
+    assert "官方汇编中的 1944 文本" in body
+    assert "原文摘录：" not in body
+    assert "中文译文 ·" not in body
+    assert "来源文件 SHA256" in body
+    assert "PDF 第 22 页" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
 def test_domestic_non_strict_citation_stays_blocked(live_server, db_missing_reason):
     """国内未通过人工门禁的页仍只能阅读，不能生成引用卡。"""
     if db_missing_reason:

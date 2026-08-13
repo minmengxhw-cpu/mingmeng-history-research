@@ -47,9 +47,33 @@
           "label": "中国民主同盟对抗战最后阶段的政治主张",
           "page_id": 20141,
           "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-final-war-political-platform",
-          "status": "review_only",
-          "role": "1944年政治文本的汇编页级入口",
-          "caveat": "可用于定位和文本对读，不能替代改组会议记录。"
+          "status": "strict_citation",
+          "role": "1946年民盟总部官方汇编中标注1944-10-10的政治文本页",
+          "caveat": "严格门禁只覆盖汇编版本、篇名、标注日期、PDF页码和页界；不等同于独立1944原件、改组会议记录或已逐字校勘的正文。"
+        },
+        {
+          "label": "中国民主同盟对抗战最后阶段的政治主张（汇编续页）",
+          "page_id": 20142,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-final-war-political-platform",
+          "status": "strict_citation",
+          "role": "官方汇编中1944-10-10政治文本的连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不能把汇编转载升级为独立同期底本或未经校勘的逐字引文。"
+        },
+        {
+          "label": "中国民主同盟对抗战最后阶段的政治主张（汇编续页）",
+          "page_id": 20143,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-final-war-political-platform",
+          "status": "strict_citation",
+          "role": "官方汇编中1944-10-10政治文本的连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不能把汇编转载升级为独立同期底本或未经校勘的逐字引文。"
+        },
+        {
+          "label": "中国民主同盟对抗战最后阶段的政治主张（汇编末页）",
+          "page_id": 20144,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-final-war-political-platform",
+          "status": "strict_citation",
+          "role": "官方汇编中1944-10-10政治文本的连续末页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不能把汇编转载升级为独立同期底本或未经校勘的逐字引文。"
         },
         {
         "label": "《民憲》第一卷第一期目录页",
@@ -86,7 +110,7 @@
         }
       ]
     },
-    "chain_note": "1944专题现有同期刊物目录页已绑定真实PDF并通过页级引用门禁，但只支持期次、出版日和目录页身份；改组会议、改名决定和同期正式文件原件仍缺。"
+    "chain_note": "1944专题现有同期刊物目录页和1946年民盟总部官方汇编中的1944政治文本页已绑定真实PDF并通过页级引用门禁；汇编页只支持版本、篇名、标注日期和页界，不替代改组会议、改名决定或独立同期正式文件原件。"
   },
   {
     "event_id": "domestic-1945-first-congress",

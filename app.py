@@ -8640,13 +8640,27 @@ def citation_page(page_id: int) -> bytes:
         return layout("引用门禁未通过", body)
     metadata_scope_only = (
         row["source_platform"] == "domestic"
-        and "review_scope=issue_identity_contents_only" in str(row["event_tags"] or "")
+        and any(
+            scope in str(row["event_tags"] or "")
+            for scope in (
+                "review_scope=issue_identity_contents_only",
+                "review_scope=compiled_text_title_date_page_identity",
+            )
+        )
+    )
+    compiled_text_scope = (
+        "review_scope=compiled_text_title_date_page_identity" in str(row["event_tags"] or "")
     )
     if row["source_platform"] in {"domestic", "drnh"}:
         if metadata_scope_only:
+            scope_label = (
+                "官方汇编中的 1944 文本：本页人工复核仅覆盖汇编版本、篇名、标注日期、PDF 页码和页界。"
+                if compiled_text_scope
+                else "本页人工复核仅覆盖刊名、卷期、出版日、目录页身份及页码锚点。"
+            )
             citation = (
                 f"{domestic_citation_text(row)}\n\n"
-                "证据范围：本页人工复核仅覆盖刊名、卷期、出版日、目录页身份及页码锚点。"
+                f"证据范围：{scope_label}"
                 "下方机器识别文本只用于定位，未作逐字校勘，不得作为文章正文或逐字引文。"
             )
         else:
@@ -8690,10 +8704,10 @@ def citation_page(page_id: int) -> bytes:
     <div class="pane-head"><span>{'机器识别内容（仅供定位，不作逐字引文）' if metadata_scope_only else '原文摘录'}</span><span>{h(page)}</span></div>
     <div class="pane-body">{h(row["original_text"])}</div>
   </article>
-  <article class="pane">
+  {'' if metadata_scope_only else f'''<article class="pane">
     <div class="pane-head"><span>中文译文 · {h(row["zh_status"] or "未标注")}</span><span>{h(page)}</span></div>
     <div class="pane-body">{h(row["zh_text"] or "")}</div>
-  </article>
+  </article>'''}
 </section>
 {domestic_panel}
 <section style="margin-top:14px;">
