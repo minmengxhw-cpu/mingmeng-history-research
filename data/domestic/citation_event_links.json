@@ -54,11 +54,49 @@
       "page_label": "09",
       "navigation_title": "1947年民盟机关刊物与民主运动受压的页",
       "rationale": "页内涉及民盟机关刊物、地方民主运动遭受阻挠与监视压制；用于组织危机专题的同期报刊导航，不能单独证明正式解散公告。"
+    },
+    {
+      "event_id": "domestic-1946-li-wen",
+      "doc_key": "domestic-ocr/NLC:guangmingbao-1947-issue22-front-ocr",
+      "page_label": "01",
+      "navigation_title": "1947年《光明報》李公朴、闻一多纪念专题首版",
+      "rationale": "原PDF首版明确标出李公朴、闻一多烈士纪念专题；这是事件发生后的同期报刊纪念页，用于专题进入点，不单独断言案件经过或责任归属。"
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "doc_key": "domestic-ocr/NLC:guangmingbao-1948-v1n1-full-ocr",
+      "page_label": "04",
+      "navigation_title": "1948年《光明報》民盟三中全会成就页",
+      "rationale": "原PDF第4页题名明确为“民盟三中全会的成就”；属于同期报刊专题页，作为三中全会专题的严格页级入口，不替代会议原始文件。"
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "doc_key": "domestic-ocr/NLC:guangmingbao-1948-v1n1-full-ocr",
+      "page_label": "05",
+      "navigation_title": "1948年《光明報》民盟当前任务页",
+      "rationale": "原PDF第5页题名明确围绕民盟当前任务展开并承接三中全会专题；作为同期报刊论述页导航，不把报刊文章等同三中全会决议全文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
+      "page_label": "01",
+      "navigation_title": "1949年《光明報》新政协问题笔谈开篇页",
+      "rationale": "原PDF第1页明确标出“新政协问题笔谈”；为1949新政协专题提供同期报刊开篇入口，不替代电报、筹备会记录等原始档案。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
+      "page_label": "02",
+      "navigation_title": "1949年《光明報》筹备新政协页",
+      "rationale": "原PDF第2页题名为“筹备新政协”，并列出讨论问题与参与者；作为新政协筹备专题的同期报刊正文入口，事实仍需与档案互校。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
+      "page_label": "04",
+      "navigation_title": "1949年《光明報》新政协任务讨论页",
+      "rationale": "原PDF第4页继续讨论新政协任务、民主联合政府与民盟相关政治表达；作为同期报刊一手材料入口，引用范围限于该页可见论述。"
     }
   ],
-  "known_uncovered_topics": [
-    "domestic-1946-li-wen",
-    "domestic-1948-third-plenum-may-day",
-    "domestic-1949-new-pcc"
-  ]
+  "known_uncovered_topics": []
 }

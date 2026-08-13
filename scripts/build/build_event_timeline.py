@@ -21,6 +21,11 @@ from link_citation_event_pages_20260813 import (  # noqa: E402
     load_coverage as load_citation_coverage,
     load_payload as load_citation_payload,
 )
+from link_foreign_event_aliases_20260813 import (  # noqa: E402
+    collect_links as collect_foreign_aliases,
+    insert_links as insert_foreign_aliases,
+    load_payload as load_foreign_alias_payload,
+)
 
 
 TOPICS = [
@@ -349,6 +354,14 @@ def main() -> None:
         print(
             f"Linked strict citation navigation events: {citation_inserted} new rows "
             f"from {len(citation_links)} curated page links."
+        )
+    foreign_aliases_path = SCRIPT_ROOT / "data" / "foreign_event_aliases.json"
+    if foreign_aliases_path.is_file():
+        foreign_aliases = collect_foreign_aliases(conn, load_foreign_alias_payload(foreign_aliases_path))
+        foreign_alias_inserted = insert_foreign_aliases(conn, foreign_aliases)
+        print(
+            f"Linked foreign event aliases: {foreign_alias_inserted} new rows "
+            f"from {len(foreign_aliases)} curated page links."
         )
     conn.commit()
     scopes = conn.execute("SELECT scope_type, scope_slug, count(*) FROM research_events GROUP BY scope_type, scope_slug").fetchall()

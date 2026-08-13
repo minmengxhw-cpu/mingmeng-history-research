@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "report": "FOREIGN_EVENT_ALIAS_LINKS_20260813",
+  "status": "navigation_only",
+  "body_read_by_linker": false,
+  "policy": "将已存在的境外原始页以保守的专题别名接入共享事件索引；只做导航，不改变来源内容、引用门禁或既有宽泛事件。",
+  "links": [
+    {
+      "scope_slug": "democratic-league-1941-formation-context",
+      "scope_name": "1941年民盟成立的境外档案回顾",
+      "page_id": 51,
+      "doc_key": "frus1945v07/d574",
+      "page_label": "823",
+      "event_title": "1945年境外文件对1941年民盟成立的回顾",
+      "rationale": "FRUS 1945 d574 的精确页锚点，专题卡已明确其为1941成立的后出境外回顾，不是成立当日记录。"
+    },
+    {
+      "scope_slug": "democratic-league-1944-political-proposals",
+      "scope_name": "1944年民盟政治主张的境外记录",
+      "page_id": 18,
+      "doc_key": "frus1944v06/d478",
+      "page_label": "",
+      "event_title": "1944年境外文件记录民盟政治主张",
+      "rationale": "FRUS 1944 d478 的现有境外页面，专题卡已将其限定为政治主张记录，不当作1944改组会议记录。"
+    },
+    {
+      "scope_slug": "democratic-league-1945-context",
+      "scope_name": "1945年民盟对外活动的境外记录",
+      "page_id": 31,
+      "doc_key": "frus1945v07/d234",
+      "page_label": "",
+      "event_title": "1945年境外文件记录民盟对外政治活动",
+      "rationale": "FRUS 1945 d234 的现有境外页面，专题卡已注明它提供1945年政治活动背景，不等同1945年一大直接记录。"
+    },
+    {
+      "scope_slug": "meng-banned-1947",
+      "scope_name": "民盟被国民党宣布非法团体",
+      "page_id": 312,
+      "doc_key": "frus1947v07/d269",
+      "page_label": "",
+      "event_title": "1947年10月民盟被宣布非法的境外记录",
+      "rationale": "FRUS 1947 d269 的现有境外页面日期为1947年10月29日，作为事件期境外导航入口；正式叙述仍须按原文和多源差异逐条引用。"
+    },
+    {
+      "scope_slug": "meng-3rd-plenum-hk-1948",
+      "scope_name": "民盟一届三中全会（香港）",
+      "page_id": 847,
+      "doc_key": "hathi-ia:NPCM19480106",
+      "page_label": "1",
+      "event_title": "1948年香港报刊对民盟三中全会的报道",
+      "rationale": "China Mail 1948-01-06 的现有境外页面，标题和日期直接对应香港三中全会期；作为港媒观察入口，不替代民盟会议原件。"
+    },
+    {
+      "scope_slug": "may-day-call-1948",
+      "scope_name": "响应中共五一口号",
+      "page_id": 851,
+      "doc_key": "hathi-ia:NPCM19480519",
+      "page_label": "1",
+      "event_title": "1948年香港报刊对五一口号前后民盟动向的报道",
+      "rationale": "China Mail 1948-05-19 的现有境外页面，标题和日期直接对应五一口号发布前后观察；不把报刊观察当作民盟通电原件。"
+    },
+    {
+      "scope_slug": "peiping-mediation-1949",
+      "scope_name": "北平和平接触",
+      "page_id": 359,
+      "doc_key": "frus1949v08/d33",
+      "page_label": "",
+      "event_title": "1949年1月北平接触的境外记录",
+      "rationale": "FRUS 1949 d33 的现有境外页面日期为1949年1月11日，作为北平接触专题的精确境外导航入口；不把单页扩大为完整和平解放叙事。"
+    },
+    {
+      "scope_slug": "peiping-mediation-1949",
+      "scope_name": "北平和平接触",
+      "page_id": 874,
+      "doc_key": "hathi-ia:NPTG19490117",
+      "page_label": "1",
+      "event_title": "1949年1月香港报刊对联合政府与北平局势的报道",
+      "rationale": "Hong Kong Telegraph 1949-01-17 的现有境外页面，作为北平接触专题的港媒对读入口；其报道性质与FRUS外交记录分层展示。"
+    }
+  ]
+}
