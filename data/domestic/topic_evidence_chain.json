@@ -12,9 +12,41 @@
           "status": "strict_citation",
           "role": "《民主同盟文獻》中的成立文件页级记录",
           "caveat": "页面已通过人工复核并可引用，但仍是1946年文献汇编中的成立文件页，不能单独证明独立原始底本和版本关系。"
+        },
+        {
+          "label": "1941成立文件页组（续页2）",
+          "page_id": 1474,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "同一成立宣言的连续页，补足组织成立文本的页级范围",
+          "caveat": "页面已通过人工复核并可引用，但仍是1946年文献汇编中的重刊；连续页不等于独立原件版本已经闭环。"
+        },
+        {
+          "label": "1941成立文件页组（续页3）",
+          "page_id": 1475,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "同一成立宣言的连续末页，补足成立文件页级范围",
+          "caveat": "页面已通过人工复核并可引用，但仍是1946年文献汇编中的重刊；不能单独证明签署底本、原始档号和版本关系。"
         }
       ],
       "cross_source": [
+        {
+          "label": "1941早期政治主张页组（页1）",
+          "page_id": 1476,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "与成立宣言同一官方汇编中的早期政治主张页，作为成立文本之外的政治表达入口",
+          "caveat": "这是同一1946年汇编中的相关文本，不是独立来源；严格门禁只覆盖页级身份和定位，不替代1941年会议或独立同期原件。"
+        },
+        {
+          "label": "1941早期政治主张页组（页2）",
+          "page_id": 1477,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "与成立宣言同一官方汇编中的早期政治主张连续页，用于成立与政治表达的对读",
+          "caveat": "这是同一1946年汇编中的相关文本，不是独立来源；不得把它解释为1941成立会议记录或独立原始底本。"
+        },
         {
           "label": "中国民主政团同盟成立宣言（汇编页）",
           "page_id": 20339,
@@ -34,7 +66,7 @@
         }
       ]
     },
-    "chain_note": "当前能严谨支持的是成立文件的汇编页和同期线索；成立原件尚未闭环。"
+    "chain_note": "当前已能严谨支持成立宣言的连续页范围及同一汇编中的早期政治主张页；这些页仍属于1946年重刊，独立成立原件、档号和版本关系尚未闭环。"
   },
   {
     "event_id": "domestic-1944-reorganization",
@@ -127,12 +159,28 @@
           "caveat": "页面可正式引用，但仍需与大会原始档案或可靠底本完成版本互校。"
         },
         {
+          "label": "临时全国代表大会政治报告末页",
+          "page_id": 1444,
+          "doc_key": "domestic-ocr/MMHIST:political-report-1945:ocr-pilot",
+          "status": "strict_citation",
+          "role": "政治报告后段的页级边界入口，和标题页共同限定当前已人工复核的报告范围",
+          "caveat": "页面可正式引用，但只覆盖本页身份、页码和复核范围；不自动覆盖政治报告全文或1945年档案原件。"
+        },
+        {
           "label": "临时全国代表大会宣言",
           "page_id": 1445,
           "doc_key": "domestic-ocr/MMHIST:congress-declaration-1945:ocr-pilot",
           "status": "strict_citation",
           "role": "民盟大会宣言页级记录",
           "caveat": "页面可正式引用，但不自动覆盖整份大会档案和缺页问题。"
+        },
+        {
+          "label": "临时全国代表大会宣言末页",
+          "page_id": 1446,
+          "doc_key": "domestic-ocr/MMHIST:congress-declaration-1945:ocr-pilot",
+          "status": "strict_citation",
+          "role": "大会宣言结尾页的页级边界入口，和标题页共同限定当前已人工复核的宣言范围",
+          "caveat": "页面可正式引用，但只覆盖本页身份、页码和复核范围；不自动覆盖宣言全文或1945年档案原件。"
         }
       ],
       "cross_source": [

@@ -86,11 +86,11 @@ def test_research_packet_is_metadata_only_and_page_traceable():
 
     packet = build_research_packet("domestic-1945-first-congress")
     assert packet is not None
-    assert packet["counts"]["evidence_chain_page_items"] == 34
-    assert packet["counts"]["evidence_chain_resolved_page_items"] == 34
-    assert packet["counts"]["evidence_chain_strict_gate_passed"] == 34
-    assert packet["counts"]["topic_event_domestic_pages"] == 182
-    assert packet["counts"]["topic_event_domestic_strict_pages"] == 34
+    assert packet["counts"]["evidence_chain_page_items"] == 36
+    assert packet["counts"]["evidence_chain_resolved_page_items"] == 36
+    assert packet["counts"]["evidence_chain_strict_gate_passed"] == 36
+    assert packet["counts"]["topic_event_domestic_pages"] == 184
+    assert packet["counts"]["topic_event_domestic_strict_pages"] == 36
     assert packet["counts"]["topic_event_sample_rows"] == 24
     assert all(row["body_text_included"] is False for row in packet["topic_event_pages"])
     assert packet["audit"]["body_text_included"] is False
@@ -130,6 +130,25 @@ def test_li_wen_packet_exposes_official_compilation_entries_without_promoting_th
     assert packet["audit"]["body_text_included"] is False
     assert packet["audit"]["ocr_text_included"] is False
     raw = packet_json_bytes("domestic-1946-li-wen").decode("utf-8")
+    assert '"text"' not in raw
+    assert "/Users/" not in raw
+
+
+def test_formation_packet_exposes_continuous_verified_pages():
+    """1941成立专题应同时展示成立宣言连续页和早期政治主张页。"""
+    import app
+
+    app._request.public_mode = False
+    from scripts.domestic.research_packet import build_research_packet, packet_json_bytes
+
+    packet = build_research_packet("domestic-1941-formation")
+    assert packet is not None
+    assert packet["counts"]["evidence_chain_page_items"] == 6
+    assert packet["counts"]["evidence_chain_resolved_page_items"] == 6
+    assert packet["counts"]["evidence_chain_strict_gate_passed"] == 5
+    assert [row["page_id"] for row in packet["evidence_chain"]["primary"]] == [1473, 1474, 1475]
+    assert [row["page_id"] for row in packet["evidence_chain"]["cross_source"][:2]] == [1476, 1477]
+    raw = packet_json_bytes("domestic-1941-formation").decode("utf-8")
     assert '"text"' not in raw
     assert "/Users/" not in raw
 
@@ -658,8 +677,8 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
     assert summary["evidence_chain_ready"] == 9
-    assert summary["evidence_chain_page_items"] == 76
-    assert summary["evidence_chain_strict_items"] == 65
+    assert summary["evidence_chain_page_items"] == 82
+    assert summary["evidence_chain_strict_items"] == 71
     assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
     assert all(row["evidence_chain_ready"] for row in report["topics"])
@@ -686,8 +705,8 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
-    assert report["page_items"] == 76
-    assert report["strict_citation_items"] == 65
+    assert report["page_items"] == 82
+    assert report["strict_citation_items"] == 71
 
 
 def test_1949_new_pcc_chain_contains_verified_saac_image_pages():

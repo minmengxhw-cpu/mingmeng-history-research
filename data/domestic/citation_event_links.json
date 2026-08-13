@@ -21,6 +21,34 @@
       "rationale": "《民主同盟文献》1946年汇编扫描件第9页为《中国民主政团同盟成立宣言》印刷页1；这是直接原件/官方汇编页级入口，但汇编本不等同于1941年档案馆原件。"
     },
     {
+      "event_id": "domestic-1941-formation",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+      "page_label": "010",
+      "navigation_title": "1941年中国民主政团同盟成立宣言页2",
+      "rationale": "该页是已人工复核的成立宣言连续页，补足成立文件页级范围；仍属于1946年汇编重刊，不替代独立成立原件。"
+    },
+    {
+      "event_id": "domestic-1941-formation",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+      "page_label": "011",
+      "navigation_title": "1941年中国民主政团同盟成立宣言页3",
+      "rationale": "该页是已人工复核的成立宣言连续末页，补足成立文件页级范围；仍属于1946年汇编重刊，不替代独立成立原件。"
+    },
+    {
+      "event_id": "domestic-1941-formation",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+      "page_label": "012",
+      "navigation_title": "1941年早期政治主张页1",
+      "rationale": "该页是与成立宣言同一官方汇编中的早期政治主张页，作为成立文本之外的政治表达入口；不解释为成立会议原件。"
+    },
+    {
+      "event_id": "domestic-1941-formation",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+      "page_label": "013",
+      "navigation_title": "1941年早期政治主张页2",
+      "rationale": "该页是已人工复核的早期政治主张连续页，用于成立与政治表达的对读；仍属于1946年汇编重刊。"
+    },
+    {
       "event_id": "domestic-1944-reorganization",
       "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-boundary-group:ocr-pilot",
       "page_label": "039",
@@ -43,10 +71,24 @@
     },
     {
       "event_id": "domestic-1945-first-congress",
+      "doc_key": "domestic-ocr/MMHIST:political-report-1945:ocr-pilot",
+      "page_label": "117",
+      "navigation_title": "1945年民盟临时全国代表大会政治报告末页",
+      "rationale": "公开编纂扫描件第117页是已人工复核的政治报告后段页，和标题页共同限定当前复核范围；不代表政治报告全文或大会原件已闭环。"
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
       "doc_key": "domestic-ocr/MMHIST:congress-declaration-1945:ocr-pilot",
       "page_label": "118",
       "navigation_title": "1945年民盟临时全国代表大会宣言标题页",
       "rationale": "公开编纂扫描件第118页为一九四五年十月十六日宣言标题页；这是页级进入点，不代表宣言全文或1945年档案原件已经逐页核验。"
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "doc_key": "domestic-ocr/MMHIST:congress-declaration-1945:ocr-pilot",
+      "page_label": "123",
+      "navigation_title": "1945年民盟临时全国代表大会宣言末页",
+      "rationale": "公开编纂扫描件第123页是已人工复核的宣言结尾页，和标题页共同限定当前复核范围；不代表宣言全文或大会原件已闭环。"
     },
     {
       "event_id": "domestic-1946-pcc",
