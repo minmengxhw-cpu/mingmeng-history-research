@@ -145,12 +145,252 @@
           "caveat": "用于同文互校和页界定位，不等同于大会档案原件。"
         },
         {
-          "label": "中国民主同盟纲领（汇编页）",
+          "label": "中国民主同盟纲领（官方汇编第48—72页）",
           "page_id": 20149,
           "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
-          "status": "review_only",
-          "role": "大会纲领文本的补充检索入口",
-          "caveat": "尚未进入正式引用层。"
+          "status": "strict_citation",
+          "role": "1946年民盟总部官方汇编中的1945年纲领起始页",
+          "caveat": "严格门禁只覆盖官方汇编版本、篇名、标注日期、PDF页码和页界；不等同于1945大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20150,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20151,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20152,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20153,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20154,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20155,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20156,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20157,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20158,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20159,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20160,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20161,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20162,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20163,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20164,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20165,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20166,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20167,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20168,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20169,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20170,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20171,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编续页）",
+          "page_id": 20172,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟纲领（官方汇编末页）",
+          "page_id": 20173,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "status": "strict_citation",
+          "role": "官方汇编中1945年纲领连续末页",
+          "caveat": "严格门禁只覆盖汇编版本、页界和收束位置；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟临时全国代表大会宣言（官方汇编第73页）",
+          "page_id": 20174,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+          "status": "strict_citation",
+          "role": "官方汇编中1945-10-16宣言起始页",
+          "caveat": "严格门禁只覆盖官方汇编版本、篇名、标注日期、PDF页码和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟临时全国代表大会宣言（官方汇编续页）",
+          "page_id": 20175,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+          "status": "strict_citation",
+          "role": "官方汇编中1945-10-16宣言连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟临时全国代表大会宣言（官方汇编续页）",
+          "page_id": 20176,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+          "status": "strict_citation",
+          "role": "官方汇编中1945-10-16宣言连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟临时全国代表大会宣言（官方汇编续页）",
+          "page_id": 20177,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+          "status": "strict_citation",
+          "role": "官方汇编中1945-10-16宣言连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟临时全国代表大会宣言（官方汇编续页）",
+          "page_id": 20178,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+          "status": "strict_citation",
+          "role": "官方汇编中1945-10-16宣言连续页",
+          "caveat": "严格门禁只覆盖汇编版本和页界；不等同于大会原始档案或逐字校勘正文。"
+        },
+        {
+          "label": "中国民主同盟临时全国代表大会宣言（官方汇编末页）",
+          "page_id": 20179,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+          "status": "strict_citation",
+          "role": "官方汇编中1945-10-16宣言连续末页",
+          "caveat": "严格门禁只覆盖汇编版本、页界和收束位置；不等同于大会原始档案或逐字校勘正文。"
         }
       ],
       "negative_checks": [],
@@ -163,7 +403,7 @@
         }
       ]
     },
-    "chain_note": "1945是国内平台目前较强的早期专题之一：已有可引用的大会文本页，但仍需要完整档案链。"
+    "chain_note": "1945是国内平台目前较强的早期专题之一：1983公开扫描与1946民盟总部官方汇编均已提供页级入口；纲领（PDF第48—72页）和临时全国代表大会宣言（PDF第73—78页）已进入严格的版本/页界引用层，但仍需要完整大会档案、独立原件底本和版本关系闭环。"
   },
   {
     "event_id": "domestic-1946-pcc",

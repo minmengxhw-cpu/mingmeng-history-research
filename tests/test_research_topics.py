@@ -210,6 +210,23 @@ def test_minmeng_compiled_1944_text_citation_is_scope_limited(live_server, db_mi
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_minmeng_compiled_1945_text_citation_is_scope_limited(live_server, db_missing_reason):
+    """官方汇编中的1945文本只开放题名、日期和页码身份，不输出未校勘正文。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证1945汇编页引用范围: {db_missing_reason}")
+    status, body = fetch(live_server, "/cite/20149")
+    assert status == 200
+    assert body is not None
+    assert "机器识别内容（仅供定位，不作逐字引文）" in body
+    assert "官方汇编中的 1945 文本" in body
+    assert "官方汇编中的 1944 文本" not in body
+    assert "原文摘录：" not in body
+    assert "中文译文 ·" not in body
+    assert "来源文件 SHA256" in body
+    assert "PDF 第 48 页" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
 def test_domestic_non_strict_citation_stays_blocked(live_server, db_missing_reason):
     """国内未通过人工门禁的页仍只能阅读，不能生成引用卡。"""
     if db_missing_reason:
@@ -500,8 +517,8 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
     assert summary["evidence_chain_ready"] == 9
-    assert summary["evidence_chain_page_items"] == 34
-    assert summary["evidence_chain_strict_items"] == 23
+    assert summary["evidence_chain_page_items"] == 69
+    assert summary["evidence_chain_strict_items"] == 61
     assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
     assert all(row["evidence_chain_ready"] for row in report["topics"])
@@ -528,8 +545,8 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
-    assert report["page_items"] == 34
-    assert report["strict_citation_items"] == 23
+    assert report["page_items"] == 69
+    assert report["strict_citation_items"] == 61
 
 
 def test_1949_new_pcc_chain_contains_verified_saac_image_pages():

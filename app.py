@@ -8653,8 +8653,16 @@ def citation_page(page_id: int) -> bytes:
     )
     if row["source_platform"] in {"domestic", "drnh"}:
         if metadata_scope_only:
+            event_tags = str(row["event_tags"] or "")
+            compiled_year = (
+                "1945"
+                if "official_compilation_of_1945_text" in event_tags
+                else "1944"
+                if "official_compilation_of_1944_text" in event_tags
+                else ""
+            )
             scope_label = (
-                "官方汇编中的 1944 文本：本页人工复核仅覆盖汇编版本、篇名、标注日期、PDF 页码和页界。"
+                f"官方汇编中的 {compiled_year} 文本：本页人工复核仅覆盖汇编版本、篇名、标注日期、PDF 页码和页界。"
                 if compiled_text_scope
                 else "本页人工复核仅覆盖刊名、卷期、出版日、目录页身份及页码锚点。"
             )
