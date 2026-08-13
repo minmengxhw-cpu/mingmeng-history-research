@@ -393,6 +393,46 @@
           "status": "strict_citation",
           "role": "同一期后段页级证据",
           "caveat": "不能单独承担完整会议史叙述。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单题名页（物理页1）",
+          "page_id": 20733,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "代表名单文献的题名、日期和页级身份锚点",
+          "caveat": "这是中央档案馆公开专题扫描中的档案影像页，不等于完整档案卷宗或名单全文。"
+        },
+        {
+          "label": "中央档案馆专题扫描：中国民主同盟代表名单页（物理页6）",
+          "page_id": 20738,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "直接显示中国民主同盟代表分栏及人数提示的页级材料",
+          "caveat": "仅支持本页可见结构和范围，不代替完整代表名册或逐字转录。"
+        },
+        {
+          "label": "中央档案馆专题扫描：中国民主同盟代表签名册页（物理页3）",
+          "page_id": 20757,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3",
+          "status": "strict_citation",
+          "role": "中国民主同盟代表签名册的页级入口",
+          "caveat": "不把难辨签名扩写为确定姓名，也不宣称签名册完整。"
+        },
+        {
+          "label": "中央档案馆专题扫描：第一届全体会议日程题名页（物理页1）",
+          "page_id": 20767,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+          "status": "strict_citation",
+          "role": "第一届全体会议日程及1949-09-21至09-30日期范围的程序锚点",
+          "caveat": "仅作为程序题名页，不代替完整日程册或会议记录。"
+        },
+        {
+          "label": "中央档案馆专题扫描：第一届全体会议每日议程页（物理页2）",
+          "page_id": 20768,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+          "status": "strict_citation",
+          "role": "与日程题名页相邻的每日议程页级交叉材料",
+          "caveat": "不据此宣称完整会议记录或全部议程已经收齐。"
         }
       ],
       "cross_source": [
@@ -408,13 +448,13 @@
       "negative_checks": [],
       "missing_primary": [
         {
-          "target": "1949年新政协筹备会议记录、代表名册、发言和第一届全体会议原始档案",
+          "target": "1949年新政协筹备会议记录、民盟代表发言、完整代表名册及第一届全体会议完整档案",
           "why_it_matters": "只有正式会议记录和代表档案才能核对人物、程序、日期和民盟角色。",
           "status": "open",
-          "next_action": "沿中央档案馆/全国政协文史资料和民盟内部文献建立代表—会议—发言三张关联表。"
+          "next_action": "以已核验的代表名单、签名册和日程页为锚点，继续沿中央档案馆、全国政协文史资料和民盟内部文献补齐筹备会记录、代表发言及完整卷页，并逐页登记档号、页码和权利状态。"
         }
       ]
     },
-    "chain_note": "1949专题有机关报连续页作为公开表达入口，会议档案与代表级原件仍需补齐。"
+    "chain_note": "1949专题现有机关报连续页和五个中央档案专题公开扫描影像页级锚点：代表名单题名页、民盟代表页、签名册页、会议日程题名页和每日议程页均已人工核验；筹备会记录、代表发言和完整会议档案仍未闭环。"
   }
 ]

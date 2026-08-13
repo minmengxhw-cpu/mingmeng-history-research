@@ -390,8 +390,8 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
     assert summary["evidence_chain_ready"] == 9
-    assert summary["evidence_chain_page_items"] == 29
-    assert summary["evidence_chain_strict_items"] == 18
+    assert summary["evidence_chain_page_items"] == 34
+    assert summary["evidence_chain_strict_items"] == 23
     assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
     assert all(row["evidence_chain_ready"] for row in report["topics"])
@@ -418,8 +418,19 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
-    assert report["page_items"] == 29
-    assert report["strict_citation_items"] == 18
+    assert report["page_items"] == 34
+    assert report["strict_citation_items"] == 23
+
+
+def test_1949_new_pcc_chain_contains_verified_saac_image_pages():
+    """首批 1949 影像页必须在专题链中可追溯，且仍保留完整档案缺口。"""
+    root = Path(__file__).resolve().parents[1]
+    chains = json.loads((root / "data/domestic/topic_evidence_chain.json").read_text(encoding="utf-8"))
+    chain = next(item for item in chains if item["event_id"] == "domestic-1949-new-pcc")
+    primary = chain["layers"]["primary"]
+    assert {item["page_id"] for item in primary} >= {1670, 1671, 1673, 20733, 20738, 20757, 20767, 20768}
+    assert all(item["status"] == "strict_citation" for item in primary)
+    assert any("完整代表名册" in item["target"] for item in chain["layers"]["missing_primary"])
 
 
 def test_monitor_json_parser_accepts_pretty_json():

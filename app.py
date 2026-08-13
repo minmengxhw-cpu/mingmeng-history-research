@@ -678,6 +678,11 @@ def domestic_citation_text(row: sqlite3.Row) -> str:
     pdf_page = row["pdf_page_no"] or "未标注"
     physical_page = row["physical_page_no"] or "未标注"
     printed_page = row["printed_page"] or "未标注"
+    pdf_anchor = (
+        f"PDF 第 {pdf_page} 页"
+        if row["pdf_page_no"]
+        else "PDF 页：不适用（独立影像页）"
+    )
     source_file = str(row["source_file"] or "未绑定")
     source_sha = str(row["source_sha256"] or "未绑定")
     if getattr(_request, "public_mode", False):
@@ -685,7 +690,7 @@ def domestic_citation_text(row: sqlite3.Row) -> str:
     return (
         f"页级引用：{title}，{date}，{page}。\n"
         f"出处：{source_edition}；文献标识：{doc_id}。\n"
-        f"页码锚点：PDF 第 {pdf_page} 页；物理页 {physical_page}；印刷页 {printed_page}。\n"
+        f"页码锚点：{pdf_anchor}；物理页 {physical_page}；印刷页 {printed_page}。\n"
         f"页级来源：{page_url}\n"
         f"本地来源文件：{source_file}\n"
         f"来源文件 SHA256：{source_sha}\n"
@@ -707,11 +712,16 @@ def domestic_provenance_summary(row: sqlite3.Row) -> str:
         else str(row["page_image_path"] or "未绑定")
     )
     source_url = source_href(row["page_url"] or row["doc_url"] or "")
+    pdf_page_display = (
+        str(row["pdf_page_no"])
+        if row["pdf_page_no"]
+        else "不适用（独立影像页）"
+    )
     return f"""
 <section class="meta-card domestic-provenance-card">
   <div class="meta-card-head"><h3><svg class="ico"><use href="#i-archive"/></svg>国内页级 provenance</h3><span class="pstatus ok">human_verified · citation_ready</span></div>
   <div class="meta-card-foot">
-    <span><strong>PDF 页</strong> {h(row["pdf_page_no"] or "未标注")}</span>
+    <span><strong>PDF 页</strong> {h(pdf_page_display)}</span>
     <span><strong>物理页</strong> {h(row["physical_page_no"] or "未标注")}</span>
     <span><strong>印刷页</strong> {h(row["printed_page"] or "未标注")}</span>
     <span><strong>来源 SHA256</strong> {h(row["source_sha256"] or "未绑定")}</span>

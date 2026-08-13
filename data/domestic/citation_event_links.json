@@ -166,6 +166,41 @@
       "page_label": "04",
       "navigation_title": "1949年《光明報》新政协任务讨论页",
       "rationale": "原PDF第4页继续讨论新政协任务、民主联合政府与民盟相关政治表达；作为同期报刊一手材料入口，引用范围限于该页可见论述。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-01",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单题名页",
+      "rationale": "本地页图清晰显示《政协一届全体会议单位及代表名单（1949-09-21）》题名和日期；这是公开专题扫描中的档案影像页级锚点，不替代完整档案卷宗或名单全文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-06",
+      "navigation_title": "中央档案馆专题扫描：中国民主同盟代表名单页",
+      "rationale": "本地页图可辨认代表名单中的“中国民主同盟”分栏及代表人数提示；可作民盟代表页级证据，不扩展为完整代表名册或逐字转录。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3",
+      "page_label": "page-03",
+      "navigation_title": "中央档案馆专题扫描：中国民主同盟代表签名册页",
+      "rationale": "本地页图显示“中国民主同盟”签名册标题和签名区域；可作签名册页级入口，不把难辨签名转写为确定姓名，也不宣称签名册完整。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+      "page_label": "page-01",
+      "navigation_title": "中央档案馆专题扫描：第一届全体会议日程题名页",
+      "rationale": "本地页图清晰显示中国人民政治协商会议第一届全体会议日程及1949-09-21至09-30日期范围；可作程序页级锚点，不替代完整日程册。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+      "page_label": "page-02",
+      "navigation_title": "中央档案馆专题扫描：第一届全体会议每日议程页",
+      "rationale": "本地页图可辨认第一届全体会议每日议程的连续页结构，作为题名页的程序交叉页；不据此宣称完整会议记录或全部议程已收齐。"
     }
   ],
   "known_uncovered_topics": []
