@@ -19,11 +19,8 @@ if str(ROOT) not in sys.path:
 from scripts.domestic.research_packet import build_research_packet  # noqa: E402
 
 
-def validate(event_id: str) -> dict[str, object]:
-    packet = build_research_packet(event_id)
+def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, object]:
     errors: list[str] = []
-    if packet is None:
-        return {"event_id": event_id, "status": "FAIL", "errors": ["packet not found"]}
     audit = packet.get("audit") or {}
     if audit.get("body_text_included") is not False:
         errors.append("body_text_included must be false")
@@ -58,6 +55,13 @@ def validate(event_id: str) -> dict[str, object]:
         "counts": counts,
         "database_sha256": (packet.get("database") or {}).get("sha256", ""),
     }
+
+
+def validate(event_id: str) -> dict[str, object]:
+    packet = build_research_packet(event_id)
+    if packet is None:
+        return {"event_id": event_id, "status": "FAIL", "errors": ["packet not found"]}
+    return validate_packet(packet, event_id)
 
 
 def main() -> int:

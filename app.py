@@ -5038,6 +5038,51 @@ def _research_domestic_evidence_rows(
     return result
 
 
+def _research_topic_event_page_stats(
+    c: sqlite3.Connection, event_id: str
+) -> dict[str, int]:
+    """Count pages linked by the shared topic event index.
+
+    This is deliberately separate from candidate aggregation. A curated
+    evidence-chain page may be linked to ``research_events`` without its
+    document being listed in ``domestic_candidates``. Collapsing those paths
+    would make a strict page look absent from the research platform.
+    """
+    try:
+        row = c.execute(
+            f"""
+            SELECT
+                COUNT(DISTINCT CASE WHEN d.source_platform='domestic' THEN e.page_id END) AS domestic_pages,
+                COUNT(DISTINCT CASE
+                    WHEN d.source_platform='domestic'
+                     AND {DOMESTIC_STRICT_CITATION_SQL}
+                    THEN e.page_id END) AS domestic_strict_pages,
+                COUNT(DISTINCT CASE
+                    WHEN d.source_platform='domestic'
+                     AND trim(COALESCE(pp.source_file, '')) <> ''
+                     AND length(trim(COALESCE(pp.source_sha256, ''))) = 64
+                    THEN e.page_id END) AS domestic_file_backed_pages
+            FROM research_events e
+            JOIN pages p ON p.id=e.page_id
+            JOIN documents d ON d.id=p.document_id
+            LEFT JOIN page_provenance pp ON pp.page_id=p.id
+            WHERE e.scope_type='topic' AND e.scope_slug=?
+            """,
+            (event_id,),
+        ).fetchone()
+    except sqlite3.OperationalError:
+        return {
+            "domestic_pages": 0,
+            "domestic_strict_pages": 0,
+            "domestic_file_backed_pages": 0,
+        }
+    return {
+        "domestic_pages": int(row["domestic_pages"] or 0),
+        "domestic_strict_pages": int(row["domestic_strict_pages"] or 0),
+        "domestic_file_backed_pages": int(row["domestic_file_backed_pages"] or 0),
+    }
+
+
 def _research_academic_matches(
     item: dict[str, object], comparison: dict[str, object], limit: int = 10
 ) -> dict[str, object]:
@@ -5199,6 +5244,9 @@ def _research_topic_rows() -> list[dict[str, object]]:
                 {"definition": definition, "stats": _research_foreign_match_stats(c, definition)}
                 for definition in foreign_defs
             ]
+            topic_event_stats = _research_topic_event_page_stats(
+                c, str(item.get("event_id") or "")
+            )
             result.append({
                 "item": item,
                 "comparison": comparison,
@@ -5214,6 +5262,9 @@ def _research_topic_rows() -> list[dict[str, object]]:
                 "domestic_pages": sum(int(row["page_count"]) for row in domestic_evidence),
                 "domestic_file_pages": sum(int(row["file_backed_pages"]) for row in domestic_evidence),
                 "domestic_citation_pages": sum(int(row["strict_citation_pages"]) for row in domestic_evidence),
+                "topic_event_domestic_pages": topic_event_stats["domestic_pages"],
+                "topic_event_domestic_file_backed_pages": topic_event_stats["domestic_file_backed_pages"],
+                "topic_event_domestic_strict_pages": topic_event_stats["domestic_strict_pages"],
                 "foreign_stats": foreign_stats,
                 "foreign_pages": sum(int(entry["stats"]["pages"]) for entry in foreign_stats),
                 "foreign_documents": sum(int(entry["stats"]["documents"]) for entry in foreign_stats),
@@ -5274,9 +5325,35 @@ def research_topics_page() -> bytes:
   <a class="button" href="/domestic">国内史料库</a>
   <a class="button" href="/domestic/academic">学术研究层</a>
   <a class="button" href="/events/key">境外关键事件</a>
+  <a class="button" href="/research/packets">全部研究包</a>
 </section>
 """
     return layout("多源专题研究", body, active_path="/research")
+
+
+def research_packets_page() -> bytes:
+    """Index all topic packets and their current evidence state."""
+    topics = _research_topic_rows()
+    cards: list[str] = []
+    for topic in topics:
+        item = topic["item"]
+        event_id = str(item.get("event_id") or "")
+        chain = topic.get("evidence_chain_summary") or {}
+        primary = _primary_evidence_display(item)
+        status_class = "ok" if primary["status"] == "closed" else "warn"
+        cards.append(f"""
+<article class="result"><div>
+  <h2><a href="/research/{quote(event_id)}/packet">{h(item.get('event_name'))}</a></h2>
+  <div class="meta">证据链 {h(chain.get('page_items', 0))} 页 · 严格门禁 {h(chain.get('strict_items', 0))} 页 · 专题回接 {h(topic.get('topic_event_domestic_pages', 0))} 页 / 严格 {h(topic.get('topic_event_domestic_strict_pages', 0))} 页 · 开放原件目标 {h(chain.get('open_targets', 0))} 项 · 学术候选 {h(topic.get('academic_total', 0))} 条</div>
+  <div class="tagline"><span class="pstatus {status_class}">{h(primary['label'])}</span><span class="tag">研究包可生成</span><span class="tag">正文不复制</span></div>
+  <div class="snippet"><strong>当前缺口：</strong>{h(primary['gap'])}</div>
+</div><div class="cite"><a href="/research/{quote(event_id)}/packet">打开研究包</a><br><a href="/research/{quote(event_id)}/packet.json">下载 JSON</a></div></article>""")
+    body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, "全部研究包")]) + f"""
+<section class="doc-head"><div><h1>全部专题研究包</h1><div class="meta">九个国内专题的统一研究工作台</div></div><div class="doc-tools"><a class="button" href="/research">专题索引</a><a class="button secondary" href="/research/gaps">证据缺口</a></div></section>
+<div class="notice"><strong>使用方式：</strong>先从研究问题进入专题，再用研究包统一查看国内材料、境外对读、学术解释、页级 provenance 和待补原件。这里把“证据链页”“专题回接页”和“候选回接严格页”分开统计：三者来源路径不同，不能互相替代。研究包只复制元数据和链接，不复制正文、OCR、译文或逐字引文。</div>
+<section class="result-list">{"".join(cards) or '<div class="notice">暂无专题研究包。</div>'}</section>
+"""
+    return layout("全部专题研究包", body, active_path="/research")
 
 
 def research_topic_page(event_id: str) -> bytes:
@@ -10142,6 +10219,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = research_topics_page()
         elif parsed.path == "/research/gaps":
             payload = research_gaps_page()
+        elif parsed.path == "/research/packets":
+            payload = research_packets_page()
         elif parsed.path.startswith("/research/") and parsed.path.endswith("/packet.json"):
             packet_event_id = unquote(parsed.path.removeprefix("/research/").removesuffix("/packet.json").rstrip("/"))
             packet_payload = packet_json_bytes(packet_event_id)

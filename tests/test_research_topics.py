@@ -89,6 +89,8 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert packet["counts"]["evidence_chain_page_items"] == 34
     assert packet["counts"]["evidence_chain_resolved_page_items"] == 34
     assert packet["counts"]["evidence_chain_strict_gate_passed"] == 34
+    assert packet["counts"]["topic_event_domestic_pages"] == 182
+    assert packet["counts"]["topic_event_domestic_strict_pages"] == 34
     assert packet["audit"]["body_text_included"] is False
     assert packet["audit"]["ocr_text_included"] is False
     assert packet["audit"]["verbatim_quote_included"] is False
@@ -102,6 +104,7 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert "正文未复制" in body
     assert "仍待补原件" in body
     assert "数据库 SHA256" in body
+    assert "专题回接严格页" in body
     assert "原文摘录：" not in body
     assert "中文译文（" not in body
 
@@ -124,6 +127,53 @@ def test_research_packet_route_and_json(live_server, db_missing_reason):
     assert packet["event_id"] == "domestic-1945-first-congress"
     assert packet["audit"]["body_text_included"] is False
     assert '"text"' not in body
+
+
+def test_all_research_packets_index(live_server, db_missing_reason):
+    """九个专题必须有统一的研究包索引入口。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证全部专题研究包: {db_missing_reason}")
+    status, body = fetch(live_server, "/research/packets")
+    assert status == 200
+    assert body is not None
+    assert "全部专题研究包" in body
+    assert body.count("研究包可生成") == 9
+    assert "正文不复制" in body
+    assert "专题回接" in body
+    assert "1945年民盟第一次全国代表大会" in body
+    assert "1946年李公朴、闻一多遇害及各方反应" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
+def test_all_research_packets_batch_validator(tmp_path):
+    """批量研究包验收必须覆盖九个专题且不复制正文。"""
+    root = Path(__file__).resolve().parents[1]
+    output = tmp_path / "research-packets.json"
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(root / "scripts/domestic/validate_all_research_packets.py"),
+            "--output",
+            str(output),
+        ],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    report = json.loads(output.read_text(encoding="utf-8"))
+    assert report["status"] == "PASS"
+    assert report["topic_count"] == 9
+    assert report["packet_count"] == 9
+    assert report["failed_packet_count"] == 0
+    assert report["research_ready_count"] == 0
+    assert report["body_read"] is False
+    assert report["report_does_not_copy_page_text"] is True
+    assert all(
+        "topic_event_domestic_strict_pages" in topic
+        for topic in report["topics"]
+    )
 
 
 def test_domestic_academic_layer_smoke(live_server):
@@ -887,12 +937,15 @@ def test_research_question_benchmark_covers_all_domestic_topics(tmp_path, db_mis
     report = json.loads(output.read_text(encoding="utf-8"))
     assert report["question_count"] == 36
     assert report["path_ready_count"] == 36
+    assert report["strict_support_count"] == 36
+    assert report["topic_strict_route_count"] == 36
     assert report["failed_path_count"] == 0
     assert report["topic_count"] == 9
     assert report["body_read"] is False
     assert report["report_does_not_copy_page_text"] is True
     assert all(item["questions"] == 4 for item in report["topics"].values())
     assert all(item["path_ready"] == 4 for item in report["topics"].values())
+    assert all(item["topic_strict_routes"] == 4 for item in report["topics"].values())
     assert all(
         check["primary_evidence_status"] == "partial"
         for check in report["checks"]

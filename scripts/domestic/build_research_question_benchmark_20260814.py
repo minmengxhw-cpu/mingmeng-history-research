@@ -121,6 +121,7 @@ def build_report() -> dict[str, object]:
             topic = topics.get(event_id)
             chain = (topic or {}).get("evidence_chain_summary") or {}
             item = (topic or {}).get("item") or {}
+            topic_event_stats = app._research_topic_event_page_stats(connection, event_id)
             search_hit = bool(page_ids)
             topic_route_ready = bool(topic and chain.get("page_items", 0) > 0)
             checks.append(
@@ -133,6 +134,9 @@ def build_report() -> dict[str, object]:
                     "sample_page_ids": page_ids[:5],
                     "strict_citation_hits": len(strict_ids),
                     "sample_strict_page_ids": sorted(strict_ids)[:5],
+                    "evidence_chain_strict_pages": int(chain.get("strict_items", 0) or 0),
+                    "topic_event_domestic_pages": topic_event_stats["domestic_pages"],
+                    "topic_event_domestic_strict_pages": topic_event_stats["domestic_strict_pages"],
                     "topic_route_ready": topic_route_ready,
                     "evidence_chain_page_items": int(chain.get("page_items", 0) or 0),
                     "open_primary_targets": int(chain.get("open_targets", 0) or 0),
@@ -143,15 +147,26 @@ def build_report() -> dict[str, object]:
                         else "path_incomplete"
                     ),
                     "citation_status": (
-                        "strict_page_available"
+                        "strict_page_available_in_query"
                         if strict_ids
-                        else "no_strict_page_in_query"
+                        else (
+                            "strict_page_available_in_topic"
+                            if topic_event_stats["domestic_strict_pages"]
+                            else "no_strict_page_in_query_or_topic"
+                        )
                     ),
                 }
             )
 
     path_ready = [row for row in checks if row["path_status"] == "research_path_ready"]
     strict_ready = [row for row in checks if row["strict_citation_hits"]]
+    topic_strict_ready = [
+        row for row in checks if row["topic_event_domestic_strict_pages"]
+    ]
+    strict_support_ready = [
+        row for row in checks
+        if row["strict_citation_hits"] or row["topic_event_domestic_strict_pages"]
+    ]
     failures = [
         {
             "id": row["id"],
@@ -166,11 +181,19 @@ def build_report() -> dict[str, object]:
     for row in checks:
         bucket = by_topic.setdefault(
             str(row["event_id"]),
-            {"questions": 0, "path_ready": 0, "strict_page_queries": 0},
+            {
+                "questions": 0,
+                "path_ready": 0,
+                "strict_page_queries": 0,
+                "topic_strict_routes": 0,
+            },
         )
         bucket["questions"] += 1
         bucket["path_ready"] += int(row["path_status"] == "research_path_ready")
         bucket["strict_page_queries"] += int(bool(row["strict_citation_hits"]))
+        bucket["topic_strict_routes"] += int(
+            bool(row["topic_event_domestic_strict_pages"])
+        )
 
     return {
         "schema_version": "research_question_benchmark.v1",
@@ -185,6 +208,8 @@ def build_report() -> dict[str, object]:
         "question_count": len(checks),
         "path_ready_count": len(path_ready),
         "strict_page_query_count": len(strict_ready),
+        "topic_strict_route_count": len(topic_strict_ready),
+        "strict_support_count": len(strict_support_ready),
         "failed_path_count": len(failures),
         "topic_count": len(by_topic),
         "topics": by_topic,
@@ -192,7 +217,8 @@ def build_report() -> dict[str, object]:
         "checks": checks,
         "interpretation": {
             "path_ready": "搜索有国内命中，且可进入带证据链的专题入口。",
-            "strict_page_available": "本次查询返回至少一页通过国内正式引用门禁的页面。",
+            "strict_page_available_in_query": "本次查询直接返回至少一页通过国内正式引用门禁的页面。",
+            "strict_page_available_in_topic": "本次查询未直接返回严格页，但专题事件索引仍提供至少一页通过正式引用门禁的页级入口。",
             "not_primary_closure": "本报告不把搜索命中或专题入口当作事件定义原件闭环；primary_evidence_status 和开放目标仍以覆盖表/证据链为准。",
         },
     }

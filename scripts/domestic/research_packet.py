@@ -193,7 +193,7 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
     resolved_count = sum(1 for row in all_page_rows if row.get("resolved") is True)
 
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "packet_type": "domestic_topic_research_packet",
         "generated_at": datetime.datetime.now(datetime.timezone.utc)
         .astimezone()
@@ -228,6 +228,13 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "domestic_documents": int(topic.get("domestic_documents") or 0),
             "domestic_pages": int(topic.get("domestic_pages") or 0),
             "domestic_strict_pages": int(topic.get("domestic_citation_pages") or 0),
+            "topic_event_domestic_pages": int(topic.get("topic_event_domestic_pages") or 0),
+            "topic_event_domestic_file_backed_pages": int(
+                topic.get("topic_event_domestic_file_backed_pages") or 0
+            ),
+            "topic_event_domestic_strict_pages": int(
+                topic.get("topic_event_domestic_strict_pages") or 0
+            ),
             "evidence_chain_page_items": len(all_page_rows),
             "evidence_chain_resolved_page_items": resolved_count,
             "evidence_chain_strict_gate_passed": strict_count,
@@ -351,7 +358,7 @@ def research_packet_page(event_id: str) -> bytes:
         [("/research", "多源专题研究"), (None, "专题研究包")]
     ) + f"""
 <section class="doc-head"><div><h1>{esc(packet['event_name'])} · 研究包</h1><div class="meta">元数据和页级证据导航包 · 生成于 {esc(packet['generated_at'])}</div></div><div class="doc-tools"><a class="button" href="/research/{event_id_safe}">返回专题</a><a class="button secondary" href="/research/{event_id_safe}/packet.json">下载 JSON</a></div></section>
-<section class="stats"><div class="stat"><strong>{counts['evidence_chain_page_items']}</strong><span>证据链页级记录</span></div><div class="stat"><strong>{counts['evidence_chain_strict_gate_passed']}</strong><span>严格门禁通过</span></div><div class="stat"><strong>{counts['academic_candidates']}</strong><span>学术解释候选</span></div><div class="stat"><strong>{len(packet['open_primary_targets'])}</strong><span>开放原件目标</span></div></section>
+<section class="stats"><div class="stat"><strong>{counts['evidence_chain_page_items']}</strong><span>证据链页级记录</span></div><div class="stat"><strong>{counts['evidence_chain_strict_gate_passed']}</strong><span>严格门禁通过</span></div><div class="stat"><strong>{counts['topic_event_domestic_strict_pages']}</strong><span>专题回接严格页</span></div><div class="stat"><strong>{counts['academic_candidates']}</strong><span>学术解释候选</span></div><div class="stat"><strong>{len(packet['open_primary_targets'])}</strong><span>开放原件目标</span></div></section>
 <div class="notice"><strong>研究问题：</strong>{esc(packet['research_question'])}<br><strong>证据状态：</strong>{esc(scope['primary_evidence_label'])}。{esc(scope['primary_evidence_gap'])}<br><strong>边界：</strong>本包只导出题目、证据层、页级定位、来源 SHA256、复核范围和缺口；不复制正文、OCR、译文或逐字引文。正式引用必须打开对应的引用门禁页，并遵守该页的 review_scope。</div>
 <div class="section-head"><h2>国内—境外对读摘要</h2></div><section class="result-list"><article class="result compact-result"><div><h3>国内材料</h3><div class="snippet">{esc(scope['domestic_anchor'])}</div></div></article><article class="result compact-result"><div><h3>境外材料</h3><div class="snippet">{esc(scope['foreign_anchor'])}</div></div></article><article class="result compact-result"><div><h3>差异与下一步</h3><div class="snippet"><strong>差异：</strong>{esc(scope['difference'])}<br><strong>下一步：</strong>{esc(scope['next_action'])}</div></div></article></section>
 {"".join(sections)}
