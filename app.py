@@ -846,7 +846,31 @@ NAV_GROUPS = [
 PUBLIC_HIDDEN_GROUPS = {"workbench"}
 PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisition",
                         "/open-sources", "/dashboard", "/review", "/excluded", "/domestic/review",
-                        "/domestic/evidence-review"}
+                        "/domestic/evidence-review", "/domestic/search", "/domestic/document"}
+
+PUBLIC_DOMESTIC_LEVELS = {"L0", "L1", "L2", "L3"}
+
+
+def _public_domestic_candidate_visible(row: sqlite3.Row | dict) -> bool:
+    """公开模式只允许显式 public 且处于 L0—L3 的国内记录。"""
+    accepted = row["authenticity_level_accepted"] if "authenticity_level_accepted" in row.keys() else None
+    proposed = row["authenticity_level_proposed"] if "authenticity_level_proposed" in row.keys() else None
+    level = str(accepted or proposed or "").strip()
+    rights = str(row["rights_status"] or "").strip().lower() if "rights_status" in row.keys() else ""
+    return level in PUBLIC_DOMESTIC_LEVELS and rights == "public"
+
+
+def _public_domestic_document_visible(c: sqlite3.Connection, document_id: int) -> bool:
+    """通过候选与文档的显式关系判断正式国内文档是否可公开。"""
+    try:
+        rows = c.execute(
+            """SELECT authenticity_level_proposed, authenticity_level_accepted, rights_status
+               FROM domestic_candidates WHERE ingested_document_id=?""",
+            (document_id,),
+        ).fetchall()
+    except sqlite3.Error:
+        return False
+    return any(_public_domestic_candidate_visible(row) for row in rows)
 
 
 def nav_active(path: str) -> str:
@@ -2717,7 +2741,7 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
                 """
                 SELECT candidate_id, title, document_type, source_url, repository_code,
                        authenticity_level_proposed, authenticity_level_accepted,
-                       relevance_grade_proposed, review_status, evidence_note,
+                       relevance_grade_proposed, review_status, rights_status, evidence_note,
                        uncertainty_note, event_tags, ingested_document_id
                 FROM domestic_candidates
                 ORDER BY id
@@ -2796,7 +2820,7 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
     if getattr(_request, "public_mode", False):
         cand_rows = [
             row for row in cand_rows
-            if (row["authenticity_level_proposed"] or "") in {"L0", "L1", "L2", "L3"}
+            if _public_domestic_candidate_visible(row)
         ]
 
     core_cands: list[sqlite3.Row] = []
@@ -3055,12 +3079,13 @@ def _domestic_rows() -> list[sqlite3.Row]:
                       repository_code, archive_fonds, archive_series, archive_file,
                       archive_item, catalog_reference, source_url,
                       authenticity_level_proposed, relevance_grade_proposed,
-                      review_status, event_tags, person_tags, place_tags,
+                      authenticity_level_accepted, review_status, rights_status,
+                      event_tags, person_tags, place_tags,
                       evidence_note, uncertainty_note, ingested_document_id
                FROM domestic_candidates ORDER BY id"""
         ).fetchall()
     if getattr(_request, "public_mode", False):
-        rows = [row for row in rows if row["authenticity_level_proposed"] in {"L0", "L1", "L2", "L3"}]
+        rows = [row for row in rows if _public_domestic_candidate_visible(row)]
     return rows
 
 
@@ -3076,7 +3101,7 @@ def _domestic_candidate_row(candidate_id: str) -> sqlite3.Row | None:
 def domestic_candidate_page(candidate_id: str) -> bytes:
     """国内候选详情：把目录、来源、权利和复核状态集中展示。"""
     row = _domestic_candidate_row(candidate_id)
-    if getattr(_request, "public_mode", False) and row and row["authenticity_level_proposed"] not in {"L0", "L1", "L2", "L3"}:
+    if getattr(_request, "public_mode", False) and row and not _public_domestic_candidate_visible(row):
         row = None
     if not row:
         return layout(
@@ -5737,6 +5762,16 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         ).fetchone()
         if not doc:
             return layout("未找到文档", '<div class="notice">未找到文档。</div>')
+        if (
+            getattr(_request, "public_mode", False)
+            and (doc["source_platform"] or "") == "domestic"
+            and not _public_domestic_document_visible(c, int(doc["id"]))
+        ):
+            return layout(
+                "公开模式不可用",
+                '<div class="notice">该国内文档尚未通过公开等级与权利门禁。请返回 <a href="/public">公开介绍版</a>。</div>',
+                active_path="/public",
+            )
         rows = c.execute(
             """
             SELECT
@@ -8001,6 +8036,7 @@ def citation_page(page_id: int) -> bytes:
                 pages.page_label,
                 pages.page_url,
                 pages.text AS original_text,
+                documents.id AS document_id,
                 documents.doc_key,
                 documents.volume_id,
                 documents.doc_id,
@@ -8027,6 +8063,14 @@ def citation_page(page_id: int) -> bytes:
         ).fetchone()
     if not row:
         return layout("未找到摘录", '<div class="notice">未找到摘录。</div>')
+    if row["source_platform"] == "domestic" and getattr(_request, "public_mode", False):
+        with conn() as c:
+            if not _public_domestic_document_visible(c, int(row["document_id"])):
+                return layout(
+                    "公开模式不可用",
+                    '<div class="notice">该国内文档尚未通过公开等级与权利门禁。请返回 <a href="/public">公开介绍版</a>。</div>',
+                    active_path="/public",
+                )
     page = source_page_label(row)
     source_url = row["page_url"] or row["doc_url"] or ""
     if row["source_platform"] == "domestic" and not _domestic_citation_is_strict(row):

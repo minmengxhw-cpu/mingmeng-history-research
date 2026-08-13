@@ -148,6 +148,32 @@ def test_public_mode_hides_internal_candidate_detail(live_server, db_missing_rea
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_public_mode_blocks_unlinked_domestic_document_and_citation(live_server, db_missing_reason):
+    """公开模式不能绕过候选门禁直达未授权的国内正文或摘录页。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证国内正文公开门禁: {db_missing_reason}")
+    with sqlite3.connect(DB_PATH) as connection:
+        row = connection.execute(
+            """SELECT d.doc_key, p.id
+               FROM documents d JOIN pages p ON p.document_id=d.id
+               LEFT JOIN domestic_candidates c ON c.ingested_document_id=d.id
+               WHERE d.source_platform='domestic' AND c.id IS NULL
+               ORDER BY d.id, p.id LIMIT 1"""
+        ).fetchone()
+    if row is None:
+        pytest.skip("没有未关联候选的国内文档可用于公开门禁测试")
+    doc_key, page_id = row
+    status, body = fetch(live_server, f"/doc/{quote(doc_key, safe='')}?public=1")
+    assert status == 200
+    assert body is not None
+    assert "公开模式不可用" in body
+    status, body = fetch(live_server, f"/cite/{page_id}?public=1")
+    assert status == 200
+    assert body is not None
+    assert "公开模式不可用" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
 def test_event_coverage_has_no_dangling_links(db_missing_reason):
     if db_missing_reason:
         pytest.skip(f"数据库缺失,无法核对专题覆盖: {db_missing_reason}")
