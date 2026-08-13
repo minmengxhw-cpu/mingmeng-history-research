@@ -1,9 +1,9 @@
 {
   "mode": "apply",
-  "database": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
+  "database": "data/research_index.sqlite",
   "source_sha256": "bdebdbb0d4c5b250cf59487dfb023cdaf9d219e3d1c4e51c8e5edd8980729d2e",
   "result_sha256": "e8df06ae53fbe8a4d997e57472d21e0d24fe913ffa26ff76d271de97899329ec",
-  "backup": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite.pre_deepseek_batch9_20260803T154801.bak",
+  "backup": "data/research_index.sqlite.pre_deepseek_batch9_20260803T154801.bak",
   "stats": {
     "review_rows_updated": 29,
     "orphans_deleted": 15,

@@ -1,7 +1,7 @@
 # Claude Code 长任务最终报告（2026-07-26）
 
 日期：2026-07-26
-项目根目录：/Users/cheer/Documents/mm agent/mingmeng-history-research
+项目根目录：.
 执行者：Claude Code（终端，长任务第二轮）
 主控：Codex 验收
 任务文件：`work/domestic/CLAUDE_CODE_LONG_TASK_HANDOFF_20260726.md`

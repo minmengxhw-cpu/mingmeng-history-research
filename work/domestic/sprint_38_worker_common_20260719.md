@@ -79,7 +79,7 @@ SQLite: 87 sources / 345 candidates / 185 pending / 345 decisions
 ## 校验命令（阶段 5 收口时跑，minimax worker 不跑）
 
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 python3 -B scripts/domestic/validate_candidates.py data/domestic/candidates.jsonl
 python3 -B scripts/domestic/validate_event_coverage.py data/domestic/candidates.jsonl data/domestic/event_coverage.json
 python3 -B scripts/domestic/ingest_domestic.py --db data/research_index.sqlite --sources data/domestic/source_registry.json --candidates data/domestic/candidates.jsonl

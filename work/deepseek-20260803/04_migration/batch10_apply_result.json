@@ -1,7 +1,7 @@
 {
   "before_sha256": "e8df06ae53fbe8a4d997e57472d21e0d24fe913ffa26ff76d271de97899329ec",
   "after_sha256": "fb7cefcf70fcee92fb9d020d20b1c610d102f14aa6aaaf004d34f50237859295",
-  "backup": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite.pre_deepseek_batch10_20260803T155421.bak",
+  "backup": "data/research_index.sqlite.pre_deepseek_batch10_20260803T155421.bak",
   "invalid_events_deleted": 5,
   "guangmingbao_articles_verified": 22,
   "candidate_rows_updated": 22,

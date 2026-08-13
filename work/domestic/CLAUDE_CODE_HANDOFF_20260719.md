@@ -3,7 +3,7 @@
 **交接日期：** 2026-07-19（Asia/Shanghai）  
 **交接方：** Grok（Grok TUI / 主会话 + 多轮 subagent）  
 **接手方：** Claude Code（可继续执行 / 复核 / 抽检 accept）  
-**项目根目录：** `/Users/cheer/Documents/mm agent/mingmeng-history-research`
+**项目根目录：** `.`
 
 ---
 
@@ -44,7 +44,7 @@ missing_paths (audit)     : 0
 ### 启动前必跑
 
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 python3 scripts/domestic/validate_candidates.py data/domestic/candidates.jsonl
 python3 scripts/domestic/validate_event_coverage.py data/domestic/candidates.jsonl data/domestic/event_coverage.json
 python3 scripts/domestic/ingest_domestic.py

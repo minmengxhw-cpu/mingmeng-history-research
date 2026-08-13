@@ -14,7 +14,7 @@ import sqlite3
 from pathlib import Path
 from datetime import datetime
 
-ROOT = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
+ROOT = Path(".")
 DRYRUN_DB = ROOT / "work/domestic/minimax_autonomous_research_20260730/dryrun/minimax_autonomous_research_20260730_dryrun.sqlite"
 RESEARCH_DIR = ROOT / "work/domestic/minimax_autonomous_research_20260730/research"
 

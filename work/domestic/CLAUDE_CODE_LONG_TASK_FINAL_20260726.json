@@ -2,7 +2,7 @@
   "date": "2026-07-26 (P3-GXMM rerotate 20260727)",
   "executor": "Claude Code (terminal, long-task round 2)",
   "primary_reviewer": "Codex",
-  "project_root": "/Users/cheer/Documents/mm agent/mingmeng-history-research",
+  "project_root": ".",
   "phases": {
     "phase_0_baseline": {
       "status": "completed",

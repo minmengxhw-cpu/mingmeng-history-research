@@ -1,0 +1,44 @@
+{
+  "mode": "apply",
+  "database": "data/research_index.sqlite",
+  "before_sha256": "9413af230e80a8a64768daa92722c5cfec0eea8b6732212e3351b0d1e8e7646a",
+  "after_sha256": "326926341e6811a4687b4c08b4825468071aa3a4259e6a844f2dae0891a28491",
+  "backup": "research_index.sqlite.pre_closeout_20260813T093750.bak",
+  "before": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "documents": 1386,
+    "domestic_documents": 525,
+    "pages": 6157,
+    "domestic_pages": 5087,
+    "page_fts": 6157,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0,
+    "citation_ready_rows": 4271,
+    "strict_human_citation_rows": 0,
+    "unsafe_citation_rows": 4271,
+    "domestic_pages_missing_provenance": 577,
+    "domestic_documents_missing_date": 141
+  },
+  "changes": {
+    "citation_rows_demoted": 4271,
+    "document_dates_backfilled": 62
+  },
+  "after": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "documents": 1386,
+    "domestic_documents": 525,
+    "pages": 6157,
+    "domestic_pages": 5087,
+    "page_fts": 6157,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0,
+    "citation_ready_rows": 0,
+    "strict_human_citation_rows": 0,
+    "unsafe_citation_rows": 0,
+    "domestic_pages_missing_provenance": 577,
+    "domestic_documents_missing_date": 79
+  },
+  "completed_at": "2026-08-13T09:38:03"
+}

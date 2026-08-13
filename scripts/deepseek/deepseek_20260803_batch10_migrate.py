@@ -7,7 +7,7 @@ from pathlib import Path
 from _guard import guard
 guard()
 BASE=Path(__file__).resolve().parents[2]; AN=BASE/'work/deepseek-20260803/02_analysis'; OUT=BASE/'work/deepseek-20260803/04_migration'; OUT.mkdir(parents=True,exist_ok=True)
-DB=Path('/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite')
+DB=BASE/'data/research_index.sqlite'
 EXPECTED='e8df06ae53fbe8a4d997e57472d21e0d24fe913ffa26ff76d271de97899329ec'
 def sha(p):
  h=hashlib.sha256()

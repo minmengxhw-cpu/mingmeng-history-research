@@ -81,7 +81,7 @@
 
 ```bash
 PY=/Library/Developer/CommandLineTools/usr/bin/python3
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 $PY scripts/domestic/register_zhang_lan_1943_booklet_20260719.py \
     data/domestic/candidates.jsonl          # dry-run：added=3, skipped=0
 $PY scripts/domestic/register_zhang_lan_1943_booklet_20260719.py \

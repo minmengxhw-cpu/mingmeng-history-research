@@ -10,7 +10,7 @@ from pathlib import Path
 from PIL import Image
 from datetime import datetime
 
-ROOT = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
+ROOT = Path(".")
 OCR_DIR = ROOT / "work/domestic/minimax_autonomous_research_20260730/ocr"
 RESEARCH_DIR = ROOT / "work/domestic/minimax_autonomous_research_20260730/ocr/visual_review"
 RESEARCH_DIR.mkdir(parents=True, exist_ok=True)

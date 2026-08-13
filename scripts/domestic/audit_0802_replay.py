@@ -25,7 +25,7 @@ from collections import Counter
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-REPO = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
+REPO = Path(".")
 FORMAL_DB = REPO / "data" / "research_index.sqlite"
 P3_FREEZE_SHA = "822e141dc5818393297f32ad63133eedbf57268c6088b6369505487632115fd3"
 REBASELINE_0802_SHA = "e4417bd1dfce77772832e0fcee17f5fb33bbd0fc9d1e6b2618932a64e9c8c0a5"

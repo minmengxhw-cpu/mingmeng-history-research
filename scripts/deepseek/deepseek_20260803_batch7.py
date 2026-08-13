@@ -19,7 +19,7 @@ OUT = BASE / "work/deepseek-20260803/02_analysis"
 OUT.mkdir(parents=True, exist_ok=True)
 DB = Path(os.environ.get(
     "DEEPSEEK_FORMAL_DB",
-    "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
+    str(BASE / "data" / "research_index.sqlite"),
 ))
 
 CATALOG_MARKERS = ("目录", "书目", "档号", "全宗", "catalogue", "获取说明", "检索词")

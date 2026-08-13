@@ -23,7 +23,7 @@ import re
 from pathlib import Path
 from collections import Counter
 
-ROOT = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
+ROOT = Path(".")
 DOSSIERS = ROOT / "work/domestic/minimax_autonomous_research_20260730/dossiers"
 RESEARCH_DIR = ROOT / "work/domestic/minimax_autonomous_research_20260730/research"
 SOURCE_AUDITS = [

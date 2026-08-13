@@ -15,7 +15,7 @@ guard()
 BASE=Path(__file__).resolve().parents[2]
 WORK=BASE/'work/deepseek-20260803'
 AN=WORK/'02_analysis'; OUT=WORK/'04_migration'; OUT.mkdir(parents=True,exist_ok=True)
-DEFAULT_DB=Path('/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite')
+DEFAULT_DB=BASE/'data/research_index.sqlite'
 EXPECTED_SHA='bdebdbb0d4c5b250cf59487dfb023cdaf9d219e3d1c4e51c8e5edd8980729d2e'
 
 def sha(p):

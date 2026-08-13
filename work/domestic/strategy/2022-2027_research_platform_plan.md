@@ -2,7 +2,7 @@
 
 作者：mavis
 落档日期：2026-07-22
-适用项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`
+适用项目：`.`
 基线日期：2026-07-21 (snapshot_20260721.md)
 读者：cheer (项目主理人) / Codex (后续审核收口) / 未来接力团队
 

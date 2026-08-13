@@ -90,7 +90,7 @@ raw 层（只读）：
 复演：
 
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 python3 scripts/domestic/register_shdpz_1942_1943_entries_20260719.py \
     data/domestic/candidates.jsonl          # dry-run：added=3, skipped=0
 python3 scripts/domestic/register_shdpz_1942_1943_entries_20260719.py \

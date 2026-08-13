@@ -23,7 +23,7 @@ OUT = BASE / "work/deepseek-20260803/02_analysis"
 OUT.mkdir(parents=True, exist_ok=True)
 DB = Path(os.environ.get(
     "DEEPSEEK_FORMAL_DB",
-    "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
+    str(BASE / "data" / "research_index.sqlite"),
 ))
 # Formal DB lives outside this worktree; resolve relative image paths against that root.
 DB_ROOT = DB.resolve().parents[1]  # .../mingmeng-history-research

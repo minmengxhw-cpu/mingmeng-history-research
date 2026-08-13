@@ -12,7 +12,7 @@ import json
 import os
 from pathlib import Path
 
-ROOT = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
+ROOT = Path(".")
 REL_DIR = ROOT / "work/domestic/minimax_autonomous_research_20260730/relations"
 RESEARCH_DIR = ROOT / "work/domestic/minimax_autonomous_research_20260730/research"
 

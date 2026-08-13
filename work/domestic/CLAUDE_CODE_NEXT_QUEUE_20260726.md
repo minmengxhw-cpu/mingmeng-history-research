@@ -57,7 +57,7 @@
 ### P0 apply 命令（Codex 验收后）
 
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 # 1. 备份
 cp -p data/research_index.sqlite data/research_index.sqlite.20260726_phase5.pre.bak
 # 2. 跑 before 检索回归（与 CLAUDE_PHASE6_SEARCH_REGRESSION_20260726.json 比对）

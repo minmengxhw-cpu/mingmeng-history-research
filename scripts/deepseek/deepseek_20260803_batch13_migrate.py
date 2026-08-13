@@ -21,7 +21,7 @@ BASE = Path(__file__).resolve().parents[2]
 AN = BASE / "work/deepseek-20260803/02_analysis"
 OUT = BASE / "work/deepseek-20260803/04_migration"
 OUT.mkdir(parents=True, exist_ok=True)
-DEFAULT_DB = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite")
+DEFAULT_DB = BASE / "data" / "research_index.sqlite"
 EXPECTED_SHA = "d8c4dcebddd11e7bc7d62fab9704e7da3bebfb1abc57021b4f62df6b97e65363"
 
 

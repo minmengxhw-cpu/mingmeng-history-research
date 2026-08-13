@@ -2,7 +2,7 @@
 
 收口日期：2026-07-19 10:04 (Asia/Shanghai)  
 最新更新：2026-07-21 21:55 (Asia/Shanghai) — 0721 sprint 增量（44 accepts + 闻一多 URL 修复 + 3 P1 模板就绪）
-适用项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`  
+适用项目：`.`
 边界：mavis 不主动发起，全部等 cheer 拍板；本清单用于 cheer 后续 sprint 拍优先级
 
 ---

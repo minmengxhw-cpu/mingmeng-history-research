@@ -202,7 +202,7 @@
 
 **选项 A：批准升级（推荐）**
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 python3 scripts/domestic/upgrade_frus_l3_to_l2_20260719.py \
     data/domestic/candidates.jsonl            # dry-run：upgraded=6
 python3 scripts/domestic/upgrade_frus_l3_to_l2_20260719.py \

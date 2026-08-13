@@ -7,6 +7,6 @@
   "inserted_documents": 12,
   "inserted_pages": 24,
   "skipped_existing": [],
-  "backup": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite.observer-front-ocr-20260728.pre.bak",
+  "backup": "data/research_index.sqlite.observer-front-ocr-20260728.pre.bak",
   "applied_at": "2026-07-28T10:01:12"
 }

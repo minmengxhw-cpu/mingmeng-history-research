@@ -22,7 +22,7 @@ BASE = Path(__file__).resolve().parents[2]
 AN = BASE / "work/deepseek-20260803/02_analysis"
 OUT = BASE / "work/deepseek-20260803/04_migration"
 OUT.mkdir(parents=True, exist_ok=True)
-DEFAULT_DB = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite")
+DEFAULT_DB = BASE / "data" / "research_index.sqlite"
 # Must match Batch10 write-after hash.
 EXPECTED_SHA = "fb7cefcf70fcee92fb9d020d20b1c610d102f14aa6aaaf004d34f50237859295"
 NOTE_PREFIX = "DeepSeek Batch12 short-page demotion"

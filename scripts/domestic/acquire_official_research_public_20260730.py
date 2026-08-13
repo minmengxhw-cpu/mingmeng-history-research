@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
 
-ROOT = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
+ROOT = Path(".")
 BASE_OUT_HTML = ROOT / "data/domestic/official_research_public_20260730/html"
 BASE_OUT_PDF = ROOT / "data/domestic/official_research_public_20260730/pdf"
 MANIFEST = ROOT / "work/domestic/minimax_official_research_20260730/03_acquisition/ACQUISITION_MANIFEST.jsonl"

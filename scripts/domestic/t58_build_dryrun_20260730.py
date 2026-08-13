@@ -23,7 +23,7 @@ import os
 import sqlite3
 from pathlib import Path
 
-ROOT = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
+ROOT = Path(".")
 DRYRUN_DIR = ROOT / "work/domestic/minimax_autonomous_research_20260730/dryrun"
 DRYRUN_DIR.mkdir(parents=True, exist_ok=True)
 DRYRUN_DB = DRYRUN_DIR / "minimax_autonomous_research_20260730_dryrun.sqlite"

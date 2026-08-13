@@ -35,7 +35,7 @@
 - `L1/L2`：同期原件或可复查的原始扫描；OCR 仍需逐页复核。
 - `L3`：目录、详情字段或整理材料中可定位的原件线索；不能当作已取得全文。
 - `L4+`：官方回顾、公开网页、百科或研究资料；用于时间线和检索导航，不替代一手证据。
-- `citation_ready=false`：默认状态；未完成页级定位和人工审校前禁止作为正式引文。
+- `citation_ready=false`：默认状态；`machine_verified` 只表示机器核验可阅。只有 `human_verified`、`needs_human_review=0` 且存在人工复核说明时，才可设置为正式引文。
 
 收录边界与误收防线：
 - "China Democratic League / 中国民主同盟" 在 NewspaperSG / HathiTrust 等公开报刊源中容易与 **马来亚民主同盟（Malayan Democratic Union/League）**、**台湾民主自治同盟**、**Korean Democratic League**、**Indo-British Democratic League** 等同名／近名组织混淆。本平台 NewspaperSG 卷设置二次复核脚本（`scripts/build/review_newspapersg_exclusions.py`）逐篇判断 "是否真涉中国民盟"，输出 `data/newspapersg/exclusions.csv` 误收清单。
@@ -58,7 +58,23 @@ pip3 install --user python-docx zhconv weasyprint
 pip3 install --user pypdf pillow openpyxl
 ```
 
-### 3.（可选）下载台北档案的访客水印图
+### 3. 恢复正式研究数据库
+
+`data/research_index.sqlite` 和原始/OCR 资料不进入 Git。GitHub 代码库本身不能重建完整正式库；请从项目数据包恢复数据库，并用受版本控制的 `data/research_index.manifest.json` 校验 SHA256。
+
+```bash
+shasum -a 256 /path/to/research_index.sqlite
+```
+
+可以把数据库放入默认位置 `data/research_index.sqlite`，也可以保留在外部数据盘并通过环境变量启动：
+
+```bash
+MINGMENG_RESEARCH_DB=/absolute/path/research_index.sqlite python3 app.py
+```
+
+数据库 manifest 中的哈希、行数和完整性检查必须全部匹配后，才能作为正式研究基线。代码测试通过不等于数据库内容已通过学术引用门禁。
+
+### 4.（可选）下载台北档案的访客水印图
 
 代码库**不含**台北档案系统的图像（约 660MB，受 `.gitignore` 排除）。如需在详情页看到缩略图墙，请在 Mac 上跑一次下载脚本：
 
@@ -69,7 +85,7 @@ python3 scripts/download_drnh_images.py 0 --only-a
 
 不下载也不影响正常使用，只是详情页没有缩略图预览。
 
-### 4. NewspaperSG 译文入库（首次或更新译文后）
+### 5. NewspaperSG 译文入库（首次或更新译文后）
 
 `data/newspapersg/zh_translations.csv` 含 93 篇正文中译（DeepSeek-v4-flash 精译）。入库到本地 sqlite：
 
@@ -82,7 +98,7 @@ python3 scripts/ingest/ingest_newspapersg_translations_from_csv.py
 python3 scripts/oneshot/rebuild_fts_trigram.py
 ```
 
-### 5. 启动本地阅读器
+### 6. 启动本地阅读器
 
 ```bash
 python3 app.py
@@ -90,7 +106,7 @@ python3 app.py
 
 浏览器打开 <http://127.0.0.1:8765>。
 
-### 6. 常用入口
+### 7. 常用入口
 
 | 路径 | 用途 |
 |---|---|

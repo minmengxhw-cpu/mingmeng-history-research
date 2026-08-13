@@ -2,7 +2,7 @@
 
 ## 项目
 
-`/Users/cheer/Documents/mm agent/mingmeng-history-research`
+`.`
 
 ## 公共规范
 

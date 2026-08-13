@@ -1,7 +1,7 @@
 # Sprint 38+ Spec — 5 阶段接力规划
 
 落档日期：2026-07-19 10:43 (Asia/Shanghai)  
-项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`  
+项目：`.`
 接力来源：cheer 10:43 5 阶段指令  
 接力方：Mavis (root) 派 minimax worker + Grok pre-flight  
 边界：mavis 不发函 / 不登录 / 不付费；阶段执行守死红线（见 §6）

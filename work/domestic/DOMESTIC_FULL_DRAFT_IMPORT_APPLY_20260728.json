@@ -4,6 +4,6 @@
   "gate": "PASS",
   "mode": "apply",
   "pages": 67,
-  "rollback_path": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite.domestic-full-draft-20260728.pre.bak",
+  "rollback_path": "data/research_index.sqlite.domestic-full-draft-20260728.pre.bak",
   "applied_at": "2026-07-28T11:58:03"
 }

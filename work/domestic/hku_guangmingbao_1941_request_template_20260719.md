@@ -1,7 +1,7 @@
 # 港大 Special Collections 缩微预约模板 v2.1
 
 模板日期：2026-07-19（v2.1 路径加固：核对索书号/邮箱/Primo/三期/负向入口；执行清单见 cheer_action）  
-适用项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`  
+适用项目：`.`
 路径：A (1941 成立原刊) + D (1941 改组 / 1945 一大)  
 适用对象：cheer 启动港大缩微预约时直接套用  
 一键清单：`work/domestic/cheer_action_hku_microform_20260719.md`  

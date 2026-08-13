@@ -1,5 +1,5 @@
 {
-  "database": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
+  "database": "data/research_index.sqlite",
   "counts": {
     "documents": 1003,
     "pages": 1532,

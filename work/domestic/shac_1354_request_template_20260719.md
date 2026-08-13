@@ -1,7 +1,7 @@
 # 中国第二历史档案馆 (二史馆) 内政部公函函调模板 v1.1
 
 模板日期：2026-07-19（v1.1 路径加固：负向扩至公报 2963–2966；执行清单见 cheer_action）  
-适用项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`  
+适用项目：`.`
 路径：C (1947-10-27 内政部公函 / 公报原页)  
 适用对象：cheer 启动二史馆函调时直接套用  
 一键清单：`work/domestic/cheer_action_shac_1354_20260719.md`  

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-13T09:38:03+08:00",
+  "database_filename": "research_index.sqlite",
+  "database_size_bytes": 703549440,
+  "sha256": "326926341e6811a4687b4c08b4825468071aa3a4259e6a844f2dae0891a28491",
+  "counts": {
+    "documents": 1386,
+    "domestic_documents": 525,
+    "pages": 6157,
+    "page_fts": 6157,
+    "domestic_candidates": 689,
+    "strict_human_citation_pages": 0,
+    "domestic_pages_missing_provenance": 577,
+    "domestic_documents_missing_date": 79
+  },
+  "checks": {
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "pages_without_fts": 0,
+    "fts_without_pages": 0
+  },
+  "citation_policy": "citation_ready requires human_verified, needs_human_review=0, and a non-empty human_review_note",
+  "distribution": "The SQLite database and raw/OCR assets are external research data and are not stored in Git."
+}

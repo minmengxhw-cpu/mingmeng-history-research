@@ -377,7 +377,7 @@ Grok 和 MiniMax 是外部模型服务。项目采用“公开任务包 → 外�
 
 ```bash
 grok \
-  --cwd "/Users/cheer/Documents/mm agent/mingmeng-history-research" \
+  --cwd "." \
   --worktree=domestic-grok \
   --worktree-ref=main \
   --permission-mode=acceptEdits \
@@ -389,7 +389,7 @@ grok \
 
 ```bash
 grok \
-  --cwd "/Users/cheer/Documents/mm agent/mingmeng-history-research" \
+  --cwd "." \
   --single "$(cat prompts/domestic/grok_review_candidates.md)" \
   --permission-mode=plan \
   --output-format=json

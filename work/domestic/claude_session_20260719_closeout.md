@@ -119,7 +119,7 @@ audit:          220 accepted / missing_paths 0 / missing_required 0
 
 ```bash
 PY=/Library/Developer/CommandLineTools/usr/bin/python3
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 $PY scripts/domestic/upgrade_frus_l3_to_l2_20260719.py \
     data/domestic/candidates.jsonl --apply
 $PY scripts/domestic/validate_candidates.py data/domestic/candidates.jsonl

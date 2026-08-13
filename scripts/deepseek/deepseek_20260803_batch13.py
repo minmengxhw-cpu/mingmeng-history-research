@@ -22,7 +22,7 @@ AN = BASE / "work/deepseek-20260803/02_analysis"
 OUT = AN
 DB = Path(os.environ.get(
     "DEEPSEEK_FORMAL_DB",
-    "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
+    str(BASE / "data" / "research_index.sqlite"),
 ))
 
 

@@ -2,7 +2,7 @@
 
 执行日期：2026-07-19（Asia/Shanghai）  
 执行方：Grok（按交接并行完成 R1、R2 与阶段1）  
-项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`
+项目：`.`
 
 ## 0. 与阶段0并行完成的修正
 

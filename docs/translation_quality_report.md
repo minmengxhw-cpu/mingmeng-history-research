@@ -2,7 +2,7 @@
 
 - 检查片段：5436
 - 风险提示：4400
-- CSV：`/Users/cheer/Documents/mm agent/mingmeng-history-research/data/translation_quality_issues.csv`
+- CSV：`data/translation_quality_issues.csv`
 
 ## 按问题类型
 

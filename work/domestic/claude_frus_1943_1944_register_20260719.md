@@ -78,7 +78,7 @@ FRUS 上卷档案范围：**July 31, 1943 — December 31, 1946**，共 181 篇�
 复演：
 
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 python3 scripts/domestic/register_frus_1943_1944_archives_20260719.py \
     data/domestic/candidates.jsonl          # dry-run：added=2, skipped=0
 python3 scripts/domestic/register_frus_1943_1944_archives_20260719.py \

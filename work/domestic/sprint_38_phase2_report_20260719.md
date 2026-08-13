@@ -173,7 +173,7 @@
 ### 5.2 校验命令(minimax 不跑,留给 mavis 阶段 5 收口)
 
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 python3 -B scripts/domestic/validate_candidates.py data/domestic/candidates.jsonl
 python3 -B scripts/domestic/validate_event_coverage.py data/domestic/candidates.jsonl data/domestic/event_coverage.json
 python3 -B scripts/domestic/ingest_domestic.py --db data/research_index.sqlite --sources data/domestic/source_registry.json --candidates data/domestic/candidates.jsonl

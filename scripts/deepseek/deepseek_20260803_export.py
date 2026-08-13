@@ -37,7 +37,7 @@ INPUTS.mkdir(parents=True, exist_ok=True)
 
 PROD_DB = Path(os.environ.get(
     "DEEPSEEK_PROD_DB",
-    "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
+    str(BASE / "data" / "research_index.sqlite"),
 ))
 STAGING_DB = BASE / "work" / "minimax-20260803" / "04_staging" / "staging.sqlite"
 STAGING_CSV_DIR = BASE / "work" / "minimax-20260803" / "04_staging"

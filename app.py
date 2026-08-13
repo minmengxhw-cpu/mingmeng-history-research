@@ -7,6 +7,7 @@ import csv
 import html
 import sys
 import json
+import os
 import re
 import sqlite3
 import threading
@@ -20,7 +21,9 @@ _request = threading.local()
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "scripts" / "legacy"))
-DB_PATH = ROOT / "data" / "research_index.sqlite"
+DB_PATH = Path(
+    os.environ.get("MINGMENG_RESEARCH_DB", str(ROOT / "data" / "research_index.sqlite"))
+).expanduser().resolve()
 DOMESTIC_STAGING_DB_PATH = ROOT / "work" / "domestic" / "staging_20260730" / "domestic_staging.sqlite"
 PHASE2_INVENTORY_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "REPORT.json"
 CORE_GAP_MATRIX_REPORT_PATH = ROOT / "work" / "domestic" / "phase2_inventory_20260730" / "core_gap_matrix_20260730" / "CORE_GAP_MATRIX.json"
@@ -65,6 +68,30 @@ NEWSPAPERSG_CLEAN_DIR = ROOT / "data" / "newspapersg" / "documents_clean"
 
 def h(value: object) -> str:
     return html.escape("" if value is None else str(value), quote=True)
+
+
+def source_href(value: object) -> str:
+    """Hide machine-specific local roots while preserving stable source links."""
+    raw = "" if value is None else str(value).strip()
+    if not raw:
+        return "#"
+    is_local = raw.startswith("file://") or raw.startswith("/")
+    if is_local and getattr(_request, "public_mode", False):
+        return "#"
+    if raw.startswith(("file://data/", "file://work/", "file://output/", "file://exports/")):
+        return raw
+    if raw.startswith("file://"):
+        normalized = unquote(urlparse(raw).path)
+        for marker in ("/data/", "/work/", "/output/", "/exports/"):
+            if marker in normalized:
+                return "file://" + marker.strip("/") + "/" + normalized.split(marker, 1)[1]
+        return "#"
+    if raw.startswith("/"):
+        for marker in ("/data/", "/work/", "/output/", "/exports/"):
+            if marker in raw:
+                return marker + raw.split(marker, 1)[1]
+        return "#"
+    return raw
 
 
 def compact(text: str, limit: int = 260) -> str:
@@ -623,7 +650,7 @@ def bibliography_entry(row: sqlite3.Row) -> str:
     return (
         f"Foreign Relations of the United States, {row['volume_id']}"
         f"{', ' + volume if volume else ''}, {translate_title(row['title'])}, "
-        f"{row['date_guess'] or ''}, {page}, {source_url}"
+        f"{row['date_guess'] or ''}, {page}, {source_href(source_url)}"
     ).strip()
 
 
@@ -1188,7 +1215,7 @@ def source_page(platform_key: str) -> bytes:
     <div class="meta">{h(r["volume_id"])}/{h(r["doc_id"])} · {h(r["date_guess"])} {grade_badge(r)}</div>
     <div class="tagline">{''.join(f'<span class="tag">{h(t.strip())}</span>' for t in (r["matched_terms"] or "").split(";") if t.strip())}</div>
   </div>
-  <div class="cite"><a href="{h(r["url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
+  <div class="cite"><a href="{h(source_href(r["url"]))}" target="_blank" rel="noreferrer">原始来源</a></div>
 </article>"""
         if n_docs > 20:
             body += f'<div style="padding:14px 22px;text-align:center;border-top:1px solid var(--line-soft);"><a class="button" href="/docs?platform={platform_key}">查看全部 {n_docs} 篇 →</a></div>'
@@ -1649,7 +1676,7 @@ def result_html(row: sqlite3.Row) -> str:
     {zh}
     <div class="tagline">{tags}</div>
   </div>
-  <div class="cite"><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">原始来源</a><br>{h(page)}</div>
+  <div class="cite"><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">原始来源</a><br>{h(page)}</div>
 </article>"""
 
 
@@ -2422,6 +2449,30 @@ DOMESTIC_WEB_TYPE_MARKERS = (
     "网站", "网页", "新闻", "转载", "专题报道", "白皮书", "公众号", "政务号", "博士论文", "学术期刊",
 )
 
+# Formal citation is deliberately stricter than machine-readable/search-ready.
+# A domestic page may be useful for reading after provenance/OCR checks, but it
+# is not a formal citation until a human reviewer records an explicit note.
+DOMESTIC_STRICT_CITATION_SQL = """
+    pp.citation_ready = 1
+    AND pp.needs_human_review = 0
+    AND pp.review_status = 'human_verified'
+    AND trim(COALESCE(pp.human_review_note, '')) <> ''
+"""
+DOMESTIC_MACHINE_READABLE_SQL = """
+    pp.needs_human_review = 0
+    AND pp.review_status IN ('machine_verified', 'human_verified')
+"""
+
+
+def _domestic_citation_is_strict(row: sqlite3.Row | dict) -> bool:
+    """Return True only for a domestic page that passed recorded human review."""
+    return bool(
+        int(row["citation_ready"] or 0) == 1
+        and int(row["needs_human_review"] or 0) == 0
+        and str(row["provenance_review_status"] or "") == "human_verified"
+        and str(row["human_review_note"] or "").strip()
+    )
+
 
 def _domestic_level(row: sqlite3.Row | dict) -> str:
     accepted = row["authenticity_level_accepted"] if "authenticity_level_accepted" in row.keys() else None
@@ -2447,7 +2498,7 @@ def _domestic_is_background_candidate(row: sqlite3.Row | dict) -> bool:
 
 
 def _domestic_core_documents_sql(term: str = "", core_only: bool = True, limit: int | None = None) -> tuple[str, list[object]]:
-    """已入库国内文档：核心=有 citation_ready 页，或 OCR 正文足够可阅。"""
+    """已入库国内文档：严格引用、机器核验可阅与 OCR 检索稿分层。"""
     params: list[object] = []
     where = ["d.source_platform = 'domestic'"]
     if term:
@@ -2456,13 +2507,14 @@ def _domestic_core_documents_sql(term: str = "", core_only: bool = True, limit: 
         params.extend([like, like, like])
     having = ""
     if core_only:
-        having = " HAVING cite_pages > 0 OR (text_chars >= 2000 AND page_count >= 2 AND COALESCE(d.hit_type, '') LIKE '%ocr%')"
+        having = " HAVING cite_pages > 0 OR machine_pages > 0 OR (text_chars >= 2000 AND page_count >= 2 AND COALESCE(d.hit_type, '') LIKE '%ocr%')"
     sql = f"""
         SELECT
             d.id, d.doc_key, d.title, d.date_guess, d.url, d.volume_title,
             d.doc_id, d.doc_number, d.source_id, d.hit_type,
             COUNT(p.id) AS page_count,
-            SUM(CASE WHEN pp.citation_ready = 1 THEN 1 ELSE 0 END) AS cite_pages,
+            SUM(CASE WHEN {DOMESTIC_STRICT_CITATION_SQL} THEN 1 ELSE 0 END) AS cite_pages,
+            SUM(CASE WHEN {DOMESTIC_MACHINE_READABLE_SQL} THEN 1 ELSE 0 END) AS machine_pages,
             SUM(length(COALESCE(p.text, ''))) AS text_chars
         FROM documents d
         LEFT JOIN pages p ON p.document_id = d.id
@@ -2476,7 +2528,7 @@ def _domestic_core_documents_sql(term: str = "", core_only: bool = True, limit: 
             WHEN d.date_guess IS NULL OR trim(d.date_guess) = '' THEN 1
             ELSE 2
           END,
-          cite_pages DESC, text_chars DESC, COALESCE(d.date_guess, '9999-99-99'), d.id
+          cite_pages DESC, machine_pages DESC, text_chars DESC, COALESCE(d.date_guess, '9999-99-99'), d.id
     """
     if limit is not None:
         sql += " LIMIT ?"
@@ -2506,11 +2558,19 @@ def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
             """
         ).fetchone()[0]
         cite_pages = c.execute(
-            """
+            f"""
             SELECT count(*) FROM pages p
             JOIN documents d ON d.id = p.document_id
             JOIN page_provenance pp ON pp.page_id = p.id
-            WHERE d.source_platform = 'domestic' AND pp.citation_ready = 1
+            WHERE d.source_platform = 'domestic' AND {DOMESTIC_STRICT_CITATION_SQL}
+            """
+        ).fetchone()[0]
+        machine_pages = c.execute(
+            f"""
+            SELECT count(*) FROM pages p
+            JOIN documents d ON d.id = p.document_id
+            JOIN page_provenance pp ON pp.page_id = p.id
+            WHERE d.source_platform = 'domestic' AND {DOMESTIC_MACHINE_READABLE_SQL}
             """
         ).fetchone()[0]
 
@@ -2532,11 +2592,12 @@ def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
 <section class="stats">
   <div class="stat"><strong>{h(core_count)}</strong><span>核心可阅文档</span></div>
   <div class="stat"><strong>{h(total_docs)}</strong><span>全部已收</span></div>
-  <div class="stat"><strong>{h(cite_pages)}</strong><span>citation 页</span></div>
+  <div class="stat"><strong>{h(cite_pages)}</strong><span>人工核验可引用页</span></div>
+  <div class="stat"><strong>{h(machine_pages)}</strong><span>机器核验可阅页</span></div>
   <div class="stat"><strong>{h(total_pages)}</strong><span>物理页面</span></div>
   <div class="stat"><strong>{h(len(rows))}</strong><span>当前结果</span></div>
 </section>
-<div class="notice">核心口径：至少 1 页 citation_ready，或 OCR 正文≥2000 字且≥2 页。OCR 可检索≠可直接引用；引用前请进入文献详情核对页码与影像。</div>
+<div class="notice">核心口径：人工核验可引用、机器核验可阅或 OCR 正文≥2000 字且≥2 页。只有 human_verified 且具人工复核说明的页面才计入正式引用；机器核验和 OCR 仅供阅读、检索与待审。</div>
 <form method="get" action="/domestic/library" class="filter-form">
   <input type="hidden" name="layer" value="{h(layer)}">
   <label>检索 <input name="q" value="{h(term)}" placeholder="题名、档号或来源"></label>
@@ -2553,12 +2614,13 @@ def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
             href = f"/doc/{quote(row['doc_key'])}" if row["doc_key"] else "/domestic/library"
             source_href = row["url"] or "#"
             cite = int(row["cite_pages"] or 0)
-            badge = "可阅·citation" if cite > 0 else "可阅·OCR"
+            machine = int(row["machine_pages"] or 0)
+            badge = "人工核验可引用" if cite > 0 else ("机器核验可阅" if machine > 0 else "OCR 检索稿")
             body += f"""
 <article class="result">
   <div>
     {title_block(row["title"] or "未题名国内资料", href)}
-    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(row["volume_title"] or row["source_id"] or "来源未标注")} · {h(row["page_count"])} 页 · citation {h(cite)}</div>
+    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(row["volume_title"] or row["source_id"] or "来源未标注")} · {h(row["page_count"])} 页 · 人工引用 {h(cite)} · 机器可阅 {h(machine)}</div>
     <div class="tagline"><span class="tag">{h(badge)}</span><span class="tag">{h(row["hit_type"] or "domestic")}</span></div>
   </div>
   <div class="cite"><a href="{h(href)}">阅读文献</a><br><a href="{h(source_href)}" target="_blank" rel="noreferrer">原始来源</a></div>
@@ -2625,11 +2687,19 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
             core_docs_count_sql, _ = _domestic_core_documents_sql(core_only=True)
             core_docs_total = len(c.execute(core_docs_count_sql).fetchall())
             cite_pages = c.execute(
-                """
+                f"""
                 SELECT count(*) FROM pages p
                 JOIN documents d ON d.id = p.document_id
                 JOIN page_provenance pp ON pp.page_id = p.id
-                WHERE d.source_platform = 'domestic' AND pp.citation_ready = 1
+                WHERE d.source_platform = 'domestic' AND {DOMESTIC_STRICT_CITATION_SQL}
+                """
+            ).fetchone()[0]
+            machine_pages = c.execute(
+                f"""
+                SELECT count(*) FROM pages p
+                JOIN documents d ON d.id = p.document_id
+                JOIN page_provenance pp ON pp.page_id = p.id
+                WHERE d.source_platform = 'domestic' AND {DOMESTIC_MACHINE_READABLE_SQL}
                 """
             ).fetchone()[0]
             domestic_doc_total = c.execute(
@@ -2752,12 +2822,14 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
     for row in core_docs:
         href = f"/doc/{quote(row['doc_key'])}" if row["doc_key"] else "/domestic/library"
         cite = int(row["cite_pages"] or 0)
+        machine = int(row["machine_pages"] or 0)
+        status_label = "人工核验可引用" if cite > 0 else ("机器核验可阅" if machine > 0 else "OCR 检索稿")
         doc_cards.append(f"""
 <article class="result">
   <div>
     {title_block(row["title"] or "未题名", href)}
-    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(row["page_count"])} 页 · citation {h(cite)} · {h(row["hit_type"] or "")}</div>
-    <div class="tagline"><span class="tag">核心可阅</span><span class="pstatus ok">正式库</span></div>
+    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(row["page_count"])} 页 · 人工引用 {h(cite)} · 机器可阅 {h(machine)} · {h(row["hit_type"] or "")}</div>
+    <div class="tagline"><span class="tag">{h(status_label)}</span><span class="pstatus ok">正式库</span></div>
   </div>
   <div class="cite"><a href="{h(href)}">阅读</a></div>
 </article>""")
@@ -2783,13 +2855,14 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
 </section>
 <section class="stats">
   <div class="stat"><strong>{h(core_docs_total)}</strong><span>核心可阅文档</span></div>
-  <div class="stat"><strong>{h(cite_pages)}</strong><span>citation 页</span></div>
+  <div class="stat"><strong>{h(cite_pages)}</strong><span>人工核验可引用页</span></div>
+  <div class="stat"><strong>{h(machine_pages)}</strong><span>机器核验可阅页</span></div>
   <div class="stat"><strong>{h(len(core_cands))}</strong><span>核心候选</span></div>
   <div class="stat"><strong>{h(len(background_cands))}</strong><span>背景/线索</span></div>
   <div class="stat"><strong>{h(pending)}</strong><span>待人工复核</span></div>
   <div class="stat"><strong>{h(domestic_doc_total)}</strong><span>已收文档(含非核心)</span></div>
 </section>
-<div class="notice"><strong>阅读纪律：</strong>默认只展示核心可阅与一手/同期层。当代官网史志、新闻转载、白皮书、百科与二手论文进入「背景线索」，不得冒充 citation-ready 原件。「已接受候选」({h(accepted_count)}/{h(total_candidates)}) 不等于可引用全文。</div>
+<div class="notice"><strong>阅读纪律：</strong>默认展示核心可阅与一手/同期层，但机器核验和 OCR 仍不等于正式引用。当代官网史志、新闻转载、白皮书、百科与二手论文进入「背景线索」；只有 human_verified 且有人工复核说明的页面才能生成正式引文。「已接受候选」({h(accepted_count)}/{h(total_candidates)}) 不等于可引用全文。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-calendar"/></svg>九大关键事件证据墙</h2></div>
 <section class="result-list">
 {''.join(event_cards) if event_cards else '<div class="notice">事件覆盖表尚未生成。</div>'}
@@ -3672,7 +3745,7 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
         result_html = "".join(
             f'''<article class="result"><div><h2>{h(row["title"] or row["object_id"] or "未命名官方文本")}</h2>
             <div class="meta">{h(row["object_id"])} · {h(row["formation_institution"] or "机构未标注")} · 时期 {h(row["historical_phase"] or "unknown")}</div>
-            <div class="snippet">{h(row["document_type"] or "未标注类型")} · {h(row["evidence_tier"])} · {h(row["access_status"] or "unknown")} · SHA {h((row["sha256"] or "")[:16])}…</div></div><div class="cite"><a href="{h(row["source_url"] or row["local_path"] or "#")}">来源入口</a></div></article>'''
+            <div class="snippet">{h(row["document_type"] or "未标注类型")} · {h(row["evidence_tier"])} · {h(row["access_status"] or "unknown")} · SHA {h((row["sha256"] or "")[:16])}…</div></div><div class="cite"><a href="{h(source_href(row["source_url"] or row["local_path"] or "#"))}">来源入口</a></div></article>'''
             for row in rows
         )
     elif scope == "ocr":
@@ -3693,7 +3766,7 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
         result_html = "".join(
             f'''<article class="result"><div><h2>{h(row["title"] or row["external_id"])}</h2>
             <div class="meta">{h(row["external_id"])} · {h(row["layer"] or "研究资料")} · {h(row["research_type"] or "未标注类型")} · 质量 {h(row["quality_tier"] or "未分级")}</div>
-            <div class="snippet">{h(row["institution"] or "机构未标注")} · 出版/发表 {h(row["publication_date"] or "未标注")} · {h(row["fulltext_status"])} · citation_ready={h(row["citation_ready"])} · human_verified={h(row["human_verified"])}</div></div><div class="cite"><a href="{h(row["source_url"] or "#")}">来源入口</a></div></article>'''
+            <div class="snippet">{h(row["institution"] or "机构未标注")} · 出版/发表 {h(row["publication_date"] or "未标注")} · {h(row["fulltext_status"])} · citation_ready={h(row["citation_ready"])} · human_verified={h(row["human_verified"])}</div></div><div class="cite"><a href="{h(source_href(row["source_url"] or "#"))}">来源入口</a></div></article>'''
             for row in rows
         )
     else:
@@ -4400,7 +4473,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             (doc["id"],),
         ).fetchall()
 
-    source_link = h(doc["url"] or "")
+    source_link = h(source_href(doc["url"] or ""))
     citations = _build_citations(doc)
     paper_backlinks = paper_backlinks_html(doc["doc_key"])
     event_backlinks = doc_event_links_html([row["page_id"] for row in rows])
@@ -4692,7 +4765,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             <span class="drnh-academic-badge">✦ 台北档案史料原档释读 · {h(page)}</span>
             <span class="drnh-actions">
               <a href="/cite/{h(row["page_id"])}">摘录卡片</a> · 
-              <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a>
+              <a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">{source_label}</a>
             </span>
           </div>
           <div class="drnh-pane-body">
@@ -4711,7 +4784,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         <span class="drnh-academic-badge">✦ 台北档案史料原档释读 · {h(page)}</span>
         <span class="drnh-actions">
           <a href="/cite/{h(row["page_id"])}">摘录卡片</a> · 
-          <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a>
+          <a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">{source_label}</a>
         </span>
       </div>
       <div class="drnh-pane-body">
@@ -4737,7 +4810,7 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
             body += f"""
   <div class="segment">
     <article class="pane"{selected}>
-      <div class="pane-head"><span>{'清洗 OCR · ' if platform == "newspapersg" else '原文 · '}{h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
+      <div class="pane-head"><span>{'清洗 OCR · ' if platform == "newspapersg" else '原文 · '}{h(page)}</span><span><a href="/cite/{h(row["page_id"])}">摘录卡片</a> · <a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">{source_label}</a></span></div>
       <div class="pane-body">{h(display_original)}{original_note}</div>
     </article>
     <article class="pane zh-pane">
@@ -5366,7 +5439,7 @@ def quality(active_severity: str = "", active_issue: str = "") -> bytes:
     <div class="snippet">{h(row["detail"])}</div>
     <div class="zh">{h(row["snippet"])}</div>
   </div>
-  <div class="cite"><a href="{h(review_href)}">打开校订</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
+  <div class="cite"><a href="{h(review_href)}">打开校订</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">原始来源</a></div>
 </article>"""
         body += "</section>"
     return layout("译文质量检查", body)
@@ -5519,7 +5592,7 @@ def tasks(active_queue: str = "") -> bytes:
     <div class="snippet">{h(compact(row["details"], 260))}</div>
     <div class="zh">{h(compact(row["zh_text"], 260))}</div>
   </div>
-  <div class="cite"><a href="{h(review_href)}">校订</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
+  <div class="cite"><a href="{h(review_href)}">校订</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">原始来源</a></div>
 </article>"""
         body += "</section>"
     return layout("校订任务队列", body)
@@ -5721,7 +5794,7 @@ def person_page(slug: str) -> bytes:
     <div class="zh">中文: {h(compact(row["zh_text"], 260))}</div>
     <div class="tagline">{tags}{issue}</div>
   </div>
-  <div class="cite"><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
+  <div class="cite"><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">原始来源</a></div>
 </article>"""
         body += "</section>"
     return layout(str(person["name"]), body)
@@ -6579,13 +6652,13 @@ def review_page(page_id: int, saved: bool = False) -> bytes:
     <a class="button" href="/doc/{quote(row["doc_key"])}?page_id={h(row["page_id"])}">并排阅读</a>
     <a class="button" href="/cite/{h(row["page_id"])}">摘录卡片</a>
     {next_link}
-    <a class="button" href="{h(row["page_url"])}" target="_blank" rel="noreferrer">原始来源</a>
+    <a class="button" href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">原始来源</a>
     <a class="button" href="/quality">质量检查</a>
   </div>
 </section>
 <section class="reader">
   <article class="pane">
-    <div class="pane-head"><span>原文 · {h(page)}</span><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">引用</a></div>
+    <div class="pane-head"><span>原文 · {h(page)}</span><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">引用</a></div>
     <div class="pane-body">{h(row["original_text"])}</div>
   </article>
   <article class="pane">
@@ -6620,13 +6693,19 @@ def citation_page(page_id: int) -> bytes:
                 documents.title,
                 documents.date_guess,
                 documents.url AS doc_url,
+                documents.source_platform,
                 COALESCE(dc.grade, '') AS grade,
                 translations.text AS zh_text,
-                translations.status AS zh_status
+                translations.status AS zh_status,
+                COALESCE(pp.citation_ready, 0) AS citation_ready,
+                COALESCE(pp.needs_human_review, 1) AS needs_human_review,
+                COALESCE(pp.review_status, 'missing') AS provenance_review_status,
+                COALESCE(pp.human_review_note, '') AS human_review_note
             FROM pages
             JOIN documents ON documents.id = pages.document_id
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
             LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
+            LEFT JOIN page_provenance pp ON pp.page_id = pages.id
             WHERE pages.id=?
             """,
             (page_id,),
@@ -6635,6 +6714,27 @@ def citation_page(page_id: int) -> bytes:
         return layout("未找到摘录", '<div class="notice">未找到摘录。</div>')
     page = source_page_label(row)
     source_url = row["page_url"] or row["doc_url"] or ""
+    if row["source_platform"] == "domestic" and not _domestic_citation_is_strict(row):
+        body = f"""
+<section class="doc-head">
+  <div>
+    {title_block(row["title"], None, "h1")}
+    <div class="meta">{h(row["date_guess"] or "日期未注明")} · {h(page)} · 国内史料</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/doc/{quote(row["doc_key"])}?page_id={h(row["page_id"])}">返回阅读</a>
+    <a class="button secondary" href="{h(source_href(source_url))}" target="_blank" rel="noreferrer">查看来源</a>
+  </div>
+</section>
+<div class="notice"><strong>引用门禁未通过：</strong>本页可以用于检索和研究阅读，但尚无 human_verified 人工复核记录及复核说明，因此不生成正式引文。当前状态：{h(row["provenance_review_status"])}。</div>
+<section class="reader">
+  <article class="pane">
+    <div class="pane-head"><span>检索文本（不可直接引用）</span><span>{h(page)}</span></div>
+    <div class="pane-body">{h(row["original_text"])}</div>
+  </article>
+</section>
+"""
+        return layout("引用门禁未通过", body)
     citation = (
         f"短引文：{short_citation(row)}\n"
         f"参考文献：{bibliography_entry(row)}\n\n"
@@ -6643,7 +6743,7 @@ def citation_page(page_id: int) -> bytes:
         f"卷册：{row['volume_id']} / {row['volume_title'] or ''}\n"
         f"日期：{row['date_guess'] or ''}\n"
         f"引用位置：{page}\n"
-        f"FRUS 来源：{source_url}\n\n"
+        f"来源：{source_href(source_url)}\n\n"
         f"原文摘录：\n{row['original_text']}\n\n"
         f"中文译文（{row['zh_status'] or '未标注'}）：\n{row['zh_text'] or ''}"
     )
@@ -6656,7 +6756,7 @@ def citation_page(page_id: int) -> bytes:
   <div class="doc-tools">
     <a class="button" href="/doc/{quote(row["doc_key"])}?page_id={h(row["page_id"])}">并排阅读</a>
     <a class="button" href="/review/{h(row["page_id"])}">校订译文</a>
-    <a class="button" href="{h(source_url)}" target="_blank" rel="noreferrer">FRUS 来源</a>
+    <a class="button" href="{h(source_href(source_url))}" target="_blank" rel="noreferrer">原始来源</a>
   </div>
 </section>
 <section class="reader">
@@ -6875,7 +6975,7 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
     <div class="zh">中文: {h(compact(row["zh_text"], 230))}</div>
     <div class="tagline">{''.join(f'<span class="tag">{h(tag)}</span>' for tag in topic_tags(row))}{issue}</div>
   </div>
-  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">来源</a></div>
+  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">来源</a></div>
 </article>"""
             body += "</section>"
     return layout(title, body)
@@ -7183,7 +7283,7 @@ def events(
     <div class="snippet">原文: {h(compact(row["original_text"], 220))}</div>
     <div class="tagline">{actor_tags}{topic_tags_html}{place_tags_html}{org_tags_html}<span class="tag">重要度 {h(row["importance"])}</span></div>
   </div>
-  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">FRUS</a></div>
+  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">FRUS</a></div>
 </article>"""
             body += "</section>"
     return layout(title, body)
@@ -7301,7 +7401,7 @@ def event_facet_page(kind: str, value: str, core_only: bool = False) -> bytes:
     <div class="zh">{h(compact(row["event_summary"], 360))}</div>
     <div class="tagline">{chips}</div>
   </div>
-  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">FRUS</a></div>
+  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="{h(doc_href)}">并排阅读</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">FRUS</a></div>
 </article>"""
         body += "</section>"
     return layout(page_title, body)
@@ -7338,7 +7438,7 @@ def event_cards(topic_slug: str = "", person_slug: str = "") -> bytes:
             current_year = year
             lines.extend([f"## {year}", ""])
         page = source_page_label(row)
-        source_url = row["page_url"] or row["doc_url"] or ""
+        source_url = source_href(row["page_url"] or row["doc_url"] or "")
         lines.extend(
             [
                 f"### {row['event_date'] or row['date_guess'] or year}｜{row['event_title']}",
@@ -7653,7 +7753,7 @@ def key_event_page(slug: str, view: str = "mixed") -> bytes:
     <div class="snippet">原文: {h(compact(row["original_text"], 220))}</div>
     <div class="zh">中文: {h(compact(row["zh_text"], compact_zh))}</div>
   </div>
-  <div class="cite"><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(row["page_url"])}" target="_blank" rel="noreferrer">原始来源</a></div>
+  <div class="cite"><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">原始来源</a></div>
 </article>"""
 
         if view == "compare":

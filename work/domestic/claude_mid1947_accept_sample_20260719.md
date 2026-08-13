@@ -155,7 +155,7 @@ schema 变更后 `validate_candidates.py` 实测仍 425/0/425 全过。
 ## 八、CLI 复演（让 cheer 复检）
 
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 
 # 1. 校验单批 19 条身份
 python3 scripts/domestic/accept_mid1947_articles_claude_20260719.py \

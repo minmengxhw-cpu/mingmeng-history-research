@@ -5,7 +5,7 @@
 ## 一、命令与结果
 
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 python3 scripts/domestic/validate_candidates.py data/domestic/candidates.jsonl
 # {"records": 348, "failed": 0, "passed": 348}
 

@@ -1,7 +1,7 @@
 # 国家图书馆 民国期刊视检模板 v1
 
 模板日期：2026-07-19  
-适用项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`  
+适用项目：`.`
 路径：A (1947-11-06 大公报原版高分辨率原件)  
 适用对象：cheer 持 NLC 读者卡到 NLC 民国期刊阅览室现场视检时直接套用  
 边界：mavis 不替 cheer 现场视检；本模板由 cheer 自用

@@ -17,6 +17,7 @@ data/research_index.sqlite 的环境下,2026-08-02 修复 do_GET/do_POST 顶层
 """
 from __future__ import annotations
 
+import os
 import re
 
 import pytest
@@ -36,6 +37,9 @@ def _assert_snapshot(name: str, html: str) -> None:
     SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
     snap_path = SNAPSHOT_DIR / f"{name}.html"
     normalized = _normalize(html)
+    if os.environ.get("UPDATE_SNAPSHOTS") == "1":
+        snap_path.write_text(normalized, encoding="utf-8")
+        return
     if not snap_path.exists():
         snap_path.write_text(normalized, encoding="utf-8")
         pytest.skip(f"{name} 快照此前不存在,已首次生成基线({snap_path}),本次不做比较")

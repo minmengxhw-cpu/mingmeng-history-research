@@ -12,7 +12,7 @@ import re
 from pathlib import Path
 from collections import Counter
 
-ROOT = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
+ROOT = Path(".")
 RESEARCH_DIR = ROOT / "work/domestic/minimax_autonomous_research_20260730/research"
 
 T03_PATH = RESEARCH_DIR / "T03_OFFICIAL_IDENTITY_AUDIT.jsonl"

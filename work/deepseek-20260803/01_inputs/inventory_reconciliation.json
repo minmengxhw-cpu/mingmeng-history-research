@@ -1,6 +1,6 @@
 {
   "produced_at": "2026-08-03",
-  "source_db": "/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite",
+  "source_db": "data/research_index.sqlite",
   "counts": {
     "domestic_documents": 525,
     "candidates_total": 689,

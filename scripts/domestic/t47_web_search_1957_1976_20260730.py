@@ -19,7 +19,7 @@ import urllib.error
 from pathlib import Path
 from datetime import datetime
 
-ROOT = Path("/Users/cheer/Documents/mm agent/mingmeng-history-research")
+ROOT = Path(".")
 RESEARCH_DIR = ROOT / "work/domestic/minimax_autonomous_research_20260730/research"
 ACQUISITION_DIR = ROOT / "data/domestic/1957_1976_search_20260730"
 ACQUISITION_DIR.mkdir(parents=True, exist_ok=True)

@@ -1,6 +1,6 @@
 # Batch 7 · 国内短页面质量审计（text < 120）
 
-- 正式库只读路径：`/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite`
+- 正式库只读路径：`data/research_index.sqlite`
 - 短页面总数：**220**
 - 涉及文档：**76**
 - 需人工影像抽检：**214**

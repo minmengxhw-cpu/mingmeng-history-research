@@ -1,6 +1,6 @@
 # Batch 13 · 重 OCR 建议 / 人工抽检 / 无 provenance 补档计划
 
-- 正式库只读路径：`/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite`
+- 正式库只读路径：`data/research_index.sqlite`
 - 生成时间：2026-08-07T15:05:01Z
 - 重 OCR 队列：**69**（priority≥2，来自 Batch12）
 - 人工抽检样本：**22**

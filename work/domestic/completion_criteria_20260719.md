@@ -1,7 +1,7 @@
 # 国内民盟史资料库：任务完成标准与监控
 
 更新日期：2026-07-19  
-项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`
+项目：`.`
 
 ## 两层完成定义（禁止混淆）
 

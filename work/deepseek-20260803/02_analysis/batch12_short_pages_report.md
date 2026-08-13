@@ -1,6 +1,6 @@
 # Batch 12 · 短页面队列复核与深层处置
 
-- 正式库只读路径：`/Users/cheer/Documents/mm agent/mingmeng-history-research/data/research_index.sqlite`
+- 正式库只读路径：`data/research_index.sqlite`
 - 刷新时间：2026-08-07T15:02:10Z
 - 短页面总数：**220**（与 Batch7 对齐）
 - 优先队列（Q0+Q3+Q4 或 citation 冲突）：**201**

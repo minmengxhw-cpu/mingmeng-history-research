@@ -3,7 +3,7 @@
 复核日期：2026-07-19 10:04 (Asia/Shanghai)  
 复核方：Mavis / mavis  
 执行方：grok-4.5-build  
-项目：`/Users/cheer/Documents/mm agent/mingmeng-history-research`
+项目：`.`
 
 ---
 

@@ -141,7 +141,7 @@ SQLite: 87 sources / 345 candidates / 185 pending / 345 decisions
 ### 5.1 sprint 38+ 启动前必跑
 
 ```bash
-cd "/Users/cheer/Documents/mm agent/mingmeng-history-research"
+cd "."
 python3 -B scripts/domestic/validate_candidates.py data/domestic/candidates.jsonl
 python3 -B scripts/domestic/validate_event_coverage.py data/domestic/candidates.jsonl data/domestic/event_coverage.json
 python3 -B scripts/domestic/ingest_domestic.py --db data/research_index.sqlite --sources data/domestic/source_registry.json --candidates data/domestic/candidates.jsonl

@@ -1,6 +1,6 @@
 {
   "mode": "dry-run",
-  "database": "/Users/cheer/Documents/mm agent/mingmeng-history-research-github-main-20260803/work/deepseek-20260803/04_migration/research_index.batch12.dryrun.sqlite",
+  "database": ".-github-main-20260803/work/deepseek-20260803/04_migration/research_index.batch12.dryrun.sqlite",
   "source_sha256": "fb7cefcf70fcee92fb9d020d20b1c610d102f14aa6aaaf004d34f50237859295",
   "result_sha256": "4409a116aa681a8dcfd43145e86ea9d04ba5d0fd885993452c6eb21ce57c2bb2",
   "backup": null,
