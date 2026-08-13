@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-13T10:12:00+08:00",
+  "generated_at": "2026-08-13T19:03:34+08:00",
   "database_filename": "research_index.sqlite",
   "database_size_bytes": 703549440,
-  "sha256": "34958ac5a2c26dbf466eed66ddfe84d0e15354b73422aaac85a6057f1421fb03",
+  "sha256": "1b4bfde717c92348adfa1172abf2e2cf01212eba09b6207a40a654fcf14d27ea",
   "counts": {
     "documents": 1386,
     "domestic_documents": 525,
@@ -11,7 +11,7 @@
     "page_fts": 6157,
     "domestic_candidates": 689,
     "domestic_file_backed_provenance": 5086,
-    "strict_human_citation_pages": 0,
+    "strict_human_citation_pages": 101,
     "domestic_pages_missing_provenance": 1,
     "domestic_documents_missing_date": 17
   },

@@ -32,7 +32,7 @@ python3 scripts/domestic/build_core_citation_batch_20260813.py
 4. OCR 只是检索和阅读辅助，缺字、错字、跨页和文章边界已经记录；
 5. 平台证据复核页写入不少于 12 个字符的人工说明后，才可以考虑 `human_verified`。
 
-`page_image_kind=ocr_or_text` 的记录不能视作原图；它们需要继续寻找原 PDF/扫描图。`citation_ready` 由人工门禁控制，批次生成器不会修改它。
+`page_image_kind=ocr_or_text` 的记录不能视作原图；它们需要继续寻找原 PDF/扫描图。`citation_ready` 由人工门禁控制，批次生成器不会修改它。当前批次的 101 个精确 PDF 页已由授权代理完成视觉复核并写入正式门禁；7 个范围锚点和 92 个 OCR-only 页仍未升级。
 
 ## 交付物
 

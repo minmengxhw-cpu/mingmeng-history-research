@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import hashlib
+import re
 import sqlite3
 from pathlib import Path
 
@@ -35,7 +37,19 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
     assert "国内已入库证据样本" in body
     assert "引用门禁" in body
     assert "证据边界" in body
+    assert "国内—境外对读卡" in body
+    assert "学术解释层" in body
     assert "下一步核验" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
+def test_domestic_academic_layer_smoke(live_server):
+    status, body = fetch(live_server, "/domestic/academic")
+    assert status == 200
+    assert body is not None
+    assert "国内学术研究层" in body
+    assert "学术研究用于解释" in body or "学术研究作为解释层" in body
+    assert "citation-ready" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
@@ -85,6 +99,21 @@ def test_event_coverage_has_no_dangling_links(db_missing_reason):
     assert not dangling_foreign
 
 
+def test_topic_comparison_cards_complete():
+    root = Path(__file__).resolve().parents[1]
+    coverage = json.loads((root / "data/domestic/event_coverage.json").read_text(encoding="utf-8"))
+    cards = json.loads((root / "data/domestic/topic_comparison_cards.json").read_text(encoding="utf-8"))
+    coverage_ids = {item["event_id"] for item in coverage}
+    card_ids = {item["event_id"] for item in cards}
+    required = {"research_question", "domestic_anchor", "foreign_anchor", "difference", "boundary", "next_action", "academic_use"}
+    assert coverage_ids == card_ids
+    assert len(cards) == 9
+    for card in cards:
+        assert required <= set(card)
+        assert all(str(card[field]).strip() for field in required)
+        assert "不能" in card["boundary"] or "不得" in card["boundary"]
+
+
 def test_domestic_evidence_review_smoke(live_server, db_missing_reason):
     if db_missing_reason:
         pytest.skip(f"数据库缺失,无法验证页级证据复核: {db_missing_reason}")
@@ -127,3 +156,34 @@ def test_domestic_evidence_review_smoke(live_server, db_missing_reason):
             (row[0],),
         ).fetchone()
     assert after == before
+
+
+def test_domestic_manifest_and_strict_citation_gate(db_missing_reason):
+    """Manifest and formal citation count must describe the same live DB."""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法核对国内 manifest: {db_missing_reason}")
+    manifest_path = Path(__file__).resolve().parents[1] / "data" / "research_index.manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    actual_sha = hashlib.sha256(DB_PATH.read_bytes()).hexdigest()
+    assert manifest["sha256"] == actual_sha
+    with sqlite3.connect(DB_PATH) as connection:
+        integrity = connection.execute("PRAGMA integrity_check").fetchone()[0]
+        strict_rows = connection.execute(
+            """
+            SELECT pp.page_id, pp.source_file, pp.source_sha256, pp.pdf_page_no,
+                   p.page_url, pp.human_review_note
+            FROM page_provenance pp JOIN pages p ON p.id=pp.page_id
+            WHERE pp.citation_ready=1 AND pp.needs_human_review=0
+              AND pp.review_status='human_verified'
+              AND trim(COALESCE(pp.human_review_note,''))<>''
+            ORDER BY pp.page_id
+            """
+        ).fetchall()
+    assert integrity == "ok"
+    assert 100 <= len(strict_rows) <= 200
+    assert manifest["counts"]["strict_human_citation_pages"] == len(strict_rows)
+    for page_id, source_file, source_sha256, pdf_page_no, page_url, note in strict_rows:
+        assert str(source_file).lower().endswith(".pdf"), page_id
+        assert re.fullmatch(r"[0-9a-f]{64}", str(source_sha256 or "").lower()), page_id
+        assert re.search(r"#page=0*%d(?:$|[^0-9])" % int(pdf_page_no), str(page_url or "")), page_id
+        assert "Codex" in str(note)

@@ -58,6 +58,8 @@ LOCAL_PRIVATE_OCR_REPORT_PATH = ROOT / "work" / "domestic" / "local_private_ocr_
 LOCAL_PRIVATE_NORMALIZATION_REPORT_PATH = ROOT / "work" / "domestic" / "local_private_ocr_metadata_20260730" / "NORMALIZATION_REPORT.json"
 LOCAL_SEMANTIC_SIGNALS_REPORT_PATH = ROOT / "work" / "domestic" / "local_private_ocr_metadata_20260730" / "semantic_signals" / "REPORT.json"
 HOME_FOCUS_PATH = ROOT / "data" / "home_focus.json"
+TOPIC_COMPARISON_CARDS_PATH = ROOT / "data" / "domestic" / "topic_comparison_cards.json"
+ACADEMIC_SOURCE_POLICY_PATH = ROOT / "data" / "domestic" / "academic_source_policy.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
 RESEARCH_PACKAGE_DIR = ROOT / "output" / "research_packages"
@@ -807,6 +809,7 @@ NAV_GROUPS = [
         ("/domestic/library", "国内核心可阅"),
         ("/domestic/events", "国内事件墙"),
         ("/domestic/sources", "国内来源"),
+        ("/domestic/academic", "国内学术研究"),
         ("/papers", "研究论文"),
         ("/sourcebooks", "史料长编"),
         ("/standards", "收录标准"),
@@ -3495,6 +3498,60 @@ def domestic_quality_page() -> bytes:
     return layout("国内质量底座", body, active_path="/domestic/quality")
 
 
+def domestic_academic_page() -> bytes:
+    """国内学术研究层：分级、去重与引用链说明。"""
+    policy = _load_academic_source_policy()
+    snapshot = _academic_layer_snapshot()
+    tier_cards = "".join(
+        f'''<article class="result"><div><h2>{h(tier.get("code"))} · {h(tier.get("name"))}</h2>
+        <div class="meta">{h(tier.get("rule"))}</div><div class="snippet">使用边界：{h(tier.get("use"))}</div></div></article>'''
+        for tier in policy.get("source_tiers", [])
+        if isinstance(tier, dict)
+    )
+    tier_counts = snapshot.get("tiers") or {}
+    tier_summary = " · ".join(f"{h(key)} {h(value)} 条" for key, value in tier_counts.items()) or "尚无 staging 统计"
+    status_summary = " · ".join(
+        f"{h(key)} {h(value)} 条"
+        for key, value in list((snapshot.get("fulltext_statuses") or {}).items())[:8]
+    ) or "尚无全文状态统计"
+    institution_cards = "".join(
+        f'''<article class="result compact-result"><div><h3>{h(row.get("name"))}</h3>
+        <div class="meta">{h(row.get("count"))} 条记录</div></div></article>'''
+        for row in snapshot.get("institutions", [])
+        if isinstance(row, dict)
+    ) or '<div class="notice">staging 尚未提供机构分布。</div>'
+    if snapshot.get("available"):
+        availability = f'''<section class="stats">
+  <div class="stat"><strong>{h(snapshot["records"])}</strong><span>研究/官方资料</span></div>
+  <div class="stat"><strong>{h(snapshot["academic_records"])}</strong><span>学术研究记录</span></div>
+  <div class="stat"><strong>{h(snapshot["high_priority"])}</strong><span>S/A 优先记录</span></div>
+  <div class="stat"><strong>{h(snapshot["articles"])}</strong><span>学术文章记录</span></div>
+  <div class="stat"><strong>{h(snapshot["citation_ready"])}</strong><span>staging citation-ready</span></div>
+</section>'''
+    else:
+        availability = '<div class="notice">当前 checkout 没有可读的国内 staging 数据库；学术口径文件和入口仍可用，资料统计将在 staging 可用时自动显示。</div>'
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, "学术研究层")]) + f"""
+<section class="doc-head"><div><h1>国内学术研究层</h1><div class="meta">把学术论文、专著、档案指南和民盟中央研究资料放入解释层，并与一手史料分开管理。</div></div><div class="doc-tools"><a class="button" href="/domestic/search?scope=research">检索研究资料</a><a class="button secondary" href="/research">多源专题</a></div></section>
+{availability}
+<div class="notice"><strong>核心口径：</strong>{h(policy.get("purpose") or "学术研究用于解释、索引和交叉核对，不自动替代一手史料。")}
+<br><strong>机构核验：</strong>{h(policy.get("institution_rule") or "机构层级必须回到可追溯的记录字段和来源。")}
+<br><strong>全文门禁：</strong>{h(policy.get("fulltext_rule") or "目录、摘要、OCR 和索引页不自动进入正式引文。")}</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>来源层级</h2><span class="meta">{tier_summary}</span></div>
+<section class="result-list">{tier_cards or '<div class="notice">学术来源分级策略尚未生成。</div>'}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-check"/></svg>全文与引用状态</h2><span class="meta">{status_summary}</span></div>
+<div class="notice">正式引用链必须经过：研究记录 → 来源入口/目录 → 本地文件或稳定全文 → 页码/章节定位 → SHA-256 → 复核状态 → citation-ready。当前统计中的 staging 字段不会自动修改正式库门禁。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-building"/></svg>机构元数据分布</h2><span class="meta">仅显示记录字段，不自动宣称985或任职资格</span></div>
+<section class="result-list">{institution_cards}</section>
+<div class="section-head"><h2><svg class="ico"><use href="#i-arrow-right"/></svg>下一步工作</h2></div>
+<section class="result-list">
+  <article class="result"><div><h2>优先补全文和页码</h2><div class="snippet">先处理 S/A 层中作者、机构、来源入口完整且与九专题直接相关的文章；目录页和元数据只进入补证队列。</div></div></article>
+  <article class="result"><div><h2>建立同文/版本关系</h2><div class="snippet">题名、作者、年份和机构相同的条目先聚类，保留不同版本，不把转载重复计算为多个论据。</div></div></article>
+  <article class="result"><div><h2>回接专题和一手证据</h2><div class="snippet">学术文章解释“为什么”和“如何理解”，一手页级材料负责“原文说了什么”；两者在专题页并列但不互相替代。</div></div></article>
+</section>
+"""
+    return layout("国内学术研究层", body, active_path="/domestic/academic")
+
+
 def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> bytes:
     """在独立 staging 层分开检索文献对象和物理页资产。"""
     query = query or {}
@@ -3999,6 +4056,96 @@ def _load_domestic_event_coverage() -> list[dict[str, object]]:
     return [item for item in payload if isinstance(item, dict) and item.get("event_id")]
 
 
+def _load_topic_comparison_cards() -> dict[str, dict[str, object]]:
+    """读取国内/境外专题对读卡；卡片只负责研究编排，不升级证据等级。"""
+    if not TOPIC_COMPARISON_CARDS_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(TOPIC_COMPARISON_CARDS_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return {
+        str(item["event_id"]): item
+        for item in payload
+        if isinstance(item, dict) and item.get("event_id")
+    }
+
+
+def _load_academic_source_policy() -> dict[str, object]:
+    """读取学术层口径；缺文件时返回安全的空策略。"""
+    if not ACADEMIC_SOURCE_POLICY_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(ACADEMIC_SOURCE_POLICY_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _academic_layer_snapshot() -> dict[str, object]:
+    """读取 staging 学术资料的元数据统计，不读取正文、不写数据库。"""
+    snapshot: dict[str, object] = {
+        "available": False,
+        "records": 0,
+        "academic_records": 0,
+        "high_priority": 0,
+        "articles": 0,
+        "citation_ready": 0,
+        "human_verified": 0,
+        "tiers": {},
+        "fulltext_statuses": {},
+        "institutions": [],
+    }
+    if not DOMESTIC_STAGING_DB_PATH.exists():
+        return snapshot
+    try:
+        c = sqlite3.connect(DOMESTIC_STAGING_DB_PATH)
+        c.row_factory = sqlite3.Row
+        exists = c.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='domestic_research_materials'"
+        ).fetchone()
+        if not exists:
+            c.close()
+            return snapshot
+        rows = c.execute(
+            """SELECT layer, quality_tier, research_type, fulltext_status,
+                      citation_ready, human_verified, institution
+               FROM domestic_research_materials"""
+        ).fetchall()
+        c.close()
+    except sqlite3.Error:
+        return snapshot
+    tiers: dict[str, int] = {}
+    fulltext_statuses: dict[str, int] = {}
+    institutions: dict[str, int] = {}
+    for row in rows:
+        tier = str(row["quality_tier"] or "未分级")
+        tiers[tier] = tiers.get(tier, 0) + 1
+        status = str(row["fulltext_status"] or "未标注")
+        fulltext_statuses[status] = fulltext_statuses.get(status, 0) + 1
+        institution = str(row["institution"] or "机构未标注").strip()
+        institutions[institution] = institutions.get(institution, 0) + 1
+    academic_records = [row for row in rows if row["layer"] == "SCHOLARLY_RESEARCH"]
+    snapshot.update(
+        {
+            "available": True,
+            "records": len(rows),
+            "academic_records": len(academic_records),
+            "high_priority": sum(1 for row in academic_records if row["quality_tier"] in {"S", "A"}),
+            "articles": sum(1 for row in academic_records if row["research_type"] == "SCHOLARLY_ARTICLE"),
+            "citation_ready": sum(int(row["citation_ready"] or 0) for row in rows),
+            "human_verified": sum(int(row["human_verified"] or 0) for row in rows),
+            "tiers": dict(sorted(tiers.items())),
+            "fulltext_statuses": dict(sorted(fulltext_statuses.items(), key=lambda pair: (-pair[1], pair[0]))),
+            "institutions": [
+                {"name": name, "count": count}
+                for name, count in sorted(institutions.items(), key=lambda pair: (-pair[1], pair[0]))[:12]
+            ],
+        }
+    )
+    return snapshot
+
+
 def _research_foreign_definition(slug: str) -> dict[str, object] | None:
     """把境外事件入口解析成标签和检索词，供专题页做机器命中统计。"""
     event = event_by_slug(slug)
@@ -4189,6 +4336,7 @@ def _research_domestic_evidence_rows(
 def _research_topic_rows() -> list[dict[str, object]]:
     """为统一专题首页生成国内候选数、境外机器命中数和入口信息。"""
     coverage = _load_domestic_event_coverage()
+    comparison_cards = _load_topic_comparison_cards()
     try:
         domestic_rows = _domestic_rows()
     except sqlite3.OperationalError:
@@ -4211,6 +4359,7 @@ def _research_topic_rows() -> list[dict[str, object]]:
             ]
             result.append({
                 "item": item,
+                "comparison": comparison_cards.get(str(item.get("event_id")), {}),
                 "domestic_rows": linked,
                 "domestic_evidence": domestic_evidence,
                 "domestic_documents": len(domestic_evidence),
@@ -4243,6 +4392,7 @@ def research_topics_page() -> bytes:
 """
     for topic in topics:
         item = topic["item"]
+        comparison = topic.get("comparison") or {}
         status = str(item.get("pair_status") or "待核")
         status_cls = "ok" if status == "pair_available" else "warn"
         body += f"""
@@ -4252,6 +4402,7 @@ def research_topics_page() -> bytes:
     <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · {h(item.get('domestic_status'))}</div>
     <div class="tagline"><span class="pstatus {status_cls}">{h(status)}</span>{''.join(f'<span class="tag">{h(tag)}</span>' for tag in item.get('event_tags', []))}</div>
     <div class="snippet">{h(item.get('review_note'))}</div>
+    <div class="snippet"><strong>对读差异：</strong>{h(comparison.get('difference') or '尚未配置差异卡，暂只显示两侧检索入口。')}</div>
   </div>
   <div class="cite"><a href="/research/{quote(str(item['event_id']))}">打开专题</a><br><a href="/domestic/events?event={quote(str(item['event_id']))}">国内覆盖</a></div>
 </article>"""
@@ -4260,6 +4411,7 @@ def research_topics_page() -> bytes:
 <section class="doc-tools" style="margin-top:20px;justify-content:center;">
   <a class="button" href="/align">多源对位视图</a>
   <a class="button" href="/domestic">国内史料库</a>
+  <a class="button" href="/domestic/academic">学术研究层</a>
   <a class="button" href="/events/key">境外关键事件</a>
 </section>
 """
@@ -4272,6 +4424,7 @@ def research_topic_page(event_id: str) -> bytes:
     if not topic:
         return layout("专题未找到", '<div class="notice">没有找到该专题，返回 <a href="/research">多源专题研究</a>。</div>', active_path="/research")
     item = topic["item"]
+    comparison = topic.get("comparison") or {}
     foreign_samples: list[dict[str, object]] = []
     with conn() as c:
         for entry in topic["foreign_stats"]:
@@ -4356,6 +4509,16 @@ def research_topic_page(event_id: str) -> bytes:
 <section class="result-list">{''.join(cards) or '<div class="notice">没有展示样本；请从境外入口继续检索。</div>'}</section>""")
     foreign_html = "".join(foreign_sections) or '<div class="notice">尚未配置境外对位入口。</div>'
 
+    comparison_html = f"""
+<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>国内—境外对读卡</h2><span class="meta">研究编排层，不改变证据等级</span></div>
+<section class="result-list">
+  <article class="result compact-result"><div><h3>国内材料能回答什么</h3><div class="snippet">{h(comparison.get('domestic_anchor') or item.get('domestic_status'))}</div></div></article>
+  <article class="result compact-result"><div><h3>境外材料能回答什么</h3><div class="snippet">{h(comparison.get('foreign_anchor') or item.get('review_note'))}</div></div></article>
+  <article class="result compact-result"><div><h3>差异、边界与下一步</h3><div class="snippet"><strong>差异：</strong>{h(comparison.get('difference') or '两侧材料不能自动互证。')}<br><strong>边界：</strong>{h(comparison.get('boundary') or '正式结论仍需回到原件、页码和复核门禁。')}<br><strong>下一步：</strong>{h(comparison.get('next_action') or '补齐原件、页码和来源链。')}</div></div></article>
+  <article class="result compact-result"><div><h3>学术解释层</h3><div class="snippet">{h(comparison.get('academic_use') or '学术资料用于解释和对读，不替代一手来源。')}</div></div><div class="cite"><a href="/domestic/academic">打开学术层</a></div></article>
+</section>
+"""
+
     event_link = f"/domestic/events?event={quote(event_id)}"
     body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
 <section class="doc-head">
@@ -4372,6 +4535,7 @@ def research_topic_page(event_id: str) -> bytes:
   <div class="stat"><strong>{h(item.get('pair_status') or '待核')}</strong><span>对位状态</span></div>
 </section>
 <div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。</div>
+{comparison_html}
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国内已入库证据样本</h2><span class="meta">{h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页</span></div>
 <section class="result-list">{domestic_evidence_html}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国内候选记录</h2><span class="meta">{len(topic['domestic_rows'])} 条可见候选</span></div>
@@ -4592,7 +4756,7 @@ def domestic_evidence_review_page(page_id: int, saved: bool = False, error: str 
   <div class="stat"><strong>{h(row["text_chars"] or 0)}</strong><span>页文字数</span></div>
   <div class="stat"><strong>{h(provenance_label)}</strong><span>来源绑定</span></div>
 </section>
-<div class="notice"><strong>复核门槛：</strong>只有你实际对照原件/影像、页码、形成日期和来源文件后，才可以选择“人工核验可引用”。机器 OCR、候选 accepted、文件存在或 SHA 锚定都不能单独完成这一步。</div>
+<div class="notice"><strong>复核门槛：</strong>只有明确记录的研究者或授权审阅代理实际对照原件/影像、页码、形成日期和来源文件后，才可以选择“人工核验可引用”。机器 OCR、候选 accepted、文件存在或 SHA 锚定都不能单独完成这一步。</div>
 <section class="reader">
   <article class="pane">
     <div class="pane-head"><span>国内原文 / OCR · {h(page)}</span><span>{h(row["ocr_engine"] or "OCR 引擎未标注")}</span></div>
@@ -8804,6 +8968,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = domestic_staging_search_page(qs)
         elif parsed.path == "/domestic/quality":
             payload = domestic_quality_page()
+        elif parsed.path == "/domestic/academic":
+            payload = domestic_academic_page()
         elif parsed.path == "/domestic/sources":
             payload = domestic_sources_page()
         elif parsed.path == "/domestic/events":
