@@ -1,0 +1,198 @@
+{
+  "schema": "domestic_event_source_map.v1",
+  "event_id": "domestic-1946-refuse-national-assembly",
+  "title": "1946年民盟拒绝参加国民大会：汇编通告与同期《光明報》页级证据地图",
+  "review_status": "compiled_notice_and_contemporary_press_ready_original_statement_gap_open",
+  "evidence_scope": "1983公开文献汇编中的1946-11-14《紧急通告》页与1946—1947年《光明報》同期版页；只登记来源、哈希和复核边界",
+  "body_text_included": false,
+  "ocr_text_included": false,
+  "raw_files_included": false,
+  "formal_db_written_by_map": false,
+  "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
+  "primary_evidence_closed": false,
+  "primary_evidence_gap": "1946年民盟正式拒绝参加国民大会的独立原件、函电或同期原刊完整版本仍待取得；1946-11-14《紧急通告》当前可定位到1983汇编重刊页，不能替代独立底本。",
+  "sources": [
+    {
+      "source_id": "mmhist-1946-refuse-emergency-notice",
+      "title": "《中国民主同盟历史文献 1941—1949》收录的总部秘书处《紧急通告》（1946-11-14）",
+      "source_role": "public_sourcebook_scan",
+      "evidence_level": "L2",
+      "source_file": "data/domestic/sourcebooks/中国民主同盟历史文献_1941-1949_公开扫描.pdf",
+      "source_sha256": "257bb7be70abe374be9864ec451b5a4a90e2442ae8c877b15f4e6bbb8bb30be3",
+      "source_file_size": 18131353,
+      "page_count": 622,
+      "source_url": "https://www.marxists.org/chinese/pdf/history_of_international/china/mzhtm1.pdf",
+      "access_note": "公开文献汇编扫描；页级视觉复核确认题名、日期、印刷页码和 PDF 页码，属于汇编重刊，不替代1946年独立原件。",
+      "page_records": [
+        {
+          "page_id": 19000,
+          "pdf_page_no": 276,
+          "physical_page_no": 276,
+          "target": "民盟正式拒绝参加国民大会的总部通告",
+          "role": "总部秘书处《紧急通告》汇编重刊页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "compiled_text_title_date_page_identity",
+          "page_image_sha256": null,
+          "caveat": "可引用的是1983公开汇编中的题名、日期、印刷页码、PDF页码和页界；不宣称已取得1946年原始档案或独立刊本。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-guangmingbao-1946-v7-front",
+      "title": "《光明報》新七號（1946-11-18）首版",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10428_光明報_1946年7期.pdf",
+      "source_sha256": "367165396035893b6a8882a6c270cff4a4cf61dc1d9284525ebcd3240be68f8b",
+      "source_file_size": 1066351,
+      "page_count": 16,
+      "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/NLC404-01J000514-10428_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B47%E6%9C%9F.pdf",
+      "access_note": "国家图书馆公开同期报纸扫描；已人工核对刊期、日期、首版和题名，不把社论页升级为民盟正式声明。",
+      "page_records": [
+        {
+          "page_id": 16351,
+          "pdf_page_no": 1,
+          "physical_page_no": 1,
+          "target": "拒绝参加国民大会的同期舆论表达",
+          "role": "《我们为什么不参加国大》首版页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "periodical_issue_identity_editorial_title",
+          "page_image_sha256": null,
+          "caveat": "只证明同期机关报刊期、日期、版面和题名；不等同于民盟正式拒参原件或政协档案。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-guangmingbao-1946-v6-front",
+      "title": "《光明報》新六號（1946-11-08）首版",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10427_光明報_1946年6期.pdf",
+      "source_sha256": "aee7e822dde154aecf04f451e36a3c207d98a3dc58e9b0ba22a3132bfc9d0f16",
+      "source_file_size": 1030092,
+      "page_count": 16,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10427_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B46%E6%9C%9F.pdf",
+      "access_note": "国家图书馆公开同期报纸扫描；已人工核对刊期、日期和首版页界，不把报刊表达升级为正式拒参声明。",
+      "page_records": [
+        {
+          "page_id": 16335,
+          "pdf_page_no": 1,
+          "physical_page_no": 1,
+          "target": "拒绝参加国民大会的同期舆论背景",
+          "role": "《光明報》新六號首版页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "periodical_issue_identity_editorial_title",
+          "page_image_sha256": null,
+          "caveat": "只覆盖同期报刊页身份与版面范围，不替代民盟正式拒参原件或完整事件事实。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-guangmingbao-1946-v8-front",
+      "title": "《光明報》新八號（1946-08）首版",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10429_光明報_1946年8期.pdf",
+      "source_sha256": "a0953d77e33497a9af58d458818a2cbafae011e76ef88f0901ac4a11e4702773",
+      "source_file_size": 1092786,
+      "page_count": 16,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
+      "access_note": "国家图书馆公开同期报纸扫描；已人工核对刊期和《论有条件参加国大》题名，保留其与正式拒参决定的时间/立场差异。",
+      "page_records": [
+        {
+          "page_id": 16367,
+          "pdf_page_no": 1,
+          "physical_page_no": 1,
+          "target": "拒参立场形成的前史",
+          "role": "《论有条件参加国大》首版页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "periodical_issue_identity_editorial_title",
+          "page_image_sha256": null,
+          "caveat": "这是条件性参加的同期社论入口，不能与11月正式拒参通告混为同一文件或同一立场阶段。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-guangmingbao-1946-v11",
+      "title": "《光明報》新十一號（1946-09）第1、3页",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-23806_光明報_1946年11期.pdf",
+      "source_sha256": "5b95a725e79886275c6cac9046d23651ad88bbe56f0895ba89de9c73864d6d83",
+      "source_file_size": 1434402,
+      "page_count": 20,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-23806_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%4111%E6%9C%9F.pdf",
+      "access_note": "国家图书馆公开同期报纸扫描；第1页目录和第3页社论题名均已人工核对，正文仍不作为本地图逐字引文。",
+      "page_records": [
+        {
+          "page_id": 16634,
+          "pdf_page_no": 1,
+          "physical_page_no": 1,
+          "target": "反对一党独裁宪法的同期刊物定位",
+          "role": "第1页目录与刊期身份页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "periodical_issue_identity_editorial_title",
+          "page_image_sha256": null,
+          "caveat": "只确认刊期、日期、目录和题名定位，不把目录或社论题名当作民盟正式拒参文件。"
+        },
+        {
+          "page_id": 16636,
+          "pdf_page_no": 3,
+          "physical_page_no": 3,
+          "target": "反对一党独裁宪法的同期刊物定位",
+          "role": "《反对一党独裁的宪法！》社论首页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "periodical_issue_identity_editorial_title",
+          "page_image_sha256": null,
+          "caveat": "只证明同期报刊社论页身份和范围，不替代民盟总部通告或国民大会相关原始文件。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-guangmingbao-1947-v15",
+      "title": "《光明報》1947年新十五號第2页",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10455_光明報_1947年15期.pdf",
+      "source_sha256": "42c7b19e6f84a2a615adbe5bc776aa54be395b745a168a72989279c50c02434e",
+      "source_file_size": 1219297,
+      "page_count": 16,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10455_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B4%E6%96%B0%E5%8D%81%E4%BA%94%E8%99%9F.pdf",
+      "access_note": "国家图书馆公开同期报纸扫描；作为拒参立场后续传播的交叉页，不回溯替代1946年正式文件。",
+      "page_records": [
+        {
+          "page_id": 1578,
+          "pdf_page_no": 2,
+          "physical_page_no": 2,
+          "target": "拒参立场的后续传播",
+          "role": "《光明報》1947年新十五號同期页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "press_page_identity_heading",
+          "page_image_sha256": null,
+          "caveat": "只作为后续同期传播交叉材料，不把1947报刊页倒推为1946年正式拒参原件。"
+        }
+      ]
+    }
+  ]
+}

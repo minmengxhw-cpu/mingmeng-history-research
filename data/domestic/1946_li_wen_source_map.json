@@ -1,0 +1,100 @@
+{
+  "schema": "domestic_event_source_map.v1",
+  "event_id": "domestic-1946-li-wen",
+  "title": "1946年李公朴、闻一多遇害与民盟反应：汇编声明及同期报刊页级证据地图",
+  "review_status": "compiled_statements_and_contemporary_press_ready_independent_archive_gap_open",
+  "evidence_scope": "1983公开文献汇编中的民盟自身声明页与1947年《光明報》纪念版页；只登记来源、哈希和证据边界",
+  "body_text_included": false,
+  "ocr_text_included": false,
+  "raw_files_included": false,
+  "formal_db_written_by_map": false,
+  "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
+  "primary_evidence_closed": false,
+  "primary_evidence_gap": "《民主周刊》原版、民盟抗议文件独立底本、司法/行政档案和案件过程材料仍未形成页级闭环；1983汇编中的三处声明是可回链的重刊页，不等同于独立原件。",
+  "sources": [
+    {
+      "source_id": "mmhist-1946-li-wen-statements",
+      "title": "《中国民主同盟历史文献 1941—1949》收录的1946年民盟声明页组",
+      "source_role": "public_sourcebook_scan",
+      "evidence_level": "L2",
+      "source_file": "data/domestic/sourcebooks/中国民主同盟历史文献_1941-1949_公开扫描.pdf",
+      "source_sha256": "257bb7be70abe374be9864ec451b5a4a90e2442ae8c877b15f4e6bbb8bb30be3",
+      "source_file_size": 18131353,
+      "page_count": 622,
+      "source_url": "https://www.marxists.org/chinese/pdf/history_of_international/china/mzhtm1.pdf",
+      "access_note": "公开文献汇编扫描；三页均已完成题名、日期、页码和页界人工复核，属于汇编重刊，不替代民盟独立抗议文件或司法档案。",
+      "page_records": [
+        {
+          "page_id": 18936,
+          "pdf_page_no": 212,
+          "physical_page_no": 212,
+          "target": "李公朴遇害后的民盟组织反应",
+          "role": "云南省支部为李公朴被害提出严重抗议的汇编重刊页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "compiled_statement_title_date_page_identity",
+          "page_image_sha256": null,
+          "caveat": "可引用的是1983汇编重刊页的题名、日期和页界；不宣称取得云南省支部独立原件。"
+        },
+        {
+          "page_id": 18945,
+          "pdf_page_no": 221,
+          "physical_page_no": 221,
+          "target": "闻一多遇害后的民盟组织反应",
+          "role": "云南省支部为闻一多遇害发表紧急声明的汇编重刊页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "compiled_statement_title_date_page_identity",
+          "page_image_sha256": null,
+          "caveat": "可引用的是1983汇编重刊页的题名、日期和页界；不宣称取得云南省支部独立原件或司法档案。"
+        },
+        {
+          "page_id": 18948,
+          "pdf_page_no": 224,
+          "physical_page_no": 224,
+          "target": "民盟总部对李公朴被害的声明",
+          "role": "民盟为李公朴被害发表声明的汇编重刊页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "compiled_statement_title_date_page_identity",
+          "page_image_sha256": null,
+          "caveat": "只确认汇编重刊中的声明身份、日期和页界，不替代原始刊物、抗议文件底本或司法材料。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-guangmingbao-1947-v22-li-wen",
+      "title": "《光明報》新二十二號（1947-08-01）首版",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10483_光明報_1947年22期.pdf",
+      "source_sha256": "b4a3922174c2a66b7a9997a6130fc477684b39bbb9f34b51aece36f43dd26b95",
+      "source_file_size": 1518039,
+      "page_count": 20,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10483_%E5%85%89%E6%98%8E%E5%A0%B1_1947%E5%B9%B422%E6%9C%9F.pdf",
+      "access_note": "国家图书馆公开同期报纸扫描；已人工核对版头、日期和纪念烈士李公朴闻一多的目录/版面定位。",
+      "page_records": [
+        {
+          "page_id": 1768,
+          "pdf_page_no": 1,
+          "physical_page_no": 1,
+          "target": "李公朴、闻一多遇害后的同期纪念传播",
+          "role": "《光明報》新二十二號首版与纪念专页定位",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "periodical_issue_identity_and_memorial_locator",
+          "page_image_sha256": null,
+          "caveat": "只证明同期报刊存在相关纪念版面，不外推案件事实，也不替代民盟声明原件或司法档案。"
+        }
+      ]
+    }
+  ]
+}
