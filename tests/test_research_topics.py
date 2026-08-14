@@ -53,6 +53,34 @@ def test_research_gap_dashboard_smoke(live_server, db_missing_reason):
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_research_gap_links_to_scoped_acquisition(live_server, db_missing_reason):
+    """专题缺口必须把研究者带到对应的调档任务，而不是无筛选总表。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证专题调档回接: {db_missing_reason}")
+    status, body = fetch(live_server, "/research/gaps")
+    assert status == 200
+    assert body is not None
+    assert "/domestic/acquisition?event=domestic-1941-formation" in body
+    assert "对应调档任务" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
+def test_scoped_domestic_acquisition_smoke(live_server, db_missing_reason):
+    """专题调档页应显示证据边界和下一步，但不复制正文或本地路径。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证专题调档页: {db_missing_reason}")
+    status, body = fetch(live_server, "/domestic/acquisition?event=domestic-1941-formation")
+    assert status == 200
+    assert body is not None
+    assert "专题原件目标：1941年中国民主政团同盟成立" in body
+    assert "证据边界" in body
+    assert "取得路由" in body or "下一步" in body
+    assert "/research/domestic-1941-formation/packet" in body
+    assert "/Users/cheer" not in body
+    assert "受限扫描件" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
 def test_research_parity_dashboard_smoke(live_server, db_missing_reason):
     """Parity must expose navigation, citation, and primary closure separately."""
     if db_missing_reason:

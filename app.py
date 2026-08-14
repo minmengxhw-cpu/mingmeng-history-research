@@ -5542,7 +5542,7 @@ def research_gaps_page() -> bytes:
     {retrieval_action}
     <div class="snippet"><strong>相关候选：</strong>{candidate_links}</div>
   </div>
-  <div class="cite"><a href="/research/{quote(str(gap["event_id"]))}">专题详情</a><br><a href="/domestic/acquisition">调档清单</a></div>
+  <div class="cite"><a href="/research/{quote(str(gap["event_id"]))}">专题详情</a><br><a href="/domestic/acquisition?event={quote(str(gap["event_id"]))}">对应调档任务</a></div>
 </article>"""
             )
         event_page_links: list[str] = []
@@ -6755,8 +6755,9 @@ def _domestic_facet_page(kind: str) -> bytes:
     return layout("国内" + label + "索引", body, active_path=path)
 
 
-def domestic_acquisition_page() -> bytes:
+def domestic_acquisition_page(event_id: str = "") -> bytes:
     """调档清单与待获取项；只显示元数据，不暴露受限影像。"""
+    event_id = str(event_id or "").strip()
     plan_path = ROOT / "docs" / "domestic" / "acquisition_plan.md"
     text = plan_path.read_text(encoding="utf-8") if plan_path.exists() else ""
     bullets = re.findall(r"^- (.+)$", text, flags=re.MULTILINE)
@@ -6779,10 +6780,63 @@ def domestic_acquisition_page() -> bytes:
         f'<div class="cite"><a href="/domestic/review">保持待核</a></div></article>'
         for item in mmda_pending_rows
     )
+    focused_gaps = [
+        gap for gap in _research_gap_rows()
+        if not event_id or str(gap.get("event_id") or "") == event_id
+    ]
+    focused_event_name = str(focused_gaps[0].get("event_name") or event_id) if focused_gaps else event_id
+    focused_target_cards: list[str] = []
+    for gap in focused_gaps:
+        candidate_rows: list[str] = []
+        for candidate in gap.get("candidates") or []:
+            if not isinstance(candidate, dict):
+                continue
+            candidate_id = str(candidate.get("candidate_id") or "")
+            if not candidate_id:
+                continue
+            access_label = str(candidate.get("access_label") or "")
+            access_badge = f'<span class="pstatus warn">{h(access_label)}</span>' if access_label else ""
+            candidate_rows.append(
+                f'<a href="/domestic/candidate/{quote(candidate_id, safe="")}">{h(candidate.get("title") or candidate_id)}</a>'
+                f' <span class="meta">{h(candidate.get("level") or "未分级")} / {h(candidate.get("review_status") or "未标注")}</span> {access_badge}'
+            )
+        candidate_html = " · ".join(candidate_rows) or '<span class="meta">当前没有关联候选，需从馆藏目录重新定位。</span>'
+        retrieval_label = str(gap.get("retrieval_label") or "原件路径未登记")
+        retrieval_next_action = str(gap.get("retrieval_next_action") or gap.get("next_action") or "回到馆藏目录或正式复制件入口，补齐原件记录。")
+        focused_target_cards.append(
+            f"""
+<article class="result compact-result evidence-gap-item">
+  <div>
+    <h3>{h(gap.get("target") or "未命名开放目标")}</h3>
+    <div class="tagline"><span class="pstatus warn">{h(gap.get("status") or "open")}</span><span class="tag">原件路由：{h(retrieval_label)}</span><span class="tag">候选关联 {h(gap.get("candidate_count") or 0)} 条</span></div>
+    <div class="snippet"><strong>为什么重要：</strong>{h(gap.get("why_it_matters") or "证据链未登记原因，需先补充审计说明。")}</div>
+    <div class="snippet"><strong>下一步：</strong>{h(retrieval_next_action)}</div>
+    <div class="snippet"><strong>可回查候选：</strong>{candidate_html}</div>
+  </div>
+</article>"""
+        )
+    if event_id and focused_gaps:
+        focused_section = f"""
+<section class="doc-head"><div><h2>专题原件目标：{h(focused_event_name)}</h2><div class="meta">从证据链直接回接的 {h(len(focused_gaps))} 个开放目标；本区只显示调档元数据，不提供正文。</div></div><div class="doc-tools"><a class="button" href="/research/{quote(event_id, safe='')}">回到专题</a><a class="button" href="/research/{quote(event_id, safe='')}/packet">打开研究包</a></div></section>
+<div class="notice"><strong>证据边界：</strong>这些目标尚未达到一手闭环；候选、目录、汇编和后期回顾资料只能帮助定位，不能替代待取得原件。取得后仍需登记馆藏档号、版本关系、页级 provenance、文件 SHA256 和复核状态。</div>
+<section class="result-list">{"".join(focused_target_cards)}</section>"""
+    elif event_id:
+        focused_section = f"""
+<div class="notice"><strong>未找到专题调档目标：</strong>{h(event_id)} 当前没有从证据链读到开放目标。请返回 <a href="/research/gaps">一手证据收口看板</a>，或查看完整清单。</div>"""
+    else:
+        all_event_ids = list(dict.fromkeys(str(gap.get("event_id") or "") for gap in focused_gaps if gap.get("event_id")))
+        topic_links = " ".join(
+            f'<a class="tag" href="/domestic/acquisition?event={quote(topic_id, safe="")}">{h(next((str(gap.get("event_name") or topic_id) for gap in focused_gaps if str(gap.get("event_id") or "") == topic_id), topic_id))}</a>'
+            for topic_id in all_event_ids
+        )
+        focused_section = f"""
+<div class="section-head"><h2>按专题进入原件目标</h2><span class="meta">{h(len(all_event_ids))} 个专题仍有开放主证据目标</span></div>
+<div class="notice">从专题缺口看板进入时，本页会自动筛选对应任务；当前先列出全部可进入的专题。<div class="tagline" style="margin-top:10px">{topic_links or '<span class="meta">当前没有开放目标。</span>'}</div></div>"""
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "调档清单")]) + f"""
 <section class="doc-head"><div><h1>国内史料调档与获取清单</h1><div class="meta">记录级档号、卷期、影像和权利的下一步任务</div></div><div class="doc-tools"><a class="button" href="/domestic/review">复核看板</a></div></section>
 <section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>候选记录</span></div><div class="stat"><strong>{h(with_archive)}</strong><span>含档号字段</span></div><div class="stat"><strong>{h(len(rows) - with_archive)}</strong><span>待定位</span></div><div class="stat"><strong>{h(len(mmda_pending_rows))}</strong><span>MMDA 原件待取</span></div></section>
 <div class="notice">本页只列调档元数据和公开入口；受限扫描件、PDF、图片和本地缓存不会通过公开 URL 提供。</div>
+{focused_section}
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>1942—1943 MMDA 原件待取</h2></div><section class="result-list">{mmda_pending_cards or '<div class="notice">当前没有待取条目。</div>'}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>当前未闭环重点</h2></div><section class="result-list">{''.join(f'<article class="result"><div><div class="title">{h(item)}</div><div class="snippet">需要回到馆藏目录、同期报刊或正式汇编，补齐档号/卷期、影像和权利字段。</div></div><div class="cite"><a href="/domestic/review">进入复核</a></div></article>' for item in bullets)}</section>"""
     return layout("国内调档清单", body, active_path="/domestic/acquisition")
@@ -11524,7 +11578,7 @@ class Handler(BaseHTTPRequestHandler):
         elif parsed.path == "/domestic/places":
             payload = _domestic_facet_page("places")
         elif parsed.path == "/domestic/acquisition":
-            payload = domestic_acquisition_page()
+            payload = domestic_acquisition_page(qs.get("event", [""])[0])
         elif parsed.path.startswith("/domestic/evidence-review/"):
             try:
                 page_id_int = int(parsed.path.removeprefix("/domestic/evidence-review/"))
