@@ -17,6 +17,7 @@ from urllib.parse import quote
 
 EVENT_SOURCE_MAP_FILES = {
     "domestic-1941-formation": "1941_formation_source_map.json",
+    "domestic-1946-pcc": "1946_old_pcc_source_map.json",
     "domestic-1946-refuse-national-assembly": "1946_refuse_national_assembly_source_map.json",
     "domestic-1946-li-wen": "1946_li_wen_source_map.json",
     "domestic-1945-first-congress": "1945_first_congress_source_map.json",

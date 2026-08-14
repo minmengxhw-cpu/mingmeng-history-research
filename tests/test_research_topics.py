@@ -438,6 +438,32 @@ def test_1946_li_wen_packet_separates_compiled_statements_from_press():
     assert "专题来源地图" in research_packet_page("domestic-1946-li-wen").decode("utf-8")
 
 
+def test_1946_pcc_packet_separates_navigation_targets_from_strict_pages():
+    """旧政协的sourcebook目标页保持导航级，既有页级记录保持严格级。"""
+    import app
+
+    app._request.public_mode = False
+    from scripts.domestic.research_packet import build_research_packet, packet_json_bytes, research_packet_page
+    from scripts.domestic.validate_research_packet import validate_packet
+
+    packet = build_research_packet("domestic-1946-pcc")
+    assert packet is not None
+    assert packet["counts"]["event_source_map_count"] == 1
+    assert packet["counts"]["event_source_page_record_count"] == 15
+    source_map = packet["event_source_maps"][0]
+    assert source_map["primary_evidence_closed"] is False
+    assert source_map["body_text_included"] is False
+    assert len(source_map["sources"]) == 3
+    pages = [page for source in source_map["sources"] for page in source["page_records"]]
+    assert sum(page["status"] == "navigation_only" for page in pages) == 9
+    assert sum(page["status"] == "strict_citation" for page in pages) == 6
+    assert {page["page_id"] for page in pages if page["page_id"] is not None} == {1512, 1513, 1514, 1515, 1516, 1518}
+    assert validate_packet(packet, "domestic-1946-pcc")["status"] == "PASS"
+    raw = packet_json_bytes("domestic-1946-pcc").decode("utf-8")
+    assert '"text"' not in raw
+    assert "专题来源地图" in research_packet_page("domestic-1946-pcc").decode("utf-8")
+
+
 def test_topic_research_matrix_is_complete_and_page_traceable():
     """九个专题的研究矩阵必须覆盖四个子问题且只引用已有链条页号。"""
     root = Path(__file__).resolve().parents[1]
