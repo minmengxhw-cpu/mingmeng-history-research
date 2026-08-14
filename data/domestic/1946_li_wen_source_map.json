@@ -11,6 +11,17 @@
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
   "primary_evidence_gap": "《民主周刊》原版、民盟抗议文件独立底本、司法/行政档案和案件过程材料仍未形成页级闭环；1983汇编中的三处声明是可回链的重刊页，不等同于独立原件。",
+  "access_audit": {
+    "audit_document": "docs/domestic/DOMESTIC_LIWEN_ORIGINAL_ACCESS_AUDIT_20260815.md",
+    "metadata_reviewed_on": "2026-08-15",
+    "status": "issue_routes_narrowed_original_image_not_obtained",
+    "scope": "公开官方盟史、商业目录和既有本地页级材料；未复制商业正文原件",
+    "confirmed_routes": [
+      "民盟云南官方盟史：1944-12-09至1946-08-02共3卷71期",
+      "商业影印目录：1946年第3、5、6、7、8期李闻相关篇目和目录线索"
+    ],
+    "next_minimum_target": "核对并取得1946年第3卷第16期和第19期相关原刊影像或正式复制件，完成逐页馆藏标识、影像SHA和人工视觉复核"
+  },
   "sources": [
     {
       "source_id": "mmhist-1946-li-wen-statements",
@@ -93,6 +104,53 @@
           "review_scope": "periodical_issue_identity_and_memorial_locator",
           "page_image_sha256": null,
           "caveat": "只证明同期报刊存在相关纪念版面，不外推案件事实，也不替代民盟声明原件或司法档案。"
+        }
+      ]
+    },
+    {
+      "source_id": "minmeng-yunnan-democracy-weekly-history",
+      "title": "民盟云南官方《抗日战争末期的昆明〈民主周刊〉》",
+      "source_role": "official_retrospective",
+      "evidence_level": "L4",
+      "metadata_snapshot_file": "data/domestic/metadata_snapshots/minmeng_yunnan_democracy_weekly_20260815.json",
+      "metadata_snapshot_sha256": "35e67c3affeabf12529f4536b840ee7124bd00094ed94cd70447b88d5b7ba5a2",
+      "source_url": "https://www.minmengsh.gov.cn/detailpage/lshm-5881f0f7-d19e-11ec-8d57-8c554a2845d4.html",
+      "access_note": "官方后期盟史文章；确认刊物出版范围与机构背景，不是1946年原刊影像",
+      "page_records": [
+        {
+          "page_id": null,
+          "target": "《民主周刊》1944-12-09至1946-08-02出版范围",
+          "role": "原刊期号追索与机构背景入口",
+          "status": "navigation_only",
+          "review_status": "metadata_reviewed",
+          "citation_ready": false,
+          "needs_human_review": false,
+          "review_scope": "official_retrospective_locator_only",
+          "caveat": "后期官方说明不能替代1946年具体期号原刊正文。"
+        }
+      ]
+    },
+    {
+      "source_id": "jiuwenku-guangmingbao-1946-catalogue",
+      "title": "商业影印目录《光明报》1946年期号与篇目列表",
+      "source_role": "commercial_surrogate_catalogue",
+      "evidence_level": "L0",
+      "metadata_snapshot_file": "data/domestic/metadata_snapshots/jiuwenku_guangmingbao_1946_catalogue_20260815.json",
+      "metadata_snapshot_sha256": "fecf1ce175275c14c36610e77b6e20f5c987ca6a951590339137e8623e063d90",
+      "source_url": "https://jiuwenku.com/detail/9f5995ef081bd721/",
+      "access_note": "付费影印目录；当前只作期号和篇目导航，未取得商业正文、复制许可或本地原件",
+      "rights_status": "unknown",
+      "page_records": [
+        {
+          "page_id": null,
+          "target": "1946年第3、5、6、7、8期李闻相关篇目",
+          "role": "商业影印原刊的期号/篇目定位入口",
+          "status": "navigation_only",
+          "review_status": "metadata_reviewed",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "commercial_catalogue_locator_only",
+          "caveat": "目录题名不能证明正文页界、署名、版次或原刊影像已取得。"
         }
       ]
     }

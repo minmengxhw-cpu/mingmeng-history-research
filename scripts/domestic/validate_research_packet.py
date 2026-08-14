@@ -8,6 +8,7 @@ body text.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -17,6 +18,14 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from scripts.domestic.research_packet import build_research_packet  # noqa: E402
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(8 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, object]:
@@ -128,8 +137,22 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
             if not isinstance(source, dict):
                 errors.append("event source map source is not an object")
                 continue
-            if len(str(source.get("source_sha256") or "")) != 64:
-                errors.append(f"event source {source.get('source_id')} missing source SHA256")
+            source_sha = str(source.get("source_sha256") or "")
+            metadata_sha = str(source.get("metadata_snapshot_sha256") or "")
+            if len(source_sha) != 64:
+                snapshot_file = str(source.get("metadata_snapshot_file") or "")
+                if len(metadata_sha) != 64 or not snapshot_file:
+                    errors.append(f"event source {source.get('source_id')} missing source or metadata snapshot SHA256")
+                else:
+                    snapshot_path = ROOT / snapshot_file
+                    if not snapshot_path.is_file():
+                        errors.append(f"event source {source.get('source_id')} metadata snapshot is missing")
+                    else:
+                        try:
+                            if _sha256(snapshot_path) != metadata_sha:
+                                errors.append(f"event source {source.get('source_id')} metadata snapshot SHA256 mismatch")
+                        except OSError as exc:
+                            errors.append(f"event source {source.get('source_id')} metadata snapshot unreadable: {exc}")
             pages = source.get("page_records") or []
             if not isinstance(pages, list):
                 errors.append(f"event source {source.get('source_id')} page_records must be a list")

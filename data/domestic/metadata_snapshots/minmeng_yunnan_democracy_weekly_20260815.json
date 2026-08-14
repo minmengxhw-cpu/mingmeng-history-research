@@ -1,0 +1,15 @@
+{
+  "schema": "domestic_external_metadata_snapshot.v1",
+  "snapshot_type": "metadata_only",
+  "body_read": false,
+  "metadata_checked_on": "2026-08-15",
+  "source_url": "https://www.minmengsh.gov.cn/detailpage/lshm-5881f0f7-d19e-11ec-8d57-8c554a2845d4.html",
+  "title": "抗日战争末期的昆明《民主周刊》",
+  "publisher": "中国民主同盟云南省支部／民盟云南省委员会后期盟史页面",
+  "facts": {
+    "publication_span": "1944-12-09至1946-08-02",
+    "volume_issue_count": "3卷71期",
+    "publication_role": "民盟云南省支部机关刊物",
+    "metadata_use": "原刊期号和馆藏追索线索"
+  }
+}

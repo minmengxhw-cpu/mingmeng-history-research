@@ -1,0 +1,19 @@
+{
+  "schema": "domestic_external_metadata_snapshot.v1",
+  "snapshot_type": "metadata_only",
+  "body_read": false,
+  "metadata_checked_on": "2026-08-15",
+  "source_url": "https://jiuwenku.com/detail/9f5995ef081bd721/",
+  "title": "光明报",
+  "publisher": "北平全民报社；商业影印目录页面",
+  "access_status": "paid_catalogue",
+  "rights_status": "unknown",
+  "issue_targets": [
+    {"issue": "1946年第3期", "locator": "李闻案民盟再致政府函"},
+    {"issue": "1946年第5期", "locator": "李闻案特辑；李闻案调查报告书"},
+    {"issue": "1946年第6期", "locator": "李闻惨案前后的昆明"},
+    {"issue": "1946年第7期", "locator": "李闻惨案前后的昆明（续）"},
+    {"issue": "1946年第8期", "locator": "李闻惨案前后的昆明（续）"}
+  ],
+  "metadata_use": "原刊期号和篇目追索线索；不作为正文证据"
+}

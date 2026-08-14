@@ -2,7 +2,14 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
+from pathlib import Path
+
 from scripts.domestic.validate_unified_research_platform import build_report
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_unified_platform_gate_passes_without_claiming_content_closure():
@@ -23,3 +30,22 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert report["checks"]["pcc_1946_sourcebook_render_manifest"]["review_status"] == "page_identity_and_boundary_human_verified_body_ocr_pending"
     assert report["checks"]["research_packets"]["topic_count"] == 9
     assert report["checks"]["research_question_benchmark"]["path_ready_count"] == 36
+
+
+def test_external_navigation_sources_use_hashed_metadata_snapshots():
+    source_map = json.loads(
+        (ROOT / "data/domestic/1946_li_wen_source_map.json").read_text(encoding="utf-8")
+    )
+    sources = {
+        str(source["source_id"]): source
+        for source in source_map["sources"]
+        if source.get("metadata_snapshot_file")
+    }
+    assert set(sources) == {
+        "minmeng-yunnan-democracy-weekly-history",
+        "jiuwenku-guangmingbao-1946-catalogue",
+    }
+    for source in sources.values():
+        snapshot = ROOT / source["metadata_snapshot_file"]
+        digest = hashlib.sha256(snapshot.read_bytes()).hexdigest()
+        assert digest == source["metadata_snapshot_sha256"]
