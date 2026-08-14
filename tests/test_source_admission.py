@@ -99,3 +99,40 @@ def test_reconciliation_releases_complete_page_anomaly():
     assert result[0]["admission_class"] == "RETAIN_FORMAL_PAGE_CHAIN"
     assert result[0]["ocr_action"] == "NO_REPEAT_OCR_FORMAL_PAGES_EXIST"
     assert "PAGE_RECONCILED_COMPLETE_CANONICAL_LAYER" in result[0]["reason_codes"]
+
+
+def test_contents_page_does_not_downgrade_whole_periodical():
+    policy_path = Path(__file__).resolve().parents[1] / "data/domestic/source_admission_policy.json"
+    policy = load_policy(policy_path)
+    rows = [
+        {
+            "source_path": "data/domestic/press_scans/NLC404-民憲_第一卷第一期.pdf",
+            "source_group": "press_scans",
+            "pdf_pages": "47",
+            "sha256": "1" * 64,
+            "indexed_pages": "3",
+            "ocr_draft_pages": "47",
+            "status": "draft_ready_formal_gap",
+            "indexed_titles": "《民憲》第一卷第一期目录页（OCR试点）",
+        }
+    ]
+    result = build_rows(rows, policy)
+    assert result[0]["admission_class"] == "RETAIN_TARGETED_REVIEW"
+    assert result[0]["ocr_action"] == "USE_EXISTING_OCR_TARGETED_REVIEW"
+
+
+def test_explicit_ascii_index_filename_remains_navigation_only():
+    policy_path = Path(__file__).resolve().parents[1] / "data/domestic/source_admission_policy.json"
+    policy = load_policy(policy_path)
+    row = {
+        "source_path": "data/domestic/press_scans/LNU_PROFMKCHAN_INDEXLIST_14_光明報_1941.pdf",
+        "source_group": "press_scans",
+        "pdf_pages": "2",
+        "sha256": "2" * 64,
+        "indexed_pages": "4",
+        "ocr_draft_pages": "2",
+        "status": "formal_page_count_anomaly",
+    }
+    result = build_rows([row], policy, {row["source_path"]: {"disposition": "RECONCILED_CANONICAL_PAGE_CHAIN"}})
+    assert result[0]["admission_class"] == "RETAIN_NAVIGATION_ONLY"
+    assert result[0]["ocr_action"] == "NO_FULL_OCR_INDEX_ONLY"

@@ -105,8 +105,12 @@ def source_form(row: dict[str, str]) -> str:
 
 def is_index_only(source_path: str, row: dict[str, str], policy: dict[str, Any]) -> bool:
     marker_list = policy.get("index_rule", {}).get("markers", [])
-    haystack = " ".join((source_path, row.get("indexed_titles", ""))).lower()
-    return any(str(marker).lower() in haystack for marker in marker_list)
+    # A contents page can be one indexed page inside a valuable periodical.
+    # Do not downgrade the whole source merely because ``indexed_titles`` says
+    # 目录; only an explicit source-file/finding-aid marker can do that.
+    path_haystack = source_path.lower()
+    explicit_markers = [*marker_list, "index"]
+    return any(str(marker).lower() in path_haystack for marker in explicit_markers)
 
 
 def status_rule(status: str, policy: dict[str, Any]) -> dict[str, str]:
