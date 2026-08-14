@@ -1,0 +1,27 @@
+# 1941 年成立专题：公开线索分流记录（2026-08-14）
+
+## 结论
+
+本轮公开检索没有取得可以直接升级为“1941 年独立原件影像”的新文件。找到的页面分别属于转录/替代本、书目记录或后出机构性回顾，继续保留为追索线索，不改变 `domestic-1941-formation` 的 `primary_evidence_status=partial`，也不写入正式库正文。
+
+## 线索分层
+
+| 线索 | 当前性质 | 可做什么 | 不能做什么 |
+|---|---|---|---|
+| [维基文库《成立宣言》](https://zh.wikisource.org/zh-hans/%E4%B8%AD%E5%9B%BD%E6%B0%91%E4%B8%BB%E6%94%BF%E5%9B%A2%E5%90%8C%E7%9B%9F%E6%88%90%E7%AB%8B%E5%AE%A3%E8%A8%80) | 公开文本转录/替代本 | 核对题名、日期和检索词；反查所据版本 | 不能证明已取得 1941《光明报》原页或成立宣言底本 |
+| [CiNii《民主同盟文献》记录](https://ci.nii.ac.jp/ncid/BA64541751) | 1946 年出版物书目记录 | 核对出版信息、馆藏线索和版本关系 | 不能当作 1941 原件，也不能单独证明文本来源链 |
+| [Google Books《中国民主同盟历史文献，1941—1949》记录](https://books.google.az/books?id=JE9XAAAAIAAJ) | 文献汇编书目/检索入口 | 作为版本和馆藏追索入口 | 不能替代本地有 SHA 的页级原件 |
+| [北京民盟盟史页面](https://www.bjdcmm.org.cn/01msjs/20040310/01.htm) | 后出机构性历史回顾 | 提供人物、时间和《光明报》线索 | 不能代替同期报刊或会议记录 |
+| [湖南民盟文献说明](https://www.hnmm.gov.cn/content/645445/97/12381106.html) | 后出机构性文献目录/概述 | 扩展 1941—1948 文献题名检索词 | 不能单独产生页码、档号或原件 provenance |
+
+## 对现有队列的影响
+
+- `domestic:MMHIST:formation-declaration-1941`、`domestic:NLC:minmeng-wenxian-1946-formation-declaration` 继续保持 `PUBLIC_SURROGATE` 或汇编重刊边界。
+- 已有 1946 汇编页 1473—1477 可继续作为严格页级导航和有限范围引用，但必须在引文中说明“1946 汇编重刊”，不能写成 1941 档案馆原件。
+- 新线索不新增候选，不触发下载、OCR 或正式 SQLite 写入；`body_read=false`、`formal_db_written=false`、`auto_download=false` 保持不变。
+
+## 下一步可执行动作
+
+1. 以《光明报》1941-10-10 号、成立宣言、对时局主张纲领和“启事”为精确检索组合，优先查找国家图书馆、香港大学微缩胶卷/馆藏和已授权的民盟全媒体数据库详情页。
+2. 对任何新下载文件先记录来源 URL、记录号、访问时间、文件 SHA256、页数和版本关系，进入本地 staging；电子文本跳过重复 OCR。
+3. 只有取得可复核的原页、页码/物理页、来源文件哈希和人工视觉复核后，才申请从候选层升级；否则继续留在 `PUBLIC_SURROGATE`、`CATALOGUE_ONLY` 或 `OFFICIAL_VIEWER_LOCKED`。
