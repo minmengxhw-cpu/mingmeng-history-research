@@ -3,7 +3,7 @@
   "report": "DOMESTIC_CITATION_EVENT_LINKS_20260813",
   "status": "navigation_only",
   "body_read_by_linker": false,
-  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus minmeng_wenxian_1945_program_review_20260814 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813 plus gdc0021_1947_1030_review_20260813 plus guangmingbao_1946_issue7_visual_review_20260814 plus pcc_1946_verified_pages_20260814",
+  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus minmeng_wenxian_1945_program_review_20260814 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813 plus gdc0021_1947_1030_review_20260813 plus guangmingbao_1946_issue7_visual_review_20260814 plus pcc_1946_verified_pages_20260814 plus liwen_1946_visual_review_20260814",
   "policy": "These links expose already human-verified page anchors inside a topic. They do not assert that the page is a direct event record, do not alter citation gates, and do not replace missing original declarations or meeting files.",
   "links": [
     {
@@ -271,6 +271,27 @@
       "page_label": "01",
       "navigation_title": "1947年《光明報》李公朴、闻一多纪念专题首版",
       "rationale": "原PDF首版明确标出李公朴、闻一多烈士纪念专题；这是事件发生后的同期报刊纪念页，用于专题进入点，不单独断言案件经过或责任归属。"
+    },
+    {
+      "event_id": "domestic-1946-li-wen",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_label": "212",
+      "navigation_title": "1946年7月12日民盟云南省支部抗议李公朴被害汇编重刊页",
+      "rationale": "官方历史文献汇编公开扫描第212页视觉核验可见题名、日期和页界；这是民盟自身声明的汇编重刊导航锚点，不等同于云南省支部独立原件，不替代司法或行政档案。"
+    },
+    {
+      "event_id": "domestic-1946-li-wen",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_label": "221",
+      "navigation_title": "1946年7月16日民盟云南省支部闻一多遇害紧急声明汇编重刊页",
+      "rationale": "官方历史文献汇编公开扫描第221页视觉核验可见题名、日期和页界；这是民盟自身声明的汇编重刊导航锚点，不等同于云南省支部独立原件，不替代案件原始档案。"
+    },
+    {
+      "event_id": "domestic-1946-li-wen",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_label": "224",
+      "navigation_title": "1946年7月17日民盟为李公朴被害发表声明汇编重刊页",
+      "rationale": "官方历史文献汇编公开扫描第224页视觉核验可见题名、日期和页界；这是民盟组织声明的汇编重刊导航锚点，不把汇编页扩写为独立原件或司法行政事实闭环。"
     },
     {
       "event_id": "domestic-1948-third-plenum-may-day",
