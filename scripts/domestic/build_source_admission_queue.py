@@ -73,6 +73,21 @@ def load_inventory(path: Path) -> list[dict[str, str]]:
     return rows
 
 
+def load_reconciliation(path: Path | None) -> dict[str, dict[str, Any]]:
+    """Load an optional metadata-only page reconciliation report."""
+
+    if path is None:
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("schema") != "domestic_source_page_reconciliation.v1":
+        raise ValueError(f"invalid reconciliation schema: {path}")
+    return {
+        str(row["source_path"]): row
+        for row in payload.get("rows", [])
+        if isinstance(row, dict) and row.get("source_path")
+    }
+
+
 def phase_for(path: str) -> tuple[str, str]:
     years = [year for year in YEAR_RE.findall(path) if year in PHASE_LABELS]
     year = years[0] if years else "unknown"
@@ -119,7 +134,11 @@ def priority_score(row: dict[str, str], admission_class: str) -> int:
     return score
 
 
-def build_rows(inventory: list[dict[str, str]], policy: dict[str, Any]) -> list[dict[str, Any]]:
+def build_rows(
+    inventory: list[dict[str, str]],
+    policy: dict[str, Any],
+    reconciliation: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
     by_sha: defaultdict[str, list[int]] = defaultdict(list)
     for index, row in enumerate(inventory):
         digest = row.get("sha256", "").strip().lower()
@@ -132,7 +151,8 @@ def build_rows(inventory: list[dict[str, str]], policy: dict[str, Any]) -> list[
         status = row.get("status", "").strip()
         form = source_form(row)
         rule = status_rule(status, policy)
-        if is_index_only(source_path, row, policy):
+        index_only = is_index_only(source_path, row, policy)
+        if index_only:
             admission_class = str(policy["index_rule"]["admission_class"])
             ocr_action = str(policy["index_rule"]["ocr_action"])
             next_action = str(policy["index_rule"]["next_action"])
@@ -142,6 +162,22 @@ def build_rows(inventory: list[dict[str, str]], policy: dict[str, Any]) -> list[
             ocr_action = rule["ocr_action"]
             next_action = rule["next_action"]
             reason_codes = [f"STATUS_{status.upper() or 'UNKNOWN'}"]
+
+        reconciliation_row = (reconciliation or {}).get(source_path, {})
+        reconciliation_disposition = str(reconciliation_row.get("disposition", ""))
+        if not index_only and reconciliation_disposition in {
+            "RECONCILED_CANONICAL_PAGE_CHAIN",
+            "RECONCILED_DUPLICATE_COMPLETE_LAYERS",
+        }:
+            admission_class = "RETAIN_FORMAL_PAGE_CHAIN"
+            ocr_action = "NO_REPEAT_OCR_FORMAL_PAGES_EXIST"
+            next_action = "页链已与物理页对账；转入定向人工引用复核，不重复 OCR 或整本导入。"
+            reason_codes.append("PAGE_RECONCILED_COMPLETE_CANONICAL_LAYER")
+        elif not index_only and reconciliation_disposition == "RECONCILED_COMPLETE_OCR_LAYER":
+            admission_class = "RETAIN_TARGETED_REVIEW"
+            ocr_action = "USE_EXISTING_OCR_TARGETED_REVIEW"
+            next_action = "已有完整 OCR 页层；只做目标页视觉核验，按需补建 canonical 页链。"
+            reason_codes.append("PAGE_RECONCILED_COMPLETE_OCR_LAYER")
 
         if form == "ELECTRONIC_TEXT":
             ocr_action = "SKIP_OCR_ELECTRONIC_TEXT"
@@ -169,6 +205,7 @@ def build_rows(inventory: list[dict[str, str]], policy: dict[str, Any]) -> list[
                 "indexed_pages": integer(row.get("indexed_pages")),
                 "ocr_draft_pages": integer(row.get("ocr_draft_pages")),
                 "inventory_status": status,
+                "reconciliation_disposition": reconciliation_disposition,
                 "source_form": form,
                 "phase": year,
                 "phase_label": phase_label,
@@ -259,12 +296,19 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
     parser.add_argument("--policy", type=Path, default=DEFAULT_POLICY)
+    parser.add_argument(
+        "--reconciliation",
+        type=Path,
+        default=None,
+        help="optional metadata-only output from reconcile_source_page_counts.py",
+    )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
     inventory = args.inventory.resolve()
     policy = args.policy.resolve()
+    reconciliation = load_reconciliation(args.reconciliation.resolve() if args.reconciliation else None)
     output_dir = args.output_dir.resolve()
-    rows = build_rows(load_inventory(inventory), load_policy(policy))
+    rows = build_rows(load_inventory(inventory), load_policy(policy), reconciliation)
     print(json.dumps(write_outputs(rows, output_dir, inventory, policy), ensure_ascii=False, indent=2))
     return 0
 

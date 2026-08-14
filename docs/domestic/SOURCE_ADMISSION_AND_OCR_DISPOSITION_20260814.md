@@ -19,6 +19,20 @@ python3 scripts/domestic/build_source_admission_queue.py \
   --output-dir work/domestic/source_admission_20260814
 ```
 
+如果覆盖表中存在 `formal_page_count_anomaly`，先运行页链对账，再把对账结果传回分流器：
+
+```bash
+python3 scripts/domestic/reconcile_source_page_counts.py \
+  --output-json work/domestic/source_reconciliation_20260815/SOURCE_PAGE_RECONCILIATION.json \
+  --output-md work/domestic/source_reconciliation_20260815/SOURCE_PAGE_RECONCILIATION.md
+
+python3 scripts/domestic/build_source_admission_queue.py \
+  --reconciliation work/domestic/source_reconciliation_20260815/SOURCE_PAGE_RECONCILIATION.json \
+  --output-dir work/domestic/source_admission_20260815
+```
+
+这样，已经由 canonical 页链覆盖物理页的来源会从“暂停对账”转为“不重复 OCR、定向复核”；目录/索引规则优先级不变，不会因为存在页链就被误当成正文证据。
+
 输出：
 
 - `SOURCE_ADMISSION_QUEUE.json`：机器可读的逐来源分流结果；

@@ -74,3 +74,28 @@ def test_source_admission_declared_electronic_text_skips_ocr():
     result = build_rows(rows, policy)
     assert result[0]["source_form"] == "ELECTRONIC_TEXT"
     assert result[0]["ocr_action"] == "SKIP_OCR_ELECTRONIC_TEXT"
+
+
+def test_reconciliation_releases_complete_page_anomaly():
+    policy_path = Path(__file__).resolve().parents[1] / "data/domestic/source_admission_policy.json"
+    policy = load_policy(policy_path)
+    rows = [
+        {
+            "source_path": "data/domestic/press_scans/1947_issue.pdf",
+            "source_group": "press_scans",
+            "pdf_pages": "16",
+            "sha256": "e" * 64,
+            "indexed_pages": "18",
+            "ocr_draft_pages": "16",
+            "status": "formal_page_count_anomaly",
+        }
+    ]
+    reconciliation = {
+        rows[0]["source_path"]: {
+            "disposition": "RECONCILED_DUPLICATE_COMPLETE_LAYERS"
+        }
+    }
+    result = build_rows(rows, policy, reconciliation)
+    assert result[0]["admission_class"] == "RETAIN_FORMAL_PAGE_CHAIN"
+    assert result[0]["ocr_action"] == "NO_REPEAT_OCR_FORMAL_PAGES_EXIST"
+    assert "PAGE_RECONCILED_COMPLETE_CANONICAL_LAYER" in result[0]["reason_codes"]
