@@ -52,6 +52,24 @@ def test_research_gap_dashboard_smoke(live_server, db_missing_reason):
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_research_parity_dashboard_smoke(live_server, db_missing_reason):
+    """Parity must expose navigation, citation, and primary closure separately."""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证国内—海外对齐看板: {db_missing_reason}")
+    status, body = fetch(live_server, "/research/parity")
+    assert status == 200
+    assert body is not None
+    assert "国内—海外对齐仪表盘" in body
+    assert "导航可用" in body
+    assert "严格引用" in body
+    assert "一手证据部分闭环" in body
+    assert "尚未 research_ready" in body
+    assert "body_read=false" in body
+    assert "1941年中国民主政团同盟成立" in body
+    assert "1949年新政协筹备" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+
 def test_primary_evidence_access_audit_is_non_promoting():
     """Locked official viewers must remain weaker than local page provenance."""
     root = Path(__file__).resolve().parents[1]

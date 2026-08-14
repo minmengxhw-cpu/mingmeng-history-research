@@ -6205,6 +6205,101 @@ def _research_topic_rows() -> list[dict[str, object]]:
     return result
 
 
+def research_parity_page() -> bytes:
+    """Domestic/foreign parity dashboard based on metadata-only topic state.
+
+    The dashboard deliberately keeps three states separate:
+    navigation_ready means a topic can be researched through the shared
+    navigation; strict citation means at least one event-linked domestic page
+    passed the human gate; research_ready still requires the editorial
+    primary-evidence declaration to be closed.  No page bodies are read here.
+    """
+    topics = _research_topic_rows()
+    rows: list[str] = []
+    navigation_count = 0
+    strict_count = 0
+    primary_closed_count = 0
+    research_ready_count = 0
+    open_target_count = 0
+    chain_ready_count = 0
+
+    for topic in topics:
+        item = topic["item"]
+        event_id = str(item.get("event_id") or "")
+        chain = topic.get("evidence_chain_summary") or {}
+        domestic_pages = int(topic.get("topic_event_domestic_pages") or 0)
+        strict_pages = int(topic.get("topic_event_domestic_strict_pages") or 0)
+        foreign_pages = int(topic.get("foreign_pages") or 0)
+        academic_total = int(topic.get("academic_total") or 0)
+        layer_count = int(chain.get("layer_count") or 0)
+        open_targets = int(chain.get("open_targets") or 0)
+        primary_status = str(item.get("primary_evidence_status") or "unclassified")
+
+        navigation_ready = bool(
+            domestic_pages
+            and foreign_pages
+            and academic_total
+            and layer_count == 4
+        )
+        strict_ready = strict_pages > 0
+        research_ready = navigation_ready and primary_status == "closed"
+        navigation_count += int(navigation_ready)
+        strict_count += int(strict_ready)
+        primary_closed_count += int(primary_status == "closed")
+        research_ready_count += int(research_ready)
+        open_target_count += open_targets
+        chain_ready_count += int(layer_count == 4)
+
+        primary = _primary_evidence_display(item)
+        navigation_badge = (
+            '<span class="pstatus ok">导航可用</span>'
+            if navigation_ready
+            else '<span class="pstatus warn">导航待补</span>'
+        )
+        strict_badge = (
+            f'<span class="pstatus ok">严格引用 {h(strict_pages)} 页</span>'
+            if strict_ready
+            else '<span class="pstatus warn">暂无严格引用页</span>'
+        )
+        final_badge = (
+            '<span class="pstatus ok">research_ready</span>'
+            if research_ready
+            else '<span class="pstatus warn">尚未 research_ready</span>'
+        )
+        rows.append(
+            f"""
+<article class="result">
+  <div>
+    <h2><a href="/research/{quote(event_id)}">{h(item.get('event_name') or event_id)}</a></h2>
+    <div class="meta">国内事件页 {h(domestic_pages)} · 境外对位页 {h(foreign_pages)} · 学术匹配 {h(academic_total)} · 证据链 {h(layer_count)}/4 · 开放原件 {h(open_targets)}</div>
+    <div class="tagline">{navigation_badge}{strict_badge}<span class="pstatus {primary['class']}">{h(primary['label'])}</span>{final_badge}</div>
+    <div class="snippet"><strong>研究问题：</strong>{h((topic.get('comparison') or {}).get('research_question') or '未登记')}</div>
+    <div class="snippet"><strong>当前边界：</strong>{h(primary['gap'])}</div>
+  </div>
+  <div class="cite"><a href="/research/{quote(event_id)}">专题</a><br><a href="/research/{quote(event_id)}/packet">研究包</a></div>
+</article>"""
+        )
+
+    body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, "国内—海外对齐")]) + f"""
+<section class="hero hero-compact">
+  <div class="hero-eyebrow">DOMESTIC · FOREIGN · PARITY</div>
+  <h1>国内—海外对齐仪表盘</h1>
+  <p class="hero-sub">用同一套研究能力检查国内资料层与境外档案层：导航、页级引用、学术解释、证据链和一手原件闭环分别计数。</p>
+  <div class="hero-chips"><span><b>{h(len(topics))}</b> 个专题</span><span><b>{h(navigation_count)}</b> 个导航可用</span><span><b>{h(strict_count)}</b> 个有严格页</span><span><b>{h(primary_closed_count)}</b> 个一手闭环</span><span><b>{h(research_ready_count)}</b> 个 research_ready</span><span><b>{h(open_target_count)}</b> 个开放原件目标</span></div>
+</section>
+<div class="notice"><strong>阅读规则：</strong>导航可用不等于一手原件闭环；严格引用页只表示已有部分页通过人工门禁；只有专题主证据、同期交叉、负向核查、版本关系和研究包全部闭环，才会显示 <code>research_ready</code>。本页只读元数据，<code>body_read=false</code>。</div>
+<section class="result-list">{"".join(rows) or '<div class="notice">暂无专题 parity 数据。</div>'}</section>
+<section class="doc-tools" style="margin-top:20px;justify-content:center;">
+  <a class="button" href="/research">返回专题索引</a>
+  <a class="button" href="/research/gaps">一手证据收口看板</a>
+  <a class="button secondary" href="/domestic">国内史料库</a>
+  <a class="button secondary" href="/events/key">境外关键事件</a>
+</section>
+<div class="notice" style="margin-top:16px;">四层证据链已就绪专题：{h(chain_ready_count)} / {h(len(topics))}。具体来源、页码、SHA256 和复核范围请从专题详情或研究包进入。</div>
+"""
+    return layout("国内—海外对齐", body, active_path="/research")
+
+
 def research_topics_page() -> bytes:
     """国内外共享的专题研究入口。"""
     topics = _research_topic_rows()
@@ -6253,6 +6348,7 @@ def research_topics_page() -> bytes:
     body += "</section>"
     body += """
 <section class="doc-tools" style="margin-top:20px;justify-content:center;">
+  <a class="button" href="/research/parity">国内—海外对齐仪表盘</a>
   <a class="button" href="/align">多源对位视图</a>
   <a class="button" href="/research/gaps">一手证据收口看板</a>
   <a class="button" href="/domestic">国内史料库</a>
@@ -11200,6 +11296,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = domestic_events_page(qs)
         elif parsed.path == "/research":
             payload = research_topics_page()
+        elif parsed.path == "/research/parity":
+            payload = research_parity_page()
         elif parsed.path == "/research/gaps":
             payload = research_gaps_page()
         elif parsed.path == "/research/packets":
