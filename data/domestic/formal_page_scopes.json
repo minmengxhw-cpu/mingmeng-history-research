@@ -1,0 +1,22 @@
+{
+  "schema": "domestic_formal_page_scopes.v1",
+  "body_read": false,
+  "formal_db_written": false,
+  "policy": "只为合并型正式文档声明候选到页的范围；不复制正文，不改变 page_provenance 的复核状态，不关闭主证据缺口。",
+  "scopes": [
+    {
+      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-formation-declaration",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+      "page_ids": [1473, 1474, 1475],
+      "scope_label": "1941成立宣言（汇编重刊）",
+      "rationale": "同一1946年汇编文档还包含第12—13页的早期政治主张；成立宣言候选只覆盖其连续三页，避免把后续文献页误计入。"
+    },
+    {
+      "candidate_id": "domestic:NLC:minmeng-wenxian-1946-ten-program",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+      "page_ids": [1476, 1477],
+      "scope_label": "1941对时局主张纲领（汇编重刊）",
+      "rationale": "同一合并页组中的第12—13页属于成立宣言之后的早期政治主张，单独作为该候选的页级范围。"
+    }
+  ]
+}

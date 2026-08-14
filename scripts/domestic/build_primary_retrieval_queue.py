@@ -27,6 +27,7 @@ DEFAULT_ACCESS_AUDIT = ROOT / "data/domestic/primary_evidence_access_audit.json"
 DEFAULT_DB = ROOT / "data/research_index.sqlite"
 DEFAULT_EVENT_LINKS = ROOT / "data/domestic/citation_event_links.json"
 DEFAULT_OUTPUT = ROOT / "data/domestic/primary_retrieval_queue.json"
+DEFAULT_FORMAL_PAGE_SCOPES = ROOT / "data/domestic/formal_page_scopes.json"
 
 ITEM_EVIDENCE_TYPES = {"digital_image", "official_document"}
 CATALOGUE_EVIDENCE_TYPES = {"catalogue", "official_description", "printed_finding_aid"}
@@ -60,7 +61,67 @@ def read_candidates(path: Path) -> dict[str, dict[str, Any]]:
     return rows
 
 
-def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
+def read_formal_page_scopes(path: Path) -> dict[str, dict[str, Any]]:
+    """Read explicit candidate-to-page scopes for merged formal documents."""
+    if not path.is_file():
+        return {}
+    payload = read_json(path)
+    if payload.get("schema") != "domestic_formal_page_scopes.v1":
+        raise ValueError(f"unexpected formal page scope schema: {path}")
+    for key in ("body_read", "formal_db_written"):
+        if payload.get(key) is not False:
+            raise ValueError(f"formal page scopes {key} must be false")
+    scopes: dict[str, dict[str, Any]] = {}
+    for row in payload.get("scopes", []):
+        if not isinstance(row, dict):
+            raise ValueError("formal page scope row must be an object")
+        candidate_id = str(row.get("candidate_id") or "").strip()
+        doc_key = str(row.get("doc_key") or "").strip()
+        page_ids = row.get("page_ids")
+        if not candidate_id or not doc_key or not isinstance(page_ids, list) or not page_ids:
+            raise ValueError("formal page scope requires candidate_id, doc_key and page_ids")
+        normalized: list[int] = []
+        for page_id in page_ids:
+            if isinstance(page_id, bool) or int(page_id) <= 0:
+                raise ValueError(f"invalid formal page id for {candidate_id}: {page_id}")
+            normalized.append(int(page_id))
+        if len(set(normalized)) != len(normalized):
+            raise ValueError(f"duplicate page id in formal page scope: {candidate_id}")
+        if candidate_id in scopes:
+            raise ValueError(f"duplicate formal page scope candidate: {candidate_id}")
+        scopes[candidate_id] = {
+            "candidate_id": candidate_id,
+            "doc_key": doc_key,
+            "page_ids": normalized,
+            "scope_label": str(row.get("scope_label") or ""),
+            "rationale": str(row.get("rationale") or ""),
+        }
+    return scopes
+
+
+def formal_page_record(row: sqlite3.Row) -> dict[str, Any]:
+    strict = (
+        int(row["citation_ready"] or 0) == 1
+        and int(row["needs_human_review"] or 0) == 0
+        and str(row["review_status"] or "") == "human_verified"
+        and bool(str(row["human_review_note"] or "").strip())
+    )
+    return {
+        "page_id": int(row["page_id"]),
+        "page_label": str(row["page_label"] or ""),
+        "provenance_present": row["provenance_page_id"] is not None,
+        "source_anchored": bool(
+            str(row["source_file"] or "").strip()
+            and len(str(row["source_sha256"] or "").strip()) == 64
+        ),
+        "strict_citation": strict,
+    }
+
+
+def read_formal_index(
+    path: Path,
+    page_scopes: dict[str, dict[str, Any]] | None = None,
+) -> tuple[dict[str, dict[str, Any]], bool]:
     """Read only formal document/page counts for candidate IDs.
 
     This is deliberately an overlay: it records what is already present in
@@ -70,6 +131,7 @@ def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
     """
     if not path.is_file():
         return {}, False
+    page_scopes = page_scopes or {}
     try:
         resolved = path.resolve()
         with sqlite3.connect(f"file:{resolved}?mode=ro", uri=True) as connection:
@@ -105,6 +167,38 @@ def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
                 ORDER BY dc.candidate_id, p.id
                 """
             ).fetchall()
+            scoped_rows: list[sqlite3.Row] = []
+            scoped_page_ids = sorted(
+                {
+                    page_id
+                    for scope in page_scopes.values()
+                    for page_id in scope["page_ids"]
+                }
+            )
+            if scoped_page_ids:
+                placeholders = ",".join("?" for _ in scoped_page_ids)
+                scoped_rows = connection.execute(
+                    f"""
+                    SELECT
+                        d.id AS document_id,
+                        d.doc_key,
+                        p.id AS page_id,
+                        p.page_label,
+                        pp.page_id AS provenance_page_id,
+                        pp.citation_ready,
+                        pp.needs_human_review,
+                        pp.review_status,
+                        pp.human_review_note,
+                        pp.source_file,
+                        pp.source_sha256
+                    FROM pages p
+                    JOIN documents d ON d.id=p.document_id
+                    LEFT JOIN page_provenance pp ON pp.page_id=p.id
+                    WHERE p.id IN ({placeholders})
+                    ORDER BY p.id
+                    """,
+                    scoped_page_ids,
+                ).fetchall()
     except sqlite3.Error:
         return {}, False
 
@@ -121,24 +215,33 @@ def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
         )
         if row["page_id"] is None:
             continue
-        strict = (
-            int(row["citation_ready"] or 0) == 1
-            and int(row["needs_human_review"] or 0) == 0
-            and str(row["review_status"] or "") == "human_verified"
-            and bool(str(row["human_review_note"] or "").strip())
-        )
-        item["formal_pages"].append(
-            {
-                "page_id": int(row["page_id"]),
-                "page_label": str(row["page_label"] or ""),
-                "provenance_present": row["provenance_page_id"] is not None,
-                "source_anchored": bool(
-                    str(row["source_file"] or "").strip()
-                    and len(str(row["source_sha256"] or "").strip()) == 64
-                ),
-                "strict_citation": strict,
-            }
-        )
+        item["formal_pages"].append(formal_page_record(row))
+
+    scoped_by_page_id = {int(row["page_id"]): row for row in scoped_rows}
+    for candidate_id, scope in page_scopes.items():
+        scoped_pages = []
+        document_id = None
+        for page_id in scope["page_ids"]:
+            row = scoped_by_page_id.get(page_id)
+            if row is None:
+                raise ValueError(f"formal page scope references missing page {page_id}: {candidate_id}")
+            if str(row["doc_key"] or "") != scope["doc_key"]:
+                raise ValueError(
+                    f"formal page scope doc_key mismatch for {candidate_id}: "
+                    f"page {page_id} is {row['doc_key']}"
+                )
+            document_id = row["document_id"]
+            scoped_pages.append(formal_page_record(row))
+        grouped[candidate_id] = {
+            "formal_ingested_document_id": document_id,
+            "formal_doc_key": scope["doc_key"],
+            "formal_pages": scoped_pages,
+            "formal_page_scope": {
+                "scope_label": scope["scope_label"],
+                "page_ids": list(scope["page_ids"]),
+                "rationale": scope["rationale"],
+            },
+        }
 
     index: dict[str, dict[str, Any]] = {}
     for candidate_id, item in grouped.items():
@@ -155,7 +258,7 @@ def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
             status = "FORMAL_STRICT_PAGES_PRESENT"
         else:
             status = "FORMAL_PAGES_REVIEW_ONLY"
-        index[candidate_id] = {
+        index_row = {
             "formal_ingested_document_id": item["formal_ingested_document_id"],
             "formal_doc_key": item["formal_doc_key"],
             "formal_page_count": page_count,
@@ -167,6 +270,9 @@ def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
             "formal_strict_page_ids": [page["page_id"] for page in pages if page["strict_citation"]],
             "formal_ingest_status": status,
         }
+        if item.get("formal_page_scope"):
+            index_row["formal_page_scope"] = item["formal_page_scope"]
+        index[candidate_id] = index_row
     return index, True
 
 
@@ -474,7 +580,10 @@ def next_action_with_formal_overlay(
             return action + "现有正式库页只能作同期交叉材料，不能替代该权限路径所指向的原件。"
         return action
     if strict_pages > 0:
-        return "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。"
+        return (
+            "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）："
+            "先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。"
+        )
     if event_link_strict_pages > 0:
         return (
             f"已有专题导航关联的严格页（{event_link_strict_pages}页）：先核对这些页与开放目标的版本/原件关系；"
@@ -668,6 +777,7 @@ def main() -> int:
     parser.add_argument("--access-audit", type=Path, default=DEFAULT_ACCESS_AUDIT)
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     parser.add_argument("--event-links", type=Path, default=DEFAULT_EVENT_LINKS)
+    parser.add_argument("--formal-page-scopes", type=Path, default=DEFAULT_FORMAL_PAGE_SCOPES)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
     coverage = read_json(args.coverage)
@@ -679,7 +789,8 @@ def main() -> int:
         for row in audit_payload.get("records", [])
         if isinstance(row, dict) and row.get("candidate_id")
     }
-    formal_index, formal_index_available = read_formal_index(args.db)
+    formal_page_scopes = read_formal_page_scopes(args.formal_page_scopes)
+    formal_index, formal_index_available = read_formal_index(args.db, formal_page_scopes)
     event_link_pages, event_link_index_available = read_event_link_pages(args.event_links, args.db)
     result = build_queue(
         coverage,

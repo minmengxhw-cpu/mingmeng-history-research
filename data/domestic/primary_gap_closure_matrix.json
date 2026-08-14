@@ -1,6 +1,6 @@
 {
   "schema": "domestic_primary_gap_closure_matrix.v1",
-  "generated_at": "2026-08-14T22:15:57.448863+00:00",
+  "generated_at": "2026-08-14T22:24:43.636252+00:00",
   "scope": "九个国内专题的主证据闭环执行矩阵",
   "body_read": false,
   "formal_db_written": false,
@@ -44,10 +44,10 @@
           "why_it_matters": "决定“成立时间、签署主体、文本版本”能否以原始底本作严格引用。",
           "status": "open",
           "retrieval_class": "CATALOGUE_OR_SURROGATE_REVIEW",
-          "next_action": "已有专题导航关联的严格页（6页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
-          "formal_page_count": 20,
-          "formal_strict_citation_page_count": 0
+          "formal_page_count": 13,
+          "formal_strict_citation_page_count": 5
         }
       ],
       "candidate_route_count": 12,
@@ -69,8 +69,18 @@
           "access_mode": "open",
           "target_match": true,
           "route_score": 120,
-          "formal_page_count": 7,
-          "body_read": false
+          "formal_page_count": 3,
+          "formal_strict_citation_page_count": 3,
+          "body_read": false,
+          "formal_page_scope": {
+            "scope_label": "1941成立宣言（汇编重刊）",
+            "page_ids": [
+              1473,
+              1474,
+              1475
+            ],
+            "rationale": "同一1946年汇编文档还包含第12—13页的早期政治主张；成立宣言候选只覆盖其连续三页，避免把后续文献页误计入。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:formation-declaration-1941",
@@ -83,6 +93,7 @@
           "target_match": true,
           "route_score": 120,
           "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -96,6 +107,7 @@
           "target_match": true,
           "route_score": 100,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -109,6 +121,7 @@
           "target_match": true,
           "route_score": 95,
           "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -122,6 +135,7 @@
           "target_match": true,
           "route_score": 90,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -135,6 +149,7 @@
           "target_match": true,
           "route_score": 80,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -148,6 +163,7 @@
           "target_match": true,
           "route_score": 45,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -161,6 +177,7 @@
           "target_match": true,
           "route_score": 45,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         }
       ],
@@ -228,6 +245,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 3,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -241,6 +259,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -254,6 +273,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -267,6 +287,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -280,6 +301,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -293,6 +315,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -306,6 +329,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -319,6 +343,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 1,
           "body_read": false
         }
       ],
@@ -359,7 +384,7 @@
           "why_it_matters": "现有页级材料已能支撑部分文本，但不能据此宣称大会档案链完整。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
           "formal_page_count": 63,
           "formal_strict_citation_page_count": 31
@@ -383,6 +408,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -396,6 +422,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -409,6 +436,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -422,6 +450,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -435,6 +464,7 @@
           "target_match": true,
           "route_score": 120,
           "formal_page_count": 18,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -448,6 +478,7 @@
           "target_match": true,
           "route_score": 120,
           "formal_page_count": 6,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -461,6 +492,7 @@
           "target_match": true,
           "route_score": 120,
           "formal_page_count": 25,
+          "formal_strict_citation_page_count": 25,
           "body_read": false
         },
         {
@@ -474,6 +506,7 @@
           "target_match": true,
           "route_score": 120,
           "formal_page_count": 6,
+          "formal_strict_citation_page_count": 6,
           "body_read": false
         }
       ],
@@ -537,6 +570,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -550,6 +584,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -563,6 +598,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -576,6 +612,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -589,6 +626,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -602,6 +640,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -615,6 +654,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -628,6 +668,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         }
       ],
@@ -692,6 +733,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -705,6 +747,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -718,6 +761,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -731,6 +775,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -744,6 +789,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -757,6 +803,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -770,6 +817,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -783,6 +831,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         }
       ],
@@ -847,6 +896,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -860,6 +910,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -873,6 +924,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -886,6 +938,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -899,6 +952,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -912,6 +966,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -925,6 +980,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -938,6 +994,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         }
       ],
@@ -978,7 +1035,7 @@
           "why_it_matters": "要把“改组/更名”从后来的汇编叙述还原为可定位的会议或同期刊物证据。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 13,
           "formal_page_count": 28,
           "formal_strict_citation_page_count": 3
@@ -1002,6 +1059,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 6,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1015,6 +1073,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 1,
           "body_read": false
         },
         {
@@ -1028,6 +1087,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 1,
           "body_read": false
         },
         {
@@ -1041,6 +1101,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1054,6 +1115,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 1,
           "body_read": false
         },
         {
@@ -1067,6 +1129,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1080,6 +1143,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1093,6 +1157,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         }
       ],
@@ -1133,7 +1198,7 @@
           "why_it_matters": "需要把机关报报道、中央档案和民盟内部会议拆成不同证据单元，避免一篇报道承担全部结论。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
           "formal_page_count": 18,
           "formal_strict_citation_page_count": 2
@@ -1157,6 +1222,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 3,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1170,6 +1236,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1183,6 +1250,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1196,6 +1264,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1209,6 +1278,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 3,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1222,6 +1292,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1235,6 +1306,7 @@
           "target_match": true,
           "route_score": 145,
           "formal_page_count": 3,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1248,6 +1320,7 @@
           "target_match": true,
           "route_score": 130,
           "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         }
       ],
@@ -1287,7 +1360,7 @@
           "why_it_matters": "只有正式会议记录和代表档案才能核对人物、程序、日期和民盟角色。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
           "formal_page_count": 30,
           "formal_strict_citation_page_count": 7
@@ -1311,6 +1384,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1324,6 +1398,7 @@
           "target_match": true,
           "route_score": 165,
           "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1337,6 +1412,7 @@
           "target_match": true,
           "route_score": 130,
           "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1350,6 +1426,7 @@
           "target_match": true,
           "route_score": 130,
           "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1363,6 +1440,7 @@
           "target_match": true,
           "route_score": 130,
           "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1376,6 +1454,7 @@
           "target_match": true,
           "route_score": 130,
           "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1389,6 +1468,7 @@
           "target_match": true,
           "route_score": 130,
           "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         },
         {
@@ -1402,6 +1482,7 @@
           "target_match": true,
           "route_score": 130,
           "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
           "body_read": false
         }
       ],

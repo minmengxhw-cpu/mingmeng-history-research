@@ -138,7 +138,7 @@ def source_map_for(source_map_dir: Path, event_id: str) -> tuple[Path, dict[str,
 def compact_route(route: dict[str, Any]) -> dict[str, Any]:
     """Keep the matrix actionable without copying large candidate records."""
 
-    return {
+    compact = {
         "candidate_id": route.get("candidate_id"),
         "title": route.get("title"),
         "route_status": route.get("route_status"),
@@ -149,8 +149,12 @@ def compact_route(route: dict[str, Any]) -> dict[str, Any]:
         "target_match": route.get("target_match") is True,
         "route_score": route.get("route_score"),
         "formal_page_count": route.get("formal_page_count", 0),
+        "formal_strict_citation_page_count": route.get("formal_strict_citation_page_count", 0),
         "body_read": route.get("body_read") is True,
     }
+    if route.get("formal_page_scope"):
+        compact["formal_page_scope"] = route["formal_page_scope"]
+    return compact
 
 
 def build(coverage_path: Path, queue_path: Path, source_map_dir: Path) -> dict[str, Any]:

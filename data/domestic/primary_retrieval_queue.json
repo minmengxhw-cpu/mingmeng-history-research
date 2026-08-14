@@ -44,10 +44,10 @@
           "why_it_matters": "决定“成立时间、签署主体、文本版本”能否以原始底本作严格引用。",
           "status": "open",
           "retrieval_class": "CATALOGUE_OR_SURROGATE_REVIEW",
-          "next_action": "已有专题导航关联的严格页（6页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
-          "formal_page_count": 20,
-          "formal_strict_citation_page_count": 0
+          "formal_page_count": 13,
+          "formal_strict_citation_page_count": 5
         }
       ],
       "event_link_pages": [
@@ -188,74 +188,55 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": 1349,
-          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-formation-declaration",
-          "formal_page_count": 7,
-          "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 7,
-          "formal_anchored_page_count": 7,
+          "formal_ingested_document_id": 1053,
+          "formal_doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "formal_page_count": 3,
+          "formal_strict_citation_page_count": 3,
+          "formal_provenance_page_count": 3,
+          "formal_anchored_page_count": 3,
           "formal_pages": [
             {
-              "page_id": 20339,
-              "page_label": "page-009",
+              "page_id": 1473,
+              "page_label": "009",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
-              "page_id": 20340,
-              "page_label": "page-0009",
+              "page_id": 1474,
+              "page_label": "010",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
-              "page_id": 20341,
-              "page_label": "page-0010",
+              "page_id": 1475,
+              "page_label": "011",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20342,
-              "page_label": "page-0011",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20343,
-              "page_label": "page-0009",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20344,
-              "page_label": "page-0010",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20345,
-              "page_label": "page-0011",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
-            20339,
-            20340,
-            20341,
-            20342,
-            20343,
-            20344,
-            20345
+            1473,
+            1474,
+            1475
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
+          "formal_strict_page_ids": [
+            1473,
+            1474,
+            1475
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
+          "formal_page_scope": {
+            "scope_label": "1941成立宣言（汇编重刊）",
+            "page_ids": [
+              1473,
+              1474,
+              1475
+            ],
+            "rationale": "同一1946年汇编文档还包含第12—13页的早期政治主张；成立宣言候选只覆盖其连续三页，避免把后续文献页误计入。"
+          }
         },
         {
           "candidate_id": "domestic:NLC:minmeng-wenxian-1946-whole",
@@ -479,58 +460,45 @@
           "target_match_terms": [],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": 1350,
-          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-ten-program",
-          "formal_page_count": 5,
-          "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 5,
-          "formal_anchored_page_count": 5,
+          "formal_ingested_document_id": 1053,
+          "formal_doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 2,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
           "formal_pages": [
             {
-              "page_id": 20346,
-              "page_label": "page-012",
+              "page_id": 1476,
+              "page_label": "012",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
-              "page_id": 20347,
-              "page_label": "page-0012",
+              "page_id": 1477,
+              "page_label": "013",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20348,
-              "page_label": "page-0013",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20349,
-              "page_label": "page-0012",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20350,
-              "page_label": "page-0013",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
-            20346,
-            20347,
-            20348,
-            20349,
-            20350
+            1476,
+            1477
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
+          "formal_strict_page_ids": [
+            1476,
+            1477
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
+          "formal_page_scope": {
+            "scope_label": "1941对时局主张纲领（汇编重刊）",
+            "page_ids": [
+              1476,
+              1477
+            ],
+            "rationale": "同一合并页组中的第12—13页属于成立宣言之后的早期政治主张，单独作为该候选的页级范围。"
+          }
         },
         {
           "candidate_id": "domestic:HKU:guangmingbao-primo-record",
@@ -778,7 +746,7 @@
           "why_it_matters": "要把“改组/更名”从后来的汇编叙述还原为可定位的会议或同期刊物证据。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 13,
           "formal_page_count": 28,
           "formal_strict_citation_page_count": 3
@@ -1585,7 +1553,7 @@
           "why_it_matters": "现有页级材料已能支撑部分文本，但不能据此宣称大会档案链完整。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
           "formal_page_count": 63,
           "formal_strict_citation_page_count": 31
@@ -6461,7 +6429,7 @@
           "why_it_matters": "需要把机关报报道、中央档案和民盟内部会议拆成不同证据单元，避免一篇报道承担全部结论。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
           "formal_page_count": 18,
           "formal_strict_citation_page_count": 2
@@ -7219,7 +7187,7 @@
           "why_it_matters": "只有正式会议记录和代表档案才能核对人物、程序、日期和民盟角色。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
           "formal_page_count": 30,
           "formal_strict_citation_page_count": 7

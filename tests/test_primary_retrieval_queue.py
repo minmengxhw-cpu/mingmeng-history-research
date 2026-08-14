@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from scripts.domestic.build_primary_retrieval_queue import build_queue
+from scripts.domestic.build_primary_retrieval_queue import build_queue, read_formal_page_scopes
 
 
 def test_retrieval_queue_keeps_locked_viewer_open():
@@ -315,3 +315,18 @@ def test_retrieval_queue_exposes_existing_event_pages_without_closing_gap():
     assert "不自动关闭主证据缺口" in target["next_action"]
     assert result["body_read"] is False
     assert result["formal_db_written"] is False
+
+
+def test_formal_page_scope_metadata_is_explicit_and_deduplicated(tmp_path):
+    scope_path = tmp_path / "scopes.json"
+    scope_path.write_text(
+        '{"schema":"domestic_formal_page_scopes.v1",'
+        '"body_read":false,"formal_db_written":false,'
+        '"scopes":[{"candidate_id":"c","doc_key":"doc",'
+        '"page_ids":[1,2],"scope_label":"label","rationale":"reason"}]}',
+        encoding="utf-8",
+    )
+    scopes = read_formal_page_scopes(scope_path)
+    assert scopes["c"]["doc_key"] == "doc"
+    assert scopes["c"]["page_ids"] == [1, 2]
+    assert scopes["c"]["rationale"] == "reason"
