@@ -1,0 +1,54 @@
+{
+  "schema": "domestic_official_scan_ocr_manifest.v1",
+  "generated_at": "2026-08-15T01:34:00+08:00",
+  "candidate_id": "domestic:SAAC:1949-09-21-06",
+  "title": "中国人民政治协商会议第一届全体会议第一天会议记录（1949年9月21日）",
+  "repository": "中央档案馆 / 国家档案局专题页",
+  "item_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_18.html",
+  "item_url_role": "item_surrogate",
+  "evidence_level": "L1",
+  "source_role": "official_scan",
+  "machine_ocr_engine": "PaddleOCR 3.7.0",
+  "machine_ocr_model": "PP-OCRv6_medium_det + PP-OCRv6_medium_rec",
+  "machine_ocr_runtime": "local CPU",
+  "human_verified": false,
+  "citation_ready": false,
+  "review_status": "review_only",
+  "formal_db_written": true,
+  "formal_document_id": 1592,
+  "formal_page_ids": [20913, 20914, 20915],
+  "formal_db_sha256": "cad5eac1642f58b9432dce2dc35134138becf8380925ff0b1962defa35fb73e4",
+  "pages": [
+    {
+      "physical_page": 1,
+      "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/18/01.jpg",
+      "local_image_path": "data/domestic/raw/saac_scans/sec05_05-18/01.jpg",
+      "image_sha256": "92f14de5ce331845dc9d136312792b422d703af6357e21caa4e5def34d75b00c",
+      "ocr_path": "work/domestic/saac_1949_pcc_day1_ocr_20260815/01.ocr.md",
+      "ocr_sha256": "2c0cc365d997ecd4a21aab1107ff4a9d5fe72ce5a51e1cb17ba85a3319cadd17",
+      "ocr_lines": 25,
+      "ocr_mean_confidence": 0.8522
+    },
+    {
+      "physical_page": 2,
+      "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/18/02.jpg",
+      "local_image_path": "data/domestic/raw/saac_scans/sec05_05-18/02.jpg",
+      "image_sha256": "dfdfc1a71f6f5dc26a2af57941b0eb96249cc1c56cd21eb96cad1fd94f6d1da7",
+      "ocr_path": "work/domestic/saac_1949_pcc_day1_ocr_20260815/02.ocr.md",
+      "ocr_sha256": "29307caf1eb0d7c647d37602028ee34af6cb4fbc13e5eab1ff9f0018045a3408",
+      "ocr_lines": 20,
+      "ocr_mean_confidence": 0.8384
+    },
+    {
+      "physical_page": 3,
+      "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/18/03.jpg",
+      "local_image_path": "data/domestic/raw/saac_scans/sec05_05-18/03.jpg",
+      "image_sha256": "11ac6e9dab23cd83244f41400147df169652b01d176ae3c31774d88aa6264596",
+      "ocr_path": "work/domestic/saac_1949_pcc_day1_ocr_20260815/03.ocr.md",
+      "ocr_sha256": "ee2d5ee7c02d4a94982fd8bebe53c7bcc095fe6db819c3ebfabfea3b87557a5e",
+      "ocr_lines": 13,
+      "ocr_mean_confidence": 0.8861
+    }
+  ],
+  "usage_boundary": "扫描图是官方原件入口；OCR 仅用于检索和定位。手写识别存在错字、漏字和繁简误差，未完成人工逐字复核前不得直接作为正式引文。"
+}
