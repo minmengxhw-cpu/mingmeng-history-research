@@ -1,0 +1,475 @@
+{
+  "schema": "domestic_event_source_map.v1",
+  "event_id": "domestic-1949-new-pcc",
+  "title": "1949年新政治协商会议筹备与一届全体会议：中央档案馆公开影像页级证据地图",
+  "review_status": "archival_page_evidence_ready_primary_gap_open",
+  "evidence_scope": "国家档案局／中央档案馆公开专题中的已核验档案影像页；只登记页级来源、哈希和引用边界",
+  "body_text_included": false,
+  "ocr_text_included": false,
+  "raw_files_included": false,
+  "formal_db_written_by_map": false,
+  "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
+  "primary_evidence_closed": false,
+  "primary_evidence_gap": "本轮闭合的是17个已核验影像页的页级引用入口；1949年筹备会完整记录、代表发言、完整代表名册连续件、第一届全体会议全套档案，以及民盟代表在会中发言和互动的完整页级对位仍待补齐。本地图不把单页影像宣称为完整档案卷宗或完整名单。",
+  "sources": [
+    {
+      "source_id": "saac-1949-pcc-invitation-telegram-p01",
+      "title": "中央关于邀请张澜、黄炎培北上的电报（1949-01-20）",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec01_01-13/01.jpg",
+      "source_sha256": "50eee675aaeef0d3cab9a8ee7bc62f11955538be0949fb13b4e243494da58226",
+      "source_file_size": 363800,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆《从五一口号到开国大典》公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20672,
+          "physical_page_no": 1,
+          "target": "1949新政协筹备的邀请与动员",
+          "role": "邀请张澜、黄炎培北上的中央电报影像页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "50eee675aaeef0d3cab9a8ee7bc62f11955538be0949fb13b4e243494da58226",
+          "caveat": "可引用的是公开专题影像页及其正式库 provenance；本地图不复制电报正文，也不据此替代完整筹备档案。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-preparatory-groups-p01",
+      "title": "新政治协商会议筹备会各小组开会概要（1949-06至07）",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec02_02-01/01.jpg",
+      "source_sha256": "0c53e3b084b5ec9a6575c01fd59af1ef577cf9e6206fdf6bc726f63d3a37c41b",
+      "source_file_size": 289335,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20690,
+          "physical_page_no": 1,
+          "target": "1949新政协筹备会的组织过程",
+          "role": "筹备会各小组开会概要影像页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "0c53e3b084b5ec9a6575c01fd59af1ef577cf9e6206fdf6bc726f63d3a37c41b",
+          "caveat": "只登记公开专题中这一页的档案身份和主题范围；不把单页概要扩写成完整小组会议记录。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-representative-list-p01",
+      "title": "政协一届全体会议单位及代表名单（1949-09-21）第1页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-02/01.jpg",
+      "source_sha256": "04a39a4f0451686be7d34b4d0c183b8cb15c2e8820ef20d75fc56c33eaf19382",
+      "source_file_size": 215716,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20733,
+          "physical_page_no": 1,
+          "target": "第一届政协单位及代表名单",
+          "role": "代表名单影像页1/7",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "04a39a4f0451686be7d34b4d0c183b8cb15c2e8820ef20d75fc56c33eaf19382",
+          "caveat": "可作为名单档案的页级引用入口；完整名单转录、民盟代表识别和连续件完整性仍需另行核验。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-representative-list-p02",
+      "title": "政协一届全体会议单位及代表名单（1949-09-21）第2页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-02/02.jpg",
+      "source_sha256": "4ff770459ddd2d72f550690bfe6883fe7eb2f9446cf5c193110d8a5dde94655f",
+      "source_file_size": 274697,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20734,
+          "physical_page_no": 2,
+          "target": "第一届政协单位及代表名单",
+          "role": "代表名单影像页2/7",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "4ff770459ddd2d72f550690bfe6883fe7eb2f9446cf5c193110d8a5dde94655f",
+          "caveat": "可作为名单档案的页级引用入口；完整名单转录、民盟代表识别和连续件完整性仍需另行核验。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-representative-list-p03",
+      "title": "政协一届全体会议单位及代表名单（1949-09-21）第3页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-02/03.jpg",
+      "source_sha256": "58ab42cd6a882d50152a83363e6c9c2ecada515c2e080394a07476931f84a92d",
+      "source_file_size": 254986,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20735,
+          "physical_page_no": 3,
+          "target": "第一届政协单位及代表名单",
+          "role": "代表名单影像页3/7",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "58ab42cd6a882d50152a83363e6c9c2ecada515c2e080394a07476931f84a92d",
+          "caveat": "可作为名单档案的页级引用入口；完整名单转录、民盟代表识别和连续件完整性仍需另行核验。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-representative-list-p04",
+      "title": "政协一届全体会议单位及代表名单（1949-09-21）第4页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-02/04.jpg",
+      "source_sha256": "e4df64a211df0278a00acc1050dff6fe773f32455b9f547e8ec2ef9c1a655a40",
+      "source_file_size": 297434,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20736,
+          "physical_page_no": 4,
+          "target": "第一届政协单位及代表名单",
+          "role": "代表名单影像页4/7",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "e4df64a211df0278a00acc1050dff6fe773f32455b9f547e8ec2ef9c1a655a40",
+          "caveat": "可作为名单档案的页级引用入口；完整名单转录、民盟代表识别和连续件完整性仍需另行核验。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-representative-list-p05",
+      "title": "政协一届全体会议单位及代表名单（1949-09-21）第5页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-02/05.jpg",
+      "source_sha256": "c83646b8d58116a2d390f935c5d95c3a7f25ae2e7ad6cd76d50372015225ec58",
+      "source_file_size": 259974,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20737,
+          "physical_page_no": 5,
+          "target": "第一届政协单位及代表名单",
+          "role": "代表名单影像页5/7",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "c83646b8d58116a2d390f935c5d95c3a7f25ae2e7ad6cd76d50372015225ec58",
+          "caveat": "可作为名单档案的页级引用入口；完整名单转录、民盟代表识别和连续件完整性仍需另行核验。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-representative-list-p06",
+      "title": "政协一届全体会议单位及代表名单（1949-09-21）第6页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-02/06.jpg",
+      "source_sha256": "429629eb07841b46de1f12b72de8665d93054077b103fc416b706cd045c1d89c",
+      "source_file_size": 262740,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20738,
+          "physical_page_no": 6,
+          "target": "第一届政协单位及代表名单",
+          "role": "代表名单影像页6/7",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "429629eb07841b46de1f12b72de8665d93054077b103fc416b706cd045c1d89c",
+          "caveat": "可作为名单档案的页级引用入口；完整名单转录、民盟代表识别和连续件完整性仍需另行核验。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-representative-list-p07",
+      "title": "政协一届全体会议单位及代表名单（1949-09-21）第7页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-02/07.jpg",
+      "source_sha256": "283296a9c67b425b144e7adb4455a9e10395751d3815e0bbf06978db05178ee4",
+      "source_file_size": 248406,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20739,
+          "physical_page_no": 7,
+          "target": "第一届政协单位及代表名单",
+          "role": "代表名单影像页7/7",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "283296a9c67b425b144e7adb4455a9e10395751d3815e0bbf06978db05178ee4",
+          "caveat": "可作为名单档案的页级引用入口；完整名单转录、民盟代表识别和连续件完整性仍需另行核验。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-signature-book-p01",
+      "title": "政协一届全体会议代表签名册（1949-09-21）第1页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-03/01.jpg",
+      "source_sha256": "85918a9cc734db0c3538d68cb04f6ce8c5f4f6a686d98bda918af43da02cae16",
+      "source_file_size": 401526,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20755,
+          "physical_page_no": 1,
+          "target": "第一届政协代表签名与参会身份",
+          "role": "代表签名册影像页1/3",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "85918a9cc734db0c3538d68cb04f6ce8c5f4f6a686d98bda918af43da02cae16",
+          "caveat": "可作为签名册影像的页级引用入口；不在本地图中转录签名或把局部页解释为完整参会名册。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-signature-book-p02",
+      "title": "政协一届全体会议代表签名册（1949-09-21）第2页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-03/02.jpg",
+      "source_sha256": "6db9d9a6e04e4416ce6522aa1efc5eaba566eadd11fe3b7a8beee8004ecb1c4e",
+      "source_file_size": 315588,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20756,
+          "physical_page_no": 2,
+          "target": "第一届政协代表签名与参会身份",
+          "role": "代表签名册影像页2/3",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "6db9d9a6e04e4416ce6522aa1efc5eaba566eadd11fe3b7a8beee8004ecb1c4e",
+          "caveat": "可作为签名册影像的页级引用入口；不在本地图中转录签名或把局部页解释为完整参会名册。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-signature-book-p03",
+      "title": "政协一届全体会议代表签名册（1949-09-21）第3页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-03/03.jpg",
+      "source_sha256": "ed64cba8e9bc00a2000c7af7c226cf948acf9d0263aecd0c1485a12d927da668",
+      "source_file_size": 299603,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20757,
+          "physical_page_no": 3,
+          "target": "第一届政协代表签名与参会身份",
+          "role": "代表签名册影像页3/3",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "ed64cba8e9bc00a2000c7af7c226cf948acf9d0263aecd0c1485a12d927da668",
+          "caveat": "可作为签名册影像的页级引用入口；不在本地图中转录签名或把局部页解释为完整参会名册。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-procedure-p01",
+      "title": "政协一届全体会议程序（1949-09-21至30）第1页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-06/01.jpg",
+      "source_sha256": "532a1b8a9109cf9e3c6f403731ce323288f373084f089197f6836dac5605f680",
+      "source_file_size": 277944,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20767,
+          "physical_page_no": 1,
+          "target": "第一届政协全体会议议程与程序",
+          "role": "会议程序影像页1/4",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "532a1b8a9109cf9e3c6f403731ce323288f373084f089197f6836dac5605f680",
+          "caveat": "可作为会议程序的页级引用入口；不据此替代全体会议记录、发言稿或完整议程档案。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-procedure-p02",
+      "title": "政协一届全体会议程序（1949-09-21至30）第2页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-06/02.jpg",
+      "source_sha256": "5ba3a641ca45bfd8ea19773cbacd1c3328b3866d2cf737357f6fa56740da3c74",
+      "source_file_size": 303348,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20768,
+          "physical_page_no": 2,
+          "target": "第一届政协全体会议议程与程序",
+          "role": "会议程序影像页2/4",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "5ba3a641ca45bfd8ea19773cbacd1c3328b3866d2cf737357f6fa56740da3c74",
+          "caveat": "可作为会议程序的页级引用入口；不据此替代全体会议记录、发言稿或完整议程档案。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-procedure-p03",
+      "title": "政协一届全体会议程序（1949-09-21至30）第3页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-06/03.jpg",
+      "source_sha256": "dfb63bfc0f9a8c32eae3999258c9655d31dfc37e75964c4eb332ed7375d29739",
+      "source_file_size": 298223,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20769,
+          "physical_page_no": 3,
+          "target": "第一届政协全体会议议程与程序",
+          "role": "会议程序影像页3/4",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "dfb63bfc0f9a8c32eae3999258c9655d31dfc37e75964c4eb332ed7375d29739",
+          "caveat": "可作为会议程序的页级引用入口；不据此替代全体会议记录、发言稿或完整议程档案。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-procedure-p04",
+      "title": "政协一届全体会议程序（1949-09-21至30）第4页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-06/04.jpg",
+      "source_sha256": "57abe644521a5c6f8c4a49df985abc323e7677fc30fb7f790e3cbd9e3a6672a4",
+      "source_file_size": 313809,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20770,
+          "physical_page_no": 4,
+          "target": "第一届政协全体会议议程与程序",
+          "role": "会议程序影像页4/4",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "57abe644521a5c6f8c4a49df985abc323e7677fc30fb7f790e3cbd9e3a6672a4",
+          "caveat": "可作为会议程序的页级引用入口；不据此替代全体会议记录、发言稿或完整议程档案。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-presidium-p01",
+      "title": "政协一届全体会议主席团名单（1949-09-21）",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-07/01.jpg",
+      "source_sha256": "11d53b81f4b01ffb7d66c889e39ce80595bcff5dea03c9b09f1dc79dc73927da",
+      "source_file_size": 268521,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance。",
+      "page_records": [
+        {
+          "page_id": 20771,
+          "physical_page_no": 1,
+          "target": "第一届政协主席团组成",
+          "role": "主席团名单影像页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_topic_scope",
+          "page_image_sha256": "11d53b81f4b01ffb7d66c889e39ce80595bcff5dea03c9b09f1dc79dc73927da",
+          "caveat": "可作为主席团名单的页级引用入口；本地图不转录名单，也不据此替代完整会议组织档案。"
+        }
+      ]
+    }
+  ]
+}

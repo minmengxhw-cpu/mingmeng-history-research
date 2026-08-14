@@ -273,6 +273,35 @@ def test_1941_research_packet_separates_reprint_from_original_periodical_route()
     assert '"text"' not in packet_json_bytes("domestic-1941-formation").decode("utf-8")
 
 
+def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_body():
+    """1949 新政协页级档案应可回链，但不能伪装成完整档案卷宗。"""
+    import app
+
+    app._request.public_mode = False
+    from scripts.domestic.research_packet import build_research_packet, packet_json_bytes, research_packet_page
+    from scripts.domestic.validate_research_packet import validate_packet
+
+    packet = build_research_packet("domestic-1949-new-pcc")
+    assert packet is not None
+    assert packet["counts"]["event_source_map_count"] == 1
+    assert packet["counts"]["event_source_page_record_count"] == 17
+    source_map = packet["event_source_maps"][0]
+    assert source_map["primary_evidence_closed"] is False
+    assert source_map["body_text_included"] is False
+    assert len(source_map["sources"]) == 17
+    assert all(
+        page["status"] == "strict_citation"
+        and page["citation_ready"] is True
+        and page["needs_human_review"] is False
+        for source in source_map["sources"]
+        for page in source["page_records"]
+    )
+    assert validate_packet(packet, "domestic-1949-new-pcc")["status"] == "PASS"
+    raw = packet_json_bytes("domestic-1949-new-pcc").decode("utf-8")
+    assert '"text"' not in raw
+    assert "专题来源地图" in research_packet_page("domestic-1949-new-pcc").decode("utf-8")
+
+
 def test_topic_research_matrix_is_complete_and_page_traceable():
     """九个专题的研究矩阵必须覆盖四个子问题且只引用已有链条页号。"""
     root = Path(__file__).resolve().parents[1]

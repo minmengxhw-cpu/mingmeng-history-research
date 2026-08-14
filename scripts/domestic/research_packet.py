@@ -17,6 +17,7 @@ from urllib.parse import quote
 
 EVENT_SOURCE_MAP_FILES = {
     "domestic-1941-formation": "1941_formation_source_map.json",
+    "domestic-1949-new-pcc": "1949_new_pcc_source_map.json",
     "domestic-1947-illegal-dissolution": "1947_dissolution_source_map.json",
 }
 
