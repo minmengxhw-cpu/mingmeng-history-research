@@ -1789,5 +1789,30 @@
     "verification_note": "2026-07-19 hard_gap_probe 下载并经互证轮/抽检复核。107页未加密，SHA256 386faf360e73fd31e39d1f0a584877dddc76855f0d0be6157e01e06ac4234ef1。本地 data/domestic/sourcebooks/NLC511-027032016010761-42571_中国民主同盟言论集.pdf。说明页称选自1945-10-01起《民主星期刊》1—7期。页界：宣言PDF14—19（印刷9—14）；政治报告题名PDF19、正文PDF20—36上栏（印刷15—31，末段自PDF35跨至36；同页下章伯钧下一文）；关键页 work/domestic/yanlunji_1945_pages/。与1983 MMHIST 政治报告/宣言同文L2双源；不填1946文獻硬缺口。抽检轮更正：政治报告止页原记PDF35有误，应为PDF36上栏。",
     "checked_at": "2026-07-19",
     "status": "verified_entry"
+  },
+  {
+    "source_id": "domestic:source:minmeng1941",
+    "source_name": "《民盟历史文献全媒体数据库》",
+    "institution": "中国民主同盟（平台归属与具体主办单位待详情页复核）",
+    "source_type": "授权数字文献数据库",
+    "authority_level": "机构数字数据库目录与授权全文入口；未取得正文不等同于原件",
+    "official_url": "http://www.minmeng1941.cn/WEB/INDEX.html",
+    "record_or_search_url": "http://www.minmeng1941.cn/outline?ChannelID=9317&resultid=2767",
+    "material_types": [
+      "地方史志",
+      "历史文献",
+      "历史人物",
+      "事件活动",
+      "历史刊物",
+      "历史录音",
+      "历史影像",
+      "民盟档案"
+    ],
+    "shanghai_relevance": "中高；全国民盟资料库，上海专题需按条目核验",
+    "access_mode": "已授权浏览器会话；公开检索/目录 + 登录后详情/下载",
+    "rights_status": "internal_authorized",
+    "verification_note": "项目既有 metadata-only 锚点记录确认平台身份、公开目录入口和登录限制；当前未把目录当正文，浏览器自动化后端暂不可用，具体主办单位和每项授权范围待详情页复核。",
+    "checked_at": "2026-08-14",
+    "status": "catalogue_verified_authorized_pending"
   }
 ]

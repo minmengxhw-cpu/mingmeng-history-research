@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-14T17:42:52+08:00",
+  "generated_at": "2026-08-14T17:56:42+08:00",
   "database_filename": "research_index.sqlite",
   "database_size_bytes": 703549440,
-  "sha256": "50ef6f7912f9b84ce66a96afc02873ab2e0d4c14fe0ce125a77f470e1c1f47b0",
+  "sha256": "8a8cfb830ec06004d01c626a3cab59d4bd158157d1b820d4868575a2115107ea",
   "counts": {
     "documents": 1403,
     "domestic_documents": 542,

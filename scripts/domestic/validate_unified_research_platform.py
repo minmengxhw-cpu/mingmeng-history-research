@@ -39,6 +39,7 @@ from scripts.domestic.validate_topic_comparison_cards import validate as validat
 
 MANIFEST_PATH = ROOT / "data" / "research_index.manifest.json"
 CANDIDATES_PATH = ROOT / "data" / "domestic" / "candidates.jsonl"
+SOURCE_REGISTRY_PATH = ROOT / "data" / "domestic" / "source_registry.json"
 ADMISSION_PATH = ROOT / "work" / "domestic" / "source_admission_20260814" / "SOURCE_ADMISSION_QUEUE.json"
 QUEUE_PATH = ROOT / "data" / "domestic" / "primary_retrieval_queue.json"
 CARDS_PATH = ROOT / "data" / "domestic" / "topic_comparison_cards.json"
@@ -175,6 +176,25 @@ def candidate_alignment_check(db_path: Path) -> dict[str, Any]:
     }
 
 
+def source_registry_alignment_check(db_path: Path) -> dict[str, Any]:
+    file_ids = {
+        str(row["source_id"])
+        for row in json.loads(SOURCE_REGISTRY_PATH.read_text(encoding="utf-8"))
+    }
+    connection = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+    db_ids = {str(row[0]) for row in connection.execute("SELECT source_id FROM domestic_sources")}
+    connection.close()
+    missing = sorted(file_ids - db_ids)
+    extra = sorted(db_ids - file_ids)
+    return {
+        "status": "PASS" if not missing and not extra else "FAIL",
+        "file_count": len(file_ids),
+        "db_count": len(db_ids),
+        "missing_from_db": missing,
+        "extra_in_db": extra,
+    }
+
+
 def admission_check() -> dict[str, Any]:
     payload = json.loads(ADMISSION_PATH.read_text(encoding="utf-8"))
     rows = payload.get("rows") or []
@@ -282,6 +302,7 @@ def build_report() -> dict[str, Any]:
     checks = {
         "manifest": manifest_check(db_path),
         "candidate_alignment": candidate_check,
+        "source_registry_alignment": source_registry_alignment_check(db_path),
         "source_admission": admission_check(),
         "retrieval_queue": retrieval_queue_check(int(candidate_check.get("db_count") or 0)),
         "missing_provenance": missing_provenance_check(db_path),
