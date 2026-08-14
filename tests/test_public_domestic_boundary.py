@@ -53,3 +53,31 @@ def test_public_mode_hides_internal_domestic_workbench_routes():
     assert "/domestic/academic" in app.PUBLIC_HIDDEN_PATHS
     assert "/domestic/quality" in app.PUBLIC_HIDDEN_PATHS
     assert "/domestic/acquisition" in app.PUBLIC_HIDDEN_PATHS
+
+
+def test_public_shared_entry_points_do_not_render_private_domestic_title():
+    with sqlite3.connect(DB_PATH) as connection:
+        private_title = connection.execute(
+            """SELECT title
+               FROM domestic_candidates
+               WHERE lower(COALESCE(rights_status, '')) <> 'public'
+                 AND trim(COALESCE(title, '')) <> ''
+               ORDER BY id
+               LIMIT 1"""
+        ).fetchone()[0]
+
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = True
+    try:
+        pages = [
+            app.search("民盟", platform="domestic"),
+            app.docs(platform="domestic"),
+            app.source_page("domestic"),
+            app.timeline(platform_slug="domestic"),
+            app.event_overview(),
+            app.events(topic_slug="domestic-1941-formation"),
+        ]
+        assert all(private_title not in page.decode("utf-8") for page in pages)
+        assert all(b"Traceback" not in page for page in pages)
+    finally:
+        app._request.public_mode = previous

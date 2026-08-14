@@ -19,7 +19,7 @@
 
 ### 公开模式国内资料边界
 
-- `/domestic` 与 `/domestic/library` 在公开模式下只显示同时满足 `rights_status=public` 和 L0–L3 的国内文档；统计数字、核心精选和页数均使用同一公开文档谓词。
+- `/domestic`、`/domestic/library`、统一搜索、文档列表、来源页、年表和事件线索在公开模式下只显示同时满足 `rights_status=public` 和 L0–L3 的国内文档；统计数字、核心精选和页数均使用同一公开文档谓词。
 - 国内质量、调档、学术和 staging 路由加入公开模式隐藏边界；正式库已有 OCR 或 provenance 不再被误当成公开授权。
 - 新增 `tests/test_public_domestic_boundary.py`，覆盖公开 SQL、私有核心文档不渲染和内部路由隐藏。
 

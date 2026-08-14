@@ -1081,12 +1081,19 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
     """档案平台入口面板：境外七源与国内史料层。"""
     # 动态计算每个平台的数据规模
     plat_counts = {}
+    public_scope = (
+        " AND (COALESCE(d.source_platform, 'frus') != 'domestic' OR "
+        f"{_public_domestic_document_predicate('d')})"
+        if getattr(_request, "public_mode", False)
+        else ""
+    )
     try:
-        for r in c.execute("""
+        for r in c.execute(f"""
             SELECT COALESCE(d.source_platform,'frus') AS p, count(*) AS n
             FROM documents d
             LEFT JOIN document_classifications dc ON dc.document_id=d.id
             WHERE COALESCE(dc.grade, '') <> '前台不展示'
+              {public_scope}
             GROUP BY p
         """):
             plat_counts[r['p']] = r['n']
@@ -1157,8 +1164,9 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
     domestic_docs = plat_counts.get("domestic", 0)
     try:
         domestic_pages = c.execute(
-            "SELECT count(*) FROM pages p JOIN documents d ON p.document_id=d.id "
-            "WHERE d.source_platform='domestic'"
+            f"SELECT count(*) FROM pages p JOIN documents d ON p.document_id=d.id "
+            f"WHERE d.source_platform='domestic' AND "
+            f"{_public_domestic_document_predicate('d') if getattr(_request, 'public_mode', False) else '1=1'}"
         ).fetchone()[0]
     except sqlite3.OperationalError:
         domestic_pages = 0
@@ -1243,26 +1251,33 @@ def source_page(platform_key: str) -> bytes:
         return layout("未知平台", '<div class="notice">未知的平台。可选：' + " / ".join(PLATFORM_META.keys()) + "</div>")
 
     with conn() as c:
+        public_scope = (
+            _public_domestic_document_predicate("documents")
+            if getattr(_request, "public_mode", False) and platform_key == "domestic"
+            else "1=1"
+        )
         # 取此平台的文档清单（前台过滤 grade='前台不展示'）
         # drnh 平台特别处理：默认只取 A 档（核心 223 条），按时间线排序
         try:
             if platform_key == "drnh":
-                docs_rows = c.execute("""
+                docs_rows = c.execute(f"""
                     SELECT documents.*, dc.grade
                     FROM documents
                     LEFT JOIN document_classifications dc ON dc.document_id=documents.id
                     WHERE COALESCE(source_platform, 'frus')=?
                       AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                      AND {public_scope}
                       AND dc.grade='A'
                     ORDER BY documents.date_guess, documents.doc_id
                 """, (platform_key,)).fetchall()
             else:
-                docs_rows = c.execute("""
+                docs_rows = c.execute(f"""
                     SELECT documents.*, dc.grade
                     FROM documents
                     LEFT JOIN document_classifications dc ON dc.document_id=documents.id
                     WHERE COALESCE(source_platform, 'frus')=?
                       AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                      AND {public_scope}
                     ORDER BY documents.date_guess, documents.volume_id, CAST(documents.doc_number AS INTEGER)
                 """, (platform_key,)).fetchall()
         except sqlite3.OperationalError:
@@ -1271,12 +1286,13 @@ def source_page(platform_key: str) -> bytes:
         n_docs = len(docs_rows)
         # 取该平台 A/B 档分布（用于动态填入 coverage/todo_note 占位符，避免数据更新后过时）
         try:
-            stat_rows = c.execute("""
+            stat_rows = c.execute(f"""
                 SELECT COALESCE(dc.grade, '-') AS g, COUNT(*) AS n
                 FROM documents
                 LEFT JOIN document_classifications dc ON dc.document_id = documents.id
                 WHERE COALESCE(source_platform, 'frus') = ?
                   AND (dc.grade IS NULL OR dc.grade != '前台不展示')
+                  AND {public_scope}
                 GROUP BY g
             """, (platform_key,)).fetchall()
             grade_map = {r["g"]: r["n"] for r in stat_rows}
@@ -1643,11 +1659,18 @@ def rows_for_search(
         filter_clauses.append(f"documents.doc_key IN ({placeholders})")
         filter_params.extend(cited_keys)
 
+    has_user_filters = bool(filter_clauses)
+    if getattr(_request, "public_mode", False):
+        # Public mode keeps the shared search useful for foreign material but
+        # requires every domestic hit to have an explicit public rights gate.
+        filter_clauses.append(
+            "(COALESCE(documents.source_platform, 'frus') != 'domestic' OR "
+            f"{_public_domestic_document_predicate('documents')})"
+        )
     filter_clause = "".join(f" AND {clause}" for clause in filter_clauses)
-    has_filters = bool(filter_clauses)
 
     if not query.strip():
-        if not has_filters:
+        if not has_user_filters:
             return []
         sql = f"""
             {SELECT_BASE}
@@ -7699,6 +7722,11 @@ def docs(active_grade: str = "", active_translation: str = "", platform: str = "
         params: list[str] = []
         # 前台默认过滤 grade='前台不展示' 的档案
         where_parts.append("(dc.grade IS NULL OR dc.grade != '前台不展示')")
+        if getattr(_request, "public_mode", False):
+            where_parts.append(
+                "(COALESCE(documents.source_platform, 'frus') != 'domestic' OR "
+                f"{_public_domestic_document_predicate('documents')})"
+            )
         # drnh 平台默认只显示 A 档核心（用户要求「只留民盟有关系的最重要的史料」）
         # 用户可加 ?grade=B 主动看背景档
         effective_grade = active_grade
@@ -9449,6 +9477,11 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
         # 前台展示边界：过滤 grade='前台不展示'
         prefix = "WHERE " if not where else where + " AND "
         full_where = (prefix + "(dc.grade IS NULL OR dc.grade != '前台不展示')") if (where or True) else ""
+        if getattr(_request, "public_mode", False):
+            full_where += (
+                " AND (COALESCE(documents.source_platform, 'frus') != 'domestic' OR "
+                f"{_public_domestic_document_predicate('documents')})"
+            )
         rows = c.execute(
             f"""
             SELECT
@@ -9598,12 +9631,21 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
 
 
 def event_overview() -> bytes:
+    public_clause = (
+        " AND (COALESCE(documents.source_platform, 'frus') != 'domestic' OR "
+        f"{_public_domestic_document_predicate('documents')})"
+        if getattr(_request, "public_mode", False)
+        else ""
+    )
     try:
         with conn() as c:
             rows = c.execute(
-                """
+                f"""
                 SELECT scope_type, scope_slug, scope_name, count(*) AS event_count, count(DISTINCT page_id) AS page_count
                 FROM research_events
+                JOIN pages ON pages.id = research_events.page_id
+                JOIN documents ON documents.id = pages.document_id
+                WHERE 1=1{public_clause}
                 GROUP BY scope_type, scope_slug, scope_name
                 ORDER BY scope_type DESC, event_count DESC, scope_name
                 """
@@ -9663,9 +9705,15 @@ def event_overview() -> bytes:
 
 
 def fetch_event_rows(scope_type: str, scope_slug: str) -> list[sqlite3.Row]:
+    public_clause = (
+        " AND (COALESCE(documents.source_platform, 'frus') != 'domestic' OR "
+        f"{_public_domestic_document_predicate('documents')})"
+        if getattr(_request, "public_mode", False)
+        else ""
+    )
     with conn() as c:
         return c.execute(
-            """
+            f"""
             SELECT
                 e.scope_type,
                 e.scope_slug,
@@ -9698,7 +9746,7 @@ def fetch_event_rows(scope_type: str, scope_slug: str) -> list[sqlite3.Row]:
             JOIN documents ON documents.id = pages.document_id
             LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
-            WHERE e.scope_type=? AND e.scope_slug=?
+            WHERE e.scope_type=? AND e.scope_slug=?{public_clause}
             ORDER BY
                 e.event_year,
                 documents.date_guess,
@@ -9712,9 +9760,15 @@ def fetch_event_rows(scope_type: str, scope_slug: str) -> list[sqlite3.Row]:
 
 
 def fetch_all_event_rows() -> list[sqlite3.Row]:
+    public_clause = (
+        " AND (COALESCE(documents.source_platform, 'frus') != 'domestic' OR "
+        f"{_public_domestic_document_predicate('documents')})"
+        if getattr(_request, "public_mode", False)
+        else ""
+    )
     with conn() as c:
         return c.execute(
-            """
+            f"""
             SELECT
                 e.scope_type,
                 e.scope_slug,
@@ -9747,6 +9801,7 @@ def fetch_all_event_rows() -> list[sqlite3.Row]:
             JOIN documents ON documents.id = pages.document_id
             LEFT JOIN translations ON translations.page_id = pages.id AND translations.language='zh-CN'
             LEFT JOIN document_classifications dc ON dc.document_id = documents.id
+            WHERE 1=1{public_clause}
             ORDER BY
                 e.event_year,
                 documents.date_guess,
