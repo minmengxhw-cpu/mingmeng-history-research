@@ -247,16 +247,32 @@ def test_1947_research_packet_carries_event_source_map_without_body():
     packet = build_research_packet("domestic-1947-illegal-dissolution")
     assert packet is not None
     assert packet["counts"]["event_source_map_count"] == 1
-    assert packet["counts"]["event_source_page_record_count"] == 8
+    assert packet["counts"]["event_source_page_record_count"] == 64
     source_map = packet["event_source_maps"][0]
     assert source_map["primary_evidence_closed"] is False
     assert source_map["body_text_included"] is False
-    assert len(source_map["sources"]) == 7
+    assert len(source_map["sources"]) == 11
     assert sum(
         page["status"] == "strict_citation"
         for source in source_map["sources"]
         for page in source["page_records"]
     ) == 6
+    assert sum(
+        page["status"] == "navigation_only"
+        for source in source_map["sources"]
+        for page in source["page_records"]
+    ) == 56
+    assert sum(
+        page["status"] == "negative_control"
+        for source in source_map["sources"]
+        for page in source["page_records"]
+    ) == 2
+    assert all(
+        page["citation_ready"] is False and page["needs_human_review"] is True
+        for source in source_map["sources"]
+        for page in source["page_records"]
+        if page["status"] == "navigation_only"
+    )
     assert validate_packet(packet, "domestic-1947-illegal-dissolution")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1947-illegal-dissolution").decode("utf-8")
     assert '"text"' not in raw
