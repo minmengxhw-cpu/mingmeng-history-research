@@ -44,6 +44,8 @@ ACADEMIC_REPORT_PATH = ROOT / "work" / "domestic" / "academic_source_audit_20260
 ACADEMIC_CROSSWALK_PATH = ROOT / "data" / "domestic" / "academic_topic_crosswalk.json"
 ADMISSION_PATH = ROOT / "work" / "domestic" / "source_admission_20260814" / "SOURCE_ADMISSION_QUEUE.json"
 QUEUE_PATH = ROOT / "data" / "domestic" / "primary_retrieval_queue.json"
+PRIMARY_GAP_MATRIX_PATH = ROOT / "data" / "domestic" / "primary_gap_closure_matrix.json"
+SOURCE_MAP_DIR = ROOT / "data" / "domestic"
 CARDS_PATH = ROOT / "data" / "domestic" / "topic_comparison_cards.json"
 COVERAGE_PATH = ROOT / "data" / "domestic" / "event_coverage.json"
 PCC_1946_SOURCEBOOK_MAP_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourcebook_targets.json"
@@ -275,6 +277,97 @@ def retrieval_queue_check(candidate_count: int) -> dict[str, Any]:
         "open_target_count": payload.get("open_target_count"),
         "formal_candidate_count": formal_index.get("candidate_count"),
         "event_link_page_count": (payload.get("event_link_index") or {}).get("page_count"),
+        "errors": errors,
+    }
+
+
+def primary_gap_matrix_check() -> dict[str, Any]:
+    """Ensure the committed P0 matrix is fresh against current source maps.
+
+    The matrix is a metadata-only execution view.  It must not silently lag
+    behind a newly added source-map route, otherwise researchers and local
+    agents receive an obsolete queue while the platform gate remains green.
+    """
+    errors: list[str] = []
+    try:
+        matrix = json.loads(PRIMARY_GAP_MATRIX_PATH.read_text(encoding="utf-8"))
+        queue = json.loads(QUEUE_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"status": "FAIL", "errors": [f"matrix_or_queue_unreadable: {exc}"]}
+    if matrix.get("schema") != "domestic_primary_gap_closure_matrix.v1":
+        errors.append("unexpected primary gap matrix schema")
+    for key in ("body_read", "formal_db_written"):
+        if matrix.get(key) is not False:
+            errors.append(f"matrix {key} must be false")
+    topics = matrix.get("topics") if isinstance(matrix.get("topics"), list) else []
+    matrix_by_event = {
+        str(row.get("event_id")): row
+        for row in topics
+        if isinstance(row, dict) and row.get("event_id")
+    }
+    expected_event_ids = {
+        str(topic["item"].get("event_id") or "")
+        for topic in app._research_topic_rows()
+        if isinstance(topic, dict) and isinstance(topic.get("item"), dict)
+    }
+    if set(matrix_by_event) != expected_event_ids:
+        errors.append("primary gap matrix topics do not match research topics")
+    source_maps = sorted(SOURCE_MAP_DIR.glob("*_source_map.json"))
+    actual_page_count = 0
+    actual_map_ids: set[str] = set()
+    for path in source_maps:
+        try:
+            source_map = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"source map unreadable {path.name}: {exc}")
+            continue
+        event_id = str(source_map.get("event_id") or "")
+        actual_map_ids.add(event_id)
+        pages = [
+            page
+            for source in source_map.get("sources", [])
+            if isinstance(source, dict)
+            for page in source.get("page_records", [])
+            if isinstance(page, dict)
+        ]
+        actual_page_count += len(pages)
+        matrix_topic = matrix_by_event.get(event_id)
+        if matrix_topic is None:
+            errors.append(f"source map missing from matrix: {event_id}")
+            continue
+        matrix_map = matrix_topic.get("source_map") if isinstance(matrix_topic.get("source_map"), dict) else {}
+        if int(matrix_map.get("page_record_count") or 0) != len(pages):
+            errors.append(f"stale source-map page count: {event_id}")
+        if matrix_map.get("primary_evidence_closed") is not (source_map.get("primary_evidence_closed") is True):
+            errors.append(f"source-map closure mismatch: {event_id}")
+    if actual_map_ids != expected_event_ids:
+        errors.append("source-map event ids do not match research topics")
+    summary = matrix.get("summary") if isinstance(matrix.get("summary"), dict) else {}
+    if int(summary.get("source_map_count") or 0) != len(source_maps):
+        errors.append("matrix source_map_count is stale")
+    if int(summary.get("source_map_page_record_count") or 0) != actual_page_count:
+        errors.append("matrix source_map_page_record_count is stale")
+    queue_topics = queue.get("topics") if isinstance(queue.get("topics"), list) else []
+    queue_route_count = sum(
+        int(target.get("candidate_route_count") or 0)
+        for topic in queue_topics
+        if isinstance(topic, dict)
+        for target in (topic.get("missing_primary") or [])
+        if isinstance(target, dict)
+    )
+    matrix_route_count = sum(
+        int(topic.get("candidate_route_count") or 0)
+        for topic in topics
+        if isinstance(topic, dict)
+    )
+    if matrix_route_count != queue_route_count:
+        errors.append("matrix candidate route count does not match retrieval queue")
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "topic_count": len(topics),
+        "source_map_count": len(source_maps),
+        "source_map_page_record_count": actual_page_count,
+        "candidate_route_count": matrix_route_count,
         "errors": errors,
     }
 
@@ -524,6 +617,7 @@ def build_report() -> dict[str, Any]:
         "academic_layer": academic_layer_check(),
         "source_admission": admission_check(),
         "retrieval_queue": retrieval_queue_check(int(candidate_check.get("db_count") or 0)),
+        "primary_gap_matrix": primary_gap_matrix_check(),
         "pcc_1946_sourcebook_map": pcc_1946_sourcebook_map_check(),
         "pcc_1946_sourcebook_render_manifest": pcc_1946_render_manifest_check(),
         "missing_provenance": missing_provenance_check(db_path),

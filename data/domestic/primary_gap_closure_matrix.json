@@ -1,6 +1,6 @@
 {
   "schema": "domestic_primary_gap_closure_matrix.v1",
-  "generated_at": "2026-08-14T22:24:43.636252+00:00",
+  "generated_at": "2026-08-14T23:14:05.716300+00:00",
   "scope": "九个国内专题的主证据闭环执行矩阵",
   "body_read": false,
   "formal_db_written": false,
@@ -18,7 +18,7 @@
     "candidate_route_count": 124,
     "target_match_route_count": 121,
     "source_map_count": 9,
-    "source_map_page_record_count": 201,
+    "source_map_page_record_count": 204,
     "route_status_counts": {
       "CATALOGUE_OR_FINDING_AID": 4,
       "OFFICIAL_VIEWER_LOCKED": 1,
@@ -678,11 +678,13 @@
         "path": "data/domestic/1946_li_wen_source_map.json",
         "review_status": "compiled_statements_and_contemporary_press_ready_independent_archive_gap_open",
         "primary_evidence_closed": false,
-        "source_count": 2,
-        "page_record_count": 4,
+        "source_count": 4,
+        "page_record_count": 6,
         "evidence_level_counts": {
+          "L0": 1,
           "L1": 1,
-          "L2": 1
+          "L2": 1,
+          "L4": 1
         }
       },
       "minimum_closure_checks": [
@@ -1167,11 +1169,12 @@
         "path": "data/domestic/1944_reorganization_source_map.json",
         "review_status": "compiled_text_and_contemporary_locator_ready_original_reorganization_gap_open",
         "primary_evidence_closed": false,
-        "source_count": 5,
-        "page_record_count": 12,
+        "source_count": 6,
+        "page_record_count": 13,
         "evidence_level_counts": {
           "L1": 4,
-          "L2": 1
+          "L2": 1,
+          "L4": 1
         }
       },
       "minimum_closure_checks": [
