@@ -9,7 +9,8 @@ def test_research_gap_rows_surface_formal_overlay():
     rows = app._research_gap_rows()
     target = next(row for row in rows if row["event_id"] == "domestic-1947-illegal-dissolution")
     assert int(target["formal_page_count"]) > 0
-    assert int(target["formal_strict_citation_page_count"]) == 0
+    assert int(target["formal_strict_citation_page_count"]) > 0
+    assert target["status"] == "open"
     locked = next(
         candidate
         for candidate in target["candidates"]
@@ -23,5 +24,6 @@ def test_research_gap_rows_surface_formal_overlay():
         body = app.research_gaps_page().decode("utf-8")
         assert "正式库页" in body
         assert "已有正式页·待页级复核" in body
+        assert "页级导航" in body
     finally:
         app._request.public_mode = previous

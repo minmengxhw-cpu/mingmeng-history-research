@@ -88,36 +88,65 @@ def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
                     dc.candidate_id,
                     dc.ingested_document_id,
                     d.doc_key,
-                    COUNT(DISTINCT p.id) AS page_count,
-                    COUNT(DISTINCT CASE
-                        WHEN pp.citation_ready=1
-                         AND pp.needs_human_review=0
-                         AND pp.review_status='human_verified'
-                         AND trim(COALESCE(pp.human_review_note,''))<>''
-                        THEN p.id END) AS strict_citation_page_count,
-                    COUNT(DISTINCT CASE
-                        WHEN pp.page_id IS NOT NULL THEN p.id END) AS provenance_page_count,
-                    COUNT(DISTINCT CASE
-                        WHEN trim(COALESCE(pp.source_file,''))<>''
-                         AND length(trim(COALESCE(pp.source_sha256,'')))=64
-                        THEN p.id END) AS anchored_page_count
+                    p.id AS page_id,
+                    p.page_label,
+                    pp.page_id AS provenance_page_id,
+                    pp.citation_ready,
+                    pp.needs_human_review,
+                    pp.review_status,
+                    pp.human_review_note,
+                    pp.source_file,
+                    pp.source_sha256
                 FROM domestic_candidates dc
                 LEFT JOIN documents d ON d.id=dc.ingested_document_id
                 LEFT JOIN pages p ON p.document_id=d.id
                 LEFT JOIN page_provenance pp ON pp.page_id=p.id
-                GROUP BY dc.candidate_id, dc.ingested_document_id, d.doc_key
+                ORDER BY dc.candidate_id, p.id
                 """
             ).fetchall()
     except sqlite3.Error:
         return {}, False
 
-    index: dict[str, dict[str, Any]] = {}
+    grouped: dict[str, dict[str, Any]] = {}
     for row in rows:
-        page_count = int(row["page_count"] or 0)
-        strict_count = int(row["strict_citation_page_count"] or 0)
-        provenance_count = int(row["provenance_page_count"] or 0)
-        anchored_count = int(row["anchored_page_count"] or 0)
-        if row["ingested_document_id"] is None:
+        candidate_id = str(row["candidate_id"])
+        item = grouped.setdefault(
+            candidate_id,
+            {
+                "formal_ingested_document_id": row["ingested_document_id"],
+                "formal_doc_key": str(row["doc_key"] or ""),
+                "formal_pages": [],
+            },
+        )
+        if row["page_id"] is None:
+            continue
+        strict = (
+            int(row["citation_ready"] or 0) == 1
+            and int(row["needs_human_review"] or 0) == 0
+            and str(row["review_status"] or "") == "human_verified"
+            and bool(str(row["human_review_note"] or "").strip())
+        )
+        item["formal_pages"].append(
+            {
+                "page_id": int(row["page_id"]),
+                "page_label": str(row["page_label"] or ""),
+                "provenance_present": row["provenance_page_id"] is not None,
+                "source_anchored": bool(
+                    str(row["source_file"] or "").strip()
+                    and len(str(row["source_sha256"] or "").strip()) == 64
+                ),
+                "strict_citation": strict,
+            }
+        )
+
+    index: dict[str, dict[str, Any]] = {}
+    for candidate_id, item in grouped.items():
+        pages = list(item["formal_pages"])
+        page_count = len(pages)
+        strict_count = sum(bool(page["strict_citation"]) for page in pages)
+        provenance_count = sum(bool(page["provenance_present"]) for page in pages)
+        anchored_count = sum(bool(page["source_anchored"]) for page in pages)
+        if item["formal_ingested_document_id"] is None:
             status = "NOT_INGESTED"
         elif page_count == 0:
             status = "FORMAL_METADATA_ONLY"
@@ -125,13 +154,16 @@ def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
             status = "FORMAL_STRICT_PAGES_PRESENT"
         else:
             status = "FORMAL_PAGES_REVIEW_ONLY"
-        index[str(row["candidate_id"])] = {
-            "formal_ingested_document_id": row["ingested_document_id"],
-            "formal_doc_key": str(row["doc_key"] or ""),
+        index[candidate_id] = {
+            "formal_ingested_document_id": item["formal_ingested_document_id"],
+            "formal_doc_key": item["formal_doc_key"],
             "formal_page_count": page_count,
             "formal_strict_citation_page_count": strict_count,
             "formal_provenance_page_count": provenance_count,
             "formal_anchored_page_count": anchored_count,
+            "formal_pages": pages,
+            "formal_page_ids": [page["page_id"] for page in pages],
+            "formal_strict_page_ids": [page["page_id"] for page in pages if page["strict_citation"]],
             "formal_ingest_status": status,
         }
     return index, True
@@ -235,6 +267,9 @@ def formal_overlay(candidate_id: str, formal_index: dict[str, dict[str, Any]] | 
             "formal_strict_citation_page_count": 0,
             "formal_provenance_page_count": 0,
             "formal_anchored_page_count": 0,
+            "formal_pages": [],
+            "formal_page_ids": [],
+            "formal_strict_page_ids": [],
         }
     return dict(
         formal_index.get(
@@ -247,6 +282,9 @@ def formal_overlay(candidate_id: str, formal_index: dict[str, dict[str, Any]] | 
                 "formal_strict_citation_page_count": 0,
                 "formal_provenance_page_count": 0,
                 "formal_anchored_page_count": 0,
+                "formal_pages": [],
+                "formal_page_ids": [],
+                "formal_strict_page_ids": [],
             },
         )
     )
@@ -445,7 +483,7 @@ def build_queue(
             }
         )
     return {
-        "schema": "domestic_primary_retrieval_queue.v1",
+        "schema": "domestic_primary_retrieval_queue.v2",
         "generated_at": str(date.today()),
         "scope": "九个国内专题的开放主证据目标",
         "policy": "候选路由只用于追索；不把目录、转录、后期叙述或锁定查看器升级为原件闭环。",

@@ -5219,27 +5219,31 @@ def _research_gap_rows() -> list[dict[str, object]]:
                 _candidate_value(row, "candidate_id"),
             )
         )
-        candidate_cards = [
-            {
-                "candidate_id": str(row["candidate_id"]),
-                "title": str(row["title"] or row["candidate_id"]),
-                "level": str(_domestic_level(row) or row["authenticity_level_proposed"] or "未分级"),
-                "review_status": str(row["review_status"] or "未标注"),
-                "access_status": str((access_audit.get(str(row["candidate_id"])) or {}).get("access_status") or ""),
-                "access_label": str((access_audit.get(str(row["candidate_id"])) or {}).get("access_label") or ""),
-                "formal_ingest_status": str(
-                    (retrieval_routes.get(str(row["candidate_id"])) or {}).get("formal_ingest_status")
-                    or ("NOT_IN_QUEUE" if formal_index_available else "NOT_CHECKED")
-                ),
-                "formal_page_count": int(
-                    (retrieval_routes.get(str(row["candidate_id"])) or {}).get("formal_page_count") or 0
-                ),
-                "formal_strict_citation_page_count": int(
-                    (retrieval_routes.get(str(row["candidate_id"])) or {}).get("formal_strict_citation_page_count") or 0
-                ),
-            }
-            for row in linked_candidates
-        ]
+        candidate_cards: list[dict[str, object]] = []
+        for row in linked_candidates:
+            candidate_id = str(row["candidate_id"])
+            route = retrieval_routes.get(candidate_id) or {}
+            formal_pages = route.get("formal_pages") if isinstance(route.get("formal_pages"), list) else []
+            candidate_cards.append(
+                {
+                    "candidate_id": candidate_id,
+                    "title": str(row["title"] or candidate_id),
+                    "level": str(_domestic_level(row) or row["authenticity_level_proposed"] or "未分级"),
+                    "review_status": str(row["review_status"] or "未标注"),
+                    "access_status": str((access_audit.get(candidate_id) or {}).get("access_status") or ""),
+                    "access_label": str((access_audit.get(candidate_id) or {}).get("access_label") or ""),
+                    "formal_ingest_status": str(
+                        route.get("formal_ingest_status")
+                        or ("NOT_IN_QUEUE" if formal_index_available else "NOT_CHECKED")
+                    ),
+                    "formal_doc_key": str(route.get("formal_doc_key") or ""),
+                    "formal_page_count": int(route.get("formal_page_count") or 0),
+                    "formal_strict_citation_page_count": int(
+                        route.get("formal_strict_citation_page_count") or 0
+                    ),
+                    "formal_pages": formal_pages,
+                }
+            )
         layer_counts = {
             layer: len(layers.get(layer, [])) if isinstance(layers.get(layer), list) else 0
             for layer in CHAIN_LAYER_META
@@ -5333,10 +5337,33 @@ def research_gaps_page() -> bytes:
                     f'{h(formal_status_label)}</span>'
                     f'<span class="meta">正式页 {h(formal_page_count)} / 严格 {h(formal_strict_count)}</span>'
                 )
+                formal_pages = candidate.get("formal_pages") or []
+                formal_doc_key = str(candidate.get("formal_doc_key") or "")
+                page_links: list[str] = []
+                if formal_doc_key and isinstance(formal_pages, list):
+                    for page in formal_pages[:6]:
+                        if not isinstance(page, dict) or not page.get("page_id"):
+                            continue
+                        page_id = int(page["page_id"])
+                        page_label = str(page.get("page_label") or page_id)
+                        if page.get("strict_citation"):
+                            href = f"/cite/{page_id}"
+                            label = f"严格页 {page_label}"
+                        else:
+                            href = f"/doc/{quote(formal_doc_key, safe='')}?page_id={page_id}"
+                            label = f"页 {page_label}"
+                        page_links.append(f'<a class="tag" href="{href}">{h(label)}</a>')
+                    if len(formal_pages) > len(page_links):
+                        page_links.append(f'<span class="meta">另有 {h(len(formal_pages) - len(page_links))} 页</span>')
+                formal_navigation = (
+                    f'<span class="meta">页级导航：</span>{" ".join(page_links)}'
+                    if page_links
+                    else ""
+                )
                 candidate_link_rows.append(
                     f'<a href="/domestic/candidate/{quote(str(candidate["candidate_id"]), safe="")}">{h(candidate["title"])}</a>'
                     f' <span class="meta">{h(candidate["level"])} / {h(candidate["review_status"])}</span>'
-                    f" {access_badge} {formal_badge}"
+                    f" {access_badge} {formal_badge} {formal_navigation}"
                 )
             candidate_links = " · ".join(candidate_link_rows)
             if int(gap["candidate_overflow"]):

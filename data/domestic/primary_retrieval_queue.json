@@ -1,5 +1,5 @@
 {
-  "schema": "domestic_primary_retrieval_queue.v1",
+  "schema": "domestic_primary_retrieval_queue.v2",
   "generated_at": "2026-08-14",
   "scope": "九个国内专题的开放主证据目标",
   "policy": "候选路由只用于追索；不把目录、转录、后期叙述或锁定查看器升级为原件闭环。",
@@ -77,6 +77,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -114,6 +117,67 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 7,
           "formal_anchored_page_count": 7,
+          "formal_pages": [
+            {
+              "page_id": 20339,
+              "page_label": "page-009",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20340,
+              "page_label": "page-0009",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20341,
+              "page_label": "page-0010",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20342,
+              "page_label": "page-0011",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20343,
+              "page_label": "page-0009",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20344,
+              "page_label": "page-0010",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20345,
+              "page_label": "page-0011",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20339,
+            20340,
+            20341,
+            20342,
+            20343,
+            20344,
+            20345
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -150,6 +214,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20337,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20338,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20337,
+            20338
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -186,6 +271,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -223,6 +311,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20660,
+              "page_label": "full-text",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20660
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -260,6 +361,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20658,
+              "page_label": "full-text",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20658
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -294,6 +408,51 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 5,
           "formal_anchored_page_count": 5,
+          "formal_pages": [
+            {
+              "page_id": 20346,
+              "page_label": "page-012",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20347,
+              "page_label": "page-0012",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20348,
+              "page_label": "page-0013",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20349,
+              "page_label": "page-0012",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20350,
+              "page_label": "page-0013",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20346,
+            20347,
+            20348,
+            20349,
+            20350
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -328,6 +487,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -365,6 +527,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20648,
+              "page_label": "full-text",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20648
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -401,6 +576,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20631,
+              "page_label": "full-text",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20631
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -438,6 +626,67 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 7,
           "formal_anchored_page_count": 7,
+          "formal_pages": [
+            {
+              "page_id": 20339,
+              "page_label": "page-009",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20340,
+              "page_label": "page-0009",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20341,
+              "page_label": "page-0010",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20342,
+              "page_label": "page-0011",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20343,
+              "page_label": "page-0009",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20344,
+              "page_label": "page-0010",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20345,
+              "page_label": "page-0011",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20339,
+            20340,
+            20341,
+            20342,
+            20343,
+            20344,
+            20345
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -472,6 +721,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20603,
+              "page_label": "full-text",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20603
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         }
       ],
@@ -529,6 +791,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20372,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20373,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20372,
+            20373
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -566,6 +849,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20374,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20375,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20374,
+            20375
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -603,6 +907,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20376,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20377,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20376,
+            20377
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -640,6 +965,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20378,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20379,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20378,
+            20379
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -677,6 +1023,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20380,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20381,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20380,
+            20381
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -714,6 +1081,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20382,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20383,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20382,
+            20383
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -751,6 +1139,29 @@
           "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20285,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20286,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            }
+          ],
+          "formal_page_ids": [
+            20285,
+            20286
+          ],
+          "formal_strict_page_ids": [
+            20286
+          ],
           "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
@@ -788,6 +1199,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20335,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20336,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20335,
+            20336
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -825,6 +1257,29 @@
           "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20287,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20288,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            }
+          ],
+          "formal_page_ids": [
+            20287,
+            20288
+          ],
+          "formal_strict_page_ids": [
+            20288
+          ],
           "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
@@ -862,6 +1317,29 @@
           "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20289,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20290,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            }
+          ],
+          "formal_page_ids": [
+            20289,
+            20290
+          ],
+          "formal_strict_page_ids": [
+            20290
+          ],
           "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
@@ -899,6 +1377,59 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 6,
           "formal_anchored_page_count": 6,
+          "formal_pages": [
+            {
+              "page_id": 20291,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20292,
+              "page_label": "page-0016",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20293,
+              "page_label": "page-0017",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20294,
+              "page_label": "page-0018",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20295,
+              "page_label": "page-0019",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20296,
+              "page_label": "page-0020",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20291,
+            20292,
+            20293,
+            20294,
+            20295,
+            20296
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -935,6 +1466,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [
+            {
+              "page_id": 1,
+              "page_label": "",
+              "provenance_present": false,
+              "source_anchored": false,
+              "strict_citation": false
+            },
+            {
+              "page_id": 2,
+              "page_label": "299",
+              "provenance_present": false,
+              "source_anchored": false,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            1,
+            2
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -972,6 +1524,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         }
       ],
@@ -1028,6 +1583,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20384,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20385,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20384,
+            20385
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1064,6 +1640,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20386,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20387,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20386,
+            20387
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1100,6 +1697,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20388,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20389,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20388,
+            20389
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1136,6 +1754,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20390,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20391,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20390,
+            20391
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1173,6 +1812,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -1209,6 +1851,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -1247,6 +1892,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -1285,6 +1933,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -1322,6 +1973,66 @@
           "formal_strict_citation_page_count": 6,
           "formal_provenance_page_count": 6,
           "formal_anchored_page_count": 6,
+          "formal_pages": [
+            {
+              "page_id": 20174,
+              "page_label": "page-0073",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20175,
+              "page_label": "page-0074",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20176,
+              "page_label": "page-0075",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20177,
+              "page_label": "page-0076",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20178,
+              "page_label": "page-0077",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20179,
+              "page_label": "page-0078",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            }
+          ],
+          "formal_page_ids": [
+            20174,
+            20175,
+            20176,
+            20177,
+            20178,
+            20179
+          ],
+          "formal_strict_page_ids": [
+            20174,
+            20175,
+            20176,
+            20177,
+            20178,
+            20179
+          ],
           "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
@@ -1359,6 +2070,237 @@
           "formal_strict_citation_page_count": 25,
           "formal_provenance_page_count": 25,
           "formal_anchored_page_count": 25,
+          "formal_pages": [
+            {
+              "page_id": 20149,
+              "page_label": "page-0048",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20150,
+              "page_label": "page-0049",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20151,
+              "page_label": "page-0050",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20152,
+              "page_label": "page-0051",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20153,
+              "page_label": "page-0052",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20154,
+              "page_label": "page-0053",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20155,
+              "page_label": "page-0054",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20156,
+              "page_label": "page-0055",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20157,
+              "page_label": "page-0056",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20158,
+              "page_label": "page-0057",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20159,
+              "page_label": "page-0058",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20160,
+              "page_label": "page-0059",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20161,
+              "page_label": "page-0060",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20162,
+              "page_label": "page-0061",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20163,
+              "page_label": "page-0062",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20164,
+              "page_label": "page-0063",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20165,
+              "page_label": "page-0064",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20166,
+              "page_label": "page-0065",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20167,
+              "page_label": "page-0066",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20168,
+              "page_label": "page-0067",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20169,
+              "page_label": "page-0068",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20170,
+              "page_label": "page-0069",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20171,
+              "page_label": "page-0070",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20172,
+              "page_label": "page-0071",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20173,
+              "page_label": "page-0072",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            }
+          ],
+          "formal_page_ids": [
+            20149,
+            20150,
+            20151,
+            20152,
+            20153,
+            20154,
+            20155,
+            20156,
+            20157,
+            20158,
+            20159,
+            20160,
+            20161,
+            20162,
+            20163,
+            20164,
+            20165,
+            20166,
+            20167,
+            20168,
+            20169,
+            20170,
+            20171,
+            20172,
+            20173
+          ],
+          "formal_strict_page_ids": [
+            20149,
+            20150,
+            20151,
+            20152,
+            20153,
+            20154,
+            20155,
+            20156,
+            20157,
+            20158,
+            20159,
+            20160,
+            20161,
+            20162,
+            20163,
+            20164,
+            20165,
+            20166,
+            20167,
+            20168,
+            20169,
+            20170,
+            20171,
+            20172,
+            20173
+          ],
           "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
@@ -1397,6 +2339,59 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 6,
           "formal_anchored_page_count": 6,
+          "formal_pages": [
+            {
+              "page_id": 20198,
+              "page_label": "page-0014",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20199,
+              "page_label": "page-0015",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20200,
+              "page_label": "page-0016",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20201,
+              "page_label": "page-0017",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20202,
+              "page_label": "page-0018",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20203,
+              "page_label": "page-0019",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20198,
+            20199,
+            20200,
+            20201,
+            20202,
+            20203
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1434,6 +2429,155 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 18,
           "formal_anchored_page_count": 18,
+          "formal_pages": [
+            {
+              "page_id": 20180,
+              "page_label": "page-0019",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20181,
+              "page_label": "page-0020",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20182,
+              "page_label": "page-0021",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20183,
+              "page_label": "page-0022",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20184,
+              "page_label": "page-0023",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20185,
+              "page_label": "page-0024",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20186,
+              "page_label": "page-0025",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20187,
+              "page_label": "page-0026",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20188,
+              "page_label": "page-0027",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20189,
+              "page_label": "page-0028",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20190,
+              "page_label": "page-0029",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20191,
+              "page_label": "page-0030",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20192,
+              "page_label": "page-0031",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20193,
+              "page_label": "page-0032",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20194,
+              "page_label": "page-0033",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20195,
+              "page_label": "page-0034",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20196,
+              "page_label": "page-0035",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20197,
+              "page_label": "page-0036",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20180,
+            20181,
+            20182,
+            20183,
+            20184,
+            20185,
+            20186,
+            20187,
+            20188,
+            20189,
+            20190,
+            20191,
+            20192,
+            20193,
+            20194,
+            20195,
+            20196,
+            20197
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         }
       ],
@@ -1492,6 +2636,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20311,
+              "page_label": "issue01-01",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20312,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20311,
+            20312
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1530,6 +2695,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20313,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20313
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1567,6 +2745,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20397,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20397
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1603,6 +2794,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20320,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20320
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1641,6 +2845,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20392,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20392
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1677,6 +2894,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20321,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20321
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1714,6 +2944,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20314,
+              "page_label": "issue02-01",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20315,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20314,
+            20315
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1751,6 +3002,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20316,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20316
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1788,6 +3052,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20317,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20317
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1825,6 +3102,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20396,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20396
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -1863,6 +3153,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -1900,6 +3193,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -1937,6 +3233,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -1974,6 +3273,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -2011,6 +3313,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -2048,6 +3353,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -2085,6 +3393,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -2122,6 +3433,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -2159,6 +3473,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         }
       ],
@@ -2216,6 +3533,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20397,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20397
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2253,6 +3583,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20318,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20318
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2292,6 +3635,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20319,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20319
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2329,6 +3685,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20320,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20320
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2366,6 +3735,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20392,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20392
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2403,6 +3785,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20321,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20321
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2442,6 +3837,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20322,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20322
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2481,6 +3889,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20323,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20323
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2517,6 +3938,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20282,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20283,
+              "page_label": "page-0003",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20282,
+            20283
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2553,6 +3995,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20297,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20298,
+              "page_label": "page-0005",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20297,
+            20298
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2591,6 +4054,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20204,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20204
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2629,6 +4105,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20284,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20284
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2665,6 +4154,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -2701,7 +4193,10 @@
           "formal_page_count": 0,
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0
+          "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": []
         },
         {
           "candidate_id": "domestic:MMHIST:lo-lung-chi-national-assembly-1946-01-17",
@@ -2737,6 +4232,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         }
       ],
@@ -2793,6 +4291,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20394,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20394
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2830,6 +4341,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20204,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20204
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2868,6 +4392,171 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 20,
           "formal_anchored_page_count": 20,
+          "formal_pages": [
+            {
+              "page_id": 20221,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20222,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20223,
+              "page_label": "page-0003",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20224,
+              "page_label": "page-0004",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20225,
+              "page_label": "page-0005",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20226,
+              "page_label": "page-0006",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20227,
+              "page_label": "page-0007",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20228,
+              "page_label": "page-0008",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20229,
+              "page_label": "page-0009",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20230,
+              "page_label": "page-0010",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20231,
+              "page_label": "page-0011",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20232,
+              "page_label": "page-0012",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20233,
+              "page_label": "page-0013",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20234,
+              "page_label": "page-0014",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20235,
+              "page_label": "page-0015",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20236,
+              "page_label": "page-0016",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20237,
+              "page_label": "page-0017",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20238,
+              "page_label": "page-0018",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20239,
+              "page_label": "page-0019",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20240,
+              "page_label": "page-0020",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20221,
+            20222,
+            20223,
+            20224,
+            20225,
+            20226,
+            20227,
+            20228,
+            20229,
+            20230,
+            20231,
+            20232,
+            20233,
+            20234,
+            20235,
+            20236,
+            20237,
+            20238,
+            20239,
+            20240
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2905,6 +4594,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20435,
+              "page_label": "page-0014",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20435
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2942,6 +4644,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20430,
+              "page_label": "page-0009",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20430
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -2979,6 +4694,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20443,
+              "page_label": "page-0016",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20443
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3016,6 +4744,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20436,
+              "page_label": "page-0014",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20436
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3053,6 +4794,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20406,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20407,
+              "page_label": "page-0003",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20406,
+            20407
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3089,6 +4851,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20444,
+              "page_label": "page-0017",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20444
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3125,6 +4900,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20431,
+              "page_label": "page-0010",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20431
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3162,6 +4950,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20439,
+              "page_label": "page-0015",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20439
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3199,6 +5000,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20441,
+              "page_label": "page-0016",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20441
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3236,6 +5050,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -3273,6 +5090,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         }
       ],
@@ -3331,6 +5151,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20623,
+              "page_label": "full-text",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20623
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3368,6 +5201,29 @@
           "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20307,
+              "page_label": "issue7604-1",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20308,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20307,
+            20308
+          ],
+          "formal_strict_page_ids": [
+            20307
+          ],
           "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
@@ -3407,6 +5263,29 @@
           "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20305,
+              "page_label": "issue7604-1",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20306,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20305,
+            20306
+          ],
+          "formal_strict_page_ids": [
+            20305
+          ],
           "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
@@ -3445,6 +5324,29 @@
           "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20309,
+              "page_label": "issue7606-1",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20310,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20309,
+            20310
+          ],
+          "formal_strict_page_ids": [
+            20309
+          ],
           "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
@@ -3483,6 +5385,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20661,
+              "page_label": "full-text",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20661
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3521,6 +5436,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20662,
+              "page_label": "full-text",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20662
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3557,6 +5485,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20405,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20405
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3593,6 +5534,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20415,
+              "page_label": "page-0010",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20416,
+              "page_label": "page-0011",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20415,
+            20416
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3629,6 +5591,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20411,
+              "page_label": "page-0006",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20412,
+              "page_label": "page-0007",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20411,
+            20412
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3665,6 +5648,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20413,
+              "page_label": "page-0008",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20414,
+              "page_label": "page-0009",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20413,
+            20414
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3701,6 +5705,35 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 3,
           "formal_anchored_page_count": 3,
+          "formal_pages": [
+            {
+              "page_id": 20408,
+              "page_label": "page-0004",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20409,
+              "page_label": "page-0005",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20410,
+              "page_label": "page-0006",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20408,
+            20409,
+            20410
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3739,6 +5772,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -3775,6 +5811,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -3812,6 +5851,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -3848,6 +5890,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         }
       ],
@@ -3905,6 +5950,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20324,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20325,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20324,
+            20325
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3942,6 +6008,35 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 3,
           "formal_anchored_page_count": 3,
+          "formal_pages": [
+            {
+              "page_id": 20136,
+              "page_label": "page-04",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20137,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20138,
+              "page_label": "page-0004",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20136,
+            20137,
+            20138
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -3979,6 +6074,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20398,
+              "page_label": "page-0005",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20398
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -4015,6 +6123,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20326,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20327,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20326,
+            20327
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -4051,6 +6180,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20139,
+              "page_label": "page-02",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20140,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20139,
+            20140
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -4088,6 +6238,35 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 3,
           "formal_anchored_page_count": 3,
+          "formal_pages": [
+            {
+              "page_id": 20402,
+              "page_label": "page-0003",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20403,
+              "page_label": "page-0004",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20404,
+              "page_label": "page-0005",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20402,
+            20403,
+            20404
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -4125,6 +6304,35 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 3,
           "formal_anchored_page_count": 3,
+          "formal_pages": [
+            {
+              "page_id": 20399,
+              "page_label": "page-0006",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20400,
+              "page_label": "page-0007",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20401,
+              "page_label": "page-0008",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20399,
+            20400,
+            20401
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -4161,6 +6369,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4197,6 +6408,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4233,6 +6447,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4269,6 +6486,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4305,6 +6525,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         }
       ],
@@ -4361,6 +6584,27 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20328,
+              "page_label": "page-0001",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20329,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20328,
+            20329
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -4397,6 +6641,19 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 20330,
+              "page_label": "page-0002",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20330
+          ],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
@@ -4435,6 +6692,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4473,6 +6733,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4509,6 +6772,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4545,6 +6811,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4583,6 +6852,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4620,6 +6892,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4657,6 +6932,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4694,6 +6972,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4731,6 +7012,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         },
         {
@@ -4768,6 +7052,9 @@
           "formal_strict_citation_page_count": 0,
           "formal_provenance_page_count": 0,
           "formal_anchored_page_count": 0,
+          "formal_pages": [],
+          "formal_page_ids": [],
+          "formal_strict_page_ids": [],
           "formal_ingest_status": "NOT_INGESTED"
         }
       ],

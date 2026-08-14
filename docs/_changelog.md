@@ -12,6 +12,12 @@
 - 候选记录增至 690 条；证据链增至 120 个页级条目、112 个严格条目（primary 43 / cross_source 75 / negative_checks 3），事件索引增至 2,489 条；9 个专题仍为 `research_ready=0`，独立原件缺口继续开放。
 - 修正导航事件日期：使用来源页标注的 `1946-11-14`，不再误用汇编文献的 `1941—1949` 日期范围；数据库最终 SHA256 为 `f1c5b2f45a9ba52b447199b2dadd38795fdd800d61b38708f11f667c19dbd7e9`。正文、OCR、图片和 PDF 均未修改或删除。
 
+### 国内原件追索看板：从正式页数量升级为页级导航
+
+- `scripts/domestic/build_primary_retrieval_queue.py` 升级为 `domestic_primary_retrieval_queue.v2`；正式库只读叠加层现在保留候选对应的页 ID、页标签、provenance 是否存在、来源哈希是否锚定和严格页标记。
+- `/research/gaps` 对已关联正式文档的候选直接提供页级入口：严格页进入 `/cite/<page_id>`，待复核页进入 `/doc/<doc_key>?page_id=<page_id>`；页面仍明确保持开放主证据目标，不把正式页数量当成事件原件闭环。
+- 真实 HTTP 验收覆盖 `/research`、`/research/gaps`、专题详情、研究包 JSON、国内搜索、国内年表和 `/cite/19000`，均返回 200；6 个追索队列回归函数和收口看板回归函数全部通过。
+
 ### 1947 上海档案馆追索线索：区分文献日期与事件语境日期
 
 - 将候选 `domestic:SHAC:6-5-1216-meng-illegal-transfer-1947` 的 `document_date` 校正为公开论文注 61 所引文书日期 `1947-11-02`，并新增 `document_date_role=source_document`。
