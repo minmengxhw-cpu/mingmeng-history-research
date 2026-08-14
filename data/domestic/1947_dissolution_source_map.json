@@ -63,6 +63,16 @@
       "page_count": 4,
       "source_url": "https://commons.wikimedia.org/wiki/File:NLC1080-00N001037-7606_%E5%A4%A7%E5%89%9B%E5%A0%B1_1947%E5%B9%B411%E6%9C%8806%E6%97%A5.pdf",
       "access_note": "国家图书馆民国报纸公开扫描；正式库已有页级 provenance",
+      "local_acquisition": {
+        "local_file": "data/domestic/raw/public_sources/nlc_dagongbao_hankow_1947-11-06.pdf",
+        "sha256": "9b4c22a6e905c40f0efef1ce24aa6f1f447b4eb64a1137513a5f6b6532f83284",
+        "bytes": 8704911,
+        "page_count": 4,
+        "metadata_snapshot": "data/domestic/metadata_snapshots/nlc_dagongbao_hankow_1947_11_06_20260815.json",
+        "review_status": "review_only",
+        "body_read": false,
+        "formal_db_written": false
+      },
       "page_records": [
         {
           "page_id": 20309,

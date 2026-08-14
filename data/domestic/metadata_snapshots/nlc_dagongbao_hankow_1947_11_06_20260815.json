@@ -1,0 +1,29 @@
+{
+  "schema": "domestic_public_media_metadata.v1",
+  "generated_at": "2026-08-15",
+  "event_id": "domestic-1947-illegal-dissolution",
+  "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
+  "title": "《大剛報》汉口版 1947年11月6日",
+  "source_role": "contemporary_newspaper_scan",
+  "repository_name": "中国国家图书馆民国报纸公开扫描（Wikimedia Commons公开镜像）",
+  "catalog_reference": "NLC1080-00N001037-7606；1947-11-06汉口版第1版",
+  "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/NLC1080-00N001037-7606_%E5%A4%A7%E5%89%9B%E5%A0%B1_1947%E5%B9%B411%E6%9C%8806%E6%97%A5.pdf",
+  "local_file": "data/domestic/raw/public_sources/nlc_dagongbao_hankow_1947-11-06.pdf",
+  "source_sha256": "9b4c22a6e905c40f0efef1ce24aa6f1f447b4eb64a1137513a5f6b6532f83284",
+  "source_bytes": 8704911,
+  "page_count": 4,
+  "body_read": false,
+  "formal_db_written": false,
+  "review_status": "review_only",
+  "citation_ready": false,
+  "visual_review": {
+    "status": "public_scan_identity_visually_checked",
+    "review_scope": "page_1_masthead_date_and_target_heading_only",
+    "page_1_identity": "汉口版《大剛報》版头、民国三十六年十一月六日和‘民盟正式宣告解散／通告各地盟员停止活动’标题可见",
+    "ocr_performed": false,
+    "article_column_boundary_verified": false,
+    "announcement_original_identity_verified": false
+  },
+  "rights_status": "citation_only_pending_rights_confirmation",
+  "caveat": "这是国家图书馆馆藏民国报纸的同期报道扫描，不是民盟总部解散公告或国民政府行政公文原件；本次只验证公开 PDF 的文件身份、页数、SHA256 和第1页版面身份，不把报道转引等同于原件，也不复制正文入库。"
+}
