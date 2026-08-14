@@ -1,0 +1,170 @@
+{
+  "schema": "domestic_event_source_map.v1",
+  "event_id": "domestic-1944-reorganization",
+  "title": "1944年民盟改组前后：政治文本与《民憲》同期刊物目录页级证据地图",
+  "review_status": "compiled_text_and_contemporary_locator_ready_original_reorganization_gap_open",
+  "evidence_scope": "1946年民盟文献官方汇编中的1944政治文本页与1944年《民憲》同期刊物目录页；只登记来源、哈希和页级复核边界",
+  "body_text_included": false,
+  "ocr_text_included": false,
+  "raw_files_included": false,
+  "formal_db_written_by_map": false,
+  "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
+  "primary_evidence_closed": false,
+  "primary_evidence_gap": "1944年改组会议记录、改名决定、同期原刊正文和组织内部正式文件仍未取得独立原版；政治文本是1946年汇编重刊，《民憲》三页目前只提供刊期与目录定位，不证明目录所列文章或改组事实。",
+  "sources": [
+    {
+      "source_id": "nlc-1946-minmeng-wenxian-1944-political-platform",
+      "title": "《民主同盟文獻》（1946）收录的《中国民主同盟对抗战最后阶段的政治主张》",
+      "source_role": "official_sourcebook_reprint",
+      "evidence_level": "L2",
+      "source_file": "data/domestic/sourcebooks/NLC416-01jh004281-12557_民主同盟文獻_1946.pdf",
+      "source_sha256": "276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f",
+      "source_file_size": 13898719,
+      "page_count": 176,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
+      "access_note": "国家图书馆公开扫描的1946年汇编；页级 provenance 已完成视觉复核，属于汇编重刊，不替代1944年改组会议或独立原刊。",
+      "page_records": [
+        {
+          "page_id": 20141,
+          "pdf_page_no": 22,
+          "physical_page_no": 22,
+          "target": "1944年民盟改组前后的政治主张",
+          "role": "《中国民主同盟对抗战最后阶段的政治主张》汇编页1/4",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "compiled_text_title_date_page_identity",
+          "page_image_sha256": null,
+          "caveat": "可引用的是1946年官方汇编中的篇名、标注日期和页界；不等同于1944年独立原件或改组会议记录。"
+        },
+        {
+          "page_id": 20142,
+          "pdf_page_no": 23,
+          "physical_page_no": 23,
+          "target": "1944年民盟改组前后的政治主张",
+          "role": "《中国民主同盟对抗战最后阶段的政治主张》汇编页2/4",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "compiled_text_title_date_page_identity",
+          "page_image_sha256": null,
+          "caveat": "只确认汇编中的连续页和版本身份，不据此推断改组会议的完整过程或内部决议。"
+        },
+        {
+          "page_id": 20143,
+          "pdf_page_no": 24,
+          "physical_page_no": 24,
+          "target": "1944年民盟改组前后的政治主张",
+          "role": "《中国民主同盟对抗战最后阶段的政治主张》汇编页3/4",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "compiled_text_title_date_page_identity",
+          "page_image_sha256": null,
+          "caveat": "只确认汇编中的连续页和版本身份，不把汇编文本升级为1944年改组原始文件。"
+        },
+        {
+          "page_id": 20144,
+          "pdf_page_no": 25,
+          "physical_page_no": 25,
+          "target": "1944年民盟改组前后的政治主张",
+          "role": "《中国民主同盟对抗战最后阶段的政治主张》汇编末页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "compiled_text_title_date_page_identity",
+          "page_image_sha256": null,
+          "caveat": "只限定1946年汇编重刊的收束页，不替代独立1944原刊、改组会议记录或改名决定。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-minxian-1944-v1n1-contents",
+      "title": "《民憲》第一卷第一期（1944-05-16）目录页",
+      "source_role": "contemporary_periodical_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85442_民憲_第一卷第一期.pdf",
+      "source_sha256": "528aa1c147c3ef5ae7af19790cc61b7fe3b261fd3f4afed0cb75b7e58dacbdad",
+      "source_file_size": 9258100,
+      "page_count": 47,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85442_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%B8%80%E6%9C%9F.pdf",
+      "access_note": "国家图书馆公开扫描；该页只完成刊期、日期和目录框人工核验，不将目录当作文章正文。",
+      "page_records": [
+        {
+          "page_id": 20286,
+          "pdf_page_no": 2,
+          "physical_page_no": 2,
+          "target": "1944年同期民盟刊物与改组线索",
+          "role": "《民憲》第一卷第一期刊期与目录页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "issue_identity_contents_only",
+          "page_image_sha256": null,
+          "caveat": "只证明刊期、出版日期和目录页身份；不证明目录所列文章正文或1944年改组会议事实。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-minxian-1944-v1n6-contents",
+      "title": "《民憲》第一卷第六期（1944-08-15）目录页",
+      "source_role": "contemporary_periodical_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85447_民憲_第一卷第六期.pdf",
+      "source_sha256": "680b592ba16a2826f23b46a382ca261f4183523293f82d568f6e6c5b5b6e503c",
+      "source_file_size": 10246162,
+      "page_count": 51,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85447_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E5%85%AD%E6%9C%9F.pdf",
+      "access_note": "国家图书馆公开扫描；该页只完成刊期、日期和目录框人工核验，不将目录当作文章正文。",
+      "page_records": [
+        {
+          "page_id": 20288,
+          "pdf_page_no": 2,
+          "physical_page_no": 2,
+          "target": "1944年同期民盟刊物与改组线索",
+          "role": "《民憲》第一卷第六期期刊与目录页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "issue_identity_contents_only",
+          "page_image_sha256": null,
+          "caveat": "只证明刊期、出版日期和目录页身份；不证明目录所列文章正文或1944年改组会议事实。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-minxian-1944-v1n9-contents",
+      "title": "《民憲》第一卷第九期（1944-11-20）目录页",
+      "source_role": "contemporary_periodical_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-00J001436-85450_民憲_第一卷第九期.pdf",
+      "source_sha256": "b6e123c4d90e4b2b596a61e70758f3d0be22cbfbf63ee6ac7853f682de62d5df",
+      "source_file_size": 10363436,
+      "page_count": 51,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85450_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%B9%9D%E6%9C%9F.pdf",
+      "access_note": "国家图书馆公开扫描；该页只完成刊期、日期、目录框和馆藏日期戳人工核验，不将目录当作文章正文。",
+      "page_records": [
+        {
+          "page_id": 20290,
+          "pdf_page_no": 2,
+          "physical_page_no": 2,
+          "target": "1944年同期民盟刊物与改组线索",
+          "role": "《民憲》第一卷第九期期刊与目录页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "issue_identity_contents_only",
+          "page_image_sha256": null,
+          "caveat": "只证明刊期、出版日期、目录页和馆藏标记；不证明目录所列文章正文或1944年改组会议事实。"
+        }
+      ]
+    }
+  ]
+}

@@ -360,6 +360,35 @@ def test_1945_first_congress_packet_separates_sourcebooks_from_original_gap():
     assert "专题来源地图" in research_packet_page("domestic-1945-first-congress").decode("utf-8")
 
 
+def test_1944_reorganization_packet_separates_compilation_and_periodical_locator():
+    """1944专题展示汇编文本和同期刊物定位，但不伪造改组原件闭环。"""
+    import app
+
+    app._request.public_mode = False
+    from scripts.domestic.research_packet import build_research_packet, packet_json_bytes, research_packet_page
+    from scripts.domestic.validate_research_packet import validate_packet
+
+    packet = build_research_packet("domestic-1944-reorganization")
+    assert packet is not None
+    assert packet["counts"]["event_source_map_count"] == 1
+    assert packet["counts"]["event_source_page_record_count"] == 7
+    source_map = packet["event_source_maps"][0]
+    assert source_map["primary_evidence_closed"] is False
+    assert source_map["body_text_included"] is False
+    assert len(source_map["sources"]) == 4
+    pages = [
+        page
+        for source in source_map["sources"]
+        for page in source["page_records"]
+    ]
+    assert {page["page_id"] for page in pages} == {20141, 20142, 20143, 20144, 20286, 20288, 20290}
+    assert all(page["status"] == "strict_citation" and page["citation_ready"] is True for page in pages)
+    assert validate_packet(packet, "domestic-1944-reorganization")["status"] == "PASS"
+    raw = packet_json_bytes("domestic-1944-reorganization").decode("utf-8")
+    assert '"text"' not in raw
+    assert "专题来源地图" in research_packet_page("domestic-1944-reorganization").decode("utf-8")
+
+
 def test_topic_research_matrix_is_complete_and_page_traceable():
     """九个专题的研究矩阵必须覆盖四个子问题且只引用已有链条页号。"""
     root = Path(__file__).resolve().parents[1]
