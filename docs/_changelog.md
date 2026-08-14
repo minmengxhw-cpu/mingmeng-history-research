@@ -5,6 +5,13 @@
 
 ## 2026-08-14
 
+### 1946 拒参专题：新六號同期交叉页视觉复核与回接
+
+- 对《光明報》1946 年新六號首版正式页 `16335` 完成本地页图视觉复核，确认刊期、1946-11-08 出版日、PDF/物理页和页面边界；只开放同期机关报页级身份，不复制正文或 OCR。
+- 该页从 `machine_verified` 升级为受限 `human_verified` / `citation_ready`，并回接 `domestic-1946-refuse-national-assembly`；严格人工可引用页由 199 增至 200，专题事件索引由 570/556 增至 571/557，证据链由 118/110 增至 119/111。
+- 写入前数据库 SHA256 为 `adeee33a8c1f7fa24b8fc8a85f426d822575437268dbdadd7231855b2971161b`，视觉复核写入后为 `975a39eabec0d9bcacc53f4ad771c0aaba6f3ccad848d02fa748694bd37bd9fa`，专题关联写入后为 `1d13aafa8e025776ecd449c5965493cb006cfbffe97277047187455d6e7d9a88`。
+- 视觉复核前备份为 `/private/tmp/mingmeng_research_index_20260814_guangmingbao_issue6_visual.bak`；关联写入后另存快照 `/private/tmp/mingmeng_research_index_20260814_guangmingbao_issue6_links_after.bak`。正文、OCR、图片和 PDF 均未修改或删除；正式拒参声明/函电缺口仍保持开放。
+
 ### 1946 李公朴/闻一多：三页官方汇编重刊页视觉复核与专题回接
 
 - 对《中国民主同盟历史文献 1941—1949》公开扫描中的正式页 `18936`、`18945`、`18948` 完成本地页图视觉复核，确认题名、日期、PDF/物理页、印刷页和页面边界；只开放受限页级身份，不复制正文或 OCR。

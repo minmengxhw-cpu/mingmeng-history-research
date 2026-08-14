@@ -3,7 +3,7 @@
   "report": "DOMESTIC_CITATION_EVENT_LINKS_20260813",
   "status": "navigation_only",
   "body_read_by_linker": false,
-  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus minmeng_wenxian_1945_program_review_20260814 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813 plus gdc0021_1947_1030_review_20260813 plus guangmingbao_1946_issue7_visual_review_20260814 plus pcc_1946_verified_pages_20260814 plus liwen_1946_visual_review_20260814",
+  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus minmeng_wenxian_1945_program_review_20260814 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813 plus gdc0021_1947_1030_review_20260813 plus guangmingbao_1946_issue7_visual_review_20260814 plus guangmingbao_1946_issue6_visual_review_20260814 plus pcc_1946_verified_pages_20260814 plus liwen_1946_visual_review_20260814",
   "policy": "These links expose already human-verified page anchors inside a topic. They do not assert that the page is a direct event record, do not alter citation gates, and do not replace missing original declarations or meeting files.",
   "links": [
     {
@@ -173,6 +173,13 @@
       "page_label": "1",
       "navigation_title": "1946年《光明報》新七號《我们为什么不参加国大》页",
       "rationale": "1946年11月18日《光明報》新七號首版视觉清晰显示刊期、日期和社论题名；这是同期机关报政治表达的页级入口，引用范围限于页身份和题名，不替代正式拒参声明或会议档案。"
+    },
+    {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "doc_key": "domestic-page/NLC404-01J000514-10427",
+      "page_label": "1",
+      "navigation_title": "1946年《光明報》新六號首版同期政治表达页",
+      "rationale": "新六號首版视觉确认刊期、1946年11月8日出版日、PDF/物理第1页和版面边界；这是拒参争议期的同期机关报交叉入口，不把报刊表达当作民盟正式拒参声明或政协原始档案。"
     },
     {
       "event_id": "domestic-1946-refuse-national-assembly",
