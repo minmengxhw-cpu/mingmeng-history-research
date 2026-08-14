@@ -14,6 +14,13 @@
     "RELATED_CONTEXT_ONLY": 9
   },
   "missing_candidate_ids": [],
+  "formal_index": {
+    "available": true,
+    "metadata_only": true,
+    "body_read": false,
+    "formal_db_written": false,
+    "candidate_count": 689
+  },
   "body_read": false,
   "formal_db_written": false,
   "auto_download": false,
@@ -29,8 +36,10 @@
           "why_it_matters": "决定“成立时间、签署主体、文本版本”能否以原始底本作严格引用。",
           "status": "open",
           "retrieval_class": "CATALOGUE_OR_SURROGATE_REVIEW",
-          "next_action": "把目录/转录作为定位线索，继续追索完整原件或同期影像。",
-          "candidate_route_count": 12
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 12,
+          "formal_page_count": 26,
+          "formal_strict_citation_page_count": 0
         }
       ],
       "candidate_routes": [
@@ -56,7 +65,14 @@
             "成立宣言"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:NLC:minmeng-wenxian-1946-formation-declaration",
@@ -81,7 +97,14 @@
             "光明报"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1349,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-formation-declaration",
+          "formal_page_count": 7,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 7,
+          "formal_anchored_page_count": 7,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minmeng-wenxian-1946-whole",
@@ -105,7 +128,14 @@
             "成立宣言"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1348,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-whole",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:HKU:guangmingbao-1941-microform-holdings",
@@ -129,7 +159,14 @@
             "成立宣言"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:LNU:guangmingbao-index-1941",
@@ -154,7 +191,14 @@
             "光明报"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1505,
+          "formal_doc_key": "domestic-web/DL-20260802-086",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:MMSH:guangmingbao-formation-editorial-1941",
@@ -179,7 +223,14 @@
             "光明报"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1503,
+          "formal_doc_key": "domestic-web/DL-20260802-084",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minmeng-wenxian-1946-ten-program",
@@ -201,7 +252,14 @@
           "target_match": false,
           "target_match_terms": [],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1350,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-ten-program",
+          "formal_page_count": 5,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 5,
+          "formal_anchored_page_count": 5,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:HKU:guangmingbao-primo-record",
@@ -223,7 +281,14 @@
           "target_match": false,
           "target_match_terms": [],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:CPPCC:liang-shuming-guangmingbao-founding-2020",
@@ -248,7 +313,14 @@
             "光明报"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1493,
+          "formal_doc_key": "domestic-web/DL-20260802-074",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:HNMM:lead-民盟精神解析",
@@ -272,7 +344,14 @@
             "光明报"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1476,
+          "formal_doc_key": "domestic-web/DL-20260802-057",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:WS:democratic-league-declaration-1941",
@@ -297,7 +376,14 @@
             "光明报"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1349,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-formation-declaration",
+          "formal_page_count": 7,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 7,
+          "formal_anchored_page_count": 7,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:WS:democratic-movement-editorial-1941",
@@ -319,7 +405,14 @@
           "target_match": false,
           "target_match_terms": [],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1448,
+          "formal_doc_key": "domestic-web/DL-20260802-009",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         }
       ],
       "body_read": false
@@ -334,8 +427,10 @@
           "why_it_matters": "要把“改组/更名”从后来的汇编叙述还原为可定位的会议或同期刊物证据。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "下载或打开公开原件候选，核对来源身份、文件字节、页数和页级 provenance。",
-          "candidate_route_count": 12
+          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "candidate_route_count": 12,
+          "formal_page_count": 22,
+          "formal_strict_citation_page_count": 3
         }
       ],
       "candidate_routes": [
@@ -361,7 +456,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1364,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85443-1944-05-01",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-85444-1944-06-15",
@@ -385,7 +487,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1365,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85444-1944-06-15",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-85445-1944-06-30",
@@ -409,7 +518,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1366,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85445-1944-06-30",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-85446-1944-07-16",
@@ -433,7 +549,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1367,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85446-1944-07-16",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-85448-1944-09-10",
@@ -457,7 +580,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1368,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85448-1944-09-10",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-85449-1944-10-12",
@@ -481,7 +611,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1369,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85449-1944-10-12",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-v1n1-1944-05-16",
@@ -505,7 +642,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1320,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n1-1944-05-16",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 1,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:NLC:minxian-v1n10-1944-12-20",
@@ -529,7 +673,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1347,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n10-1944-12-20",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-v1n6-1944-08-15",
@@ -553,7 +704,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1321,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n6-1944-08-15",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 1,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:NLC:minxian-v1n9-1944-11-20",
@@ -577,7 +735,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1322,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n9-1944-11-20",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 1,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:FRUS:1944-04-21-d329-gauss-service-minority-parties",
@@ -601,7 +766,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 5,
+          "formal_doc_key": "frus1944v06/d329",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:FRUS:1944-07-11-d380-langdon-kunming-democratic-league",
@@ -625,7 +797,14 @@
             "改组"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 8,
+          "formal_doc_key": "frus1944v06/d380",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         }
       ],
       "body_read": false
@@ -640,8 +819,10 @@
           "why_it_matters": "现有页级材料已能支撑部分文本，但不能据此宣称大会档案链完整。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "下载或打开公开原件候选，核对来源身份、文件字节、页数和页级 provenance。",
-          "candidate_route_count": 12
+          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "candidate_route_count": 12,
+          "formal_page_count": 63,
+          "formal_strict_citation_page_count": 31
         }
       ],
       "candidate_routes": [
@@ -667,7 +848,14 @@
             "政治报告"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1370,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85452-1945-01-15",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-85453-1945-02-25",
@@ -691,7 +879,14 @@
             "政治报告"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1371,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85453-1945-02-25",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-85454-1945-05-15",
@@ -715,7 +910,14 @@
             "政治报告"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1372,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85454-1945-05-15",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minxian-85455-1945-06-13",
@@ -739,7 +941,14 @@
             "政治报告"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1373,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minxian-85455-1945-06-13",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:MMHIST:congress-declaration-1945",
@@ -764,7 +973,14 @@
             "大会宣言"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:MMHIST:organization-regulation-1945",
@@ -788,7 +1004,14 @@
             "临时全国代表大会"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:MMHIST:platform-1945",
@@ -814,7 +1037,14 @@
             "纲领"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:MMHIST:political-report-1945",
@@ -840,7 +1070,14 @@
             "大会宣言"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
@@ -865,7 +1102,14 @@
             "大会宣言"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1306,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+          "formal_page_count": 6,
+          "formal_strict_citation_page_count": 6,
+          "formal_provenance_page_count": 6,
+          "formal_anchored_page_count": 6,
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
@@ -890,7 +1134,14 @@
             "纲领"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1305,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "formal_page_count": 25,
+          "formal_strict_citation_page_count": 25,
+          "formal_provenance_page_count": 25,
+          "formal_anchored_page_count": 25,
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:NLC:minmeng-yanlunji-1945-congress-declaration",
@@ -915,7 +1166,14 @@
             "大会宣言"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1308,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-yanlunji-1945-congress-declaration",
+          "formal_page_count": 6,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 6,
+          "formal_anchored_page_count": 6,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:minmeng-yanlunji-1945-congress-political-report",
@@ -940,7 +1198,14 @@
             "政治报告"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1307,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-yanlunji-1945-congress-political-report",
+          "formal_page_count": 18,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 18,
+          "formal_anchored_page_count": 18,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         }
       ],
       "body_read": false
@@ -955,8 +1220,10 @@
           "why_it_matters": "只有正式会议档案才能把报刊表达与会议程序、代表身份和具体日期逐条对位。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "下载或打开公开原件候选，核对来源身份、文件字节、页数和页级 provenance。",
-          "candidate_route_count": 12
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 12,
+          "formal_page_count": 7,
+          "formal_strict_citation_page_count": 0
         }
       ],
       "candidate_routes": [
@@ -984,7 +1251,14 @@
             "旧政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1330,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue01",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue01-refounding-editorial",
@@ -1008,7 +1282,14 @@
             "政治协商"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1331,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue01-refounding-editorial",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue05",
@@ -1032,7 +1313,14 @@
             "赴京"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1337,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue05",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue05-beijing-comrades-editorial",
@@ -1056,7 +1344,14 @@
             "赴京"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1374,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue05-beijing-comrades-editorial",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue06",
@@ -1080,7 +1375,14 @@
             "政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1338,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue06",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue02-people-power-editorial",
@@ -1105,7 +1407,14 @@
             "旧政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1333,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue02-people-power-editorial",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:MMHIST:chang-lan-pcc-opening-1946-01-10",
@@ -1130,7 +1439,14 @@
             "政治协商"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:MMHIST:huang-yan-pei-common-program-1946-01-16",
@@ -1154,7 +1470,14 @@
             "政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:MMHIST:lo-lung-chi-common-program-1946-01-16",
@@ -1178,7 +1501,14 @@
             "政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:MMHIST:lo-lung-chi-government-reorganization-1946-01-14",
@@ -1202,7 +1532,14 @@
             "政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:MMHIST:zhang-bo-jun-common-program-1946-01-16",
@@ -1226,7 +1563,14 @@
             "政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:WH:wenhuibao-1946-pcc-five-agreements-1946-01-31",
@@ -1250,7 +1594,14 @@
             "政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         }
       ],
       "body_read": false
@@ -1265,8 +1616,10 @@
           "why_it_matters": "要区分民盟正式组织决定、机关报评论和政协相关背景文件。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "下载或打开公开原件候选，核对来源身份、文件字节、页数和页级 provenance。",
-          "candidate_route_count": 12
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 12,
+          "formal_page_count": 14,
+          "formal_strict_citation_page_count": 0
         }
       ],
       "candidate_routes": [
@@ -1292,7 +1645,14 @@
             "国民大会"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1335,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue04",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue04-urgent-situation-editorial",
@@ -1318,7 +1678,14 @@
             "不参加"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1336,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue04-urgent-situation-editorial",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue05",
@@ -1342,7 +1709,14 @@
             "国民大会"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1337,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue05",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue05-beijing-comrades-editorial",
@@ -1366,7 +1740,14 @@
             "国民大会"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1374,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue05-beijing-comrades-editorial",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue06",
@@ -1391,7 +1772,14 @@
             "拒绝参加"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1338,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue06",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue07",
@@ -1417,7 +1805,14 @@
             "不参加"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1339,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue07",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue07-why-not-national-assembly",
@@ -1443,7 +1838,14 @@
             "不参加"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1340,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue07-why-not-national-assembly",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-anti-one-party-constitution",
@@ -1467,7 +1869,14 @@
             "国民大会"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1318,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue11-anti-one-party-constitution",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue8",
@@ -1491,7 +1900,14 @@
             "国大"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1309,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue8",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue8-conditional-national-assembly",
@@ -1516,7 +1932,14 @@
             "拒绝参加"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1319,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue8-conditional-national-assembly",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-12-statement-one-sided-constitution",
@@ -1540,7 +1963,14 @@
             "国大"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1389,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-12-statement-one-sided-constitution",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue11",
@@ -1564,7 +1994,14 @@
             "国大"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1314,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue11",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         }
       ],
       "body_read": false
@@ -1579,8 +2016,10 @@
           "why_it_matters": "要把遇害事实、民盟反应、社会舆论和后续纪念分别落到可核验的原始来源。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "下载或打开公开原件候选，核对来源身份、文件字节、页数和页级 provenance。",
-          "candidate_route_count": 12
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 12,
+          "formal_page_count": 32,
+          "formal_strict_citation_page_count": 0
         }
       ],
       "candidate_routes": [
@@ -1606,7 +2045,14 @@
             "抗议"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1376,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue10-guangdong-kmt-protest-editorial",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue8",
@@ -1631,7 +2077,14 @@
             "闻一多"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1309,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1946-issue8",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22",
@@ -1657,7 +2110,14 @@
             "遇害"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1311,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22",
+          "formal_page_count": 20,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 20,
+          "formal_anchored_page_count": 20,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-action-memorial-peng",
@@ -1682,7 +2142,14 @@
             "闻一多"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1401,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22-action-memorial-peng",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-cry-recall-xingzhi-deng",
@@ -1707,7 +2174,14 @@
             "闻一多"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1396,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22-cry-recall-xingzhi-deng",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-dictators-killed-them-ye",
@@ -1732,7 +2206,14 @@
             "闻一多"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1409,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22-dictators-killed-them-ye",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-double-effort-people-shen",
@@ -1757,7 +2238,14 @@
             "闻一多"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1402,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22-double-effort-people-shen",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-fight-for-human-rights-editorial",
@@ -1782,7 +2270,14 @@
             "闻一多"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1384,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22-fight-for-human-rights-editorial",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-gongpu-rest-in-peace-simu",
@@ -1806,7 +2301,14 @@
             "李公朴"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1410,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22-gongpu-rest-in-peace-simu",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-gongpu-still-beside-zhang",
@@ -1830,7 +2332,14 @@
             "李公朴"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1397,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22-gongpu-still-beside-zhang",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-liwen-anniversary-qian",
@@ -1855,7 +2364,14 @@
             "闻一多"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1405,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22-liwen-anniversary-qian",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-mourn-and-spur-song",
@@ -1880,7 +2396,14 @@
             "闻一多"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1407,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue22-mourn-and-spur-song",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         }
       ],
       "body_read": false
@@ -1895,8 +2418,10 @@
           "why_it_matters": "这是把“同期报道”提升为“行政决定/组织正式公告”所必需的事件定义原件。",
           "status": "open",
           "retrieval_class": "AUTHORIZED_VIEWER_REQUIRED",
-          "next_action": "由有权限账户取得允许保存的官方影像；记录授权范围、文件 SHA256、页码和人工复核。",
-          "candidate_route_count": 12
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 12,
+          "formal_page_count": 29,
+          "formal_strict_citation_page_count": 0
         }
       ],
       "candidate_routes": [
@@ -1923,7 +2448,14 @@
             "停止政治活动"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1468,
+          "formal_doc_key": "domestic-web/DL-20260802-049",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-04-league-dissolution-meeting",
@@ -1947,7 +2479,14 @@
             "解散"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1328,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-league-dissolution-meeting",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
@@ -1973,7 +2512,14 @@
             "公函"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1327,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
@@ -1998,7 +2544,14 @@
             "停止政治活动"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1329,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:dagongbao-shanghai-1947-11-06-page2-full",
@@ -2023,7 +2576,14 @@
             "停止政治活动"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1506,
+          "formal_doc_key": "domestic-web/DL-20260802-087",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:dagongbao-tianjin-1947-11-06-page2-full",
@@ -2048,7 +2608,14 @@
             "停止政治活动"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1507,
+          "formal_doc_key": "domestic-web/DL-20260802-088",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:observer-1947-v3n11",
@@ -2073,7 +2640,14 @@
             "公函"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1315,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11",
+          "formal_page_count": 4,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 4,
+          "formal_anchored_page_count": 4,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:DRNH:002-020400-00012-067",
@@ -2099,7 +2673,14 @@
             "俞济时"
           ],
           "access_audit_status": "official_viewer_locked",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1947-issue21",
@@ -2123,7 +2704,14 @@
             "非法"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1310,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1947-issue21",
+          "formal_page_count": 16,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 16,
+          "formal_anchored_page_count": 16,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:MMHIST:league-banned-1947-10-27",
@@ -2147,7 +2735,14 @@
             "非法"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:MMHIST:league-dissolution-announcement-1947-11-06",
@@ -2171,7 +2766,14 @@
             "解散"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:RMrb:1947-11-04-page1-league-illegal-report",
@@ -2195,7 +2797,14 @@
             "解散"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         }
       ],
       "body_read": false
@@ -2210,8 +2819,10 @@
           "why_it_matters": "需要把机关报报道、中央档案和民盟内部会议拆成不同证据单元，避免一篇报道承担全部结论。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "下载或打开公开原件候选，核对来源身份、文件字节、页数和页级 provenance。",
-          "candidate_route_count": 12
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 12,
+          "formal_page_count": 14,
+          "formal_strict_citation_page_count": 0
         }
       ],
       "candidate_routes": [
@@ -2237,7 +2848,14 @@
             "三中全会"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1341,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v1n1",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-article",
@@ -2261,7 +2879,14 @@
             "三中全会"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1301,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v1n1-article",
+          "formal_page_count": 3,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 3,
+          "formal_anchored_page_count": 3,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-current-tasks-zhangbojun",
@@ -2285,7 +2910,14 @@
             "三中全会"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1380,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v1n1-current-tasks-zhangbojun",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:SAAC:1948-04-30-01",
@@ -2309,7 +2941,14 @@
             "五一"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:1948-04-30-02",
@@ -2333,7 +2972,14 @@
             "五一"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:HNMM:response-may-day-1948",
@@ -2357,7 +3003,14 @@
             "五一"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1475,
+          "formal_doc_key": "domestic-web/DL-20260802-056",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12",
@@ -2379,7 +3032,14 @@
           "target_match": false,
           "target_match_terms": [],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1342,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v1n12",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12-article",
@@ -2401,7 +3061,14 @@
           "target_match": false,
           "target_match_terms": [],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1302,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v1n12-article",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12-three-premises-li-xiangfu",
@@ -2423,7 +3090,14 @@
           "target_match": false,
           "target_match_terms": [],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1382,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v1n12-three-premises-li-xiangfu",
+          "formal_page_count": 3,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 3,
+          "formal_anchored_page_count": 3,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:SAAC:1948-05-01-01",
@@ -2445,7 +3119,14 @@
           "target_match": false,
           "target_match_terms": [],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:1948-08-01-01",
@@ -2467,7 +3148,14 @@
           "target_match": false,
           "target_match_terms": [],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:1948-10-01-01",
@@ -2489,7 +3177,14 @@
           "target_match": false,
           "target_match_terms": [],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         }
       ],
       "body_read": false
@@ -2504,8 +3199,10 @@
           "why_it_matters": "只有正式会议记录和代表档案才能核对人物、程序、日期和民盟角色。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "下载或打开公开原件候选，核对来源身份、文件字节、页数和页级 provenance。",
-          "candidate_route_count": 12
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 12,
+          "formal_page_count": 3,
+          "formal_strict_citation_page_count": 0
         }
       ],
       "candidate_routes": [
@@ -2531,7 +3228,14 @@
             "新政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1343,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v2n1",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1-article",
@@ -2555,7 +3259,14 @@
             "新政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": 1344,
+          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:guangmingbao-1948-1949-v2n1-article",
+          "formal_page_count": 1,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:SAAC:1949-02-14-01",
@@ -2580,7 +3291,14 @@
             "筹备"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:1949-09-21-01",
@@ -2604,7 +3322,14 @@
             "代表名单"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:1949-09-29-01",
@@ -2628,7 +3353,14 @@
             "新政协"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:catalog-01-01_13",
@@ -2652,7 +3384,14 @@
             "北上"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:catalog-02-02_01",
@@ -2676,7 +3415,14 @@
             "筹备"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:catalog-02-02_02",
@@ -2700,7 +3446,14 @@
             "筹备"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:catalog-02-02_03",
@@ -2724,7 +3477,14 @@
             "筹备"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:catalog-02-02_04",
@@ -2748,7 +3508,14 @@
             "筹备"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:catalog-02-02_05",
@@ -2772,7 +3539,14 @@
             "筹备"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:SAAC:catalog-02-02_06",
@@ -2796,7 +3570,14 @@
             "筹备"
           ],
           "access_audit_status": "",
-          "body_read": false
+          "body_read": false,
+          "formal_ingested_document_id": null,
+          "formal_doc_key": "",
+          "formal_page_count": 0,
+          "formal_strict_citation_page_count": 0,
+          "formal_provenance_page_count": 0,
+          "formal_anchored_page_count": 0,
+          "formal_ingest_status": "NOT_INGESTED"
         }
       ],
       "body_read": false

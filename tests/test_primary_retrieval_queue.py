@@ -98,3 +98,60 @@ def test_retrieval_queue_keeps_audited_route_when_many_public_candidates_exist()
     routes = result["topics"][0]["candidate_routes"]
     assert any(row["candidate_id"] == "locked" for row in routes)
     assert result["topics"][0]["missing_primary"][0]["retrieval_class"] == "AUTHORIZED_VIEWER_REQUIRED"
+
+
+def test_retrieval_queue_surfaces_formal_pages_without_closing_primary_gap():
+    coverage = [
+        {
+            "event_id": "e",
+            "event_name": "1947年解散民盟",
+            "primary_evidence_status": "partial",
+            "domestic_candidate_ids": ["candidate"],
+        }
+    ]
+    chains = {
+        "e": {
+            "layers": {
+                "missing_primary": [
+                    {"target": "1947年解散民盟政府公函原件", "status": "open"}
+                ]
+            }
+        }
+    }
+    candidates = {
+        "candidate": {
+            "candidate_id": "candidate",
+            "title": "解散民盟政府公函影像",
+            "evidence_type": "digital_image",
+            "online_availability": "full_item_online",
+            "access_mode": "open",
+            "authenticity_level_proposed": "L2",
+            "relevance_grade_proposed": "core",
+            "source_url": "https://example.invalid/item",
+        }
+    }
+    result = build_queue(
+        coverage,
+        chains,
+        candidates,
+        {},
+        formal_index={
+            "candidate": {
+                "formal_ingested_document_id": 12,
+                "formal_doc_key": "domestic-1947-letter",
+                "formal_page_count": 4,
+                "formal_strict_citation_page_count": 0,
+                "formal_provenance_page_count": 4,
+                "formal_anchored_page_count": 4,
+                "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+            }
+        },
+        formal_index_available=True,
+    )
+    route = result["topics"][0]["candidate_routes"][0]
+    target = result["topics"][0]["missing_primary"][0]
+    assert route["formal_ingest_status"] == "FORMAL_PAGES_REVIEW_ONLY"
+    assert target["formal_page_count"] == 4
+    assert "不要重复下载或 OCR" in target["next_action"]
+    assert result["formal_index"]["metadata_only"] is True
+    assert result["formal_db_written"] is False

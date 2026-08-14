@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sqlite3
 from collections import Counter
 from datetime import date
 from pathlib import Path
@@ -23,6 +24,7 @@ DEFAULT_COVERAGE = ROOT / "data/domestic/event_coverage.json"
 DEFAULT_CHAIN = ROOT / "data/domestic/topic_evidence_chain.json"
 DEFAULT_CANDIDATES = ROOT / "data/domestic/candidates.jsonl"
 DEFAULT_ACCESS_AUDIT = ROOT / "data/domestic/primary_evidence_access_audit.json"
+DEFAULT_DB = ROOT / "data/research_index.sqlite"
 DEFAULT_OUTPUT = ROOT / "data/domestic/primary_retrieval_queue.json"
 
 ITEM_EVIDENCE_TYPES = {"digital_image", "official_document"}
@@ -55,6 +57,84 @@ def read_candidates(path: Path) -> dict[str, dict[str, Any]]:
         if candidate_id:
             rows[candidate_id] = item
     return rows
+
+
+def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
+    """Read only formal document/page counts for candidate IDs.
+
+    This is deliberately an overlay: it records what is already present in
+    the formal database, but never reads page text and never changes the
+    database.  A missing or incomplete database returns ``({}, False)`` so a
+    clean checkout can still build the metadata-only queue.
+    """
+    if not path.is_file():
+        return {}, False
+    try:
+        resolved = path.resolve()
+        with sqlite3.connect(f"file:{resolved}?mode=ro", uri=True) as connection:
+            connection.row_factory = sqlite3.Row
+            required = {"domestic_candidates", "documents", "pages", "page_provenance"}
+            existing = {
+                row[0]
+                for row in connection.execute(
+                    "SELECT name FROM sqlite_master WHERE type='table'"
+                )
+            }
+            if not required <= existing:
+                return {}, False
+            rows = connection.execute(
+                """
+                SELECT
+                    dc.candidate_id,
+                    dc.ingested_document_id,
+                    d.doc_key,
+                    COUNT(DISTINCT p.id) AS page_count,
+                    COUNT(DISTINCT CASE
+                        WHEN pp.citation_ready=1
+                         AND pp.needs_human_review=0
+                         AND pp.review_status='human_verified'
+                         AND trim(COALESCE(pp.human_review_note,''))<>''
+                        THEN p.id END) AS strict_citation_page_count,
+                    COUNT(DISTINCT CASE
+                        WHEN pp.page_id IS NOT NULL THEN p.id END) AS provenance_page_count,
+                    COUNT(DISTINCT CASE
+                        WHEN trim(COALESCE(pp.source_file,''))<>''
+                         AND length(trim(COALESCE(pp.source_sha256,'')))=64
+                        THEN p.id END) AS anchored_page_count
+                FROM domestic_candidates dc
+                LEFT JOIN documents d ON d.id=dc.ingested_document_id
+                LEFT JOIN pages p ON p.document_id=d.id
+                LEFT JOIN page_provenance pp ON pp.page_id=p.id
+                GROUP BY dc.candidate_id, dc.ingested_document_id, d.doc_key
+                """
+            ).fetchall()
+    except sqlite3.Error:
+        return {}, False
+
+    index: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        page_count = int(row["page_count"] or 0)
+        strict_count = int(row["strict_citation_page_count"] or 0)
+        provenance_count = int(row["provenance_page_count"] or 0)
+        anchored_count = int(row["anchored_page_count"] or 0)
+        if row["ingested_document_id"] is None:
+            status = "NOT_INGESTED"
+        elif page_count == 0:
+            status = "FORMAL_METADATA_ONLY"
+        elif strict_count > 0:
+            status = "FORMAL_STRICT_PAGES_PRESENT"
+        else:
+            status = "FORMAL_PAGES_REVIEW_ONLY"
+        index[str(row["candidate_id"])] = {
+            "formal_ingested_document_id": row["ingested_document_id"],
+            "formal_doc_key": str(row["doc_key"] or ""),
+            "formal_page_count": page_count,
+            "formal_strict_citation_page_count": strict_count,
+            "formal_provenance_page_count": provenance_count,
+            "formal_anchored_page_count": anchored_count,
+            "formal_ingest_status": status,
+        }
+    return index, True
 
 
 def chain_by_event(value: Any) -> dict[str, dict[str, Any]]:
@@ -137,11 +217,46 @@ def route_score(candidate: dict[str, Any], status: str) -> int:
     return score
 
 
-def route_candidate(candidate: dict[str, Any], audit: dict[str, Any] | None, target_text: str, event_name: str = "") -> dict[str, Any]:
+def formal_overlay(candidate_id: str, formal_index: dict[str, dict[str, Any]] | None, formal_index_available: bool) -> dict[str, Any]:
+    if not formal_index_available:
+        return {
+            "formal_ingest_status": "NOT_CHECKED",
+            "formal_ingested_document_id": None,
+            "formal_doc_key": "",
+            "formal_page_count": 0,
+            "formal_strict_citation_page_count": 0,
+            "formal_provenance_page_count": 0,
+            "formal_anchored_page_count": 0,
+        }
+    return dict(
+        formal_index.get(
+            candidate_id,
+            {
+                "formal_ingest_status": "FORMAL_NOT_FOUND",
+                "formal_ingested_document_id": None,
+                "formal_doc_key": "",
+                "formal_page_count": 0,
+                "formal_strict_citation_page_count": 0,
+                "formal_provenance_page_count": 0,
+                "formal_anchored_page_count": 0,
+            },
+        )
+    )
+
+
+def route_candidate(
+    candidate: dict[str, Any],
+    audit: dict[str, Any] | None,
+    target_text: str,
+    event_name: str = "",
+    formal_index: dict[str, dict[str, Any]] | None = None,
+    formal_index_available: bool = False,
+) -> dict[str, Any]:
     status, label, direct, match_terms = route_status(candidate, audit, target_text, event_name)
     source_url = str(candidate.get("source_url") or "")
+    candidate_id = str(candidate.get("candidate_id") or "")
     route = {
-        "candidate_id": str(candidate.get("candidate_id") or ""),
+        "candidate_id": candidate_id,
         "title": str(candidate.get("title") or ""),
         "repository_code": str(candidate.get("repository_code") or ""),
         "repository_name": str(candidate.get("repository_name") or ""),
@@ -162,6 +277,7 @@ def route_candidate(candidate: dict[str, Any], audit: dict[str, Any] | None, tar
         "access_audit_status": str((audit or {}).get("access_status") or ""),
         "body_read": False,
     }
+    route.update(formal_overlay(candidate_id, formal_index, formal_index_available))
     return route
 
 
@@ -175,7 +291,24 @@ def next_action(retrieval_class: str) -> str:
     }.get(retrieval_class, "保持开放并补齐取得路径。")
 
 
-def build_queue(coverage: list[dict[str, Any]], chains: dict[str, dict[str, Any]], candidates: dict[str, dict[str, Any]], audits: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def next_action_with_formal_overlay(retrieval_class: str, route_rows: list[dict[str, Any]]) -> str:
+    strict_pages = sum(int(row.get("formal_strict_citation_page_count") or 0) for row in route_rows)
+    formal_pages = sum(int(row.get("formal_page_count") or 0) for row in route_rows)
+    if strict_pages > 0:
+        return "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。"
+    if formal_pages > 0:
+        return "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。"
+    return next_action(retrieval_class)
+
+
+def build_queue(
+    coverage: list[dict[str, Any]],
+    chains: dict[str, dict[str, Any]],
+    candidates: dict[str, dict[str, Any]],
+    audits: dict[str, dict[str, Any]],
+    formal_index: dict[str, dict[str, Any]] | None = None,
+    formal_index_available: bool = False,
+) -> dict[str, Any]:
     topics: list[dict[str, Any]] = []
     route_counts: Counter[str] = Counter()
     missing_targets = 0
@@ -201,7 +334,16 @@ def build_queue(coverage: list[dict[str, Any]], chains: dict[str, dict[str, Any]
                 if not candidate:
                     missing_candidate_ids.append(candidate_id)
                     continue
-                route_rows.append(route_candidate(candidate, audits.get(candidate_id), target_text, str(item.get("event_name") or "")))
+                route_rows.append(
+                    route_candidate(
+                        candidate,
+                        audits.get(candidate_id),
+                        target_text,
+                        str(item.get("event_name") or ""),
+                        formal_index,
+                        formal_index_available,
+                    )
+                )
             route_rows.sort(key=lambda row: (-int(row["route_score"]), row["candidate_id"]))
             audited_routes = [row for row in route_rows if row.get("access_audit_status")]
             ordinary_routes = [row for row in route_rows if not row.get("access_audit_status")]
@@ -230,8 +372,12 @@ def build_queue(coverage: list[dict[str, Any]], chains: dict[str, dict[str, Any]
                     "why_it_matters": str(target.get("why_it_matters") or ""),
                     "status": str(target.get("status") or "open"),
                     "retrieval_class": retrieval_class,
-                    "next_action": next_action(retrieval_class),
+                    "next_action": next_action_with_formal_overlay(retrieval_class, route_rows),
                     "candidate_route_count": len(route_rows),
+                    "formal_page_count": sum(int(row.get("formal_page_count") or 0) for row in route_rows),
+                    "formal_strict_citation_page_count": sum(
+                        int(row.get("formal_strict_citation_page_count") or 0) for row in route_rows
+                    ),
                 }
             )
         topics.append(
@@ -256,6 +402,13 @@ def build_queue(coverage: list[dict[str, Any]], chains: dict[str, dict[str, Any]
         "open_target_count": missing_targets,
         "route_status_counts": dict(sorted(route_counts.items())),
         "missing_candidate_ids": sorted(set(missing_candidate_ids)),
+        "formal_index": {
+            "available": formal_index_available,
+            "metadata_only": True,
+            "body_read": False,
+            "formal_db_written": False,
+            "candidate_count": len(formal_index or {}) if formal_index_available else 0,
+        },
         "body_read": False,
         "formal_db_written": False,
         "auto_download": False,
@@ -270,6 +423,7 @@ def main() -> int:
     parser.add_argument("--chain", type=Path, default=DEFAULT_CHAIN)
     parser.add_argument("--candidates", type=Path, default=DEFAULT_CANDIDATES)
     parser.add_argument("--access-audit", type=Path, default=DEFAULT_ACCESS_AUDIT)
+    parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
     coverage = read_json(args.coverage)
@@ -281,10 +435,35 @@ def main() -> int:
         for row in audit_payload.get("records", [])
         if isinstance(row, dict) and row.get("candidate_id")
     }
-    result = build_queue(coverage, chains, candidates, audits)
+    formal_index, formal_index_available = read_formal_index(args.db)
+    result = build_queue(
+        coverage,
+        chains,
+        candidates,
+        audits,
+        formal_index=formal_index,
+        formal_index_available=formal_index_available,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({key: result[key] for key in ("schema", "topic_count", "open_target_count", "route_status_counts", "body_read", "formal_db_written")}, ensure_ascii=False, indent=2))
+    print(
+        json.dumps(
+            {
+                key: result[key]
+                for key in (
+                    "schema",
+                    "topic_count",
+                    "open_target_count",
+                    "route_status_counts",
+                    "formal_index",
+                    "body_read",
+                    "formal_db_written",
+                )
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
     return 0
 
 
