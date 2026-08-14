@@ -2453,7 +2453,7 @@ def domestic_sourcebook_page() -> bytes:
   <div><h1>{h(payload.get('title') or '1946年政協文獻')}</h1><div class="meta">国内专题的本地 {h(payload.get('source_role') or 'sourcebook_scan')} staging 条目 · {h(payload.get('formal_db_page_count') or 0)} 个定向页已进入正式 SQLite</div></div>
   <div class="doc-tools">{local_link}{source_link}<a class="button secondary" href="/research/domestic-1946-pcc">返回专题</a></div>
 </section>
-<div class="notice"><strong>使用边界：</strong>这是 1946 年公开扫描汇编的本地阅读入口，证据层级为 <code>{h(payload.get('evidence_level') or 'L2')}</code> / <code>{h(payload.get('review_status') or 'targeted_review_pending')}</code>。9 个定向页已完成页身份/边界视觉复核并有正式页级入口，但 OCR 正文仍是检索草稿；本汇编不是政协原卷或代表独立底稿。</div>
+<div class="notice"><strong>使用边界：</strong>这是 1946 年公开扫描汇编的本地阅读入口，证据层级为 <code>{h(payload.get('evidence_level') or 'L2')}</code> / <code>{h(payload.get('review_status') or 'targeted_review_pending')}</code>。9 个定向页已完成页身份/边界视觉复核并有正式页级入口，但 OCR 正文仍是检索草稿；本汇编不是政协原卷或代表独立底稿，不把汇编升级为政协原件。</div>
 <section class="stats">
   <div class="stat"><strong>{h(payload.get('publication_year') or '1946')}</strong><span>出版年</span></div>
   <div class="stat"><strong>{h(payload.get('page_count') or 0)}</strong><span>扫描页</span></div>
