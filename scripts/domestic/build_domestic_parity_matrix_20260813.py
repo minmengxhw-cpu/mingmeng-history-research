@@ -15,7 +15,10 @@ import json
 import sqlite3
 from pathlib import Path
 
-from validate_topic_evidence_chain import validate as validate_evidence_chain
+try:
+    from .validate_topic_evidence_chain import validate as validate_evidence_chain
+except ImportError:  # direct script execution from scripts/domestic/
+    from validate_topic_evidence_chain import validate as validate_evidence_chain
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -23,7 +26,7 @@ DEFAULT_DB = ROOT / "data/research_index.sqlite"
 DEFAULT_COVERAGE = ROOT / "data/domestic/event_coverage.json"
 DEFAULT_CARDS = ROOT / "data/domestic/topic_comparison_cards.json"
 DEFAULT_EVIDENCE_CHAIN = ROOT / "data/domestic/topic_evidence_chain.json"
-DEFAULT_CROSSWALK = ROOT / "work/domestic/academic_source_audit_20260813/TOPIC_CROSSWALK_CURRENT.json"
+DEFAULT_CROSSWALK = ROOT / "data/domestic/academic_topic_crosswalk.json"
 
 
 def load_json(path: Path):
@@ -32,9 +35,17 @@ def load_json(path: Path):
 
 def crosswalk_by_topic(path: Path) -> dict[str, dict]:
     if not path.is_file():
-        return {}
+        raise FileNotFoundError(f"academic crosswalk is missing: {path}")
     report = load_json(path)
-    return {str(row["event_id"]): row for row in report.get("topics", []) if row.get("event_id")}
+    if not isinstance(report, dict) or report.get("status") != "PASS":
+        raise ValueError(f"academic crosswalk must be a PASS report: {path}")
+    topics = report.get("topics")
+    if not isinstance(topics, list) or not topics:
+        raise ValueError(f"academic crosswalk has no topic rows: {path}")
+    crosswalk = {str(row["event_id"]): row for row in topics if isinstance(row, dict) and row.get("event_id")}
+    if len(crosswalk) != len(topics):
+        raise ValueError(f"academic crosswalk contains invalid or duplicate topic rows: {path}")
+    return crosswalk
 
 
 def event_metrics(conn: sqlite3.Connection, event_id: str) -> dict[str, int]:
@@ -91,7 +102,28 @@ def main() -> int:
         for row in load_json(args.evidence_chain)
         if isinstance(row, dict) and row.get("event_id")
     }
-    crosswalk = crosswalk_by_topic(args.academic_crosswalk)
+    try:
+        crosswalk = crosswalk_by_topic(args.academic_crosswalk)
+        missing_crosswalk_topics = sorted(
+            {str(row["event_id"]) for row in coverage} - set(crosswalk)
+        )
+        if missing_crosswalk_topics:
+            raise ValueError(
+                "academic crosswalk is missing topics: " + ", ".join(missing_crosswalk_topics)
+            )
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        failure = {
+            "report": "DOMESTIC_PARITY_MATRIX_20260813",
+            "db_path": str(args.db),
+            "academic_crosswalk": str(args.academic_crosswalk),
+            "body_read": False,
+            "status": "FAIL",
+            "errors": [str(exc)],
+        }
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(json.dumps(failure, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(failure, ensure_ascii=False, indent=2))
+        return 1
     with sqlite3.connect(f"file:{args.db.resolve()}?mode=ro", uri=True) as conn:
         conn.row_factory = sqlite3.Row
         topics = []

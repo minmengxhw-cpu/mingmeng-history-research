@@ -1,0 +1,75 @@
+{
+  "schema_version": "academic_topic_crosswalk.v1",
+  "generated_at": "2026-08-13",
+  "body_read": false,
+  "purpose": "国内九个核心专题的学术解释层元数据快照；只保存专题匹配数量、质量层级和不含正文的记录标识。",
+  "matching_basis": "structured metadata fields plus title/author/institution; not body semantics",
+  "source_scope": "local staging metadata snapshot; full records and any academic full text remain outside the code repository",
+  "topics": [
+    {
+      "event_id": "domestic-1941-formation",
+      "event_name": "1941年中国民主政团同盟成立",
+      "matched_records": 26,
+      "shown_record_ids": ["GAR-639C5E94AE", "GAR-B588F8EA61", "GAR-99538169C3", "GAR-B9150AF5FA", "GAR-037BDB30BD", "GAR-DEC72226CF", "GAR-9DE4FBE745", "GAR-961E993FBD", "GAR-D1F4E00CD8", "GAR-6743363A98", "GAR-DD8474AA61", "GAR-F69628C044", "GAR-5E58D65398", "GAR-CF092A75BC", "GAR-94A857E3C5", "GAR-A901B346A0", "GAR-70FBEE8FE8", "GAR-133B8C5D14", "GAR-1002A409DD", "GAR-97E96CC952"],
+      "quality_tiers": {"S": 13, "A": 3, "B": 10, "C": 0}
+    },
+    {
+      "event_id": "domestic-1944-reorganization",
+      "event_name": "1944年改组并更名为中国民主同盟",
+      "matched_records": 22,
+      "shown_record_ids": ["GAR-639C5E94AE", "GAR-133B8C5D14", "GAR-00E174CA2D", "GAR-0F1C31C0B5", "GAR-660B467041", "GAR-7B0F878724", "GAR-B588F8EA61", "GAR-97DCC87E3D", "GAR-D1F4E00CD8", "GAR-DD8474AA61", "GAR-F69628C044", "GAR-70FBEE8FE8", "GAR-0B51757D14", "GAR-961E993FBD", "GAR-82892A3242", "GAR-97E96CC952", "GAR-8E9782A1DE", "GAR-816C31B658", "GAR-B3AD9F2113", "GAR-CB9329A9E1"],
+      "quality_tiers": {"S": 9, "A": 6, "B": 7, "C": 0}
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "event_name": "1945年民盟第一次全国代表大会",
+      "matched_records": 6,
+      "shown_record_ids": ["ACADEMIC-20260813-LU-WENPEI-STATE-BUILDING", "GAR-6CB5737F38", "GAR-8CBCA25E6E", "GAR-C315FB3262", "GAR-FEDEE249DA", "GAR-1F6CE6A374"],
+      "quality_tiers": {"S": 0, "A": 6, "B": 0, "C": 0}
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "event_name": "1946年政治协商会议（旧政协）",
+      "matched_records": 5,
+      "shown_record_ids": ["ACADEMIC-20260813-LIU-DAYU-PCC-PARTICIPATION", "GAR-133B8C5D14", "GAR-3C81EEB60A", "GAR-639C5E94AE", "GAR-F3C172D499"],
+      "quality_tiers": {"S": 2, "A": 2, "B": 1, "C": 0}
+    },
+    {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "event_name": "1946年民盟拒绝参加国民大会",
+      "matched_records": 2,
+      "shown_record_ids": ["ACADEMIC-20260813-LIU-DAYU-PCC-PARTICIPATION", "ACADEMIC-20260813-LIU-DAYU-CONSTITUTIONAL-NATIONAL-ASSEMBLY"],
+      "quality_tiers": {"S": 0, "A": 0, "B": 2, "C": 0}
+    },
+    {
+      "event_id": "domestic-1946-li-wen",
+      "event_name": "1946年李公朴、闻一多遇害及各方反应",
+      "matched_records": 53,
+      "shown_record_ids": ["GAR-75829E6419", "GAR-EE91D7DB83", "GAR-19003A9B12", "GAR-8EDC81C9D1", "GAR-358EDB9E24", "GAR-4A2AE42B4F", "GAR-F6237282FE", "GAR-6E716A6D82", "GAR-6D0434B2D4", "GAR-A8E340D25C", "GAR-71B04CB4EF", "GAR-BCB99B6E22", "GAR-AEC5B54A0E", "GAR-53831E6594", "GAR-0069B49ADC", "GAR-7074FFA746", "GAR-79F9344EB9", "GAR-121E9ED141", "GAR-08FD5A3D74", "GAR-7CBA210077"],
+      "quality_tiers": {"S": 16, "A": 31, "B": 6, "C": 0}
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "event_name": "1947年民盟被宣布非法与组织解散",
+      "matched_records": 7,
+      "shown_record_ids": ["GAR-5B2C197494", "GAR-F3C172D499", "GAR-7B041C67C2", "GAR-6CD554BD5C", "GAR-64D964CB3F", "GAR-639C5E94AE", "GAR-3E105E660D"],
+      "quality_tiers": {"S": 2, "A": 4, "B": 1, "C": 0}
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "event_name": "1948年一届三中全会及响应“五一口号”",
+      "matched_records": 23,
+      "shown_record_ids": ["GAR-639C5E94AE", "GAR-45B27F7864", "GAR-70FBEE8FE8", "GAR-FAE341A96F", "GAR-2450D8F239", "GAR-646F3EA94C", "GAR-802CEE97A2", "GAR-97A1E84EA7", "GAR-6CD554BD5C", "GAR-64D964CB3F", "GAR-7B041C67C2", "GAR-F3C172D499", "GAR-8EDB9A8567", "GAR-41D3AC4591", "GAR-B588F8EA61", "GAR-961E993FBD", "GAR-D423FB5C16", "GAR-C36FE834C9", "GAR-8E9782A1DE", "GAR-D1F4E00CD8"],
+      "quality_tiers": {"S": 9, "A": 12, "B": 2, "C": 0}
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "event_name": "1949年新政协筹备、民主人士北上与第一届全体会议",
+      "matched_records": 15,
+      "shown_record_ids": ["GAR-70FBEE8FE8", "GAR-639C5E94AE", "GAR-41D3AC4591", "GAR-FAE341A96F", "GAR-6CD554BD5C", "GAR-64D964CB3F", "GAR-8EDB9A8567", "GAR-97A1E84EA7", "GAR-A6F8FBDCCA", "GAR-45B27F7864", "GAR-A066D722FD", "GAR-5B6BAF5007", "GAR-B037BC71D2", "GAR-CA828241EC", "GAR-7555A6C032"],
+      "quality_tiers": {"S": 4, "A": 7, "B": 4, "C": 0}
+    }
+  ],
+  "total_topic_matches": 159,
+  "status": "PASS"
+}
