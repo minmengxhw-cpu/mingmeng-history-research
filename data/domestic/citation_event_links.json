@@ -3,7 +3,7 @@
   "report": "DOMESTIC_CITATION_EVENT_LINKS_20260813",
   "status": "navigation_only",
   "body_read_by_linker": false,
-  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813 plus gdc0021_1947_1030_review_20260813 plus guangmingbao_1946_issue7_visual_review_20260814",
+  "source_basis": "core_citation_batch_20260813 plus formation_1941_review_20260813 plus congress_1945_review_20260813 plus minmeng_wenxian_1945_program_review_20260814 plus dissolution_1947_review_20260813 plus city_versions_1947_review_20260813 plus gdc0021_1947_1030_review_20260813 plus guangmingbao_1946_issue7_visual_review_20260814 plus pcc_1946_verified_pages_20260814",
   "policy": "These links expose already human-verified page anchors inside a topic. They do not assert that the page is a direct event record, do not alter citation gates, and do not replace missing original declarations or meeting files.",
   "links": [
     {
@@ -64,6 +64,34 @@
     },
     {
       "event_id": "domestic-1945-first-congress",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+      "page_label": "044",
+      "navigation_title": "1945年大会前国民大会立场前史页1",
+      "rationale": "1945年8月政治呼吁页的汇编版本、题名、日期和页界已通过人工复核；用于大会前政治立场演变的页级入口，不替代大会宣言、政治报告或原始档案。"
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+      "page_label": "045",
+      "navigation_title": "1945年大会前国民大会立场前史页2",
+      "rationale": "同一文献页组的连续页已通过人工复核；用于大会前国民大会立场的页级对读，不等同于1946年正式拒参声明。"
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+      "page_label": "046",
+      "navigation_title": "1945年大会前国民大会立场前史页3",
+      "rationale": "同一文献页组的连续页已通过人工复核；只开放页级身份、来源版本和页界，不替代大会原始文件或正式组织决定。"
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+      "page_label": "047",
+      "navigation_title": "1945年大会前国民大会立场前史页4",
+      "rationale": "同一文献页组的连续收束页已通过人工复核；用于大会前立场演变的页级入口，不把汇编页升级为大会原始档案。"
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
       "doc_key": "domestic-ocr/MMHIST:political-report-1945:ocr-pilot",
       "page_label": "101",
       "navigation_title": "1945年民盟临时全国代表大会政治报告标题页",
@@ -96,6 +124,41 @@
       "page_label": "02",
       "navigation_title": "1946年政协决议与民盟政治表达回顾页",
       "rationale": "1947年《光明報》页内回顾政治协商会议被破坏及民盟政治主张；作为同期机关报的后出回顾页，用于进入政协专题，不替代1946年会议档案。"
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+      "page_label": "081",
+      "navigation_title": "1946年1月2日民盟发言人时局谈话页",
+      "rationale": "文献汇编中的民盟发言人时局谈话页已通过人工复核；只开放题名、日期、来源版本和页界，不替代旧政协正式会议记录。"
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+      "page_label": "082",
+      "navigation_title": "1946年1月2日民盟发言人谈国民大会页",
+      "rationale": "文献汇编中的民盟发言人相关连续页已通过人工复核；用于政协前后政治表达对读，不替代正式组织决定或会议档案。"
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+      "page_label": "083",
+      "navigation_title": "1946年1月11日张澜在政协会致词页",
+      "rationale": "民盟代表政协相关发言页已通过人工复核；只作为发言题名、日期和页界入口，不替代完整政协会议记录或发言原件。"
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+      "page_label": "084",
+      "navigation_title": "1946年1月11日政协发言连续页1",
+      "rationale": "与张澜政协发言页相邻的连续页已通过人工复核；引用范围限于页级身份和连续页界，不宣称发言全文已经闭环。"
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+      "page_label": "085",
+      "navigation_title": "1946年1月11日政协发言连续页2",
+      "rationale": "与张澜政协发言页相邻的连续收束页已通过人工复核；引用范围限于页级身份和连续页界，不宣称正式会议档案闭环。"
     },
     {
       "event_id": "domestic-1946-refuse-national-assembly",
@@ -145,6 +208,13 @@
       "page_label": "09",
       "navigation_title": "1947年民盟机关刊物与民主运动受压的页",
       "rationale": "页内涉及民盟机关刊物、地方民主运动遭受阻挠与监视压制；用于组织危机专题的同期报刊导航，不能单独证明正式解散公告。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/NLC:guangmingbao-1947-15-full-ocr",
+      "page_label": "08",
+      "navigation_title": "1947年民盟南方支部与组织受压页",
+      "rationale": "同期报刊第8页已通过人工复核；用于地方组织和公共活动变化的页级导航，不替代行政原件或民盟内部传达文件。"
     },
     {
       "event_id": "domestic-1947-illegal-dissolution",

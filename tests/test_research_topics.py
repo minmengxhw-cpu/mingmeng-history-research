@@ -94,8 +94,8 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert packet["counts"]["evidence_chain_page_items"] == 40
     assert packet["counts"]["evidence_chain_resolved_page_items"] == 40
     assert packet["counts"]["evidence_chain_strict_gate_passed"] == 40
-    assert packet["counts"]["topic_event_domestic_pages"] == 184
-    assert packet["counts"]["topic_event_domestic_strict_pages"] == 36
+    assert packet["counts"]["topic_event_domestic_pages"] == 188
+    assert packet["counts"]["topic_event_domestic_strict_pages"] == 40
     assert packet["counts"]["topic_event_sample_rows"] == 24
     assert all(row["body_text_included"] is False for row in packet["topic_event_pages"])
     assert packet["audit"]["body_text_included"] is False

@@ -12,6 +12,12 @@
 - 国内证据链由 82 个页级条目、71 个严格条目增至 93 个页级条目、82 个严格条目；9 个专题仍为 `navigation_ready=9`、`research_ready=0`，9 个事件定义原件缺口继续保留。
 - 研究问题矩阵同步增加这些页级入口，研究包、证据链校验和 parity 基准均已重跑通过；正式 SQLite、原始 PDF、OCR 和 `work/` 临时材料未修改或删除。
 
+### 精选页回接专题事件索引
+
+- 将上述精选页中的 10 页新增为专题事件索引导航行（1945 年 4 页、1946 年 5 页、1947 年 1 页；另 1 页此前已存在），使证据链与专题检索入口一致；不改变正文、来源 provenance 或严格引用门禁。
+- 正式库仅新增 10 条可回滚的专题关联：`research_events=2465`、`domestic_research_event_rows=548`、`domestic_research_event_pages=534`；数据库 SHA256 为 `9aaada2c3f193dc0b0102032c6c483181441aacbd82c89b45e77bc330e321cd2`。
+- 写入前备份为 `/private/tmp/research_index.sqlite.before-topic-page-links-20260814.sqlite`；完整性、外键、manifest、专题 parity 和 36 个研究问题基准均通过；原始 PDF、OCR、图片、正文和 `work/` 临时材料未修改或删除。
+
 ### 国内外统一研究体验：新增研究问题—证据矩阵
 
 - 新增 `data/domestic/topic_research_matrix.json`：九个国内专题、36 个子问题，逐题登记页级证据入口、证据范围、边界、开放缺口和下一步动作。
