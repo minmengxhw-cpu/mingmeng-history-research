@@ -67,6 +67,7 @@ def test_research_parity_dashboard_smoke(live_server, db_missing_reason):
     assert "尚未 research_ready" in body
     assert "body_read=false" in body
     assert "来源地图" in body
+    assert re.search(r"<b>9</b> 个导航可用", body)
     assert "1941年中国民主政团同盟成立" in body
     assert "1949年新政协筹备" in body
     assert "Traceback" not in body and "Internal Server Error" not in body

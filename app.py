@@ -6100,7 +6100,24 @@ def _research_academic_matches(
     item: dict[str, object], comparison: dict[str, object], limit: int = 10
 ) -> dict[str, object]:
     """把 staging 学术元数据按专题词做候选匹配，不读取正文、不升级引用。"""
-    result: dict[str, object] = {"rows": [], "total": 0}
+    result: dict[str, object] = {"rows": [], "total": 0, "crosswalk_total": 0}
+    # The tracked crosswalk is the reproducible topic-level metadata snapshot.
+    # A clean checkout may not carry the private staging SQLite, while the
+    # crosswalk still records the audited match count.  Use that count for
+    # navigation/readiness; only show detail rows that are actually available
+    # in the current checkout below.
+    event_id = str(item.get("event_id") or "").strip()
+    crosswalk = _load_academic_topic_crosswalk()
+    crosswalk_topic: dict[str, object] | None = None
+    for topic in crosswalk.get("topics", []) if isinstance(crosswalk, dict) else []:
+        if isinstance(topic, dict) and str(topic.get("event_id") or "").strip() == event_id:
+            crosswalk_topic = topic
+            break
+    if crosswalk_topic is not None:
+        try:
+            result["crosswalk_total"] = max(0, int(crosswalk_topic.get("matched_records") or 0))
+        except (TypeError, ValueError):
+            result["crosswalk_total"] = 0
     terms = [
         str(term).strip()
         for term in (
@@ -6225,7 +6242,13 @@ def _research_academic_matches(
             str(row["external_id"]),
         )
     )
-    result["total"] = len(matches)
+    # Prefer the committed crosswalk count when present.  Its scope is
+    # metadata-only and is deliberately not a citation or body-read signal.
+    result["total"] = (
+        int(result["crosswalk_total"])
+        if int(result["crosswalk_total"] or 0) > 0
+        else len(matches)
+    )
     result["rows"] = matches[:limit]
     return result
 
@@ -6565,7 +6588,7 @@ def research_topic_page(event_id: str) -> bytes:
   <div class="snippet">全文状态：{h(academic.get('fulltext_status') or '未标注')} · citation_ready={h(academic.get('citation_ready'))} · 该条目只作为解释层候选，不自动替代国内一手页级证据。</div>
 </div><div class="cite"><a href="{search_href}">研究资料</a> · <a href="/domestic/events?event={quote(str(item.get('event_id')))}">一手对照</a>{f' · <a href="{h(source_url)}" target="_blank" rel="noreferrer">来源入口</a>' if source_url != '#' else ''}</div></article>""")
     academic_total = int(topic.get("academic_total", 0))
-    academic_html = "".join(academic_cards) or f'<div class="notice">当前 staging 没有匹配到该专题的学术元数据；这不代表学术资料不存在，只表示本地 staging 尚未提供可重算匹配。请先回到 <a href="/domestic/events?event={quote(str(item.get("event_id")))}">一手对照</a>。</div>'
+    academic_html = "".join(academic_cards) or f'<div class="notice">学术—专题交叉表已登记 {h(academic_total)} 条元数据匹配，但当前 checkout 没有对应的详情字段；这不代表学术资料不存在，也不代表已经读取正文。请从 <a href="/domestic/academic">学术研究层</a>继续筛选，再回到 <a href="/domestic/events?event={quote(str(item.get("event_id")))}">一手对照</a>。</div>'
     if academic_total > len(academic_cards):
         academic_html += f'<div class="notice">当前显示前 {len(academic_cards)} 条，共匹配 {academic_total} 条；请进入研究资料检索继续筛选。</div>'
 
