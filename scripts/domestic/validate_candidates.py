@@ -37,7 +37,7 @@ ENUMS = {
     "online_availability": {"full_item_online", "surrogate_online", "catalogue_only_online", "not_online", "unknown"},
     "reuse_rights": {"public_domain", "open_license", "citation_only", "no_republication", "unknown"},
     "copy_allowed": {"yes", "no", "unknown"},
-    "evidence_type": {"catalogue", "official_description", "digital_image", "printed_finding_aid", "secondary_lead", "unknown"},
+    "evidence_type": {"catalogue", "official_description", "digital_image", "digital_media", "printed_finding_aid", "secondary_lead", "unknown"},
     "document_date_precision": {"day", "month", "year", "approximate", "range", "unknown", "exact"},
     "document_date_role": {"source_document", "publication", "catalogue_record", "unknown"},
     "event_context_date_precision": {"day", "month", "year", "approximate", "range", "unknown", "exact"},

@@ -1,0 +1,32 @@
+{
+  "schema": "domestic_official_media_manifest.v1",
+  "generated_at": "2026-08-15T01:13:00+08:00",
+  "candidate_id": "domestic:SAAC:1949-09-21-05",
+  "title": "中国民主同盟主席张澜在中国人民政治协商会议第一届全体会议上的讲话（1949年9月21日）",
+  "creator": "张澜；中国民主同盟",
+  "repository": "中央档案馆 / 国家档案局专题页",
+  "item_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_11.html",
+  "item_url_role": "item_surrogate",
+  "media_url": "https://www.saac.gov.cn/daj/gqzt/sp/5-11.mp4",
+  "media_local_path": "data/domestic/raw/saac_media/SAAC-1949-09-21-zhanglan-5-11.mp4",
+  "media_sha256": "474c4e44f04b031c99b3e95cb2ff71d2f964bc75b5dae39c88461d4c269f33f7",
+  "media_size_bytes": 17841248,
+  "media_format": "mov,mp4,m4a,3gp,3g2,mj2",
+  "duration_seconds": 166.229002,
+  "streams": [
+    "video/h264 856x480",
+    "audio/aac 44100Hz/2ch"
+  ],
+  "evidence_level": "L1",
+  "source_role": "official_media_surrogate",
+  "body_read": false,
+  "transcript_status": "not_acquired",
+  "citation_ready": false,
+  "needs_human_review": true,
+  "review_status": "review_only",
+  "formal_db_written": true,
+  "formal_document_id": 1591,
+  "formal_page_id": 20912,
+  "formal_db_sha256": "06ff37956dcdb2bccc0831045a9055fb0d023dedd6122c83c5564fe63692ae6b",
+  "usage_boundary": "可用于来源发现、媒体观看、题名/日期/形成者核对；未完成人工核听或官方逐字稿核对前，不得把自动转写或本页元数据当作正式引文。"
+}
