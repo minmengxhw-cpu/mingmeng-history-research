@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "status": "metadata_only",
+  "body_read_by_builder": false,
+  "policy": "研究问题矩阵只把已登记的页级证据、负向核查和开放目标映射到子问题；它是研究导航，不升级证据等级，不复制正文、OCR或逐字引文。",
+  "topics": [
+    {
+      "event_id": "domestic-1941-formation",
+      "questions": [
+        {
+          "id": "formation-organization-date",
+          "question": "1941年前后是否已经形成可识别的组织与成立表达？",
+          "status": "partial",
+          "evidence_page_ids": [1473, 1474, 1475],
+          "negative_page_ids": [],
+          "evidence_scope": "成立文件连续页的题名、页界、来源版本和人工复核范围；可作为页级导航，不能单独替代独立成立原件。",
+          "caveat": "正式成立宣言、成立会议原件及馆藏档号和版本关系仍未闭环。",
+          "next_action": "沿国家图书馆民国文献、上海/香港报刊馆藏和民盟档案目录回追独立原件。"
+        },
+        {
+          "id": "formation-early-platform",
+          "question": "成立初期的政治表达与组织身份如何呈现？",
+          "status": "partial",
+          "evidence_page_ids": [1476, 1477],
+          "negative_page_ids": [],
+          "evidence_scope": "早期政治主张页组的页级定位和来源复核；用于建立表达线索，不把报刊/汇编页自动当作组织成立事实。",
+          "caveat": "需要与同期独立刊物、会议记录和不同版本对读。",
+          "next_action": "补同期原刊、会议记录和版本对照表。"
+        },
+        {
+          "id": "formation-version",
+          "question": "成立宣言的汇编页与可能的同期底本是什么关系？",
+          "status": "open_gap",
+          "evidence_page_ids": [20339],
+          "negative_page_ids": [],
+          "evidence_scope": "汇编页入口及版本线索；当前只能定位公开汇编，不证明底本关系。",
+          "caveat": "20339为待人工复核的汇编线索，不能作为严格引用页。",
+          "next_action": "取得独立影像后登记档号、底本、页码、哈希和复制权利。"
+        },
+        {
+          "id": "formation-primary-gap",
+          "question": "哪些材料必须取得后才能把1941成立专题升级为一手闭环？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "开放目标清单，不代表已经查无此件。",
+          "caveat": "当前专题状态仍为一手证据部分闭环。",
+          "next_action": "补成立宣言/成立会议独立原件、馆藏档号和版本关系。"
+        }
+      ]
+    },
+    {
+      "event_id": "domestic-1944-reorganization",
+      "questions": [
+        {
+          "id": "reorganization-political-context",
+          "question": "1944年的政治主张如何反映改组前后的组织表达？",
+          "status": "partial",
+          "evidence_page_ids": [20141, 20142, 20143, 20144],
+          "negative_page_ids": [],
+          "evidence_scope": "1946官方汇编所载1944文本的题名、标注日期、连续页界和来源哈希；不是1944会议原件。",
+          "caveat": "汇编重刊不能自动证明改组会议、改名决定或底本关系。",
+          "next_action": "将汇编文本与1944同期原刊及会议档案逐页对照。"
+        },
+        {
+          "id": "reorganization-periodical",
+          "question": "1944年同期刊物能否提供改组、更名和政治表达的连续背景？",
+          "status": "partial",
+          "evidence_page_ids": [20286, 20288, 20290],
+          "negative_page_ids": [],
+          "evidence_scope": "《民憲》三期目录页的刊名、卷期、出版日和页级身份；仅为同期刊物导航。",
+          "caveat": "目录页不等于文章正文，也不等于改组会议记录。",
+          "next_action": "核对1944连续期及相关文章正文，再追踪馆藏底本。"
+        },
+        {
+          "id": "reorganization-decision",
+          "question": "改组会议、改名决定和组织规则能否被独立原件直接证明？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "当前没有登记为主证据的独立会议原件。",
+          "caveat": "现有页级材料只能支持政治文本和刊物背景，不能回答行政决定本身。",
+          "next_action": "追改组会议记录、改名决定、组织规程和同期原刊原版。"
+        },
+        {
+          "id": "reorganization-version",
+          "question": "1944文本、1946汇编和同期刊物之间的版本关系如何确认？",
+          "status": "open_gap",
+          "evidence_page_ids": [20141, 20286],
+          "negative_page_ids": [],
+          "evidence_scope": "已有两个版本入口，尚未形成底本、编印者和页码关系表。",
+          "caveat": "不能把同题名或相近日期视为同一底本。",
+          "next_action": "建立版本对照表，登记原件档号、编印信息和可复制范围。"
+        }
+      ]
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "questions": [
+        {
+          "id": "congress-report",
+          "question": "1945年一大政治报告的篇名、页界和组织议题如何定位？",
+          "status": "partial",
+          "evidence_page_ids": [1443, 1444],
+          "negative_page_ids": [],
+          "evidence_scope": "政治报告首尾页和官方汇编连续页的页级定位；可支撑版本边界和检索，不替代完整会议档案。",
+          "caveat": "当前仍缺完整大会记录、报告底本及缺页关系。",
+          "next_action": "补政治报告完整影像、会议记录和不同版本页界。"
+        },
+        {
+          "id": "congress-declaration",
+          "question": "一大宣言的公开主张与文本边界如何核对？",
+          "status": "partial",
+          "evidence_page_ids": [1445, 1446, 20174, 20175, 20176, 20177, 20178, 20179],
+          "negative_page_ids": [],
+          "evidence_scope": "公开扫描页与1946官方汇编宣言页的双版本入口，限于篇名、日期、页码、页界和人工复核范围。",
+          "caveat": "双版本入口不等于已经证明底本关系或全文逐字一致。",
+          "next_action": "完成宣言、政治报告和组织规程的版本对照与缺页审计。"
+        },
+        {
+          "id": "congress-program",
+          "question": "一大纲领反映了哪些组织规则与政治主张？",
+          "status": "partial",
+          "evidence_page_ids": [20149, 20150, 20151, 20152, 20153, 20154, 20155, 20156, 20157, 20158, 20159, 20160, 20161, 20162, 20163, 20164, 20165, 20166, 20167, 20168, 20169, 20170, 20171, 20172, 20173],
+          "negative_page_ids": [],
+          "evidence_scope": "官方汇编《中国民主同盟纲领》第48—72页连续页级边界和来源哈希；正文仍应回到原页逐字核对。",
+          "caveat": "汇编页可以导航和核版本边界，不能自动替代1945大会原始档案。",
+          "next_action": "补大会底本、组织规程原件及完整会议记录。"
+        },
+        {
+          "id": "congress-archive-gap",
+          "question": "什么材料仍是把一大专题升级为严格闭环的关键？",
+          "status": "open_gap",
+          "evidence_page_ids": [1505],
+          "negative_page_ids": [],
+          "evidence_scope": "1945文件页组的导航线索；不能代替完整大会原始档案。",
+          "caveat": "现有证据足以建立研究入口，但不代表大会档案已经齐全。",
+          "next_action": "补会议记录、宣言/政治报告底本、组织规程、档号和缺页关系。"
+        }
+      ]
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "questions": [
+        {
+          "id": "pcc-formal-record",
+          "question": "民盟在1946年旧政协的正式发言、提案和代表行动是什么？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "当前没有登记为主证据的旧政协会议原页。",
+          "caveat": "报刊或后续回顾不能自动替代正式会议档案。",
+          "next_action": "建立会议日期—议题—民盟代表三列索引，再补会议记录、提案和发言原页。"
+        },
+        {
+          "id": "pcc-public-context",
+          "question": "旧政协前后民盟公开表达的时间线和公共语境如何建立？",
+          "status": "partial",
+          "evidence_page_ids": [1518, 20313],
+          "negative_page_ids": [],
+          "evidence_scope": "同期/后续报刊页级入口，用于建立公共表达线索和日期轴；不等同于政协档案。",
+          "caveat": "1518为1947报刊页，20313为待复核的1946复刊词，均需按各自复核范围使用。",
+          "next_action": "补1946政协同期报刊、会议记录和代表发言的逐页关联。"
+        },
+        {
+          "id": "pcc-representatives",
+          "question": "哪些民盟代表、议题和提案可以被逐项定位？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "当前只有待执行的日期—议题—代表建索引目标。",
+          "caveat": "不能用专题候选数量推断代表或提案已经收齐。",
+          "next_action": "按会议日、议题、代表、文件号和页码建立可回链索引。"
+        },
+        {
+          "id": "pcc-primary-boundary",
+          "question": "旧政协专题的原件闭环边界在哪里？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "开放主证据目标，不代表不存在相关档案。",
+          "caveat": "当前专题为导航可用、一手证据部分闭环。",
+          "next_action": "优先取得正式会议档案、民盟代表发言/提案和完整日期轴。"
+        }
+      ]
+    },
+    {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "questions": [
+        {
+          "id": "refuse-public-position",
+          "question": "民盟拒绝参加国民大会的公开立场如何在同期材料中出现？",
+          "status": "partial",
+          "evidence_page_ids": [16351, 16367, 16634, 16636, 1578],
+          "negative_page_ids": [],
+          "evidence_scope": "1946—1947《光明報》页级入口，按已核验的刊名、期号、日期、版面和题名范围使用。",
+          "caveat": "同期报刊表达不自动等同于民盟正式拒绝声明。",
+          "next_action": "追1946年11月同期报刊完整版及民盟公开文件。"
+        },
+        {
+          "id": "refuse-conditional-debate",
+          "question": "‘有条件参加’与最终拒绝之间的论述变化如何核对？",
+          "status": "partial",
+          "evidence_page_ids": [20284],
+          "negative_page_ids": [],
+          "evidence_scope": "汇编/专题页作为论述线索和检索入口，不作为独立同期原件。",
+          "caveat": "20284为待复核材料，不能直接生成正式引文。",
+          "next_action": "寻找同期函电、声明和完整原刊，建立观点变化的日期轴。"
+        },
+        {
+          "id": "refuse-formal-statement",
+          "question": "是否已经找到正式拒绝声明、函电或可定位的原刊全文？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "当前证据链明确登记为开放目标。",
+          "caveat": "现有页只能支持同期语境，不能回答正式文件是否已经取得。",
+          "next_action": "追民盟中央文件、张澜/罗隆基等代表函电及1946年11月同期报刊完整版。"
+        },
+        {
+          "id": "refuse-source-conflict",
+          "question": "不同报刊、汇编和正式文件之间是否存在日期或立场差异？",
+          "status": "open_gap",
+          "evidence_page_ids": [16351, 16636, 20284],
+          "negative_page_ids": [],
+          "evidence_scope": "已有多入口可用于建立差异表，但尚未完成逐字和日期对照。",
+          "caveat": "不能把不同出版层级的题名或摘要直接拼成一条事实。",
+          "next_action": "按来源层级、发布日期、形成者和原页建立冲突登记表。"
+        }
+      ]
+    },
+    {
+      "event_id": "domestic-1946-li-wen",
+      "questions": [
+        {
+          "id": "li-wen-official-record",
+          "question": "民盟对李公朴、闻一多遇害的组织性反应有哪些可追踪记录？",
+          "status": "partial",
+          "evidence_page_ids": [18936, 18945, 18948],
+          "negative_page_ids": [],
+          "evidence_scope": "官方历史文献汇编中的条目页作为反应记录导航；当前为待人工复核，不升级为原始抗议文件。",
+          "caveat": "汇编收录不能单独证明原文件的底本、全文和形成链。",
+          "next_action": "补1946年7月同期《民主周刊》和民盟抗议声明原页。"
+        },
+        {
+          "id": "li-wen-contemporaneous-press",
+          "question": "同期报刊如何记录案件、民盟反应和社会舆论？",
+          "status": "partial",
+          "evidence_page_ids": [1768, 20204],
+          "negative_page_ids": [],
+          "evidence_scope": "同期/汇编报刊页级入口；1768为严格门禁页，20204为待复核材料，均须按范围使用。",
+          "caveat": "报刊报道不能替代抗议文件或司法行政档案。",
+          "next_action": "建立案件报道、民盟文件和纪念文章的日期轴。"
+        },
+        {
+          "id": "li-wen-justice-record",
+          "question": "司法、行政和地方组织层面的案件记录能否逐页互证？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "当前没有登记为严格证据的司法/行政原页。",
+          "caveat": "现有材料主要是汇编和报刊导航，不能推出案件处理过程。",
+          "next_action": "追司法/行政档案、地方支部文件和可定位卷页。"
+        },
+        {
+          "id": "li-wen-version-boundary",
+          "question": "汇编记载、同期报刊和原始抗议文件的版本关系是什么？",
+          "status": "open_gap",
+          "evidence_page_ids": [18936, 1768],
+          "negative_page_ids": [],
+          "evidence_scope": "已有汇编与报刊两条导航线，尚未完成原件—重刊—报道关系表。",
+          "caveat": "不同来源的相似标题不等于同一文本。",
+          "next_action": "为每份声明登记形成者、日期、原件档号、重刊出处和页级哈希。"
+        }
+      ]
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "questions": [
+        {
+          "id": "dissolution-public-date",
+          "question": "1947年民盟被宣布非法和组织解散的公开时间线如何定位？",
+          "status": "partial",
+          "evidence_page_ids": [1748, 1752, 20899, 1773, 1774],
+          "negative_page_ids": [],
+          "evidence_scope": "1947年10月—11月多种报刊版本的页级定位、日期和版别对读；用于公共报道时间线，不替代政府公文。",
+          "caveat": "报刊报道不能自动证明行政决定的原文和法定效力。",
+          "next_action": "补1947-10-27政府公函和1947-11-06行政/组织解散公告。"
+        },
+        {
+          "id": "dissolution-regional-press",
+          "question": "上海、天津及其他版别对解散事件的报道有哪些差异？",
+          "status": "partial",
+          "evidence_page_ids": [1773, 1774, 1752],
+          "negative_page_ids": [],
+          "evidence_scope": "上海版、天津版和相关报刊页作为版别对读入口，严格范围限于各页已复核的身份和版面。",
+          "caveat": "版别差异需要完整期刊和同日原页才能解释，不能只凭单页标题下结论。",
+          "next_action": "补同日完整版面并记录转载、删节和标题差异。"
+        },
+        {
+          "id": "dissolution-administrative-original",
+          "question": "政府公函、行政公告和组织解散文件的原件在哪里？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [1793, 1792],
+          "evidence_scope": "负向核查页只表示当前登记范围未命中目标，不证明目标公文不存在。",
+          "caveat": "不能用报刊或负向核查替代行政原件。",
+          "next_action": "沿第二历史档案馆、上海市档案馆、民盟档案目录和报刊引文反查档号。"
+        },
+        {
+          "id": "dissolution-social-response",
+          "question": "解散前后社会与民盟成员反应如何与行政时间线互证？",
+          "status": "partial",
+          "evidence_page_ids": [1770, 1773, 1774],
+          "negative_page_ids": [],
+          "evidence_scope": "观察类刊物和不同城市报刊页提供反应线索，不能升级为组织内部文件。",
+          "caveat": "社会反应、报刊立场和行政事实应分层记录。",
+          "next_action": "补民盟内部传达、地方组织文件和同日多源报刊。"
+        }
+      ]
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "questions": [
+        {
+          "id": "third-plenum-public-record",
+          "question": "1948年三中全会的公开报道和组织表达如何定位？",
+          "status": "partial",
+          "evidence_page_ids": [1629, 1630, 20136],
+          "negative_page_ids": [],
+          "evidence_scope": "1948报刊页与专题文章页级入口，用于建立公开表达线索；20136为待复核材料。",
+          "caveat": "报刊和文章不能替代三中全会会议记录、决议原件。",
+          "next_action": "补三中全会独立档案原页、会议日期、代表和决议版本。"
+        },
+        {
+          "id": "may-day-relation",
+          "question": "三中全会、五一口号与民盟政治选择之间如何建立可核查连接？",
+          "status": "partial",
+          "evidence_page_ids": [1629, 1630],
+          "negative_page_ids": [],
+          "evidence_scope": "已核验报刊页的题名、期号、日期和版面作为时间线入口，不把报道直接等同于会议决议。",
+          "caveat": "需要分别确认会议事实、口号文本和传播关系。",
+          "next_action": "按三中全会—五一口号—香港传播拆分三条证据线。"
+        },
+        {
+          "id": "third-plenum-hong-kong",
+          "question": "香港传播和国内组织表达是否存在可互证的同期原页？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "当前没有登记为严格证据的香港传播原页。",
+          "caveat": "不能从后来的概述或单篇报刊文章推出完整传播链。",
+          "next_action": "补香港同期刊物、函电、会议记录和页级 provenance。"
+        },
+        {
+          "id": "third-plenum-primary-boundary",
+          "question": "哪些材料是三中全会专题的主证据闭环必需项？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "开放目标清单，不代表已查无相关档案。",
+          "caveat": "当前专题仍为导航可用、一手证据部分闭环。",
+          "next_action": "分别补三中全会、五一口号和香港传播的独立档案原页、档号及权利。"
+        }
+      ]
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "questions": [
+        {
+          "id": "new-pcc-representatives",
+          "question": "1949年民盟代表身份、代表名单和组织位置如何定位？",
+          "status": "partial",
+          "evidence_page_ids": [20733, 20738],
+          "negative_page_ids": [],
+          "evidence_scope": "中央档案馆专题扫描的代表名单题名页与民盟代表名单页；严格范围限于页身份、页码和人工复核范围。",
+          "caveat": "局部名单页不能自动代表完整代表名册或完整资格审查过程。",
+          "next_action": "补完整代表名册、筹备会记录和代表资格材料。"
+        },
+        {
+          "id": "new-pcc-signatures-schedule",
+          "question": "签名册、会议日程和第一届全体会议流程能否逐页重建？",
+          "status": "partial",
+          "evidence_page_ids": [20757, 20767, 20768],
+          "negative_page_ids": [],
+          "evidence_scope": "中央档案馆专题扫描的签名册和日程页，支撑局部流程与身份定位。",
+          "caveat": "已核页是局部公开扫描，不能替代完整会议卷宗。",
+          "next_action": "沿同一档案专题补齐筹备会、全体会议和代表发言页。"
+        },
+        {
+          "id": "new-pcc-public-context",
+          "question": "民盟参与新政协的公开表达和当时舆论如何对读？",
+          "status": "partial",
+          "evidence_page_ids": [1670, 1671, 1673, 20328],
+          "negative_page_ids": [],
+          "evidence_scope": "1949《光明報》页级入口与待复核专题页，用于公共表达和研究导航，不替代会议档案。",
+          "caveat": "报刊页与档案扫描页属于不同证据层，不能直接拼接成代表发言事实。",
+          "next_action": "建立报刊、代表名单、日程和会议发言的四层对读表。"
+        },
+        {
+          "id": "new-pcc-archive-gap",
+          "question": "新政协专题还缺哪些档案才能进入严格研究闭环？",
+          "status": "open_gap",
+          "evidence_page_ids": [],
+          "negative_page_ids": [],
+          "evidence_scope": "开放目标清单；已有名单、签名册和日程页不代表完整档案已收齐。",
+          "caveat": "不能用代表名单或日程页代替筹备会记录、发言和完整代表档案。",
+          "next_action": "补筹备会议记录、民盟代表发言、完整代表名册和第一届全体会议完整档案。"
+        }
+      ]
+    }
+  ]
+}

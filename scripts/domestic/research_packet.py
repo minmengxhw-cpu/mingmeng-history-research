@@ -231,6 +231,38 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
         for row in topic.get("topic_event_rows", [])
     ]
 
+    raw_matrix = topic.get("research_matrix") or {}
+    matrix_questions: list[dict[str, Any]] = []
+    if isinstance(raw_matrix, dict):
+        for raw_question in raw_matrix.get("questions", []):
+            if not isinstance(raw_question, dict):
+                continue
+            matrix_questions.append(
+                {
+                    "id": str(raw_question.get("id") or ""),
+                    "question": str(raw_question.get("question") or ""),
+                    "status": str(raw_question.get("status") or "partial"),
+                    "evidence_page_ids": sorted(
+                        {
+                            int(value)
+                            for value in raw_question.get("evidence_page_ids", [])
+                            if str(value).isdigit()
+                        }
+                    ),
+                    "negative_page_ids": sorted(
+                        {
+                            int(value)
+                            for value in raw_question.get("negative_page_ids", [])
+                            if str(value).isdigit()
+                        }
+                    ),
+                    "evidence_scope": str(raw_question.get("evidence_scope") or ""),
+                    "caveat": str(raw_question.get("caveat") or ""),
+                    "next_action": str(raw_question.get("next_action") or ""),
+                    "body_text_included": False,
+                }
+            )
+
     return {
         "schema_version": 2,
         "packet_type": "domestic_topic_research_packet",
@@ -282,6 +314,12 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "foreign_machine_pages": int(topic.get("foreign_pages") or 0),
         },
         "evidence_chain": evidence_chain,
+        "research_matrix": {
+            "schema_version": 1,
+            "status": "metadata_only",
+            "body_read_by_builder": False,
+            "questions": matrix_questions,
+        },
         "topic_event_pages": topic_event_rows,
         "open_primary_targets": open_targets,
         "academic_candidates": [
@@ -316,6 +354,8 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "verbatim_quote_included": False,
             "page_rows_all_resolved": resolved_count == len(all_page_rows),
             "strict_page_rows_gate_checked": True,
+            "research_matrix_body_text_included": False,
+            "research_matrix_questions": len(matrix_questions),
             "source_sha256_exported": True,
             "citation_policy": "正式引文仍须打开 /cite/<page_id>，并遵守该页明确的 review_scope。",
         },
@@ -392,6 +432,10 @@ def research_packet_page(event_id: str) -> bytes:
         for row in packet["academic_candidates"]
     ) or '<div class="notice">当前没有匹配到学术解释候选。</div>'
 
+    matrix_html = app._topic_research_matrix_html(
+        packet.get("research_matrix"), packet.get("evidence_chain")
+    )
+
     topic_event_cards = "".join(
         f'''<article class="result compact-result"><div>
   <h3>{esc(row.get("event_title") or row.get("title") or row.get("doc_key"))}</h3>
@@ -412,6 +456,7 @@ def research_packet_page(event_id: str) -> bytes:
 <section class="stats"><div class="stat"><strong>{counts['evidence_chain_page_items']}</strong><span>证据链页级记录</span></div><div class="stat"><strong>{counts['evidence_chain_strict_gate_passed']}</strong><span>严格门禁通过</span></div><div class="stat"><strong>{counts['topic_event_domestic_strict_pages']}</strong><span>专题回接严格页</span></div><div class="stat"><strong>{counts['academic_candidates']}</strong><span>学术解释候选</span></div><div class="stat"><strong>{len(packet['open_primary_targets'])}</strong><span>开放原件目标</span></div></section>
 <div class="notice"><strong>研究问题：</strong>{esc(packet['research_question'])}<br><strong>证据状态：</strong>{esc(scope['primary_evidence_label'])}。{esc(scope['primary_evidence_gap'])}<br><strong>边界：</strong>本包只导出题目、证据层、页级定位、来源 SHA256、复核范围和缺口；不复制正文、OCR、译文或逐字引文。正式引用必须打开对应的引用门禁页，并遵守该页的 review_scope。</div>
 <div class="section-head"><h2>国内—境外对读摘要</h2></div><section class="result-list"><article class="result compact-result"><div><h3>国内材料</h3><div class="snippet">{esc(scope['domestic_anchor'])}</div></div></article><article class="result compact-result"><div><h3>境外材料</h3><div class="snippet">{esc(scope['foreign_anchor'])}</div></div></article><article class="result compact-result"><div><h3>差异与下一步</h3><div class="snippet"><strong>差异：</strong>{esc(scope['difference'])}<br><strong>下一步：</strong>{esc(scope['next_action'])}</div></div></article></section>
+{matrix_html}
 {"".join(sections)}
 <div class="section-head"><h2>仍待补原件</h2><span class="meta">{len(packet['open_primary_targets'])} 项</span></div><section class="result-list">{targets}</section>
 <div class="section-head"><h2>学术研究（解释层）</h2><span class="meta">不替代一手证据</span></div><section class="result-list">{academic}</section>

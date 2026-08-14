@@ -66,6 +66,7 @@ LOCAL_SEMANTIC_SIGNALS_REPORT_PATH = WORK_ROOT / "domestic" / "local_private_ocr
 HOME_FOCUS_PATH = DATA_ROOT / "home_focus.json"
 TOPIC_COMPARISON_CARDS_PATH = DATA_ROOT / "domestic" / "topic_comparison_cards.json"
 TOPIC_EVIDENCE_CHAIN_PATH = DATA_ROOT / "domestic" / "topic_evidence_chain.json"
+TOPIC_RESEARCH_MATRIX_PATH = DATA_ROOT / "domestic" / "topic_research_matrix.json"
 ACADEMIC_SOURCE_POLICY_PATH = DATA_ROOT / "domestic" / "academic_source_policy.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
@@ -4513,6 +4514,24 @@ def _load_topic_evidence_chains() -> dict[str, dict[str, object]]:
     }
 
 
+def _load_topic_research_matrix() -> dict[str, dict[str, object]]:
+    """读取专题的研究问题—证据矩阵；只消费元数据，不读取正文。"""
+    if not TOPIC_RESEARCH_MATRIX_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(TOPIC_RESEARCH_MATRIX_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    topics = payload.get("topics") if isinstance(payload, dict) else None
+    if not isinstance(topics, list):
+        return {}
+    return {
+        str(item["event_id"]): item
+        for item in topics
+        if isinstance(item, dict) and item.get("event_id")
+    }
+
+
 CHAIN_LAYER_META = {
     "primary": ("主证据（页级）", "说明事件定义或组织表达的直接页级材料"),
     "cross_source": ("同期交叉", "来自不同刊物、版别或相邻时间点的对读材料"),
@@ -4609,6 +4628,85 @@ def _topic_evidence_chain_summary(chain: dict[str, object] | None) -> dict[str, 
         if isinstance(layers.get("missing_primary"), list)
         else 0,
     }
+
+
+def _topic_research_matrix_html(
+    matrix: dict[str, object] | None,
+    chain: dict[str, object] | None,
+) -> str:
+    """渲染研究问题—证据映射；正文仍由原文页和引用门禁路由负责。"""
+    if not matrix:
+        return '<div class="notice">该专题尚未配置研究问题—证据矩阵。</div>'
+    questions = matrix.get("questions") if isinstance(matrix, dict) else []
+    if not isinstance(questions, list):
+        questions = []
+    layers = chain.get("layers") if isinstance(chain, dict) else {}
+    page_meta: dict[int, dict[str, object]] = {}
+    if isinstance(layers, dict):
+        for values in layers.values():
+            if not isinstance(values, list):
+                continue
+            for item in values:
+                if isinstance(item, dict) and item.get("page_id") is not None:
+                    try:
+                        page_meta[int(item["page_id"])] = item
+                    except (TypeError, ValueError):
+                        continue
+
+    def page_links(values: object, negative: bool = False) -> str:
+        if not isinstance(values, list) or not values:
+            return '<span class="meta">未登记页级证据</span>'
+        links: list[str] = []
+        for value in values:
+            try:
+                page_id = int(value)
+            except (TypeError, ValueError):
+                continue
+            item = page_meta.get(page_id) or {}
+            label = str(item.get("label") or ("负向核查页" if negative else "证据页"))
+            status = str(item.get("status") or "")
+            status_label = {
+                "strict_citation": "严格",
+                "review_only": "待复核",
+                "negative_control": "负向",
+            }.get(status, "")
+            suffix = f" · {status_label}" if status_label else ""
+            links.append(
+                f'<a class="tag" href="/cite/{page_id}">页 {page_id} · {h(label)}{h(suffix)}</a>'
+            )
+        return " ".join(links) or '<span class="meta">未登记页级证据</span>'
+
+    status_meta = {
+        "partial": ("部分可回答", "warn"),
+        "open_gap": ("开放缺口", "warn"),
+        "ready": ("当前可回答", "ok"),
+    }
+    cards: list[str] = []
+    for question in questions:
+        if not isinstance(question, dict):
+            continue
+        status_label, status_class = status_meta.get(
+            str(question.get("status") or "partial"), ("待核", "warn")
+        )
+        evidence_ids = question.get("evidence_page_ids") or []
+        negative_ids = question.get("negative_page_ids") or []
+        cards.append(
+            f"""
+<article class="result compact-result evidence-matrix-item">
+  <div>
+    <h3>{h(question.get('question') or question.get('id') or '未命名研究问题')}</h3>
+    <div class="tagline"><span class="pstatus {status_class}">{h(status_label)}</span><span class="tag">{h(question.get('id') or '')}</span></div>
+    <div class="snippet"><strong>当前证据能支持到：</strong>{h(question.get('evidence_scope') or '未标注')}</div>
+    <div class="snippet"><strong>边界：</strong>{h(question.get('caveat') or '未标注')}</div>
+    <div class="snippet"><strong>下一步：</strong>{h(question.get('next_action') or '未标注')}</div>
+    <div class="tagline"><span class="meta">证据页</span> {page_links(evidence_ids)}{f'<span class="meta">负向核查</span> {page_links(negative_ids, True)}' if negative_ids else ''}</div>
+  </div>
+</article>"""
+        )
+    return f"""
+<div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>研究问题—证据矩阵</h2><span class="meta">{len(cards)} 个子问题 · 元数据导航</span></div>
+<div class="notice"><strong>矩阵纪律：</strong>它把子问题、页级入口、证据范围和开放缺口放在一起，帮助研究者决定先读什么；不复制正文、OCR或逐字引文，也不改变原页的 citation gate。页级链接会回到引用门禁，由原页复核范围决定能否正式引用。</div>
+<section class="result-list">{"".join(cards) or '<div class="notice">当前没有登记子问题。</div>'}</section>"""
 
 
 def _research_gap_rows() -> list[dict[str, object]]:
@@ -5339,6 +5437,7 @@ def _research_topic_rows() -> list[dict[str, object]]:
     coverage = _load_domestic_event_coverage()
     comparison_cards = _load_topic_comparison_cards()
     evidence_chains = _load_topic_evidence_chains()
+    research_matrices = _load_topic_research_matrix()
     try:
         domestic_rows = _domestic_rows()
     except sqlite3.OperationalError:
@@ -5371,6 +5470,7 @@ def _research_topic_rows() -> list[dict[str, object]]:
                 "item": item,
                 "comparison": comparison,
                 "evidence_chain": evidence_chains.get(str(item.get("event_id")), {}),
+                "research_matrix": research_matrices.get(str(item.get("event_id")), {}),
                 "evidence_chain_summary": _topic_evidence_chain_summary(
                     evidence_chains.get(str(item.get("event_id")), {})
                 ),
@@ -5486,6 +5586,7 @@ def research_topic_page(event_id: str) -> bytes:
     comparison = topic.get("comparison") or {}
     primary = _primary_evidence_display(item)
     evidence_chain = topic.get("evidence_chain") or {}
+    research_matrix = topic.get("research_matrix") or {}
     foreign_samples: list[dict[str, object]] = []
     with conn() as c:
         for entry in topic["foreign_stats"]:
@@ -5598,6 +5699,7 @@ def research_topic_page(event_id: str) -> bytes:
 </section>
 """
     evidence_chain_html = _topic_evidence_chain_html(evidence_chain)
+    research_matrix_html = _topic_research_matrix_html(research_matrix, evidence_chain)
 
     event_link = f"/domestic/events?event={quote(event_id)}"
     body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
@@ -5618,6 +5720,7 @@ def research_topic_page(event_id: str) -> bytes:
 </section>
 <div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br><strong>一手闭环缺口：</strong>{h(primary['gap'])}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。下方“专题事件索引页”与“国内已入库证据样本”是两条不同回接路径，严格页数字不能互相替代。</div>
 {comparison_html}
+{research_matrix_html}
 {evidence_chain_html}
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>学术研究资料（解释层）</h2><span class="meta">{h(academic_total)} 条机器主题候选</span></div>
 <div class="notice">学术材料用于解释、争议定位和检索扩展；只有全文/页码/哈希/复核齐全后才可能进入正式引用。下方命中依据是书目元数据和结构化主题字段，不是正文语义确认。</div>

@@ -30,6 +30,20 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
         errors.append("translation_text_included must be false")
     if audit.get("verbatim_quote_included") is not False:
         errors.append("verbatim_quote_included must be false")
+    if audit.get("research_matrix_body_text_included") is not False:
+        errors.append("research_matrix_body_text_included must be false")
+    matrix = packet.get("research_matrix") or {}
+    matrix_questions = matrix.get("questions") if isinstance(matrix, dict) else []
+    if not isinstance(matrix_questions, list):
+        errors.append("research_matrix.questions must be a list")
+        matrix_questions = []
+    if len(matrix_questions) != audit.get("research_matrix_questions"):
+        errors.append("research matrix question count mismatch")
+    for question in matrix_questions:
+        if question.get("body_text_included") is not False:
+            errors.append(f"matrix question {question.get('id')} exports body text")
+        if not question.get("id") or not question.get("question"):
+            errors.append("matrix question missing id or question")
     chain = packet.get("evidence_chain") or {}
     rows = [row for values in chain.values() for row in values]
     counts = packet.get("counts") or {}

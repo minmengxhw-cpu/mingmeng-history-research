@@ -68,6 +68,9 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
     assert "一手证据部分闭环" in body
     assert "一手闭环缺口" in body
     assert "四层证据链" in body
+    assert "研究问题—证据矩阵" in body
+    assert "formation-organization-date" in body
+    assert "/cite/1473" in body
     assert "打开研究包" in body
     assert "主证据（页级）" in body
     assert "同期交叉" in body
@@ -97,6 +100,10 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert packet["audit"]["ocr_text_included"] is False
     assert packet["audit"]["verbatim_quote_included"] is False
     assert packet["audit"]["page_rows_all_resolved"] is True
+    assert packet["audit"]["research_matrix_body_text_included"] is False
+    assert packet["audit"]["research_matrix_questions"] == 4
+    assert len(packet["research_matrix"]["questions"]) == 4
+    assert all(item["body_text_included"] is False for item in packet["research_matrix"]["questions"])
     raw = packet_json_bytes("domestic-1945-first-congress").decode("utf-8")
     assert '"text"' not in raw
     assert "原文摘录：" not in raw
@@ -108,9 +115,38 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert "数据库 SHA256" in body
     assert "专题回接严格页" in body
     assert "专题事件索引页" in body
+    assert "研究问题—证据矩阵" in body
     assert "专题回接" in body
     assert "原文摘录：" not in body
     assert "中文译文（" not in body
+
+
+def test_topic_research_matrix_is_complete_and_page_traceable():
+    """九个专题的研究矩阵必须覆盖四个子问题且只引用已有链条页号。"""
+    root = Path(__file__).resolve().parents[1]
+    matrix = json.loads((root / "data/domestic/topic_research_matrix.json").read_text(encoding="utf-8"))
+    chains = json.loads((root / "data/domestic/topic_evidence_chain.json").read_text(encoding="utf-8"))
+    chain_by_id = {item["event_id"]: item for item in chains}
+    assert matrix["status"] == "metadata_only"
+    assert matrix["body_read_by_builder"] is False
+    assert len(matrix["topics"]) == 9
+    assert all(len(item["questions"]) == 4 for item in matrix["topics"])
+    for topic in matrix["topics"]:
+        chain_pages = {
+            int(item["page_id"])
+            for values in chain_by_id[topic["event_id"]]["layers"].values()
+            if isinstance(values, list)
+            for item in values
+            if isinstance(item, dict) and item.get("page_id") is not None
+        }
+        for question in topic["questions"]:
+            assert question["id"]
+            assert question["question"]
+            assert question["evidence_scope"]
+            assert question["caveat"]
+            assert question["next_action"]
+            assert set(question["evidence_page_ids"]) | set(question["negative_page_ids"]) <= chain_pages
+            assert question.get("body_text_included") is not True
 
 
 def test_li_wen_packet_exposes_official_compilation_entries_without_promoting_them():
