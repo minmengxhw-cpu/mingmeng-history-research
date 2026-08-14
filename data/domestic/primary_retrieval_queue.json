@@ -1,6 +1,6 @@
 {
   "schema": "domestic_primary_retrieval_queue.v3",
-  "generated_at": "2026-08-14",
+  "generated_at": "2026-08-15",
   "scope": "九个国内专题的开放主证据目标",
   "policy": "候选路由只用于追索；不把目录、转录、后期叙述或锁定查看器升级为原件闭环。",
   "topic_count": 9,
@@ -6476,10 +6476,10 @@
           "why_it_matters": "需要把机关报报道、中央档案和民盟内部会议拆成不同证据单元，避免一篇报道承担全部结论。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
-          "formal_page_count": 16,
-          "formal_strict_citation_page_count": 0
+          "formal_page_count": 18,
+          "formal_strict_citation_page_count": 2
         }
       ],
       "event_link_pages": [
@@ -7111,16 +7111,37 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
-          "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingested_document_id": 1510,
+          "formal_doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde04",
+          "formal_page_count": 2,
+          "formal_strict_citation_page_count": 2,
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 20665,
+              "page_label": "page-01",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20666,
+              "page_label": "page-02",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            }
+          ],
+          "formal_page_ids": [
+            20665,
+            20666
+          ],
+          "formal_strict_page_ids": [
+            20665,
+            20666
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:SAAC:catalog-01-01_03",
@@ -7213,10 +7234,10 @@
           "why_it_matters": "只有正式会议记录和代表档案才能核对人物、程序、日期和民盟角色。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
-          "formal_page_count": 3,
-          "formal_strict_citation_page_count": 0
+          "formal_page_count": 30,
+          "formal_strict_citation_page_count": 7
         }
       ],
       "event_link_pages": [
@@ -7579,16 +7600,58 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1513,
+          "formal_doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde14",
+          "formal_page_count": 5,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 5,
+          "formal_anchored_page_count": 5,
+          "formal_pages": [
+            {
+              "page_id": 20673,
+              "page_label": "page-01",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20674,
+              "page_label": "page-02",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20675,
+              "page_label": "page-03",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20676,
+              "page_label": "page-04",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20677,
+              "page_label": "page-05",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20673,
+            20674,
+            20675,
+            20676,
+            20677
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
         },
         {
           "candidate_id": "domestic:SAAC:1949-02-14-01",
@@ -7659,16 +7722,202 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
-          "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingested_document_id": 1538,
+          "formal_doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "formal_page_count": 22,
+          "formal_strict_citation_page_count": 7,
+          "formal_provenance_page_count": 22,
+          "formal_anchored_page_count": 22,
+          "formal_pages": [
+            {
+              "page_id": 20733,
+              "page_label": "page-01",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20734,
+              "page_label": "page-02",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20735,
+              "page_label": "page-03",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20736,
+              "page_label": "page-04",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20737,
+              "page_label": "page-05",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20738,
+              "page_label": "page-06",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20739,
+              "page_label": "page-07",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": true
+            },
+            {
+              "page_id": 20740,
+              "page_label": "page-08",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20741,
+              "page_label": "page-09",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20742,
+              "page_label": "page-10",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20743,
+              "page_label": "page-11",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20744,
+              "page_label": "page-12",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20745,
+              "page_label": "page-13",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20746,
+              "page_label": "page-14",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20747,
+              "page_label": "page-15",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20748,
+              "page_label": "page-16",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20749,
+              "page_label": "page-17",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20750,
+              "page_label": "page-18",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20751,
+              "page_label": "page-19",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20752,
+              "page_label": "page-20",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20753,
+              "page_label": "page-21",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 20754,
+              "page_label": "page-22",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            20733,
+            20734,
+            20735,
+            20736,
+            20737,
+            20738,
+            20739,
+            20740,
+            20741,
+            20742,
+            20743,
+            20744,
+            20745,
+            20746,
+            20747,
+            20748,
+            20749,
+            20750,
+            20751,
+            20752,
+            20753,
+            20754
+          ],
+          "formal_strict_page_ids": [
+            20733,
+            20734,
+            20735,
+            20736,
+            20737,
+            20738,
+            20739
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:SAAC:1949-09-29-01",

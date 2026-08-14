@@ -1,0 +1,139 @@
+{
+  "schema": "domestic_saac_scan_batch_manifest.v1",
+  "generated_at": "2026-08-15T02:20:00+08:00",
+  "batch_id": "saac-scan-chain2-20260815",
+  "source_id": "saac-51koukou",
+  "source_title": "中央档案馆：从「五一口号」到开国大典档案文献专辑",
+  "formal_db_written": true,
+  "formal_document_ids": {
+    "domestic:SAAC:1949-index-c15": 1596,
+    "domestic:SAAC:1949-index-c17": 1597,
+    "domestic:SAAC:1949-09-23-01": 1598
+  },
+  "formal_page_ids": {
+    "domestic:SAAC:1949-index-c15": [20924, 20925],
+    "domestic:SAAC:1949-index-c17": [20926, 20927],
+    "domestic:SAAC:1949-09-23-01": [20928, 20929, 20930]
+  },
+  "formal_event_links_added": 7,
+  "formal_db_sha256": "3fea4b32b10bde60f0017fb19918e3f90bb4220872932df3beafd5bfc0b1e8f8",
+  "items": [
+    {
+      "candidate_id": "domestic:SAAC:1949-index-c15",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c15",
+      "title": "中国人民政治协商会议第一届全体会议主席团常委会第一次会议记录（1949年9月22日）",
+      "date_guess": "1949-09-22",
+      "item_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_27.html",
+      "event_tags": ["1949第一届政协"],
+      "person_tags": ["张澜", "黄炎培"],
+      "place_tags": ["北平"],
+      "pages": [
+        {
+          "physical_page": 1,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/27/01.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-27/01.jpg",
+          "image_sha256": "7ad20b7c26d587b884e70a37bc4f6290db3a55b2a816142a71a5b4fbe0a0c48d",
+          "ocr": "work/domestic/saac_1949_pcc_next_ocr_20260815/sec05_05-27/01.ocr.md",
+          "ocr_sha256": "505f570cb36daeeccda8f85e446283221c51e3874ae2ad65dfcc7896debb75cd",
+          "ocr_lines": 26,
+          "ocr_mean_confidence": 0.8768,
+          "ocr_rotation_degrees": 0
+        },
+        {
+          "physical_page": 2,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/27/02.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-27/02.jpg",
+          "image_sha256": "f24db22372be7fbc034e97f3dfec8ba3b6a01d168f165973cfcea91d4047c613",
+          "ocr": "work/domestic/saac_1949_pcc_next_ocr_20260815/sec05_05-27/02.ocr.md",
+          "ocr_sha256": "1f54812ded0cfac0373869b61a3aff9090dc4dcbb2bd11712a8a494e7e5e5c2b",
+          "ocr_lines": 14,
+          "ocr_mean_confidence": 0.8604,
+          "ocr_rotation_degrees": 0
+        }
+      ]
+    },
+    {
+      "candidate_id": "domestic:SAAC:1949-index-c17",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c17",
+      "title": "中国人民政治协商会议第一届全体会议会刊第二期（1949年9月22日）",
+      "date_guess": "1949-09-22",
+      "item_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_29.html",
+      "event_tags": ["1949第一届政协"],
+      "person_tags": ["张澜", "黄炎培"],
+      "place_tags": ["北平"],
+      "pages": [
+        {
+          "physical_page": 1,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/29/01.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-29/01.jpg",
+          "image_sha256": "5273a656fe39f353660d8db1f81803c0dbe91beb28f799ed3b06101d0abcc231",
+          "ocr": "work/domestic/saac_1949_pcc_next_ocr_20260815/sec05_05-29/01.ocr.md",
+          "ocr_sha256": "5958a3468994f5d8c9f9161dd589bb9589915d019198c3d43a8a3d731d1a2d0e",
+          "ocr_lines": 37,
+          "ocr_mean_confidence": 0.7817,
+          "ocr_rotation_degrees": 0
+        },
+        {
+          "physical_page": 2,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/29/02.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-29/02.jpg",
+          "image_sha256": "e857bc0d6c51f42a5be2accebf13414aeeddfe943f5b3c2f5b1900ce1c68f59f",
+          "ocr": "work/domestic/saac_1949_pcc_next_ocr_20260815/sec05_05-29/02.ocr.md",
+          "ocr_sha256": "5d1aeb62076e019d78ed84508e86dd12e3ae276cdb89b78c7d8e7e80b93fc2d2",
+          "ocr_lines": 82,
+          "ocr_mean_confidence": 0.8893,
+          "ocr_rotation_degrees": 0
+        }
+      ]
+    },
+    {
+      "candidate_id": "domestic:SAAC:1949-09-23-01",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+      "title": "中国人民政治协商会议第一届全体会议第三天会议记录（1949年9月23日）",
+      "date_guess": "1949-09-23",
+      "item_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_39.html",
+      "event_tags": ["1949第一届政协", "民主党派发言"],
+      "person_tags": ["李济深", "张澜"],
+      "place_tags": ["北平"],
+      "pages": [
+        {
+          "physical_page": 1,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/39/01.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-39/01.jpg",
+          "image_sha256": "661436d1bbb35131e156cc888925b3fb013c26f42520ac9169d9b9f4d3e2d674",
+          "ocr": "work/domestic/saac_1949_pcc_next_ocr_20260815/sec05_05-39/01.ocr.md",
+          "ocr_sha256": "fa2fb738c686ae2c6c39a2eb2d1ab685f5cfa34529919e95325472322eca0e94",
+          "ocr_lines": 20,
+          "ocr_mean_confidence": 0.8778,
+          "ocr_rotation_degrees": 0
+        },
+        {
+          "physical_page": 2,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/39/02.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-39/02.jpg",
+          "image_sha256": "a3226dd3abc77bb033bb6880593f3225f3d6c62e3d55491878d69614929210c4",
+          "ocr": "work/domestic/saac_1949_pcc_next_ocr_20260815/sec05_05-39/02.ocr.md",
+          "ocr_sha256": "7a85ad14c090ec56a950217faea5d016ba98729d009be052955e42bb110e0aa4",
+          "ocr_lines": 6,
+          "ocr_mean_confidence": 0.8091,
+          "ocr_rotation_degrees": 0
+        },
+        {
+          "physical_page": 3,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/39/03.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-39/03.jpg",
+          "image_sha256": "051cef016753a53e4953c7df6e534830eea28279dea2f2150441b825fb181229",
+          "ocr": "work/domestic/saac_1949_pcc_next_ocr_20260815/sec05_05-39/03.ocr.md",
+          "ocr_sha256": "d4ca7f7a09deedc8a479a7ead114461260d8ceb36401659ec58c1cc496a99259",
+          "ocr_lines": 22,
+          "ocr_mean_confidence": 0.8846,
+          "ocr_rotation_degrees": 0
+        }
+      ]
+    }
+  ],
+  "human_verified": false,
+  "citation_ready": false,
+  "review_status": "review_only",
+  "usage_boundary": "官方扫描图是原件入口；OCR 仅用于检索。所有页均待人工逐字复核，不得以 OCR 草稿直接作正式引文。"
+}
