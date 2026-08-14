@@ -12,6 +12,7 @@
 - 该叠加层只用于工作分流，不改变 `primary_evidence_status`、`citation_ready`、`human_verified` 或真实性等级；已有严格页也不能自动关闭仍开放的原件目标。
 - 访问权限阻塞优先级高于已有页：`AUTHORIZED_VIEWER_REQUIRED` / `ACCESS_REQUEST_REQUIRED` 仍要求取得原件，已有同期报刊或汇编只能标为交叉材料，不能覆盖授权追索动作。
 - 新增回归测试覆盖：正式库已有页时仍保持主证据缺口开放，且队列明确保持 metadata-only 和 `formal_db_written=false`。
+- `/research/gaps` 现在显示每条候选的正式页/严格引用页状态；该内部收口看板加入公开模式隐藏路径，避免把授权追索和私有候选暴露给公开访问者。
 
 ### 国内资料准入与 OCR 分流
 

@@ -928,7 +928,8 @@ PUBLIC_HIDDEN_GROUPS = {"workbench"}
 PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisition",
                         "/open-sources", "/dashboard", "/review", "/excluded", "/domestic/review",
                         "/domestic/evidence-review", "/domestic/search", "/domestic/document",
-                        "/domestic/quality", "/domestic/acquisition", "/domestic/academic"}
+                        "/domestic/quality", "/domestic/acquisition", "/domestic/academic",
+                        "/research/gaps"}
 
 PUBLIC_DOMESTIC_LEVELS = {"L0", "L1", "L2", "L3"}
 
@@ -4986,6 +4987,12 @@ def _research_gap_rows() -> list[dict[str, object]]:
     access_audit = _load_primary_evidence_access_audit()
     retrieval_queue = _load_primary_retrieval_queue()
     retrieval_targets: dict[tuple[str, str], dict[str, object]] = {}
+    retrieval_routes: dict[str, dict[str, object]] = {}
+    formal_index_available = bool(
+        isinstance(retrieval_queue, dict)
+        and isinstance(retrieval_queue.get("formal_index"), dict)
+        and retrieval_queue["formal_index"].get("available") is True
+    )
     for topic in retrieval_queue.get("topics", []) if isinstance(retrieval_queue, dict) else []:
         if not isinstance(topic, dict):
             continue
@@ -4993,6 +5000,26 @@ def _research_gap_rows() -> list[dict[str, object]]:
         for target in topic.get("missing_primary", []) if isinstance(topic.get("missing_primary"), list) else []:
             if isinstance(target, dict):
                 retrieval_targets[(topic_event_id, str(target.get("target") or ""))] = target
+        for route in topic.get("candidate_routes", []) if isinstance(topic.get("candidate_routes"), list) else []:
+            if not isinstance(route, dict):
+                continue
+            candidate_id = str(route.get("candidate_id") or "")
+            if not candidate_id:
+                continue
+            current = retrieval_routes.get(candidate_id)
+            if current is None:
+                retrieval_routes[candidate_id] = route
+                continue
+            current_key = (
+                int(current.get("formal_strict_citation_page_count") or 0),
+                int(current.get("formal_page_count") or 0),
+            )
+            route_key = (
+                int(route.get("formal_strict_citation_page_count") or 0),
+                int(route.get("formal_page_count") or 0),
+            )
+            if route_key > current_key:
+                retrieval_routes[candidate_id] = route
     try:
         domestic_rows = _domestic_rows()
     except sqlite3.OperationalError:
@@ -5053,6 +5080,16 @@ def _research_gap_rows() -> list[dict[str, object]]:
                 "review_status": str(row["review_status"] or "未标注"),
                 "access_status": str((access_audit.get(str(row["candidate_id"])) or {}).get("access_status") or ""),
                 "access_label": str((access_audit.get(str(row["candidate_id"])) or {}).get("access_label") or ""),
+                "formal_ingest_status": str(
+                    (retrieval_routes.get(str(row["candidate_id"])) or {}).get("formal_ingest_status")
+                    or ("NOT_IN_QUEUE" if formal_index_available else "NOT_CHECKED")
+                ),
+                "formal_page_count": int(
+                    (retrieval_routes.get(str(row["candidate_id"])) or {}).get("formal_page_count") or 0
+                ),
+                "formal_strict_citation_page_count": int(
+                    (retrieval_routes.get(str(row["candidate_id"])) or {}).get("formal_strict_citation_page_count") or 0
+                ),
             }
             for row in linked_candidates
         ]
@@ -5092,6 +5129,12 @@ def _research_gap_rows() -> list[dict[str, object]]:
                     "retrieval_next_action": str(
                         retrieval_targets.get((event_id, str(target.get("target") or "")), {}).get("next_action") or ""
                     ),
+                    "formal_page_count": int(
+                        retrieval_targets.get((event_id, str(target.get("target") or "")), {}).get("formal_page_count") or 0
+                    ),
+                    "formal_strict_citation_page_count": int(
+                        retrieval_targets.get((event_id, str(target.get("target") or ""))).get("formal_strict_citation_page_count") or 0
+                    ) if retrieval_targets.get((event_id, str(target.get("target") or ""))) else 0,
                     "candidate_count": len(candidate_cards),
                     "candidates": candidate_cards[:6],
                     "candidate_overflow": max(0, len(candidate_cards) - 6),
@@ -5126,10 +5169,27 @@ def research_gaps_page() -> bytes:
                     if access_label
                     else ""
                 )
+                formal_status = str(candidate.get("formal_ingest_status") or "NOT_CHECKED")
+                formal_status_label = {
+                    "FORMAL_NOT_FOUND": "正式库未找到",
+                    "NOT_INGESTED": "尚无正式页",
+                    "FORMAL_METADATA_ONLY": "仅有正式元数据",
+                    "FORMAL_PAGES_REVIEW_ONLY": "已有正式页·待页级复核",
+                    "FORMAL_STRICT_PAGES_PRESENT": "已有严格引用页·仍需版本核对",
+                    "NOT_IN_QUEUE": "正式库已检查·候选未入当前路由",
+                    "NOT_CHECKED": "正式库未检查",
+                }.get(formal_status, formal_status)
+                formal_page_count = int(candidate.get("formal_page_count") or 0)
+                formal_strict_count = int(candidate.get("formal_strict_citation_page_count") or 0)
+                formal_badge = (
+                    f'<span class="pstatus {"ok" if formal_status == "FORMAL_STRICT_PAGES_PRESENT" else "warn"}">'
+                    f'{h(formal_status_label)}</span>'
+                    f'<span class="meta">正式页 {h(formal_page_count)} / 严格 {h(formal_strict_count)}</span>'
+                )
                 candidate_link_rows.append(
                     f'<a href="/domestic/candidate/{quote(str(candidate["candidate_id"]), safe="")}">{h(candidate["title"])}</a>'
                     f' <span class="meta">{h(candidate["level"])} / {h(candidate["review_status"])}</span>'
-                    f" {access_badge}"
+                    f" {access_badge} {formal_badge}"
                 )
             candidate_links = " · ".join(candidate_link_rows)
             if int(gap["candidate_overflow"]):
@@ -5147,12 +5207,20 @@ def research_gaps_page() -> bytes:
                 if gap.get("retrieval_next_action")
                 else ""
             )
+            formal_page_count = int(gap.get("formal_page_count") or 0)
+            formal_strict_count = int(gap.get("formal_strict_citation_page_count") or 0)
+            formal_summary = (
+                f'<span class="tag">路由正式页 {h(formal_page_count)}</span>'
+                f'<span class="tag">路由严格引用页 {h(formal_strict_count)}</span>'
+                if formal_page_count or formal_strict_count
+                else ""
+            )
             target_cards.append(
                 f"""
 <article class="result compact-result evidence-gap-item">
   <div>
     <h3>{h(gap["target"])}</h3>
-    <div class="tagline"><span class="pstatus warn">{h(gap["status"])}</span>{retrieval_badge}<span class="tag">主证据 {h(layers["primary"])} 条</span><span class="tag">同期交叉 {h(layers["cross_source"])} 条</span><span class="tag">候选关联 {h(gap["candidate_count"])} 条</span></div>
+    <div class="tagline"><span class="pstatus warn">{h(gap["status"])}</span>{retrieval_badge}<span class="tag">主证据 {h(layers["primary"])} 条</span><span class="tag">同期交叉 {h(layers["cross_source"])} 条</span><span class="tag">候选关联 {h(gap["candidate_count"])} 条</span>{formal_summary}</div>
     <div class="snippet"><strong>为什么重要：</strong>{h(gap["why_it_matters"] or "证据链未登记原因，需先补充审计说明。")}</div>
     <div class="snippet"><strong>下一步：</strong>{h(gap["next_action"] or "证据链未登记下一步，暂不进入收口。")}</div>
     {retrieval_action}
