@@ -100,6 +100,7 @@ ACADEMIC_TOPIC_CROSSWALK_PATH = DATA_ROOT / "domestic" / "academic_topic_crosswa
 SOURCE_ADMISSION_POLICY_PATH = DATA_ROOT / "domestic" / "source_admission_policy.json"
 PRIMARY_RETRIEVAL_QUEUE_PATH = DATA_ROOT / "domestic" / "primary_retrieval_queue.json"
 PCC_1946_SOURCEBOOK_MAP_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_targets.json"
+PCC_1946_RENDER_MANIFEST_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_render_manifest.json"
 PCC_1946_SOURCEBOOK_PATH = DATA_ROOT / "domestic" / "sourcebooks" / "NLC416-01jh004019-12949_政協文獻_1946.pdf"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
@@ -2387,6 +2388,15 @@ def _load_pcc_1946_sourcebook_map() -> dict[str, object]:
     return payload if isinstance(payload, dict) else {}
 
 
+def _load_pcc_1946_render_manifest() -> dict[str, object]:
+    """Load committed page-image hashes without exposing local page images."""
+    try:
+        payload = json.loads(PCC_1946_RENDER_MANIFEST_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
 def domestic_sourcebook_page() -> bytes:
     """Expose the 1946 PCC scan as a local staging reading entry.
 
@@ -2396,6 +2406,7 @@ def domestic_sourcebook_page() -> bytes:
     constraints recorded in the target map.
     """
     payload = _load_pcc_1946_sourcebook_map()
+    render_manifest = _load_pcc_1946_render_manifest()
     targets = payload.get("targets") if isinstance(payload.get("targets"), list) else []
     source_exists = PCC_1946_SOURCEBOOK_PATH.is_file()
     target_rows: list[str] = []
@@ -2439,7 +2450,7 @@ def domestic_sourcebook_page() -> bytes:
   <div class="stat"><strong>{len(target_rows)}</strong><span>已定位标题</span></div>
   <div class="stat"><strong>{'可读' if source_exists else '缺失'}</strong><span>本地文件</span></div>
 </section>
-<div class="notice">源文件 SHA256：<code>{h(payload.get('source_sha256') or '未登记')}</code><br>正式状态：<code>body_read={str(payload.get('body_read') is True).lower()}</code> · <code>formal_db_written={str(payload.get('formal_db_written') is True).lower()}</code> · <code>citation_ready={str(payload.get('citation_ready') is True).lower()}</code> · <code>auto_promote_primary_closed={str(payload.get('auto_promote_primary_closed') is True).lower()}</code></div>
+<div class="notice">源文件 SHA256：<code>{h(payload.get('source_sha256') or '未登记')}</code><br>页图凭证：<code>{h(len(render_manifest.get('pages') or []))}</code> 张定向页，<code>{h(render_manifest.get('render_dpi') or '未登记')} DPI / {h(render_manifest.get('rotation') or '未登记')}</code>，状态 <code>{h(render_manifest.get('visual_review_status') or '未登记')}</code>；Git 只保存页码和哈希，不保存原始 PDF 或派生页图。<br>正式状态：<code>body_read={str(payload.get('body_read') is True).lower()}</code> · <code>formal_db_written={str(payload.get('formal_db_written') is True).lower()}</code> · <code>citation_ready={str(payload.get('citation_ready') is True).lower()}</code> · <code>auto_promote_primary_closed={str(payload.get('auto_promote_primary_closed') is True).lower()}</code></div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-quote"/></svg>民盟相关标题定向页映射</h2><span class="meta">PDF 页与印刷页均为 1-based</span></div>
 <div class="notice">下表只提供阅读定位，不复制正文、OCR 或逐字引文。相邻页仍需逐页确认；完成页图凭证、边界、provenance 和事件回链后，才有资格进入后续人工引用审核。</div>
 <div class="table-wrap"><table><thead><tr><th>目标文种</th><th>起始 PDF 页</th><th>印刷页</th><th>相邻页</th><th>状态</th></tr></thead><tbody>{''.join(target_rows) or '<tr><td colspan="5">暂无定向页映射。</td></tr>'}</tbody></table></div>

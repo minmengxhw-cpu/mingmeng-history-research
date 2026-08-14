@@ -122,6 +122,7 @@ def test_pcc_1946_sourcebook_staging_entry_is_traceable(live_server):
     assert status == 200
     assert body is not None
     assert "1946年政協文獻" in body
+    assert "9" in body
     assert "sourcebook_scan" in body
     assert "targeted_review_pending" in body
     assert "body_read=false" in body

@@ -47,6 +47,7 @@ QUEUE_PATH = ROOT / "data" / "domestic" / "primary_retrieval_queue.json"
 CARDS_PATH = ROOT / "data" / "domestic" / "topic_comparison_cards.json"
 COVERAGE_PATH = ROOT / "data" / "domestic" / "event_coverage.json"
 PCC_1946_SOURCEBOOK_MAP_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourcebook_targets.json"
+PCC_1946_RENDER_MANIFEST_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourcebook_render_manifest.json"
 
 
 def sha256(path: Path) -> str:
@@ -294,6 +295,8 @@ def pcc_1946_sourcebook_map_check() -> dict[str, Any]:
         errors.append("unexpected sourcebook map schema")
     if payload.get("source_role") != "sourcebook_scan" or payload.get("evidence_level") != "L2":
         errors.append("sourcebook must remain an L2 sourcebook scan")
+    if payload.get("render_manifest") != "data/domestic/pcc_1946_sourcebook_render_manifest.json":
+        errors.append("sourcebook render manifest path is missing or unexpected")
     for key in ("body_read", "formal_db_written", "citation_ready", "auto_promote_primary_closed"):
         if payload.get(key) is not False:
             errors.append(f"{key} must be false")
@@ -326,6 +329,91 @@ def pcc_1946_sourcebook_map_check() -> dict[str, Any]:
         "source_id": payload.get("source_id"),
         "target_count": len(targets),
         "source_sha256": payload.get("source_sha256"),
+        "errors": errors,
+    }
+
+
+def pcc_1946_render_manifest_check() -> dict[str, Any]:
+    """Validate committed page-image hashes without requiring local images.
+
+    The raw scan and derived PNGs remain local-only.  Git carries only the
+    source identity, coordinates, image hashes, and review boundary so a
+    later local rerender can prove whether the visual evidence changed.
+    """
+    errors: list[str] = []
+    try:
+        source_map = json.loads(PCC_1946_SOURCEBOOK_MAP_PATH.read_text(encoding="utf-8"))
+        manifest = json.loads(PCC_1946_RENDER_MANIFEST_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"status": "FAIL", "page_count": 0, "errors": [f"render manifest unreadable: {exc}"]}
+    if manifest.get("schema") != "domestic_sourcebook_render_manifest.v1":
+        errors.append("unexpected sourcebook render manifest schema")
+    for key in ("body_read", "formal_db_written", "citation_ready"):
+        if manifest.get(key) is not False:
+            errors.append(f"render manifest {key} must be false")
+    if manifest.get("visual_review_status") != "title_visual_confirmed_boundary_pending":
+        errors.append("render manifest must remain boundary-pending")
+    for key in ("source_id", "source_file", "source_sha256", "page_count"):
+        if manifest.get(key) != source_map.get(key):
+            errors.append(f"render manifest {key} does not match sourcebook map")
+    if manifest.get("render_dpi") != 300:
+        errors.append("render manifest DPI must be 300")
+    if manifest.get("rotation") != "270deg":
+        errors.append("render manifest rotation must be 270deg")
+    pages = manifest.get("pages") if isinstance(manifest.get("pages"), list) else []
+    if len(pages) != 9:
+        errors.append("render manifest must contain nine reviewed pages")
+    page_numbers: set[int] = set()
+    target_ids = {str(row.get("id")) for row in source_map.get("targets", []) if isinstance(row, dict)}
+    target_pairs: set[tuple[str, str, int]] = set()
+    for page in pages:
+        if not isinstance(page, dict):
+            errors.append("render manifest page row is not an object")
+            continue
+        try:
+            pdf_page = int(page.get("pdf_page"))
+        except (TypeError, ValueError):
+            errors.append("render manifest page has invalid PDF page")
+            continue
+        if pdf_page in page_numbers:
+            errors.append(f"duplicate rendered PDF page: {pdf_page}")
+        page_numbers.add(pdf_page)
+        if not (1 <= pdf_page <= int(source_map.get("page_count") or 0)):
+            errors.append(f"rendered PDF page outside sourcebook: {pdf_page}")
+        image_sha = str(page.get("rotated_image_sha256") or "")
+        if len(image_sha) != 64 or any(char not in "0123456789abcdef" for char in image_sha):
+            errors.append(f"rendered PDF page {pdf_page} has invalid image SHA256")
+        if int(page.get("rotated_image_bytes") or 0) <= 0:
+            errors.append(f"rendered PDF page {pdf_page} has invalid image size")
+        if page.get("visual_review_status") != "visually_inspected":
+            errors.append(f"rendered PDF page {pdf_page} is not visually inspected")
+        targets = page.get("targets") if isinstance(page.get("targets"), list) else []
+        for target in targets:
+            if not isinstance(target, dict):
+                errors.append(f"rendered PDF page {pdf_page} target row is not an object")
+                continue
+            target_id = str(target.get("target_id") or "")
+            role = str(target.get("role") or "")
+            if target_id not in target_ids:
+                errors.append(f"rendered PDF page {pdf_page} references unknown target {target_id}")
+            if role not in {"title_start", "adjacent_boundary"}:
+                errors.append(f"rendered PDF page {pdf_page} has invalid role {role}")
+            target_pairs.add((target_id, role, pdf_page))
+    expected_pairs: set[tuple[str, str, int]] = set()
+    for target in source_map.get("targets", []):
+        if not isinstance(target, dict):
+            continue
+        target_id = str(target.get("id") or "")
+        expected_pairs.add((target_id, "title_start", int(target.get("pdf_page_start"))))
+        for adjacent in target.get("adjacent_pdf_pages", []):
+            expected_pairs.add((target_id, "adjacent_boundary", int(adjacent)))
+    if target_pairs != expected_pairs:
+        errors.append("render manifest target/page mapping does not match sourcebook target map")
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "source_id": manifest.get("source_id"),
+        "page_count": len(pages),
+        "review_status": manifest.get("visual_review_status"),
         "errors": errors,
     }
 
@@ -395,6 +483,7 @@ def build_report() -> dict[str, Any]:
         "source_admission": admission_check(),
         "retrieval_queue": retrieval_queue_check(int(candidate_check.get("db_count") or 0)),
         "pcc_1946_sourcebook_map": pcc_1946_sourcebook_map_check(),
+        "pcc_1946_sourcebook_render_manifest": pcc_1946_render_manifest_check(),
         "missing_provenance": missing_provenance_check(db_path),
         "research_packets": packet_check(),
         "comparison_cards": validate_cards(COVERAGE_PATH, CARDS_PATH),
