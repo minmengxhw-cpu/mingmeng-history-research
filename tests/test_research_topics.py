@@ -272,7 +272,12 @@ def test_1947_research_packet_carries_event_source_map_without_body():
     import app
 
     app._request.public_mode = False
-    from scripts.domestic.research_packet import build_research_packet, packet_json_bytes, research_packet_page
+    from scripts.domestic.research_packet import (
+        _load_event_source_map,
+        build_research_packet,
+        packet_json_bytes,
+        research_packet_page,
+    )
     from scripts.domestic.validate_research_packet import validate_packet
 
     packet = build_research_packet("domestic-1947-illegal-dissolution")
@@ -307,7 +312,13 @@ def test_1947_research_packet_carries_event_source_map_without_body():
     assert validate_packet(packet, "domestic-1947-illegal-dissolution")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1947-illegal-dissolution").decode("utf-8")
     assert '"text"' not in raw
-    assert "专题来源地图" in research_packet_page("domestic-1947-illegal-dissolution").decode("utf-8")
+    html = research_packet_page("domestic-1947-illegal-dissolution").decode("utf-8")
+    assert "专题来源地图" in html
+    assert "本地取件 review_only" in html
+    public_map = _load_event_source_map("domestic-1947-illegal-dissolution", public=True)
+    public_raw = json.dumps(public_map, ensure_ascii=False)
+    assert "data/domestic/raw/public_sources" not in public_raw
+    assert "内部取件路径已保存" in public_raw
 
 
 def test_1941_research_packet_separates_reprint_from_original_periodical_route():

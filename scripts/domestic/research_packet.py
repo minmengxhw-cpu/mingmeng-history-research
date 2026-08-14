@@ -66,6 +66,14 @@ def _load_event_source_map(event_id: str, public: bool) -> dict[str, Any]:
         source = dict(raw_source)
         if public and source.get("source_file"):
             source["source_file"] = "内部 provenance 已保存（公开模式隐藏本地路径）"
+        local_acquisition = source.get("local_acquisition")
+        if public and isinstance(local_acquisition, dict):
+            local_acquisition = dict(local_acquisition)
+            if local_acquisition.get("local_file"):
+                local_acquisition["local_file"] = "内部取件路径已保存（公开模式隐藏本地路径）"
+            if local_acquisition.get("metadata_snapshot"):
+                local_acquisition["metadata_snapshot"] = "内部元数据快照已保存"
+            source["local_acquisition"] = local_acquisition
         page_records: list[dict[str, Any]] = []
         for raw_page in raw_source.get("page_records", []):
             if not isinstance(raw_page, dict):
@@ -695,9 +703,14 @@ def research_packet_page(event_id: str) -> bytes:
                 source_links.append(
                     f'<a href="{esc(official_image_url)}" target="_blank" rel="noreferrer">官方图像</a>'
                 )
+            local_acquisition = source.get("local_acquisition")
+            acquisition_label = ""
+            if isinstance(local_acquisition, dict):
+                acquisition_status = str(local_acquisition.get("review_status") or "已登记")
+                acquisition_label = f" · 本地取件 {esc(acquisition_status)}"
             source_rows.append(
                 f'<li><strong>{esc(source.get("title") or source.get("source_id"))}</strong> · '
-                f'{esc(source.get("source_role") or "")}; {esc(page_labels)} · '
+                f'{esc(source.get("source_role") or "")}; {esc(page_labels)}{acquisition_label} · '
                 f'{" · ".join(source_links)}</li>'
             )
         source_map_cards.append(
