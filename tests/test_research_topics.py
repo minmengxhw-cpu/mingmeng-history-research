@@ -827,8 +827,8 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
     assert summary["evidence_chain_ready"] == 9
-    assert summary["evidence_chain_page_items"] == 93
-    assert summary["evidence_chain_strict_items"] == 82
+    assert summary["evidence_chain_page_items"] == 120
+    assert summary["evidence_chain_strict_items"] == 112
     assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
     assert all(row["evidence_chain_ready"] for row in report["topics"])
@@ -855,8 +855,8 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
-    assert report["page_items"] == 93
-    assert report["strict_citation_items"] == 82
+    assert report["page_items"] == 120
+    assert report["strict_citation_items"] == 112
 
 
 def test_high_value_reviewed_pages_are_reconnected_without_primary_upgrade():
