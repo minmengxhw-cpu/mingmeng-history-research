@@ -78,7 +78,7 @@
   },
   {
     "event_id": "domestic-1944-reorganization",
-    "last_audited": "2026-08-14",
+    "last_audited": "2026-08-15",
     "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
     "layers": {
       "primary": [],
@@ -138,6 +138,38 @@
           "status": "strict_citation",
           "role": "1944-11-20改组后同期政论刊物的期次/目录页交叉材料",
           "caveat": "严格门禁只覆盖刊名、卷期、出版日、馆藏日期戳和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
+        },
+        {
+          "label": "《民憲》第一卷第九期《民主政治與非民主政治》原刊页组",
+          "page_id": 17291,
+          "doc_key": "domestic-page/NLC404-00J001436-85450",
+          "status": "strict_citation",
+          "role": "1944-11-20同期政论文章原刊印刷页13—16的起始页；作为改组专题的公共论述交叉材料",
+          "caveat": "这是同期政论文章，不是1944年改组会议记录、改名决定或组织内部正式文件。"
+        },
+        {
+          "label": "《民憲》第一卷第九期《民主政治與非民主政治》原刊续页",
+          "page_id": 17292,
+          "doc_key": "domestic-page/NLC404-00J001436-85450",
+          "status": "strict_citation",
+          "role": "同期政论文章原刊印刷页14连续页",
+          "caveat": "仅支持文章页级定位和公共论述研究，不替代改组原件。"
+        },
+        {
+          "label": "《民憲》第一卷第九期《民主政治與非民主政治》原刊续页",
+          "page_id": 17293,
+          "doc_key": "domestic-page/NLC404-00J001436-85450",
+          "status": "strict_citation",
+          "role": "同期政论文章原刊印刷页15连续页",
+          "caveat": "正文引用必须回到原刊影像；OCR只作为检索辅助。"
+        },
+        {
+          "label": "《民憲》第一卷第九期《民主政治與非民主政治》原刊续页",
+          "page_id": 17294,
+          "doc_key": "domestic-page/NLC404-00J001436-85450",
+          "status": "strict_citation",
+          "role": "同期政论文章原刊印刷页16连续页",
+          "caveat": "第20页存在文章交界，本页组不自动包含第20页。"
         }
       ],
       "negative_checks": [],
