@@ -54,9 +54,28 @@ def test_retrieval_queue_keeps_locked_viewer_open():
         },
     }
     audits = {"c-locked": {"candidate_id": "c-locked", "access_status": "official_viewer_locked"}}
-    result = build_queue(coverage, chains, candidates, audits)
+    result = build_queue(
+        coverage,
+        chains,
+        candidates,
+        audits,
+        formal_index={
+            "c-catalogue": {
+                "formal_ingested_document_id": 7,
+                "formal_doc_key": "contemporary-report",
+                "formal_page_count": 2,
+                "formal_strict_citation_page_count": 0,
+                "formal_provenance_page_count": 2,
+                "formal_anchored_page_count": 2,
+                "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+            }
+        },
+        formal_index_available=True,
+    )
     target = result["topics"][0]["missing_primary"][0]
     assert target["retrieval_class"] == "AUTHORIZED_VIEWER_REQUIRED"
+    assert "有权限账户" in target["next_action"]
+    assert "不能替代" in target["next_action"]
     assert result["body_read"] is False
     assert result["formal_db_written"] is False
     assert result["auto_download"] is False

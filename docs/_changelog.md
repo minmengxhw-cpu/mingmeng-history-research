@@ -10,6 +10,7 @@
 - `scripts/domestic/build_primary_retrieval_queue.py` 可只读查询正式库中的候选文档数、页数、provenance、文件哈希锚定页和严格引用页；不读取正文、不写 SQLite、不下载文件。
 - 队列新增 `FORMAL_NOT_FOUND`、`FORMAL_PAGES_REVIEW_ONLY`、`FORMAL_STRICT_PAGES_PRESENT` 等状态，并在开放目标层汇总已有正式页，明确提示“先复核”或“不要重复 OCR/下载”。
 - 该叠加层只用于工作分流，不改变 `primary_evidence_status`、`citation_ready`、`human_verified` 或真实性等级；已有严格页也不能自动关闭仍开放的原件目标。
+- 访问权限阻塞优先级高于已有页：`AUTHORIZED_VIEWER_REQUIRED` / `ACCESS_REQUEST_REQUIRED` 仍要求取得原件，已有同期报刊或汇编只能标为交叉材料，不能覆盖授权追索动作。
 - 新增回归测试覆盖：正式库已有页时仍保持主证据缺口开放，且队列明确保持 metadata-only 和 `formal_db_written=false`。
 
 ### 国内资料准入与 OCR 分流

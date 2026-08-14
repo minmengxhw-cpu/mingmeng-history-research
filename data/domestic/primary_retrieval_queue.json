@@ -2418,7 +2418,7 @@
           "why_it_matters": "这是把“同期报道”提升为“行政决定/组织正式公告”所必需的事件定义原件。",
           "status": "open",
           "retrieval_class": "AUTHORIZED_VIEWER_REQUIRED",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "由有权限账户取得允许保存的官方影像；记录授权范围、文件 SHA256、页码和人工复核。现有正式库页只能作同期交叉材料，不能替代该权限路径所指向的原件。",
           "candidate_route_count": 12,
           "formal_page_count": 29,
           "formal_strict_citation_page_count": 0

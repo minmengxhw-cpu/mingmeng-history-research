@@ -294,6 +294,11 @@ def next_action(retrieval_class: str) -> str:
 def next_action_with_formal_overlay(retrieval_class: str, route_rows: list[dict[str, Any]]) -> str:
     strict_pages = sum(int(row.get("formal_strict_citation_page_count") or 0) for row in route_rows)
     formal_pages = sum(int(row.get("formal_page_count") or 0) for row in route_rows)
+    if retrieval_class in {"AUTHORIZED_VIEWER_REQUIRED", "ACCESS_REQUEST_REQUIRED"}:
+        action = next_action(retrieval_class)
+        if formal_pages > 0:
+            return action + "现有正式库页只能作同期交叉材料，不能替代该权限路径所指向的原件。"
+        return action
     if strict_pages > 0:
         return "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。"
     if formal_pages > 0:
