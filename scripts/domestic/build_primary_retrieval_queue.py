@@ -306,6 +306,23 @@ def next_action_with_formal_overlay(retrieval_class: str, route_rows: list[dict[
     return next_action(retrieval_class)
 
 
+def must_keep_route(row: dict[str, Any]) -> bool:
+    """Keep a high-value archive lead even when ordinary routes are capped.
+
+    A topic may have dozens of newspaper and web candidates.  Exact archive
+    references from a national/municipal archive are more useful for closing
+    a primary gap than another duplicate public article, so they must remain
+    visible in the metadata-only queue.  This does not promote the route or
+    read its body.
+    """
+    return bool(
+        row.get("target_match") is True
+        and row.get("route_status") == "CATALOGUE_OR_FINDING_AID"
+        and str(row.get("repository_code") or "") in {"SHAC", "NJSH"}
+        and str(row.get("catalog_reference") or "").strip()
+    )
+
+
 def build_queue(
     coverage: list[dict[str, Any]],
     chains: dict[str, dict[str, Any]],
@@ -353,6 +370,14 @@ def build_queue(
             audited_routes = [row for row in route_rows if row.get("access_audit_status")]
             ordinary_routes = [row for row in route_rows if not row.get("access_audit_status")]
             route_rows = audited_routes + ordinary_routes[: max(0, 12 - len(audited_routes))]
+            kept_ids = {row["candidate_id"] for row in route_rows}
+            for row in sorted(
+                (candidate for candidate in ordinary_routes if must_keep_route(candidate)),
+                key=lambda candidate: (-int(candidate["route_score"]), candidate["candidate_id"]),
+            ):
+                if row["candidate_id"] not in kept_ids:
+                    route_rows.append(row)
+                    kept_ids.add(row["candidate_id"])
             for row in route_rows:
                 route_counts[row["route_status"]] += 1
                 topic_routes_by_id.setdefault(row["candidate_id"], row)

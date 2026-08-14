@@ -119,6 +119,48 @@ def test_retrieval_queue_keeps_audited_route_when_many_public_candidates_exist()
     assert result["topics"][0]["missing_primary"][0]["retrieval_class"] == "AUTHORIZED_VIEWER_REQUIRED"
 
 
+def test_retrieval_queue_keeps_exact_archive_lead_when_public_routes_are_capped():
+    candidate_ids = [f"public-{index}" for index in range(13)] + ["shac-lead"]
+    coverage = [{"event_id": "e", "event_name": "1947年解散民盟", "primary_evidence_status": "partial", "domestic_candidate_ids": candidate_ids}]
+    chains = {"e": {"layers": {"missing_primary": [{"target": "1947年解散民盟原件", "status": "open"}]}}}
+    candidates = {
+        candidate_id: {
+            "candidate_id": candidate_id,
+            "title": "解散民盟相关候选 " + candidate_id,
+            "repository_code": "NLC",
+            "repository_name": "国家图书馆",
+            "evidence_type": "digital_image",
+            "online_availability": "full_item_online",
+            "access_mode": "open",
+            "authenticity_level_proposed": "L1",
+            "relevance_grade_proposed": "core",
+            "review_status": "accepted",
+            "source_url": "https://example.invalid/item",
+        }
+        for candidate_id in candidate_ids[:-1]
+    }
+    candidates["shac-lead"] = {
+        "candidate_id": "shac-lead",
+        "title": "奉令为宣布民主同盟为非法团体转令遵照由",
+        "repository_code": "SHAC",
+        "repository_name": "上海市档案馆",
+        "catalog_reference": "上档6-5-1216",
+        "evidence_type": "printed_finding_aid",
+        "online_availability": "catalogue_only_online",
+        "access_mode": "open",
+        "authenticity_level_proposed": "L4",
+        "relevance_grade_proposed": "related",
+        "review_status": "accepted",
+        "source_url": "https://example.invalid/finding-aid",
+    }
+    result = build_queue(coverage, chains, candidates, {})
+    routes = result["topics"][0]["candidate_routes"]
+    shac = next(row for row in routes if row["candidate_id"] == "shac-lead")
+    assert shac["route_status"] == "CATALOGUE_OR_FINDING_AID"
+    assert shac["catalog_reference"] == "上档6-5-1216"
+    assert result["topics"][0]["missing_primary"][0]["retrieval_class"] == "CATALOGUE_OR_SURROGATE_REVIEW"
+
+
 def test_retrieval_queue_surfaces_formal_pages_without_closing_primary_gap():
     coverage = [
         {
