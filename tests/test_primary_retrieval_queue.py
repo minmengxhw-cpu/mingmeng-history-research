@@ -18,7 +18,7 @@ def test_retrieval_queue_keeps_locked_viewer_open():
         "domestic-1947-illegal-dissolution": {
             "layers": {
                 "missing_primary": [
-                    {"target": "政府公函原件", "why_it_matters": "确认文种", "status": "open"}
+                    {"target": "1947年解散民盟政府公函原件", "why_it_matters": "确认文种", "status": "open"}
                 ]
             }
         }
@@ -26,7 +26,7 @@ def test_retrieval_queue_keeps_locked_viewer_open():
     candidates = {
         "c-locked": {
             "candidate_id": "c-locked",
-            "title": "官方档案目录",
+            "title": "解散民盟政府公函",
             "repository_code": "DRNH",
             "repository_name": "国史馆",
             "catalog_reference": "002-X",
@@ -66,7 +66,7 @@ def test_retrieval_queue_keeps_locked_viewer_open():
 def test_retrieval_queue_does_not_fail_when_candidate_is_missing():
     result = build_queue(
         [{"event_id": "e", "event_name": "事件", "primary_evidence_status": "partial", "domestic_candidate_ids": ["missing"]}],
-        {"e": {"layers": {"missing_primary": [{"target": "原件", "status": "open"}]}}},
+        {"e": {"layers": {"missing_primary": [{"target": "1947年解散民盟原件", "status": "open"}]}}},
         {},
         {},
     )
@@ -77,11 +77,11 @@ def test_retrieval_queue_does_not_fail_when_candidate_is_missing():
 def test_retrieval_queue_keeps_audited_route_when_many_public_candidates_exist():
     candidate_ids = [f"public-{index}" for index in range(13)] + ["locked"]
     coverage = [{"event_id": "e", "event_name": "事件", "primary_evidence_status": "partial", "domestic_candidate_ids": candidate_ids}]
-    chains = {"e": {"layers": {"missing_primary": [{"target": "原件", "status": "open"}]}}}
+    chains = {"e": {"layers": {"missing_primary": [{"target": "1947年解散民盟原件", "status": "open"}]}}}
     candidates = {
         candidate_id: {
             "candidate_id": candidate_id,
-            "title": candidate_id,
+            "title": "解散民盟公函 " + candidate_id,
             "repository_code": "NLC",
             "repository_name": "国家图书馆",
             "evidence_type": "digital_image",

@@ -11,6 +11,7 @@
 - `ACCESS_REQUEST_REQUIRED`：需要登录、现场或机构权限；
 - `PUBLIC_SURROGATE`：公开替代本或转录，必须继续回追原件；
 - `CATALOGUE_OR_FINDING_AID`：目录、说明或索引，只作定位；
+- `RELATED_CONTEXT_ONLY`：与专题有关但没有命中当前开放目标的直接锚点，只作背景对读；
 - `PUBLIC_NAVIGATION_LEAD` / `UNRESOLVED_LEAD`：公开导航或尚未形成稳定取得路径的线索。
 
 ## 生成
@@ -20,7 +21,7 @@ python3 scripts/domestic/build_primary_retrieval_queue.py \
   --output data/domestic/primary_retrieval_queue.json
 ```
 
-脚本只读事件覆盖、证据链、候选元数据和访问审计；不读取正文，不下载文件，不写 SQLite，不自动把 `primary_evidence_status` 改为 closed。
+脚本只读事件覆盖、证据链、候选元数据和访问审计；会按开放目标的事件/文种锚点标记 `target_match`，不读取正文，不下载文件，不写 SQLite，不自动把 `primary_evidence_status` 改为 closed。
 
 ## 当前第一优先级
 

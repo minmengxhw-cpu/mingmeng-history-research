@@ -11,6 +11,12 @@
 - 分流只读取元数据覆盖清单，输出本地工作单；不读取正文、不写正式 SQLite、不删除文件、不自动改变 `citation_ready` 或真实性等级。
 - 国内质量页新增分流策略区块；详细口径见 `docs/domestic/SOURCE_ADMISSION_AND_OCR_DISPOSITION_20260814.md`。
 
+### 九专题原件追索队列
+
+- 新增 `data/domestic/primary_retrieval_queue.json` 和 `scripts/domestic/build_primary_retrieval_queue.py`，把 9 个 `missing_primary` 目标与公开原件候选、需机构权限、官方查看器锁定、目录线索和背景材料分层连接。
+- 路由按目标锚点做 `target_match`；相关材料不会因为属于同一专题就被误报为直接原件路径。已审计的官方锁定条目强制保留在 1947 解散专题路由中。
+- 研究缺口看板显示“原件路由”和对应取得动作；队列保持 `body_read=false`、不下载、不写正式库、不自动关闭一手缺口。
+
 ### 国内证据缺口看板：优先呈现可行动线索
 
 - 缺口看板候选排序改为“访问审计状态 → 档案/原刊/正式文件 → 核心相关性 → 真实性等级 → 审核状态”，让已确认存在官方查看器、但仍受访客权限限制的原件线索优先出现。
