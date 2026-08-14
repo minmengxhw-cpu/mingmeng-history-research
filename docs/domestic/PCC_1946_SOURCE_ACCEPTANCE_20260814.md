@@ -41,6 +41,21 @@ Commons 页面提供的目录包含以下目标文种，后续应按扫描页和
 
 已对封面、前置/目录区域和正文样页进行渲染抽查。文件可以正常打开，页面有原书版式；部分扫描页存在旋转版式、手写标记或近空白/版面异常，不能用少量抽查代替整本页序核对。异常页应进入 `page_anomaly` 记录，不得直接当作缺页或正文缺失。
 
+## 目录锚点的定向视觉页映射（staging）
+
+以下页码是本轮按本地 PDF 渲染图进行的 1-based 视觉定位：`PDF 页` 是文件页序，`印刷页` 是页面右侧原书页码。它们只确认标题出现位置，不等于已经完成全文 OCR、正文录入或事件回链；相邻页的边界仍须逐页核对。
+
+| 目录目标 | 标题起始 PDF 页 | 印刷页 | 定向观察 | 当前状态 |
+|---|---:|---:|---|---|
+| 民主同盟代表张澜开会词（开幕词） | 23 | 16 | 页首可见目标标题；PDF 24／印刷页 17 为相邻页 | `title_confirmed / boundary_pending` |
+| 民主同盟代表张君劢闭会词 | 52 | 45 | 页首可见目标标题；相邻闭会词边界尚未入库 | `title_confirmed / boundary_pending` |
+| 罗隆基报告民主同盟意见 | 62 | 55 | 页中可见目标标题；PDF 63／印刷页 56 为后续正文页 | `title_confirmed / boundary_pending` |
+| 民主同盟的提案 | 101 | 94 | 页首可见目标标题；下一页涉及相邻说明，边界待核 | `title_confirmed / boundary_pending` |
+| 章伯钧说明民主同盟的意见 | 125 | 116 | 页中可见目标标题；PDF 126／印刷页 117 为相邻正文页 | `title_confirmed / boundary_pending` |
+| 民盟主席张澜三月二十一日的重要谈话 | 206 | 197 | 页中可见目标标题；后续页的文种边界待核 | `title_confirmed / boundary_pending` |
+
+本表不记录派生渲染图的 SHA256；当前渲染图是 `/tmp` 下的临时审查产物，尚未作为可复现页图资产登记。因此上述定位仍属于 `sourcebook_scan / targeted_review_pending`，不能直接升级为正式 SQLite 页或 `strict_citation`。
+
 ## 当前证据层级与边界
 
 - 当前建议层级：`L2 / sourcebook_scan / targeted_review_pending`；
