@@ -2,8 +2,8 @@
   "schema": "domestic_event_source_map.v1",
   "event_id": "domestic-1941-formation",
   "title": "1941年中国民主政团同盟成立：汇编页与原刊追索地图",
-  "review_status": "reprint_page_ready_original_periodical_open",
-  "evidence_scope": "1946年正式汇编重刊页、1941年《光明報》原刊追索入口",
+  "review_status": "reprint_and_transcription_ready_original_periodical_open",
+  "evidence_scope": "1946年正式汇编重刊页、1941年《光明報》原刊追索入口、后期公开转录检索/版本对读入口",
   "body_text_included": false,
   "ocr_text_included": false,
   "raw_files_included": false,
@@ -143,6 +143,33 @@
           "review_scope": "catalogue_access_route",
           "page_image_sha256": null,
           "caveat": "馆藏记录不等于已取得逐期影像、版次、页码或复制许可。"
+        }
+      ]
+    },
+    {
+      "source_id": "wikisource-formation-declaration-1941-transcription",
+      "title": "中国民主政团同盟成立宣言（维基文库公开转录快照）",
+      "source_role": "later_public_transcription",
+      "evidence_level": "LX",
+      "source_file": "data/domestic/official_research_public_20260730/html/GDC2-0087_中国民主政团同盟成立宣言_025.txt",
+      "source_sha256": "c9956d88c9fb6b5094849ca7c468c46c6a41c97d935d2303c3bdfdd768d4978c",
+      "source_file_size": 7414,
+      "page_count": 1,
+      "source_url": "https://zh.wikisource.org/zh-hans/中国民主政团同盟成立宣言",
+      "access_note": "已入正式检索库为电子文本快照；可全文检索和追索版本，但不是1941年《光明報》原刊影像",
+      "page_records": [
+        {
+          "page_id": 20931,
+          "pdf_page_no": null,
+          "target": "1941成立宣言电子文本检索",
+          "role": "后期公开转录的检索/版本对读入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "later_transcription_search_only",
+          "page_image_sha256": null,
+          "caveat": "用于检索和文本版本追索；不是1941年《光明報》原刊、成立会议底本或独立原始印本，不能关闭1941主证据缺口。"
         }
       ]
     }
