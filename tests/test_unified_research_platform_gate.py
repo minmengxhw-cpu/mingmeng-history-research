@@ -15,6 +15,8 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert report["failed_checks"] == []
     assert report["checks"]["candidate_alignment"]["missing_from_db"] == []
     assert report["checks"]["source_registry_alignment"]["file_count"] == 90
+    assert report["checks"]["academic_layer"]["crosswalk_topics"] == 9
+    assert report["checks"]["academic_layer"]["scholarly_articles"] == 99
     assert report["checks"]["retrieval_queue"]["formal_candidate_count"] == 690
     assert report["checks"]["research_packets"]["topic_count"] == 9
     assert report["checks"]["research_question_benchmark"]["path_ready_count"] == 36

@@ -40,6 +40,8 @@ from scripts.domestic.validate_topic_comparison_cards import validate as validat
 MANIFEST_PATH = ROOT / "data" / "research_index.manifest.json"
 CANDIDATES_PATH = ROOT / "data" / "domestic" / "candidates.jsonl"
 SOURCE_REGISTRY_PATH = ROOT / "data" / "domestic" / "source_registry.json"
+ACADEMIC_REPORT_PATH = ROOT / "work" / "domestic" / "academic_source_audit_20260813" / "REPORT.json"
+ACADEMIC_CROSSWALK_PATH = ROOT / "data" / "domestic" / "academic_topic_crosswalk.json"
 ADMISSION_PATH = ROOT / "work" / "domestic" / "source_admission_20260814" / "SOURCE_ADMISSION_QUEUE.json"
 QUEUE_PATH = ROOT / "data" / "domestic" / "primary_retrieval_queue.json"
 CARDS_PATH = ROOT / "data" / "domestic" / "topic_comparison_cards.json"
@@ -195,6 +197,39 @@ def source_registry_alignment_check(db_path: Path) -> dict[str, Any]:
     }
 
 
+def academic_layer_check() -> dict[str, Any]:
+    report = json.loads(ACADEMIC_REPORT_PATH.read_text(encoding="utf-8"))
+    crosswalk = json.loads(ACADEMIC_CROSSWALK_PATH.read_text(encoding="utf-8"))
+    expected_topics = {
+        str(topic["item"].get("event_id")) for topic in app._research_topic_rows()
+    }
+    actual_topics = {
+        str(row.get("event_id")) for row in crosswalk.get("topics", []) if isinstance(row, dict)
+    }
+    errors: list[str] = []
+    if report.get("status") != "PASS":
+        errors.append("academic source audit is not PASS")
+    if report.get("body_read") is not False or crosswalk.get("body_read") is not False:
+        errors.append("academic layer must declare body_read=false")
+    if expected_topics != actual_topics:
+        errors.append("academic crosswalk does not cover exactly the nine research topics")
+    if int(report.get("records") or 0) <= 0 or int(report.get("scholarly_articles") or 0) <= 0:
+        errors.append("academic layer has no research records or scholarly articles")
+    if int(crosswalk.get("total_topic_matches") or 0) <= 0:
+        errors.append("academic crosswalk has no topic matches")
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "records": report.get("records"),
+        "academic_records": report.get("academic_records"),
+        "scholarly_articles": report.get("scholarly_articles"),
+        "high_priority_academic_records_S_or_A": report.get("high_priority_academic_records_S_or_A"),
+        "quality_tiers": report.get("quality_tiers", {}),
+        "crosswalk_topics": len(actual_topics),
+        "total_topic_matches": crosswalk.get("total_topic_matches"),
+        "errors": errors,
+    }
+
+
 def admission_check() -> dict[str, Any]:
     payload = json.loads(ADMISSION_PATH.read_text(encoding="utf-8"))
     rows = payload.get("rows") or []
@@ -303,6 +338,7 @@ def build_report() -> dict[str, Any]:
         "manifest": manifest_check(db_path),
         "candidate_alignment": candidate_check,
         "source_registry_alignment": source_registry_alignment_check(db_path),
+        "academic_layer": academic_layer_check(),
         "source_admission": admission_check(),
         "retrieval_queue": retrieval_queue_check(int(candidate_check.get("db_count") or 0)),
         "missing_provenance": missing_provenance_check(db_path),
