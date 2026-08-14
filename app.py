@@ -6336,6 +6336,7 @@ def research_parity_page() -> bytes:
         source_map = topic.get("event_source_map") or {}
         source_map_pages = int(source_map.get("page_record_count") or 0)
         source_map_strict = int(source_map.get("strict_page_count") or 0)
+        source_map_review = int(source_map.get("review_only_page_count") or 0)
         source_map_navigation = int(source_map.get("navigation_page_count") or 0)
         source_map_access = int(source_map.get("access_route_count") or 0)
         source_map_ready = bool(source_map.get("available")) and source_map_pages > 0
@@ -6383,7 +6384,7 @@ def research_parity_page() -> bytes:
 <article class="result">
   <div>
     <h2><a href="/research/{quote(event_id)}">{h(item.get('event_name') or event_id)}</a></h2>
-    <div class="meta">国内事件页 {h(domestic_pages)} · 境外对位页 {h(foreign_pages)} · 学术匹配 {h(academic_total)} · 证据链 {h(layer_count)}/4 · 来源地图 {h(source_map_pages)} 页（严格 {h(source_map_strict)} / 导航 {h(source_map_navigation)} / 入口 {h(source_map_access)}） · 开放原件 {h(open_targets)}</div>
+    <div class="meta">国内事件页 {h(domestic_pages)} · 境外对位页 {h(foreign_pages)} · 学术匹配 {h(academic_total)} · 证据链 {h(layer_count)}/4 · 来源地图 {h(source_map_pages)} 页（严格 {h(source_map_strict)} / 待复核 {h(source_map_review)} / 导航 {h(source_map_navigation)} / 入口 {h(source_map_access)}） · 开放原件 {h(open_targets)}</div>
     <div class="tagline">{navigation_badge}{strict_badge}{source_map_badge}<span class="pstatus {primary['class']}">{h(primary['label'])}</span>{final_badge}</div>
     <div class="snippet"><strong>研究问题：</strong>{h((topic.get('comparison') or {}).get('research_question') or '未登记')}</div>
     <div class="snippet"><strong>当前边界：</strong>{h(primary['gap'])}</div>
@@ -6456,13 +6457,14 @@ def research_topics_page() -> bytes:
         source_map = topic.get("event_source_map") or {}
         source_map_pages = int(source_map.get("page_record_count") or 0)
         source_map_strict = int(source_map.get("strict_page_count") or 0)
+        source_map_review = int(source_map.get("review_only_page_count") or 0)
         source_map_navigation = int(source_map.get("navigation_page_count") or 0)
         source_map_access = int(source_map.get("access_route_count") or 0)
         body += f"""
 <article class="result">
   <div>
     <h2><a href="/research/{quote(str(item['event_id']))}">{h(item.get('event_name'))}</a></h2>
-    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · 学术解释候选 {h(topic.get('academic_total', 0))} 条 · 证据链 {h(chain_summary.get('layer_count', 0))}/4 层 · 页级 {h(chain_summary.get('page_items', 0))} 条 · 来源地图 {h(source_map_pages)} 页（严格 {h(source_map_strict)} / 导航 {h(source_map_navigation)} / 入口 {h(source_map_access)}） · 待补原件 {h(chain_summary.get('open_targets', 0))} 项 · {h(item.get('domestic_status'))}</div>
+    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · 学术解释候选 {h(topic.get('academic_total', 0))} 条 · 证据链 {h(chain_summary.get('layer_count', 0))}/4 层 · 页级 {h(chain_summary.get('page_items', 0))} 条 · 来源地图 {h(source_map_pages)} 页（严格 {h(source_map_strict)} / 待复核 {h(source_map_review)} / 导航 {h(source_map_navigation)} / 入口 {h(source_map_access)}） · 待补原件 {h(chain_summary.get('open_targets', 0))} 项 · {h(item.get('domestic_status'))}</div>
     <div class="tagline"><span class="pstatus {status_cls}">{h(status)}</span><span class="pstatus {primary['class']}">{h(primary['label'])}</span>{''.join(f'<span class="tag">{h(tag)}</span>' for tag in item.get('event_tags', []))}</div>
     <div class="snippet">{h(item.get('review_note'))}</div>
     <div class="snippet"><strong>一手闭环缺口：</strong>{h(primary['gap'])}</div>
@@ -6639,11 +6641,12 @@ def research_topic_page(event_id: str) -> bytes:
     source_map = topic.get("event_source_map") or {}
     source_map_pages = int(source_map.get("page_record_count") or 0)
     source_map_strict = int(source_map.get("strict_page_count") or 0)
+    source_map_review = int(source_map.get("review_only_page_count") or 0)
     source_map_navigation = int(source_map.get("navigation_page_count") or 0)
     source_map_access = int(source_map.get("access_route_count") or 0)
     source_map_html = f"""
 <section class="result compact-result" style="border-left:4px solid var(--accent);background:var(--panel-warm);">
-  <div><h3>专题来源地图</h3><div class="meta">{h(source_map.get('source_count', 0))} 个来源 · {h(source_map_pages)} 个页级记录 · 严格 {h(source_map_strict)} · 导航 {h(source_map_navigation)} · 入口 {h(source_map_access)}</div><div class="snippet">该摘要只提供来源与页级定位状态，不复制正文、OCR、译文或本地路径；当前一手闭环状态：{h(source_map.get('review_status') or '未标注')}。{h(source_map.get('primary_evidence_gap') or '正式结论仍需回到原件和人工复核。')}</div></div>
+  <div><h3>专题来源地图</h3><div class="meta">{h(source_map.get('source_count', 0))} 个来源 · {h(source_map_pages)} 个页级记录 · 严格 {h(source_map_strict)} · 待复核 {h(source_map_review)} · 导航 {h(source_map_navigation)} · 入口 {h(source_map_access)}</div><div class="snippet">该摘要只提供来源与页级定位状态，不复制正文、OCR、译文或本地路径；当前一手闭环状态：{h(source_map.get('review_status') or '未标注')}。{h(source_map.get('primary_evidence_gap') or '正式结论仍需回到原件和人工复核。')}</div></div>
   <div class="cite"><a href="/research/{quote(event_id)}/packet">打开研究包</a><br><a href="/domestic/sources">完整来源地图</a></div>
 </section>"""
 

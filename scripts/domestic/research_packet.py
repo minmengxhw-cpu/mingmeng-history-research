@@ -105,6 +105,7 @@ def event_source_map_summary(event_id: str) -> dict[str, Any]:
         "source_count": len(sources),
         "page_record_count": len(pages),
         "strict_page_count": sum(status == "strict_citation" for status in statuses),
+        "review_only_page_count": sum(status == "review_only" for status in statuses),
         "navigation_page_count": sum(status == "navigation_only" for status in statuses),
         "access_route_count": sum(status == "access_route" for status in statuses),
         "primary_evidence_closed": payload.get("primary_evidence_closed") is True,

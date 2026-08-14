@@ -2,7 +2,7 @@
 
 ## 接收结论
 
-已将一份公开的国家图书馆民国图书扫描暂存到本地 `data/domestic/sourcebooks/`，完成文件格式、大小、页数、加密状态和 SHA256 核验。它暂时属于本地 sourcebook/staging 资产，不是正式 SQLite 页面，也没有自动进入严格引用层。
+已将一份公开的国家图书馆民国图书扫描暂存到本地 `data/domestic/sourcebooks/`，完成文件格式、大小、页数、加密状态和 SHA256 核验。目标地图本身仍是 sourcebook/staging 导航；2026-08-15 另有 9 张定向页以独立文档身份进入正式 SQLite 的 `review_only` 检索层，但没有自动进入严格引用层。
 
 这是一部 1946 年出版的政协文献汇编，不等同于政协会议档案馆原卷或各代表手中的独立底稿；但其目录明确包含会议经过、代表名单、民盟代表张澜开幕词、罗隆基关于政府改组的民盟意见、民盟提案、章伯钧关于国民大会的民盟意见及五项协议，具有直接缩小 `domestic-1946-pcc` 原件缺口的价值。
 
@@ -54,7 +54,7 @@ Commons 页面提供的目录包含以下目标文种，后续应按扫描页和
 | 章伯钧说明民主同盟的意见 | 125 | 116 | 页中可见目标标题；PDF 126／印刷页 117 为相邻正文页 | `title_confirmed / boundary_pending` |
 | 民盟主席张澜三月二十一日的重要谈话 | 206 | 197 | 页中可见目标标题；后续页的文种边界待核 | `title_confirmed / boundary_pending` |
 
-派生渲染图不进入 Git，也不作为正文发布；但本轮已经将 9 张定向页图的页码、渲染参数、SHA256 和视觉复核状态登记到 `data/domestic/pcc_1946_sourcebook_render_manifest.json`。该清单只证明本地复核资产可重建，不证明全文边界或引用资格；因此上述定位仍属于 `sourcebook_scan / targeted_review_pending`，不能直接升级为正式 SQLite 页或 `strict_citation`。
+派生渲染图不进入 Git，也不作为正文发布；本轮已经将 9 张定向页图的页码、渲染参数、SHA256 和视觉复核状态登记到 `data/domestic/pcc_1946_sourcebook_render_manifest.json`。该清单只证明本地复核资产可重建，不证明全文边界或引用资格；目标地图定位仍属于 `sourcebook_scan / targeted_review_pending`，不能直接升级为 `strict_citation`。另有 9 个 OCR 页通过专门的 formal review-only 导入器进入正式检索，但其证据等级仍为 L2。
 
 结构化页图入口已登记在 `data/domestic/pcc_1946_sourcebook_targets.json`，页图哈希清单位于 `data/domestic/pcc_1946_sourcebook_render_manifest.json`。本地应用通过 `/domestic/sourcebook/1946-pcc` 提供元数据和定向阅读入口；原始 PDF 和派生页图仍留在本机，不进入 GitHub。该应用入口在公开模式下会被隐藏，避免把本地 staging 资产误当成公开研究正文。
 
@@ -76,4 +76,4 @@ Commons 页面提供的目录包含以下目标文种，后续应按扫描页和
 
 ## 不变量
 
-`body_read=false`、`formal_db_written=false`、`auto_download=false`、`auto_promote_primary_closed=false` 保持不变。原始 PDF 留在本地，不推送到 GitHub；GitHub 只记录来源身份、哈希和处理边界。
+目标地图的 `body_read=false`、`formal_db_written=false`、`auto_download=false`、`auto_promote_primary_closed=false` 保持不变；这里的 `formal_db_written=false` 表示地图构建过程不写 SQLite，不否认已经完成的 review-only OCR 导入。原始 PDF 留在本地，不推送到 GitHub；GitHub 只记录来源身份、哈希和处理边界。

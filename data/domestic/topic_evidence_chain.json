@@ -487,8 +487,8 @@
   },
   {
     "event_id": "domestic-1946-pcc",
-    "last_audited": "2026-08-14",
-    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
+    "last_audited": "2026-08-15",
+    "audit_basis": "正式库页级元数据、既有人工复核决定、1946年《政協文獻》9页 OCR review_only 批次和来源登记；本文件不读取正文。",
     "layers": {
       "primary": [],
       "cross_source": [
@@ -547,6 +547,78 @@
           "status": "review_only",
           "role": "1946年民盟机关报复刊后的政治语境入口",
           "caveat": "机器/OCR层，尚未进入正式引用层。"
+        },
+        {
+          "label": "《政協文獻》1946·张澜开会词（开幕词）",
+          "page_id": 20903,
+          "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
+          "status": "review_only",
+          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
+          "caveat": "仅用于检索和页级导航，尚未完成逐字人工复核，不能替代旧政协正式会议记录。"
+        },
+        {
+          "label": "《政協文獻》1946·张澜开会词相邻页",
+          "page_id": 20904,
+          "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
+          "status": "review_only",
+          "role": "L2汇编定向页的相邻连续页检索入口。",
+          "caveat": "仅用于检索和边界导航，不能作为已核验的正式引文。"
+        },
+        {
+          "label": "《政協文獻》1946·张君劢闭会词",
+          "page_id": 20905,
+          "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
+          "status": "review_only",
+          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
+          "caveat": "不替代旧政协正式会议记录或张君劢发言原件。"
+        },
+        {
+          "label": "《政協文獻》1946·罗隆基报告民主同盟意见",
+          "page_id": 20906,
+          "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
+          "status": "review_only",
+          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
+          "caveat": "不替代正式会议记录或罗隆基发言原件。"
+        },
+        {
+          "label": "《政協文獻》1946·罗隆基报告相邻页",
+          "page_id": 20907,
+          "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
+          "status": "review_only",
+          "role": "L2汇编定向页的相邻连续页检索入口。",
+          "caveat": "仅用于检索和边界导航，不能作为已核验的正式引文。"
+        },
+        {
+          "label": "《政協文獻》1946·民主同盟的提案",
+          "page_id": 20908,
+          "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
+          "status": "review_only",
+          "role": "L2汇编定向页的提案标题检索入口；标题已视觉确认。",
+          "caveat": "提案身份、程序和全文仍需人工复核及独立会议档案对位。"
+        },
+        {
+          "label": "《政協文獻》1946·章伯钧说明民主同盟的意见",
+          "page_id": 20909,
+          "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
+          "status": "review_only",
+          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
+          "caveat": "不替代正式会议记录、代表身份和发言原件。"
+        },
+        {
+          "label": "《政協文獻》1946·章伯钧说明相邻页",
+          "page_id": 20910,
+          "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
+          "status": "review_only",
+          "role": "L2汇编定向页的相邻连续页检索入口。",
+          "caveat": "仅用于检索和边界导航，不能作为已核验的正式引文。"
+        },
+        {
+          "label": "《政協文獻》1946·张澜三月二十一日重要谈话",
+          "page_id": 20911,
+          "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
+          "status": "review_only",
+          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
+          "caveat": "日期、会议环节和正式页级引文资格仍待人工复核和版本对位。"
         }
       ],
       "negative_checks": [],
@@ -559,7 +631,7 @@
         }
       ]
     },
-    "chain_note": "旧政协专题现有机关报、1946年民盟发言人/代表发言页和境外档案对读入口；这些汇编页可支持发言题名、日期和页界导航，但完整政协会议记录、提案和代表档案仍未进入主证据层。"
+    "chain_note": "旧政协专题现有机关报、1946年民盟发言人/代表发言页和境外档案对读入口；新增9页《政協文獻》汇编 OCR 仅进入 review_only 检索层，可支持定向页检索和标题/边界导航，但完整政协会议记录、提案和代表档案仍未进入主证据层。"
   },
   {
     "event_id": "domestic-1946-refuse-national-assembly",

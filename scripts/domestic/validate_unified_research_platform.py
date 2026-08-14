@@ -489,6 +489,7 @@ def event_source_map_coverage_check() -> dict[str, Any]:
             "available": bool(summary.get("available")),
             "page_record_count": page_count,
             "strict_page_count": int(summary.get("strict_page_count") or 0),
+            "review_only_page_count": int(summary.get("review_only_page_count") or 0),
             "navigation_page_count": int(summary.get("navigation_page_count") or 0),
             "access_route_count": int(summary.get("access_route_count") or 0),
         }
@@ -501,6 +502,7 @@ def event_source_map_coverage_check() -> dict[str, Any]:
         "mapped_topic_count": sum(row["available"] and row["page_record_count"] > 0 for row in rows),
         "page_record_count": sum(row["page_record_count"] for row in rows),
         "strict_page_count": sum(row["strict_page_count"] for row in rows),
+        "review_only_page_count": sum(row["review_only_page_count"] for row in rows),
         "navigation_page_count": sum(row["navigation_page_count"] for row in rows),
         "access_route_count": sum(row["access_route_count"] for row in rows),
         "errors": errors,
