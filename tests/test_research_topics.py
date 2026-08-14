@@ -459,18 +459,39 @@ def test_1944_reorganization_packet_separates_compilation_and_periodical_locator
     packet = build_research_packet("domestic-1944-reorganization")
     assert packet is not None
     assert packet["counts"]["event_source_map_count"] == 1
-    assert packet["counts"]["event_source_page_record_count"] == 7
+    assert packet["counts"]["event_source_page_record_count"] == 14
     source_map = packet["event_source_maps"][0]
     assert source_map["primary_evidence_closed"] is False
     assert source_map["body_text_included"] is False
-    assert len(source_map["sources"]) == 4
+    assert len(source_map["sources"]) == 7
     pages = [
         page
         for source in source_map["sources"]
         for page in source["page_records"]
     ]
-    assert {page["page_id"] for page in pages} == {20141, 20142, 20143, 20144, 20286, 20288, 20290}
-    assert all(page["status"] == "strict_citation" and page["citation_ready"] is True for page in pages)
+    assert {page["page_id"] for page in pages if page["page_id"] is not None} == {
+        20141,
+        20142,
+        20143,
+        20144,
+        20286,
+        20288,
+        20290,
+    }
+    assert sum(page["status"] == "strict_citation" for page in pages) == 11
+    assert sum(page["status"] == "review_only" for page in pages) == 2
+    assert sum(page["status"] == "navigation_only" for page in pages) == 1
+    assert all(
+        page["citation_ready"] is True
+        for page in pages
+        if page["status"] == "strict_citation"
+    )
+    assert any(
+        page["page_id"] is None
+        and page["status"] == "review_only"
+        and page["citation_ready"] is False
+        for page in pages
+    )
     assert validate_packet(packet, "domestic-1944-reorganization")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1944-reorganization").decode("utf-8")
     assert '"text"' not in raw

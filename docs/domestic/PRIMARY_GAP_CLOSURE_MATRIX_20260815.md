@@ -28,7 +28,7 @@ python3 scripts/domestic/build_primary_gap_closure_matrix.py \
 | 候选追索路由 | 124 |
 | 命中开放目标的候选路由 | 121 |
 | 来源地图 | 9 |
-| 来源地图页级记录 | 205 |
+| 来源地图页级记录 | 206 |
 
 所有专题当前均保持 `primary_evidence_status=partial`；队列全局保持 `body_read=false`、`formal_db_written=false`、`auto_promote_primary_closed=false`。
 
