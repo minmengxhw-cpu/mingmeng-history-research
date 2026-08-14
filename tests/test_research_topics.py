@@ -48,6 +48,7 @@ def test_research_gap_dashboard_smoke(live_server, db_missing_reason):
     assert "1941年中国民主政团同盟成立" in body
     assert "1949年新政协筹备" in body
     assert "专题详情" in body
+    assert "官方数字影像可达，访客锁定" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 

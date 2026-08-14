@@ -1,0 +1,24 @@
+{
+  "schema_version": "primary_evidence_access_audit.v1",
+  "generated_at": "2026-08-14",
+  "body_read_by_auditor": false,
+  "policy": "Access audit records the availability state of an official viewer only. It never promotes a catalogue record to a local original, citation_ready page, or closed primary-evidence target.",
+  "records": [
+    {
+      "candidate_id": "domestic:DRNH:002-020400-00012-067",
+      "event_id": "domestic-1947-illegal-dissolution",
+      "catalog_reference": "002-020400-00012-067",
+      "catalog_url": "https://ahonline.drnh.gov.tw/index.php?act=Archive/search/eyJxdWVyeSI6W3siZmllbGQiOiJzdG9yZV9ubyIsInZhbHVlIjoiMDAyLTAyMDQwMC0wMDAxMi0wNjciLCJhdHRyIjoiKyJ9XX0%3D",
+      "access_status": "official_viewer_locked",
+      "access_label": "官方数字影像可达，访客锁定",
+      "official_viewer_verified": true,
+      "viewer_page_count": 2,
+      "session_mode": "guest",
+      "download_available": false,
+      "local_original_present": false,
+      "citation_ready": false,
+      "next_action": "由有权限的账户在官方系统取得允许保存的影像；保存后计算 SHA256、建立页级 provenance 并人工复核。",
+      "audit_note": "目录显示数位档／线上阅览；只读打开查看器可见 2 页影像，但当前会话带锁定提示，未取得原始字节。"
+    }
+  ]
+}

@@ -18,6 +18,12 @@
 - 正式库仅新增 10 条可回滚的专题关联：`research_events=2465`、`domestic_research_event_rows=548`、`domestic_research_event_pages=534`；数据库 SHA256 为 `9aaada2c3f193dc0b0102032c6c483181441aacbd82c89b45e77bc330e321cd2`。
 - 写入前备份为 `/private/tmp/research_index.sqlite.before-topic-page-links-20260814.sqlite`；完整性、外键、manifest、专题 parity 和 36 个研究问题基准均通过；原始 PDF、OCR、图片、正文和 `work/` 临时材料未修改或删除。
 
+### 1947 年国史馆 P0 原件访问审计
+
+- 通过本机 Chrome 只读打开国史馆条目 `002-020400-00012-067`，确认官方目录标注“数位档／线上阅览”，并成功进入 2 页数字影像查看器。
+- 当前仍为访客会话，影像带锁定提示且“下载影像”控件不可用；因此只登记为 `official_viewer_locked`，不计算本地文件 SHA、不写入正文、不升级 `citation_ready`。
+- 新增 `docs/domestic/DRNH_1947_ACCESS_AUDIT_20260814.md`，明确目录卡、官方查看器和本地文件三种状态，以及用户完成授权后所需的原件闭环门禁。
+
 ### 国内外统一研究体验：新增研究问题—证据矩阵
 
 - 新增 `data/domestic/topic_research_matrix.json`：九个国内专题、36 个子问题，逐题登记页级证据入口、证据范围、边界、开放缺口和下一步动作。

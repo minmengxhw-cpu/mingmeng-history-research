@@ -68,6 +68,7 @@ TOPIC_COMPARISON_CARDS_PATH = DATA_ROOT / "domestic" / "topic_comparison_cards.j
 TOPIC_EVIDENCE_CHAIN_PATH = DATA_ROOT / "domestic" / "topic_evidence_chain.json"
 TOPIC_RESEARCH_MATRIX_PATH = DATA_ROOT / "domestic" / "topic_research_matrix.json"
 TOPIC_FOREIGN_CROSSWALK_PATH = DATA_ROOT / "domestic" / "topic_foreign_crosswalk.json"
+PRIMARY_EVIDENCE_ACCESS_AUDIT_PATH = DATA_ROOT / "domestic" / "primary_evidence_access_audit.json"
 ACADEMIC_SOURCE_POLICY_PATH = DATA_ROOT / "domestic" / "academic_source_policy.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
@@ -4458,6 +4459,24 @@ def _load_domestic_event_coverage() -> list[dict[str, object]]:
     return [item for item in payload if isinstance(item, dict) and item.get("event_id")]
 
 
+def _load_primary_evidence_access_audit() -> dict[str, dict[str, object]]:
+    """读取官方原件访问状态，不把查看器可达误判为本地原件。"""
+    if not PRIMARY_EVIDENCE_ACCESS_AUDIT_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(PRIMARY_EVIDENCE_ACCESS_AUDIT_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    records = payload.get("records") if isinstance(payload, dict) else None
+    if not isinstance(records, list):
+        return {}
+    return {
+        str(item["candidate_id"]): item
+        for item in records
+        if isinstance(item, dict) and item.get("candidate_id")
+    }
+
+
 PRIMARY_EVIDENCE_STATUS_META = {
     "closed": ("一手证据已闭环", "ok"),
     "partial": ("一手证据部分闭环", "warn"),
@@ -4843,6 +4862,7 @@ def _research_gap_rows() -> list[dict[str, object]]:
     coverage = _load_domestic_event_coverage()
     comparison_cards = _load_topic_comparison_cards()
     evidence_chains = _load_topic_evidence_chains()
+    access_audit = _load_primary_evidence_access_audit()
     try:
         domestic_rows = _domestic_rows()
     except sqlite3.OperationalError:
@@ -4863,12 +4883,20 @@ def _research_gap_rows() -> list[dict[str, object]]:
             for candidate_id in candidate_ids
             if candidate_id in domestic_by_id
         ]
+        linked_candidates.sort(
+            key=lambda row: (
+                0 if str(row["candidate_id"]) in access_audit else 1,
+                str(row["candidate_id"]),
+            )
+        )
         candidate_cards = [
             {
                 "candidate_id": str(row["candidate_id"]),
                 "title": str(row["title"] or row["candidate_id"]),
                 "level": str(_domestic_level(row) or row["authenticity_level_proposed"] or "未分级"),
                 "review_status": str(row["review_status"] or "未标注"),
+                "access_status": str((access_audit.get(str(row["candidate_id"])) or {}).get("access_status") or ""),
+                "access_label": str((access_audit.get(str(row["candidate_id"])) or {}).get("access_label") or ""),
             }
             for row in linked_candidates
         ]
@@ -4918,11 +4946,20 @@ def research_gaps_page() -> bytes:
         target_cards: list[str] = []
         for gap in event_gaps:
             candidates = gap.get("candidates") or []
-            candidate_links = " · ".join(
-                f'<a href="/domestic/candidate/{quote(str(candidate["candidate_id"]), safe="")}">{h(candidate["title"])}</a>'
-                f' <span class="meta">{h(candidate["level"])} / {h(candidate["review_status"])}</span>'
-                for candidate in candidates
-            )
+            candidate_link_rows: list[str] = []
+            for candidate in candidates:
+                access_label = str(candidate.get("access_label") or "")
+                access_badge = (
+                    f'<span class="pstatus warn">{h(access_label)}</span>'
+                    if access_label
+                    else ""
+                )
+                candidate_link_rows.append(
+                    f'<a href="/domestic/candidate/{quote(str(candidate["candidate_id"]), safe="")}">{h(candidate["title"])}</a>'
+                    f' <span class="meta">{h(candidate["level"])} / {h(candidate["review_status"])}</span>'
+                    f" {access_badge}"
+                )
+            candidate_links = " · ".join(candidate_link_rows)
             if int(gap["candidate_overflow"]):
                 candidate_links += f' · <span class="meta">另有 {h(gap["candidate_overflow"])} 条候选记录</span>'
             if not candidate_links:
