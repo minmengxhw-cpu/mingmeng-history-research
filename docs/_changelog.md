@@ -5,6 +5,12 @@
 
 ## 2026-08-14
 
+### 国内资料准入与 OCR 分流
+
+- 新增 `data/domestic/source_admission_policy.json` 和 `scripts/domestic/build_source_admission_queue.py`，把电子文本跳过 OCR、已有页链不重复导入、OCR 草稿定向复核、页数异常先对账、索引仅作导航等规则机器化。
+- 分流只读取元数据覆盖清单，输出本地工作单；不读取正文、不写正式 SQLite、不删除文件、不自动改变 `citation_ready` 或真实性等级。
+- 国内质量页新增分流策略区块；详细口径见 `docs/domestic/SOURCE_ADMISSION_AND_OCR_DISPOSITION_20260814.md`。
+
 ### 国内证据缺口看板：优先呈现可行动线索
 
 - 缺口看板候选排序改为“访问审计状态 → 档案/原刊/正式文件 → 核心相关性 → 真实性等级 → 审核状态”，让已确认存在官方查看器、但仍受访客权限限制的原件线索优先出现。

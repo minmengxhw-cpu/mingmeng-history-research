@@ -1,0 +1,77 @@
+{
+  "schema": "domestic_source_admission_policy.v1",
+  "version": "2026-08-14",
+  "purpose": "在正式入库前把资料价值、来源状态和 OCR 动作分开；准入分流只生成可复核工作单，不删除本地资料、不写正式数据库。",
+  "principles": [
+    "研究价值优先于文件数量；导航线索不等于一手证据。",
+    "已有可靠电子文本不重复 OCR；扫描件也必须先确认文本层和现有 OCR 状态。",
+    "已有完整页链时不重复导入；页数异常时先做 provenance 对账。",
+    "同 SHA 文件只建立版本/重复关系，不自动删除任何副本。",
+    "机器分流不改变 citation_ready、human_verified 或真实性等级。"
+  ],
+  "source_form_rules": [
+    {
+      "code": "ELECTRONIC_TEXT",
+      "when": "输入清单明确声明 electronic_text、html_text 或 text_layer_ready",
+      "ocr_action": "SKIP_OCR_ELECTRONIC_TEXT",
+      "next_action": "直接做章节/页码定位和来源哈希核验。"
+    },
+    {
+      "code": "SCAN_OR_UNKNOWN_PDF",
+      "when": "PDF、图片或文本层状态未声明",
+      "ocr_action": "PROBE_TEXT_LAYER_BEFORE_OCR",
+      "next_action": "先记录文本层探测结果；只有检索需要且无可靠电子文本时才进入 OCR。"
+    }
+  ],
+  "status_rules": [
+    {
+      "status": "formal_page_complete",
+      "admission_class": "RETAIN_FORMAL_PAGE_CHAIN",
+      "ocr_action": "NO_REPEAT_OCR_FORMAL_PAGES_EXIST",
+      "next_action": "转入页级人工引用复核，不重复 OCR 或整本导入。"
+    },
+    {
+      "status": "draft_ready_formal_gap",
+      "admission_class": "RETAIN_TARGETED_REVIEW",
+      "ocr_action": "USE_EXISTING_OCR_TARGETED_REVIEW",
+      "next_action": "利用现有 OCR 做定位，只对目标页做视觉核验和 provenance 回接。"
+    },
+    {
+      "status": "formal_page_count_anomaly",
+      "admission_class": "HOLD_PAGE_RECONCILIATION",
+      "ocr_action": "NO_OCR_UNTIL_PAGE_RECONCILE",
+      "next_action": "先对账物理页、manifest、重复记录和页图；不能用 OCR 数量掩盖页链冲突。"
+    },
+    {
+      "status": "draft_partial_formal_gap",
+      "admission_class": "HOLD_PARTIAL_DRAFT",
+      "ocr_action": "NO_FULL_REOCR_BEFORE_GAP_REVIEW",
+      "next_action": "先确认缺页和源文件 SHA，再决定定向 OCR。"
+    },
+    {
+      "status": "manifest_only",
+      "admission_class": "HOLD_PROVENANCE",
+      "ocr_action": "NO_OCR_BEFORE_SOURCE_BINDING",
+      "next_action": "先绑定可复核源文件和 SHA。"
+    },
+    {
+      "status": "source_only",
+      "admission_class": "CANDIDATE_NEEDS_EVIDENCE",
+      "ocr_action": "PROBE_TEXT_LAYER_BEFORE_OCR",
+      "next_action": "先确认资料与专题的实际关系、权利和原件入口。"
+    }
+  ],
+  "index_rule": {
+    "markers": ["索引", "目录", "finding_aid", "catalogue"],
+    "admission_class": "RETAIN_NAVIGATION_ONLY",
+    "ocr_action": "NO_FULL_OCR_INDEX_ONLY",
+    "next_action": "保留为馆藏定位入口；回追原刊/原档，不将索引目录当作正文证据。"
+  },
+  "safety_invariants": {
+    "body_read": false,
+    "formal_db_written": false,
+    "auto_delete": false,
+    "auto_promote_citation_ready": false,
+    "auto_promote_human_verified": false
+  }
+}

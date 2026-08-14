@@ -43,6 +43,8 @@
 
 只对扫描影像或图像型 PDF 做 OCR；已有可靠电子文本的资料不重复 OCR。OCR 只作为检索草稿，必须保留原图页码、PDF 页码、物理页、文件哈希和 OCR 引擎信息。页级人工核验后才能进入严格引用层。
 
+资料进入 OCR 或正式页层前，先运行 `scripts/domestic/build_source_admission_queue.py`：电子文本跳过 OCR，已有完整页链转入定向复核，页数异常先做 provenance 对账，索引/目录只保留导航价值。该分流不删除文件，也不改变 `citation_ready` 或真实性等级。
+
 ### 4. 索引与专题层
 
 所有入库资料必须能从来源、文档、页、事件、人物、组织和研究问题互相回链。专题页同时展示：候选记录、已入库页、严格引用页、四层证据链、学术解释候选和开放原件目标。
@@ -63,6 +65,7 @@
 
 每轮资料变更必须通过 JSON/schema 校验、来源哈希校验、SQLite integrity/FK/FTS 校验、研究包批量校验和 HTTP 冒烟测试。发布时只提交代码、结构化元数据、证据链和审计文档；原始私有资料、数据库和 OCR 大文件留在本地数据盘。
 官方目录或查看器的访问状态还必须通过 `validate_primary_evidence_access_audit.py`；`official_viewer_locked` 只能作为追索线索，不能升级为本地原件或正式引用页。
+资料准入和 OCR 分流还必须保留 `body_read=false`、`formal_db_written=false`、`auto_delete=false` 的审计不变量。
 
 ## 分阶段目标
 

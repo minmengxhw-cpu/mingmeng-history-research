@@ -70,6 +70,8 @@ TOPIC_RESEARCH_MATRIX_PATH = DATA_ROOT / "domestic" / "topic_research_matrix.jso
 TOPIC_FOREIGN_CROSSWALK_PATH = DATA_ROOT / "domestic" / "topic_foreign_crosswalk.json"
 PRIMARY_EVIDENCE_ACCESS_AUDIT_PATH = DATA_ROOT / "domestic" / "primary_evidence_access_audit.json"
 ACADEMIC_SOURCE_POLICY_PATH = DATA_ROOT / "domestic" / "academic_source_policy.json"
+SOURCE_ADMISSION_POLICY_PATH = DATA_ROOT / "domestic" / "source_admission_policy.json"
+PRIMARY_RETRIEVAL_QUEUE_PATH = DATA_ROOT / "domestic" / "primary_retrieval_queue.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
 RESEARCH_PACKAGE_DIR = ROOT / "output" / "research_packages"
@@ -3350,11 +3352,27 @@ def domestic_candidate_page(candidate_id: str) -> bytes:
 def domestic_quality_page() -> bytes:
     """展示 canonical 国内 staging 层的可信规模和质量警告。"""
     if not DOMESTIC_STAGING_DB_PATH.exists():
+        policy = _load_source_admission_policy()
+        rules = policy.get("status_rules", []) if isinstance(policy, dict) else []
+        rule_html = "".join(
+            f'<article class="result compact-result"><div><h3>{h(rule.get("status"))} → {h(rule.get("admission_class"))}</h3>'
+            f'<div class="meta">OCR：{h(rule.get("ocr_action"))}</div><div class="snippet">{h(rule.get("next_action"))}</div></div></article>'
+            for rule in rules
+            if isinstance(rule, dict)
+        ) or '<div class="notice">资料准入策略尚未加载。</div>'
+        body = breadcrumb_html([("/domestic", "国内史料"), (None, "质量底座")]) + f"""
+<section class="doc-head"><div><h1>国内资料质量底座</h1><div class="meta">staging 尚未挂载，但资料准入和 OCR 分流规则仍可查看</div></div></section>
+<div class="notice">国内 staging 数据库尚未建立。请先运行 Phase 0 reconciliation 与 staging 构建；当前页面不把缺失 staging 误报为资料为空。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-check"/></svg>资料准入与 OCR 分流</h2><span class="meta">只读策略，不自动删除或升级证据</span></div>
+<div class="notice">已有可靠电子文本不重复 OCR；已有完整页链转入引用复核；页数异常先对账；索引和目录只作为导航。</div>
+<section class="result-list">{rule_html}</section>
+"""
         return layout(
             "国内质量底座",
-            '<div class="notice">国内 staging 数据库尚未建立。请先运行 Phase 0 reconciliation 与 staging 构建。</div>',
+            body,
             active_path="/domestic/quality",
         )
+    source_admission_policy = _load_source_admission_policy()
     phase2_report: dict = {}
     if PHASE2_INVENTORY_REPORT_PATH.exists():
         try:
@@ -3713,6 +3731,13 @@ def domestic_quality_page() -> bytes:
         f'<div class="meta">{h(row["severity"])} · {h(row["n"])} 组</div></div></article>'
         for row in flags
     ) or '<div class="notice">当前没有 staging 质量警告。</div>'
+    admission_rules = source_admission_policy.get("status_rules", []) if isinstance(source_admission_policy, dict) else []
+    admission_rule_html = "".join(
+        f'<article class="result compact-result"><div><h3>{h(rule.get("status"))} → {h(rule.get("admission_class"))}</h3>'
+        f'<div class="meta">OCR：{h(rule.get("ocr_action"))}</div><div class="snippet">{h(rule.get("next_action"))}</div></div></article>'
+        for rule in admission_rules
+        if isinstance(rule, dict)
+    ) or '<div class="notice">资料准入策略尚未加载。</div>'
     formal_status = "未改变" if run and run["formal_db_unchanged"] else "需复核"
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "质量底座")]) + f"""
 <section class="doc-head"><div><h1>国内资料质量底座</h1><div class="meta">canonical 文献、物理页资产、学术全文与机器质量警告</div></div><div class="doc-tools"><a class="button" href="/domestic/search">国内检索</a><a class="button secondary" href="/domestic">国内候选目录</a></div></section>
@@ -3801,6 +3826,9 @@ def domestic_quality_page() -> bytes:
   <div class="stat"><strong>{h(counts['flags'])}</strong><span>质量警告</span></div>
 </section>
 <div class="notice">这是独立 staging 层，不等同于正式 SQLite。正式库状态：{h(formal_status)}。页图数量不会被当作文献数量；目录、网页快照、未核验 OCR、机器语义信号和 locator-only evidence unit 不会自动成为 citation-ready。“1942/43 一手候选（未核原件）”只是机器筛选线索，不代表已取得原件；claim 卡片数包含同页/同文本的 provenance 候选，精确唯一估计与重复组单独显示。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-check"/></svg>资料准入与 OCR 分流</h2><span class="meta">只读策略，不自动删除或升级证据</span></div>
+<div class="notice">已有可靠电子文本不重复 OCR；已有完整页链转入引用复核；页数异常先对账；索引和目录只作为导航。完整分流清单由 <code>scripts/domestic/build_source_admission_queue.py</code> 生成。</div>
+<section class="result-list">{admission_rule_html}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-calendar"/></svg>文献对象时期分布</h2></div>
 <section class="result-list">{phase_html}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>核心早期资料覆盖</h2></div>
@@ -4863,6 +4891,15 @@ def _research_gap_rows() -> list[dict[str, object]]:
     comparison_cards = _load_topic_comparison_cards()
     evidence_chains = _load_topic_evidence_chains()
     access_audit = _load_primary_evidence_access_audit()
+    retrieval_queue = _load_primary_retrieval_queue()
+    retrieval_targets: dict[tuple[str, str], dict[str, object]] = {}
+    for topic in retrieval_queue.get("topics", []) if isinstance(retrieval_queue, dict) else []:
+        if not isinstance(topic, dict):
+            continue
+        topic_event_id = str(topic.get("event_id") or "")
+        for target in topic.get("missing_primary", []) if isinstance(topic.get("missing_primary"), list) else []:
+            if isinstance(target, dict):
+                retrieval_targets[(topic_event_id, str(target.get("target") or ""))] = target
     try:
         domestic_rows = _domestic_rows()
     except sqlite3.OperationalError:
@@ -4946,6 +4983,22 @@ def _research_gap_rows() -> list[dict[str, object]]:
                     "why_it_matters": str(target.get("why_it_matters") or ""),
                     "next_action": str(target.get("next_action") or ""),
                     "status": str(target.get("status") or "open"),
+                    "retrieval_class": str(
+                        retrieval_targets.get((event_id, str(target.get("target") or "")), {}).get("retrieval_class") or ""
+                    ),
+                    "retrieval_label": {
+                        "AUTHORIZED_VIEWER_REQUIRED": "需授权的官方查看器",
+                        "PUBLIC_ITEM_VERIFICATION": "公开原件候选待核",
+                        "ACCESS_REQUEST_REQUIRED": "需机构/现场权限",
+                        "CATALOGUE_OR_SURROGATE_REVIEW": "目录/替代本待回追",
+                        "ORIGINAL_ROUTE_UNRESOLVED": "原件路径未解决",
+                    }.get(
+                        str(retrieval_targets.get((event_id, str(target.get("target") or "")), {}).get("retrieval_class") or ""),
+                        "",
+                    ),
+                    "retrieval_next_action": str(
+                        retrieval_targets.get((event_id, str(target.get("target") or "")), {}).get("next_action") or ""
+                    ),
                     "candidate_count": len(candidate_cards),
                     "candidates": candidate_cards[:6],
                     "candidate_overflow": max(0, len(candidate_cards) - 6),
@@ -4991,14 +5044,25 @@ def research_gaps_page() -> bytes:
             if not candidate_links:
                 candidate_links = '<span class="meta">当前没有可见候选记录，需从来源目录重新定位。</span>'
             layers = gap["layer_counts"]
+            retrieval_badge = (
+                f'<span class="pstatus warn">原件路由：{h(gap["retrieval_label"])}</span>'
+                if gap.get("retrieval_label")
+                else ""
+            )
+            retrieval_action = (
+                f'<div class="snippet"><strong>取得路由：</strong>{h(gap["retrieval_next_action"])}</div>'
+                if gap.get("retrieval_next_action")
+                else ""
+            )
             target_cards.append(
                 f"""
 <article class="result compact-result evidence-gap-item">
   <div>
     <h3>{h(gap["target"])}</h3>
-    <div class="tagline"><span class="pstatus warn">{h(gap["status"])}</span><span class="tag">主证据 {h(layers["primary"])} 条</span><span class="tag">同期交叉 {h(layers["cross_source"])} 条</span><span class="tag">候选关联 {h(gap["candidate_count"])} 条</span></div>
+    <div class="tagline"><span class="pstatus warn">{h(gap["status"])}</span>{retrieval_badge}<span class="tag">主证据 {h(layers["primary"])} 条</span><span class="tag">同期交叉 {h(layers["cross_source"])} 条</span><span class="tag">候选关联 {h(gap["candidate_count"])} 条</span></div>
     <div class="snippet"><strong>为什么重要：</strong>{h(gap["why_it_matters"] or "证据链未登记原因，需先补充审计说明。")}</div>
     <div class="snippet"><strong>下一步：</strong>{h(gap["next_action"] or "证据链未登记下一步，暂不进入收口。")}</div>
+    {retrieval_action}
     <div class="snippet"><strong>相关候选：</strong>{candidate_links}</div>
   </div>
   <div class="cite"><a href="/research/{quote(str(gap["event_id"]))}">专题详情</a><br><a href="/domestic/acquisition">调档清单</a></div>
@@ -5035,6 +5099,26 @@ def _load_academic_source_policy() -> dict[str, object]:
         return {}
     try:
         payload = json.loads(ACADEMIC_SOURCE_POLICY_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _load_source_admission_policy() -> dict[str, object]:
+    if not SOURCE_ADMISSION_POLICY_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(SOURCE_ADMISSION_POLICY_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _load_primary_retrieval_queue() -> dict[str, object]:
+    if not PRIMARY_RETRIEVAL_QUEUE_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(PRIMARY_RETRIEVAL_QUEUE_PATH.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return {}
     return payload if isinstance(payload, dict) else {}
