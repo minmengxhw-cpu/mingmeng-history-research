@@ -116,6 +116,30 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_pcc_1946_sourcebook_staging_entry_is_traceable(live_server):
+    """High-value local sourcebook must be readable without entering formal DB."""
+    status, body = fetch(live_server, "/domestic/sourcebook/1946-pcc")
+    assert status == 200
+    assert body is not None
+    assert "1946年政協文獻" in body
+    assert "sourcebook_scan" in body
+    assert "targeted_review_pending" in body
+    assert "body_read=false" in body
+    assert "formal_db_written=false" in body
+    assert "PDF 23" in body
+    assert "PDF 206" in body
+    assert "不能直接升级为正式 SQLite 页" in body or "不进入正式 SQLite" in body
+    assert "Traceback" not in body and "Internal Server Error" not in body
+
+    response = requests.get(f"{live_server}/domestic/sourcebook/file/1946-pcc", stream=True, timeout=20)
+    try:
+        assert response.status_code == 200
+        assert response.headers.get("Content-Type", "").startswith("application/pdf")
+        assert next(response.iter_content(chunk_size=8)).startswith(b"%PDF")
+    finally:
+        response.close()
+
+
 def test_research_packet_is_metadata_only_and_page_traceable():
     """专题研究包必须可回链到页级证据，且不得复制正文。"""
     import app

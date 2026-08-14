@@ -1,0 +1,67 @@
+{
+  "schema": "domestic_sourcebook_target_map.v1",
+  "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+  "title": "政協文獻",
+  "publication_year": 1946,
+  "source_role": "sourcebook_scan",
+  "evidence_level": "L2",
+  "review_status": "targeted_review_pending",
+  "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf",
+  "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+  "page_count": 247,
+  "source_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/NLC416-01jh004019-12949_%E6%94%BF%E5%8D%94%E6%96%87%E7%8D%BB.pdf",
+  "body_read": false,
+  "formal_db_written": false,
+  "citation_ready": false,
+  "auto_promote_primary_closed": false,
+  "targets": [
+    {
+      "id": "zhang-lan-opening",
+      "label": "民主同盟代表张澜开会词（开幕词）",
+      "pdf_page_start": 23,
+      "printed_page_start": 16,
+      "adjacent_pdf_pages": [24],
+      "status": "title_confirmed_boundary_pending"
+    },
+    {
+      "id": "zhang-junmai-closing",
+      "label": "民主同盟代表张君劢闭会词",
+      "pdf_page_start": 52,
+      "printed_page_start": 45,
+      "adjacent_pdf_pages": [],
+      "status": "title_confirmed_boundary_pending"
+    },
+    {
+      "id": "luo-longji-democratic-league-view",
+      "label": "罗隆基报告民主同盟意见",
+      "pdf_page_start": 62,
+      "printed_page_start": 55,
+      "adjacent_pdf_pages": [63],
+      "status": "title_confirmed_boundary_pending"
+    },
+    {
+      "id": "democratic-league-proposal",
+      "label": "民主同盟的提案",
+      "pdf_page_start": 101,
+      "printed_page_start": 94,
+      "adjacent_pdf_pages": [],
+      "status": "title_confirmed_boundary_pending"
+    },
+    {
+      "id": "zhang-bojun-democratic-league-view",
+      "label": "章伯钧说明民主同盟的意见",
+      "pdf_page_start": 125,
+      "printed_page_start": 116,
+      "adjacent_pdf_pages": [126],
+      "status": "title_confirmed_boundary_pending"
+    },
+    {
+      "id": "zhang-lan-march-21-talk",
+      "label": "民盟主席张澜三月二十一日的重要谈话",
+      "pdf_page_start": 206,
+      "printed_page_start": 197,
+      "adjacent_pdf_pages": [],
+      "status": "title_confirmed_boundary_pending"
+    }
+  ]
+}

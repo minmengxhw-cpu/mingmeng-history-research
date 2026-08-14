@@ -46,6 +46,7 @@ ADMISSION_PATH = ROOT / "work" / "domestic" / "source_admission_20260814" / "SOU
 QUEUE_PATH = ROOT / "data" / "domestic" / "primary_retrieval_queue.json"
 CARDS_PATH = ROOT / "data" / "domestic" / "topic_comparison_cards.json"
 COVERAGE_PATH = ROOT / "data" / "domestic" / "event_coverage.json"
+PCC_1946_SOURCEBOOK_MAP_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourcebook_targets.json"
 
 
 def sha256(path: Path) -> str:
@@ -277,6 +278,58 @@ def retrieval_queue_check(candidate_count: int) -> dict[str, Any]:
     }
 
 
+def pcc_1946_sourcebook_map_check() -> dict[str, Any]:
+    """Validate the local sourcebook target map without reading its body.
+
+    The raw PDF is intentionally ignored by Git and may be absent on another
+    checkout.  The gate therefore checks only the committed provenance
+    metadata, target coordinates, and non-promoting invariants.
+    """
+    errors: list[str] = []
+    try:
+        payload = json.loads(PCC_1946_SOURCEBOOK_MAP_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"status": "FAIL", "target_count": 0, "errors": [f"map unreadable: {exc}"]}
+    if payload.get("schema") != "domestic_sourcebook_target_map.v1":
+        errors.append("unexpected sourcebook map schema")
+    if payload.get("source_role") != "sourcebook_scan" or payload.get("evidence_level") != "L2":
+        errors.append("sourcebook must remain an L2 sourcebook scan")
+    for key in ("body_read", "formal_db_written", "citation_ready", "auto_promote_primary_closed"):
+        if payload.get(key) is not False:
+            errors.append(f"{key} must be false")
+    targets = payload.get("targets") if isinstance(payload.get("targets"), list) else []
+    seen: set[str] = set()
+    for target in targets:
+        if not isinstance(target, dict):
+            errors.append("target row is not an object")
+            continue
+        target_id = str(target.get("id") or "")
+        if not target_id or target_id in seen:
+            errors.append(f"duplicate or empty target id: {target_id or '<empty>'}")
+        seen.add(target_id)
+        try:
+            pdf_page = int(target.get("pdf_page_start"))
+            printed_page = int(target.get("printed_page_start"))
+        except (TypeError, ValueError):
+            errors.append(f"target {target_id or '<empty>'} has invalid page coordinates")
+            continue
+        if not (1 <= pdf_page <= int(payload.get("page_count") or 0)):
+            errors.append(f"target {target_id} PDF page is outside sourcebook")
+        if printed_page < 1:
+            errors.append(f"target {target_id} printed page must be positive")
+        if target.get("status") != "title_confirmed_boundary_pending":
+            errors.append(f"target {target_id} must remain boundary-pending")
+    if len(targets) != 6:
+        errors.append("expected six visually confirmed title anchors")
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "source_id": payload.get("source_id"),
+        "target_count": len(targets),
+        "source_sha256": payload.get("source_sha256"),
+        "errors": errors,
+    }
+
+
 def missing_provenance_check(db_path: Path) -> dict[str, Any]:
     connection = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
     connection.row_factory = sqlite3.Row
@@ -341,6 +394,7 @@ def build_report() -> dict[str, Any]:
         "academic_layer": academic_layer_check(),
         "source_admission": admission_check(),
         "retrieval_queue": retrieval_queue_check(int(candidate_check.get("db_count") or 0)),
+        "pcc_1946_sourcebook_map": pcc_1946_sourcebook_map_check(),
         "missing_provenance": missing_provenance_check(db_path),
         "research_packets": packet_check(),
         "comparison_cards": validate_cards(COVERAGE_PATH, CARDS_PATH),

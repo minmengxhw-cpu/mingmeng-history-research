@@ -99,6 +99,8 @@ ACADEMIC_SOURCE_POLICY_PATH = DATA_ROOT / "domestic" / "academic_source_policy.j
 ACADEMIC_TOPIC_CROSSWALK_PATH = DATA_ROOT / "domestic" / "academic_topic_crosswalk.json"
 SOURCE_ADMISSION_POLICY_PATH = DATA_ROOT / "domestic" / "source_admission_policy.json"
 PRIMARY_RETRIEVAL_QUEUE_PATH = DATA_ROOT / "domestic" / "primary_retrieval_queue.json"
+PCC_1946_SOURCEBOOK_MAP_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_targets.json"
+PCC_1946_SOURCEBOOK_PATH = DATA_ROOT / "domestic" / "sourcebooks" / "NLC416-01jh004019-12949_政協文獻_1946.pdf"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
 RESEARCH_PACKAGE_DIR = ROOT / "output" / "research_packages"
@@ -956,7 +958,7 @@ PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisit
                         "/open-sources", "/dashboard", "/review", "/excluded", "/domestic/review",
                         "/domestic/evidence-review", "/domestic/search", "/domestic/document",
                         "/domestic/quality", "/domestic/acquisition", "/domestic/academic",
-                        "/research/gaps"}
+                        "/domestic/sourcebook", "/research/gaps"}
 
 PUBLIC_DOMESTIC_LEVELS = {"L0", "L1", "L2", "L3"}
 
@@ -2369,6 +2371,84 @@ def sourcebooks_page() -> bytes:
   </article>"""
     body += "</section>"
     return layout("史料长编", body, active_path="/sourcebooks")
+
+
+def _load_pcc_1946_sourcebook_map() -> dict[str, object]:
+    """Load the metadata-only 1946 PCC sourcebook target map.
+
+    The map is deliberately separate from the formal SQLite database: it
+    records a locally available L2 scan and visually confirmed title anchors,
+    but never treats the scan as a primary original or citation-ready page.
+    """
+    try:
+        payload = json.loads(PCC_1946_SOURCEBOOK_MAP_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def domestic_sourcebook_page() -> bytes:
+    """Expose the 1946 PCC scan as a local staging reading entry.
+
+    This is a navigable sourcebook card, not a formal document/page import.
+    It makes the high-value domestic source usable from the same research
+    topic flow while preserving the L2, boundary-pending and non-citation
+    constraints recorded in the target map.
+    """
+    payload = _load_pcc_1946_sourcebook_map()
+    targets = payload.get("targets") if isinstance(payload.get("targets"), list) else []
+    source_exists = PCC_1946_SOURCEBOOK_PATH.is_file()
+    target_rows: list[str] = []
+    for target in targets:
+        if not isinstance(target, dict):
+            continue
+        adjacent = target.get("adjacent_pdf_pages") if isinstance(target.get("adjacent_pdf_pages"), list) else []
+        adjacent_label = ", ".join(f"PDF {int(page)}" for page in adjacent) if adjacent else "未登记"
+        target_rows.append(
+            f"""<tr>
+  <td>{h(target.get('label') or target.get('id'))}</td>
+  <td>PDF {h(target.get('pdf_page_start'))}</td>
+  <td>印刷页 {h(target.get('printed_page_start'))}</td>
+  <td>{h(adjacent_label)}</td>
+  <td><span class=\"pstatus warn\">标题已确认 · 边界待核</span></td>
+</tr>"""
+        )
+    local_link = (
+        '<a class="button" href="/domestic/sourcebook/file/1946-pcc" target="_blank" rel="noreferrer">'
+        '<svg class="ico"><use href="#i-book"/></svg>打开本地 PDF</a>'
+        if source_exists
+        else '<span class="button secondary">本地 PDF 未找到</span>'
+    )
+    source_url = str(payload.get("source_url") or "#")
+    source_link = (
+        f'<a class="button secondary" href="{h(source_url)}" target="_blank" rel="noreferrer">公开来源</a>'
+        if source_url != "#"
+        else ""
+    )
+    body = breadcrumb_html(
+        [("/", "首页"), ("/research", "多源专题研究"), ("/research/domestic-1946-pcc", "1946旧政协"), (None, "政協文獻")]
+    ) + f"""
+<section class="doc-head">
+  <div><h1>{h(payload.get('title') or '1946年政協文獻')}</h1><div class="meta">国内专题的本地 {h(payload.get('source_role') or 'sourcebook_scan')} staging 条目 · 不进入正式 SQLite</div></div>
+  <div class="doc-tools">{local_link}{source_link}<a class="button secondary" href="/research/domestic-1946-pcc">返回专题</a></div>
+</section>
+<div class="notice"><strong>使用边界：</strong>这是 1946 年公开扫描汇编的本地阅读入口，证据层级为 <code>{h(payload.get('evidence_level') or 'L2')}</code> / <code>{h(payload.get('review_status') or 'targeted_review_pending')}</code>。它不是政协原卷或代表独立底稿；标题定位也不等于全文边界已经核定。</div>
+<section class="stats">
+  <div class="stat"><strong>{h(payload.get('publication_year') or '1946')}</strong><span>出版年</span></div>
+  <div class="stat"><strong>{h(payload.get('page_count') or 0)}</strong><span>扫描页</span></div>
+  <div class="stat"><strong>{len(target_rows)}</strong><span>已定位标题</span></div>
+  <div class="stat"><strong>{'可读' if source_exists else '缺失'}</strong><span>本地文件</span></div>
+</section>
+<div class="notice">源文件 SHA256：<code>{h(payload.get('source_sha256') or '未登记')}</code><br>正式状态：<code>body_read={str(payload.get('body_read') is True).lower()}</code> · <code>formal_db_written={str(payload.get('formal_db_written') is True).lower()}</code> · <code>citation_ready={str(payload.get('citation_ready') is True).lower()}</code> · <code>auto_promote_primary_closed={str(payload.get('auto_promote_primary_closed') is True).lower()}</code></div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-quote"/></svg>民盟相关标题定向页映射</h2><span class="meta">PDF 页与印刷页均为 1-based</span></div>
+<div class="notice">下表只提供阅读定位，不复制正文、OCR 或逐字引文。相邻页仍需逐页确认；完成页图凭证、边界、provenance 和事件回链后，才有资格进入后续人工引用审核。</div>
+<div class="table-wrap"><table><thead><tr><th>目标文种</th><th>起始 PDF 页</th><th>印刷页</th><th>相邻页</th><th>状态</th></tr></thead><tbody>{''.join(target_rows) or '<tr><td colspan="5">暂无定向页映射。</td></tr>'}</tbody></table></div>
+<section class="doc-head" style="margin-top:20px;background:var(--panel-warm);border-left:4px solid var(--accent);">
+  <div><h2>下一步</h2><div class="meta">定向核对相邻页边界 → 持久化页图与 SHA256 → 事件回链 → 人工 citation gate；不做整本 OCR。</div></div>
+  <div class="doc-tools"><a class="button" href="/research/domestic-1946-pcc/packet">研究包</a><a class="button secondary" href="/research/gaps">证据缺口</a></div>
+</section>
+"""
+    return layout("1946年政協文獻", body, active_path="/research")
 
 
 def read_csv_rows(path: Path, limit: int = 200) -> list[dict[str, str]]:
@@ -6511,6 +6591,14 @@ def research_topic_page(event_id: str) -> bytes:
     research_matrix_html = _topic_research_matrix_html(research_matrix, evidence_chain)
     foreign_crosswalk_html = _topic_foreign_crosswalk_html(foreign_crosswalk)
 
+    pcc_sourcebook_html = ""
+    if event_id == "domestic-1946-pcc":
+        pcc_sourcebook_html = """
+<section class="result compact-result" style="border-left:4px solid var(--accent);background:var(--panel-warm);">
+  <div><h3>1946 年《政協文獻》本地定向阅读</h3><div class="meta">公开扫描汇编 · L2 · 标题页已定位，正文边界待核</div><div class="snippet">已定位张澜开会词、张君劢闭会词、罗隆基报告、民盟提案、章伯钧说明和张澜三月谈话 6 个标题。该入口保留扫描页与印刷页关系，不把汇编升级为政协原件。</div></div>
+  <div class="cite"><a href="/domestic/sourcebook/1946-pcc">打开 sourcebook 条目</a></div>
+</section>"""
+
     event_link = f"/domestic/events?event={quote(event_id)}"
     body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
 <section class="doc-head">
@@ -6529,6 +6617,7 @@ def research_topic_page(event_id: str) -> bytes:
   <div class="stat"><strong>{h(primary['label'])}</strong><span>一手证据闭环</span></div>
 </section>
 <div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br><strong>一手闭环缺口：</strong>{h(primary['gap'])}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。下方“专题事件索引页”与“国内已入库证据样本”是两条不同回接路径，严格页数字不能互相替代。</div>
+{pcc_sourcebook_html}
 {comparison_html}
 {research_matrix_html}
 {foreign_crosswalk_html}
@@ -11277,6 +11366,24 @@ class Handler(BaseHTTPRequestHandler):
             payload = about_page()
         elif parsed.path == "/public":
             payload = public_page()
+        elif parsed.path == "/domestic/sourcebook/1946-pcc":
+            payload = domestic_sourcebook_page()
+        elif parsed.path == "/domestic/sourcebook/file/1946-pcc":
+            if not PCC_1946_SOURCEBOOK_PATH.is_file():
+                self.send_response(404)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+            data = PCC_1946_SOURCEBOOK_PATH.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/pdf")
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header("Content-Disposition", "inline; filename*=UTF-8''%E6%94%BF%E5%8D%94%E6%96%87%E7%8D%BB_1946.pdf")
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(data)
+            return
         elif parsed.path == "/domestic/document":
             payload = domestic_staging_document_page(qs)
         elif parsed.path == "/domestic/library":

@@ -56,6 +56,8 @@ Commons 页面提供的目录包含以下目标文种，后续应按扫描页和
 
 本表不记录派生渲染图的 SHA256；当前渲染图是 `/tmp` 下的临时审查产物，尚未作为可复现页图资产登记。因此上述定位仍属于 `sourcebook_scan / targeted_review_pending`，不能直接升级为正式 SQLite 页或 `strict_citation`。
 
+结构化页图入口已登记在 `data/domestic/pcc_1946_sourcebook_targets.json`，本地应用通过 `/domestic/sourcebook/1946-pcc` 提供元数据和定向阅读入口；原始 PDF 仍留在 `data/domestic/sourcebooks/`，不进入 GitHub。该应用入口在公开模式下会被隐藏，避免把本地 staging 资产误当成公开研究正文。
+
 ## 当前证据层级与边界
 
 - 当前建议层级：`L2 / sourcebook_scan / targeted_review_pending`；
