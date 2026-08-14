@@ -91,9 +91,9 @@ def test_research_packet_is_metadata_only_and_page_traceable():
 
     packet = build_research_packet("domestic-1945-first-congress")
     assert packet is not None
-    assert packet["counts"]["evidence_chain_page_items"] == 36
-    assert packet["counts"]["evidence_chain_resolved_page_items"] == 36
-    assert packet["counts"]["evidence_chain_strict_gate_passed"] == 36
+    assert packet["counts"]["evidence_chain_page_items"] == 40
+    assert packet["counts"]["evidence_chain_resolved_page_items"] == 40
+    assert packet["counts"]["evidence_chain_strict_gate_passed"] == 40
     assert packet["counts"]["topic_event_domestic_pages"] == 184
     assert packet["counts"]["topic_event_domestic_strict_pages"] == 36
     assert packet["counts"]["topic_event_sample_rows"] == 24
@@ -751,8 +751,8 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
     assert summary["evidence_chain_ready"] == 9
-    assert summary["evidence_chain_page_items"] == 82
-    assert summary["evidence_chain_strict_items"] == 71
+    assert summary["evidence_chain_page_items"] == 93
+    assert summary["evidence_chain_strict_items"] == 82
     assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
     assert all(row["evidence_chain_ready"] for row in report["topics"])
@@ -779,8 +779,30 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
-    assert report["page_items"] == 82
-    assert report["strict_citation_items"] == 71
+    assert report["page_items"] == 93
+    assert report["strict_citation_items"] == 82
+
+
+def test_high_value_reviewed_pages_are_reconnected_without_primary_upgrade():
+    """本轮精选页必须可回链，但不能把汇编/报刊页升级成事件定义原件。"""
+    root = Path(__file__).resolve().parents[1]
+    chains = json.loads((root / "data/domestic/topic_evidence_chain.json").read_text(encoding="utf-8"))
+    expected = {
+        "domestic-1945-first-congress": {1501, 1502, 1503, 1504},
+        "domestic-1946-pcc": {1512, 1513, 1514, 1515, 1516},
+        "domestic-1947-illegal-dissolution": {1583, 1584},
+    }
+    for event_id, page_ids in expected.items():
+        chain = next(item for item in chains if item["event_id"] == event_id)
+        cross = {item["page_id"]: item for item in chain["layers"]["cross_source"]}
+        assert page_ids <= set(cross)
+        assert all(cross[page_id]["status"] == "strict_citation" for page_id in page_ids)
+        assert all(
+            any(term in cross[page_id]["caveat"] for term in ("不替代", "不是", "不等同", "不得据此"))
+            for page_id in page_ids
+        )
+    coverage = json.loads((root / "data/domestic/event_coverage.json").read_text(encoding="utf-8"))
+    assert all(item["primary_evidence_status"] == "partial" for item in coverage)
 
 
 def test_1949_new_pcc_chain_contains_verified_saac_image_pages():

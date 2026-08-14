@@ -193,6 +193,38 @@
           "caveat": "用于同文互校和页界定位，不等同于大会档案原件。"
         },
         {
+          "label": "1945年8月15日《在抗战胜利声中的紧急呼吁》页",
+          "page_id": 1501,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "大会前民盟公开政治主张与国民大会立场的同期页级前史",
+          "caveat": "严格门禁只覆盖汇编页、题名、标注日期、页界和来源版本；不是1945年大会报告或宣言正文，也不替代大会原始档案。"
+        },
+        {
+          "label": "1945年国民大会立场前史页（续一）",
+          "page_id": 1502,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "同一文献页组中有关1945年国民大会立场的连续页级材料",
+          "caveat": "严格门禁只覆盖汇编页、页界和人工复核范围；用于大会前立场演变，不等同于1946年正式拒参决定。"
+        },
+        {
+          "label": "1945年国民大会立场前史页（续二）",
+          "page_id": 1503,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "同一文献页组中有关1945年国民大会立场的连续页级材料",
+          "caveat": "严格门禁只覆盖汇编页、页界和人工复核范围；不得据此替代大会原始档案或1946年正式组织文件。"
+        },
+        {
+          "label": "1945年国民大会立场前史页（续三）",
+          "page_id": 1504,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "同一文献页组中有关1945年国民大会立场的收束页级材料",
+          "caveat": "严格门禁只覆盖汇编页、页界和人工复核范围；不得据此替代大会原始档案或1946年正式组织文件。"
+        },
+        {
           "label": "中国民主同盟纲领（官方汇编第48—72页）",
           "page_id": 20149,
           "doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
@@ -451,7 +483,7 @@
         }
       ]
     },
-    "chain_note": "1945是国内平台目前较强的早期专题之一：1983公开扫描与1946民盟总部官方汇编均已提供页级入口；纲领（PDF第48—72页）和临时全国代表大会宣言（PDF第73—78页）已进入严格的版本/页界引用层，但仍需要完整大会档案、独立原件底本和版本关系闭环。"
+    "chain_note": "1945是国内平台目前较强的早期专题之一：1983公开扫描与1946民盟总部官方汇编均已提供页级入口；纲领（PDF第48—72页）、临时全国代表大会宣言（PDF第73—78页）和大会前国民大会立场页组已进入严格的版本/页界引用层，但仍需要完整大会档案、独立原件底本和版本关系闭环。"
   },
   {
     "event_id": "domestic-1946-pcc",
@@ -467,6 +499,46 @@
           "status": "strict_citation",
           "role": "民盟机关报对政协议题的后续同期回顾",
           "caveat": "属于后续回顾和政治表达，不是1946年政协正式会议档案。"
+        },
+        {
+          "label": "1946年1月2日民盟发言人时局谈话页",
+          "page_id": 1512,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "民盟发言人关于停战与政治协商会议的同期页级记录",
+          "caveat": "页级门禁只覆盖文献汇编版本、题名、标注日期和页界；不替代政协正式会议记录或完整代表档案。"
+        },
+        {
+          "label": "1946年1月2日民盟发言人谈国民大会页",
+          "page_id": 1513,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "民盟发言人关于国民大会问题的同期页级记录，连接政协前后的公开立场",
+          "caveat": "页级门禁只覆盖文献汇编版本、题名、标注日期和页界；不替代正式组织决定或政协档案。"
+        },
+        {
+          "label": "1946年1月11日张澜在政协会致词页",
+          "page_id": 1514,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "民盟代表在政协开幕会相关发言的同期页级入口",
+          "caveat": "页级门禁只覆盖文献汇编版本、题名、标注日期和页界；不替代完整政协会议记录或发言原件。"
+        },
+        {
+          "label": "1946年1月11日政协发言连续页（一）",
+          "page_id": 1515,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "与1514相邻的民盟代表政协发言连续页级入口",
+          "caveat": "严格范围限于页级身份、来源版本、标注日期和连续页界；不据此宣称发言全文或会议档案已齐全。"
+        },
+        {
+          "label": "1946年1月11日政协发言连续页（二）",
+          "page_id": 1516,
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "status": "strict_citation",
+          "role": "与1514—1515相邻的民盟代表政协发言收束页级入口",
+          "caveat": "严格范围限于页级身份、来源版本、标注日期和连续页界；不据此宣称正式会议档案闭环。"
         },
         {
           "label": "《光明報》新一號复刊词",
@@ -487,7 +559,7 @@
         }
       ]
     },
-    "chain_note": "旧政协专题已有机关报和境外档案对读入口，但正式会议档案尚未进入主证据层。"
+    "chain_note": "旧政协专题现有机关报、1946年民盟发言人/代表发言页和境外档案对读入口；这些汇编页可支持发言题名、日期和页界导航，但完整政协会议记录、提案和代表档案仍未进入主证据层。"
   },
   {
     "event_id": "domestic-1946-refuse-national-assembly",
@@ -673,6 +745,22 @@
           "status": "strict_citation",
           "role": "10月27日后公开宣布非法相关报道的前置交叉页",
           "caveat": "证明同期报刊公开报道，不等同于10月27日政府公函本身。"
+        },
+        {
+          "label": "1947年民盟/民主力量转移香港的同期页",
+          "page_id": 1583,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-15-full-ocr",
+          "status": "strict_citation",
+          "role": "解散前后民主力量公共活动受限与组织转移背景的同期页级材料",
+          "caveat": "严格门禁只覆盖报刊页身份、页界和人工复核范围；不是政府限制令、解散公文或民盟内部传达文件。"
+        },
+        {
+          "label": "1947年民盟南方支部与组织受压页",
+          "page_id": 1584,
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-15-full-ocr",
+          "status": "strict_citation",
+          "role": "民盟地方组织与公共活动变化的同期页级交叉材料",
+          "caveat": "严格门禁只覆盖报刊页身份、页界和人工复核范围；不得替代行政原件或组织内部文件。"
         }
       ],
       "negative_checks": [
@@ -708,7 +796,7 @@
         }
       ]
     },
-    "chain_note": "1947专题已有国内证据链中最强的同期报刊互证，但关键行政原件仍明确缺位，因此状态保持“部分闭环”。"
+    "chain_note": "1947专题已有国内证据链中最强的同期报刊互证，并新增组织受压与公共活动转移的两页背景材料；关键行政原件仍明确缺位，因此状态保持“部分闭环”。"
   },
   {
     "event_id": "domestic-1948-third-plenum-may-day",
