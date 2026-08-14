@@ -4883,10 +4883,36 @@ def _research_gap_rows() -> list[dict[str, object]]:
             for candidate_id in candidate_ids
             if candidate_id in domestic_by_id
         ]
+        document_type_rank = {
+            "档案": 0,
+            "原刊": 1,
+            "报刊": 1,
+            "正式文件": 2,
+            "汇编": 3,
+            "目录": 4,
+            "网页": 5,
+        }
+        relevance_rank = {"core": 0, "high": 1, "related": 2, "background": 3}
+        authenticity_rank = {"L1": 0, "L2": 1, "L3": 2, "L4": 3, "LX": 4}
+
+        def _candidate_value(row: sqlite3.Row, key: str, default: str = "") -> str:
+            return str(row[key] or default) if key in row.keys() else default
+
+        def _document_type_score(row: sqlite3.Row) -> int:
+            document_type = _candidate_value(row, "document_type")
+            for marker, score in document_type_rank.items():
+                if marker in document_type:
+                    return score
+            return 9
+
         linked_candidates.sort(
             key=lambda row: (
-                0 if str(row["candidate_id"]) in access_audit else 1,
-                str(row["candidate_id"]),
+                0 if _candidate_value(row, "candidate_id") in access_audit else 1,
+                _document_type_score(row),
+                relevance_rank.get(_candidate_value(row, "relevance_grade_proposed"), 9),
+                authenticity_rank.get(str(_domestic_level(row) or ""), 9),
+                0 if _candidate_value(row, "review_status") == "accepted" else 1,
+                _candidate_value(row, "candidate_id"),
             )
         )
         candidate_cards = [
