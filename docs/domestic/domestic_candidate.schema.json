@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Domestic primary-source candidate v2 (Phase 1 sprint 39)",
-  "description": "v2 在 v1 基础上新增 5 个可选字段: transcription_status / transcription_text_path / access_audit_date / access_audit_status / citation_key. 全部 optional, 现有数据向后兼容.",
+  "title": "Domestic primary-source candidate v3 (date-role audit)",
+  "description": "v3 在 v2 基础上新增可选的 document_date_role / event_context_date / event_context_date_precision 字段，用于区分文献日期与事件语境日期；全部 optional, 现有数据向后兼容.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -25,7 +25,18 @@
     "creator": {"type": "string"},
     "recipient": {"type": "string"},
     "document_date": {"type": "string"},
-    "document_date_precision": {"enum": ["day", "month", "year", "approximate", "range", "unknown"]},
+    "document_date_precision": {"enum": ["day", "month", "year", "approximate", "range", "unknown", "exact"]},
+    "document_date_role": {
+      "enum": ["source_document", "publication", "catalogue_record", "unknown"],
+      "description": "document_date 的语义；不得把事件语境日期伪装成文献日期"
+    },
+    "event_context_date": {
+      "type": "string",
+      "description": "与候选文献相关但不等同于文献日期的事件节点日期"
+    },
+    "event_context_date_precision": {
+      "enum": ["day", "month", "year", "approximate", "range", "unknown", "exact"]
+    },
     "document_type": {"type": "string"},
     "repository_code": {"type": "string", "minLength": 2},
     "repository_name": {"type": "string", "minLength": 1},

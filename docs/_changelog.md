@@ -5,6 +5,12 @@
 
 ## 2026-08-14
 
+### 1947 上海档案馆追索线索：区分文献日期与事件语境日期
+
+- 将候选 `domestic:SHAC:6-5-1216-meng-illegal-transfer-1947` 的 `document_date` 校正为公开论文注 61 所引文书日期 `1947-11-02`，并新增 `document_date_role=source_document`。
+- 新增 `event_context_date=1947-11-11`，明确它是论文叙述的上海市政府布告/执行节点，不是已取得的政府公文日期；候选仍为 L4 档号追索线索，未升级为原件或正式引用。
+- 候选 schema 与主证据追索队列同步支持日期语义字段；队列继续保留 `上档6-5-1216`，并保持 `body_read=false`、`formal_db_written=false`。
+
 ### DRNH 访客影像支持外置数据盘
 
 - `app.py` 新增外置 DRNH 影像根目录解析：当正式 SQLite 位于另一份本地数据 checkout 时，详情页和 `/drnh-img/` 会回退到数据库所在 `data/drnh_images/`，也支持显式 `MINGMENG_ASSET_ROOT`。

@@ -28,6 +28,10 @@
 
 目标项的 `formal_page_count` 和 `formal_strict_citation_page_count` 是候选路由的只读汇总。它们用于分流工作，不是“原件闭环”判定。
 
+## 日期语义
+
+候选路由同时保留 `document_date`、`document_date_role`、`event_context_date` 和各自的精度字段。`document_date` 描述被追索文献或档案条目的日期；`event_context_date` 只描述相关事件节点，不能替代文献日期。1947 年上海档案馆 `上档6-5-1216` 是这一规则的样例：公开论文注 61 所引文书日期为 1947-11-02，论文正文叙述的上海市政府公告/执行节点为 1947-11-11；原件尚未取得，两个日期均不能单独证明政府解散公文已经闭环。
+
 ## 生成
 
 ```bash

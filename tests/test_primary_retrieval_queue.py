@@ -145,6 +145,11 @@ def test_retrieval_queue_keeps_exact_archive_lead_when_public_routes_are_capped(
         "repository_code": "SHAC",
         "repository_name": "上海市档案馆",
         "catalog_reference": "上档6-5-1216",
+        "document_date": "1947-11-02",
+        "document_date_precision": "day",
+        "document_date_role": "source_document",
+        "event_context_date": "1947-11-11",
+        "event_context_date_precision": "day",
         "evidence_type": "printed_finding_aid",
         "online_availability": "catalogue_only_online",
         "access_mode": "open",
@@ -158,7 +163,11 @@ def test_retrieval_queue_keeps_exact_archive_lead_when_public_routes_are_capped(
     shac = next(row for row in routes if row["candidate_id"] == "shac-lead")
     assert shac["route_status"] == "CATALOGUE_OR_FINDING_AID"
     assert shac["catalog_reference"] == "上档6-5-1216"
-    assert result["topics"][0]["missing_primary"][0]["retrieval_class"] == "CATALOGUE_OR_SURROGATE_REVIEW"
+    assert shac["document_date"] == "1947-11-02"
+    assert shac["event_context_date"] == "1947-11-11"
+    # The exact SHAC lead must remain visible, but a direct public-item route
+    # still determines the next action for this target.
+    assert result["topics"][0]["missing_primary"][0]["retrieval_class"] == "PUBLIC_ITEM_VERIFICATION"
 
 
 def test_retrieval_queue_surfaces_formal_pages_without_closing_primary_gap():
