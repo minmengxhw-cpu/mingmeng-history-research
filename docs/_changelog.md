@@ -5,6 +5,13 @@
 
 ## 2026-08-14
 
+### 1948 三中全会/五一口号：七页官方公开扫描影像接入证据链
+
+- 对中央档案公开扫描影像中的正式页 `20665`—`20671` 完成本地视觉复核，写入页级来源文件、SHA256、页面 URL、物理页和受限复核范围；批次为 `work/domestic/saac_1948_mayday_review_20260814/`。
+- 7 页从 `review_only` 保守升级为 `human_verified` / `citation_ready` 的页级身份门禁，严格人工可引用页由 189 增至 196；不保存正文，不把 OCR 当作正式转录，不宣称取得档案全宗原件或完整会议档案。
+- 7 页回接 `domestic-1948-third-plenum-may-day` 专题事件索引和 `topic_evidence_chain.json`；证据链由 93/82 条增至 100/89 条，专题事件索引由 552/538 增至 559/545，写入幂等复跑为 0 条重复新增。
+- 数据库写入前备份分别为 `/private/tmp/mingmeng_research_index_20260814_saac_1948_mayday.bak` 和 `/private/tmp/mingmeng_research_index_20260814_saac_1948_links.bak`；写入后 SHA256 为 `214fb3785bffb2430585e590acd49aaa73258d286634d8ab2d478bd9ae19fa36`。正文、OCR、图片和 PDF 均未修改或删除，SQLite、外键、FTS、manifest、证据链、研究包、专题 parity 和问题基准均通过。
+
 ### 1947 同期报刊六页视觉复核与导航摘要治理
 
 - 对《大剛報》1947-11-04、1947-11-06及《观察》第三卷第十一期共 6 页做本地高分辨率页图复核；正式 provenance 现在同时绑定原始 PDF、PDF 页码、页图 SHA256、OCR 派生文件和复核范围。

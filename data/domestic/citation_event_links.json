@@ -287,6 +287,55 @@
       "rationale": "原PDF第5页题名明确围绕民盟当前任务展开并承接三中全会专题；作为同期报刊论述页导航，不把报刊文章等同三中全会决议全文。"
     },
     {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde04",
+      "page_label": "page-01",
+      "navigation_title": "1948-05-01 毛泽东致李济深、沈钧儒电报页1",
+      "rationale": "中央档案馆公开专题本地扫描的页级入口，已核验影像身份、页序和来源哈希；作为官方档案公开扫描替身，不等同于档案馆母版或完整卷宗。"
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde04",
+      "page_label": "page-02",
+      "navigation_title": "1948-05-01 毛泽东致李济深、沈钧儒电报页2",
+      "rationale": "同一官方专题档案电报的连续页级入口；仅支持页序和文档范围，不替代全文校勘。"
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+      "page_label": "page-01",
+      "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页1",
+      "rationale": "中央档案馆公开专题中的官方档案影像页，已核验页级身份和来源哈希；作为五一口号后政协动员的页级入口，不把公开扫描替身当作完整文件。"
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+      "page_label": "page-02",
+      "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页2",
+      "rationale": "同一文件的连续手稿页级入口，保留修改痕迹和页序信息；不把机器 OCR 当作正文校勘。"
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+      "page_label": "page-03",
+      "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页3",
+      "rationale": "同一文件的连续修改页级入口；只确认页面身份、页序和可见结构，不宣称全文逐字核验。"
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+      "page_label": "page-04",
+      "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页4",
+      "rationale": "同一文件的连续附录/名单页级入口；不核定名单姓名全文，不替代完整文件范围和档案权利核验。"
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+      "page_label": "page-05",
+      "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页5",
+      "rationale": "同一文件末页的页级入口；只确认收束范围，不扩展为完整会议档案闭环。"
+    },
+    {
       "event_id": "domestic-1949-new-pcc",
       "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
       "page_label": "01",

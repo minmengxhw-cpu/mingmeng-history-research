@@ -819,6 +819,62 @@
           "status": "strict_citation",
           "role": "同一期连续页的页级交叉证据",
           "caveat": "仍需与中央档案专题原件和会议档案逐条对位。"
+        },
+        {
+          "label": "1948-05-01 毛泽东致李济深、沈钧儒电报页1（中央档案馆公开专题扫描替身）",
+          "page_id": 20665,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde04",
+          "status": "strict_citation",
+          "role": "中央档案馆公开专题中的1948-05-01政协相关档案影像页",
+          "caveat": "已核验页级身份和来源哈希；公开扫描替身不等同于档案馆母版或完整卷宗。"
+        },
+        {
+          "label": "1948-05-01 毛泽东致李济深、沈钧儒电报页2（中央档案馆公开专题扫描替身）",
+          "page_id": 20666,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde04",
+          "status": "strict_citation",
+          "role": "同一档案电报的连续页级证据",
+          "caveat": "只支持页序和文档范围，不替代全文校勘或原始档案复制权利核验。"
+        },
+        {
+          "label": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页1（中央档案馆公开专题扫描替身）",
+          "page_id": 20667,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "status": "strict_citation",
+          "role": "五一口号后新政协动员与代表邀请的官方档案影像页",
+          "caveat": "已核验页级身份和来源哈希；不把公开扫描替身当作完整文件或逐字转录。"
+        },
+        {
+          "label": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页2（中央档案馆公开专题扫描替身）",
+          "page_id": 20668,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "status": "strict_citation",
+          "role": "同一文件的连续手稿页级证据",
+          "caveat": "保留修改痕迹和页序信息；不把机器 OCR 当作正文校勘。"
+        },
+        {
+          "label": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页3（中央档案馆公开专题扫描替身）",
+          "page_id": 20669,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "status": "strict_citation",
+          "role": "同一文件的连续修改页级证据",
+          "caveat": "只确认页面身份、页序和可见结构，不宣称全文逐字核验。"
+        },
+        {
+          "label": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页4（中央档案馆公开专题扫描替身）",
+          "page_id": 20670,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "status": "strict_citation",
+          "role": "同一文件的连续附录/名单页级证据",
+          "caveat": "不核定名单姓名全文，不替代完整文件范围和档案权利核验。"
+        },
+        {
+          "label": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页5（中央档案馆公开专题扫描替身）",
+          "page_id": 20671,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "status": "strict_citation",
+          "role": "同一文件末页的页级范围证据",
+          "caveat": "只确认页级身份和收束范围，不扩展为完整会议档案闭环。"
         }
       ],
       "cross_source": [
