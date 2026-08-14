@@ -19,7 +19,7 @@
     "metadata_only": true,
     "body_read": false,
     "formal_db_written": false,
-    "candidate_count": 689
+    "candidate_count": 690
   },
   "event_link_index": {
     "available": true,
@@ -4529,7 +4529,6 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingest_status": "FORMAL_NOT_FOUND",
           "formal_ingested_document_id": null,
           "formal_doc_key": "",
           "formal_page_count": 0,
@@ -4538,7 +4537,8 @@
           "formal_anchored_page_count": 0,
           "formal_pages": [],
           "formal_page_ids": [],
-          "formal_strict_page_ids": []
+          "formal_strict_page_ids": [],
+          "formal_ingest_status": "NOT_INGESTED"
         },
         {
           "candidate_id": "domestic:MMHIST:lo-lung-chi-national-assembly-1946-01-17",
