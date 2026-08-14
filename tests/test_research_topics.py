@@ -303,17 +303,25 @@ def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_bod
     packet = build_research_packet("domestic-1949-new-pcc")
     assert packet is not None
     assert packet["counts"]["event_source_map_count"] == 1
-    assert packet["counts"]["event_source_page_record_count"] == 17
+    assert packet["counts"]["event_source_page_record_count"] == 53
     source_map = packet["event_source_maps"][0]
     assert source_map["primary_evidence_closed"] is False
     assert source_map["body_text_included"] is False
-    assert len(source_map["sources"]) == 17
+    assert len(source_map["sources"]) == 53
+    pages = [page for source in source_map["sources"] for page in source["page_records"]]
+    assert sum(page["status"] == "strict_citation" for page in pages) == 17
+    assert sum(page["status"] == "navigation_only" for page in pages) == 36
     assert all(
-        page["status"] == "strict_citation"
-        and page["citation_ready"] is True
+        page["citation_ready"] is True
         and page["needs_human_review"] is False
-        for source in source_map["sources"]
-        for page in source["page_records"]
+        for page in pages
+        if page["status"] == "strict_citation"
+    )
+    assert all(
+        page["citation_ready"] is False
+        and page["needs_human_review"] is True
+        for page in pages
+        if page["status"] == "navigation_only"
     )
     assert validate_packet(packet, "domestic-1949-new-pcc")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1949-new-pcc").decode("utf-8")

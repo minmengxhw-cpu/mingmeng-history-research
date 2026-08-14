@@ -3,14 +3,14 @@
   "event_id": "domestic-1949-new-pcc",
   "title": "1949年新政治协商会议筹备与一届全体会议：中央档案馆公开影像页级证据地图",
   "review_status": "archival_page_evidence_ready_primary_gap_open",
-  "evidence_scope": "国家档案局／中央档案馆公开专题中的已核验档案影像页；只登记页级来源、哈希和引用边界",
+  "evidence_scope": "国家档案局／中央档案馆公开专题中的已核验档案影像页，及正式库已登记但待视觉复核的导航页；只登记页级来源、哈希和引用边界",
   "body_text_included": false,
   "ocr_text_included": false,
   "raw_files_included": false,
   "formal_db_written_by_map": false,
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
-  "primary_evidence_gap": "本轮闭合的是17个已核验影像页的页级引用入口；1949年筹备会完整记录、代表发言、完整代表名册连续件、第一届全体会议全套档案，以及民盟代表在会中发言和互动的完整页级对位仍待补齐。本地图不把单页影像宣称为完整档案卷宗或完整名单。",
+  "primary_evidence_gap": "已核验17个影像页并新增36个待视觉复核导航页；1949年筹备会完整记录、代表发言、完整代表名册连续件、第一届全体会议全套档案，以及民盟代表在会中发言和互动的完整页级对位仍待补齐。本地图不把单页影像宣称为完整档案卷宗或完整名单。",
   "sources": [
     {
       "source_id": "saac-1949-pcc-invitation-telegram-p01",
@@ -468,6 +468,1014 @@
           "review_scope": "archival_scan_page_identity_and_topic_scope",
           "page_image_sha256": "11d53b81f4b01ffb7d66c889e39ce80595bcff5dea03c9b09f1dc79dc73927da",
           "caveat": "可作为主席团名单的页级引用入口；本地图不转录名单，也不据此替代完整会议组织档案。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20691",
+      "title": "新政协筹备会第一小组工作档案（1949-06 起）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec02_02-03/01.jpg",
+      "source_sha256": "de958fdeb25fcf384a3fae5d191623124b1385aabbbe13877dff559be5d66667",
+      "source_file_size": 386469,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20691,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政协筹备会第一小组工作档案（1949-06 起）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "de958fdeb25fcf384a3fae5d191623124b1385aabbbe13877dff559be5d66667",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20692",
+      "title": "新政协筹备会第二小组工作档案（1949-06 起）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec02_02-04/01.jpg",
+      "source_sha256": "76cc36ebffdf117affdd47af1121226aa6fcd8ef3776178931720f1deac1178e",
+      "source_file_size": 325033,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20692,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政协筹备会第二小组工作档案（1949-06 起）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "76cc36ebffdf117affdd47af1121226aa6fcd8ef3776178931720f1deac1178e",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20693",
+      "title": "新政协筹备会第三小组工作档案（1949-06 起）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec02_02-05/01.jpg",
+      "source_sha256": "20aff275a8637f51e7ab867a6ddfdd8e41e84abf0fa0f9c492ea4f7826ec5a03",
+      "source_file_size": 416252,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20693,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政协筹备会第三小组工作档案（1949-06 起）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "20aff275a8637f51e7ab867a6ddfdd8e41e84abf0fa0f9c492ea4f7826ec5a03",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20694",
+      "title": "新政协筹备会第三小组工作档案（1949-06 起）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec02_02-05/02.jpg",
+      "source_sha256": "2224b577d6cf3c306088280f63e24e79e390203c79d2ad23451075bedfe996b1",
+      "source_file_size": 317603,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20694,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政协筹备会第三小组工作档案（1949-06 起）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "2224b577d6cf3c306088280f63e24e79e390203c79d2ad23451075bedfe996b1",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20695",
+      "title": "新政协筹备会第四小组工作档案（1949-06 起）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec02_02-06/01.jpg",
+      "source_sha256": "23126457aa3d863d51198ca06d95bab6e01ffbd8c415ca370e87a96d46155f0f",
+      "source_file_size": 408889,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20695,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政协筹备会第四小组工作档案（1949-06 起）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "23126457aa3d863d51198ca06d95bab6e01ffbd8c415ca370e87a96d46155f0f",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20696",
+      "title": "新政协筹备会第四小组工作档案（1949-06 起）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec02_02-06/02.jpg",
+      "source_sha256": "91800186d9b637336d4753441ece1ab2a35e6d73b1f258d10cdc7d123cdd9a2d",
+      "source_file_size": 357415,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20696,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政协筹备会第四小组工作档案（1949-06 起）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "91800186d9b637336d4753441ece1ab2a35e6d73b1f258d10cdc7d123cdd9a2d",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20697",
+      "title": "新政协筹备会第五小组工作档案（1949-06 起）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec02_02-07/01.jpg",
+      "source_sha256": "71a355af7c67a2e49bc909e0c202f989a6005f1ada793ee246c00551e0061bef",
+      "source_file_size": 432370,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20697,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政协筹备会第五小组工作档案（1949-06 起）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "71a355af7c67a2e49bc909e0c202f989a6005f1ada793ee246c00551e0061bef",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20698",
+      "title": "新政协筹备会第六小组工作档案（1949-06 起）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec02_02-08/01.jpg",
+      "source_sha256": "1c3b797b747f5e8f932cd0488185b8fe998910f1e3f09810e58a6bdddc300679",
+      "source_file_size": 388521,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20698,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政协筹备会第六小组工作档案（1949-06 起）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "1c3b797b747f5e8f932cd0488185b8fe998910f1e3f09810e58a6bdddc300679",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20699",
+      "title": "周恩来、李维汉在中国人民政治协商会议筹备会第二次全体会议上讲话（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-01/s01_01.jpg",
+      "source_sha256": "75532439648243af9fd13437e07e64ac4a465ced9674d7a33a6077d93b1a5daf",
+      "source_file_size": 48081,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20699,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "周恩来、李维汉在中国人民政治协商会议筹备会第二次全体会议上讲话（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "75532439648243af9fd13437e07e64ac4a465ced9674d7a33a6077d93b1a5daf",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20700",
+      "title": "周恩来、李维汉在中国人民政治协商会议筹备会第二次全体会议上讲话（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-01/s01_02.jpg",
+      "source_sha256": "1607fb4f0cdbacccf5c4a541b5cb0695cd4a1ddf63d6cf5600716498241c572c",
+      "source_file_size": 27370,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20700,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "周恩来、李维汉在中国人民政治协商会议筹备会第二次全体会议上讲话（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "1607fb4f0cdbacccf5c4a541b5cb0695cd4a1ddf63d6cf5600716498241c572c",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20701",
+      "title": "中国人民政治协商会议筹备会第二次全体会议决议案（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-02/s02_01.jpg",
+      "source_sha256": "baf6fa581f4b8de0a3393d7319199f6a09977b94477e1927560e2eb5c06175cd",
+      "source_file_size": 40084,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20701,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会第二次全体会议决议案（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "baf6fa581f4b8de0a3393d7319199f6a09977b94477e1927560e2eb5c06175cd",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20702",
+      "title": "中国人民政治协商会议筹备会第二次全体会议决议案（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-02/s02_02.jpg",
+      "source_sha256": "b7f328812342484482d011fb13fbc46ebdbab4a09b92f13d82b95ecdaa8c9bce",
+      "source_file_size": 37670,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20702,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会第二次全体会议决议案（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "b7f328812342484482d011fb13fbc46ebdbab4a09b92f13d82b95ecdaa8c9bce",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20703",
+      "title": "中国人民政治协商会议筹备会第二次全体会议决议案（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-02/s02_03.jpg",
+      "source_sha256": "56969540b756c485faf6335048873fea9f4ed9ddccee2bc4b0eab49280c21829",
+      "source_file_size": 34409,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20703,
+          "page_label": "page-03",
+          "physical_page_no": 3,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会第二次全体会议决议案（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "56969540b756c485faf6335048873fea9f4ed9ddccee2bc4b0eab49280c21829",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20704",
+      "title": "中国人民政治协商会议筹备会第二次全体会议决议案（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-02/s02_04.jpg",
+      "source_sha256": "6a1555d6833123d94487bdc16c5cbace55d556c6b3eab1e814a9db375a20c8a7",
+      "source_file_size": 39828,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20704,
+          "page_label": "page-04",
+          "physical_page_no": 4,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会第二次全体会议决议案（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "6a1555d6833123d94487bdc16c5cbace55d556c6b3eab1e814a9db375a20c8a7",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20705",
+      "title": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-03/s03_01.jpg",
+      "source_sha256": "cb5c358332f8a3ebbfed703c0eb5504989e16ab037f4b16853de5e7db6518544",
+      "source_file_size": 40287,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20705,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "cb5c358332f8a3ebbfed703c0eb5504989e16ab037f4b16853de5e7db6518544",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20706",
+      "title": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-03/s03_02.jpg",
+      "source_sha256": "f30408a7107ebfb31c5c55b9b0ad0caf1b20fd7401074b16d7e03f62e38f63a5",
+      "source_file_size": 46196,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20706,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "f30408a7107ebfb31c5c55b9b0ad0caf1b20fd7401074b16d7e03f62e38f63a5",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20707",
+      "title": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-03/s03_03.jpg",
+      "source_sha256": "7ddf32f4016f52995e2f913e2506c69932c882f51c29c808be8d01525729521b",
+      "source_file_size": 38676,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20707,
+          "page_label": "page-03",
+          "physical_page_no": 3,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "7ddf32f4016f52995e2f913e2506c69932c882f51c29c808be8d01525729521b",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20708",
+      "title": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-03/s03_04.jpg",
+      "source_sha256": "0a473bf7356eefe56b1663d8e4272907a0204108589b98419bc4bff23a0dc0fd",
+      "source_file_size": 29989,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20708,
+          "page_label": "page-04",
+          "physical_page_no": 4,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "0a473bf7356eefe56b1663d8e4272907a0204108589b98419bc4bff23a0dc0fd",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20709",
+      "title": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-03/s03_05.jpg",
+      "source_sha256": "55c28227ce68ba4fc2b4af2c0ff13fb995c745a7b8d12daeab99eaa3201ff9b9",
+      "source_file_size": 33626,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20709,
+          "page_label": "page-05",
+          "physical_page_no": 5,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会第二次全体会议记录（1949-09-17）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "55c28227ce68ba4fc2b4af2c0ff13fb995c745a7b8d12daeab99eaa3201ff9b9",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20710",
+      "title": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-04/s04_01.jpg",
+      "source_sha256": "8fe361a3b76150d7b6e86da3240c4bc01d3bb639f802a120ea9d6adcb971361c",
+      "source_file_size": 40590,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20710,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "8fe361a3b76150d7b6e86da3240c4bc01d3bb639f802a120ea9d6adcb971361c",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20711",
+      "title": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-04/s04_02.jpg",
+      "source_sha256": "ecc1e05970902ec76ddbb8af955b826aa115ee660e2f5d9786b896ee40064478",
+      "source_file_size": 27304,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20711,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "ecc1e05970902ec76ddbb8af955b826aa115ee660e2f5d9786b896ee40064478",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20712",
+      "title": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-04/s04_03.jpg",
+      "source_sha256": "ccd88bb24ed00f1202a1f93ed7cfc6a49ec381f5870b25585339a299a5433402",
+      "source_file_size": 40499,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20712,
+          "page_label": "page-03",
+          "physical_page_no": 3,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "ccd88bb24ed00f1202a1f93ed7cfc6a49ec381f5870b25585339a299a5433402",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20713",
+      "title": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-04/s04_04.jpg",
+      "source_sha256": "c39aacb10b8d1b00d0f4dab2e3819eccb12cef034dfe53239228b5f0dbbafc4b",
+      "source_file_size": 40233,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20713,
+          "page_label": "page-04",
+          "physical_page_no": 4,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "c39aacb10b8d1b00d0f4dab2e3819eccb12cef034dfe53239228b5f0dbbafc4b",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20714",
+      "title": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-04/s04_05.jpg",
+      "source_sha256": "065115229bba7138183d9eb302a62672bb7f340bcff28fd9bd97a4a62de30b31",
+      "source_file_size": 47438,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20714,
+          "page_label": "page-05",
+          "physical_page_no": 5,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议第一届全体会议主席团及秘书长名单（草案）（1949-09）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "065115229bba7138183d9eb302a62672bb7f340bcff28fd9bd97a4a62de30b31",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20715",
+      "title": "中国人民政治协商会议筹备会关于召开中国人民政治协商会议第一届全体会议的通知（1949-09-20）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-05/s05_01.jpg",
+      "source_sha256": "9f69fa230706f334535daa4638d42664f7c8c45c70da3a15fbe32ce6f3434eb0",
+      "source_file_size": 46424,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20715,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会关于召开中国人民政治协商会议第一届全体会议的通知（1949-09-20）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "9f69fa230706f334535daa4638d42664f7c8c45c70da3a15fbe32ce6f3434eb0",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20716",
+      "title": "中国人民政治协商会议筹备会关于召开中国人民政治协商会议第一届全体会议的通知（1949-09-20）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec03_03-05/s05_02.jpg",
+      "source_sha256": "0f7bb609918b6fc2ec101e3dda9257fa463032b7f3ecc68f1b9048977f9107ae",
+      "source_file_size": 39417,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20716,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "中国人民政治协商会议筹备会关于召开中国人民政治协商会议第一届全体会议的通知（1949-09-20）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "0f7bb609918b6fc2ec101e3dda9257fa463032b7f3ecc68f1b9048977f9107ae",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20717",
+      "title": "新政治协商会议筹备会关于召开成立会的通知（1949-06-14）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec04_04-01/01.jpg",
+      "source_sha256": "bc034148bf6061108822ec224925719452906af9dfd18f964d268a7ec64b40ba",
+      "source_file_size": 205071,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20717,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政治协商会议筹备会关于召开成立会的通知（1949-06-14）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "bc034148bf6061108822ec224925719452906af9dfd18f964d268a7ec64b40ba",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20718",
+      "title": "新政治协商会议筹备会关于召开成立会的通知（1949-06-14）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec04_04-01/02.jpg",
+      "source_sha256": "abb9e0fde0fc2ef5a68cd3c26f9df5c5f0b2a7813db3517afab0c1e981ff6cd6",
+      "source_file_size": 204620,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20718,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "新政治协商会议筹备会关于召开成立会的通知（1949-06-14）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "abb9e0fde0fc2ef5a68cd3c26f9df5c5f0b2a7813db3517afab0c1e981ff6cd6",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20719",
+      "title": "毛泽东在新政协筹备会开幕典礼上的讲话（1949-06-15）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec04_04-02/01.jpg",
+      "source_sha256": "107b9ac441de896a05c08b1508348cccbfb5b71c2c9e240ad78453d2a86b69ba",
+      "source_file_size": 445498,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20719,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "毛泽东在新政协筹备会开幕典礼上的讲话（1949-06-15）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "107b9ac441de896a05c08b1508348cccbfb5b71c2c9e240ad78453d2a86b69ba",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20720",
+      "title": "毛泽东在新政协筹备会开幕典礼上的讲话（1949-06-15）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec04_04-02/02.jpg",
+      "source_sha256": "85bceec0fbf701e178b12faccdc8353ffabfd83ba541aaa9b3b67b0a57677344",
+      "source_file_size": 465256,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20720,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "毛泽东在新政协筹备会开幕典礼上的讲话（1949-06-15）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "85bceec0fbf701e178b12faccdc8353ffabfd83ba541aaa9b3b67b0a57677344",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20721",
+      "title": "朱德在新政协筹备会开幕典礼上的讲话（1949-06-15）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec04_04-03/01.jpg",
+      "source_sha256": "40697372f31ce579a399829ae0b73b2d1d8e6225d54b23d01ed21e3f315327fc",
+      "source_file_size": 350077,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20721,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "朱德在新政协筹备会开幕典礼上的讲话（1949-06-15）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "40697372f31ce579a399829ae0b73b2d1d8e6225d54b23d01ed21e3f315327fc",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20722",
+      "title": "朱德在新政协筹备会开幕典礼上的讲话（1949-06-15）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec04_04-03/02.jpg",
+      "source_sha256": "82e8d5746c91db8a51088a70ddfaa4d0b556ec80a5c6abf6c4b6b82ef05e5d46",
+      "source_file_size": 361727,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20722,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "朱德在新政协筹备会开幕典礼上的讲话（1949-06-15）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "82e8d5746c91db8a51088a70ddfaa4d0b556ec80a5c6abf6c4b6b82ef05e5d46",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20723",
+      "title": "李济深在新政治协商会议筹备会开幕典礼上的讲话（1949-06-15）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec04_04-04/01.jpg",
+      "source_sha256": "245bfea1760b960d8028857d1166cfcdf85ef3460513fa87c421dcfef5c05962",
+      "source_file_size": 393549,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20723,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "李济深在新政治协商会议筹备会开幕典礼上的讲话（1949-06-15）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "245bfea1760b960d8028857d1166cfcdf85ef3460513fa87c421dcfef5c05962",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20724",
+      "title": "沈钧儒在新政治协商会议筹备会开幕典礼上的讲话（1949-06-15）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec04_04-05/01.jpg",
+      "source_sha256": "88a7475affdb03a543678d2d5f56ce9810b729aebb2339c923723d9278087774",
+      "source_file_size": 220914,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20724,
+          "page_label": "page-01",
+          "physical_page_no": 1,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "沈钧儒在新政治协商会议筹备会开幕典礼上的讲话（1949-06-15）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "88a7475affdb03a543678d2d5f56ce9810b729aebb2339c923723d9278087774",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20725",
+      "title": "沈钧儒在新政治协商会议筹备会开幕典礼上的讲话（1949-06-15）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec04_04-05/02.jpg",
+      "source_sha256": "25e974bdabc76d85f50e818084e0b693abbf9190bf0a7f0dd4b7b6789d2b45c9",
+      "source_file_size": 327509,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20725,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "沈钧儒在新政治协商会议筹备会开幕典礼上的讲话（1949-06-15）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "25e974bdabc76d85f50e818084e0b693abbf9190bf0a7f0dd4b7b6789d2b45c9",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-navigation-page-20772",
+      "title": "政协一届全体会议主席团名单（1949-09-21）",
+      "source_role": "official_archive_digital_scan_navigation",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-07/02.jpg",
+      "source_sha256": "c72eb71726744849c389ce094e27cd82bf5aebe4e2a089977fcc1f0ad3f25a55",
+      "source_file_size": 242955,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "正式库已有页级 provenance；本轮仅补专题导航，未完成本批视觉复核。",
+      "page_records": [
+        {
+          "page_id": 20772,
+          "page_label": "page-02",
+          "physical_page_no": 2,
+          "target": "1949新政协筹备与一届全体会议的官方档案路径",
+          "role": "政协一届全体会议主席团名单（1949-09-21）",
+          "status": "navigation_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "c72eb71726744849c389ce094e27cd82bf5aebe4e2a089977fcc1f0ad3f25a55",
+          "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
         }
       ]
     }
