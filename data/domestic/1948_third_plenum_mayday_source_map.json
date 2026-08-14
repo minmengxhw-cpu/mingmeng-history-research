@@ -1,0 +1,247 @@
+{
+  "schema": "domestic_event_source_map.v1",
+  "event_id": "domestic-1948-third-plenum-may-day",
+  "title": "1948年民盟三中全会与五一口号：同期报刊及中央档案馆公开影像页级证据地图",
+  "review_status": "contemporary_and_archival_page_evidence_ready_primary_gap_open",
+  "evidence_scope": "同期《光明報》页级报道与国家档案局／中央档案馆公开专题页级影像；只登记来源、哈希和复核边界",
+  "body_text_included": false,
+  "ocr_text_included": false,
+  "raw_files_included": false,
+  "formal_db_written_by_map": false,
+  "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
+  "primary_evidence_closed": false,
+  "primary_evidence_gap": "1948年五一口号原始发布文本及其完整往来、民盟三中全会会议原件、民盟正式回应和香港传播链仍未形成完整独立原件闭环；本地图的公开档案影像是页级档案入口，不等同于档案馆母版或完整卷宗。",
+  "sources": [
+    {
+      "source_id": "nlc-guangmingbao-1948-v1n1",
+      "title": "《光明報》1948年第一卷第一期",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-01J000514-10484_光明報_1948年1卷1期.pdf",
+      "source_sha256": "55ac4cedee420a41427dbed23ccd4870adfac4315e987ef78aed20b1101b26e8",
+      "source_file_size": 1880624,
+      "page_count": 24,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10484_%E5%85%89%E6%98%8E%E5%A0%B1_1948%E5%B9%B41%E5%8D%B71%E6%9C%9F.pdf",
+      "access_note": "国家图书馆民国报纸公开扫描；正式库已有页级 provenance，以下页已完成原 PDF 页码、版面题名和人工复核。",
+      "page_records": [
+        {
+          "page_id": 1629,
+          "pdf_page_no": 4,
+          "physical_page_no": 4,
+          "target": "民盟三中全会的同期表达",
+          "role": "《民盟三中全会的成就》同期报刊页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "press_page_identity_heading",
+          "page_image_sha256": null,
+          "caveat": "可作为1948年同期报刊页引用；不替代民盟三中全会会议原始文件。"
+        },
+        {
+          "page_id": 1630,
+          "pdf_page_no": 5,
+          "physical_page_no": 5,
+          "target": "三中全会后民盟的当前任务",
+          "role": "《略论民主同盟当前的任务》同期报刊页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "press_page_identity_heading",
+          "page_image_sha256": null,
+          "caveat": "可作为1948年同期报刊页引用；不把报刊论述升级为会议决议或完整组织文件。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1948-mayday-telegram-p01",
+      "title": "毛泽东给李济深、沈钧儒电报（1948-05-01）第1页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec01_01-04/01.jpg",
+      "source_sha256": "20bfd396b9396d45a32c9b3fa970961bc361278b90d0d3c99a1a72f220715649",
+      "source_file_size": 372749,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance，公开扫描不等同于档案馆母版。",
+      "page_records": [
+        {
+          "page_id": 20665,
+          "physical_page_no": 1,
+          "target": "五一口号相关邀请与民主人士回应",
+          "role": "毛泽东给李济深、沈钧儒电报影像页1/2",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_document_range",
+          "page_image_sha256": "20bfd396b9396d45a32c9b3fa970961bc361278b90d0d3c99a1a72f220715649",
+          "caveat": "只确认公开档案影像的文档身份、页序和可见范围；不作逐字转录，不宣称取得完整电报卷宗。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1948-mayday-telegram-p02",
+      "title": "毛泽东给李济深、沈钧儒电报（1948-05-01）第2页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec01_01-04/02.jpg",
+      "source_sha256": "0d48477e6dc5000b8e96cc1db4f6b8d818d63e753fa8777e1014054603d8c66b",
+      "source_file_size": 464782,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance，公开扫描不等同于档案馆母版。",
+      "page_records": [
+        {
+          "page_id": 20666,
+          "physical_page_no": 2,
+          "target": "五一口号相关邀请与民主人士回应",
+          "role": "毛泽东给李济深、沈钧儒电报影像页2/2",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_document_range",
+          "page_image_sha256": "0d48477e6dc5000b8e96cc1db4f6b8d818d63e753fa8777e1014054603d8c66b",
+          "caveat": "与前页构成已登记的连续页；只确认页序与文档范围，不作逐字转录或完整档案卷宗声明。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1948-mayday-invitation-directive-p01",
+      "title": "中共中央关于邀请民主党派等代表来解放区开政协的指示（1948-05-01）第1页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec01_01-08/01.jpg",
+      "source_sha256": "4ef1a40f99f7ad817bb25b0e56044d2a0acfee26b39c3be2ccb9f4fc2fbb4309",
+      "source_file_size": 519378,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance，公开扫描不等同于档案馆母版。",
+      "page_records": [
+        {
+          "page_id": 20667,
+          "physical_page_no": 1,
+          "target": "五一口号后召开新政协的组织指示",
+          "role": "邀请民主党派等代表来解放区开政协的文件影像页1/5",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_document_range",
+          "page_image_sha256": "4ef1a40f99f7ad817bb25b0e56044d2a0acfee26b39c3be2ccb9f4fc2fbb4309",
+          "caveat": "只确认公开影像页身份与连续件范围；不作全文转录，也不把该文件替代民盟内部正式回应。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1948-mayday-invitation-directive-p02",
+      "title": "中共中央关于邀请民主党派等代表来解放区开政协的指示（1948-05-01）第2页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec01_01-08/02.jpg",
+      "source_sha256": "b6e4341ac642a111c65339d6586d7681b2df46130e48b7adf4ec5aead4fe4bda",
+      "source_file_size": 515882,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance，公开扫描不等同于档案馆母版。",
+      "page_records": [
+        {
+          "page_id": 20668,
+          "physical_page_no": 2,
+          "target": "五一口号后召开新政协的组织指示",
+          "role": "邀请民主党派等代表来解放区开政协的文件影像页2/5",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_document_range",
+          "page_image_sha256": "b6e4341ac642a111c65339d6586d7681b2df46130e48b7adf4ec5aead4fe4bda",
+          "caveat": "只确认公开影像页身份与连续件范围；不作全文转录，也不把该文件替代民盟内部正式回应。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1948-mayday-invitation-directive-p03",
+      "title": "中共中央关于邀请民主党派等代表来解放区开政协的指示（1948-05-01）第3页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec01_01-08/03.jpg",
+      "source_sha256": "be70d04752a49d5f57423b338f1fa639f66532722cd7ccabb7c8eb5b886696d6",
+      "source_file_size": 485781,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance，公开扫描不等同于档案馆母版。",
+      "page_records": [
+        {
+          "page_id": 20669,
+          "physical_page_no": 3,
+          "target": "五一口号后召开新政协的组织指示",
+          "role": "邀请民主党派等代表来解放区开政协的文件影像页3/5",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_document_range",
+          "page_image_sha256": "be70d04752a49d5f57423b338f1fa639f66532722cd7ccabb7c8eb5b886696d6",
+          "caveat": "只确认公开影像页身份与连续件范围；不作全文转录，也不把该文件替代民盟内部正式回应。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1948-mayday-invitation-directive-p04",
+      "title": "中共中央关于邀请民主党派等代表来解放区开政协的指示（1948-05-01）第4页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec01_01-08/04.jpg",
+      "source_sha256": "96faa0c99379d1b890ee424c337f43b33d5ebd1df302d39aa502331aa63dab56",
+      "source_file_size": 400264,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance，公开扫描不等同于档案馆母版。",
+      "page_records": [
+        {
+          "page_id": 20670,
+          "physical_page_no": 4,
+          "target": "五一口号后召开新政协的组织指示",
+          "role": "邀请民主党派等代表来解放区开政协的文件影像页4/5",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_document_range",
+          "page_image_sha256": "96faa0c99379d1b890ee424c337f43b33d5ebd1df302d39aa502331aa63dab56",
+          "caveat": "影像含连续页及手写修订痕迹；只确认页级身份和可见结构，不核定姓名或正文全文。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1948-mayday-invitation-directive-p05",
+      "title": "中共中央关于邀请民主党派等代表来解放区开政协的指示（1948-05-01）第5页",
+      "source_role": "official_archive_digital_scan_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec01_01-08/05.jpg",
+      "source_sha256": "3a587dbb4ad9eab05e37a8dddac80f7043843a1732c7a86e8076e9774d5b8289",
+      "source_file_size": 416657,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/index.html",
+      "access_note": "国家档案局／中央档案馆公开专题的本地页级影像副本；正式库已登记 provenance，公开扫描不等同于档案馆母版。",
+      "page_records": [
+        {
+          "page_id": 20671,
+          "physical_page_no": 5,
+          "target": "五一口号后召开新政协的组织指示",
+          "role": "邀请民主党派等代表来解放区开政协的文件影像页5/5",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "archival_scan_page_identity_and_document_range",
+          "page_image_sha256": "3a587dbb4ad9eab05e37a8dddac80f7043843a1732c7a86e8076e9774d5b8289",
+          "caveat": "这是已登记连续件末页；只确认页级身份和范围，不扩展为完整五一口号原始档案或民盟回应文件。"
+        }
+      ]
+    }
+  ]
+}
