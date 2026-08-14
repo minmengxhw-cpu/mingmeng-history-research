@@ -263,6 +263,34 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
                 }
             )
 
+    raw_crosswalk = topic.get("foreign_crosswalk") or {}
+    foreign_crosswalk: dict[str, dict[str, Any]] = {}
+    if isinstance(raw_crosswalk, dict):
+        for question_id, raw_item in raw_crosswalk.items():
+            if not isinstance(raw_item, dict):
+                continue
+            routes: list[dict[str, Any]] = []
+            for raw_route in raw_item.get("routes", []):
+                if not isinstance(raw_route, dict):
+                    continue
+                routes.append(
+                    {
+                        "slug": str(raw_route.get("slug") or ""),
+                        "name": str(raw_route.get("name") or ""),
+                        "entry": str(raw_route.get("entry") or ""),
+                        "documents": int(raw_route.get("documents") or 0),
+                        "pages": int(raw_route.get("pages") or 0),
+                    }
+                )
+            foreign_crosswalk[str(question_id)] = {
+                "relationship": str(raw_item.get("relationship") or ""),
+                "relationship_label": str(raw_item.get("relationship_label") or ""),
+                "scope": str(raw_item.get("scope") or ""),
+                "caveat": str(raw_item.get("caveat") or ""),
+                "routes": routes,
+                "body_text_included": False,
+            }
+
     return {
         "schema_version": 2,
         "packet_type": "domestic_topic_research_packet",
@@ -320,6 +348,12 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "body_read_by_builder": False,
             "questions": matrix_questions,
         },
+        "foreign_crosswalk": {
+            "schema_version": 1,
+            "status": "metadata_only",
+            "body_text_included": False,
+            "questions": foreign_crosswalk,
+        },
         "topic_event_pages": topic_event_rows,
         "open_primary_targets": open_targets,
         "academic_candidates": [
@@ -356,6 +390,8 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "strict_page_rows_gate_checked": True,
             "research_matrix_body_text_included": False,
             "research_matrix_questions": len(matrix_questions),
+            "foreign_crosswalk_body_text_included": False,
+            "foreign_crosswalk_questions": len(foreign_crosswalk),
             "source_sha256_exported": True,
             "citation_policy": "正式引文仍须打开 /cite/<page_id>，并遵守该页明确的 review_scope。",
         },
@@ -435,6 +471,9 @@ def research_packet_page(event_id: str) -> bytes:
     matrix_html = app._topic_research_matrix_html(
         packet.get("research_matrix"), packet.get("evidence_chain")
     )
+    foreign_crosswalk_html = app._topic_foreign_crosswalk_html(
+        (packet.get("foreign_crosswalk") or {}).get("questions", {})
+    )
 
     topic_event_cards = "".join(
         f'''<article class="result compact-result"><div>
@@ -457,6 +496,7 @@ def research_packet_page(event_id: str) -> bytes:
 <div class="notice"><strong>研究问题：</strong>{esc(packet['research_question'])}<br><strong>证据状态：</strong>{esc(scope['primary_evidence_label'])}。{esc(scope['primary_evidence_gap'])}<br><strong>边界：</strong>本包只导出题目、证据层、页级定位、来源 SHA256、复核范围和缺口；不复制正文、OCR、译文或逐字引文。正式引用必须打开对应的引用门禁页，并遵守该页的 review_scope。</div>
 <div class="section-head"><h2>国内—境外对读摘要</h2></div><section class="result-list"><article class="result compact-result"><div><h3>国内材料</h3><div class="snippet">{esc(scope['domestic_anchor'])}</div></div></article><article class="result compact-result"><div><h3>境外材料</h3><div class="snippet">{esc(scope['foreign_anchor'])}</div></div></article><article class="result compact-result"><div><h3>差异与下一步</h3><div class="snippet"><strong>差异：</strong>{esc(scope['difference'])}<br><strong>下一步：</strong>{esc(scope['next_action'])}</div></div></article></section>
 {matrix_html}
+{foreign_crosswalk_html}
 {"".join(sections)}
 <div class="section-head"><h2>仍待补原件</h2><span class="meta">{len(packet['open_primary_targets'])} 项</span></div><section class="result-list">{targets}</section>
 <div class="section-head"><h2>学术研究（解释层）</h2><span class="meta">不替代一手证据</span></div><section class="result-list">{academic}</section>

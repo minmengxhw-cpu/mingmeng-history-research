@@ -71,6 +71,8 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
     assert "研究问题—证据矩阵" in body
     assert "formation-organization-date" in body
     assert "/cite/1473" in body
+    assert "国内—境外子问题对读" in body
+    assert "暂无同命题境外专题" in body
     assert "打开研究包" in body
     assert "主证据（页级）" in body
     assert "同期交叉" in body
@@ -102,6 +104,15 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert packet["audit"]["page_rows_all_resolved"] is True
     assert packet["audit"]["research_matrix_body_text_included"] is False
     assert packet["audit"]["research_matrix_questions"] == 4
+    assert packet["audit"]["foreign_crosswalk_body_text_included"] is False
+    assert packet["audit"]["foreign_crosswalk_questions"] == 4
+    assert set(packet["foreign_crosswalk"]["questions"]) == {
+        item["id"] for item in packet["research_matrix"]["questions"]
+    }
+    assert all(
+        item["body_text_included"] is False
+        for item in packet["foreign_crosswalk"]["questions"].values()
+    )
     assert len(packet["research_matrix"]["questions"]) == 4
     assert all(item["body_text_included"] is False for item in packet["research_matrix"]["questions"])
     raw = packet_json_bytes("domestic-1945-first-congress").decode("utf-8")
@@ -116,6 +127,7 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert "专题回接严格页" in body
     assert "专题事件索引页" in body
     assert "研究问题—证据矩阵" in body
+    assert "国内—境外子问题对读" in body
     assert "专题回接" in body
     assert "原文摘录：" not in body
     assert "中文译文（" not in body
@@ -147,6 +159,32 @@ def test_topic_research_matrix_is_complete_and_page_traceable():
             assert question["next_action"]
             assert set(question["evidence_page_ids"]) | set(question["negative_page_ids"]) <= chain_pages
             assert question.get("body_text_included") is not True
+
+
+def test_topic_foreign_crosswalk_is_complete_and_explicit():
+    """每个国内子问题必须显式声明境外关系，缺少对应项也要写明。"""
+    root = Path(__file__).resolve().parents[1]
+    matrix = json.loads((root / "data/domestic/topic_research_matrix.json").read_text(encoding="utf-8"))
+    crosswalk = json.loads((root / "data/domestic/topic_foreign_crosswalk.json").read_text(encoding="utf-8"))
+    question_ids = {q["id"] for topic in matrix["topics"] for q in topic["questions"]}
+    assert crosswalk["status"] == "metadata_only"
+    assert crosswalk["body_read_by_builder"] is False
+    assert set(crosswalk["questions"]) == question_ids
+    allowed = set(crosswalk["relationship_labels"])
+    for item in crosswalk["questions"].values():
+        assert item["relationship"] in allowed
+        assert item["scope"]
+        assert item["caveat"]
+        assert all(isinstance(slug, str) and slug for slug in item["foreign_routes"])
+
+    import app
+
+    for slug in {
+        slug
+        for item in crosswalk["questions"].values()
+        for slug in item["foreign_routes"]
+    }:
+        assert app._research_foreign_definition(slug) is not None, slug
 
 
 def test_li_wen_packet_exposes_official_compilation_entries_without_promoting_them():

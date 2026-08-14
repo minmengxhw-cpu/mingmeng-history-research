@@ -32,6 +32,8 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
         errors.append("verbatim_quote_included must be false")
     if audit.get("research_matrix_body_text_included") is not False:
         errors.append("research_matrix_body_text_included must be false")
+    if audit.get("foreign_crosswalk_body_text_included") is not False:
+        errors.append("foreign_crosswalk_body_text_included must be false")
     matrix = packet.get("research_matrix") or {}
     matrix_questions = matrix.get("questions") if isinstance(matrix, dict) else []
     if not isinstance(matrix_questions, list):
@@ -44,6 +46,20 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
             errors.append(f"matrix question {question.get('id')} exports body text")
         if not question.get("id") or not question.get("question"):
             errors.append("matrix question missing id or question")
+    crosswalk = packet.get("foreign_crosswalk") or {}
+    crosswalk_questions = crosswalk.get("questions") if isinstance(crosswalk, dict) else {}
+    if not isinstance(crosswalk_questions, dict):
+        errors.append("foreign_crosswalk.questions must be a mapping")
+        crosswalk_questions = {}
+    if len(crosswalk_questions) != audit.get("foreign_crosswalk_questions"):
+        errors.append("foreign crosswalk question count mismatch")
+    if matrix_questions and set(item.get("id") for item in matrix_questions) != set(crosswalk_questions):
+        errors.append("foreign crosswalk must cover exactly the matrix questions")
+    for question_id, item in crosswalk_questions.items():
+        if item.get("body_text_included") is not False:
+            errors.append(f"foreign crosswalk {question_id} exports body text")
+        if not item.get("relationship") or not item.get("relationship_label"):
+            errors.append(f"foreign crosswalk {question_id} missing relationship")
     chain = packet.get("evidence_chain") or {}
     rows = [row for values in chain.values() for row in values]
     counts = packet.get("counts") or {}

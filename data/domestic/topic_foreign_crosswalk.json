@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "status": "metadata_only",
+  "body_read_by_builder": false,
+  "policy": "境外对读映射只提供专题入口、机器命中范围和关系类型，不把境外回顾、机器命中或背景材料升级为国内事件定义证据，也不复制正文。没有直接对应专题时明确登记为空。",
+  "relationship_labels": {
+    "direct_context": "直接相关的境外对读入口",
+    "parallel": "并行记录入口",
+    "contextual": "背景对读入口",
+    "no_direct_counterpart": "暂无同命题境外专题"
+  },
+  "questions": {
+    "formation-organization-date": {
+      "foreign_routes": ["democratic-league-1941-formation-context"],
+      "relationship": "direct_context",
+      "scope": "用于对读1941年前后的组织称谓、形成时间和外部观察记录。",
+      "caveat": "境外回顾不是民盟成立宣言或成立会议原件，不能替代国内成立文件。"
+    },
+    "formation-early-platform": {
+      "foreign_routes": ["democratic-league-1941-formation-context"],
+      "relationship": "contextual",
+      "scope": "用于把国内早期政治表达放入境外观察和同期国际语境中对读。",
+      "caveat": "境外记录的观察者、形成时间和信息来源与民盟自身文本不同。"
+    },
+    "formation-version": {
+      "foreign_routes": [],
+      "relationship": "no_direct_counterpart",
+      "scope": "当前没有登记可用于核对成立宣言底本关系的境外专题。",
+      "caveat": "不能用境外专题入口补足国内汇编与成立原件之间的版本关系。"
+    },
+    "formation-primary-gap": {
+      "foreign_routes": [],
+      "relationship": "no_direct_counterpart",
+      "scope": "境外平台暂无可以替代成立原件的同命题入口。",
+      "caveat": "该缺口必须通过国内馆藏原件、档号和版本关系解决。"
+    },
+    "reorganization-political-context": {
+      "foreign_routes": ["democratic-league-1944-political-proposals"],
+      "relationship": "direct_context",
+      "scope": "用于对读1944政治主张在境外档案中的记录与国内汇编文本的版本边界。",
+      "caveat": "境外记录不能证明1944改组会议、改名决定或国内文本底本。"
+    },
+    "reorganization-periodical": {
+      "foreign_routes": ["democratic-league-1944-political-proposals"],
+      "relationship": "contextual",
+      "scope": "用于将《民憲》同期刊物线索与境外观察到的政治主张并置。",
+      "caveat": "境外入口不是《民憲》文章正文，也不能替代同期原刊。"
+    },
+    "reorganization-decision": {
+      "foreign_routes": [],
+      "relationship": "no_direct_counterpart",
+      "scope": "当前没有登记可证明改组会议和改名决定的境外专题。",
+      "caveat": "行政/组织决定仍须追国内会议记录和组织档案。"
+    },
+    "reorganization-version": {
+      "foreign_routes": ["democratic-league-1944-political-proposals"],
+      "relationship": "contextual",
+      "scope": "境外入口可帮助发现异名、日期和相关档案线索，但不直接建立国内版本谱系。",
+      "caveat": "版本关系必须由各自原件、编印信息和页级哈希逐项核对。"
+    },
+    "congress-report": {
+      "foreign_routes": ["democratic-league-1945-context"],
+      "relationship": "contextual",
+      "scope": "用于把1945大会政治报告的国内页界与境外对民盟活动的记录并置。",
+      "caveat": "境外活动记录不是大会政治报告或完整会议记录。"
+    },
+    "congress-declaration": {
+      "foreign_routes": ["democratic-league-1945-context"],
+      "relationship": "contextual",
+      "scope": "用于对读一大宣言的公开政治表达与境外同期观察。",
+      "caveat": "境外入口不能证明国内宣言的底本、缺页或逐字一致性。"
+    },
+    "congress-program": {
+      "foreign_routes": ["democratic-league-1945-context"],
+      "relationship": "contextual",
+      "scope": "用于补充1945组织规则和政治主张的境外观察语境。",
+      "caveat": "学术/境外解释不能替代纲领和组织规程原页。"
+    },
+    "congress-archive-gap": {
+      "foreign_routes": [],
+      "relationship": "no_direct_counterpart",
+      "scope": "当前没有登记可替代1945大会完整原始档案的境外对应专题。",
+      "caveat": "大会底本、会议记录和缺页关系仍是国内原件追索任务。"
+    },
+    "pcc-formal-record": {
+      "foreign_routes": ["pcc-1946"],
+      "relationship": "parallel",
+      "scope": "境外政治协商会议专题可与国内正式会议档案、代表发言和提案逐项并行对读。",
+      "caveat": "境外记录的形成者和记录链不同，不能替代国内会议原页。"
+    },
+    "pcc-public-context": {
+      "foreign_routes": ["pcc-1946"],
+      "relationship": "parallel",
+      "scope": "用于把国内报刊公共表达与境外政协记录放在同一日期轴。",
+      "caveat": "报刊和境外记录各自只证明其来源层的表达，不能直接互证为民盟正式立场。"
+    },
+    "pcc-representatives": {
+      "foreign_routes": ["pcc-1946"],
+      "relationship": "parallel",
+      "scope": "境外政协入口可作为代表、议题和会议日期的并行检索线索。",
+      "caveat": "国内代表身份、提案和发言仍需国内会议档案逐项定位。"
+    },
+    "pcc-primary-boundary": {
+      "foreign_routes": ["pcc-1946"],
+      "relationship": "parallel",
+      "scope": "境外专题可以帮助发现对读线索，但不是国内一手闭环的替代物。",
+      "caveat": "开放目标仍是国内正式会议档案、代表发言/提案和完整日期轴。"
+    },
+    "refuse-public-position": {
+      "foreign_routes": ["pcc-1946"],
+      "relationship": "contextual",
+      "scope": "以1946政协境外记录作为拒绝参加国民大会前后的制度背景对读。",
+      "caveat": "当前没有专门的境外拒参专题，不能把政协入口当作拒参声明。"
+    },
+    "refuse-conditional-debate": {
+      "foreign_routes": ["pcc-1946"],
+      "relationship": "contextual",
+      "scope": "用于对读国民大会争议与政协制度背景，不直接回答国内论述变化。",
+      "caveat": "‘有条件参加’与最终拒绝仍须回到同期国内函电、声明和原刊。"
+    },
+    "refuse-formal-statement": {
+      "foreign_routes": [],
+      "relationship": "no_direct_counterpart",
+      "scope": "当前没有登记可替代民盟正式拒参声明或函电的境外专题。",
+      "caveat": "国内正式文件缺口不能由政协境外记录补齐。"
+    },
+    "refuse-source-conflict": {
+      "foreign_routes": ["pcc-1946"],
+      "relationship": "contextual",
+      "scope": "境外政协记录可作为冲突登记表的一条外部参照线。",
+      "caveat": "不同来源层级、日期和形成者必须分开，不能据境外摘要消解国内冲突。"
+    },
+    "li-wen-official-record": {
+      "foreign_routes": ["kunming-assassinations"],
+      "relationship": "direct_context",
+      "scope": "用于对读李公朴、闻一多遇害及民盟组织反应的境外记录。",
+      "caveat": "境外专题不能替代民盟抗议文件、原版《民主周刊》或司法档案。"
+    },
+    "li-wen-contemporaneous-press": {
+      "foreign_routes": ["kunming-assassinations"],
+      "relationship": "parallel",
+      "scope": "将国内同期报刊与境外昆明暗杀专题放在同一案件时间轴。",
+      "caveat": "不同报刊和境外档案的报道身份、来源链和选择性需要分别标注。"
+    },
+    "li-wen-justice-record": {
+      "foreign_routes": ["kunming-assassinations"],
+      "relationship": "contextual",
+      "scope": "境外专题可提供案件背景线索，但不等于司法/行政原件。",
+      "caveat": "司法、行政和地方组织记录仍需国内卷宗与页级链。"
+    },
+    "li-wen-version-boundary": {
+      "foreign_routes": ["kunming-assassinations"],
+      "relationship": "contextual",
+      "scope": "用于发现报道、声明和境外记录之间的日期及称谓差异。",
+      "caveat": "境外入口不能建立国内汇编与抗议原件的版本关系。"
+    },
+    "dissolution-public-date": {
+      "foreign_routes": ["meng-banned-1947"],
+      "relationship": "direct_context",
+      "scope": "与1947年10—11月国内报刊时间线并置，核对境外观察的日期和称谓。",
+      "caveat": "境外专题和报刊报道都不能替代政府公函、行政公告原件。"
+    },
+    "dissolution-regional-press": {
+      "foreign_routes": ["meng-banned-1947"],
+      "relationship": "contextual",
+      "scope": "将上海、天津等国内版别差异与境外对民盟被禁的记录并置。",
+      "caveat": "境外记录不能解释国内版别删节、转载和标题差异。"
+    },
+    "dissolution-administrative-original": {
+      "foreign_routes": [],
+      "relationship": "no_direct_counterpart",
+      "scope": "当前没有可替代1947政府公函和解散公告的境外同命题入口。",
+      "caveat": "行政原件必须沿国内档案馆和民盟档案目录追索。"
+    },
+    "dissolution-social-response": {
+      "foreign_routes": ["meng-banned-1947"],
+      "relationship": "parallel",
+      "scope": "用于把国内社会反应、观察类刊物和境外记录放入同一时段对读。",
+      "caveat": "社会反应、境外观察和行政事实必须分层，不可互相替代。"
+    },
+    "third-plenum-public-record": {
+      "foreign_routes": ["meng-3rd-plenum-hk-1948"],
+      "relationship": "direct_context",
+      "scope": "将1948三中全会国内报刊页与香港境外专题入口并置。",
+      "caveat": "境外专题不能替代三中全会会议记录和决议原件。"
+    },
+    "may-day-relation": {
+      "foreign_routes": ["meng-3rd-plenum-hk-1948", "may-day-call-1948"],
+      "relationship": "parallel",
+      "scope": "分别对读三中全会、香港传播和五一口号的境外记录，避免把三条线合成单一事实。",
+      "caveat": "国内会议事实、口号文本和传播关系仍须分别取得原页。"
+    },
+    "third-plenum-hong-kong": {
+      "foreign_routes": ["meng-3rd-plenum-hk-1948", "may-day-call-1948"],
+      "relationship": "parallel",
+      "scope": "境外香港专题和五一口号专题提供传播链的并行检索入口。",
+      "caveat": "当前没有足以替代香港同期刊物、函电和会议记录的国内外完整传播链。"
+    },
+    "third-plenum-primary-boundary": {
+      "foreign_routes": ["meng-3rd-plenum-hk-1948", "may-day-call-1948"],
+      "relationship": "contextual",
+      "scope": "境外入口可辅助拆分三中全会、五一口号和香港传播三条证据线。",
+      "caveat": "三个国内主证据缺口仍需分别补档号、原页和权利信息。"
+    },
+    "new-pcc-representatives": {
+      "foreign_routes": [],
+      "relationship": "no_direct_counterpart",
+      "scope": "当前没有与1949完整代表名册同命题的境外专题。",
+      "caveat": "相关境外北平和平接触入口不能替代代表名单和资格材料。"
+    },
+    "new-pcc-signatures-schedule": {
+      "foreign_routes": [],
+      "relationship": "no_direct_counterpart",
+      "scope": "当前没有与签名册、会议日程和全体会议流程同命题的境外入口。",
+      "caveat": "应优先沿中央档案馆专题补齐国内会议卷宗。"
+    },
+    "new-pcc-public-context": {
+      "foreign_routes": ["peiping-mediation-1949"],
+      "relationship": "contextual",
+      "scope": "北平和平接触专题可作为1949政治环境和民主人士位置的背景对读。",
+      "caveat": "它不是新政协筹备会或民盟代表发言专题，不能替代国内会议档案。"
+    },
+    "new-pcc-archive-gap": {
+      "foreign_routes": [],
+      "relationship": "no_direct_counterpart",
+      "scope": "当前没有境外专题可以替代新政协筹备会、发言和完整代表档案。",
+      "caveat": "已有国外背景入口不改变国内一手档案缺口。"
+    }
+  }
+}

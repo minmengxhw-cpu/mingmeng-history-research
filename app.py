@@ -67,6 +67,7 @@ HOME_FOCUS_PATH = DATA_ROOT / "home_focus.json"
 TOPIC_COMPARISON_CARDS_PATH = DATA_ROOT / "domestic" / "topic_comparison_cards.json"
 TOPIC_EVIDENCE_CHAIN_PATH = DATA_ROOT / "domestic" / "topic_evidence_chain.json"
 TOPIC_RESEARCH_MATRIX_PATH = DATA_ROOT / "domestic" / "topic_research_matrix.json"
+TOPIC_FOREIGN_CROSSWALK_PATH = DATA_ROOT / "domestic" / "topic_foreign_crosswalk.json"
 ACADEMIC_SOURCE_POLICY_PATH = DATA_ROOT / "domestic" / "academic_source_policy.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
@@ -4532,6 +4533,81 @@ def _load_topic_research_matrix() -> dict[str, dict[str, object]]:
     }
 
 
+def _load_topic_foreign_crosswalk() -> dict[str, object]:
+    """读取子问题到境外专题入口的对读映射；只消费元数据。"""
+    if not TOPIC_FOREIGN_CROSSWALK_PATH.is_file():
+        return {"relationship_labels": {}, "questions": {}}
+    try:
+        payload = json.loads(TOPIC_FOREIGN_CROSSWALK_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {"relationship_labels": {}, "questions": {}}
+    if not isinstance(payload, dict):
+        return {"relationship_labels": {}, "questions": {}}
+    questions = payload.get("questions")
+    labels = payload.get("relationship_labels")
+    return {
+        "relationship_labels": labels if isinstance(labels, dict) else {},
+        "questions": questions if isinstance(questions, dict) else {},
+    }
+
+
+def _research_topic_foreign_crosswalk(
+    matrix: dict[str, object] | None,
+    foreign_stats: list[dict[str, object]],
+) -> dict[str, dict[str, object]]:
+    """把声明式对读映射解析成页面/研究包可用的元数据。"""
+    payload = _load_topic_foreign_crosswalk()
+    declarations = payload.get("questions") if isinstance(payload, dict) else {}
+    labels = payload.get("relationship_labels") if isinstance(payload, dict) else {}
+    if not isinstance(declarations, dict):
+        declarations = {}
+    if not isinstance(labels, dict):
+        labels = {}
+    stats_by_slug = {
+        str(entry["definition"].get("slug") or ""): entry
+        for entry in foreign_stats
+        if isinstance(entry, dict) and isinstance(entry.get("definition"), dict)
+    }
+    questions = matrix.get("questions") if isinstance(matrix, dict) else []
+    if not isinstance(questions, list):
+        questions = []
+    result: dict[str, dict[str, object]] = {}
+    for question in questions:
+        if not isinstance(question, dict):
+            continue
+        question_id = str(question.get("id") or "")
+        declaration = declarations.get(question_id)
+        if not isinstance(declaration, dict):
+            declaration = {}
+        relationship = str(declaration.get("relationship") or "no_direct_counterpart")
+        routes: list[dict[str, object]] = []
+        for raw_slug in declaration.get("foreign_routes", []):
+            slug = str(raw_slug or "")
+            entry = stats_by_slug.get(slug)
+            if not entry:
+                continue
+            definition = entry.get("definition") or {}
+            stats = entry.get("stats") or {}
+            routes.append(
+                {
+                    "slug": slug,
+                    "name": str(definition.get("name") or slug),
+                    "entry": str(definition.get("entry") or ""),
+                    "documents": int(stats.get("documents") or 0),
+                    "pages": int(stats.get("pages") or 0),
+                }
+            )
+        result[question_id] = {
+            "relationship": relationship,
+            "relationship_label": str(labels.get(relationship) or relationship),
+            "scope": str(declaration.get("scope") or ""),
+            "caveat": str(declaration.get("caveat") or ""),
+            "routes": routes,
+            "body_text_included": False,
+        }
+    return result
+
+
 CHAIN_LAYER_META = {
     "primary": ("主证据（页级）", "说明事件定义或组织表达的直接页级材料"),
     "cross_source": ("同期交叉", "来自不同刊物、版别或相邻时间点的对读材料"),
@@ -4707,6 +4783,54 @@ def _topic_research_matrix_html(
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>研究问题—证据矩阵</h2><span class="meta">{len(cards)} 个子问题 · 元数据导航</span></div>
 <div class="notice"><strong>矩阵纪律：</strong>它把子问题、页级入口、证据范围和开放缺口放在一起，帮助研究者决定先读什么；不复制正文、OCR或逐字引文，也不改变原页的 citation gate。页级链接会回到引用门禁，由原页复核范围决定能否正式引用。</div>
 <section class="result-list">{"".join(cards) or '<div class="notice">当前没有登记子问题。</div>'}</section>"""
+
+
+def _topic_foreign_crosswalk_html(
+    crosswalk: dict[str, dict[str, object]] | None,
+) -> str:
+    """渲染国内子问题对应的境外入口，并显示关系边界。"""
+    if not crosswalk:
+        return '<div class="notice">该专题尚未配置国内—境外子问题对读映射。</div>'
+    relationship_classes = {
+        "direct_context": "ok",
+        "parallel": "ok",
+        "contextual": "warn",
+        "no_direct_counterpart": "warn",
+    }
+    cards: list[str] = []
+    for question_id, item in crosswalk.items():
+        if not isinstance(item, dict):
+            continue
+        routes = item.get("routes") if isinstance(item.get("routes"), list) else []
+        route_links: list[str] = []
+        for route in routes:
+            if not isinstance(route, dict):
+                continue
+            entry = str(route.get("entry") or "")
+            if not entry:
+                continue
+            route_links.append(
+                f'<a class="tag" href="{h(entry)}">{h(route.get("name") or route.get("slug"))} · {h(route.get("pages", 0))} 页</a>'
+            )
+        route_html = " ".join(route_links) or '<span class="meta">暂无对应境外专题入口</span>'
+        relationship = str(item.get("relationship") or "no_direct_counterpart")
+        status_class = relationship_classes.get(relationship, "warn")
+        cards.append(
+            f"""
+<article class="result compact-result foreign-crosswalk-item">
+  <div>
+    <h3>{h(question_id)}</h3>
+    <div class="tagline"><span class="pstatus {status_class}">{h(item.get('relationship_label') or relationship)}</span></div>
+    <div class="snippet"><strong>境外入口能支持：</strong>{h(item.get('scope') or '未标注')}</div>
+    <div class="snippet"><strong>对读边界：</strong>{h(item.get('caveat') or '未标注')}</div>
+    <div class="tagline"><span class="meta">境外路线</span> {route_html}</div>
+  </div>
+</article>"""
+        )
+    return f"""
+<div class="section-head"><h2><svg class="ico"><use href="#i-globe"/></svg>国内—境外子问题对读</h2><span class="meta">关系类型和边界均为元数据声明</span></div>
+<div class="notice"><strong>对读纪律：</strong>“直接相关”“并行记录”和“背景对读”都不是自动互证；“暂无同命题境外专题”是明确的缺口。境外链接只进入专题/事件入口，正式结论仍需回到双方各自页级证据和 citation gate。</div>
+<section class="result-list">{"".join(cards) or '<div class="notice">当前没有登记境外对读条目。</div>'}</section>"""
 
 
 def _research_gap_rows() -> list[dict[str, object]]:
@@ -5487,6 +5611,9 @@ def _research_topic_rows() -> list[dict[str, object]]:
                 "topic_event_domestic_strict_pages": topic_event_stats["domestic_strict_pages"],
                 "topic_event_rows": topic_event_rows,
                 "foreign_stats": foreign_stats,
+                "foreign_crosswalk": _research_topic_foreign_crosswalk(
+                    research_matrices.get(str(item.get("event_id")), {}), foreign_stats
+                ),
                 "foreign_pages": sum(int(entry["stats"]["pages"]) for entry in foreign_stats),
                 "foreign_documents": sum(int(entry["stats"]["documents"]) for entry in foreign_stats),
             })
@@ -5587,6 +5714,7 @@ def research_topic_page(event_id: str) -> bytes:
     primary = _primary_evidence_display(item)
     evidence_chain = topic.get("evidence_chain") or {}
     research_matrix = topic.get("research_matrix") or {}
+    foreign_crosswalk = topic.get("foreign_crosswalk") or {}
     foreign_samples: list[dict[str, object]] = []
     with conn() as c:
         for entry in topic["foreign_stats"]:
@@ -5700,6 +5828,7 @@ def research_topic_page(event_id: str) -> bytes:
 """
     evidence_chain_html = _topic_evidence_chain_html(evidence_chain)
     research_matrix_html = _topic_research_matrix_html(research_matrix, evidence_chain)
+    foreign_crosswalk_html = _topic_foreign_crosswalk_html(foreign_crosswalk)
 
     event_link = f"/domestic/events?event={quote(event_id)}"
     body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
@@ -5721,6 +5850,7 @@ def research_topic_page(event_id: str) -> bytes:
 <div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br><strong>一手闭环缺口：</strong>{h(primary['gap'])}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。下方“专题事件索引页”与“国内已入库证据样本”是两条不同回接路径，严格页数字不能互相替代。</div>
 {comparison_html}
 {research_matrix_html}
+{foreign_crosswalk_html}
 {evidence_chain_html}
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>学术研究资料（解释层）</h2><span class="meta">{h(academic_total)} 条机器主题候选</span></div>
 <div class="notice">学术材料用于解释、争议定位和检索扩展；只有全文/页码/哈希/复核齐全后才可能进入正式引用。下方命中依据是书目元数据和结构化主题字段，不是正文语义确认。</div>
