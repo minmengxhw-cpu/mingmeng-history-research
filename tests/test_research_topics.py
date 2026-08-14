@@ -136,19 +136,19 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
 
 
 def test_pcc_1946_sourcebook_staging_entry_is_traceable(live_server):
-    """High-value local sourcebook must be readable without entering formal DB."""
+    """The aggregate sourcebook remains traceable while selected pages are formalized."""
     status, body = fetch(live_server, "/domestic/sourcebook/1946-pcc")
     assert status == 200
     assert body is not None
     assert "1946年政協文獻" in body
     assert "9" in body
     assert "sourcebook_scan" in body
-    assert "targeted_review_pending" in body
+    assert "page_identity_and_boundary_human_verified_body_ocr_pending" in body
     assert "body_read=false" in body
     assert "formal_db_written=false" in body
     assert "PDF 23" in body
     assert "PDF 206" in body
-    assert "不能直接升级为正式 SQLite 页" in body or "不进入正式 SQLite" in body
+    assert "不把汇编升级为政协原件" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
     response = requests.get(f"{live_server}/domestic/sourcebook/file/1946-pcc", stream=True, timeout=20)
@@ -1167,8 +1167,8 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
     assert summary["evidence_chain_ready"] == 9
-    assert summary["evidence_chain_page_items"] == 120
-    assert summary["evidence_chain_strict_items"] == 112
+    assert summary["evidence_chain_page_items"] == 147
+    assert summary["evidence_chain_strict_items"] == 121
     assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
     assert all(row["evidence_chain_ready"] for row in report["topics"])
@@ -1195,8 +1195,8 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
-    assert report["page_items"] == 120
-    assert report["strict_citation_items"] == 112
+    assert report["page_items"] == 147
+    assert report["strict_citation_items"] == 121
 
 
 def test_high_value_reviewed_pages_are_reconnected_without_primary_upgrade():
@@ -1251,7 +1251,7 @@ def test_completion_monitor_formal_check_is_read_only():
     after = hashlib.sha256(DB_PATH.resolve().read_bytes()).hexdigest()
     assert before == after
     assert report["readonly"] is True
-    assert report["domestic_candidates"] == 689
+    assert report["domestic_candidates"] == 690
     assert report["pending_review"] == 1
     assert report["integrity_check"] == "ok"
     assert report["foreign_key_violations"] == 0

@@ -5,7 +5,7 @@
   "publication_year": 1946,
   "source_role": "sourcebook_scan",
   "evidence_level": "L2",
-  "review_status": "targeted_review_pending",
+  "review_status": "page_identity_and_boundary_human_verified_body_ocr_pending",
   "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf",
   "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
   "page_count": 247,
@@ -15,7 +15,10 @@
   "render_rotation": "270deg",
   "body_read": false,
   "formal_db_written": false,
+  "formal_db_page_count": 9,
+  "formal_page_ids": [20903, 20904, 20905, 20906, 20907, 20908, 20909, 20910, 20911],
   "citation_ready": false,
+  "page_level_citation_ready": true,
   "auto_promote_primary_closed": false,
   "targets": [
     {
@@ -24,7 +27,7 @@
       "pdf_page_start": 23,
       "printed_page_start": 16,
       "adjacent_pdf_pages": [24],
-      "status": "title_confirmed_boundary_pending"
+      "status": "page_identity_boundary_verified"
     },
     {
       "id": "zhang-junmai-closing",
@@ -32,7 +35,7 @@
       "pdf_page_start": 52,
       "printed_page_start": 45,
       "adjacent_pdf_pages": [],
-      "status": "title_confirmed_boundary_pending"
+      "status": "page_identity_boundary_verified"
     },
     {
       "id": "luo-longji-democratic-league-view",
@@ -40,7 +43,7 @@
       "pdf_page_start": 62,
       "printed_page_start": 55,
       "adjacent_pdf_pages": [63],
-      "status": "title_confirmed_boundary_pending"
+      "status": "page_identity_boundary_verified"
     },
     {
       "id": "democratic-league-proposal",
@@ -48,7 +51,7 @@
       "pdf_page_start": 101,
       "printed_page_start": 94,
       "adjacent_pdf_pages": [],
-      "status": "title_confirmed_boundary_pending"
+      "status": "page_identity_boundary_verified"
     },
     {
       "id": "zhang-bojun-democratic-league-view",
@@ -56,7 +59,7 @@
       "pdf_page_start": 125,
       "printed_page_start": 116,
       "adjacent_pdf_pages": [126],
-      "status": "title_confirmed_boundary_pending"
+      "status": "page_identity_boundary_verified"
     },
     {
       "id": "zhang-lan-march-21-talk",
@@ -64,7 +67,7 @@
       "pdf_page_start": 206,
       "printed_page_start": 197,
       "adjacent_pdf_pages": [],
-      "status": "title_confirmed_boundary_pending"
+      "status": "page_identity_boundary_verified"
     }
   ]
 }

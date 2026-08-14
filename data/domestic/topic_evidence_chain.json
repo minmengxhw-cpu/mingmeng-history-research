@@ -108,28 +108,28 @@
           "caveat": "严格门禁只覆盖汇编版本和页界；不能把汇编转载升级为独立同期底本或未经校勘的逐字引文。"
         },
         {
-        "label": "《民憲》第一卷第一期目录页",
-        "page_id": 20286,
-        "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n1-1944-05-16",
-        "status": "strict_citation",
-        "role": "1944-05-16同期政论刊物的期次/目录页交叉材料",
-        "caveat": "严格门禁只覆盖刊名、卷期、出版日和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
-      },
-      {
-        "label": "《民憲》第一卷第六期目录页",
-        "page_id": 20288,
-        "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n6-1944-08-15",
-        "status": "strict_citation",
-        "role": "1944-08-15改组前夕同期政论刊物的期次/目录页交叉材料",
-        "caveat": "严格门禁只覆盖刊名、卷期、出版日和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
-      },
-      {
-        "label": "《民憲》第一卷第九期目录页",
-        "page_id": 20290,
-        "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n9-1944-11-20",
-        "status": "strict_citation",
-        "role": "1944-11-20改组后同期政论刊物的期次/目录页交叉材料",
-        "caveat": "严格门禁只覆盖刊名、卷期、出版日、馆藏日期戳和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
+          "label": "《民憲》第一卷第一期目录页",
+          "page_id": 20286,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n1-1944-05-16",
+          "status": "strict_citation",
+          "role": "1944-05-16同期政论刊物的期次/目录页交叉材料",
+          "caveat": "严格门禁只覆盖刊名、卷期、出版日和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
+        },
+        {
+          "label": "《民憲》第一卷第六期目录页",
+          "page_id": 20288,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n6-1944-08-15",
+          "status": "strict_citation",
+          "role": "1944-08-15改组前夕同期政论刊物的期次/目录页交叉材料",
+          "caveat": "严格门禁只覆盖刊名、卷期、出版日和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
+        },
+        {
+          "label": "《民憲》第一卷第九期目录页",
+          "page_id": 20290,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:minxian-v1n9-1944-11-20",
+          "status": "strict_citation",
+          "role": "1944-11-20改组后同期政论刊物的期次/目录页交叉材料",
+          "caveat": "严格门禁只覆盖刊名、卷期、出版日、馆藏日期戳和目录页身份；不能替代改组会议记录，也不能把目录列文当作已核验正文。"
         }
       ],
       "negative_checks": [],
@@ -488,7 +488,7 @@
   {
     "event_id": "domestic-1946-pcc",
     "last_audited": "2026-08-15",
-    "audit_basis": "正式库页级元数据、既有人工复核决定、1946年《政協文獻》9页 OCR review_only 批次和来源登记；本文件不读取正文。",
+    "audit_basis": "正式库页级元数据、既有人工复核决定、1946年《政協文獻》9页汇编扫描页视觉复核和来源登记；本文件不读取正文。",
     "layers": {
       "primary": [],
       "cross_source": [
@@ -552,73 +552,73 @@
           "label": "《政協文獻》1946·张澜开会词（开幕词）",
           "page_id": 20903,
           "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
-          "status": "review_only",
-          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
-          "caveat": "仅用于检索和页级导航，尚未完成逐字人工复核，不能替代旧政协正式会议记录。"
+          "status": "strict_citation",
+          "role": "L2汇编页级严格引用入口：张澜开会词标题、页界和来源定位已完成视觉核验。",
+          "caveat": "严格范围仅覆盖汇编版本、页身份、页界和来源定位；不替代旧政协正式会议记录，不表示 OCR 已逐字校订。"
         },
         {
           "label": "《政協文獻》1946·张澜开会词相邻页",
           "page_id": 20904,
           "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
-          "status": "review_only",
-          "role": "L2汇编定向页的相邻连续页检索入口。",
-          "caveat": "仅用于检索和边界导航，不能作为已核验的正式引文。"
+          "status": "strict_citation",
+          "role": "L2汇编连续页级严格引用入口：张澜开会词连续页界和来源定位已完成视觉核验。",
+          "caveat": "严格范围仅覆盖汇编连续页身份、页界和来源定位；不替代旧政协正式会议记录，不表示 OCR 已逐字校订。"
         },
         {
           "label": "《政協文獻》1946·张君劢闭会词",
           "page_id": 20905,
           "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
-          "status": "review_only",
-          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
-          "caveat": "不替代旧政协正式会议记录或张君劢发言原件。"
+          "status": "strict_citation",
+          "role": "L2汇编页级严格引用入口：张君劢闭会词标题、页界和来源定位已完成视觉核验。",
+          "caveat": "严格范围仅覆盖汇编版本、页身份、页界和来源定位；不替代旧政协正式会议记录或张君劢发言原件。"
         },
         {
           "label": "《政協文獻》1946·罗隆基报告民主同盟意见",
           "page_id": 20906,
           "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
-          "status": "review_only",
-          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
-          "caveat": "不替代正式会议记录或罗隆基发言原件。"
+          "status": "strict_citation",
+          "role": "L2汇编页级严格引用入口：罗隆基报告民主同盟意见标题、页界和来源定位已完成视觉核验。",
+          "caveat": "严格范围仅覆盖汇编版本、页身份、页界和来源定位；不替代正式会议记录或罗隆基发言原件。"
         },
         {
           "label": "《政協文獻》1946·罗隆基报告相邻页",
           "page_id": 20907,
           "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
-          "status": "review_only",
-          "role": "L2汇编定向页的相邻连续页检索入口。",
-          "caveat": "仅用于检索和边界导航，不能作为已核验的正式引文。"
+          "status": "strict_citation",
+          "role": "L2汇编连续页级严格引用入口：罗隆基报告连续页及页末下一条目切换边界已完成视觉核验。",
+          "caveat": "严格范围仅覆盖汇编连续页身份、页界、来源定位和页末条目切换；不把该页扩展为完整报告或正式会议记录。"
         },
         {
           "label": "《政協文獻》1946·民主同盟的提案",
           "page_id": 20908,
           "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
-          "status": "review_only",
-          "role": "L2汇编定向页的提案标题检索入口；标题已视觉确认。",
-          "caveat": "提案身份、程序和全文仍需人工复核及独立会议档案对位。"
+          "status": "strict_citation",
+          "role": "L2汇编页级严格引用入口：民主同盟提案标题、页界和来源定位已完成视觉核验。",
+          "caveat": "严格范围仅覆盖汇编提案标题页身份、页界和来源定位；不确认提案程序/全文，也不替代正式会议记录。"
         },
         {
           "label": "《政協文獻》1946·章伯钧说明民主同盟的意见",
           "page_id": 20909,
           "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
-          "status": "review_only",
-          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
-          "caveat": "不替代正式会议记录、代表身份和发言原件。"
+          "status": "strict_citation",
+          "role": "L2汇编页级严格引用入口：章伯钧说明民主同盟意见标题、页界和来源定位已完成视觉核验。",
+          "caveat": "严格范围仅覆盖汇编版本、页身份、页界和来源定位；不替代正式会议记录、代表身份和发言原件。"
         },
         {
           "label": "《政協文獻》1946·章伯钧说明相邻页",
           "page_id": 20910,
           "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
-          "status": "review_only",
-          "role": "L2汇编定向页的相邻连续页检索入口。",
-          "caveat": "仅用于检索和边界导航，不能作为已核验的正式引文。"
+          "status": "strict_citation",
+          "role": "L2汇编连续页级严格引用入口：章伯钧说明连续页界和来源定位已完成视觉核验。",
+          "caveat": "严格范围仅覆盖汇编连续页身份、页界和来源定位；不替代正式会议记录，不表示 OCR 已逐字校订。"
         },
         {
           "label": "《政協文獻》1946·张澜三月二十一日重要谈话",
           "page_id": 20911,
           "doc_key": "domestic-ocr/NLC:pcc-1946-sourcebook-target-pages-ocr",
-          "status": "review_only",
-          "role": "L2汇编定向页的页级 OCR 检索入口；标题已视觉确认。",
-          "caveat": "日期、会议环节和正式页级引文资格仍待人工复核和版本对位。"
+          "status": "strict_citation",
+          "role": "L2汇编页级严格引用入口：张澜三月廿一日重要谈话标题、标注日期、页界和来源定位已完成视觉核验。",
+          "caveat": "严格范围仅覆盖汇编标题、标注日期、页界和来源定位；不替代同期原始报刊/正式会议档案。"
         }
       ],
       "negative_checks": [],
@@ -631,7 +631,7 @@
         }
       ]
     },
-    "chain_note": "旧政协专题现有机关报、1946年民盟发言人/代表发言页和境外档案对读入口；新增9页《政協文獻》汇编 OCR 仅进入 review_only 检索层，可支持定向页检索和标题/边界导航，但完整政协会议记录、提案和代表档案仍未进入主证据层。"
+    "chain_note": "旧政协专题现有机关报、1946年民盟发言人/代表发言页和境外档案对读入口；新增9页《政協文獻》汇编扫描页已完成页级视觉复核并进入 strict_citation，但严格范围限于汇编版本、页界和可重放定位，完整政协会议记录、提案和代表档案仍未进入主证据层。"
   },
   {
     "event_id": "domestic-1946-refuse-national-assembly",

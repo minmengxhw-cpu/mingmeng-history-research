@@ -2,7 +2,7 @@
 
 ## 接收结论
 
-已将一份公开的国家图书馆民国图书扫描暂存到本地 `data/domestic/sourcebooks/`，完成文件格式、大小、页数、加密状态和 SHA256 核验。目标地图本身仍是 sourcebook/staging 导航；2026-08-15 另有 9 张定向页以独立文档身份进入正式 SQLite 的 `review_only` 检索层，但没有自动进入严格引用层。
+已将一份公开的国家图书馆民国图书扫描暂存到本地 `data/domestic/sourcebooks/`，完成文件格式、大小、页数、加密状态和 SHA256 核验。目标地图本身仍是 sourcebook/staging 导航；2026-08-15 另有 9 张定向页以独立文档身份进入正式 SQLite，并完成页身份、页界、来源哈希和精确 PDF 页定位的视觉复核，进入汇编层 `strict_citation`。这不等于 OCR 正文逐字校订，也不等于独立政协会议档案已经取得。
 
 这是一部 1946 年出版的政协文献汇编，不等同于政协会议档案馆原卷或各代表手中的独立底稿；但其目录明确包含会议经过、代表名单、民盟代表张澜开幕词、罗隆基关于政府改组的民盟意见、民盟提案、章伯钧关于国民大会的民盟意见及五项协议，具有直接缩小 `domestic-1946-pcc` 原件缺口的价值。
 
@@ -47,24 +47,24 @@ Commons 页面提供的目录包含以下目标文种，后续应按扫描页和
 
 | 目录目标 | 标题起始 PDF 页 | 印刷页 | 定向观察 | 当前状态 |
 |---|---:|---:|---|---|
-| 民主同盟代表张澜开会词（开幕词） | 23 | 16 | 页首可见目标标题；PDF 24／印刷页 17 为相邻页 | `title_confirmed / boundary_pending` |
-| 民主同盟代表张君劢闭会词 | 52 | 45 | 页首可见目标标题；相邻闭会词边界尚未入库 | `title_confirmed / boundary_pending` |
-| 罗隆基报告民主同盟意见 | 62 | 55 | 页中可见目标标题；PDF 63／印刷页 56 为后续正文页 | `title_confirmed / boundary_pending` |
-| 民主同盟的提案 | 101 | 94 | 页首可见目标标题；下一页涉及相邻说明，边界待核 | `title_confirmed / boundary_pending` |
-| 章伯钧说明民主同盟的意见 | 125 | 116 | 页中可见目标标题；PDF 126／印刷页 117 为相邻正文页 | `title_confirmed / boundary_pending` |
-| 民盟主席张澜三月二十一日的重要谈话 | 206 | 197 | 页中可见目标标题；后续页的文种边界待核 | `title_confirmed / boundary_pending` |
+| 民主同盟代表张澜开会词（开幕词） | 23 | 16 | PDF 24／印刷页 17 为已核连续页 | `page_identity_boundary_verified / strict_citation` |
+| 民主同盟代表张君劢闭会词 | 52 | 45 | 标题页身份与页界已核 | `page_identity_boundary_verified / strict_citation` |
+| 罗隆基报告民主同盟意见 | 62 | 55 | PDF 63／印刷页 56 为已核连续页，页末进入下一条目 | `page_identity_boundary_verified / strict_citation` |
+| 民主同盟的提案 | 101 | 94 | 标题页身份与页界已核 | `page_identity_boundary_verified / strict_citation` |
+| 章伯钧说明民主同盟的意见 | 125 | 116 | PDF 126／印刷页 117 为已核连续页 | `page_identity_boundary_verified / strict_citation` |
+| 民盟主席张澜三月二十一日的重要谈话 | 206 | 197 | 标题、标注日期与页界已核 | `page_identity_boundary_verified / strict_citation` |
 
-派生渲染图不进入 Git，也不作为正文发布；本轮已经将 9 张定向页图的页码、渲染参数、SHA256 和视觉复核状态登记到 `data/domestic/pcc_1946_sourcebook_render_manifest.json`。该清单只证明本地复核资产可重建，不证明全文边界或引用资格；目标地图定位仍属于 `sourcebook_scan / targeted_review_pending`，不能直接升级为 `strict_citation`。另有 9 个 OCR 页通过专门的 formal review-only 导入器进入正式检索，但其证据等级仍为 L2。
+派生渲染图不进入 Git，也不作为正文发布；本轮已经将 9 张定向页图的页码、渲染参数、SHA256 和视觉复核状态登记到 `data/domestic/pcc_1946_sourcebook_render_manifest.json`。该清单只证明本地复核资产可重建；9 个正式页的页级引用范围限于汇编版本、页界、PDF/印刷页号和来源哈希，不包含 OCR 正文逐字校勘。整本目标地图仍属于 `sourcebook_scan`；另有 9 个 OCR 页通过专门导入器进入正式检索，其中页级状态已由 `review_only` 收口为汇编层 `strict_citation`。
 
 结构化页图入口已登记在 `data/domestic/pcc_1946_sourcebook_targets.json`，页图哈希清单位于 `data/domestic/pcc_1946_sourcebook_render_manifest.json`。本地应用通过 `/domestic/sourcebook/1946-pcc` 提供元数据和定向阅读入口；原始 PDF 和派生页图仍留在本机，不进入 GitHub。该应用入口在公开模式下会被隐藏，避免把本地 staging 资产误当成公开研究正文。
 
 ## 当前证据层级与边界
 
-- 当前建议层级：`L2 / sourcebook_scan / targeted_review_pending`；
+- 当前建议层级：整本 `L2 / sourcebook_scan`；9 个定向页为 `strict_citation / page_identity_and_boundary`；
 - 可作为 1946 旧政协专题的高价值同期汇编和页级交叉来源；
 - 不能直接宣称是政协原始会议档案、代表原始手稿或独立原刊；
-- 未完成页码映射、人工视觉复核和事件回链前，不进入 `strict_citation`；
-- 本轮未执行整本 OCR、未写入 SQLite、未自动改变 `primary_evidence_status`。
+- OCR 正文仍未逐字复核，不得把页级 `strict_citation` 误解为正文已校勘；
+- 本轮未执行整本 OCR，已将 9 个定向页写入 SQLite 并完成页级回链，未改变 `primary_evidence_status`。
 
 ## 下一步定向处理
 

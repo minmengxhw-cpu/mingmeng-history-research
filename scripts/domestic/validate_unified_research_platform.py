@@ -284,7 +284,9 @@ def pcc_1946_sourcebook_map_check() -> dict[str, Any]:
 
     The raw PDF is intentionally ignored by Git and may be absent on another
     checkout.  The gate therefore checks only the committed provenance
-    metadata, target coordinates, and non-promoting invariants.
+    metadata, target coordinates, and aggregate non-promoting invariants. A
+    target may now be page-identity/boundary verified while the sourcebook as
+    a whole remains an L2 compilation and its OCR body remains unpromoted.
     """
     errors: list[str] = []
     try:
@@ -320,8 +322,8 @@ def pcc_1946_sourcebook_map_check() -> dict[str, Any]:
             errors.append(f"target {target_id} PDF page is outside sourcebook")
         if printed_page < 1:
             errors.append(f"target {target_id} printed page must be positive")
-        if target.get("status") != "title_confirmed_boundary_pending":
-            errors.append(f"target {target_id} must remain boundary-pending")
+        if target.get("status") not in {"title_confirmed_boundary_pending", "page_identity_boundary_verified"}:
+            errors.append(f"target {target_id} has an unsupported review status")
     if len(targets) != 6:
         errors.append("expected six visually confirmed title anchors")
     return {
@@ -351,8 +353,11 @@ def pcc_1946_render_manifest_check() -> dict[str, Any]:
     for key in ("body_read", "formal_db_written", "citation_ready"):
         if manifest.get(key) is not False:
             errors.append(f"render manifest {key} must be false")
-    if manifest.get("visual_review_status") != "title_visual_confirmed_boundary_pending":
-        errors.append("render manifest must remain boundary-pending")
+    if manifest.get("visual_review_status") not in {
+        "title_visual_confirmed_boundary_pending",
+        "page_identity_and_boundary_human_verified_body_ocr_pending",
+    }:
+        errors.append("render manifest has an unsupported visual review status")
     for key in ("source_id", "source_file", "source_sha256", "page_count"):
         if manifest.get(key) != source_map.get(key):
             errors.append(f"render manifest {key} does not match sourcebook map")

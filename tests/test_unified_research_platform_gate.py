@@ -20,6 +20,6 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert report["checks"]["retrieval_queue"]["formal_candidate_count"] == 690
     assert report["checks"]["pcc_1946_sourcebook_map"]["target_count"] == 6
     assert report["checks"]["pcc_1946_sourcebook_render_manifest"]["page_count"] == 9
-    assert report["checks"]["pcc_1946_sourcebook_render_manifest"]["review_status"] == "title_visual_confirmed_boundary_pending"
+    assert report["checks"]["pcc_1946_sourcebook_render_manifest"]["review_status"] == "page_identity_and_boundary_human_verified_body_ocr_pending"
     assert report["checks"]["research_packets"]["topic_count"] == 9
     assert report["checks"]["research_question_benchmark"]["path_ready_count"] == 36

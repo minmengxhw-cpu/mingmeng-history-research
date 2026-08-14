@@ -12,8 +12,11 @@
   },
   "body_read": false,
   "formal_db_written": false,
+  "formal_db_page_count": 9,
+  "formal_page_ids": [20903, 20904, 20905, 20906, 20907, 20908, 20909, 20910, 20911],
   "citation_ready": false,
-  "visual_review_status": "title_visual_confirmed_boundary_pending",
+  "page_level_citation_ready": true,
+  "visual_review_status": "page_identity_and_boundary_human_verified_body_ocr_pending",
   "page_image_policy": "raw_and_rotated_images_remain_local_under_work; only hashes and coordinates are committed",
   "pages": [
     {

@@ -2404,10 +2404,10 @@ def _load_pcc_1946_render_manifest() -> dict[str, object]:
 def domestic_sourcebook_page() -> bytes:
     """Expose the 1946 PCC scan as a local staging reading entry.
 
-    This is a navigable sourcebook card, not a formal document/page import.
-    It makes the high-value domestic source usable from the same research
-    topic flow while preserving the L2, boundary-pending and non-citation
-    constraints recorded in the target map.
+    This is a whole-sourcebook metadata card. The nine selected pages have
+    separate formal page records, while the aggregate sourcebook remains L2
+    and does not become a primary archive merely because those pages are
+    page-level citation-ready.
     """
     payload = _load_pcc_1946_sourcebook_map()
     render_manifest = _load_pcc_1946_render_manifest()
@@ -2419,13 +2419,19 @@ def domestic_sourcebook_page() -> bytes:
             continue
         adjacent = target.get("adjacent_pdf_pages") if isinstance(target.get("adjacent_pdf_pages"), list) else []
         adjacent_label = ", ".join(f"PDF {int(page)}" for page in adjacent) if adjacent else "未登记"
+        status = str(target.get("status") or "")
+        status_badge = (
+            '<span class="pstatus ok">页身份/边界已核 · 汇编层</span>'
+            if status == "page_identity_boundary_verified"
+            else '<span class="pstatus warn">标题已确认 · 边界待核</span>'
+        )
         target_rows.append(
             f"""<tr>
   <td>{h(target.get('label') or target.get('id'))}</td>
   <td>PDF {h(target.get('pdf_page_start'))}</td>
   <td>印刷页 {h(target.get('printed_page_start'))}</td>
   <td>{h(adjacent_label)}</td>
-  <td><span class=\"pstatus warn\">标题已确认 · 边界待核</span></td>
+  <td>{status_badge}</td>
 </tr>"""
         )
     local_link = (
@@ -2444,10 +2450,10 @@ def domestic_sourcebook_page() -> bytes:
         [("/", "首页"), ("/research", "多源专题研究"), ("/research/domestic-1946-pcc", "1946旧政协"), (None, "政協文獻")]
     ) + f"""
 <section class="doc-head">
-  <div><h1>{h(payload.get('title') or '1946年政協文獻')}</h1><div class="meta">国内专题的本地 {h(payload.get('source_role') or 'sourcebook_scan')} staging 条目 · 不进入正式 SQLite</div></div>
+  <div><h1>{h(payload.get('title') or '1946年政協文獻')}</h1><div class="meta">国内专题的本地 {h(payload.get('source_role') or 'sourcebook_scan')} staging 条目 · {h(payload.get('formal_db_page_count') or 0)} 个定向页已进入正式 SQLite</div></div>
   <div class="doc-tools">{local_link}{source_link}<a class="button secondary" href="/research/domestic-1946-pcc">返回专题</a></div>
 </section>
-<div class="notice"><strong>使用边界：</strong>这是 1946 年公开扫描汇编的本地阅读入口，证据层级为 <code>{h(payload.get('evidence_level') or 'L2')}</code> / <code>{h(payload.get('review_status') or 'targeted_review_pending')}</code>。它不是政协原卷或代表独立底稿；标题定位也不等于全文边界已经核定。</div>
+<div class="notice"><strong>使用边界：</strong>这是 1946 年公开扫描汇编的本地阅读入口，证据层级为 <code>{h(payload.get('evidence_level') or 'L2')}</code> / <code>{h(payload.get('review_status') or 'targeted_review_pending')}</code>。9 个定向页已完成页身份/边界视觉复核并有正式页级入口，但 OCR 正文仍是检索草稿；本汇编不是政协原卷或代表独立底稿。</div>
 <section class="stats">
   <div class="stat"><strong>{h(payload.get('publication_year') or '1946')}</strong><span>出版年</span></div>
   <div class="stat"><strong>{h(payload.get('page_count') or 0)}</strong><span>扫描页</span></div>
@@ -2456,10 +2462,10 @@ def domestic_sourcebook_page() -> bytes:
 </section>
 <div class="notice">源文件 SHA256：<code>{h(payload.get('source_sha256') or '未登记')}</code><br>页图凭证：<code>{h(len(render_manifest.get('pages') or []))}</code> 张定向页，<code>{h(render_manifest.get('render_dpi') or '未登记')} DPI / {h(render_manifest.get('rotation') or '未登记')}</code>，状态 <code>{h(render_manifest.get('visual_review_status') or '未登记')}</code>；Git 只保存页码和哈希，不保存原始 PDF 或派生页图。<br>正式状态：<code>body_read={str(payload.get('body_read') is True).lower()}</code> · <code>formal_db_written={str(payload.get('formal_db_written') is True).lower()}</code> · <code>citation_ready={str(payload.get('citation_ready') is True).lower()}</code> · <code>auto_promote_primary_closed={str(payload.get('auto_promote_primary_closed') is True).lower()}</code></div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-quote"/></svg>民盟相关标题定向页映射</h2><span class="meta">PDF 页与印刷页均为 1-based</span></div>
-<div class="notice">下表只提供阅读定位，不复制正文、OCR 或逐字引文。相邻页仍需逐页确认；完成页图凭证、边界、provenance 和事件回链后，才有资格进入后续人工引用审核。</div>
+<div class="notice">下表只提供阅读定位，不复制正文、OCR 或逐字引文。表内 9 个定向页已完成页图凭证、边界、provenance 和事件回链；后续仍需对 OCR 正文逐字复核，并寻找独立政协会议档案，不能把汇编层当作一手闭环。</div>
 <div class="table-wrap"><table><thead><tr><th>目标文种</th><th>起始 PDF 页</th><th>印刷页</th><th>相邻页</th><th>状态</th></tr></thead><tbody>{''.join(target_rows) or '<tr><td colspan="5">暂无定向页映射。</td></tr>'}</tbody></table></div>
 <section class="doc-head" style="margin-top:20px;background:var(--panel-warm);border-left:4px solid var(--accent);">
-  <div><h2>下一步</h2><div class="meta">定向核对相邻页边界 → 持久化页图与 SHA256 → 事件回链 → 人工 citation gate；不做整本 OCR。</div></div>
+  <div><h2>下一步</h2><div class="meta">逐字复核 OCR 草稿 → 补独立会议记录/提案/代表身份 → 与同期报刊对位；不做整本 OCR。</div></div>
   <div class="doc-tools"><a class="button" href="/research/domestic-1946-pcc/packet">研究包</a><a class="button secondary" href="/research/gaps">证据缺口</a></div>
 </section>
 """
@@ -6654,7 +6660,7 @@ def research_topic_page(event_id: str) -> bytes:
     if event_id == "domestic-1946-pcc":
         pcc_sourcebook_html = """
 <section class="result compact-result" style="border-left:4px solid var(--accent);background:var(--panel-warm);">
-  <div><h3>1946 年《政協文獻》本地定向阅读</h3><div class="meta">公开扫描汇编 · L2 · 标题页已定位，正文边界待核</div><div class="snippet">已定位张澜开会词、张君劢闭会词、罗隆基报告、民盟提案、章伯钧说明和张澜三月谈话 6 个标题。该入口保留扫描页与印刷页关系，不把汇编升级为政协原件。</div></div>
+  <div><h3>1946 年《政協文獻》本地定向阅读</h3><div class="meta">公开扫描汇编 · L2 · 9 个定向页已完成页身份/边界复核，OCR 正文待逐字核验</div><div class="snippet">已定位张澜开会词、张君劢闭会词、罗隆基报告、民盟提案、章伯钧说明和张澜三月谈话 6 个标题，并将 9 个 PDF 页接入正式页级入口。该入口保留扫描页与印刷页关系，不把汇编升级为政协原件。</div></div>
   <div class="cite"><a href="/domestic/sourcebook/1946-pcc">打开 sourcebook 条目</a></div>
 </section>"""
 
