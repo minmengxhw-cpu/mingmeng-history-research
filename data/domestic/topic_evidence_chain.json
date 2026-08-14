@@ -1038,7 +1038,7 @@
   },
   {
     "event_id": "domestic-1949-new-pcc",
-    "last_audited": "2026-08-14",
+    "last_audited": "2026-08-15",
     "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
     "layers": {
       "primary": [
@@ -1211,6 +1211,150 @@
           "status": "review_only",
           "role": "整期和文章级检索入口",
           "caveat": "尚未进入正式引用层。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议第一天会议记录页1",
+          "page_id": 20913,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-06",
+          "status": "review_only",
+          "role": "1949-09-21第一届全体会议记录的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，页面正文、人名和数字尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议第一天会议记录页2",
+          "page_id": 20914,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-06",
+          "status": "review_only",
+          "role": "1949-09-21第一届全体会议记录的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，页面正文、人名和数字尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议第一天会议记录页3",
+          "page_id": 20915,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-06",
+          "status": "review_only",
+          "role": "1949-09-21第一届全体会议记录的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，页面正文、人名和数字尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：主席团第一次会议纪要页1",
+          "page_id": 20916,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+          "status": "review_only",
+          "role": "1949-09-21主席团第一次会议纪要的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：主席团第一次会议纪要页2",
+          "page_id": 20917,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+          "status": "review_only",
+          "role": "1949-09-21主席团第一次会议纪要的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：主席团第一次会议纪要页3",
+          "page_id": 20918,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+          "status": "review_only",
+          "role": "1949-09-21主席团第一次会议纪要的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：谭平山筹备会第二小组报告页1",
+          "page_id": 20919,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-01",
+          "status": "review_only",
+          "role": "1949-09-22政协筹备会工作报告的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，正文和人名尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：谭平山筹备会第二小组报告页2",
+          "page_id": 20920,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-01",
+          "status": "review_only",
+          "role": "1949-09-22政协筹备会工作报告的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，正文和人名尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：共同纲领草案报告页1",
+          "page_id": 20921,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+          "status": "review_only",
+          "role": "1949-09-22共同纲领草案报告的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，页面方向和正文尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：共同纲领草案报告页2",
+          "page_id": 20922,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+          "status": "review_only",
+          "role": "1949-09-22共同纲领草案报告的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，页面方向和正文尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：共同纲领草案报告页3",
+          "page_id": 20923,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+          "status": "review_only",
+          "role": "1949-09-22共同纲领草案报告的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，页面方向和正文尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：主席团常委会第一次会议记录页1",
+          "page_id": 20924,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c15",
+          "status": "review_only",
+          "role": "1949-09-22主席团常委会记录的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：主席团常委会第一次会议记录页2",
+          "page_id": 20925,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c15",
+          "status": "review_only",
+          "role": "1949-09-22主席团常委会记录的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议会刊第二期页1",
+          "page_id": 20926,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c17",
+          "status": "review_only",
+          "role": "1949-09-22第一届全体会议会刊的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，报刊版式和正文尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议会刊第二期页2",
+          "page_id": 20927,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c17",
+          "status": "review_only",
+          "role": "1949-09-22第一届全体会议会刊的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，报刊版式和正文尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议第三天会议记录页1",
+          "page_id": 20928,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+          "status": "review_only",
+          "role": "1949-09-23第一届全体会议第三天记录的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，手写记录、人名和发言目录尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议第三天会议记录页2",
+          "page_id": 20929,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+          "status": "review_only",
+          "role": "1949-09-23第一届全体会议第三天记录的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，手写记录、人名和发言目录尚未逐字人工复核。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议第三天会议记录页3",
+          "page_id": 20930,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+          "status": "review_only",
+          "role": "1949-09-23第一届全体会议第三天记录的官方扫描图检索入口",
+          "caveat": "OCR 仅用于检索，手写记录、人名和发言目录尚未逐字人工复核。"
         }
       ],
       "negative_checks": [],
@@ -1223,6 +1367,6 @@
         }
       ]
     },
-    "chain_note": "1949专题现有机关报连续页和17个中央档案专题公开扫描影像页级锚点，覆盖代表名单连续页、签名册连续页、筹备会工作概要、北上邀请电报、主席团名单和第一届全体会议日程页；这些页面均已人工核验，但筹备会记录、代表发言和完整会议档案仍未闭环。"
+    "chain_note": "1949专题保留原有机关报和17个已人工核验的中央档案专题页级锚点，并新增18个官方扫描图 review_only 页作为检索入口，覆盖第一届全体会议记录、主席团会议、筹备会报告、共同纲领报告、会刊和第三天会议记录；新增页面尚未人工逐字复核，筹备会记录、代表发言和完整会议档案仍未闭环。"
   }
 ]

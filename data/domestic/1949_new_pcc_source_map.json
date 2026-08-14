@@ -10,7 +10,7 @@
   "formal_db_written_by_map": false,
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
-  "primary_evidence_gap": "已核验17个影像页并新增36个待视觉复核导航页；1949年筹备会完整记录、代表发言、完整代表名册连续件、第一届全体会议全套档案，以及民盟代表在会中发言和互动的完整页级对位仍待补齐。本地图不把单页影像宣称为完整档案卷宗或完整名单。",
+  "primary_evidence_gap": "已核验17个影像页并新增54个待视觉复核导航页；1949年筹备会完整记录、代表发言、完整代表名册连续件、第一届全体会议全套档案，以及民盟代表在会中发言和互动的完整页级对位仍待补齐。本地图不把单页影像宣称为完整档案卷宗或完整名单。",
   "sources": [
     {
       "source_id": "saac-1949-pcc-invitation-telegram-p01",
@@ -1476,6 +1476,492 @@
           "review_scope": "archival_scan_page_identity_pending_visual_review",
           "page_image_sha256": "c72eb71726744849c389ce094e27cd82bf5aebe4e2a089977fcc1f0ad3f25a55",
           "caveat": "页面可以作为原始档案导航入口；完成本地原图视觉复核、页级人工说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20913",
+      "title": "第一届全体会议第一天会议记录（1949-09-21）第1页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-18/01.jpg",
+      "source_sha256": "92f14de5ce331845dc9d136312792b422d703af6357e21caa4e5def34d75b00c",
+      "source_file_size": 331845,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_18.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20913,
+          "physical_page_no": 1,
+          "target": "第一届全体会议第一天会议记录",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "92f14de5ce331845dc9d136312792b422d703af6357e21caa4e5def34d75b00c",
+          "caveat": "OCR 仅用于检索；正文、人名和数字尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20914",
+      "title": "第一届全体会议第一天会议记录（1949-09-21）第2页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-18/02.jpg",
+      "source_sha256": "dfdfc1a71f6f5dc26a2af57941b0eb96249cc1c56cd21eb96cad1fd94f6d1da7",
+      "source_file_size": 319586,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_18.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20914,
+          "physical_page_no": 2,
+          "target": "第一届全体会议第一天会议记录",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "dfdfc1a71f6f5dc26a2af57941b0eb96249cc1c56cd21eb96cad1fd94f6d1da7",
+          "caveat": "OCR 仅用于检索；正文、人名和数字尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20915",
+      "title": "第一届全体会议第一天会议记录（1949-09-21）第3页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-18/03.jpg",
+      "source_sha256": "11ac6e9dab23cd83244f41400147df169652b01d176ae3c31774d88aa6264596",
+      "source_file_size": 301145,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_18.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20915,
+          "physical_page_no": 3,
+          "target": "第一届全体会议第一天会议记录",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "11ac6e9dab23cd83244f41400147df169652b01d176ae3c31774d88aa6264596",
+          "caveat": "OCR 仅用于检索；正文、人名和数字尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20916",
+      "title": "主席团第一次会议纪要（1949-09-21）第1页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-20/01.jpg",
+      "source_sha256": "44c09be184946ddc1825b4ac24c55acfc5e58e1a9f1b52df142aaf79dae10fe4",
+      "source_file_size": 397603,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_20.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20916,
+          "physical_page_no": 1,
+          "target": "主席团第一次会议纪要",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "44c09be184946ddc1825b4ac24c55acfc5e58e1a9f1b52df142aaf79dae10fe4",
+          "caveat": "OCR 仅用于检索；手写记录和人名尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20917",
+      "title": "主席团第一次会议纪要（1949-09-21）第2页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-20/02.jpg",
+      "source_sha256": "d735b3d6659026cbfe4befd4b3017a76db22989f62d1e41b976e84854271e9ec",
+      "source_file_size": 352201,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_20.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20917,
+          "physical_page_no": 2,
+          "target": "主席团第一次会议纪要",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "d735b3d6659026cbfe4befd4b3017a76db22989f62d1e41b976e84854271e9ec",
+          "caveat": "OCR 仅用于检索；手写记录和人名尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20918",
+      "title": "主席团第一次会议纪要（1949-09-21）第3页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-20/03.jpg",
+      "source_sha256": "f59cd4e7b48dc8aa7e59e91233c66bd84179346cc2ec053f78fe74ed753ba317",
+      "source_file_size": 315050,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_20.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20918,
+          "physical_page_no": 3,
+          "target": "主席团第一次会议纪要",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "f59cd4e7b48dc8aa7e59e91233c66bd84179346cc2ec053f78fe74ed753ba317",
+          "caveat": "OCR 仅用于检索；手写记录和人名尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20919",
+      "title": "谭平山关于筹备会第二小组工作的报告（1949-09-22）第1页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-23/01.jpg",
+      "source_sha256": "3969b9d970ce4ca8ca01cf161e7794e0aabc3b04c70c08a29ac937bcfbb88632",
+      "source_file_size": 374067,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_23.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20919,
+          "physical_page_no": 1,
+          "target": "政协筹备会第二小组工作报告",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "3969b9d970ce4ca8ca01cf161e7794e0aabc3b04c70c08a29ac937bcfbb88632",
+          "caveat": "OCR 仅用于检索；正文和人名尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20920",
+      "title": "谭平山关于筹备会第二小组工作的报告（1949-09-22）第2页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-23/02.jpg",
+      "source_sha256": "fabd478f73f360f9eb2961fdbee81b94a79e19a8cd9bcd2bd5a96934e6c3e5b5",
+      "source_file_size": 404775,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_23.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20920,
+          "physical_page_no": 2,
+          "target": "政协筹备会第二小组工作报告",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "fabd478f73f360f9eb2961fdbee81b94a79e19a8cd9bcd2bd5a96934e6c3e5b5",
+          "caveat": "OCR 仅用于检索；正文和人名尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20921",
+      "title": "周恩来关于共同纲领草案报告（1949-09-22）第1页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-24/01.jpg",
+      "source_sha256": "3abad844237d20ea03a05f5355c5bda7a78020661c94f5842a23d10fbb4eaeba",
+      "source_file_size": 490526,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_24.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和旋转 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20921,
+          "physical_page_no": 1,
+          "target": "共同纲领草案的起草经过及其特点的报告",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "3abad844237d20ea03a05f5355c5bda7a78020661c94f5842a23d10fbb4eaeba",
+          "caveat": "OCR 使用派生270°旋转图，仅用于检索；正文和页面方向尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20922",
+      "title": "周恩来关于共同纲领草案报告（1949-09-22）第2页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-24/02.jpg",
+      "source_sha256": "f95c742998fe6d1b736671e15d78f40c3f84de18ada672b3f09b4aac1357c5e7",
+      "source_file_size": 570780,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_24.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和旋转 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20922,
+          "physical_page_no": 2,
+          "target": "共同纲领草案的起草经过及其特点的报告",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "f95c742998fe6d1b736671e15d78f40c3f84de18ada672b3f09b4aac1357c5e7",
+          "caveat": "OCR 使用派生270°旋转图，仅用于检索；正文和页面方向尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20923",
+      "title": "周恩来关于共同纲领草案报告（1949-09-22）第3页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-24/03.jpg",
+      "source_sha256": "f5c68ce2a293cf6ba05f3be81659a2a5e6f7d43441faa847bd52a44699ade56c",
+      "source_file_size": 417012,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_24.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和旋转 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20923,
+          "physical_page_no": 3,
+          "target": "共同纲领草案的起草经过及其特点的报告",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "f5c68ce2a293cf6ba05f3be81659a2a5e6f7d43441faa847bd52a44699ade56c",
+          "caveat": "OCR 使用派生270°旋转图，仅用于检索；正文和页面方向尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20924",
+      "title": "主席团常委会第一次会议记录（1949-09-22）第1页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-27/01.jpg",
+      "source_sha256": "7ad20b7c26d587b884e70a37bc4f6290db3a55b2a816142a71a5b4fbe0a0c48d",
+      "source_file_size": 390763,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_27.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20924,
+          "physical_page_no": 1,
+          "target": "主席团常委会第一次会议记录",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "7ad20b7c26d587b884e70a37bc4f6290db3a55b2a816142a71a5b4fbe0a0c48d",
+          "caveat": "OCR 仅用于检索；手写记录和人名尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20925",
+      "title": "主席团常委会第一次会议记录（1949-09-22）第2页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-27/02.jpg",
+      "source_sha256": "f24db22372be7fbc034e97f3dfec8ba3b6a01d168f165973cfcea91d4047c613",
+      "source_file_size": 340363,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_27.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20925,
+          "physical_page_no": 2,
+          "target": "主席团常委会第一次会议记录",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "f24db22372be7fbc034e97f3dfec8ba3b6a01d168f165973cfcea91d4047c613",
+          "caveat": "OCR 仅用于检索；手写记录和人名尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20926",
+      "title": "第一届全体会议会刊第二期（1949-09-22）第1页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-29/01.jpg",
+      "source_sha256": "5273a656fe39f353660d8db1f81803c0dbe91beb28f799ed3b06101d0abcc231",
+      "source_file_size": 409228,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_29.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20926,
+          "physical_page_no": 1,
+          "target": "第一届全体会议会刊第二期",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "5273a656fe39f353660d8db1f81803c0dbe91beb28f799ed3b06101d0abcc231",
+          "caveat": "OCR 仅用于检索；报刊版式和正文尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20927",
+      "title": "第一届全体会议会刊第二期（1949-09-22）第2页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-29/02.jpg",
+      "source_sha256": "e857bc0d6c51f42a5be2accebf13414aeeddfe943f5b3c2f5b1900ce1c68f59f",
+      "source_file_size": 380495,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_29.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20927,
+          "physical_page_no": 2,
+          "target": "第一届全体会议会刊第二期",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "e857bc0d6c51f42a5be2accebf13414aeeddfe943f5b3c2f5b1900ce1c68f59f",
+          "caveat": "OCR 仅用于检索；报刊版式和正文尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20928",
+      "title": "第一届全体会议第三天会议记录（1949-09-23）第1页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-39/01.jpg",
+      "source_sha256": "661436d1bbb35131e156cc888925b3fb013c26f42520ac9169d9b9f4d3e2d674",
+      "source_file_size": 315279,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_39.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20928,
+          "physical_page_no": 1,
+          "target": "第一届全体会议第三天会议记录",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "661436d1bbb35131e156cc888925b3fb013c26f42520ac9169d9b9f4d3e2d674",
+          "caveat": "OCR 仅用于检索；手写记录、人名和发言目录尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20929",
+      "title": "第一届全体会议第三天会议记录（1949-09-23）第2页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-39/02.jpg",
+      "source_sha256": "a3226dd3abc77bb033bb6880593f3225f3d6c62e3d55491878d69614929210c4",
+      "source_file_size": 278413,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_39.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20929,
+          "physical_page_no": 2,
+          "target": "第一届全体会议第三天会议记录",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "a3226dd3abc77bb033bb6880593f3225f3d6c62e3d55491878d69614929210c4",
+          "caveat": "OCR 仅用于检索；手写记录、人名和发言目录尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-review-page-20930",
+      "title": "第一届全体会议第三天会议记录（1949-09-23）第3页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-39/03.jpg",
+      "source_sha256": "051cef016753a53e4953c7df6e534830eea28279dea2f2150441b825fb181229",
+      "source_file_size": 329752,
+      "page_count": 1,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_39.html",
+      "access_note": "国家档案局公开专题官方扫描图；本地原图和 OCR 清单已登记，当前仅作检索入口。",
+      "page_records": [
+        {
+          "page_id": 20930,
+          "physical_page_no": 3,
+          "target": "第一届全体会议第三天会议记录",
+          "role": "官方扫描图页级检索入口",
+          "status": "review_only",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "archival_scan_page_identity_pending_visual_review",
+          "page_image_sha256": "051cef016753a53e4953c7df6e534830eea28279dea2f2150441b825fb181229",
+          "caveat": "OCR 仅用于检索；手写记录、人名和发言目录尚未逐字人工复核。"
         }
       ]
     }
