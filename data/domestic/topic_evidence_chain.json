@@ -761,6 +761,54 @@
           "status": "strict_citation",
           "role": "民盟地方组织与公共活动变化的同期页级交叉材料",
           "caveat": "严格门禁只覆盖报刊页身份、页界和人工复核范围；不得替代行政原件或组织内部文件。"
+        },
+        {
+          "label": "1947年11月4日《大剛報》张群通知报道页（国家图书馆公开扫描）",
+          "page_id": 20305,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
+          "status": "strict_citation",
+          "role": "解散前政府通知与民盟反应的同期报刊页级交叉材料",
+          "caveat": "已核验版头、日期、版号和标题范围；不转录正文，不替代政府公函或民盟公告原件。"
+        },
+        {
+          "label": "1947年11月4日《大剛報》民盟中常会报道页（国家图书馆公开扫描）",
+          "page_id": 20307,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-league-dissolution-meeting",
+          "status": "strict_citation",
+          "role": "民盟中常会与解散前组织反应的同期报刊页级交叉材料",
+          "caveat": "只确认页级报道入口和标题范围，不扩写为正式会议记录或组织内部文件。"
+        },
+        {
+          "label": "1947年11月6日《大剛報》民盟正式宣告解散报道页（国家图书馆公开扫描）",
+          "page_id": 20309,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
+          "status": "strict_citation",
+          "role": "1947年11月6日同期报刊对民盟解散的页级直接报道",
+          "caveat": "已核验版头、日期、版号和主标题；不据此宣称已取得民盟公告原件或政府行政公文。"
+        },
+        {
+          "label": "《观察》第三卷第十一期第3页（国家图书馆公开扫描）",
+          "page_id": 20276,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11",
+          "status": "strict_citation",
+          "role": "同期公共声明/评论的页级交叉材料",
+          "caveat": "仅覆盖卷期、日期、页码和标题范围，不转录正文，不替代民盟或政府正式文件。"
+        },
+        {
+          "label": "《观察》第三卷第十一期第4页董时进评论（国家图书馆公开扫描）",
+          "page_id": 20279,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11-dong-shijin",
+          "status": "strict_citation",
+          "role": "同期评论对取缔民盟问题的页级交叉材料",
+          "caveat": "只确认文章题名、页码和版面边界，不把评论文字当作民盟内部原件或政府公文。"
+        },
+        {
+          "label": "《观察》第三卷第十一期第5页韩德培评论（国家图书馆公开扫描）",
+          "page_id": 20281,
+          "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11-han-depei",
+          "status": "strict_citation",
+          "role": "同期专业评论对人身自由问题的页级交叉材料",
+          "caveat": "只确认文章题名、页码和版面边界，不把评论扩写为行政事实记录。"
         }
       ],
       "negative_checks": [
@@ -968,6 +1016,102 @@
           "status": "strict_citation",
           "role": "与日程题名页相邻的每日议程页级交叉材料",
           "caveat": "不据此宣称完整会议记录或全部议程已经收齐。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页2",
+          "page_id": 20734,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "政协一届全体会议代表名单的连续页级证据",
+          "caveat": "已核验页级身份、页序和来源哈希；公开扫描不等于完整档案卷宗或名单全文。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页3",
+          "page_id": 20735,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "同一代表名单的连续页级证据",
+          "caveat": "只支持文献页身份和连续范围，不把机器 OCR 或个别姓名识别当作正式转录。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页4",
+          "page_id": 20736,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "同一代表名单的连续页级证据",
+          "caveat": "已核验页身份、页序和来源哈希，不扩展为完整代表名册闭环。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页5",
+          "page_id": 20737,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "同一代表名单的连续页级证据",
+          "caveat": "能够支持页级导航和文献范围核对，不核定名单姓名全文。"
+        },
+        {
+          "label": "中央档案馆专题扫描：中国民主同盟代表签名册题名页",
+          "page_id": 20755,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3",
+          "status": "strict_citation",
+          "role": "中国民主同盟代表签名册的题名和页级身份锚点",
+          "caveat": "只确认签名册题名和可见范围，不宣称全部签名页或签名文字已经核验。"
+        },
+        {
+          "label": "中央档案馆专题扫描：中国民主同盟代表签名册连续页2",
+          "page_id": 20756,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3",
+          "status": "strict_citation",
+          "role": "中国民主同盟代表签名册的连续页级证据",
+          "caveat": "仅支持页面身份和可见结构，不把难辨手写姓名转写为确定姓名。"
+        },
+        {
+          "label": "中央档案馆专题扫描：第一届全体会议每日议程连续页3",
+          "page_id": 20769,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+          "status": "strict_citation",
+          "role": "第一届全体会议日程的连续页级程序证据",
+          "caveat": "已核验页身份、页序和可见议程结构，不替代完整日程册或会议记录。"
+        },
+        {
+          "label": "中央档案馆专题扫描：第一届全体会议每日议程连续页4",
+          "page_id": 20770,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+          "status": "strict_citation",
+          "role": "第一届全体会议日程的连续页级程序证据",
+          "caveat": "已核验页级身份和物理页序，不据此宣称完整会议记录已经收齐。"
+        },
+        {
+          "label": "中央档案馆专题扫描：邀请张澜、黄炎培北上的电报页",
+          "page_id": 20672,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde13",
+          "status": "strict_citation",
+          "role": "1949年民主人士北上与新政协筹备的单页档案入口",
+          "caveat": "只确认单页身份和可见范围，不替代完整电报往来或筹备档案。"
+        },
+        {
+          "label": "中央档案馆专题扫描：新政协筹备会各小组开会概要页",
+          "page_id": 20690,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p02-dde01-f1",
+          "status": "strict_citation",
+          "role": "新政协筹备会工作档案的页级证据",
+          "caveat": "只确认页级身份和范围，不把机器 OCR 当作正文校勘，也不宣称筹备会完整档案已收齐。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页7",
+          "page_id": 20739,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "政协一届全体会议代表名单的连续页级证据",
+          "caveat": "只确认名单页身份和范围，不核定姓名全文或宣称完整名册已逐页复核。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议主席团名单页",
+          "page_id": 20771,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde07-i3",
+          "status": "strict_citation",
+          "role": "第一届全体会议主席团名单的页级组织结构证据",
+          "caveat": "只确认题名和页级范围，不核定姓名全文或替代完整会议档案。"
         }
       ],
       "cross_source": [
@@ -990,6 +1134,6 @@
         }
       ]
     },
-    "chain_note": "1949专题现有机关报连续页和五个中央档案专题公开扫描影像页级锚点：代表名单题名页、民盟代表页、签名册页、会议日程题名页和每日议程页均已人工核验；筹备会记录、代表发言和完整会议档案仍未闭环。"
+    "chain_note": "1949专题现有机关报连续页和17个中央档案专题公开扫描影像页级锚点，覆盖代表名单连续页、签名册连续页、筹备会工作概要、北上邀请电报、主席团名单和第一届全体会议日程页；这些页面均已人工核验，但筹备会记录、代表发言和完整会议档案仍未闭环。"
   }
 ]
