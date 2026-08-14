@@ -52,6 +52,21 @@ def test_research_gap_dashboard_smoke(live_server, db_missing_reason):
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
+def test_primary_evidence_access_audit_is_non_promoting():
+    """Locked official viewers must remain weaker than local page provenance."""
+    root = Path(__file__).resolve().parents[1]
+    from scripts.domestic.validate_primary_evidence_access_audit import validate
+
+    report = validate(
+        root / "data/domestic/primary_evidence_access_audit.json",
+        DB_PATH,
+        root / "data/domestic/event_coverage.json",
+    )
+    assert report["status"] == "PASS"
+    assert report["body_read"] is False
+    assert report["records"] >= 1
+
+
 def test_research_topic_detail_smoke(live_server, db_missing_reason):
     if db_missing_reason:
         pytest.skip(f"数据库缺失,无法验证专题详情: {db_missing_reason}")

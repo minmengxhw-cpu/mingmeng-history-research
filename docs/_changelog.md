@@ -23,6 +23,7 @@
 - 通过本机 Chrome 只读打开国史馆条目 `002-020400-00012-067`，确认官方目录标注“数位档／线上阅览”，并成功进入 2 页数字影像查看器。
 - 当前仍为访客会话，影像带锁定提示且“下载影像”控件不可用；因此只登记为 `official_viewer_locked`，不计算本地文件 SHA、不写入正文、不升级 `citation_ready`。
 - 新增 `docs/domestic/DRNH_1947_ACCESS_AUDIT_20260814.md`，明确目录卡、官方查看器和本地文件三种状态，以及用户完成授权后所需的原件闭环门禁。
+- 新增 `scripts/domestic/validate_primary_evidence_access_audit.py` 及回归测试；它检查候选是否存在于正式库和专题覆盖表，并强制 `official_viewer_locked` 不得拥有本地原件、下载完成或 `citation_ready` 状态。
 
 ### 国内外统一研究体验：新增研究问题—证据矩阵
 

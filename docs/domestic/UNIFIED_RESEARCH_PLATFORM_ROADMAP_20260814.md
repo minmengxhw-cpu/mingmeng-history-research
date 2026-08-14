@@ -62,6 +62,7 @@
 ### 7. 质量与发布层
 
 每轮资料变更必须通过 JSON/schema 校验、来源哈希校验、SQLite integrity/FK/FTS 校验、研究包批量校验和 HTTP 冒烟测试。发布时只提交代码、结构化元数据、证据链和审计文档；原始私有资料、数据库和 OCR 大文件留在本地数据盘。
+官方目录或查看器的访问状态还必须通过 `validate_primary_evidence_access_audit.py`；`official_viewer_locked` 只能作为追索线索，不能升级为本地原件或正式引用页。
 
 ## 分阶段目标
 
