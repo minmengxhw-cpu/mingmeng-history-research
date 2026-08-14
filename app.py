@@ -927,7 +927,8 @@ NAV_GROUPS = [
 PUBLIC_HIDDEN_GROUPS = {"workbench"}
 PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisition",
                         "/open-sources", "/dashboard", "/review", "/excluded", "/domestic/review",
-                        "/domestic/evidence-review", "/domestic/search", "/domestic/document"}
+                        "/domestic/evidence-review", "/domestic/search", "/domestic/document",
+                        "/domestic/quality", "/domestic/acquisition", "/domestic/academic"}
 
 PUBLIC_DOMESTIC_LEVELS = {"L0", "L1", "L2", "L3"}
 
@@ -952,6 +953,26 @@ def _public_domestic_document_visible(c: sqlite3.Connection, document_id: int) -
     except sqlite3.Error:
         return False
     return any(_public_domestic_candidate_visible(row) for row in rows)
+
+
+def _public_domestic_document_predicate(document_alias: str = "d") -> str:
+    """Return the SQL boundary for public domestic documents.
+
+    Public mode must be decided from the candidate's explicit rights and
+    authenticity fields, not from the fact that a document happens to have
+    OCR pages in the formal database.  Keep this as one SQL predicate so the
+    library totals, page totals, and core document list cannot drift apart.
+    """
+    return f"""EXISTS (
+        SELECT 1
+        FROM domestic_candidates public_dc
+        WHERE public_dc.ingested_document_id = {document_alias}.id
+          AND lower(COALESCE(public_dc.rights_status, '')) = 'public'
+          AND COALESCE(
+                public_dc.authenticity_level_accepted,
+                public_dc.authenticity_level_proposed
+              ) IN ('L0', 'L1', 'L2', 'L3')
+    )"""
 
 
 def nav_active(path: str) -> str:
@@ -2713,10 +2734,17 @@ def _domestic_is_background_candidate(row: sqlite3.Row | dict) -> bool:
     return False
 
 
-def _domestic_core_documents_sql(term: str = "", core_only: bool = True, limit: int | None = None) -> tuple[str, list[object]]:
+def _domestic_core_documents_sql(
+    term: str = "",
+    core_only: bool = True,
+    limit: int | None = None,
+    public_only: bool = False,
+) -> tuple[str, list[object]]:
     """已入库国内文档：严格引用、机器核验可阅与 OCR 检索稿分层。"""
     params: list[object] = []
     where = ["d.source_platform = 'domestic'"]
+    if public_only:
+        where.append(_public_domestic_document_predicate("d"))
     if term:
         where.append("(d.title LIKE ? OR d.doc_key LIKE ? OR COALESCE(d.volume_title, '') LIKE ?)")
         like = f"%{term}%"
@@ -2758,19 +2786,28 @@ def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
     term = query.get("q", [""])[0].strip()
     layer = query.get("layer", ["core"])[0].strip() or "core"
     core_only = layer != "all"
+    public_only = bool(getattr(_request, "public_mode", False))
     with conn() as c:
-        sql, params = _domestic_core_documents_sql(term=term, core_only=core_only)
+        sql, params = _domestic_core_documents_sql(
+            term=term,
+            core_only=core_only,
+            public_only=public_only,
+        )
         rows = c.execute(sql, params).fetchall()
+        public_scope = _public_domestic_document_predicate("d") if public_only else "1=1"
         total_docs = c.execute(
-            "SELECT count(*) FROM documents WHERE source_platform='domestic'"
+            f"SELECT count(*) FROM documents d WHERE d.source_platform='domestic' AND {public_scope}"
         ).fetchone()[0]
-        core_sql, core_params = _domestic_core_documents_sql(core_only=True)
+        core_sql, core_params = _domestic_core_documents_sql(
+            core_only=True,
+            public_only=public_only,
+        )
         core_count = len(c.execute(core_sql, core_params).fetchall())
         total_pages = c.execute(
-            """
+            f"""
             SELECT count(*) FROM pages p
             JOIN documents d ON d.id=p.document_id
-            WHERE d.source_platform='domestic'
+            WHERE d.source_platform='domestic' AND {public_scope}
             """
         ).fetchone()[0]
         cite_pages = c.execute(
@@ -2778,7 +2815,9 @@ def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
             SELECT count(*) FROM pages p
             JOIN documents d ON d.id = p.document_id
             JOIN page_provenance pp ON pp.page_id = p.id
-            WHERE d.source_platform = 'domestic' AND {DOMESTIC_STRICT_CITATION_SQL}
+            WHERE d.source_platform = 'domestic'
+              AND {public_scope}
+              AND {DOMESTIC_STRICT_CITATION_SQL}
             """
         ).fetchone()[0]
         machine_pages = c.execute(
@@ -2786,12 +2825,18 @@ def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
             SELECT count(*) FROM pages p
             JOIN documents d ON d.id = p.document_id
             JOIN page_provenance pp ON pp.page_id = p.id
-            WHERE d.source_platform = 'domestic' AND {DOMESTIC_MACHINE_READABLE_SQL}
+            WHERE d.source_platform = 'domestic'
+              AND {public_scope}
+              AND {DOMESTIC_MACHINE_READABLE_SQL}
             """
         ).fetchone()[0]
 
     core_cls = "button" if core_only else "button secondary"
     all_cls = "button" if not core_only else "button secondary"
+    public_note = (
+        '<div class="notice">公开模式仅显示已明确标记为 public 且处于 L0–L3 的国内文档；未授权记录不会因已有 OCR 而出现在此处。</div>'
+        if public_only else ""
+    )
     body = breadcrumb_html([("/", "首页"), ("/domestic", "国内史料库"), (None, "核心可阅")]) + f"""
 <section class="doc-head">
   <div>
@@ -2805,6 +2850,7 @@ def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
     <a class="button secondary" href="/domestic?layer=background">背景线索</a>
   </div>
 </section>
+{public_note}
 <section class="stats">
   <div class="stat"><strong>{h(core_count)}</strong><span>核心可阅文档</span></div>
   <div class="stat"><strong>{h(total_docs)}</strong><span>全部已收</span></div>
@@ -2857,6 +2903,7 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
     layer = query.get("layer", ["core"])[0].strip() or "core"
     if layer not in {"core", "background", "all", "workbench"}:
         layer = "core"
+    public_only = bool(getattr(_request, "public_mode", False))
     event_options = [
         ("1941民盟前身", "1941民盟前身"),
         ("1944改组更名", "1944改组更名"),
@@ -2898,16 +2945,26 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
                 ORDER BY id
                 """
             ).fetchall()
-            core_docs_sql, core_docs_params = _domestic_core_documents_sql(core_only=True, limit=24)
+            core_docs_sql, core_docs_params = _domestic_core_documents_sql(
+                core_only=True,
+                limit=24,
+                public_only=public_only,
+            )
             core_docs = c.execute(core_docs_sql, core_docs_params).fetchall()
-            core_docs_count_sql, _ = _domestic_core_documents_sql(core_only=True)
-            core_docs_total = len(c.execute(core_docs_count_sql).fetchall())
+            core_docs_count_sql, core_docs_count_params = _domestic_core_documents_sql(
+                core_only=True,
+                public_only=public_only,
+            )
+            core_docs_total = len(c.execute(core_docs_count_sql, core_docs_count_params).fetchall())
+            public_scope = _public_domestic_document_predicate("d") if public_only else "1=1"
             cite_pages = c.execute(
                 f"""
                 SELECT count(*) FROM pages p
                 JOIN documents d ON d.id = p.document_id
                 JOIN page_provenance pp ON pp.page_id = p.id
-                WHERE d.source_platform = 'domestic' AND {DOMESTIC_STRICT_CITATION_SQL}
+                WHERE d.source_platform = 'domestic'
+                  AND {public_scope}
+                  AND {DOMESTIC_STRICT_CITATION_SQL}
                 """
             ).fetchone()[0]
             machine_pages = c.execute(
@@ -2915,33 +2972,39 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
                 SELECT count(*) FROM pages p
                 JOIN documents d ON d.id = p.document_id
                 JOIN page_provenance pp ON pp.page_id = p.id
-                WHERE d.source_platform = 'domestic' AND {DOMESTIC_MACHINE_READABLE_SQL}
+                WHERE d.source_platform = 'domestic'
+                  AND {public_scope}
+                  AND {DOMESTIC_MACHINE_READABLE_SQL}
                 """
             ).fetchone()[0]
             domestic_doc_total = c.execute(
-                "SELECT count(*) FROM documents WHERE source_platform='domestic'"
+                f"SELECT count(*) FROM documents d WHERE d.source_platform='domestic' AND {public_scope}"
             ).fetchone()[0]
             domestic_page_total = c.execute(
-                """SELECT count(*) FROM pages p
+                f"""SELECT count(*) FROM pages p
                    JOIN documents d ON d.id=p.document_id
-                   WHERE d.source_platform='domestic'"""
+                   WHERE d.source_platform='domestic' AND {public_scope}"""
             ).fetchone()[0]
             source_anchored_pages = c.execute(
-                """SELECT count(*) FROM page_provenance pp
+                f"""SELECT count(*) FROM page_provenance pp
                    JOIN documents d ON d.id=pp.document_id
                    WHERE d.source_platform='domestic'
+                     AND {public_scope}
                      AND trim(COALESCE(pp.source_file,''))<>''
                      AND length(trim(COALESCE(pp.source_sha256,'')))=64"""
             ).fetchone()[0]
             missing_provenance_pages = c.execute(
-                """SELECT count(*) FROM pages p
+                f"""SELECT count(*) FROM pages p
                    JOIN documents d ON d.id=p.document_id
                    LEFT JOIN page_provenance pp ON pp.page_id=p.id
-                   WHERE d.source_platform='domestic' AND pp.page_id IS NULL"""
+                   WHERE d.source_platform='domestic'
+                     AND {public_scope}
+                     AND pp.page_id IS NULL"""
             ).fetchone()[0]
             missing_date_documents = c.execute(
-                """SELECT count(*) FROM documents
+                f"""SELECT count(*) FROM documents d
                    WHERE source_platform='domestic'
+                     AND {public_scope}
                      AND trim(COALESCE(date_guess,''))=''"""
             ).fetchone()[0]
             # 权威来源卡：优先档案/馆藏类，压低网站门户
@@ -2973,6 +3036,13 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
             row for row in cand_rows
             if _public_domestic_candidate_visible(row)
         ]
+        # The public page must not expose private candidate counts or source
+        # facets merely because the rows were needed to build the internal
+        # view above.
+        total_candidates = len(cand_rows)
+        accepted_count = sum(1 for row in cand_rows if row["review_status"] == "accepted")
+        pending = sum(1 for row in cand_rows if row["review_status"] == "needs_human_review")
+        repository_options = sorted({row["repository_code"] for row in cand_rows if row["repository_code"]})
 
     core_cands: list[sqlite3.Row] = []
     background_cands: list[sqlite3.Row] = []
