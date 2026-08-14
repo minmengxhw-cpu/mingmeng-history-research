@@ -14,6 +14,13 @@
 - 新增回归测试覆盖：正式库已有页时仍保持主证据缺口开放，且队列明确保持 metadata-only 和 `formal_db_written=false`。
 - `/research/gaps` 现在显示每条候选的正式页/严格引用页状态；该内部收口看板加入公开模式隐藏路径，避免把授权追索和私有候选暴露给公开访问者。
 
+### 公开专题研究入口：统一页级授权边界
+
+- `/research`、专题详情、`/research/packets` 和 `packet.json` 现在与国内资料库共用同一个公开文档谓词；共享专题事件索引、四层证据链和研究问题矩阵不会绕过 `rights_status=public` 与 L0--L3 门禁。
+- 公开研究包仍只导出题目、页级身份、来源哈希、复核范围和回链；未授权国内页不会进入证据链、矩阵页级链接或专题事件样本，正文、OCR、译文和逐字引文继续不导出。
+- 内部模式的数据口径不变：93 个证据链页、548 个国内专题事件页；公开模式验收口径为 5 个明确授权的证据链页、9 个专题事件页，未授权页不渲染。
+- 新增公开专题页与公开研究包边界回归测试；真实 HTTP 验收覆盖 `/research`、专题详情、`/research/packets` 和 `packet.json`，均返回 200。
+
 ### 国内资料准入与 OCR 分流
 
 - 新增 `data/domestic/source_admission_policy.json` 和 `scripts/domestic/build_source_admission_queue.py`，把电子文本跳过 OCR、已有页链不重复导入、OCR 草稿定向复核、页数异常先对账、索引仅作导航等规则机器化。

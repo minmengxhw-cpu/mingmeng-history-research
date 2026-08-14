@@ -4674,6 +4674,127 @@ def _load_topic_research_matrix() -> dict[str, dict[str, object]]:
     }
 
 
+def _topic_page_ids(chain: dict[str, object], matrix: dict[str, object]) -> set[int]:
+    """Collect page IDs referenced by topic metadata without reading page text."""
+    page_ids: set[int] = set()
+    layers = chain.get("layers") if isinstance(chain, dict) else {}
+    if isinstance(layers, dict):
+        for values in layers.values():
+            if not isinstance(values, list):
+                continue
+            for value in values:
+                if not isinstance(value, dict) or value.get("page_id") is None:
+                    continue
+                try:
+                    page_ids.add(int(value["page_id"]))
+                except (TypeError, ValueError):
+                    continue
+    questions = matrix.get("questions") if isinstance(matrix, dict) else []
+    if isinstance(questions, list):
+        for question in questions:
+            if not isinstance(question, dict):
+                continue
+            for key in ("evidence_page_ids", "negative_page_ids"):
+                values = question.get(key) or []
+                if not isinstance(values, list):
+                    continue
+                for value in values:
+                    try:
+                        page_ids.add(int(value))
+                    except (TypeError, ValueError):
+                        continue
+    return page_ids
+
+
+def _public_visible_topic_page_ids(page_ids: set[int]) -> set[int]:
+    """Return page IDs safe for public topic pages and packets.
+
+    A domestic page is public only when its linked candidate explicitly has
+    public rights and an accepted/proposed L0--L3 level.  Foreign pages are
+    unaffected.  This is a metadata-only check; it never reads page bodies.
+    """
+    if not getattr(_request, "public_mode", False) or not page_ids:
+        return set(page_ids)
+    placeholders = ",".join("?" for _ in page_ids)
+    try:
+        with conn() as c:
+            rows = c.execute(
+                f"""
+                SELECT p.id AS page_id
+                FROM pages p
+                JOIN documents d ON d.id=p.document_id
+                WHERE p.id IN ({placeholders})
+                  AND (
+                    COALESCE(d.source_platform, 'frus') <> 'domestic'
+                    OR {_public_domestic_document_predicate('d')}
+                  )
+                """,
+                tuple(sorted(page_ids)),
+            ).fetchall()
+    except sqlite3.Error:
+        return set()
+    return {int(row["page_id"]) for row in rows}
+
+
+def _filter_public_topic_chain(
+    chain: dict[str, object], visible_page_ids: set[int]
+) -> dict[str, object]:
+    """Filter only unauthorized domestic page references from a topic chain."""
+    if not getattr(_request, "public_mode", False) or not isinstance(chain, dict):
+        return chain
+    layers = chain.get("layers")
+    if not isinstance(layers, dict):
+        return chain
+    filtered = dict(chain)
+    filtered_layers: dict[str, object] = {}
+    for layer, values in layers.items():
+        if not isinstance(values, list):
+            filtered_layers[layer] = values
+            continue
+        kept: list[object] = []
+        for value in values:
+            if not isinstance(value, dict) or value.get("page_id") is None:
+                kept.append(value)
+                continue
+            try:
+                page_id = int(value["page_id"])
+            except (TypeError, ValueError):
+                continue
+            if page_id in visible_page_ids:
+                kept.append(value)
+        filtered_layers[layer] = kept
+    filtered["layers"] = filtered_layers
+    return filtered
+
+
+def _filter_public_topic_matrix(
+    matrix: dict[str, object], visible_page_ids: set[int]
+) -> dict[str, object]:
+    """Remove unauthorized page links while preserving research questions."""
+    if not getattr(_request, "public_mode", False) or not isinstance(matrix, dict):
+        return matrix
+    questions = matrix.get("questions")
+    if not isinstance(questions, list):
+        return matrix
+    filtered = dict(matrix)
+    filtered_questions: list[dict[str, object]] = []
+    for raw in questions:
+        if not isinstance(raw, dict):
+            continue
+        question = dict(raw)
+        for key in ("evidence_page_ids", "negative_page_ids"):
+            values = question.get(key) or []
+            if isinstance(values, list):
+                question[key] = [
+                    int(value)
+                    for value in values
+                    if str(value).isdigit() and int(value) in visible_page_ids
+                ]
+        filtered_questions.append(question)
+    filtered["questions"] = filtered_questions
+    return filtered
+
+
 def _load_topic_foreign_crosswalk() -> dict[str, object]:
     """读取子问题到境外专题入口的对读映射；只消费元数据。"""
     if not TOPIC_FOREIGN_CROSSWALK_PATH.is_file():
@@ -5511,6 +5632,11 @@ def _research_domestic_evidence_rows(
         return []
 
     placeholders = ",".join("?" for _ in by_document)
+    public_clause = (
+        f" AND {_public_domestic_document_predicate('d')}"
+        if getattr(_request, "public_mode", False)
+        else ""
+    )
     try:
         rows = c.execute(
             f"""
@@ -5529,7 +5655,7 @@ def _research_domestic_evidence_rows(
             FROM documents d
             LEFT JOIN pages p ON p.document_id=d.id
             LEFT JOIN page_provenance pp ON pp.page_id=p.id
-            WHERE d.source_platform='domestic' AND d.id IN ({placeholders})
+            WHERE d.source_platform='domestic'{public_clause} AND d.id IN ({placeholders})
             GROUP BY d.id
             ORDER BY strict_citation_pages DESC, machine_readable_pages DESC,
                      file_backed_pages DESC, d.date_guess, d.id
@@ -5578,6 +5704,11 @@ def _research_topic_event_page_stats(
     document being listed in ``domestic_candidates``. Collapsing those paths
     would make a strict page look absent from the research platform.
     """
+    public_clause = (
+        f" AND {_public_domestic_document_predicate('d')}"
+        if getattr(_request, "public_mode", False)
+        else ""
+    )
     try:
         row = c.execute(
             f"""
@@ -5597,6 +5728,7 @@ def _research_topic_event_page_stats(
             JOIN documents d ON d.id=p.document_id
             LEFT JOIN page_provenance pp ON pp.page_id=p.id
             WHERE e.scope_type='topic' AND e.scope_slug=?
+              AND d.source_platform='domestic'{public_clause}
             """,
             (event_id,),
         ).fetchone()
@@ -5624,6 +5756,12 @@ def _research_topic_event_page_rows(
     The query deliberately excludes ``pages.text`` and ``research_events.event_summary``;
     only page identity, provenance and links are returned.
     """
+    public = bool(getattr(_request, "public_mode", False))
+    public_clause = (
+        f" AND {_public_domestic_document_predicate('d')}"
+        if public
+        else ""
+    )
     try:
         rows = c.execute(
             f"""
@@ -5645,7 +5783,7 @@ def _research_topic_event_page_rows(
             LEFT JOIN page_provenance pp ON pp.page_id=p.id
             WHERE e.scope_type='topic'
               AND e.scope_slug=?
-              AND d.source_platform='domestic'
+              AND d.source_platform='domestic'{public_clause}
             ORDER BY
               CASE
                 WHEN {DOMESTIC_STRICT_CITATION_SQL} THEN 0
@@ -5662,7 +5800,6 @@ def _research_topic_event_page_rows(
     except sqlite3.OperationalError:
         return []
 
-    public = bool(getattr(_request, "public_mode", False))
     result: list[dict[str, object]] = []
     for row in rows:
         strict = _domestic_citation_is_strict(row)
@@ -5878,10 +6015,22 @@ def _research_topic_rows() -> list[dict[str, object]]:
     result: list[dict[str, object]] = []
     with conn() as c:
         for item in coverage:
+            event_id = str(item.get("event_id") or "")
             candidate_ids = [str(value) for value in item.get("domestic_candidate_ids", [])]
             linked = [domestic_by_id[value] for value in candidate_ids if value in domestic_by_id]
             domestic_evidence = _research_domestic_evidence_rows(c, linked)
-            comparison = comparison_cards.get(str(item.get("event_id")), {})
+            comparison = comparison_cards.get(event_id, {})
+            raw_chain = evidence_chains.get(event_id, {})
+            raw_matrix = research_matrices.get(event_id, {})
+            visible_topic_page_ids = _public_visible_topic_page_ids(
+                _topic_page_ids(raw_chain, raw_matrix)
+            )
+            evidence_chain = _filter_public_topic_chain(
+                raw_chain, visible_topic_page_ids
+            )
+            research_matrix = _filter_public_topic_matrix(
+                raw_matrix, visible_topic_page_ids
+            )
             academic_matches = _research_academic_matches(item, comparison)
             foreign_defs = [
                 definition
@@ -5901,10 +6050,10 @@ def _research_topic_rows() -> list[dict[str, object]]:
             result.append({
                 "item": item,
                 "comparison": comparison,
-                "evidence_chain": evidence_chains.get(str(item.get("event_id")), {}),
-                "research_matrix": research_matrices.get(str(item.get("event_id")), {}),
+                "evidence_chain": evidence_chain,
+                "research_matrix": research_matrix,
                 "evidence_chain_summary": _topic_evidence_chain_summary(
-                    evidence_chains.get(str(item.get("event_id")), {})
+                    evidence_chain
                 ),
                 "academic_rows": academic_matches["rows"],
                 "academic_total": academic_matches["total"],

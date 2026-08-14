@@ -33,6 +33,8 @@
 
 统一入口中，国内命中必须显示“国内史料”标识和页级状态：`正式可引用`、`机器可阅`、`原件已锚定·待复核` 或 `证据待补`。专题入口还必须分开显示“研究导航可用”和“一手证据闭环”两个状态，不能让用户从搜索结果或专题入口误以为 OCR 草稿、后期汇编或对读入口已经等于事件定义原件。
 
+公开模式的专题页也必须遵守同一条页级授权边界：`/research`、专题详情、`/research/packets`、研究包 JSON 和专题事件索引只能展示明确 `rights_status=public` 且为 L0--L3 的国内文档页。共享证据链和研究问题矩阵不得因为“已经被专题关联”而绕过这一门禁；未授权页在公开模式中直接省略，研究包继续保持 metadata-only，不暴露本地路径、正文、OCR、译文或逐字引文。
+
 ### 2. 四个资料层
 
 | 层级 | 可做什么 | 不可做什么 |
@@ -94,6 +96,8 @@
 - 公开模式不泄露本地私有正文或未授权资料。
 
 验收：真实数据库下 `/search?platform=domestic`、`/research`、`/timeline?platform=domestic`、专题详情和文献详情均返回 200；结果能回到页面级来源；无证据状态的页面不能出现“正式可引用”；专题的导航状态和一手闭环状态必须独立呈现。
+
+公开模式额外验收：`/research?public=1`、公开专题详情、`/research/packets?public=1` 和公开 `packet.json` 均返回 200；专题事件样本、四层证据链和矩阵页级链接中不得出现未通过国内公开文档谓词的页面。
 
 研究包验收：研究包 JSON 必须包含数据库 SHA256、页级来源 SHA256、复核状态和 `review_scope`；每一条页级记录都能回到 `/doc/<doc_key>?page_id=...` 与 `/cite/<page_id>`；`body_text_included`、`ocr_text_included`、`translation_text_included` 和 `verbatim_quote_included` 必须为 false。研究包是研究编排和引用导航，不是正文复制或自动生成引文。批量验收使用 `scripts/domestic/validate_all_research_packets.py`，要求九个包均能重建、页级记录均解析、正文边界保持关闭，并分别报告证据链页、专题事件回接页和候选回接页。专题事件索引页也只导出页级元数据、provenance 和回链，不导出 `pages.text` 或事件摘要正文。
 

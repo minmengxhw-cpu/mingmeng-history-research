@@ -5,6 +5,7 @@
 """
 from __future__ import annotations
 
+import json
 import sqlite3
 from pathlib import Path
 
@@ -80,5 +81,99 @@ def test_public_shared_entry_points_do_not_render_private_domestic_title():
         ]
         assert all(private_title not in page.decode("utf-8") for page in pages)
         assert all(b"Traceback" not in page for page in pages)
+    finally:
+        app._request.public_mode = previous
+
+
+def test_public_research_topics_filter_shared_event_and_evidence_page_links():
+    """专题页不能绕过候选授权，重新暴露内部证据链页。"""
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = True
+    try:
+        topics = app._research_topic_rows()
+        assert len(topics) == 9
+        with sqlite3.connect(DB_PATH) as connection:
+            connection.row_factory = sqlite3.Row
+            for topic in topics:
+                for row in topic["topic_event_rows"]:
+                    page = connection.execute(
+                        """SELECT d.id, d.source_platform
+                           FROM pages p JOIN documents d ON d.id=p.document_id
+                           WHERE p.id=?""",
+                        (int(row["page_id"]),),
+                    ).fetchone()
+                    assert page is not None
+                    if page["source_platform"] == "domestic":
+                        assert app._public_domestic_document_visible(
+                            connection, int(page["id"])
+                        ) is True
+                chain = topic["evidence_chain"]
+                for values in (chain.get("layers") or {}).values():
+                    for item in values if isinstance(values, list) else []:
+                        if isinstance(item, dict) and item.get("page_id") is not None:
+                            page = connection.execute(
+                                """SELECT d.id, d.source_platform
+                                   FROM pages p JOIN documents d ON d.id=p.document_id
+                                   WHERE p.id=?""",
+                                (int(item["page_id"]),),
+                            ).fetchone()
+                            assert page is not None
+                            if page["source_platform"] == "domestic":
+                                assert app._public_domestic_document_visible(
+                                    connection, int(page["id"])
+                                ) is True
+    finally:
+        app._request.public_mode = previous
+
+
+def test_public_research_packet_contains_no_private_domestic_page_ids():
+    from scripts.domestic.research_packet import build_research_packet
+
+    raw_chain = json.loads(Path(app.TOPIC_EVIDENCE_CHAIN_PATH).read_text(encoding="utf-8"))
+    private_page_ids: set[int] = set()
+    with sqlite3.connect(DB_PATH) as connection:
+        connection.row_factory = sqlite3.Row
+        for topic in raw_chain:
+            for values in (topic.get("layers") or {}).values():
+                for item in values if isinstance(values, list) else []:
+                    if not isinstance(item, dict) or item.get("page_id") is None:
+                        continue
+                    page = connection.execute(
+                        """SELECT d.id, d.source_platform
+                           FROM pages p JOIN documents d ON d.id=p.document_id
+                           WHERE p.id=?""",
+                        (int(item["page_id"]),),
+                    ).fetchone()
+                    if (
+                        page is not None
+                        and page["source_platform"] == "domestic"
+                        and not app._public_domestic_document_visible(
+                            connection, int(page["id"])
+                        )
+                    ):
+                        private_page_ids.add(int(item["page_id"]))
+
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = True
+    try:
+        for event_id in (
+            "domestic-1941-formation",
+            "domestic-1945-first-congress",
+            "domestic-1949-new-pcc",
+        ):
+            packet = build_research_packet(event_id)
+            assert packet is not None
+            exported_ids = {
+                int(item["page_id"])
+                for values in packet["evidence_chain"].values()
+                for item in values
+                if item.get("page_id") is not None
+            }
+            assert exported_ids.isdisjoint(private_page_ids)
+            assert all(
+                item.get("body_text_included") is False
+                for values in packet["evidence_chain"].values()
+                for item in values
+            )
     finally:
         app._request.public_mode = previous
