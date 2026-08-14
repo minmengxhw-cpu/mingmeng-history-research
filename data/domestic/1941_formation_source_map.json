@@ -11,6 +11,17 @@
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
   "primary_evidence_gap": "1941-10-10《光明報》原刊影像、版次页码和成立宣言底本的馆藏/版本关系仍待实际调取；1946汇编重刊不能替代原刊",
+  "access_audit": {
+    "audit_document": "docs/domestic/DOMESTIC_1941_ORIGINAL_ACCESS_AUDIT_20260815.md",
+    "metadata_reviewed_on": "2026-08-15",
+    "status": "route_confirmed_original_image_not_obtained",
+    "scope": "公开馆藏元数据和访问入口；未复制正文原件",
+    "confirmed_routes": [
+      "岭南大学《光明報，1941》剪报索引：日期、页码和版位定位",
+      "香港大学 Special Collections《光明報》1941年缩微胶卷：1941-09-18至12-12，目录标注无缺期"
+    ],
+    "next_minimum_target": "取得1941-10-10《光明報》整期或正式复制件，并完成逐页馆藏标识、影像SHA和人工视觉复核"
+  },
   "sources": [
     {
       "source_id": "nlc-minmeng-wenxian-1946-formation",

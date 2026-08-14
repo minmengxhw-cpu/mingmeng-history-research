@@ -655,6 +655,13 @@ def research_packet_page(event_id: str) -> bytes:
     source_map_cards = []
     for source_map in packet.get("event_source_maps", []):
         sources = source_map.get("sources") if isinstance(source_map.get("sources"), list) else []
+        primary_closed = source_map.get("primary_evidence_closed") is True
+        primary_status_class = "ok" if primary_closed else "warn"
+        primary_status_label = "一手证据已闭合" if primary_closed else "一手证据仍开放"
+        access_audit = source_map.get("access_audit")
+        audit_status = ""
+        if isinstance(access_audit, dict):
+            audit_status = str(access_audit.get("status") or "")
         source_rows = []
         for source in sources:
             if not isinstance(source, dict):
@@ -675,8 +682,9 @@ def research_packet_page(event_id: str) -> bytes:
             f'''<article class="result compact-result"><div>
   <h3>{esc(source_map.get("title") or "专题来源地图")}</h3>
   <div class="meta">{esc(source_map.get("review_status") or "未登记")} · {len(sources)} 个来源 · {sum(len(s.get("page_records") or []) for s in sources if isinstance(s, dict))} 条页级记录</div>
-  <div class="tagline"><span class="pstatus ok">页级证据已登记</span><span class="tag">正文未复制</span><span class="tag">primary_evidence_closed=false</span></div>
+  <div class="tagline"><span class="pstatus ok">页级证据已登记</span><span class="pstatus {primary_status_class}">{esc(primary_status_label)}</span><span class="tag">正文未复制</span></div>
   <div class="snippet">{esc(source_map.get("primary_evidence_gap") or "仍有一手原件缺口")}</div>
+  {f'<div class="snippet"><strong>访问审计：</strong>{esc(audit_status)}</div>' if audit_status else ''}
   <ul>{"".join(source_rows)}</ul>
 </div></article>'''
         )
