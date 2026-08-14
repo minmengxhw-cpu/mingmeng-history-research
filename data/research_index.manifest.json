@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-14T12:50:26+08:00",
+  "generated_at": "2026-08-14T13:42:40+08:00",
   "database_filename": "research_index.sqlite",
   "database_size_bytes": 703549440,
-  "sha256": "d309ce966121bdce6341171c1a467b6caac4946de3c836c8ebb32d9f3905b997",
+  "sha256": "52550c3e10c9061eea1f8ac5cde53ad95b42e66e383e9d1489d7850d39564127",
   "counts": {
     "documents": 1403,
     "domestic_documents": 542,
@@ -15,7 +15,7 @@
     "domestic_research_event_scopes": 9,
     "domestic_candidates": 689,
     "domestic_file_backed_provenance": 5166,
-    "strict_human_citation_pages": 183,
+    "strict_human_citation_pages": 189,
     "domestic_pages_missing_provenance": 1,
     "domestic_documents_missing_date": 10
   },
@@ -24,8 +24,8 @@
     "foreign_key_violations": 0,
     "pages_without_fts": 0,
     "fts_without_pages": 0,
-    "source_files_checked": 643,
-    "source_file_bytes": 682535780,
+    "source_files_checked": 639,
+    "source_file_bytes": 682380426,
     "source_files_missing": 0,
     "source_hash_mismatches": 0,
     "absolute_source_paths": 0,

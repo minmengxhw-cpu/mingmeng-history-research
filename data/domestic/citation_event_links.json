@@ -369,6 +369,48 @@
       "page_label": "page-01",
       "navigation_title": "中央档案馆专题扫描：政协一届全体会议主席团名单页",
       "rationale": "本地页图清晰显示中国人民政治协商会议第一届全体会议主席团名单题名及名单版面；作为会议组织结构的页级入口，不替代完整会议档案或姓名逐字校勘。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
+      "page_label": "issue7604-1",
+      "navigation_title": "1947年11月4日《大剛報》民盟解散前报道页（张群通知）",
+      "rationale": "本地PDF第一页的版头、日期、版号和民盟相关报道标题已视觉核验；作为解散前同期报刊页级入口，不替代政府公文或民盟内部文件。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-league-dissolution-meeting",
+      "page_label": "issue7604-1",
+      "navigation_title": "1947年11月4日《大剛報》民盟解散前报道页（中常会）",
+      "rationale": "本地PDF第一页的版头、日期、版号和民盟中常会相关报道标题已视觉核验；作为解散前同期报刊页级入口，不扩写为正式会议记录。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
+      "page_label": "issue7606-1",
+      "navigation_title": "1947年11月6日《大剛報》民盟正式宣告解散报道页",
+      "rationale": "本地PDF第一页的版头、日期、版号和“正式宣告解散”主标题已视觉核验；作为同期报刊直接报道页，不替代民盟公告原件或政府行政公文。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11",
+      "page_label": "page-0003",
+      "navigation_title": "《观察》第三卷第十一期关于政府压迫民盟的声明页",
+      "rationale": "本地期刊PDF第3页的卷期、页码和声明标题已视觉核验；作为同期公共声明页级入口，引用范围限于该页，不替代民盟或政府正式文件。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11-dong-shijin",
+      "page_label": "page4",
+      "navigation_title": "《观察》董时进关于取缔民盟的感想页",
+      "rationale": "本地期刊PDF第4页的页码、文章标题和署名位置已视觉核验；作为同期评论页级入口，不替代民盟内部原件或政府公文。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11-han-depei",
+      "page_label": "page-0005",
+      "navigation_title": "《观察》韩德培关于人身自由问题的评论页",
+      "rationale": "本地期刊PDF第5页的页码、文章标题和版面边界已视觉核验；作为同期专业评论页级入口，不把评论扩写为行政事实记录。"
     }
   ],
   "known_uncovered_topics": []

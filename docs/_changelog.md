@@ -5,6 +5,15 @@
 
 ## 2026-08-14
 
+### 1947 同期报刊六页视觉复核与导航摘要治理
+
+- 对《大剛報》1947-11-04、1947-11-06及《观察》第三卷第十一期共 6 页做本地高分辨率页图复核；正式 provenance 现在同时绑定原始 PDF、PDF 页码、页图 SHA256、OCR 派生文件和复核范围。
+- 批次为 `work/domestic/nlc_1947_visual_review_20260814/`，通过 `scripts/domestic/apply_nlc_1947_visual_review_20260814.py` dry-run 后写入；正文、OCR 文本和原始资产未修改，严格人工可引用页由 183 增至 189。
+- 写入前数据库 SHA256 为 `d309ce966121bdce6341171c1a467b6caac4946de3c836c8ebb32d9f3905b997`，写入后为 `331dc2e7f02e29959200abcbcae3ccf0b6061e87faf6eb673ad9a3cbfa1d1b37`；备份为 `/private/tmp/mingmeng_research_index_20260814_nlc_1947_visual.bak`。
+- 6 个页级导航入口已纳入 `data/domestic/citation_event_links.json`；它们只用于同期报刊/公共评论导航，不替代 1947 年政府公文、民盟公告或内部会议文件。
+- 修复旧事件索引的正文泄漏：`scripts/domestic/repair_event_navigation_summaries_20260814.py` 将 552 条国内导航摘要统一为正文-free，保留所有事件行、页 ID、人物和标签，删除行数为 0。清理前 SHA256 为 `331dc2e7f02e29959200abcbcae3ccf0b6061e87faf6eb673ad9a3cbfa1d1b37`，清理后为 `52550c3e10c9061eea1f8ac5cde53ad95b42e66e383e9d1489d7850d39564127`；备份为 `/private/tmp/mingmeng_research_index_20260814_event_summary.bak`。
+- 当前 manifest 已同步：来源文件 639 个、682,380,426 bytes；完整性、外键、FTS 和来源哈希均通过。
+
 ### 1949 新政协：追加四页页级视觉复核
 
 - 对北上邀请电报、筹备会概要、代表名单连续页和主席团名单各一页做本地图像视觉复核，严格人工可引用页由 179 增至 183。
