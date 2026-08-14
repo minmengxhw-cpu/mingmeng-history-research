@@ -121,8 +121,8 @@ def collect_links(
                 "scope_slug": event_id,
                 "scope_name": event_name,
                 "page_id": int(row["page_id"]),
-                "event_date": str(row["date_guess"] or ""),
-                "event_year": year_from(row["date_guess"], doc_key),
+                "event_date": str(raw.get("event_date") or row["date_guess"] or ""),
+                "event_year": year_from(raw.get("event_date"), row["date_guess"], doc_key),
                 "event_title": navigation_title,
                 "event_summary": (
                     "专题导航关联（仅导航层，非事实断言）："

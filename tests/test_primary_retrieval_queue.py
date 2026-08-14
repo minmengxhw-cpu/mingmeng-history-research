@@ -225,3 +225,47 @@ def test_retrieval_queue_surfaces_formal_pages_without_closing_primary_gap():
     assert "不要重复下载或 OCR" in target["next_action"]
     assert result["formal_index"]["metadata_only"] is True
     assert result["formal_db_written"] is False
+
+
+def test_retrieval_queue_matches_event_tags_and_keeps_mmhist_surrogate():
+    result = build_queue(
+        [
+            {
+                "event_id": "e",
+                "event_name": "1946年拒绝国民大会",
+                "primary_evidence_status": "partial",
+                "domestic_candidate_ids": ["compiled-notice"],
+            }
+        ],
+        {
+            "e": {
+                "layers": {
+                    "missing_primary": [
+                        {"target": "1946年民盟正式拒绝参加国民大会的独立原件", "status": "open"}
+                    ]
+                }
+            }
+        },
+        {
+            "compiled-notice": {
+                "candidate_id": "compiled-notice",
+                "title": "中国民主同盟总部秘书处紧急通告",
+                "repository_code": "MMHIST",
+                "catalog_reference": "正式汇编印刷页246；公开扫描PDF第276页",
+                "document_date": "1946-11-14",
+                "event_tags": ["1946拒绝国民大会"],
+                "evidence_type": "digital_image",
+                "online_availability": "surrogate_online",
+                "access_mode": "open",
+                "authenticity_level_proposed": "L2",
+                "relevance_grade_proposed": "core",
+                "review_status": "accepted",
+                "source_url": "https://example.invalid/compiled.pdf",
+            }
+        },
+        {},
+    )
+    route = result["topics"][0]["candidate_routes"][0]
+    assert route["target_match"] is True
+    assert route["route_status"] == "PUBLIC_SURROGATE"
+    assert route["candidate_id"] == "compiled-notice"

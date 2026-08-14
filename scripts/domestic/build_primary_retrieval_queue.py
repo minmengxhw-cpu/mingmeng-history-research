@@ -152,7 +152,15 @@ def chain_by_event(value: Any) -> dict[str, dict[str, Any]]:
 def target_match(candidate: dict[str, Any], target_text: str, event_name: str = "") -> tuple[bool, list[str]]:
     haystack = " ".join(
         str(candidate.get(key) or "")
-        for key in ("title", "document_date", "document_type", "evidence_note", "person_tags")
+        for key in (
+            "title",
+            "document_date",
+            "document_type",
+            "evidence_note",
+            "event_tags",
+            "person_tags",
+            "catalog_reference",
+        )
     )
     target_context = f"{target_text} {event_name}"
     anchors: tuple[str, ...] = ()
@@ -315,16 +323,24 @@ def must_keep_route(row: dict[str, Any]) -> bool:
     """Keep a high-value archive lead even when ordinary routes are capped.
 
     A topic may have dozens of newspaper and web candidates.  Exact archive
-    references from a national/municipal archive are more useful for closing
-    a primary gap than another duplicate public article, so they must remain
-    visible in the metadata-only queue.  This does not promote the route or
-    read its body.
+    references and exact official-compilation page leads are more useful for
+    closing a primary gap than another duplicate public article, so they must
+    remain visible in the metadata-only queue.  This does not promote the
+    route or read its body.
     """
     return bool(
         row.get("target_match") is True
-        and row.get("route_status") == "CATALOGUE_OR_FINDING_AID"
-        and str(row.get("repository_code") or "") in {"SHAC", "NJSH"}
         and str(row.get("catalog_reference") or "").strip()
+        and (
+            (
+                row.get("route_status") == "CATALOGUE_OR_FINDING_AID"
+                and str(row.get("repository_code") or "") in {"SHAC", "NJSH"}
+            )
+            or (
+                row.get("route_status") == "PUBLIC_SURROGATE"
+                and str(row.get("repository_code") or "") == "MMHIST"
+            )
+        )
     )
 
 

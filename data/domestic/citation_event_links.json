@@ -544,6 +544,14 @@
       "page_label": "page-0005",
       "navigation_title": "《观察》韩德培关于人身自由问题的评论页",
       "rationale": "本地期刊PDF第5页的页码、文章标题和版面边界已视觉核验；作为同期专业评论页级入口，不把评论扩写为行政事实记录。"
+    },
+    {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_label": "276",
+      "event_date": "1946-11-14",
+      "navigation_title": "1946年11月14日民盟总部秘书处《紧急通告》汇编重刊页",
+      "rationale": "官方历史文献汇编公开扫描第276页（印刷页246）已完成本地原图视觉复核；作为民盟正式通告的汇编重刊页级入口，不等同于1946年独立原件，不替代原始底本和同期原刊互校。"
     }
   ],
   "known_uncovered_topics": []

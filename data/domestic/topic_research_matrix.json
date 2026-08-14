@@ -210,12 +210,12 @@
         {
           "id": "refuse-formal-statement",
           "question": "是否已经找到正式拒绝声明、函电或可定位的原刊全文？",
-          "status": "open_gap",
-          "evidence_page_ids": [],
+          "status": "partial",
+          "evidence_page_ids": [19000],
           "negative_page_ids": [],
-          "evidence_scope": "当前证据链明确登记为开放目标。",
-          "caveat": "现有页只能支持同期语境，不能回答正式文件是否已经取得。",
-          "next_action": "追民盟中央文件、张澜/罗隆基等代表函电及1946年11月同期报刊完整版。"
+          "evidence_scope": "官方历史文献汇编重刊页19000（印刷页246／PDF第276页）已完成页级视觉核验，可作为1946-11-14《紧急通告》的稳定导航和汇编版本引用入口。",
+          "caveat": "该页是后期官方汇编重刊，不等于1946年独立原件；未经逐字校勘的OCR不作为正式逐字引文，不能据此关闭独立原件缺口。",
+          "next_action": "以页19000为汇编定位锚点，继续追民盟中央/档案馆原始底本、张澜/罗隆基等代表函电及1946年11月同期报刊原版。"
         },
         {
           "id": "refuse-source-conflict",
