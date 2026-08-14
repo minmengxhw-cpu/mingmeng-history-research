@@ -1,16 +1,16 @@
 {
   "schema": "domestic_event_source_map.v1",
   "event_id": "domestic-1949-new-pcc",
-  "title": "1949年新政治协商会议筹备与一届全体会议：中央档案馆公开影像页级证据地图",
+  "title": "1949年新政治协商会议筹备与一届全体会议：档案影像与博物馆文物图像证据地图",
   "review_status": "archival_page_identity_boundary_reviewed_primary_gap_open",
-  "evidence_scope": "国家档案局／中央档案馆公开专题中的已核验档案影像页，及正式库已登记但待视觉复核的导航页；只登记页级来源、哈希和引用边界",
+  "evidence_scope": "国家档案局／中央档案馆公开专题中的已核验档案影像页、中国国家博物馆公开文物图像及正式库已登记但待视觉复核的导航页；只登记页级来源、哈希和引用边界",
   "body_text_included": false,
   "ocr_text_included": false,
   "raw_files_included": false,
   "formal_db_written_by_map": false,
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
-  "primary_evidence_gap": "已核验20个影像页并新增54个待视觉复核导航页；1949年筹备会完整记录、代表发言、完整代表名册连续件、第一届全体会议全套档案，以及民盟代表在会中发言和互动的完整页级对位仍待补齐。本地图不把单页影像宣称为完整档案卷宗或完整名单。",
+  "primary_evidence_gap": "已核验20个档案影像页并新增54个待视觉复核导航页，另登记1幅中国国家博物馆代表签名册公开文物图像；1949年筹备会完整记录、代表发言、完整代表名册连续件、第一届全体会议全套档案，以及民盟代表在会中发言和互动的完整页级对位仍待补齐。本地图不把单页影像或文物展示图宣称为完整档案卷宗或完整名单。",
   "sources": [
     {
       "source_id": "saac-1949-pcc-invitation-telegram-p01",
@@ -1971,6 +1971,34 @@
           "review_scope": "archival_scan_page_identity_pending_visual_review",
           "page_image_sha256": "051cef016753a53e4953c7df6e534830eea28279dea2f2150441b825fb181229",
           "caveat": "OCR 仅用于检索；手写记录、人名和发言目录尚未逐字人工复核。"
+        }
+      ]
+    },
+    {
+      "source_id": "chnmuseum-1949-pcc-signature-book-image",
+      "title": "政协第一届全体会议代表签名册（中国国家博物馆公开高清图）",
+      "source_role": "official_museum_primary_artifact_image",
+      "evidence_level": "L3",
+      "source_file": "data/domestic/raw/public_sources/chnmuseum_1949_pcc_signature_book_20090920071520.jpg",
+      "source_sha256": "02ffebefe3172d5e71010b694b8e859ed7f2b902a1537b67ee9fd7c7a3688ce5",
+      "source_file_size": 499012,
+      "page_count": 1,
+      "source_url": "https://www.chnmuseum.cn/portals/0/web/zt/fuxing/picture_atc_33.html",
+      "official_image_url": "https://www.chnmuseum.cn/portals/0/web/zt/fuxing/sto/uploads/hdphoto/images/2009/200909/20090920071520.jpg",
+      "access_note": "中国国家博物馆官方展览页公开的高清图；本地保存原始下载字节并记录 SHA256。",
+      "page_records": [
+        {
+          "page_id": null,
+          "physical_page_no": 1,
+          "target": "1949年政协第一届全体会议代表签名册",
+          "role": "官方文物图像中的签名册/签到簿展示拼图",
+          "status": "review_only",
+          "review_status": "visual_identity_checked",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "official_artifact_identity_only",
+          "page_image_sha256": "02ffebefe3172d5e71010b694b8e859ed7f2b902a1537b67ee9fd7c7a3688ce5",
+          "caveat": "官方页面和图像确认文物身份，但当前为带水印拼图而非完整签名册或签到簿；尚未完成页序、民盟代表身份和完整名单对位，不能关闭1949主证据缺口。"
         }
       ]
     }

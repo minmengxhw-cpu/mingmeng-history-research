@@ -1,0 +1,28 @@
+{
+  "schema": "domestic_public_media_metadata.v1",
+  "generated_at": "2026-08-15",
+  "event_id": "domestic-1949-new-pcc",
+  "candidate_id": "domestic:CHNMUSEUM:1949-pcc-signature-book",
+  "title": "政协第一届全体会议代表签名册",
+  "source_role": "official_museum_primary_artifact",
+  "repository_name": "中国国家博物馆",
+  "catalogue_page_url": "https://www.chnmuseum.cn/portals/0/web/zt/fuxing/picture_atc_33.html",
+  "image_url": "https://www.chnmuseum.cn/portals/0/web/zt/fuxing/sto/uploads/hdphoto/images/2009/200909/20090920071520.jpg",
+  "local_file": "data/domestic/raw/public_sources/chnmuseum_1949_pcc_signature_book_20090920071520.jpg",
+  "source_sha256": "02ffebefe3172d5e71010b694b8e859ed7f2b902a1537b67ee9fd7c7a3688ce5",
+  "source_bytes": 499012,
+  "image_width": 1357,
+  "image_height": 1266,
+  "body_read": false,
+  "formal_db_written": false,
+  "review_status": "review_only",
+  "citation_ready": false,
+  "visual_review": {
+    "status": "official_page_and_image_identity_visually_checked",
+    "review_scope": "artifact_identity_and_image_integrity_only",
+    "ocr_performed": false,
+    "page_level_person_identity_verified": false
+  },
+  "rights_status": "citation_only_pending_rights_confirmation",
+  "caveat": "官方页面和高清图确认这是政协第一届全体会议代表签名册相关图像，但当前为带水印的拼图展示，不是完整签名册、签到簿或会议档案卷宗；不能单独证明民盟代表名单、签名页序或会议发言。"
+}
