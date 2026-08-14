@@ -94,6 +94,47 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
         manifest = {}
 
     public = bool(getattr(app._request, "public_mode", False))
+    sourcebooks: list[dict[str, Any]] = []
+    if event_id == "domestic-1946-pcc" and hasattr(app, "_load_pcc_1946_sourcebook_map"):
+        sourcebook = app._load_pcc_1946_sourcebook_map()
+        raw_targets = sourcebook.get("targets") if isinstance(sourcebook.get("targets"), list) else []
+        targets = [
+            {
+                "id": str(target.get("id") or ""),
+                "label": str(target.get("label") or ""),
+                "pdf_page_start": int(target.get("pdf_page_start") or 0),
+                "printed_page_start": int(target.get("printed_page_start") or 0),
+                "adjacent_pdf_pages": [int(page) for page in target.get("adjacent_pdf_pages", [])],
+                "status": str(target.get("status") or ""),
+                "body_text_included": False,
+            }
+            for target in raw_targets
+            if isinstance(target, dict)
+        ]
+        if sourcebook:
+            sourcebooks.append(
+                {
+                    "source_id": str(sourcebook.get("source_id") or ""),
+                    "title": str(sourcebook.get("title") or ""),
+                    "publication_year": int(sourcebook.get("publication_year") or 0),
+                    "source_role": str(sourcebook.get("source_role") or "sourcebook_scan"),
+                    "evidence_level": str(sourcebook.get("evidence_level") or "L2"),
+                    "review_status": str(sourcebook.get("review_status") or "targeted_review_pending"),
+                    "source_file": (
+                        "内部本地 staging 文件（公开模式隐藏路径）"
+                        if public
+                        else str(sourcebook.get("source_file") or "")
+                    ),
+                    "source_sha256": str(sourcebook.get("source_sha256") or ""),
+                    "page_count": int(sourcebook.get("page_count") or 0),
+                    "source_url": str(sourcebook.get("source_url") or ""),
+                    "target_map_url": "/domestic/sourcebook/1946-pcc",
+                    "file_url": "" if public else "/domestic/sourcebook/file/1946-pcc",
+                    "body_text_included": False,
+                    "raw_pdf_included": False,
+                    "targets": targets,
+                }
+            )
     with app.conn() as connection:
         page_rows = {
             page_id: _page_row(connection, page_id) for page_id in page_ids
@@ -292,7 +333,7 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             }
 
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "packet_type": "domestic_topic_research_packet",
         "generated_at": datetime.datetime.now(datetime.timezone.utc)
         .astimezone()
@@ -340,7 +381,10 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "topic_event_sample_rows": len(topic_event_rows),
             "academic_candidates": int(topic.get("academic_total") or 0),
             "foreign_machine_pages": int(topic.get("foreign_pages") or 0),
+            "sourcebook_count": len(sourcebooks),
+            "sourcebook_target_count": sum(len(sourcebook["targets"]) for sourcebook in sourcebooks),
         },
+        "sourcebooks": sourcebooks,
         "evidence_chain": evidence_chain,
         "research_matrix": {
             "schema_version": 1,
@@ -392,6 +436,8 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "research_matrix_questions": len(matrix_questions),
             "foreign_crosswalk_body_text_included": False,
             "foreign_crosswalk_questions": len(foreign_crosswalk),
+            "sourcebook_count": len(sourcebooks),
+            "sourcebook_target_count": sum(len(sourcebook["targets"]) for sourcebook in sourcebooks),
             "source_sha256_exported": True,
             "citation_policy": "正式引文仍须打开 /cite/<page_id>，并遵守该页明确的 review_scope。",
         },
@@ -475,6 +521,30 @@ def research_packet_page(event_id: str) -> bytes:
         (packet.get("foreign_crosswalk") or {}).get("questions", {})
     )
 
+    sourcebook_cards = []
+    for sourcebook in packet.get("sourcebooks", []):
+        targets = sourcebook.get("targets") if isinstance(sourcebook.get("targets"), list) else []
+        target_labels = "、".join(
+            str(target.get("label") or target.get("id") or "")
+            for target in targets[:6]
+            if isinstance(target, dict)
+        )
+        links = [f'<a href="{esc(sourcebook.get("target_map_url") or "#")}">打开 sourcebook 条目</a>']
+        if sourcebook.get("file_url"):
+            links.append(f'<a href="{esc(sourcebook["file_url"])}" target="_blank" rel="noreferrer">打开本地 PDF</a>')
+        sourcebook_cards.append(
+            f"""<article class="result compact-result"><div>
+  <h3>{esc(sourcebook.get('title') or '未题名 sourcebook')}</h3>
+  <div class="meta">{esc(sourcebook.get('source_role') or 'sourcebook_scan')} · {esc(sourcebook.get('evidence_level') or 'L2')} · {esc(sourcebook.get('review_status') or 'targeted_review_pending')} · {esc(sourcebook.get('page_count') or 0)} 页</div>
+  <div class="tagline"><span class="pstatus warn">正文未复制</span><span class="tag">目标标题 {len(targets)} 个</span><span class="tag">formal_db_written=false</span></div>
+  <div class="snippet">定向目标：{esc(target_labels)}。本包只复制来源身份、页码和状态，不复制扫描正文或 OCR。</div>
+</div><div class="cite">{' · '.join(links)}</div></article>"""
+        )
+    sourcebook_html = (
+        '<div class="section-head"><h2>本地 sourcebook staging</h2><span class="meta">不替代正式原件</span></div>'
+        f'<section class="result-list">{"".join(sourcebook_cards) or "<div class=\"notice\">本专题没有登记 sourcebook。</div>"}</section>'
+    )
+
     topic_event_cards = "".join(
         f'''<article class="result compact-result"><div>
   <h3>{esc(row.get("event_title") or row.get("title") or row.get("doc_key"))}</h3>
@@ -497,6 +567,7 @@ def research_packet_page(event_id: str) -> bytes:
 <div class="section-head"><h2>国内—境外对读摘要</h2></div><section class="result-list"><article class="result compact-result"><div><h3>国内材料</h3><div class="snippet">{esc(scope['domestic_anchor'])}</div></div></article><article class="result compact-result"><div><h3>境外材料</h3><div class="snippet">{esc(scope['foreign_anchor'])}</div></div></article><article class="result compact-result"><div><h3>差异与下一步</h3><div class="snippet"><strong>差异：</strong>{esc(scope['difference'])}<br><strong>下一步：</strong>{esc(scope['next_action'])}</div></div></article></section>
 {matrix_html}
 {foreign_crosswalk_html}
+{sourcebook_html}
 {"".join(sections)}
 <div class="section-head"><h2>仍待补原件</h2><span class="meta">{len(packet['open_primary_targets'])} 项</span></div><section class="result-list">{targets}</section>
 <div class="section-head"><h2>学术研究（解释层）</h2><span class="meta">不替代一手证据</span></div><section class="result-list">{academic}</section>

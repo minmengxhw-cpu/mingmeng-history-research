@@ -78,6 +78,29 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
             errors.append(f"topic event page {row.get('page_id')} exports body text")
         if not row.get("page_id") or not row.get("reader_url"):
             errors.append("topic event row missing page link")
+    sourcebooks = packet.get("sourcebooks") or []
+    if not isinstance(sourcebooks, list):
+        errors.append("sourcebooks must be a list")
+        sourcebooks = []
+    if len(sourcebooks) != audit.get("sourcebook_count"):
+        errors.append("sourcebook count mismatch")
+    if sum(len(item.get("targets") or []) for item in sourcebooks if isinstance(item, dict)) != audit.get("sourcebook_target_count"):
+        errors.append("sourcebook target count mismatch")
+    for sourcebook in sourcebooks:
+        if not isinstance(sourcebook, dict):
+            errors.append("sourcebook entry is not an object")
+            continue
+        if sourcebook.get("body_text_included") is not False:
+            errors.append(f"sourcebook {sourcebook.get('source_id')} exports body text")
+        if sourcebook.get("raw_pdf_included") is not False:
+            errors.append(f"sourcebook {sourcebook.get('source_id')} exports raw PDF")
+        if len(str(sourcebook.get("source_sha256") or "")) != 64:
+            errors.append(f"sourcebook {sourcebook.get('source_id')} missing source SHA256")
+        if not sourcebook.get("target_map_url"):
+            errors.append(f"sourcebook {sourcebook.get('source_id')} missing target map URL")
+        for target in sourcebook.get("targets") or []:
+            if not isinstance(target, dict) or target.get("body_text_included") is not False:
+                errors.append(f"sourcebook {sourcebook.get('source_id')} target exports body text")
     for row in rows:
         if not row.get("page_id"):
             errors.append("evidence row missing page_id")

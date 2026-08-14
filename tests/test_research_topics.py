@@ -191,6 +191,31 @@ def test_research_packet_is_metadata_only_and_page_traceable():
     assert "中文译文（" not in body
 
 
+def test_pcc_research_packet_carries_sourcebook_map_without_body():
+    """1946 PCC packet must carry the source map while remaining metadata-only."""
+    import app
+
+    app._request.public_mode = False
+    from scripts.domestic.research_packet import build_research_packet, packet_json_bytes, research_packet_page
+    from scripts.domestic.validate_research_packet import validate_packet
+
+    packet = build_research_packet("domestic-1946-pcc")
+    assert packet is not None
+    assert packet["schema_version"] == 3
+    assert packet["counts"]["sourcebook_count"] == 1
+    assert packet["counts"]["sourcebook_target_count"] == 6
+    sourcebook = packet["sourcebooks"][0]
+    assert sourcebook["source_role"] == "sourcebook_scan"
+    assert sourcebook["evidence_level"] == "L2"
+    assert sourcebook["body_text_included"] is False
+    assert sourcebook["raw_pdf_included"] is False
+    assert all(target["body_text_included"] is False for target in sourcebook["targets"])
+    assert validate_packet(packet, "domestic-1946-pcc")["status"] == "PASS"
+    raw = packet_json_bytes("domestic-1946-pcc").decode("utf-8")
+    assert '"text"' not in raw
+    assert "本地 sourcebook staging" in research_packet_page("domestic-1946-pcc").decode("utf-8")
+
+
 def test_topic_research_matrix_is_complete_and_page_traceable():
     """九个专题的研究矩阵必须覆盖四个子问题且只引用已有链条页号。"""
     root = Path(__file__).resolve().parents[1]
