@@ -96,6 +96,7 @@ TOPIC_RESEARCH_MATRIX_PATH = DATA_ROOT / "domestic" / "topic_research_matrix.jso
 TOPIC_FOREIGN_CROSSWALK_PATH = DATA_ROOT / "domestic" / "topic_foreign_crosswalk.json"
 PRIMARY_EVIDENCE_ACCESS_AUDIT_PATH = DATA_ROOT / "domestic" / "primary_evidence_access_audit.json"
 ACADEMIC_SOURCE_POLICY_PATH = DATA_ROOT / "domestic" / "academic_source_policy.json"
+ACADEMIC_TOPIC_CROSSWALK_PATH = DATA_ROOT / "domestic" / "academic_topic_crosswalk.json"
 SOURCE_ADMISSION_POLICY_PATH = DATA_ROOT / "domestic" / "source_admission_policy.json"
 PRIMARY_RETRIEVAL_QUEUE_PATH = DATA_ROOT / "domestic" / "primary_retrieval_queue.json"
 STYLE_PATH = ROOT / "static" / "style.css"
@@ -3987,6 +3988,38 @@ def domestic_academic_page() -> bytes:
         for row in snapshot.get("institutions", [])
         if isinstance(row, dict)
     ) or '<div class="notice">当前层没有机构分布；正式库 fallback 不复制 staging 机构字段。</div>'
+    crosswalk = _load_academic_topic_crosswalk()
+    crosswalk_topics = crosswalk.get("topics") if isinstance(crosswalk, dict) else []
+    crosswalk_cards: list[str] = []
+    if isinstance(crosswalk_topics, list):
+        for topic in crosswalk_topics:
+            if not isinstance(topic, dict):
+                continue
+            event_id = str(topic.get("event_id") or "").strip()
+            event_name = str(topic.get("event_name") or event_id).strip()
+            if not event_id:
+                continue
+            event_href = f"/research/{quote(event_id, safe='')}"
+            domestic_href = f"/domestic/events?event={quote(event_id, safe='')}"
+            tiers = topic.get("quality_tiers") or {}
+            tier_summary = " · ".join(
+                f"{h(key)} {h(value)} 条"
+                for key, value in tiers.items()
+                if str(key).strip()
+            ) or "暂无分级统计"
+            crosswalk_cards.append(
+                f'''<article class="result compact-result"><div><h3><a href="{event_href}">{h(event_name)}</a></h3>
+                <div class="meta">学术匹配 {h(topic.get("matched_records", 0))} 条 · {tier_summary}</div>
+                <div class="snippet">匹配表只使用书目/结构化元数据；它用于进入专题和发现线索，不代表已经阅读正文，也不把学术资料升级为一手证据。</div></div>
+                <div class="cite"><a href="{event_href}">专题对读</a><br><a href="{domestic_href}">一手覆盖</a></div></article>'''
+            )
+    crosswalk_total = crosswalk.get("total_topic_matches", 0) if isinstance(crosswalk, dict) else 0
+    crosswalk_section = (
+        f'''<div class="section-head"><h2><svg class="ico"><use href="#i-link"/></svg>学术—专题交叉索引</h2>
+<span class="meta">{h(len(crosswalk_cards))} 个专题 · {h(crosswalk_total)} 条匹配</span></div>
+<div class="notice">交叉表状态：{h(crosswalk.get("status") or "未标注")}；正文读取：{h(str(crosswalk.get("body_read", "未标注")).lower())}。先按专题进入国内外对读，再从专题页回到一手页级证据和研究包。</div>
+<section class="result-list">{"".join(crosswalk_cards) or '<div class="notice">当前 checkout 没有可读的学术—专题交叉表。</div>'}</section>'''
+    )
     if snapshot.get("available"):
         availability = f'''<section class="stats">
   <div class="stat"><strong>{h(snapshot["records"])}</strong><span>研究/官方资料</span></div>
@@ -4011,6 +4044,7 @@ def domestic_academic_page() -> bytes:
 <div class="notice">正式引用链必须经过：研究记录 → 来源入口/目录 → 本地文件或稳定全文 → 页码/章节定位 → SHA-256 → 复核状态 → citation-ready。当前统计中的 staging 字段不会自动修改正式库门禁。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-building"/></svg>机构元数据分布</h2><span class="meta">仅显示记录字段，不自动宣称985或任职资格</span></div>
 <section class="result-list">{institution_cards}</section>
+{crosswalk_section}
 <div class="section-head"><h2><svg class="ico"><use href="#i-arrow-right"/></svg>下一步工作</h2></div>
 <section class="result-list">
   <article class="result"><div><h2>优先补全文和页码</h2><div class="snippet">先处理 S/A 层中作者、机构、来源入口完整且与九专题直接相关的文章；目录页和元数据只进入补证队列。</div></div></article>
@@ -5474,6 +5508,17 @@ def _load_source_admission_policy() -> dict[str, object]:
         return {}
     try:
         payload = json.loads(SOURCE_ADMISSION_POLICY_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _load_academic_topic_crosswalk() -> dict[str, object]:
+    """读取学术-专题交叉表的元数据，不读取正文、不改变证据等级。"""
+    if not ACADEMIC_TOPIC_CROSSWALK_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(ACADEMIC_TOPIC_CROSSWALK_PATH.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return {}
     return payload if isinstance(payload, dict) else {}

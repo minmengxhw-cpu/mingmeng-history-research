@@ -317,6 +317,9 @@ def test_domestic_academic_layer_smoke(live_server):
     assert "国内学术研究层" in body
     assert "学术研究用于解释" in body or "学术研究作为解释层" in body
     assert "citation-ready" in body
+    assert "学术—专题交叉索引" in body
+    assert "1941年中国民主政团同盟成立" in body
+    assert "正文读取：false" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 

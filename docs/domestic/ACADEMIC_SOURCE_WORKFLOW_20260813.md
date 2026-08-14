@@ -43,6 +43,8 @@
 
 专题页入口：`/research`；学术层入口：`/domestic/academic`；研究资料检索：`/domestic/search?scope=research`。
 
+学术层总览同时展示版本化的 `academic_topic_crosswalk.json`：按 9 个国内专题显示学术匹配数量，并可直接回到专题对读和国内一手覆盖页；交叉表只使用书目/结构化元数据，`body_read=false` 不变。
+
 ## 可复现检查
 
 ```bash
