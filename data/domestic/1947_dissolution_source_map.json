@@ -2,8 +2,8 @@
   "schema": "domestic_event_source_map.v1",
   "event_id": "domestic-1947-illegal-dissolution",
   "title": "1947年民盟被宣布非法与组织解散：同期报刊页级证据地图",
-  "review_status": "page_evidence_ready_primary_gap_open",
-  "evidence_scope": "同期报刊页级证据、官方公报负向核查，以及正式库已登记的四期官方公报整册导航；正文原件、OCR和严格引用状态分离登记",
+  "review_status": "page_and_sourcebook_evidence_ready_primary_gap_open",
+  "evidence_scope": "同期报刊页级证据、1983年正式历史文献汇编重刊页、官方公报负向核查，以及正式库已登记的四期官方公报整册导航；正文原件、OCR和严格引用状态分离登记",
   "body_text_included": false,
   "ocr_text_included": false,
   "raw_files_included": false,
@@ -1103,6 +1103,62 @@
           "review_scope": "gazette_page_identity_navigation_pending_target_document_review",
           "page_image_sha256": "926cb2d6a24c041e0f29d02b46506a51f93d8248849c14696ed1c30ca4c26da3",
           "caveat": "本页用于定位官方公报整册及页级影像；不证明目标政府公函或民盟总部公告存在，也不替代目标文件原件。完成目标文件级视觉复核和来源说明后，才可能进入严格引用层。"
+        }
+      ]
+    },
+    {
+      "source_id": "mmhist-1983-dissolution-sourcebook-pages",
+      "title": "《中国民主同盟历史文献 1941—1949》（1983）1947年非法化/解散公告重刊页",
+      "source_role": "official_sourcebook_reprint",
+      "evidence_level": "L2",
+      "source_file": "data/domestic/sourcebooks/中国民主同盟历史文献_1941-1949_公开扫描.pdf",
+      "source_sha256": "257bb7be70abe374be9864ec451b5a4a90e2442ae8c877b15f4e6bbb8bb30be3",
+      "source_file_size": 18131353,
+      "page_count": 622,
+      "source_url": "https://www.marxists.org/chinese/pdf/history_of_international/china/mzhtm1.pdf",
+      "access_note": "1983年正式历史文献汇编公开扫描；页级原图已视觉复核并进入汇编层严格引用，但不替代1947年政府公函或民盟总部原始印本",
+      "page_records": [
+        {
+          "page_id": 19109,
+          "pdf_page_no": 385,
+          "printed_page": "355",
+          "target": "1947-11-06中国民主同盟被迫发表解散公告",
+          "role": "解散公告汇编重刊起始页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "sourcebook_reprint_page_identity",
+          "page_image_sha256": "0ae7172a1b3160e8d250668b2d46d85fb1976d5d4a1fd02121ef4363bdc41248",
+          "caveat": "严格状态仅覆盖1983年汇编版本、标题、日期、页界和可重放页码；不等同于1947年民盟总部原始印本。"
+        },
+        {
+          "page_id": 19110,
+          "pdf_page_no": 386,
+          "printed_page": "356",
+          "target": "1947-11-06中国民主同盟被迫发表解散公告",
+          "role": "解散公告汇编重刊续页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "sourcebook_reprint_page_identity",
+          "page_image_sha256": "a1be8cb18d4e4a958ee1744d28cb2b993d6a1e7d51aca1f0aa60625dc6c1bc42",
+          "caveat": "严格状态仅覆盖1983年汇编重刊续页和页界；不等同于1947年民盟总部原始印本。"
+        },
+        {
+          "page_id": 19114,
+          "pdf_page_no": 390,
+          "printed_page": "360",
+          "target": "1947-10-27国民党政府宣布民盟为非法团体",
+          "role": "政府宣布非法文本的汇编重刊页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "sourcebook_reprint_page_identity",
+          "page_image_sha256": "1cd798781bb25cac96adf5b1d2355c51c5640d82119dbcfa49e7112e3ffd51c4",
+          "caveat": "严格状态仅覆盖1983年汇编版本、标题、日期、页界和可重放页码；不等同于1947年政府公函原件。"
         }
       ]
     }

@@ -546,6 +546,30 @@
       "rationale": "本地期刊PDF第5页的页码、文章标题和版面边界已视觉核验；作为同期专业评论页级入口，不把评论扩写为行政事实记录。"
     },
     {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_label": "385",
+      "event_date": "1947-11-06",
+      "navigation_title": "《中国民主同盟历史文献》1947年解散公告汇编重刊页（书内355页）",
+      "rationale": "1983年正式历史文献汇编公开扫描 PDF 第385页已完成原图视觉复核；严格状态仅覆盖汇编版本、标题、日期、页界和可重放页码，不等同于民盟总部原始印本。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_label": "386",
+      "event_date": "1947-11-06",
+      "navigation_title": "《中国民主同盟历史文献》1947年解散公告汇编重刊续页（书内356页）",
+      "rationale": "1983年正式历史文献汇编公开扫描 PDF 第386页已完成原图视觉复核；明确通告盟员停止政治活动及总部即日解散，严格状态仅覆盖汇编版本与页界，不等同于民盟总部原始印本。"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_label": "390",
+      "event_date": "1947-10-27",
+      "navigation_title": "《中国民主同盟历史文献》政府宣布民盟为非法团体汇编重刊页（书内360页）",
+      "rationale": "1983年正式历史文献汇编公开扫描 PDF 第390页已完成原图视觉复核；严格状态仅覆盖汇编版本、标题、日期、页界和可重放页码，不等同于1947年政府公函原件。"
+    },
+    {
       "event_id": "domestic-1946-refuse-national-assembly",
       "doc_key": "domestic-page/SRC-257bb7be70",
       "page_label": "276",
