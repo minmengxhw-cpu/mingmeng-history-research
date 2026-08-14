@@ -5,6 +5,19 @@
 
 ## 2026-08-14
 
+### 1949 新政协：追加 8 页视觉复核并更新正式库 manifest
+
+- 对正式库中 1949 年国家档案局公开扫描的 8 页做本地图像视觉复核：代表名单连续页 4 页、代表签名册 2 页、第一届全体会议日程连续页 2 页。
+- 复核批次为 `work/domestic/saac_1949_pcc_followup_20260814/`；批次只保存页级身份、来源 SHA256、页序和复核说明，不保存正文或 OCR 文本。
+- 通过 `scripts/domestic/apply_saac_visual_review_20260814.py` 的 dry-run 后正式写入，严格人工可引用页由 171 增至 179；数据库新 SHA256 为 `93c3cce2e2d119d981d99ad2fd158b34c2c8313a9020bd87c4dc62ae26038edc`。
+- 备份为 `/private/tmp/mingmeng_research_index_20260814_saac_followup.bak`；原始图片未覆盖或删除，SQLite integrity、外键、FTS、来源文件哈希、专题链、研究包和 36 个问题基准均重新通过。
+- 这 8 页只增强 1949 专题的页级导航和有限事实核对，不关闭“完整新政协会议档案、民盟代表发言和完整会议记录”这一主证据缺口。
+
+### 国内外统一研究平台：固化项目执行路线
+
+- 新增 `docs/PROJECT_EXECUTION_ROADMAP_20260814.md`，明确国内外统一研究路径、九个 P0 原件目标、学术解释层、OCR 分流、角色边界和机器可验收完成条件。
+- 主计划的权威口径更新为：导航 9/9、一手证据闭环 0/9、严格人工可引用页 179；旧的 `work/` 报告不得覆盖正式库和当前生成的 parity matrix。
+
 ### 国内原件追索队列：接入正式库只读元数据叠加层
 
 - `scripts/domestic/build_primary_retrieval_queue.py` 可只读查询正式库中的候选文档数、页数、provenance、文件哈希锚定页和严格引用页；不读取正文、不写 SQLite、不下载文件。
