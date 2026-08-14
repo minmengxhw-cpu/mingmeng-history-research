@@ -459,9 +459,15 @@ def next_action(retrieval_class: str) -> str:
     }.get(retrieval_class, "保持开放并补齐取得路径。")
 
 
-def next_action_with_formal_overlay(retrieval_class: str, route_rows: list[dict[str, Any]]) -> str:
+def next_action_with_formal_overlay(
+    retrieval_class: str,
+    route_rows: list[dict[str, Any]],
+    event_link_pages: list[dict[str, Any]] | None = None,
+) -> str:
     strict_pages = sum(int(row.get("formal_strict_citation_page_count") or 0) for row in route_rows)
     formal_pages = sum(int(row.get("formal_page_count") or 0) for row in route_rows)
+    event_link_rows = [row for row in (event_link_pages or []) if isinstance(row, dict)]
+    event_link_strict_pages = sum(int(bool(row.get("strict_citation"))) for row in event_link_rows)
     if retrieval_class in {"AUTHORIZED_VIEWER_REQUIRED", "ACCESS_REQUEST_REQUIRED"}:
         action = next_action(retrieval_class)
         if formal_pages > 0:
@@ -469,6 +475,16 @@ def next_action_with_formal_overlay(retrieval_class: str, route_rows: list[dict[
         return action
     if strict_pages > 0:
         return "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。"
+    if event_link_strict_pages > 0:
+        return (
+            f"已有专题导航关联的严格页（{event_link_strict_pages}页）：先核对这些页与开放目标的版本/原件关系；"
+            "严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。"
+        )
+    if event_link_rows:
+        return (
+            f"已有专题导航关联页（{len(event_link_rows)}页），但尚未全部通过严格引用门禁；"
+            "先核对页级 provenance，不要重复下载或 OCR，未闭环部分继续追索原件。"
+        )
     if formal_pages > 0:
         return "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。"
     return next_action(retrieval_class)
@@ -521,6 +537,7 @@ def build_queue(
         if not isinstance(missing, list):
             missing = []
         candidate_ids = [str(value) for value in item.get("domestic_candidate_ids", [])]
+        topic_event_link_pages = list((event_link_pages or {}).get(event_id, []))
         missing_target_rows = []
         topic_routes_by_id: dict[str, dict[str, Any]] = {}
         for target in missing:
@@ -580,7 +597,9 @@ def build_queue(
                     "why_it_matters": str(target.get("why_it_matters") or ""),
                     "status": str(target.get("status") or "open"),
                     "retrieval_class": retrieval_class,
-                    "next_action": next_action_with_formal_overlay(retrieval_class, route_rows),
+                    "next_action": next_action_with_formal_overlay(
+                        retrieval_class, route_rows, topic_event_link_pages
+                    ),
                     "candidate_route_count": len(route_rows),
                     "formal_page_count": sum(int(row.get("formal_page_count") or 0) for row in route_rows),
                     "formal_strict_citation_page_count": sum(
@@ -594,10 +613,10 @@ def build_queue(
                 "event_name": str(item.get("event_name") or ""),
                 "primary_evidence_status": str(item.get("primary_evidence_status") or ""),
                 "missing_primary": missing_target_rows,
-                "event_link_pages": list((event_link_pages or {}).get(event_id, [])),
+                "event_link_pages": topic_event_link_pages,
                 "event_link_strict_page_count": sum(
                     int(bool(page.get("strict_citation")))
-                    for page in (event_link_pages or {}).get(event_id, [])
+                    for page in topic_event_link_pages
                     if isinstance(page, dict)
                 ),
                 "candidate_routes": sorted(

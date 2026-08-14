@@ -27,7 +27,7 @@
     "body_read": false,
     "formal_db_written": false,
     "event_count": 9,
-    "page_count": 78
+    "page_count": 81
   },
   "body_read": false,
   "formal_db_written": false,
@@ -44,9 +44,9 @@
           "why_it_matters": "决定“成立时间、签署主体、文本版本”能否以原始底本作严格引用。",
           "status": "open",
           "retrieval_class": "CATALOGUE_OR_SURROGATE_REVIEW",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有专题导航关联的严格页（6页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
-          "formal_page_count": 26,
+          "formal_page_count": 20,
           "formal_strict_citation_page_count": 0
         }
       ],
@@ -697,71 +697,23 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": 1349,
-          "formal_doc_key": "domestic-ocr/S3:domestic:NLC:minmeng-wenxian-1946-formation-declaration",
-          "formal_page_count": 7,
+          "formal_ingested_document_id": 1599,
+          "formal_doc_key": "domestic-text/WS:formation-declaration-1941",
+          "formal_page_count": 1,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 7,
-          "formal_anchored_page_count": 7,
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
           "formal_pages": [
             {
-              "page_id": 20339,
-              "page_label": "page-009",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20340,
-              "page_label": "page-0009",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20341,
-              "page_label": "page-0010",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20342,
-              "page_label": "page-0011",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20343,
-              "page_label": "page-0009",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20344,
-              "page_label": "page-0010",
-              "provenance_present": true,
-              "source_anchored": true,
-              "strict_citation": false
-            },
-            {
-              "page_id": 20345,
-              "page_label": "page-0011",
+              "page_id": 20931,
+              "page_label": "electronic-text",
               "provenance_present": true,
               "source_anchored": true,
               "strict_citation": false
             }
           ],
           "formal_page_ids": [
-            20339,
-            20340,
-            20341,
-            20342,
-            20343,
-            20344,
-            20345
+            20931
           ],
           "formal_strict_page_ids": [],
           "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
@@ -2786,7 +2738,7 @@
           "why_it_matters": "只有正式会议档案才能把报刊表达与会议程序、代表身份和具体日期逐条对位。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有专题导航关联的严格页（6页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 19,
           "formal_page_count": 12,
           "formal_strict_citation_page_count": 0
@@ -3753,7 +3705,7 @@
           "why_it_matters": "要区分1946年形成的独立原件、后期汇编重刊、机关报评论和政协相关背景文件。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有专题导航关联的严格页（7页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 15,
           "formal_page_count": 14,
           "formal_strict_citation_page_count": 0
@@ -4592,7 +4544,7 @@
           "why_it_matters": "要把遇害事实、民盟反应、社会舆论和后续纪念分别落到可核验的原始来源。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有专题导航关联的严格页（4页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 14,
           "formal_page_count": 32,
           "formal_strict_citation_page_count": 0
@@ -5604,6 +5556,39 @@
           "rationale": "天津版第2版完整 PDF 第1页视觉可见“民盟宣布解散”“公告与政府洽商之经过”“通知盟员停止政治活动”等标题；作为城市版本对读入口，不替代民盟公告原件或政府档案全文。"
         },
         {
+          "page_id": 19109,
+          "page_label": "385",
+          "doc_key": "domestic-page/SRC-257bb7be70",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "《中国民主同盟历史文献》1947年解散公告汇编重刊页（书内355页）",
+          "rationale": "1983年正式历史文献汇编公开扫描 PDF 第385页已完成原图视觉复核；严格状态仅覆盖汇编版本、标题、日期、页界和可重放页码，不等同于民盟总部原始印本。"
+        },
+        {
+          "page_id": 19110,
+          "page_label": "386",
+          "doc_key": "domestic-page/SRC-257bb7be70",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "《中国民主同盟历史文献》1947年解散公告汇编重刊续页（书内356页）",
+          "rationale": "1983年正式历史文献汇编公开扫描 PDF 第386页已完成原图视觉复核；明确通告盟员停止政治活动及总部即日解散，严格状态仅覆盖汇编版本与页界，不等同于民盟总部原始印本。"
+        },
+        {
+          "page_id": 19114,
+          "page_label": "390",
+          "doc_key": "domestic-page/SRC-257bb7be70",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "《中国民主同盟历史文献》政府宣布民盟为非法团体汇编重刊页（书内360页）",
+          "rationale": "1983年正式历史文献汇编公开扫描 PDF 第390页已完成原图视觉复核；严格状态仅覆盖汇编版本、标题、日期、页界和可重放页码，不等同于1947年政府公函原件。"
+        },
+        {
           "page_id": 20276,
           "page_label": "page-0003",
           "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11",
@@ -5681,7 +5666,7 @@
           "rationale": "公开扫描的同期《大剛報》第1页视觉可见“民盟准备解散”“张澜宣布暂时停止活动”及政府宣布民盟非法相关标题；这是10月30日报刊报道页，不替代1947年10月27日政府公函、民盟公告原件或完整政府法令链。"
         }
       ],
-      "event_link_strict_page_count": 16,
+      "event_link_strict_page_count": 19,
       "candidate_routes": [
         {
           "candidate_id": "domestic:GXMM:NLC-dagongbao-tianjin-1947-11-06-page2-excerpt",

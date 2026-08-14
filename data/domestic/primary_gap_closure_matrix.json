@@ -1,6 +1,6 @@
 {
   "schema": "domestic_primary_gap_closure_matrix.v1",
-  "generated_at": "2026-08-14T22:00:38.837848+00:00",
+  "generated_at": "2026-08-14T22:15:57.448863+00:00",
   "scope": "九个国内专题的主证据闭环执行矩阵",
   "body_read": false,
   "formal_db_written": false,
@@ -44,9 +44,9 @@
           "why_it_matters": "决定“成立时间、签署主体、文本版本”能否以原始底本作严格引用。",
           "status": "open",
           "retrieval_class": "CATALOGUE_OR_SURROGATE_REVIEW",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有专题导航关联的严格页（6页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
-          "formal_page_count": 26,
+          "formal_page_count": 20,
           "formal_strict_citation_page_count": 0
         }
       ],
@@ -322,8 +322,8 @@
           "body_read": false
         }
       ],
-      "event_link_pages": 16,
-      "event_link_strict_page_count": 16,
+      "event_link_pages": 19,
+      "event_link_strict_page_count": 19,
       "source_map": {
         "path": "data/domestic/1947_dissolution_source_map.json",
         "review_status": "page_and_sourcebook_evidence_ready_primary_gap_open",
@@ -513,7 +513,7 @@
           "why_it_matters": "要把遇害事实、民盟反应、社会舆论和后续纪念分别落到可核验的原始来源。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有专题导航关联的严格页（4页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 14,
           "formal_page_count": 32,
           "formal_strict_citation_page_count": 0
@@ -668,7 +668,7 @@
           "why_it_matters": "只有正式会议档案才能把报刊表达与会议程序、代表身份和具体日期逐条对位。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有专题导航关联的严格页（6页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 19,
           "formal_page_count": 12,
           "formal_strict_citation_page_count": 0
@@ -823,7 +823,7 @@
           "why_it_matters": "要区分1946年形成的独立原件、后期汇编重刊、机关报评论和政协相关背景文件。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "next_action": "已有专题导航关联的严格页（7页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 15,
           "formal_page_count": 14,
           "formal_strict_citation_page_count": 0

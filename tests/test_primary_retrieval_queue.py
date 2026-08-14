@@ -311,5 +311,7 @@ def test_retrieval_queue_exposes_existing_event_pages_without_closing_gap():
     assert topic["event_link_strict_page_count"] == 1
     assert topic["event_link_pages"][0]["page_id"] == 1473
     assert target["status"] == "open"
+    assert "专题导航关联的严格页" in target["next_action"]
+    assert "不自动关闭主证据缺口" in target["next_action"]
     assert result["body_read"] is False
     assert result["formal_db_written"] is False
