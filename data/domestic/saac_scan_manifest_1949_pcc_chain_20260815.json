@@ -1,0 +1,150 @@
+{
+  "schema": "domestic_saac_scan_batch_manifest.v1",
+  "generated_at": "2026-08-15T01:55:00+08:00",
+  "batch_id": "saac-scan-chain-20260815",
+  "source_id": "saac-51koukou",
+  "source_title": "中央档案馆：从「五一口号」到开国大典档案文献专辑",
+  "formal_db_written": true,
+  "formal_document_ids": {
+    "domestic:SAAC:1949-09-21-07": 1593,
+    "domestic:SAAC:1949-09-22-01": 1594,
+    "domestic:SAAC:1949-09-22-02": 1595
+  },
+  "formal_page_ids": {
+    "domestic:SAAC:1949-09-21-07": [20916, 20917, 20918],
+    "domestic:SAAC:1949-09-22-01": [20919, 20920],
+    "domestic:SAAC:1949-09-22-02": [20921, 20922, 20923]
+  },
+  "formal_event_links_added": 8,
+  "formal_db_sha256": "7ea39b1ae62ceb8daae8c434224215382fe0b85dba57906606a75e42ebe7271a",
+  "items": [
+    {
+      "candidate_id": "domestic:SAAC:1949-09-21-07",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+      "title": "中国人民政治协商会议第一届全体会议主席团第一次会议纪要（1949年9月21日）",
+      "date_guess": "1949-09-21",
+      "item_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_20.html",
+      "event_tags": ["1949第一届政协", "会议组织"],
+      "person_tags": ["张澜", "黄炎培"],
+      "place_tags": ["北平"],
+      "pages": [
+        {
+          "physical_page": 1,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/20/01.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-20/01.jpg",
+          "image_sha256": "44c09be184946ddc1825b4ac24c55acfc5e58e1a9f1b52df142aaf79dae10fe4",
+          "ocr": "work/domestic/saac_1949_pcc_chain_ocr_20260815/sec05_05-20/01.ocr.md",
+          "ocr_sha256": "eb5a97c513ce13f247d68d9e49162ff6817d6b1958a946db392ae8414c40e65c",
+          "ocr_lines": 33,
+          "ocr_mean_confidence": 0.7039,
+          "ocr_rotation_degrees": 0
+        },
+        {
+          "physical_page": 2,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/20/02.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-20/02.jpg",
+          "image_sha256": "d735b3d6659026cbfe4befd4b3017a76db22989f62d1e41b976e84854271e9ec",
+          "ocr": "work/domestic/saac_1949_pcc_chain_ocr_20260815/sec05_05-20/02.ocr.md",
+          "ocr_sha256": "1451e0703aa1a0f03c5c94d068f2f0d52fea7721d2d87200a72388ea3e7e381e",
+          "ocr_lines": 19,
+          "ocr_mean_confidence": 0.8828,
+          "ocr_rotation_degrees": 0
+        },
+        {
+          "physical_page": 3,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/20/03.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-20/03.jpg",
+          "image_sha256": "f59cd4e7b48dc8aa7e59e91233c66bd84179346cc2ec053f78fe74ed753ba317",
+          "ocr": "work/domestic/saac_1949_pcc_chain_ocr_20260815/sec05_05-20/03.ocr.md",
+          "ocr_sha256": "8571eaab91e649066c289c50d6de9e86bc5f052ebe6563c08639884e715d1cb6",
+          "ocr_lines": 6,
+          "ocr_mean_confidence": 0.8261,
+          "ocr_rotation_degrees": 0
+        }
+      ]
+    },
+    {
+      "candidate_id": "domestic:SAAC:1949-09-22-01",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-01",
+      "title": "谭平山关于中国人民政治协商会议筹备会第二小组工作的报告（1949年9月22日）",
+      "date_guess": "1949-09-22",
+      "item_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_23.html",
+      "event_tags": ["1949第一届政协", "政协筹备"],
+      "person_tags": ["谭平山"],
+      "place_tags": ["北平"],
+      "pages": [
+        {
+          "physical_page": 1,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/23/01.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-23/01.jpg",
+          "image_sha256": "3969b9d970ce4ca8ca01cf161e7794e0aabc3b04c70c08a29ac937bcfbb88632",
+          "ocr": "work/domestic/saac_1949_pcc_chain_ocr_20260815/sec05_05-23/01.ocr.md",
+          "ocr_sha256": "3da9d957c3c6b79d0123c541fbae6a8f3dde37f3b5f5e009e6db7f64c7a3e525",
+          "ocr_lines": 46,
+          "ocr_mean_confidence": 0.8803,
+          "ocr_rotation_degrees": 0
+        },
+        {
+          "physical_page": 2,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/23/02.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-23/02.jpg",
+          "image_sha256": "fabd478f73f360f9eb2961fdbee81b94a79e19a8cd9bcd2bd5a96934e6c3e5b5",
+          "ocr": "work/domestic/saac_1949_pcc_chain_ocr_20260815/sec05_05-23/02.ocr.md",
+          "ocr_sha256": "23ed6e4f1e03d4653374572651120841e301d0b22b139dd0a851fbbcd6172416",
+          "ocr_lines": 57,
+          "ocr_mean_confidence": 0.8927,
+          "ocr_rotation_degrees": 0
+        }
+      ]
+    },
+    {
+      "candidate_id": "domestic:SAAC:1949-09-22-02",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+      "title": "周恩来关于中国人民政治协商会议共同纲领草案的起草经过及其特点的报告（1949年9月22日）",
+      "date_guess": "1949-09-22",
+      "item_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_24.html",
+      "event_tags": ["1949第一届政协", "共同纲领"],
+      "person_tags": ["周恩来"],
+      "place_tags": ["北平"],
+      "pages": [
+        {
+          "physical_page": 1,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/24/01.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-24/01.jpg",
+          "image_sha256": "3abad844237d20ea03a05f5355c5bda7a78020661c94f5842a23d10fbb4eaeba",
+          "ocr": "work/domestic/saac_1949_pcc_chain_ocr_20260815/rotated270_ocr/01.rot270.ocr.md",
+          "ocr_sha256": "884cabb596ee362cfdaad17f058373ab6ef14f3c97122c04b581088baafda1a9",
+          "ocr_lines": 29,
+          "ocr_mean_confidence": 0.8454,
+          "ocr_rotation_degrees": 270
+        },
+        {
+          "physical_page": 2,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/24/02.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-24/02.jpg",
+          "image_sha256": "f95c742998fe6d1b736671e15d78f40c3f84de18ada672b3f09b4aac1357c5e7",
+          "ocr": "work/domestic/saac_1949_pcc_chain_ocr_20260815/rotated270_ocr/02.rot270.ocr.md",
+          "ocr_sha256": "7f90957ee8d44def60e216eae0530cb40efea7dea46f63e6f82a8e145ffee72a",
+          "ocr_lines": 33,
+          "ocr_mean_confidence": 0.8356,
+          "ocr_rotation_degrees": 270
+        },
+        {
+          "physical_page": 3,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/24/03.jpg",
+          "image": "data/domestic/raw/saac_scans/sec05_05-24/03.jpg",
+          "image_sha256": "f5c68ce2a293cf6ba05f3be81659a2a5e6f7d43441faa847bd52a44699ade56c",
+          "ocr": "work/domestic/saac_1949_pcc_chain_ocr_20260815/rotated270_ocr/03.rot270.ocr.md",
+          "ocr_sha256": "ab997a8dc07668cc078eec6ca168658e536b9eacd75ac6f5272ff2d70516bbd6",
+          "ocr_lines": 31,
+          "ocr_mean_confidence": 0.5190,
+          "ocr_rotation_degrees": 270
+        }
+      ]
+    }
+  ],
+  "human_verified": false,
+  "citation_ready": false,
+  "review_status": "review_only",
+  "usage_boundary": "官方扫描图是原件入口；OCR 仅用于检索。所有页均待人工逐字复核，不得以 OCR 草稿直接作正式引文。"
+}
