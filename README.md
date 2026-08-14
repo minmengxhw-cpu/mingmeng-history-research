@@ -85,6 +85,16 @@ MINGMENG_STAGING_DB=/path/work/domestic/staging_20260730/domestic_staging.sqlite
 python3 app.py
 ```
 
+如果正式数据库和访客水印图在另一份本地数据 checkout，而代码库中的国内元数据仍需使用当前 checkout，可额外指定原件资产根目录：
+
+```bash
+MINGMENG_RESEARCH_DB=/path/data/research_index.sqlite \
+MINGMENG_ASSET_ROOT=/path/data \
+python3 app.py
+```
+
+`app.py` 会在 `MINGMENG_ASSET_ROOT/drnh_images/`、`MINGMENG_DATA_ROOT/drnh_images/` 和正式数据库所在 `data/drnh_images/` 中按顺序寻找 DRNH 访客预览图；只提供图片预览，不会把访客水印图升级为正式引用。
+
 没有 staging 时，平台仍会从正式 SQLite 展示已入库的国内学术全文，并提供 `/domestic/search?scope=research` 和正式全文页；这部分统一标为 `review_only / citation_ready=0`。staging 恢复后，作者、机构、版本和专题元数据会自动补回。学术资料是解释层，不能替代国内一手页级证据。
 
 数据库 manifest 中的哈希、行数和完整性检查必须全部匹配后，才能作为正式研究基线。代码测试通过不等于数据库内容已通过学术引用门禁。

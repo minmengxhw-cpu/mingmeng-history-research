@@ -28,6 +28,32 @@ WORK_ROOT = Path(os.environ.get("MINGMENG_WORK_ROOT", str(ROOT / "work"))).expan
 DB_PATH = Path(
     os.environ.get("MINGMENG_RESEARCH_DB", str(DATA_ROOT / "research_index.sqlite"))
 ).expanduser().resolve()
+
+
+def drnh_image_roots() -> tuple[Path, ...]:
+    """Return candidate roots for local DRNH visitor-preview images.
+
+    The formal database is intentionally kept outside Git and may be mounted
+    from a sibling data checkout.  In that layout ``DATA_ROOT`` still points
+    at the code checkout, while the database's sibling ``data/drnh_images``
+    contains the local preview assets.  Search both locations, plus an
+    explicit asset root, without broadening the static-file boundary.
+    """
+    configured = os.environ.get("MINGMENG_ASSET_ROOT", "").strip()
+    candidates = [Path(configured).expanduser()] if configured else []
+    candidates.extend((DATA_ROOT, DB_PATH.parent))
+    roots: list[Path] = []
+    seen: set[str] = set()
+    for base in candidates:
+        try:
+            root = base.resolve() / "drnh_images"
+        except OSError:
+            continue
+        key = str(root)
+        if key not in seen:
+            seen.add(key)
+            roots.append(root)
+    return tuple(roots)
 DOMESTIC_STAGING_DB_PATH = Path(
     os.environ.get("MINGMENG_STAGING_DB", str(WORK_ROOT / "domestic" / "staging_20260730" / "domestic_staging.sqlite"))
 ).expanduser().resolve()
@@ -7244,10 +7270,12 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
         has_preview = len(cached_images) > 0
         # 该台北档案是否存在访客水印图——仅「有水印图」的档案才展示「史料意旨」摘要卡片
         _drnh_img_dir_name = doc["doc_key"].replace(":", "__").replace("/", "_")
-        _drnh_img_dirs = [DATA_ROOT / "drnh_images" / _drnh_img_dir_name]
-        # 兼容旧的 drnh__<典藏号> 和下载器当前生成的 <典藏号> 目录。
-        if _drnh_img_dir_name.startswith("drnh__"):
-            _drnh_img_dirs.append(DATA_ROOT / "drnh_images" / _drnh_img_dir_name.removeprefix("drnh__"))
+        _drnh_img_dirs = []
+        for _drnh_root in drnh_image_roots():
+            _drnh_img_dirs.append(_drnh_root / _drnh_img_dir_name)
+            # 兼容旧的 drnh__<典藏号> 和下载器当前生成的 <典藏号> 目录。
+            if _drnh_img_dir_name.startswith("drnh__"):
+                _drnh_img_dirs.append(_drnh_root / _drnh_img_dir_name.removeprefix("drnh__"))
         _drnh_img_dir = next((p for p in _drnh_img_dirs if p.is_dir()), _drnh_img_dirs[0])
         has_watermark_img = _drnh_img_dir.is_dir() and any(
             list(_drnh_img_dir.glob("p*.jpg")) + list(_drnh_img_dir.glob("page_*.jpg"))
@@ -11238,16 +11266,22 @@ class Handler(BaseHTTPRequestHandler):
                 # 防穿越
                 if "/" in fname or ".." in fname or ".." in doc_key_safe:
                     raise ValueError("path traversal")
-                root_resolved = (DATA_ROOT / "drnh_images").resolve()
                 sub_name = doc_key_safe.replace(":", "__").replace("/", "_")
-                sub_candidates = [root_resolved / sub_name]
-                if sub_name.startswith("drnh__"):
-                    sub_candidates.append(root_resolved / sub_name.removeprefix("drnh__"))
-                fpath = next((p / fname for p in sub_candidates if (p / fname).is_file()), None)
+                root_resolveds = drnh_image_roots()
+                sub_candidates = []
+                for root_resolved in root_resolveds:
+                    sub_candidates.append((root_resolved, root_resolved / sub_name))
+                    if sub_name.startswith("drnh__"):
+                        sub_candidates.append((root_resolved, root_resolved / sub_name.removeprefix("drnh__")))
+                matched = next(
+                    ((root_resolved, p / fname) for root_resolved, p in sub_candidates if (p / fname).is_file()),
+                    None,
+                )
+                root_resolved, fpath = matched if matched else (None, None)
                 if fpath is None:
                     raise FileNotFoundError
                 fpath = fpath.resolve()
-                if not str(fpath).startswith(str(root_resolved)):
+                if root_resolved is None or root_resolved not in fpath.parents:
                     raise ValueError("escape")
                 data = fpath.read_bytes()
                 self.send_response(200)

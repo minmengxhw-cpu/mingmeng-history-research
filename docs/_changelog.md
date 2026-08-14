@@ -5,6 +5,12 @@
 
 ## 2026-08-14
 
+### DRNH 访客影像支持外置数据盘
+
+- `app.py` 新增外置 DRNH 影像根目录解析：当正式 SQLite 位于另一份本地数据 checkout 时，详情页和 `/drnh-img/` 会回退到数据库所在 `data/drnh_images/`，也支持显式 `MINGMENG_ASSET_ROOT`。
+- 新增真实 JPEG HTTP 冒烟，确认 `drnh:002-020400-00012-067` 详情页返回 200，访客影像返回 `image/jpeg`；影像仍只标为访客预览，不改变 `citation_ready` 或原件证据等级。
+- README 补充外置资产启动方式；未复制、删除或修改任何原始影像。
+
 ### 主证据追索队列与正式库状态同步
 
 - 重新运行 `scripts/domestic/build_primary_retrieval_queue.py`，把九个专题的开放主证据目标与当前正式 SQLite 的页级状态重新对齐；队列仍保持 9 个开放目标、689 个候选，且不读取正文、不下载、不写入正式库。

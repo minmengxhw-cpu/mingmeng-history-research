@@ -531,6 +531,45 @@ def test_drnh_preview_is_not_presented_as_citable_original(live_server, db_missi
     assert "Traceback" not in body
 
 
+def test_drnh_preview_image_uses_database_sibling_asset_root(live_server, db_missing_reason):
+    """外置正式库旁的数据盘影像也必须能被安全地预览。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证 DRNH 影像资产路径: {db_missing_reason}")
+    import app
+
+    with sqlite3.connect(DB_PATH) as connection:
+        row = connection.execute(
+            """
+            SELECT d.doc_key, i.file_path
+            FROM documents d
+            JOIN drnh_images i ON i.document_id=d.id
+            WHERE d.source_platform='drnh'
+            ORDER BY d.id, i.page_num
+            LIMIT 1
+            """
+        ).fetchone()
+    assert row is not None
+    doc_key, file_path = row
+    image_name = Path(file_path).name
+    safe_doc_key = str(doc_key).replace(":", "__").replace("/", "_")
+    alternate_name = safe_doc_key.removeprefix("drnh__")
+    image_exists = any(
+        (root / name / image_name).is_file()
+        for root in app.drnh_image_roots()
+        for name in {safe_doc_key, alternate_name}
+    )
+    if not image_exists:
+        pytest.skip("当前机器只有 DRNH 数据库索引，没有对应本地访客影像文件")
+
+    response = requests.get(
+        f"{live_server}/drnh-img/{quote(str(doc_key), safe='')}/{quote(image_name, safe='')}",
+        timeout=10,
+    )
+    assert response.status_code == 200
+    assert response.headers.get("Content-Type", "").startswith("image/jpeg")
+    assert response.content[:2] == b"\xff\xd8"
+
+
 def test_drnh_catalogue_card_citation_is_blocked(live_server, db_missing_reason):
     """DRNH 目录卡不能绕过页级人工复核门禁生成正式引文。"""
     if db_missing_reason:
