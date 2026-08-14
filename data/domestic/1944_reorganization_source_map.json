@@ -11,6 +11,17 @@
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
   "primary_evidence_gap": "1944年改组会议记录、改名决定和组织内部正式文件仍未取得独立原版；本地图新增的《民憲》文章是同期政论原刊，能够证明当时的公共论述，不替代改组会议或改名决定原件。",
+  "access_audit": {
+    "audit_document": "docs/domestic/DOMESTIC_1944_REORGANIZATION_ACCESS_AUDIT_20260815.md",
+    "metadata_reviewed_on": "2026-08-15",
+    "status": "official_retrospective_anchor_original_reorganization_record_not_obtained",
+    "scope": "公开官方盟史和本地同期页级材料；未把后期叙述升级为会议原件",
+    "confirmed_routes": [
+      "北京民盟东城区官方盟史：1944-09-19重庆特园、改名及取消团体会员制",
+      "国家图书馆《民憲》1944年同期原刊及1946年汇编重刊页"
+    ],
+    "next_minimum_target": "取得1944-09-19全国代表会议记录、改名决定或同期影印件，并完成逐页馆藏标识、影像SHA和人工视觉复核"
+  },
   "sources": [
     {
       "source_id": "nlc-minxian-1944-v1n9-democracy-vs-nondemocracy",
@@ -252,6 +263,29 @@
           "review_scope": "issue_identity_contents_only",
           "page_image_sha256": null,
           "caveat": "只证明刊期、出版日期、目录页和馆藏标记；不证明目录所列文章正文或1944年改组会议事实。"
+        }
+      ]
+    },
+    {
+      "source_id": "bjdcmm-reorganization-1944-retrospective",
+      "title": "北京民盟东城区官方《中国民主同盟盟史简介》中的1944改组记录",
+      "source_role": "official_retrospective",
+      "evidence_level": "L4",
+      "metadata_snapshot_file": "data/domestic/metadata_snapshots/bjdcmm_reorganization_1944_20260815.json",
+      "metadata_snapshot_sha256": "e5fe4a002773ddec6f153ac8a84886740083b7dad81ef2f95964bd32ad1cdca0",
+      "source_url": "https://www.bjdcmm.org.cn/01msjs/20040310/01.htm",
+      "access_note": "后期官方盟史报告；只作为日期、地点和组织变化的导航锚点，不是1944年会议原件",
+      "page_records": [
+        {
+          "page_id": null,
+          "target": "1944-09-19特园全国代表会议及改名、取消团体会员制",
+          "role": "改组日期—地点—组织变化交叉定位入口",
+          "status": "navigation_only",
+          "review_status": "metadata_reviewed",
+          "citation_ready": false,
+          "needs_human_review": false,
+          "review_scope": "official_retrospective_locator_only",
+          "caveat": "后期盟史说明不能替代会议记录、改名决定或与会名单原件。"
         }
       ]
     }

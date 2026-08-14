@@ -1,0 +1,15 @@
+{
+  "schema": "domestic_external_metadata_snapshot.v1",
+  "snapshot_type": "metadata_only",
+  "body_read": false,
+  "metadata_checked_on": "2026-08-15",
+  "source_url": "https://www.bjdcmm.org.cn/01msjs/20040310/01.htm",
+  "title": "继承和发扬民盟的光荣传统——中国民主同盟盟史简介",
+  "publisher": "中国民主同盟北京市东城区委员会",
+  "facts": {
+    "reorganization_date": "1944-09-19",
+    "venue": "重庆上清寺特园",
+    "organizational_change": "取消团体会员制，盟员以个人名义加入，组织改名为中国民主同盟",
+    "metadata_use": "改组日期、地点和组织变化的后期官方交叉锚点"
+  }
+}
