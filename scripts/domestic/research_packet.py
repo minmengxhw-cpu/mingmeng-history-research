@@ -15,6 +15,11 @@ from typing import Any
 from urllib.parse import quote
 
 
+EVENT_SOURCE_MAP_FILES = {
+    "domestic-1947-illegal-dissolution": "1947_dissolution_source_map.json",
+}
+
+
 def _app():
     # Imported lazily so the application can import this module without a
     # circular import.  The route calls below happen after app.py is loaded.
@@ -24,6 +29,48 @@ def _app():
     import app
 
     return app
+
+
+def _load_event_source_map(event_id: str, public: bool) -> dict[str, Any]:
+    """Load a metadata-only event source map for the packet.
+
+    Source maps bind a topic to already-reviewed formal page IDs and local
+    source hashes. They never export body text, OCR, or raw files. Local file
+    paths are replaced in public mode, matching the packet's existing
+    provenance boundary.
+    """
+    app = _app()
+    filename = EVENT_SOURCE_MAP_FILES.get(str(event_id))
+    if not filename:
+        return {}
+    path = app.DATA_ROOT / "domestic" / filename
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(payload, dict):
+        return {}
+    mapped = dict(payload)
+    sources: list[dict[str, Any]] = []
+    for raw_source in payload.get("sources", []):
+        if not isinstance(raw_source, dict):
+            continue
+        source = dict(raw_source)
+        if public and source.get("source_file"):
+            source["source_file"] = "内部 provenance 已保存（公开模式隐藏本地路径）"
+        page_records: list[dict[str, Any]] = []
+        for raw_page in raw_source.get("page_records", []):
+            if not isinstance(raw_page, dict):
+                continue
+            page = dict(raw_page)
+            page_id = page.get("page_id")
+            if page_id is not None:
+                page["citation_url"] = f"/cite/{int(page_id)}"
+            page_records.append(page)
+        source["page_records"] = page_records
+        sources.append(source)
+    mapped["sources"] = sources
+    return mapped
 
 
 def _page_row(connection, page_id: int):
@@ -135,6 +182,10 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
                     "targets": targets,
                 }
             )
+    event_source_maps: list[dict[str, Any]] = []
+    event_source_map = _load_event_source_map(event_id, public)
+    if event_source_map:
+        event_source_maps.append(event_source_map)
     with app.conn() as connection:
         page_rows = {
             page_id: _page_row(connection, page_id) for page_id in page_ids
@@ -383,8 +434,16 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "foreign_machine_pages": int(topic.get("foreign_pages") or 0),
             "sourcebook_count": len(sourcebooks),
             "sourcebook_target_count": sum(len(sourcebook["targets"]) for sourcebook in sourcebooks),
+            "event_source_map_count": len(event_source_maps),
+            "event_source_page_record_count": sum(
+                len(source.get("page_records") or [])
+                for source_map in event_source_maps
+                for source in source_map.get("sources") or []
+                if isinstance(source, dict)
+            ),
         },
         "sourcebooks": sourcebooks,
+        "event_source_maps": event_source_maps,
         "evidence_chain": evidence_chain,
         "research_matrix": {
             "schema_version": 1,
@@ -438,6 +497,13 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "foreign_crosswalk_questions": len(foreign_crosswalk),
             "sourcebook_count": len(sourcebooks),
             "sourcebook_target_count": sum(len(sourcebook["targets"]) for sourcebook in sourcebooks),
+            "event_source_map_count": len(event_source_maps),
+            "event_source_page_record_count": sum(
+                len(source.get("page_records") or [])
+                for source_map in event_source_maps
+                for source in source_map.get("sources") or []
+                if isinstance(source, dict)
+            ),
             "source_sha256_exported": True,
             "citation_policy": "正式引文仍须打开 /cite/<page_id>，并遵守该页明确的 review_scope。",
         },
@@ -545,6 +611,39 @@ def research_packet_page(event_id: str) -> bytes:
         f'<section class="result-list">{"".join(sourcebook_cards) or "<div class=\"notice\">本专题没有登记 sourcebook。</div>"}</section>'
     )
 
+    source_map_cards = []
+    for source_map in packet.get("event_source_maps", []):
+        sources = source_map.get("sources") if isinstance(source_map.get("sources"), list) else []
+        source_rows = []
+        for source in sources:
+            if not isinstance(source, dict):
+                continue
+            pages = source.get("page_records") if isinstance(source.get("page_records"), list) else []
+            page_labels = "、".join(
+                f"page_id {page.get('page_id')} / {page.get('status')}"
+                for page in pages
+                if isinstance(page, dict) and page.get("page_id") is not None
+            ) or "未绑定正式页号"
+            source_link = app.source_href(source.get("source_url") or "#")
+            source_rows.append(
+                f'<li><strong>{esc(source.get("title") or source.get("source_id"))}</strong> · '
+                f'{esc(source.get("source_role") or "")}; {esc(page_labels)} · '
+                f'<a href="{esc(source_link)}" target="_blank" rel="noreferrer">来源入口</a></li>'
+            )
+        source_map_cards.append(
+            f'''<article class="result compact-result"><div>
+  <h3>{esc(source_map.get("title") or "专题来源地图")}</h3>
+  <div class="meta">{esc(source_map.get("review_status") or "未登记")} · {len(sources)} 个来源 · {sum(len(s.get("page_records") or []) for s in sources if isinstance(s, dict))} 条页级记录</div>
+  <div class="tagline"><span class="pstatus ok">页级证据已登记</span><span class="tag">正文未复制</span><span class="tag">primary_evidence_closed=false</span></div>
+  <div class="snippet">{esc(source_map.get("primary_evidence_gap") or "仍有一手原件缺口")}</div>
+  <ul>{"".join(source_rows)}</ul>
+</div></article>'''
+        )
+    source_map_html = (
+        '<div class="section-head"><h2>专题来源地图</h2><span class="meta">页级证据与开放缺口分开呈现</span></div>'
+        f'<section class="result-list">{"".join(source_map_cards) or "<div class=\"notice\">本专题没有登记来源地图。</div>"}</section>'
+    )
+
     topic_event_cards = "".join(
         f'''<article class="result compact-result"><div>
   <h3>{esc(row.get("event_title") or row.get("title") or row.get("doc_key"))}</h3>
@@ -568,6 +667,7 @@ def research_packet_page(event_id: str) -> bytes:
 {matrix_html}
 {foreign_crosswalk_html}
 {sourcebook_html}
+{source_map_html}
 {"".join(sections)}
 <div class="section-head"><h2>仍待补原件</h2><span class="meta">{len(packet['open_primary_targets'])} 项</span></div><section class="result-list">{targets}</section>
 <div class="section-head"><h2>学术研究（解释层）</h2><span class="meta">不替代一手证据</span></div><section class="result-list">{academic}</section>

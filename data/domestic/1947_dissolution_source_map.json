@@ -1,0 +1,218 @@
+{
+  "schema": "domestic_event_source_map.v1",
+  "event_id": "domestic-1947-illegal-dissolution",
+  "title": "1947年民盟被宣布非法与组织解散：同期报刊页级证据地图",
+  "review_status": "page_evidence_ready_primary_gap_open",
+  "evidence_scope": "同期报刊报道与负向公报核查",
+  "body_text_included": false,
+  "ocr_text_included": false,
+  "raw_files_included": false,
+  "formal_db_written_by_map": false,
+  "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
+  "primary_evidence_closed": false,
+  "primary_evidence_gap": "1947-10-27政府公函、1947-11-06民盟总部解散公告及其完整底本仍待档案原件或独立原刊闭环",
+  "sources": [
+    {
+      "source_id": "nlc-dagangbao-hankow-1947-11-04",
+      "title": "《大剛報》汉口版 1947年11月4日",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC1080-00N001037-7604_大剛報_1947年11月04日.pdf",
+      "source_sha256": "5176d9591d915124572f7824e3131a1ed682a25cc637b03720fae7a87ee883cb",
+      "source_file_size": 8624123,
+      "page_count": 4,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC1080-00N001037-7604_%E5%A4%A7%E5%89%9B%E5%A0%B1_1947%E5%B9%B411%E6%9C%8804%E6%97%A5.pdf",
+      "access_note": "国家图书馆民国报纸公开扫描；正式库已有页级 provenance",
+      "page_records": [
+        {
+          "page_id": 20305,
+          "pdf_page_no": 1,
+          "target": "解散前政府通知",
+          "role": "张群书面通知民盟与保障盟员安全的同期报道入口",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "press_page_identity_heading",
+          "page_image_sha256": "0e8f45296a04671059e3d8a3bae1cfd1badcb0f01670a31f063e797e4526dc92",
+          "caveat": "只覆盖报刊页身份和可见标题范围，不替代政府来函原件或民盟内部文件。"
+        },
+        {
+          "page_id": 20307,
+          "pdf_page_no": 1,
+          "target": "解散前组织反应",
+          "role": "民盟中常会讨论解散的同期报道入口",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "press_page_identity_heading",
+          "page_image_sha256": "0e8f45296a04671059e3d8a3bae1cfd1badcb0f01670a31f063e797e4526dc92",
+          "caveat": "只确认页级报道入口，不扩写为正式会议记录。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-dagangbao-hankow-1947-11-06",
+      "title": "《大剛報》汉口版 1947年11月6日",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC1080-00N001037-7606_大剛報_1947年11月06日.pdf",
+      "source_sha256": "9b4c22a6e905c40f0efef1ce24aa6f1f447b4eb64a1137513a5f6b6532f83284",
+      "source_file_size": 8704911,
+      "page_count": 4,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC1080-00N001037-7606_%E5%A4%A7%E5%89%9B%E5%A0%B1_1947%E5%B9%B411%E6%9C%8806%E6%97%A5.pdf",
+      "access_note": "国家图书馆民国报纸公开扫描；正式库已有页级 provenance",
+      "page_records": [
+        {
+          "page_id": 20309,
+          "pdf_page_no": 1,
+          "target": "解散同期报道",
+          "role": "民盟正式宣告解散、通告各地盟员停止政治活动的同期报道页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "press_page_identity_heading",
+          "page_image_sha256": "1e5d8b286dd68e8b38061dc19b2816870783bb879158f8458b38457e6bad2c6a",
+          "caveat": "只证明同期报刊公开报道，不据此宣称已取得民盟公告原件。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-dagongbao-shanghai-1947-11-06-page2",
+      "title": "《大公報》上海版 1947年11月6日第2版",
+      "source_role": "contemporary_newspaper_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC_大公報_上海版_1947-11-06_第2版_完整影像_试用数据库.pdf",
+      "source_sha256": "c5db06a15df0da2042819461b700f3c8c4f629a79e60340486f291ceb166fbb8",
+      "source_file_size": 130699,
+      "page_count": 1,
+      "source_url": "http://tk.dhcdb.com.tw/tknewsc/tknewskm?@@1#page=01",
+      "access_note": "试用数据库导出的单页副本；来源哈希已登记，授权边界仍须遵守原平台规则",
+      "page_records": [
+        {
+          "page_id": 1773,
+          "pdf_page_no": 1,
+          "target": "解散同期报道",
+          "role": "民盟今日解散、张澜等开会决定、停止政治活动的上海版报道入口",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "press_page_identity_heading",
+          "page_image_sha256": null,
+          "caveat": "只覆盖该页报刊报道；不等同于完整馆藏下载授权、民盟公告原件或政府档案。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-dagongbao-tianjin-1947-11-06-page2",
+      "title": "《大公報》天津版 1947年11月6日第2版",
+      "source_role": "contemporary_newspaper_page",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC_大公報_天津版_1947-11-06_第2版_完整影像_试用数据库.pdf",
+      "source_sha256": "cb64bd1561540661c6de257313aaf3799c38b83f7f7fab9905f4e096a1ce247f",
+      "source_file_size": 131852,
+      "page_count": 1,
+      "source_url": "http://tk.dhcdb.com.tw/tknewsc/tknewskm?@@1#page=01",
+      "access_note": "试用数据库导出的单页副本；来源哈希已登记，授权边界仍须遵守原平台规则",
+      "page_records": [
+        {
+          "page_id": 1774,
+          "pdf_page_no": 1,
+          "target": "解散同期报道",
+          "role": "民盟宣布解散、与政府洽商经过、停止政治活动的天津版报道入口",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "press_page_identity_heading",
+          "page_image_sha256": null,
+          "caveat": "只覆盖该页报刊报道；不等同于行政原件或民盟总部公告。"
+        }
+      ]
+    },
+    {
+      "source_id": "gdc-0021-dagangbao-1947-10-30",
+      "title": "《大剛報》1947年10月30日 GDC-0021",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/grok_public_collection_20260729/raw/维基共享资源_国家图书馆编号扫描_1947_GDC-0021_大刚报_1947-10-30_政府宣布民盟非法相关报道扫描.pdf",
+      "source_sha256": "178ea01ef217bc315316c84c0dead240bb2ff3792573384a4f83ced03f124125",
+      "source_file_size": 8311231,
+      "page_count": 1,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC1080-00N001037-7578_%E5%A4%A7%E5%89%9B%E5%A0%B1_1947%E5%B9%B410%E6%9C%8830%E6%97%A5.pdf",
+      "access_note": "国家图书馆编号扫描的公开镜像；正式库已有页级 provenance",
+      "page_records": [
+        {
+          "page_id": 20899,
+          "pdf_page_no": 1,
+          "target": "宣布非法后的同期传播",
+          "role": "政府宣布民盟非法、民盟准备解散等标题的同期报刊报道页",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "press_page_identity_heading",
+          "page_image_sha256": "4dbeb6568c8706a62c804e36bdca2390c21905cb6a5f49109f6c53b828ff2b0d",
+          "caveat": "只能证明10月30日同期报道，不替代10月27日政府公函。"
+        }
+      ]
+    },
+    {
+      "source_id": "roc-gazette-2964-1947-10-27",
+      "title": "《國民政府公報》第2964号（1947年10月27日）",
+      "source_role": "official_gazette_negative_control",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/gazette_scans/ROC1947-10-27國民政府公報2964.pdf",
+      "source_sha256": "3fa55d79a386f840d08c9268b39a301cf4322453e3134a5ab608acd3e3150e9c",
+      "source_file_size": 1253502,
+      "page_count": 17,
+      "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ROC1947-10-27%E5%9C%8B%E6%B0%91%E6%94%BF%E5%BA%9C%E5%85%AC%E5%A0%B12964.pdf",
+      "access_note": "已完成整册 OCR 检索与重点页目视核查；本地扫描未命中目标公文",
+      "page_records": [
+        {
+          "page_id": 1793,
+          "pdf_page_no": 1,
+          "target": "10月27日政府公函负向核查",
+          "role": "官方公报整册负向控制",
+          "status": "negative_control",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "negative_check_issue_only",
+          "page_image_sha256": null,
+          "caveat": "只说明这份公开扫描未命中目标，不证明公函不存在。"
+        }
+      ]
+    },
+    {
+      "source_id": "roc-gazette-2973-1947-11-06",
+      "title": "《國民政府公報》第2973号（1947年11月6日）",
+      "source_role": "official_gazette_negative_control",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/gazette_scans/ROC1947-11-06國民政府公報2973.pdf",
+      "source_sha256": "0a7c39bc0aa426d5f6672a302d7e64e37b43557d68762099ab75941b56d18b03",
+      "source_file_size": 575263,
+      "page_count": 9,
+      "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ROC1947-11-06%E5%9C%8B%E6%B0%91%E6%94%BF%E5%BA%9C%E5%85%AC%E5%A0%B12973.pdf",
+      "access_note": "已完成整册 OCR 检索；本地扫描未命中目标公文",
+      "page_records": [
+        {
+          "page_id": 1792,
+          "pdf_page_no": 1,
+          "target": "11月6日行政/组织解散公告负向核查",
+          "role": "解散日期当期官方公报负向控制",
+          "status": "negative_control",
+          "review_status": "review_only",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "negative_check_issue_only",
+          "page_image_sha256": null,
+          "caveat": "只说明这份公开扫描未命中目标，不证明行政原件不存在。"
+        }
+      ]
+    }
+  ]
+}

@@ -217,6 +217,33 @@ def test_pcc_research_packet_carries_sourcebook_map_without_body():
     assert "本地 sourcebook staging" in research_packet_page("domestic-1946-pcc").decode("utf-8")
 
 
+def test_1947_research_packet_carries_event_source_map_without_body():
+    """1947 hard-gap topic exposes page evidence without declaring the gap closed."""
+    import app
+
+    app._request.public_mode = False
+    from scripts.domestic.research_packet import build_research_packet, packet_json_bytes, research_packet_page
+    from scripts.domestic.validate_research_packet import validate_packet
+
+    packet = build_research_packet("domestic-1947-illegal-dissolution")
+    assert packet is not None
+    assert packet["counts"]["event_source_map_count"] == 1
+    assert packet["counts"]["event_source_page_record_count"] == 8
+    source_map = packet["event_source_maps"][0]
+    assert source_map["primary_evidence_closed"] is False
+    assert source_map["body_text_included"] is False
+    assert len(source_map["sources"]) == 7
+    assert sum(
+        page["status"] == "strict_citation"
+        for source in source_map["sources"]
+        for page in source["page_records"]
+    ) == 6
+    assert validate_packet(packet, "domestic-1947-illegal-dissolution")["status"] == "PASS"
+    raw = packet_json_bytes("domestic-1947-illegal-dissolution").decode("utf-8")
+    assert '"text"' not in raw
+    assert "专题来源地图" in research_packet_page("domestic-1947-illegal-dissolution").decode("utf-8")
+
+
 def test_topic_research_matrix_is_complete_and_page_traceable():
     """九个专题的研究矩阵必须覆盖四个子问题且只引用已有链条页号。"""
     root = Path(__file__).resolve().parents[1]

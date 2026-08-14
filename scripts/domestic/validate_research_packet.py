@@ -101,6 +101,52 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
         for target in sourcebook.get("targets") or []:
             if not isinstance(target, dict) or target.get("body_text_included") is not False:
                 errors.append(f"sourcebook {sourcebook.get('source_id')} target exports body text")
+    source_maps = packet.get("event_source_maps") or []
+    if not isinstance(source_maps, list):
+        errors.append("event_source_maps must be a list")
+        source_maps = []
+    if len(source_maps) != audit.get("event_source_map_count"):
+        errors.append("event source map count mismatch")
+    source_page_count = 0
+    for source_map in source_maps:
+        if not isinstance(source_map, dict):
+            errors.append("event source map entry is not an object")
+            continue
+        if source_map.get("body_text_included") is not False:
+            errors.append(f"event source map {source_map.get('event_id')} exports body text")
+        if source_map.get("ocr_text_included") is not False:
+            errors.append(f"event source map {source_map.get('event_id')} exports OCR text")
+        if source_map.get("raw_files_included") is not False:
+            errors.append(f"event source map {source_map.get('event_id')} exports raw files")
+        if source_map.get("primary_evidence_closed") is not False:
+            errors.append(f"event source map {source_map.get('event_id')} must keep primary gap open")
+        sources = source_map.get("sources") or []
+        if not isinstance(sources, list):
+            errors.append(f"event source map {source_map.get('event_id')} sources must be a list")
+            continue
+        for source in sources:
+            if not isinstance(source, dict):
+                errors.append("event source map source is not an object")
+                continue
+            if len(str(source.get("source_sha256") or "")) != 64:
+                errors.append(f"event source {source.get('source_id')} missing source SHA256")
+            pages = source.get("page_records") or []
+            if not isinstance(pages, list):
+                errors.append(f"event source {source.get('source_id')} page_records must be a list")
+                continue
+            source_page_count += len(pages)
+            for page in pages:
+                if not isinstance(page, dict):
+                    errors.append(f"event source {source.get('source_id')} page record is not an object")
+                    continue
+                if page.get("page_id") is not None and not str(page.get("page_id")).isdigit():
+                    errors.append(f"event source {source.get('source_id')} page id is invalid")
+                if page.get("status") == "strict_citation" and page.get("citation_ready") is not True:
+                    errors.append(f"event source {source.get('source_id')} strict page is not citation ready")
+                if page.get("status") == "negative_control" and page.get("citation_ready") is not False:
+                    errors.append(f"event source {source.get('source_id')} negative page must not be citation ready")
+    if source_page_count != audit.get("event_source_page_record_count"):
+        errors.append("event source page record count mismatch")
     for row in rows:
         if not row.get("page_id"):
             errors.append("evidence row missing page_id")
