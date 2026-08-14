@@ -81,6 +81,38 @@ def _load_event_source_map(event_id: str, public: bool) -> dict[str, Any]:
     return mapped
 
 
+def event_source_map_summary(event_id: str) -> dict[str, Any]:
+    """Return a body-free, path-free summary for a topic source map.
+
+    The summary is intentionally smaller than a research packet so index and
+    parity pages can expose coverage without loading or exporting source
+    bodies, OCR, raw files, or local paths.
+    """
+    payload = _load_event_source_map(str(event_id), public=True)
+    sources = payload.get("sources") if isinstance(payload, dict) else []
+    if not isinstance(sources, list):
+        sources = []
+    pages = [
+        page
+        for source in sources
+        if isinstance(source, dict)
+        for page in (source.get("page_records") or [])
+        if isinstance(page, dict)
+    ]
+    statuses = [str(page.get("status") or "") for page in pages]
+    return {
+        "available": bool(payload),
+        "source_count": len(sources),
+        "page_record_count": len(pages),
+        "strict_page_count": sum(status == "strict_citation" for status in statuses),
+        "navigation_page_count": sum(status == "navigation_only" for status in statuses),
+        "access_route_count": sum(status == "access_route" for status in statuses),
+        "primary_evidence_closed": payload.get("primary_evidence_closed") is True,
+        "review_status": str(payload.get("review_status") or ""),
+        "primary_evidence_gap": str(payload.get("primary_evidence_gap") or ""),
+    }
+
+
 def _page_row(connection, page_id: int):
     return connection.execute(
         """

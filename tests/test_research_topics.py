@@ -30,6 +30,7 @@ def test_research_topics_smoke(live_server, db_missing_reason):
     assert "证据链" in body
     assert "页级" in body
     assert "待补原件" in body
+    assert "来源地图" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
 
 
@@ -65,6 +66,7 @@ def test_research_parity_dashboard_smoke(live_server, db_missing_reason):
     assert "一手证据部分闭环" in body
     assert "尚未 research_ready" in body
     assert "body_read=false" in body
+    assert "来源地图" in body
     assert "1941年中国民主政团同盟成立" in body
     assert "1949年新政协筹备" in body
     assert "Traceback" not in body and "Internal Server Error" not in body
@@ -85,6 +87,22 @@ def test_primary_evidence_access_audit_is_non_promoting():
     assert report["records"] >= 1
 
 
+def test_all_research_topics_have_nonempty_source_map_summary():
+    """Every shared topic must expose a body-free source-map summary."""
+    import app
+
+    from scripts.domestic.research_packet import event_source_map_summary
+
+    topics = app._research_topic_rows()
+    assert len(topics) == 9
+    assert all(topic["event_source_map"]["available"] is True for topic in topics)
+    assert all(topic["event_source_map"]["page_record_count"] > 0 for topic in topics)
+    assert all(
+        event_source_map_summary(topic["item"]["event_id"])["page_record_count"] > 0
+        for topic in topics
+    )
+
+
 def test_research_topic_detail_smoke(live_server, db_missing_reason):
     if db_missing_reason:
         pytest.skip(f"数据库缺失,无法验证专题详情: {db_missing_reason}")
@@ -101,6 +119,7 @@ def test_research_topic_detail_smoke(live_server, db_missing_reason):
     assert "一手对照" in body
     assert "一手证据部分闭环" in body
     assert "一手闭环缺口" in body
+    assert "专题来源地图" in body
     assert "四层证据链" in body
     assert "研究问题—证据矩阵" in body
     assert "formation-organization-date" in body

@@ -472,6 +472,41 @@ def packet_check() -> dict[str, Any]:
     }
 
 
+def event_source_map_coverage_check() -> dict[str, Any]:
+    """Require every declared research topic to expose a non-empty map.
+
+    This is a structural/UI invariant only.  It does not promote a map to
+    primary-source closure and does not inspect page bodies.
+    """
+    rows: list[dict[str, Any]] = []
+    errors: list[dict[str, Any]] = []
+    for topic in app._research_topic_rows():
+        event_id = str(topic["item"].get("event_id") or "")
+        summary = topic.get("event_source_map") or {}
+        page_count = int(summary.get("page_record_count") or 0)
+        row = {
+            "event_id": event_id,
+            "available": bool(summary.get("available")),
+            "page_record_count": page_count,
+            "strict_page_count": int(summary.get("strict_page_count") or 0),
+            "navigation_page_count": int(summary.get("navigation_page_count") or 0),
+            "access_route_count": int(summary.get("access_route_count") or 0),
+        }
+        rows.append(row)
+        if not row["available"] or page_count <= 0:
+            errors.append(row)
+    return {
+        "status": "PASS" if rows and not errors else "FAIL",
+        "topic_count": len(rows),
+        "mapped_topic_count": sum(row["available"] and row["page_record_count"] > 0 for row in rows),
+        "page_record_count": sum(row["page_record_count"] for row in rows),
+        "strict_page_count": sum(row["strict_page_count"] for row in rows),
+        "navigation_page_count": sum(row["navigation_page_count"] for row in rows),
+        "access_route_count": sum(row["access_route_count"] for row in rows),
+        "errors": errors,
+    }
+
+
 def build_report() -> dict[str, Any]:
     db_path = Path(app.DB_PATH).resolve()
     candidate_check = candidate_alignment_check(db_path)
@@ -486,6 +521,7 @@ def build_report() -> dict[str, Any]:
         "pcc_1946_sourcebook_render_manifest": pcc_1946_render_manifest_check(),
         "missing_provenance": missing_provenance_check(db_path),
         "research_packets": packet_check(),
+        "event_source_map_coverage": event_source_map_coverage_check(),
         "comparison_cards": validate_cards(COVERAGE_PATH, CARDS_PATH),
     }
     benchmark = build_benchmark_report()

@@ -15,7 +15,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, quote, unquote, urlparse
 
-from scripts.domestic.research_packet import packet_json_bytes, research_packet_page
+from scripts.domestic.research_packet import (
+    event_source_map_summary,
+    packet_json_bytes,
+    research_packet_page,
+)
 
 # 当前请求路径的 thread-local 容器，layout() 用来自动 highlight 当前导航
 _request = threading.local()
@@ -6250,6 +6254,7 @@ def _research_topic_rows() -> list[dict[str, object]]:
             research_matrix = _filter_public_topic_matrix(
                 raw_matrix, visible_topic_page_ids
             )
+            source_map = event_source_map_summary(event_id)
             academic_matches = _research_academic_matches(item, comparison)
             foreign_defs = [
                 definition
@@ -6271,6 +6276,7 @@ def _research_topic_rows() -> list[dict[str, object]]:
                 "comparison": comparison,
                 "evidence_chain": evidence_chain,
                 "research_matrix": research_matrix,
+                "event_source_map": source_map,
                 "evidence_chain_summary": _topic_evidence_chain_summary(
                     evidence_chain
                 ),
@@ -6313,6 +6319,8 @@ def research_parity_page() -> bytes:
     research_ready_count = 0
     open_target_count = 0
     chain_ready_count = 0
+    source_map_count = 0
+    source_map_page_count = 0
 
     for topic in topics:
         item = topic["item"]
@@ -6325,6 +6333,12 @@ def research_parity_page() -> bytes:
         layer_count = int(chain.get("layer_count") or 0)
         open_targets = int(chain.get("open_targets") or 0)
         primary_status = str(item.get("primary_evidence_status") or "unclassified")
+        source_map = topic.get("event_source_map") or {}
+        source_map_pages = int(source_map.get("page_record_count") or 0)
+        source_map_strict = int(source_map.get("strict_page_count") or 0)
+        source_map_navigation = int(source_map.get("navigation_page_count") or 0)
+        source_map_access = int(source_map.get("access_route_count") or 0)
+        source_map_ready = bool(source_map.get("available")) and source_map_pages > 0
 
         navigation_ready = bool(
             domestic_pages
@@ -6340,6 +6354,8 @@ def research_parity_page() -> bytes:
         research_ready_count += int(research_ready)
         open_target_count += open_targets
         chain_ready_count += int(layer_count == 4)
+        source_map_count += int(source_map_ready)
+        source_map_page_count += source_map_pages
 
         primary = _primary_evidence_display(item)
         navigation_badge = (
@@ -6357,13 +6373,18 @@ def research_parity_page() -> bytes:
             if research_ready
             else '<span class="pstatus warn">尚未 research_ready</span>'
         )
+        source_map_badge = (
+            f'<span class="pstatus ok">来源地图 {h(source_map_pages)} 页</span>'
+            if source_map_ready
+            else '<span class="pstatus warn">来源地图待补</span>'
+        )
         rows.append(
             f"""
 <article class="result">
   <div>
     <h2><a href="/research/{quote(event_id)}">{h(item.get('event_name') or event_id)}</a></h2>
-    <div class="meta">国内事件页 {h(domestic_pages)} · 境外对位页 {h(foreign_pages)} · 学术匹配 {h(academic_total)} · 证据链 {h(layer_count)}/4 · 开放原件 {h(open_targets)}</div>
-    <div class="tagline">{navigation_badge}{strict_badge}<span class="pstatus {primary['class']}">{h(primary['label'])}</span>{final_badge}</div>
+    <div class="meta">国内事件页 {h(domestic_pages)} · 境外对位页 {h(foreign_pages)} · 学术匹配 {h(academic_total)} · 证据链 {h(layer_count)}/4 · 来源地图 {h(source_map_pages)} 页（严格 {h(source_map_strict)} / 导航 {h(source_map_navigation)} / 入口 {h(source_map_access)}） · 开放原件 {h(open_targets)}</div>
+    <div class="tagline">{navigation_badge}{strict_badge}{source_map_badge}<span class="pstatus {primary['class']}">{h(primary['label'])}</span>{final_badge}</div>
     <div class="snippet"><strong>研究问题：</strong>{h((topic.get('comparison') or {}).get('research_question') or '未登记')}</div>
     <div class="snippet"><strong>当前边界：</strong>{h(primary['gap'])}</div>
   </div>
@@ -6376,9 +6397,9 @@ def research_parity_page() -> bytes:
   <div class="hero-eyebrow">DOMESTIC · FOREIGN · PARITY</div>
   <h1>国内—海外对齐仪表盘</h1>
   <p class="hero-sub">用同一套研究能力检查国内资料层与境外档案层：导航、页级引用、学术解释、证据链和一手原件闭环分别计数。</p>
-  <div class="hero-chips"><span><b>{h(len(topics))}</b> 个专题</span><span><b>{h(navigation_count)}</b> 个导航可用</span><span><b>{h(strict_count)}</b> 个有严格页</span><span><b>{h(primary_closed_count)}</b> 个一手闭环</span><span><b>{h(research_ready_count)}</b> 个 research_ready</span><span><b>{h(open_target_count)}</b> 个开放原件目标</span></div>
+  <div class="hero-chips"><span><b>{h(len(topics))}</b> 个专题</span><span><b>{h(navigation_count)}</b> 个导航可用</span><span><b>{h(source_map_count)}</b> 个来源地图</span><span><b>{h(source_map_page_count)}</b> 个来源地图页</span><span><b>{h(strict_count)}</b> 个有严格页</span><span><b>{h(primary_closed_count)}</b> 个一手闭环</span><span><b>{h(research_ready_count)}</b> 个 research_ready</span><span><b>{h(open_target_count)}</b> 个开放原件目标</span></div>
 </section>
-<div class="notice"><strong>阅读规则：</strong>导航可用不等于一手原件闭环；严格引用页只表示已有部分页通过人工门禁；只有专题主证据、同期交叉、负向核查、版本关系和研究包全部闭环，才会显示 <code>research_ready</code>。本页只读元数据，<code>body_read=false</code>。</div>
+<div class="notice"><strong>阅读规则：</strong>来源地图只统计专题与页级 provenance 的关联，不代表所有原件已开放；导航可用不等于一手原件闭环；严格引用页只表示已有部分页通过人工门禁；只有专题主证据、同期交叉、负向核查、版本关系和研究包全部闭环，才会显示 <code>research_ready</code>。本页只读元数据，<code>body_read=false</code>。</div>
 <section class="result-list">{"".join(rows) or '<div class="notice">暂无专题 parity 数据。</div>'}</section>
 <section class="doc-tools" style="margin-top:20px;justify-content:center;">
   <a class="button" href="/research">返回专题索引</a>
@@ -6386,7 +6407,7 @@ def research_parity_page() -> bytes:
   <a class="button secondary" href="/domestic">国内史料库</a>
   <a class="button secondary" href="/events/key">境外关键事件</a>
 </section>
-<div class="notice" style="margin-top:16px;">四层证据链已就绪专题：{h(chain_ready_count)} / {h(len(topics))}。具体来源、页码、SHA256 和复核范围请从专题详情或研究包进入。</div>
+<div class="notice" style="margin-top:16px;">四层证据链已就绪专题：{h(chain_ready_count)} / {h(len(topics))}；已接入来源地图：{h(source_map_count)} / {h(len(topics))}。具体来源、页码、SHA256 和复核范围请从专题详情或研究包进入。</div>
 """
     return layout("国内—海外对齐", body, active_path="/research")
 
@@ -6407,14 +6428,22 @@ def research_topics_page() -> bytes:
         int((topic.get("evidence_chain_summary") or {}).get("open_targets", 0))
         for topic in topics
     )
+    total_source_maps = sum(
+        bool((topic.get("event_source_map") or {}).get("available"))
+        for topic in topics
+    )
+    total_source_map_pages = sum(
+        int((topic.get("event_source_map") or {}).get("page_record_count") or 0)
+        for topic in topics
+    )
     body = breadcrumb_html([("/", "首页"), (None, "多源专题研究")]) + f"""
 <section class="hero hero-compact">
   <div class="hero-eyebrow">UNIFIED RESEARCH TOPICS</div>
   <h1>多源专题研究</h1>
   <p class="hero-sub">把国内候选、境外档案和证据缺口放进同一条研究路径。这里的关联是检索与编排层，正式引用仍必须回到原件、页码、哈希和人工复核。</p>
-  <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_domestic_documents}</b> 篇国内已入库文档</span><span><b>{total_domestic_pages}</b> 个国内物理页</span><span><b>{total_foreign}</b> 个境外机器命中页</span><span><b>{total_academic}</b> 条学术解释候选</span><span><b>{total_chain_pages}</b> 个页级证据链条目</span><span><b>{total_chain_targets}</b> 个待补原件目标</span></div>
+  <div class="hero-chips"><span><b>{len(topics)}</b> 个专题</span><span><b>{total_source_maps}</b> 个来源地图</span><span><b>{total_source_map_pages}</b> 个来源地图页</span><span><b>{total_domestic}</b> 条国内候选关联</span><span><b>{total_domestic_documents}</b> 篇国内已入库文档</span><span><b>{total_domestic_pages}</b> 个国内物理页</span><span><b>{total_foreign}</b> 个境外机器命中页</span><span><b>{total_academic}</b> 条学术解释候选</span><span><b>{total_chain_pages}</b> 个页级证据链条目</span><span><b>{total_chain_targets}</b> 个待补原件目标</span></div>
 </section>
-<div class="notice"><strong>阅读纪律：</strong>“国内候选”来自事件覆盖表，“境外机器命中”来自关键词检索；二者都不是自动事实确认。页面将“研究导航可用”和“一手证据闭环”分开显示：当前有入口不等于关键原件已经取得。每个专题还显示可重算的四层证据链摘要；打开专题后，可以分别回到国内候选记录、境外原文页、页级证据和待补原件说明。</div>
+<div class="notice"><strong>阅读纪律：</strong>“国内候选”来自事件覆盖表，“境外机器命中”来自关键词检索；来源地图只提供可重算的来源与页级定位摘要；三者都不是自动事实确认。页面将“研究导航可用”和“一手证据闭环”分开显示：当前有入口不等于关键原件已经取得。每个专题还显示可重算的四层证据链摘要；打开专题后，可以分别回到国内候选记录、境外原文页、页级证据和待补原件说明。</div>
 <section class="result-list">
 """
     for topic in topics:
@@ -6424,11 +6453,16 @@ def research_topics_page() -> bytes:
         status_cls = "ok" if status == "pair_available" else "warn"
         primary = _primary_evidence_display(item)
         chain_summary = topic.get("evidence_chain_summary") or {}
+        source_map = topic.get("event_source_map") or {}
+        source_map_pages = int(source_map.get("page_record_count") or 0)
+        source_map_strict = int(source_map.get("strict_page_count") or 0)
+        source_map_navigation = int(source_map.get("navigation_page_count") or 0)
+        source_map_access = int(source_map.get("access_route_count") or 0)
         body += f"""
 <article class="result">
   <div>
     <h2><a href="/research/{quote(str(item['event_id']))}">{h(item.get('event_name'))}</a></h2>
-    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · 学术解释候选 {h(topic.get('academic_total', 0))} 条 · 证据链 {h(chain_summary.get('layer_count', 0))}/4 层 · 页级 {h(chain_summary.get('page_items', 0))} 条 · 待补原件 {h(chain_summary.get('open_targets', 0))} 项 · {h(item.get('domestic_status'))}</div>
+    <div class="meta">国内候选 {len(topic['domestic_rows'])} 条 · 已入库 {h(topic['domestic_documents'])} 篇 / {h(topic['domestic_pages'])} 页 · 境外机器命中 {h(topic['foreign_pages'])} 页 / {h(topic['foreign_documents'])} 篇 · 学术解释候选 {h(topic.get('academic_total', 0))} 条 · 证据链 {h(chain_summary.get('layer_count', 0))}/4 层 · 页级 {h(chain_summary.get('page_items', 0))} 条 · 来源地图 {h(source_map_pages)} 页（严格 {h(source_map_strict)} / 导航 {h(source_map_navigation)} / 入口 {h(source_map_access)}） · 待补原件 {h(chain_summary.get('open_targets', 0))} 项 · {h(item.get('domestic_status'))}</div>
     <div class="tagline"><span class="pstatus {status_cls}">{h(status)}</span><span class="pstatus {primary['class']}">{h(primary['label'])}</span>{''.join(f'<span class="tag">{h(tag)}</span>' for tag in item.get('event_tags', []))}</div>
     <div class="snippet">{h(item.get('review_note'))}</div>
     <div class="snippet"><strong>一手闭环缺口：</strong>{h(primary['gap'])}</div>
@@ -6602,6 +6636,17 @@ def research_topic_page(event_id: str) -> bytes:
     research_matrix_html = _topic_research_matrix_html(research_matrix, evidence_chain)
     foreign_crosswalk_html = _topic_foreign_crosswalk_html(foreign_crosswalk)
 
+    source_map = topic.get("event_source_map") or {}
+    source_map_pages = int(source_map.get("page_record_count") or 0)
+    source_map_strict = int(source_map.get("strict_page_count") or 0)
+    source_map_navigation = int(source_map.get("navigation_page_count") or 0)
+    source_map_access = int(source_map.get("access_route_count") or 0)
+    source_map_html = f"""
+<section class="result compact-result" style="border-left:4px solid var(--accent);background:var(--panel-warm);">
+  <div><h3>专题来源地图</h3><div class="meta">{h(source_map.get('source_count', 0))} 个来源 · {h(source_map_pages)} 个页级记录 · 严格 {h(source_map_strict)} · 导航 {h(source_map_navigation)} · 入口 {h(source_map_access)}</div><div class="snippet">该摘要只提供来源与页级定位状态，不复制正文、OCR、译文或本地路径；当前一手闭环状态：{h(source_map.get('review_status') or '未标注')}。{h(source_map.get('primary_evidence_gap') or '正式结论仍需回到原件和人工复核。')}</div></div>
+  <div class="cite"><a href="/research/{quote(event_id)}/packet">打开研究包</a><br><a href="/domestic/sources">完整来源地图</a></div>
+</section>"""
+
     pcc_sourcebook_html = ""
     if event_id == "domestic-1946-pcc":
         pcc_sourcebook_html = """
@@ -6629,6 +6674,7 @@ def research_topic_page(event_id: str) -> bytes:
 </section>
 <div class="notice"><strong>证据边界：</strong>{h(item.get('review_note'))}<br><strong>一手闭环缺口：</strong>{h(primary['gap'])}<br>本页是研究导航和机器检索样本；它不把候选记录升级为正式事件证据，也不替代原件页码、源文件哈希或人工复核。下方“专题事件索引页”与“国内已入库证据样本”是两条不同回接路径，严格页数字不能互相替代。</div>
 {pcc_sourcebook_html}
+{source_map_html}
 {comparison_html}
 {research_matrix_html}
 {foreign_crosswalk_html}
