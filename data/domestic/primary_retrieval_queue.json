@@ -2421,7 +2421,7 @@
           "next_action": "由有权限账户取得允许保存的官方影像；记录授权范围、文件 SHA256、页码和人工复核。现有正式库页只能作同期交叉材料，不能替代该权限路径所指向的原件。",
           "candidate_route_count": 12,
           "formal_page_count": 29,
-          "formal_strict_citation_page_count": 0
+          "formal_strict_citation_page_count": 4
         }
       ],
       "candidate_routes": [
@@ -2483,10 +2483,10 @@
           "formal_ingested_document_id": 1328,
           "formal_doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-league-dissolution-meeting",
           "formal_page_count": 2,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
@@ -2516,10 +2516,10 @@
           "formal_ingested_document_id": 1327,
           "formal_doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
           "formal_page_count": 2,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
@@ -2548,10 +2548,10 @@
           "formal_ingested_document_id": 1329,
           "formal_doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
           "formal_page_count": 2,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:NLC:dagongbao-shanghai-1947-11-06-page2-full",
@@ -2644,10 +2644,10 @@
           "formal_ingested_document_id": 1315,
           "formal_doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11",
           "formal_page_count": 4,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 4,
           "formal_anchored_page_count": 4,
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY"
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },
         {
           "candidate_id": "domestic:DRNH:002-020400-00012-067",
