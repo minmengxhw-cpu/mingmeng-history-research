@@ -19,7 +19,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DB = ROOT / "data" / "research_index.sqlite"
+FORMAL_DB = ROOT / "data" / "research_index.sqlite"
 
 
 def sha256(path: Path) -> str:
@@ -45,6 +45,17 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
 def resolve(value: str, root: Path) -> Path:
     path = Path(value).expanduser()
     return path if path.is_absolute() else root / path
+
+
+def ensure_staging_target(db_path: Path) -> Path:
+    """Reject the formal research index for this OCR-pilot importer."""
+    target = db_path.expanduser().resolve()
+    formal = FORMAL_DB.resolve()
+    if target == formal:
+        raise ValueError(
+            "refusing to write the formal research index; pass an explicit staging SQLite copy"
+        )
+    return target
 
 
 def markdown_text(path: Path) -> str:
@@ -127,11 +138,18 @@ def ensure_schema(conn: sqlite3.Connection) -> None:
 
 
 def apply(rows: list[dict[str, Any]], db_path: Path, batch_id: str) -> dict[str, Any]:
+    db_path = ensure_staging_target(db_path)
     backup = db_path.with_name(f"{db_path.name}.{batch_id}.pre.bak")
+    before_sha256 = sha256(db_path) if db_path.exists() else ""
+    if backup.exists():
+        raise FileExistsError(f"refusing to overwrite existing backup: {backup}")
     if db_path.exists():
         shutil.copy2(db_path, backup)
+        if sha256(backup) != before_sha256:
+            raise RuntimeError(f"backup SHA256 verification failed: {backup}")
     inserted_pages = 0
     with sqlite3.connect(db_path) as conn:
+        conn.execute("PRAGMA foreign_keys=ON")
         ensure_schema(conn)
         has_platform = "source_platform" in {row[1] for row in conn.execute("PRAGMA table_info(documents)")}
         for row in rows:
@@ -165,22 +183,63 @@ def apply(rows: list[dict[str, Any]], db_path: Path, batch_id: str) -> dict[str,
                 page_tags = f"{tags},ocr_mean_confidence={page.get('mean_confidence','')},ocr_page_status={page.get('ocr_status','draft')}"
                 conn.execute("INSERT INTO page_fts(rowid,volume_id,doc_id,title,page_label,matched_terms,text) VALUES(?,?,?,?,?,?,?)", (pcur.lastrowid, "MMHIST", row["record_id"], row["title"], page_label, page_tags, page["_text"]))
                 inserted_pages += 1
+        integrity_check = conn.execute("PRAGMA integrity_check").fetchone()[0]
+        foreign_key_violations = len(conn.execute("PRAGMA foreign_key_check").fetchall())
+        pages_without_fts = conn.execute(
+            "SELECT COUNT(*) FROM pages p LEFT JOIN page_fts f ON f.rowid=p.id WHERE f.rowid IS NULL"
+        ).fetchone()[0]
+        fts_without_pages = conn.execute(
+            "SELECT COUNT(*) FROM page_fts f LEFT JOIN pages p ON p.id=f.rowid WHERE p.id IS NULL"
+        ).fetchone()[0]
+        if integrity_check != "ok" or foreign_key_violations or pages_without_fts or fts_without_pages:
+            raise RuntimeError(
+                "staging validation failed: "
+                f"integrity={integrity_check}, fk={foreign_key_violations}, "
+                f"pages_without_fts={pages_without_fts}, fts_without_pages={fts_without_pages}"
+            )
         conn.commit()
-    return {"batch_id": batch_id, "records": len(rows), "pages": inserted_pages, "rollback_path": str(backup), "applied_at": datetime.now().isoformat(timespec="seconds")}
+    return {
+        "batch_id": batch_id,
+        "records": len(rows),
+        "pages": inserted_pages,
+        "database": str(db_path),
+        "before_sha256": before_sha256,
+        "after_sha256": sha256(db_path),
+        "rollback_path": str(backup),
+        "integrity_check": integrity_check,
+        "foreign_key_violations": foreign_key_violations,
+        "pages_without_fts": pages_without_fts,
+        "fts_without_pages": fts_without_pages,
+        "formal_db_written": False,
+        "applied_at": datetime.now().isoformat(timespec="seconds"),
+    }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, required=True)
-    parser.add_argument("--db", type=Path, default=DEFAULT_DB)
+    parser.add_argument(
+        "--db",
+        type=Path,
+        required=True,
+        help="explicit staging SQLite path; the formal data/research_index.sqlite is rejected",
+    )
     parser.add_argument("--batch-id", required=True)
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--report", type=Path, required=True)
     args = parser.parse_args()
+    staging_db = ensure_staging_target(args.db)
     rows = validate(read_jsonl(args.manifest), ROOT)
-    result: dict[str, Any] = {"batch_id": args.batch_id, "records": len(rows), "gate": "PASS", "mode": "apply" if args.apply else "dry_run"}
+    result: dict[str, Any] = {
+        "batch_id": args.batch_id,
+        "records": len(rows),
+        "gate": "PASS",
+        "mode": "apply" if args.apply else "dry_run",
+        "database": str(staging_db),
+        "formal_db_written": False,
+    }
     if args.apply:
-        result.update(apply(rows, args.db, args.batch_id))
+        result.update(apply(rows, staging_db, args.batch_id))
     else:
         result["next_action"] = "rerun with --apply after reviewing pilot tags"
     args.report.parent.mkdir(parents=True, exist_ok=True)
