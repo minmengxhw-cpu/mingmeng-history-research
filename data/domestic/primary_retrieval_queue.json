@@ -1,5 +1,5 @@
 {
-  "schema": "domestic_primary_retrieval_queue.v2",
+  "schema": "domestic_primary_retrieval_queue.v3",
   "generated_at": "2026-08-14",
   "scope": "九个国内专题的开放主证据目标",
   "policy": "候选路由只用于追索；不把目录、转录、后期叙述或锁定查看器升级为原件闭环。",
@@ -20,6 +20,14 @@
     "body_read": false,
     "formal_db_written": false,
     "candidate_count": 689
+  },
+  "event_link_index": {
+    "available": true,
+    "metadata_only": true,
+    "body_read": false,
+    "formal_db_written": false,
+    "event_count": 9,
+    "page_count": 78
   },
   "body_read": false,
   "formal_db_written": false,
@@ -42,6 +50,75 @@
           "formal_strict_citation_page_count": 0
         }
       ],
+      "event_link_pages": [
+        {
+          "page_id": 1473,
+          "page_label": "009",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1941年中国民主政团同盟成立宣言原件页1",
+          "rationale": "《民主同盟文献》1946年汇编扫描件第9页为《中国民主政团同盟成立宣言》印刷页1；这是直接原件/官方汇编页级入口，但汇编本不等同于1941年档案馆原件。"
+        },
+        {
+          "page_id": 1474,
+          "page_label": "010",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1941年中国民主政团同盟成立宣言页2",
+          "rationale": "该页是已人工复核的成立宣言连续页，补足成立文件页级范围；仍属于1946年汇编重刊，不替代独立成立原件。"
+        },
+        {
+          "page_id": 1475,
+          "page_label": "011",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1941年中国民主政团同盟成立宣言页3",
+          "rationale": "该页是已人工复核的成立宣言连续末页，补足成立文件页级范围；仍属于1946年汇编重刊，不替代独立成立原件。"
+        },
+        {
+          "page_id": 1476,
+          "page_label": "012",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1941年早期政治主张页1",
+          "rationale": "该页是与成立宣言同一官方汇编中的早期政治主张页，作为成立文本之外的政治表达入口；不解释为成立会议原件。"
+        },
+        {
+          "page_id": 1477,
+          "page_label": "013",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-formation-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1941年早期政治主张页2",
+          "rationale": "该页是已人工复核的早期政治主张连续页，用于成立与政治表达的对读；仍属于1946年汇编重刊。"
+        },
+        {
+          "page_id": 1494,
+          "page_label": "038",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-boundary-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1941年民盟成立的历史回顾页",
+          "rationale": "张澜1945年在招待外国记者谈话中明确回顾中国民主同盟于1941年在重庆正式成立；这是后出回顾页，不是1941年成立当日原件。"
+        }
+      ],
+      "event_link_strict_page_count": 6,
       "candidate_routes": [
         {
           "candidate_id": "domestic:MMHIST:formation-declaration-1941",
@@ -755,6 +832,20 @@
           "formal_strict_citation_page_count": 3
         }
       ],
+      "event_link_pages": [
+        {
+          "page_id": 1495,
+          "page_label": "039",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-boundary-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1944年民盟改组更名的历史回顾页",
+          "rationale": "同一篇1945年张澜谈话回顾同盟在前一年九月改组并由民主政团同盟改称民主同盟；该页是回顾性页界，不替代1944年会议原件。"
+        }
+      ],
+      "event_link_strict_page_count": 1,
       "candidate_routes": [
         {
           "candidate_id": "domestic:NLC:minxian-85443-1944-05-01",
@@ -1548,6 +1639,108 @@
           "formal_strict_citation_page_count": 31
         }
       ],
+      "event_link_pages": [
+        {
+          "page_id": 1443,
+          "page_label": "101",
+          "doc_key": "domestic-ocr/MMHIST:political-report-1945:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1945年民盟临时全国代表大会政治报告标题页",
+          "rationale": "公开编纂扫描件第101页为一九四五年十月十一日政治报告标题页；这是页级进入点，不代表政治报告全文或1945年档案原件已经逐页核验。"
+        },
+        {
+          "page_id": 1444,
+          "page_label": "117",
+          "doc_key": "domestic-ocr/MMHIST:political-report-1945:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1945年民盟临时全国代表大会政治报告末页",
+          "rationale": "公开编纂扫描件第117页是已人工复核的政治报告后段页，和标题页共同限定当前复核范围；不代表政治报告全文或大会原件已闭环。"
+        },
+        {
+          "page_id": 1445,
+          "page_label": "118",
+          "doc_key": "domestic-ocr/MMHIST:congress-declaration-1945:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1945年民盟临时全国代表大会宣言标题页",
+          "rationale": "公开编纂扫描件第118页为一九四五年十月十六日宣言标题页；这是页级进入点，不代表宣言全文或1945年档案原件已经逐页核验。"
+        },
+        {
+          "page_id": 1446,
+          "page_label": "123",
+          "doc_key": "domestic-ocr/MMHIST:congress-declaration-1945:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1945年民盟临时全国代表大会宣言末页",
+          "rationale": "公开编纂扫描件第123页是已人工复核的宣言结尾页，和标题页共同限定当前复核范围；不代表宣言全文或大会原件已闭环。"
+        },
+        {
+          "page_id": 1501,
+          "page_label": "044",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1945年大会前国民大会立场前史页1",
+          "rationale": "1945年8月政治呼吁页的汇编版本、题名、日期和页界已通过人工复核；用于大会前政治立场演变的页级入口，不替代大会宣言、政治报告或原始档案。"
+        },
+        {
+          "page_id": 1502,
+          "page_label": "045",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1945年大会前国民大会立场前史页2",
+          "rationale": "同一文献页组的连续页已通过人工复核；用于大会前国民大会立场的页级对读，不等同于1946年正式拒参声明。"
+        },
+        {
+          "page_id": 1503,
+          "page_label": "046",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1945年大会前国民大会立场前史页3",
+          "rationale": "同一文献页组的连续页已通过人工复核；只开放页级身份、来源版本和页界，不替代大会原始文件或正式组织决定。"
+        },
+        {
+          "page_id": 1504,
+          "page_label": "047",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1945年大会前国民大会立场前史页4",
+          "rationale": "同一文献页组的连续收束页已通过人工复核；用于大会前立场演变的页级入口，不把汇编页升级为大会原始档案。"
+        },
+        {
+          "page_id": 1505,
+          "page_label": "048",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-target-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1945年民盟临时全国代表大会纲领页",
+          "rationale": "页首明确标注《中国民主同盟纲领》为民国三十四年十月临时全国代表大会通过，属于大会文件页的直接导航锚点。"
+        }
+      ],
+      "event_link_strict_page_count": 9,
       "candidate_routes": [
         {
           "candidate_id": "domestic:NLC:minxian-85452-1945-01-15",
@@ -2599,6 +2792,75 @@
           "formal_strict_citation_page_count": 0
         }
       ],
+      "event_link_pages": [
+        {
+          "page_id": 1512,
+          "page_label": "081",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年1月2日民盟发言人时局谈话页",
+          "rationale": "文献汇编中的民盟发言人时局谈话页已通过人工复核；只开放题名、日期、来源版本和页界，不替代旧政协正式会议记录。"
+        },
+        {
+          "page_id": 1513,
+          "page_label": "082",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年1月2日民盟发言人谈国民大会页",
+          "rationale": "文献汇编中的民盟发言人相关连续页已通过人工复核；用于政协前后政治表达对读，不替代正式组织决定或会议档案。"
+        },
+        {
+          "page_id": 1514,
+          "page_label": "083",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年1月11日张澜在政协会致词页",
+          "rationale": "民盟代表政协相关发言页已通过人工复核；只作为发言题名、日期和页界入口，不替代完整政协会议记录或发言原件。"
+        },
+        {
+          "page_id": 1515,
+          "page_label": "084",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年1月11日政协发言连续页1",
+          "rationale": "与张澜政协发言页相邻的连续页已通过人工复核；引用范围限于页级身份和连续页界，不宣称发言全文已经闭环。"
+        },
+        {
+          "page_id": 1516,
+          "page_label": "085",
+          "doc_key": "domestic-ocr/NLC:minmeng-wenxian-1946-late-group:ocr-pilot",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年1月11日政协发言连续页2",
+          "rationale": "与张澜政协发言页相邻的连续收束页已通过人工复核；引用范围限于页级身份和连续页界，不宣称正式会议档案闭环。"
+        },
+        {
+          "page_id": 1518,
+          "page_label": "02",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-19-key-pages",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年政协决议与民盟政治表达回顾页",
+          "rationale": "1947年《光明報》页内回顾政治协商会议被破坏及民盟政治主张；作为同期机关报的后出回顾页，用于进入政协专题，不替代1946年会议档案。"
+        }
+      ],
+      "event_link_strict_page_count": 6,
       "candidate_routes": [
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue01",
@@ -3497,6 +3759,86 @@
           "formal_strict_citation_page_count": 0
         }
       ],
+      "event_link_pages": [
+        {
+          "page_id": 1578,
+          "page_label": "02",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-15-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "民盟拒绝参加国大与反对伪宪的回顾页",
+          "rationale": "1947年《光明報》页内明确回述民盟拒绝参加国大并反对伪宪；这是事后回顾，需与1946年民盟正式声明或报刊原件互校。"
+        },
+        {
+          "page_id": 16335,
+          "page_label": "1",
+          "doc_key": "domestic-page/NLC404-01J000514-10427",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年《光明報》新六號首版同期政治表达页",
+          "rationale": "新六號首版视觉确认刊期、1946年11月8日出版日、PDF/物理第1页和版面边界；这是拒参争议期的同期机关报交叉入口，不把报刊表达当作民盟正式拒参声明或政协原始档案。"
+        },
+        {
+          "page_id": 16351,
+          "page_label": "1",
+          "doc_key": "domestic-page/NLC404-01J000514-10428",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年《光明報》新七號《我们为什么不参加国大》页",
+          "rationale": "1946年11月18日《光明報》新七號首版视觉清晰显示刊期、日期和社论题名；这是同期机关报政治表达的页级入口，引用范围限于页身份和题名，不替代正式拒参声明或会议档案。"
+        },
+        {
+          "page_id": 16367,
+          "page_label": "1",
+          "doc_key": "domestic-page/NLC404-01J000514-10429",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年《光明報》新八號《论有条件参加国大》页",
+          "rationale": "新八號首版视觉确认刊期、日期和社论题名；这是同期机关报立场形成的页级入口，引用范围限于页身份和题名，不替代正式拒参声明或会议档案。"
+        },
+        {
+          "page_id": 16634,
+          "page_label": "1",
+          "doc_key": "domestic-page/NLC404-01J000514-23806",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年《光明報》新十一號目录页",
+          "rationale": "新十一號第1页视觉确认刊期、日期和《反对一党独裁宪法（社论）》目录题名；这是文章定位入口，不把目录当作正文或正式拒参声明。"
+        },
+        {
+          "page_id": 16636,
+          "page_label": "3",
+          "doc_key": "domestic-page/NLC404-01J000514-23806",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年《光明報》新十一號《反对一党独裁的宪法！》页",
+          "rationale": "新十一號第3页视觉确认社论正文首页标题；这是同期机关报政治表达的页级入口，引用范围限于页身份和题名，不替代正式拒参声明或会议档案。"
+        },
+        {
+          "page_id": 19000,
+          "page_label": "276",
+          "doc_key": "domestic-page/SRC-257bb7be70",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年11月14日民盟总部秘书处《紧急通告》汇编重刊页",
+          "rationale": "官方历史文献汇编公开扫描第276页（印刷页246）已完成本地原图视觉复核；作为民盟正式通告的汇编重刊页级入口，不等同于1946年独立原件，不替代原始底本和同期原刊互校。"
+        }
+      ],
+      "event_link_strict_page_count": 7,
       "candidate_routes": [
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue03-ceasefire-telegram",
@@ -4256,6 +4598,53 @@
           "formal_strict_citation_page_count": 0
         }
       ],
+      "event_link_pages": [
+        {
+          "page_id": 1768,
+          "page_label": "01",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-issue22-front-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年《光明報》李公朴、闻一多纪念专题首版",
+          "rationale": "原PDF首版明确标出李公朴、闻一多烈士纪念专题；这是事件发生后的同期报刊纪念页，用于专题进入点，不单独断言案件经过或责任归属。"
+        },
+        {
+          "page_id": 18936,
+          "page_label": "212",
+          "doc_key": "domestic-page/SRC-257bb7be70",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年7月12日民盟云南省支部抗议李公朴被害汇编重刊页",
+          "rationale": "官方历史文献汇编公开扫描第212页视觉核验可见题名、日期和页界；这是民盟自身声明的汇编重刊导航锚点，不等同于云南省支部独立原件，不替代司法或行政档案。"
+        },
+        {
+          "page_id": 18945,
+          "page_label": "221",
+          "doc_key": "domestic-page/SRC-257bb7be70",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年7月16日民盟云南省支部闻一多遇害紧急声明汇编重刊页",
+          "rationale": "官方历史文献汇编公开扫描第221页视觉核验可见题名、日期和页界；这是民盟自身声明的汇编重刊导航锚点，不等同于云南省支部独立原件，不替代案件原始档案。"
+        },
+        {
+          "page_id": 18948,
+          "page_label": "224",
+          "doc_key": "domestic-page/SRC-257bb7be70",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年7月17日民盟为李公朴被害发表声明汇编重刊页",
+          "rationale": "官方历史文献汇编公开扫描第224页视觉核验可见题名、日期和页界；这是民盟组织声明的汇编重刊导航锚点，不把汇编页扩写为独立原件或司法行政事实闭环。"
+        }
+      ],
+      "event_link_strict_page_count": 4,
       "candidate_routes": [
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue10-guangdong-kmt-protest-editorial",
@@ -5114,6 +5503,185 @@
           "formal_strict_citation_page_count": 3
         }
       ],
+      "event_link_pages": [
+        {
+          "page_id": 1583,
+          "page_label": "07",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-15-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年民盟公开活动受压并转移的页",
+          "rationale": "页内说明民主力量在国民党反动派压迫下失去统治区公开活动可能，公开活动中心转移到香港；此处作为组织危机专题的同期报刊导航，不把页面概括扩写为完整解散法律史。"
+        },
+        {
+          "page_id": 1584,
+          "page_label": "08",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-15-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年民盟南方支部与组织受压页",
+          "rationale": "同期报刊第8页已通过人工复核；用于地方组织和公共活动变化的页级导航，不替代行政原件或民盟内部传达文件。"
+        },
+        {
+          "page_id": 1585,
+          "page_label": "09",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1947-15-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年民盟机关刊物与民主运动受压的页",
+          "rationale": "页内涉及民盟机关刊物、地方民主运动遭受阻挠与监视压制；用于组织危机专题的同期报刊导航，不能单独证明正式解散公告。"
+        },
+        {
+          "page_id": 1748,
+          "page_label": "1",
+          "doc_key": "domestic-ocr/NLC:dagangbao-1947-11-04-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年11月4日《大剛報》民盟解散前报道页",
+          "rationale": "同期报刊第1页清晰刊出张群书面通知民盟、应允保障盟员安全及民盟将召开中常会讨论解散等报道入口；这是解散前页级证据，不替代政府原始文件或完整报道链。"
+        },
+        {
+          "page_id": 1752,
+          "page_label": "1",
+          "doc_key": "domestic-ocr/NLC:dagangbao-1947-11-06-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年11月6日《大剛報》民盟正式宣告解散页",
+          "rationale": "同期报刊第1页主标题清晰刊出民盟正式宣告解散及通告各地盟员停止活动；这是报刊页级直接报道，不替代民盟公告原件或政府公报全文。"
+        },
+        {
+          "page_id": 1770,
+          "page_label": "03",
+          "doc_key": "domestic-ocr/NLC:observer-1947-v3n11-selected-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "《观察》周炳琳等关于政府压迫民盟的声明页",
+          "rationale": "《观察》第3卷第11期第3页刊出“我们对于政府压迫民盟的看法”，署周炳琳等四十八人；属于同期公共声明页，引用范围限于本页，不扩写为全文结论。"
+        },
+        {
+          "page_id": 1771,
+          "page_label": "04",
+          "doc_key": "domestic-ocr/NLC:observer-1947-v3n11-selected-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "《观察》董时进关于取缔民盟的感想页",
+          "rationale": "《观察》第3卷第11期第4页刊出董时进“我对于政府取缔民盟的感想”；属于同期评论页，引用范围限于本页，不替代民盟或政府正式文件。"
+        },
+        {
+          "page_id": 1773,
+          "page_label": "01",
+          "doc_key": "domestic-ocr/NLC:dagongbao-shanghai-1947-11-06-page2-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年11月6日《大公報》上海版第2版民盟今日解散页",
+          "rationale": "上海版第2版完整 PDF 第1页视觉可见“民盟今日解散”“张澜等昨开会决定”“通告各地盟员停止政治活动”等标题；作为城市版本对读入口，不替代民盟公告原件或政府档案全文。"
+        },
+        {
+          "page_id": 1774,
+          "page_label": "01",
+          "doc_key": "domestic-ocr/NLC:dagongbao-tianjin-1947-11-06-page2-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年11月6日《大公報》天津版第2版民盟宣布解散页",
+          "rationale": "天津版第2版完整 PDF 第1页视觉可见“民盟宣布解散”“公告与政府洽商之经过”“通知盟员停止政治活动”等标题；作为城市版本对读入口，不替代民盟公告原件或政府档案全文。"
+        },
+        {
+          "page_id": 20276,
+          "page_label": "page-0003",
+          "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "《观察》第三卷第十一期关于政府压迫民盟的声明页",
+          "rationale": "本地期刊PDF第3页的卷期、页码和声明标题已视觉核验；作为同期公共声明页级入口，引用范围限于该页，不替代民盟或政府正式文件。"
+        },
+        {
+          "page_id": 20279,
+          "page_label": "page4",
+          "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11-dong-shijin",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "《观察》董时进关于取缔民盟的感想页",
+          "rationale": "本地期刊PDF第4页的页码、文章标题和署名位置已视觉核验；作为同期评论页级入口，不替代民盟内部原件或政府公文。"
+        },
+        {
+          "page_id": 20281,
+          "page_label": "page-0005",
+          "doc_key": "domestic-ocr/S3:domestic:NLC:observer-1947-v3n11-han-depei",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "《观察》韩德培关于人身自由问题的评论页",
+          "rationale": "本地期刊PDF第5页的页码、文章标题和版面边界已视觉核验；作为同期专业评论页级入口，不把评论扩写为行政事实记录。"
+        },
+        {
+          "page_id": 20305,
+          "page_label": "issue7604-1",
+          "doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-zhang-qun-notice",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年11月4日《大剛報》民盟解散前报道页（张群通知）",
+          "rationale": "本地PDF第一页的版头、日期、版号和民盟相关报道标题已视觉核验；作为解散前同期报刊页级入口，不替代政府公文或民盟内部文件。"
+        },
+        {
+          "page_id": 20307,
+          "page_label": "issue7604-1",
+          "doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-04-league-dissolution-meeting",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年11月4日《大剛報》民盟解散前报道页（中常会）",
+          "rationale": "本地PDF第一页的版头、日期、版号和民盟中常会相关报道标题已视觉核验；作为解散前同期报刊页级入口，不扩写为正式会议记录。"
+        },
+        {
+          "page_id": 20309,
+          "page_label": "issue7606-1",
+          "doc_key": "domestic-ocr/S3:domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年11月6日《大剛報》民盟正式宣告解散报道页",
+          "rationale": "本地PDF第一页的版头、日期、版号和“正式宣告解散”主标题已视觉核验；作为同期报刊直接报道页，不替代民盟公告原件或政府行政公文。"
+        },
+        {
+          "page_id": 20899,
+          "page_label": "1",
+          "doc_key": "domestic-ocr/NLC:dagangbao-1947-10-30-gdc0021",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1947年10月30日《大剛報》政府宣布民盟非法相关报道页",
+          "rationale": "公开扫描的同期《大剛報》第1页视觉可见“民盟准备解散”“张澜宣布暂时停止活动”及政府宣布民盟非法相关标题；这是10月30日报刊报道页，不替代1947年10月27日政府公函、民盟公告原件或完整政府法令链。"
+        }
+      ],
+      "event_link_strict_page_count": 16,
       "candidate_routes": [
         {
           "candidate_id": "domestic:GXMM:NLC-dagongbao-tianjin-1947-11-06-page2-excerpt",
@@ -5914,6 +6482,108 @@
           "formal_strict_citation_page_count": 0
         }
       ],
+      "event_link_pages": [
+        {
+          "page_id": 1629,
+          "page_label": "04",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1948-v1n1-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1948年《光明報》民盟三中全会成就页",
+          "rationale": "原PDF第4页题名明确为“民盟三中全会的成就”；属于同期报刊专题页，作为三中全会专题的严格页级入口，不替代会议原始文件。"
+        },
+        {
+          "page_id": 1630,
+          "page_label": "05",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1948-v1n1-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1948年《光明報》民盟当前任务页",
+          "rationale": "原PDF第5页题名明确围绕民盟当前任务展开并承接三中全会专题；作为同期报刊论述页导航，不把报刊文章等同三中全会决议全文。"
+        },
+        {
+          "page_id": 20665,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde04",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1948-05-01 毛泽东致李济深、沈钧儒电报页1",
+          "rationale": "中央档案馆公开专题本地扫描的页级入口，已核验影像身份、页序和来源哈希；作为官方档案公开扫描替身，不等同于档案馆母版或完整卷宗。"
+        },
+        {
+          "page_id": 20666,
+          "page_label": "page-02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde04",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1948-05-01 毛泽东致李济深、沈钧儒电报页2",
+          "rationale": "同一官方专题档案电报的连续页级入口；仅支持页序和文档范围，不替代全文校勘。"
+        },
+        {
+          "page_id": 20667,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页1",
+          "rationale": "中央档案馆公开专题中的官方档案影像页，已核验页级身份和来源哈希；作为五一口号后政协动员的页级入口，不把公开扫描替身当作完整文件。"
+        },
+        {
+          "page_id": 20668,
+          "page_label": "page-02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页2",
+          "rationale": "同一文件的连续手稿页级入口，保留修改痕迹和页序信息；不把机器 OCR 当作正文校勘。"
+        },
+        {
+          "page_id": 20669,
+          "page_label": "page-03",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页3",
+          "rationale": "同一文件的连续修改页级入口；只确认页面身份、页序和可见结构，不宣称全文逐字核验。"
+        },
+        {
+          "page_id": 20670,
+          "page_label": "page-04",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页4",
+          "rationale": "同一文件的连续附录/名单页级入口；不核定名单姓名全文，不替代完整文件范围和档案权利核验。"
+        },
+        {
+          "page_id": 20671,
+          "page_label": "page-05",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde08-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协文件页5",
+          "rationale": "同一文件末页的页级入口；只确认收束范围，不扩展为完整会议档案闭环。"
+        }
+      ],
+      "event_link_strict_page_count": 9,
       "candidate_routes": [
         {
           "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1",
@@ -6549,6 +7219,229 @@
           "formal_strict_citation_page_count": 0
         }
       ],
+      "event_link_pages": [
+        {
+          "page_id": 1670,
+          "page_label": "01",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1949年《光明報》新政协问题笔谈开篇页",
+          "rationale": "原PDF第1页明确标出“新政协问题笔谈”；为1949新政协专题提供同期报刊开篇入口，不替代电报、筹备会记录等原始档案。"
+        },
+        {
+          "page_id": 1671,
+          "page_label": "02",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1949年《光明報》筹备新政协页",
+          "rationale": "原PDF第2页题名为“筹备新政协”，并列出讨论问题与参与者；作为新政协筹备专题的同期报刊正文入口，事实仍需与档案互校。"
+        },
+        {
+          "page_id": 1673,
+          "page_label": "04",
+          "doc_key": "domestic-ocr/NLC:guangmingbao-1949-v2n1-full-ocr",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1949年《光明報》新政协任务讨论页",
+          "rationale": "原PDF第4页继续讨论新政协任务、民主联合政府与民盟相关政治表达；作为同期报刊一手材料入口，引用范围限于该页可见论述。"
+        },
+        {
+          "page_id": 20672,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde13",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：邀请张澜、黄炎培北上的电报页",
+          "rationale": "本地页图显示1949年北上邀请电报的单页档案影像；作为新政协筹备与民主人士北上专题的页级入口，不替代完整电报往来或筹备档案。"
+        },
+        {
+          "page_id": 20690,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p02-dde01-f1",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：新政协筹备会各小组开会概要页",
+          "rationale": "本地页图显示新政协筹备会各小组开会概要的单页及页码；作为筹备会工作档案的页级入口，不宣称筹备会全套档案或正文已完整核校。"
+        },
+        {
+          "page_id": 20733,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单题名页",
+          "rationale": "本地页图清晰显示《政协一届全体会议单位及代表名单（1949-09-21）》题名和日期；这是公开专题扫描中的档案影像页级锚点，不替代完整档案卷宗或名单全文。"
+        },
+        {
+          "page_id": 20734,
+          "page_label": "page-02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页2",
+          "rationale": "公开专题扫描中的代表名单连续页，已完成页级影像身份、页序和来源哈希核验；只支持名单页范围，不核定姓名全文或完整名册。"
+        },
+        {
+          "page_id": 20735,
+          "page_label": "page-03",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页3",
+          "rationale": "同一代表名单的连续页级入口，保留物理页序和版面范围；不把机器 OCR 或个别姓名识别当作正式转录。"
+        },
+        {
+          "page_id": 20736,
+          "page_label": "page-04",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页4",
+          "rationale": "同一代表名单的连续页级入口，已核验页身份、页序和来源哈希；不扩展为完整代表名单闭环。"
+        },
+        {
+          "page_id": 20737,
+          "page_label": "page-05",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页5",
+          "rationale": "同一代表名单的连续页级入口，能够支持页级导航和文献范围核对；不核定名单姓名全文。"
+        },
+        {
+          "page_id": 20738,
+          "page_label": "page-06",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：中国民主同盟代表名单页",
+          "rationale": "本地页图可辨认代表名单中的“中国民主同盟”分栏及代表人数提示；可作民盟代表页级证据，不扩展为完整代表名册或逐字转录。"
+        },
+        {
+          "page_id": 20739,
+          "page_label": "page-07",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页",
+          "rationale": "本地页图显示政协一届全体会议单位及代表名单的连续第7页；作为代表名册页级入口，不核定姓名全文或宣称完整名单已经逐页复核。"
+        },
+        {
+          "page_id": 20755,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：中国民主同盟代表签名册题名页",
+          "rationale": "公开专题扫描中的签名册题名页已完成人工影像核验；作为签名册页级入口，不宣称全部签名页或签名文字已经核对。"
+        },
+        {
+          "page_id": 20756,
+          "page_label": "page-02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：中国民主同盟代表签名册连续页2",
+          "rationale": "签名册连续页的影像身份、物理页序和可见结构已核验；不把难辨手写姓名转写为确定姓名。"
+        },
+        {
+          "page_id": 20757,
+          "page_label": "page-03",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：中国民主同盟代表签名册页",
+          "rationale": "本地页图显示“中国民主同盟”签名册标题和签名区域；可作签名册页级入口，不把难辨签名转写为确定姓名，也不宣称签名册完整。"
+        },
+        {
+          "page_id": 20767,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：第一届全体会议日程题名页",
+          "rationale": "本地页图清晰显示中国人民政治协商会议第一届全体会议日程及1949-09-21至09-30日期范围；可作程序页级锚点，不替代完整日程册。"
+        },
+        {
+          "page_id": 20768,
+          "page_label": "page-02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：第一届全体会议每日议程页",
+          "rationale": "本地页图可辨认第一届全体会议每日议程的连续页结构，作为题名页的程序交叉页；不据此宣称完整会议记录或全部议程已收齐。"
+        },
+        {
+          "page_id": 20769,
+          "page_label": "page-03",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：第一届全体会议每日议程连续页3",
+          "rationale": "公开专题扫描中的会议日程连续页，已核验页身份、页序和可见日期/议程结构；不替代完整日程册或会议记录。"
+        },
+        {
+          "page_id": 20770,
+          "page_label": "page-04",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde06-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：第一届全体会议每日议程连续页4",
+          "rationale": "公开专题扫描中的会议日程连续页，已核验页级身份、物理页序和可见议程范围；不据此宣称完整会议记录已经收齐。"
+        },
+        {
+          "page_id": 20771,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde07-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议主席团名单页",
+          "rationale": "本地页图清晰显示中国人民政治协商会议第一届全体会议主席团名单题名及名单版面；作为会议组织结构的页级入口，不替代完整会议档案或姓名逐字校勘。"
+        }
+      ],
+      "event_link_strict_page_count": 20,
       "candidate_routes": [
         {
           "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1",

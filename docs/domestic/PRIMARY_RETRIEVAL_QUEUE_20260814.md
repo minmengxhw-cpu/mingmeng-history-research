@@ -2,7 +2,7 @@
 
 ## 定位
 
-这份队列把 `event_coverage.json` 中九个专题的 `missing_primary` 目标，与候选记录、官方访问审计和正式库页级元数据对齐。当前候选元数据为 690 条，正式库只读叠加层识别到 689 条候选记录。队列现为 `domestic_primary_retrieval_queue.v2`：对已关联正式库的候选同时保留页 ID、页标签和严格页标记，收口看板可直接打开页级记录。它回答的是“下一步去哪里取得或核验原件”，不是“这些候选已经证明了事件”。
+这份队列把 `event_coverage.json` 中九个专题的 `missing_primary` 目标，与候选记录、官方访问审计和正式库页级元数据对齐。当前候选元数据为 690 条，正式库只读叠加层识别到 689 条候选记录。队列现为 `domestic_primary_retrieval_queue.v3`：对已关联正式库的候选保留页 ID、页标签和严格页标记，同时把已有的专题页级回链以 `event_link_pages` 叠加到对应专题，收口看板不会漏掉已核验的导航入口。它回答的是“下一步去哪里取得或核验原件”，不是“这些候选已经证明了事件”。
 
 机器路由分为：
 
@@ -28,7 +28,7 @@
 
 目标项的 `formal_page_count` 和 `formal_strict_citation_page_count` 是候选路由的只读汇总。它们用于分流工作，不是“原件闭环”判定。
 
-当候选已经与正式文档关联时，路由还包含 `formal_pages`、`formal_page_ids` 和 `formal_strict_page_ids`。看板对严格页提供 `/cite/<page_id>`，对待复核页提供 `/doc/<doc_key>?page_id=<page_id>`；这些链接只展示正式库已有页，不会把开放主证据目标改成 closed，也不会复制正文。
+当候选已经与正式文档关联时，路由还包含 `formal_pages`、`formal_page_ids` 和 `formal_strict_page_ids`。队列还会从 `citation_event_links.json` 解析已有专题页级入口，保存在专题的 `event_link_pages` 中。看板对严格页提供 `/cite/<page_id>`，对待复核页提供 `/doc/<doc_key>?page_id=<page_id>`；这些链接只展示正式库已有页，不会把开放主证据目标改成 `closed`，也不会复制正文。专题页级入口与候选路由分开统计，避免把已有交叉材料误当成缺口目标的原件闭环。
 
 ## 日期语义
 

@@ -5135,6 +5135,7 @@ def _research_gap_rows() -> list[dict[str, object]]:
     retrieval_queue = _load_primary_retrieval_queue()
     retrieval_targets: dict[tuple[str, str], dict[str, object]] = {}
     retrieval_routes: dict[str, dict[str, object]] = {}
+    retrieval_event_pages: dict[str, list[dict[str, object]]] = {}
     formal_index_available = bool(
         isinstance(retrieval_queue, dict)
         and isinstance(retrieval_queue.get("formal_index"), dict)
@@ -5144,6 +5145,11 @@ def _research_gap_rows() -> list[dict[str, object]]:
         if not isinstance(topic, dict):
             continue
         topic_event_id = str(topic.get("event_id") or "")
+        event_pages = topic.get("event_link_pages")
+        if isinstance(event_pages, list):
+            retrieval_event_pages[topic_event_id] = [
+                page for page in event_pages if isinstance(page, dict) and page.get("page_id")
+            ]
         for target in topic.get("missing_primary", []) if isinstance(topic.get("missing_primary"), list) else []:
             if isinstance(target, dict):
                 retrieval_targets[(topic_event_id, str(target.get("target") or ""))] = target
@@ -5290,6 +5296,7 @@ def _research_gap_rows() -> list[dict[str, object]]:
                     "candidates": candidate_cards[:6],
                     "candidate_overflow": max(0, len(candidate_cards) - 6),
                     "layer_counts": layer_counts,
+                    "event_link_pages": list(retrieval_event_pages.get(event_id, [])),
                 }
             )
     return result
@@ -5403,10 +5410,33 @@ def research_gaps_page() -> bytes:
   <div class="cite"><a href="/research/{quote(str(gap["event_id"]))}">专题详情</a><br><a href="/domestic/acquisition">调档清单</a></div>
 </article>"""
             )
+        event_page_links: list[str] = []
+        for page in first.get("event_link_pages") or []:
+            if not isinstance(page, dict) or not page.get("page_id"):
+                continue
+            page_id = int(page["page_id"])
+            page_label = str(page.get("page_label") or page_id)
+            doc_key = str(page.get("doc_key") or "")
+            if page.get("strict_citation"):
+                href = f"/cite/{page_id}"
+                label = f"严格页 {page_label}"
+            elif doc_key:
+                href = f"/doc/{quote(doc_key, safe='')}?page_id={page_id}"
+                label = f"待复核页 {page_label}"
+            else:
+                continue
+            event_page_links.append(f'<a class="tag" href="{href}">{h(label)}</a>')
+        existing_topic_pages = (
+            '<div class="snippet"><strong>已有专题页级入口：</strong>'
+            + " ".join(event_page_links)
+            + '<span class="meta">（仅作专题导航，不关闭下方开放原件目标）</span></div>'
+            if event_page_links
+            else ""
+        )
         topic_sections.append(
             f"""
 <div class="section-head"><h2><a href="/research/{quote(event_id)}">{h(first["event_name"])}</a></h2><span class="meta">{h(first["primary_evidence_label"])} · {len(event_gaps)} 个开放目标</span></div>
-<div class="notice"><strong>研究问题：</strong>{h(first["research_question"] or "尚未登记研究问题。")}<br><strong>专题边界：</strong>{h(first["primary_evidence_gap"] or "尚未登记一手闭环边界。")}</div>
+<div class="notice"><strong>研究问题：</strong>{h(first["research_question"] or "尚未登记研究问题。")}<br><strong>专题边界：</strong>{h(first["primary_evidence_gap"] or "尚未登记一手闭环边界。")}{existing_topic_pages}</div>
 <section class="result-list">{"".join(target_cards)}</section>"""
         )
 

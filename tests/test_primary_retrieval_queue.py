@@ -269,3 +269,47 @@ def test_retrieval_queue_matches_event_tags_and_keeps_mmhist_surrogate():
     assert route["target_match"] is True
     assert route["route_status"] == "PUBLIC_SURROGATE"
     assert route["candidate_id"] == "compiled-notice"
+
+
+def test_retrieval_queue_exposes_existing_event_pages_without_closing_gap():
+    result = build_queue(
+        [
+            {
+                "event_id": "e",
+                "event_name": "1941年成立",
+                "primary_evidence_status": "partial",
+                "domestic_candidate_ids": [],
+            }
+        ],
+        {
+            "e": {
+                "layers": {
+                    "missing_primary": [
+                        {"target": "1941年成立独立原件", "status": "open"}
+                    ]
+                }
+            }
+        },
+        {},
+        {},
+        event_link_pages={
+            "e": [
+                {
+                    "page_id": 1473,
+                    "page_label": "009",
+                    "doc_key": "domestic-ocr/formation",
+                    "strict_citation": True,
+                }
+            ]
+        },
+        event_link_index_available=True,
+    )
+    topic = result["topics"][0]
+    target = topic["missing_primary"][0]
+    assert result["schema"] == "domestic_primary_retrieval_queue.v3"
+    assert result["event_link_index"]["page_count"] == 1
+    assert topic["event_link_strict_page_count"] == 1
+    assert topic["event_link_pages"][0]["page_id"] == 1473
+    assert target["status"] == "open"
+    assert result["body_read"] is False
+    assert result["formal_db_written"] is False

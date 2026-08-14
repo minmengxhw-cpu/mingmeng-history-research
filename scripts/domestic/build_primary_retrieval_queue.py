@@ -25,6 +25,7 @@ DEFAULT_CHAIN = ROOT / "data/domestic/topic_evidence_chain.json"
 DEFAULT_CANDIDATES = ROOT / "data/domestic/candidates.jsonl"
 DEFAULT_ACCESS_AUDIT = ROOT / "data/domestic/primary_evidence_access_audit.json"
 DEFAULT_DB = ROOT / "data/research_index.sqlite"
+DEFAULT_EVENT_LINKS = ROOT / "data/domestic/citation_event_links.json"
 DEFAULT_OUTPUT = ROOT / "data/domestic/primary_retrieval_queue.json"
 
 ITEM_EVIDENCE_TYPES = {"digital_image", "official_document"}
@@ -167,6 +168,122 @@ def read_formal_index(path: Path) -> tuple[dict[str, dict[str, Any]], bool]:
             "formal_ingest_status": status,
         }
     return index, True
+
+
+def read_event_link_pages(path: Path, db_path: Path) -> tuple[dict[str, list[dict[str, Any]]], bool]:
+    """Resolve existing topic page links against formal page metadata.
+
+    The event-link file is a navigation-only manifest.  This overlay reads
+    only document keys, page labels and provenance flags; it never reads
+    ``pages.text`` and never changes the formal database.  A resolved page is
+    shown as an existing topic entry, not as proof that a ``missing_primary``
+    target is closed.
+    """
+    if not path.is_file() or not db_path.is_file():
+        return {}, False
+    try:
+        payload = read_json(path)
+    except (OSError, json.JSONDecodeError):
+        return {}, False
+    links = payload.get("links", []) if isinstance(payload, dict) else []
+    if not isinstance(links, list):
+        return {}, False
+    link_keys = sorted(
+        {
+            (str(link.get("doc_key") or ""), str(link.get("page_label") or ""))
+            for link in links
+            if isinstance(link, dict)
+            and str(link.get("doc_key") or "")
+            and str(link.get("page_label") or "")
+        }
+    )
+    if not link_keys:
+        return {}, True
+    try:
+        resolved = db_path.resolve()
+        with sqlite3.connect(f"file:{resolved}?mode=ro", uri=True) as connection:
+            connection.row_factory = sqlite3.Row
+            required = {"documents", "pages", "page_provenance"}
+            existing = {
+                row[0]
+                for row in connection.execute(
+                    "SELECT name FROM sqlite_master WHERE type='table'"
+                )
+            }
+            if not required <= existing:
+                return {}, False
+            where = " OR ".join("(d.doc_key=? AND p.page_label=?)" for _ in link_keys)
+            params = [value for pair in link_keys for value in pair]
+            rows = connection.execute(
+                f"""
+                SELECT
+                    p.id AS page_id,
+                    p.page_label,
+                    d.doc_key,
+                    pp.page_id AS provenance_page_id,
+                    pp.citation_ready,
+                    pp.needs_human_review,
+                    pp.review_status,
+                    pp.human_review_note,
+                    pp.source_file,
+                    pp.source_sha256
+                FROM pages p
+                JOIN documents d ON d.id=p.document_id
+                LEFT JOIN page_provenance pp ON pp.page_id=p.id
+                WHERE {where}
+                ORDER BY d.doc_key, p.id
+                """,
+                params,
+            ).fetchall()
+    except (OSError, sqlite3.Error):
+        return {}, False
+
+    resolved_pages: dict[tuple[str, str], dict[str, Any]] = {}
+    for row in rows:
+        strict = (
+            int(row["citation_ready"] or 0) == 1
+            and int(row["needs_human_review"] or 0) == 0
+            and str(row["review_status"] or "") == "human_verified"
+            and bool(str(row["human_review_note"] or "").strip())
+        )
+        key = (str(row["doc_key"] or ""), str(row["page_label"] or ""))
+        resolved_pages[key] = {
+            "page_id": int(row["page_id"]),
+            "page_label": str(row["page_label"] or ""),
+            "doc_key": str(row["doc_key"] or ""),
+            "provenance_present": row["provenance_page_id"] is not None,
+            "source_anchored": bool(
+                str(row["source_file"] or "").strip()
+                and len(str(row["source_sha256"] or "").strip()) == 64
+            ),
+            "strict_citation": strict,
+            "status": "strict_citation" if strict else "review_only",
+        }
+
+    by_event: dict[str, list[dict[str, Any]]] = {}
+    for link in links:
+        if not isinstance(link, dict):
+            continue
+        event_id = str(link.get("event_id") or "")
+        page = resolved_pages.get(
+            (str(link.get("doc_key") or ""), str(link.get("page_label") or ""))
+        )
+        if not event_id or page is None:
+            continue
+        item = dict(page)
+        item.update(
+            {
+                "navigation_title": str(link.get("navigation_title") or ""),
+                "rationale": str(link.get("rationale") or ""),
+            }
+        )
+        by_event.setdefault(event_id, []).append(item)
+    for event_id, items in by_event.items():
+        deduped: dict[int, dict[str, Any]] = {}
+        for item in items:
+            deduped[int(item["page_id"])] = item
+        by_event[event_id] = [deduped[page_id] for page_id in sorted(deduped)]
+    return by_event, True
 
 
 def chain_by_event(value: Any) -> dict[str, dict[str, Any]]:
@@ -389,6 +506,8 @@ def build_queue(
     audits: dict[str, dict[str, Any]],
     formal_index: dict[str, dict[str, Any]] | None = None,
     formal_index_available: bool = False,
+    event_link_pages: dict[str, list[dict[str, Any]]] | None = None,
+    event_link_index_available: bool = False,
 ) -> dict[str, Any]:
     topics: list[dict[str, Any]] = []
     route_counts: Counter[str] = Counter()
@@ -475,6 +594,12 @@ def build_queue(
                 "event_name": str(item.get("event_name") or ""),
                 "primary_evidence_status": str(item.get("primary_evidence_status") or ""),
                 "missing_primary": missing_target_rows,
+                "event_link_pages": list((event_link_pages or {}).get(event_id, [])),
+                "event_link_strict_page_count": sum(
+                    int(bool(page.get("strict_citation")))
+                    for page in (event_link_pages or {}).get(event_id, [])
+                    if isinstance(page, dict)
+                ),
                 "candidate_routes": sorted(
                     topic_routes_by_id.values(),
                     key=lambda row: (-int(row["route_score"]), row["candidate_id"]),
@@ -483,7 +608,7 @@ def build_queue(
             }
         )
     return {
-        "schema": "domestic_primary_retrieval_queue.v2",
+        "schema": "domestic_primary_retrieval_queue.v3",
         "generated_at": str(date.today()),
         "scope": "九个国内专题的开放主证据目标",
         "policy": "候选路由只用于追索；不把目录、转录、后期叙述或锁定查看器升级为原件闭环。",
@@ -497,6 +622,16 @@ def build_queue(
             "body_read": False,
             "formal_db_written": False,
             "candidate_count": len(formal_index or {}) if formal_index_available else 0,
+        },
+        "event_link_index": {
+            "available": event_link_index_available,
+            "metadata_only": True,
+            "body_read": False,
+            "formal_db_written": False,
+            "event_count": len(event_link_pages or {}) if event_link_index_available else 0,
+            "page_count": sum(len(rows) for rows in (event_link_pages or {}).values())
+            if event_link_index_available
+            else 0,
         },
         "body_read": False,
         "formal_db_written": False,
@@ -513,6 +648,7 @@ def main() -> int:
     parser.add_argument("--candidates", type=Path, default=DEFAULT_CANDIDATES)
     parser.add_argument("--access-audit", type=Path, default=DEFAULT_ACCESS_AUDIT)
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
+    parser.add_argument("--event-links", type=Path, default=DEFAULT_EVENT_LINKS)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
     coverage = read_json(args.coverage)
@@ -525,6 +661,7 @@ def main() -> int:
         if isinstance(row, dict) and row.get("candidate_id")
     }
     formal_index, formal_index_available = read_formal_index(args.db)
+    event_link_pages, event_link_index_available = read_event_link_pages(args.event_links, args.db)
     result = build_queue(
         coverage,
         chains,
@@ -532,6 +669,8 @@ def main() -> int:
         audits,
         formal_index=formal_index,
         formal_index_available=formal_index_available,
+        event_link_pages=event_link_pages,
+        event_link_index_available=event_link_index_available,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -545,6 +684,7 @@ def main() -> int:
                     "open_target_count",
                     "route_status_counts",
                     "formal_index",
+                    "event_link_index",
                     "body_read",
                     "formal_db_written",
                 )
