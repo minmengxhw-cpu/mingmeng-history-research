@@ -687,10 +687,18 @@ def research_packet_page(event_id: str) -> bytes:
                 if isinstance(page, dict) and page.get("page_id") is not None
             ) or "未绑定正式页号"
             source_link = app.source_href(source.get("source_url") or "#")
+            source_links = [
+                f'<a href="{esc(source_link)}" target="_blank" rel="noreferrer">来源入口</a>'
+            ]
+            official_image_url = str(source.get("official_image_url") or "")
+            if official_image_url:
+                source_links.append(
+                    f'<a href="{esc(official_image_url)}" target="_blank" rel="noreferrer">官方图像</a>'
+                )
             source_rows.append(
                 f'<li><strong>{esc(source.get("title") or source.get("source_id"))}</strong> · '
                 f'{esc(source.get("source_role") or "")}; {esc(page_labels)} · '
-                f'<a href="{esc(source_link)}" target="_blank" rel="noreferrer">来源入口</a></li>'
+                f'{" · ".join(source_links)}</li>'
             )
         source_map_cards.append(
             f'''<article class="result compact-result"><div>

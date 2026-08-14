@@ -31,12 +31,14 @@
 - 8765 真实 HTTP 回归：`/research/parity` 与 `/domestic/library?layer=core` 均返回 200。
 - 8765 真实 HTTP 回归：`/research/gaps` 与 `/domestic/acquisition?event=domestic-1941-formation` 均返回 200；页面无 `Traceback`、`Internal Server Error` 或本地文件路径。
 - 8765 真实 HTTP 回归：`/research/domestic-1941-formation/packet` 返回 200；研究包与调档页均显示最小闭环目标，未复制正文。
+- 8765 真实 HTTP 回归：`/research/domestic-1949-new-pcc/packet` 返回 200；页面包含“官方图像”入口和公开图像 URL，且无 `Traceback`、`Internal Server Error` 或本地文件路径。
 - 当前正式库 manifest：数据库 SHA256 `75312b9c1cfe7d8978f64c572b4c32b7ab443fb507eabfd3b2fce47031d2109e`；1,413 个文档、6,266 个页、220 个严格人工引用页；SQLite 完整性、外键、FTS 和来源 hash 检查通过。
 - 当前专题检索队列：81 个页级事件导航关联；队列和主证据矩阵已按当前数据库重建。
 - 统一门禁最新结果：`status=PASS`，`research_content_status=OPEN_PRIMARY_GAPS`；矩阵、来源地图和检索队列的专题数、页数及候选路由数一致。
 - 李闻专题新增 2 条正文-free 原刊追索路线：民盟云南官方盟史出版范围和商业影印目录；两条均为 `navigation_only`，不增加正式库页或严格引用页。
 - 1944 改组专题新增 1 条正文-free 官方盟史导航锚点；只用于日期、地点和组织变化的交叉定位，不增加正式库页或严格引用页。
 - 1949 新政协专题新增 1 条中国国家博物馆公开代表签名册文物图像路线；已保存本地 SHA256 并视觉确认图像身份，状态保持 `review_only`，不关闭完整会议档案缺口。
+- 1949 专题研究包会把该来源的 `official_image_url` 单独呈现为“官方图像”入口；这只改善可访问性，不改变 `review_only`、`body_read=false` 和 `citation_ready=false` 边界。
 
 ## 未完成项
 

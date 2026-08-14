@@ -350,15 +350,15 @@ def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_bod
     packet = build_research_packet("domestic-1949-new-pcc")
     assert packet is not None
     assert packet["counts"]["event_source_map_count"] == 1
-    assert packet["counts"]["event_source_page_record_count"] == 71
+    assert packet["counts"]["event_source_page_record_count"] == 72
     source_map = packet["event_source_maps"][0]
     assert source_map["primary_evidence_closed"] is False
     assert source_map["body_text_included"] is False
-    assert len(source_map["sources"]) == 71
+    assert len(source_map["sources"]) == 72
     pages = [page for source in source_map["sources"] for page in source["page_records"]]
     assert sum(page["status"] == "strict_citation" for page in pages) == 20
     assert sum(page["status"] == "navigation_only" for page in pages) == 36
-    assert sum(page["status"] == "review_only" for page in pages) == 15
+    assert sum(page["status"] == "review_only" for page in pages) == 16
     assert all(
         page["citation_ready"] is True
         and page["needs_human_review"] is False
@@ -374,7 +374,9 @@ def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_bod
     assert validate_packet(packet, "domestic-1949-new-pcc")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1949-new-pcc").decode("utf-8")
     assert '"text"' not in raw
-    assert "专题来源地图" in research_packet_page("domestic-1949-new-pcc").decode("utf-8")
+    html = research_packet_page("domestic-1949-new-pcc").decode("utf-8")
+    assert "专题来源地图" in html
+    assert "官方图像" in html
 
 
 def test_1948_third_plenum_packet_carries_press_and_archive_pages_without_body():
