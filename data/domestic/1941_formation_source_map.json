@@ -1,0 +1,150 @@
+{
+  "schema": "domestic_event_source_map.v1",
+  "event_id": "domestic-1941-formation",
+  "title": "1941年中国民主政团同盟成立：汇编页与原刊追索地图",
+  "review_status": "reprint_page_ready_original_periodical_open",
+  "evidence_scope": "1946年正式汇编重刊页、1941年《光明報》原刊追索入口",
+  "body_text_included": false,
+  "ocr_text_included": false,
+  "raw_files_included": false,
+  "formal_db_written_by_map": false,
+  "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
+  "primary_evidence_closed": false,
+  "primary_evidence_gap": "1941-10-10《光明報》原刊影像、版次页码和成立宣言底本的馆藏/版本关系仍待实际调取；1946汇编重刊不能替代原刊",
+  "sources": [
+    {
+      "source_id": "nlc-minmeng-wenxian-1946-formation",
+      "title": "《民主同盟文獻》1946年汇编中的1941成立文件页组",
+      "source_role": "official_sourcebook_reprint",
+      "evidence_level": "L2",
+      "source_file": "data/domestic/sourcebooks/NLC416-01jh004281-12557_民主同盟文獻_1946.pdf",
+      "source_sha256": "276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f",
+      "source_file_size": 13898719,
+      "page_count": 176,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf",
+      "access_note": "中国国家图书馆公开扫描镜像；正式库已有页级 provenance，但本件为1946年汇编重刊",
+      "page_records": [
+        {
+          "page_id": 1473,
+          "pdf_page_no": 9,
+          "target": "1941成立宣言",
+          "role": "《中国民主政团同盟成立宣言》印刷页1",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "sourcebook_reprint_page_identity",
+          "page_image_sha256": null,
+          "caveat": "可引用的是1946年汇编中的重刊页，不等于1941年《光明報》原刊或成立会议底本。"
+        },
+        {
+          "page_id": 1474,
+          "pdf_page_no": 10,
+          "target": "1941成立宣言",
+          "role": "《中国民主政团同盟成立宣言》印刷页2",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "sourcebook_reprint_page_identity",
+          "page_image_sha256": null,
+          "caveat": "连续页只证明汇编中的文本边界，不单独证明原始版本关系。"
+        },
+        {
+          "page_id": 1475,
+          "pdf_page_no": 11,
+          "target": "1941成立宣言",
+          "role": "《中国民主政团同盟成立宣言》印刷页3",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "sourcebook_reprint_page_identity",
+          "page_image_sha256": null,
+          "caveat": "这是汇编重刊的连续末页，不能替代原刊影像。"
+        },
+        {
+          "page_id": 1476,
+          "pdf_page_no": 12,
+          "target": "1941对时局主张纲领",
+          "role": "成立宣言之后的早期政治主张页1",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "sourcebook_reprint_page_identity",
+          "page_image_sha256": null,
+          "caveat": "提供纲领的汇编页级入口，不解释为1941年原刊已取得。"
+        },
+        {
+          "page_id": 1477,
+          "pdf_page_no": 13,
+          "target": "1941对时局主张纲领",
+          "role": "早期政治主张连续页2",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "sourcebook_reprint_page_identity",
+          "page_image_sha256": null,
+          "caveat": "与前页同属1946年汇编重刊，不能替代《光明報》原刊。"
+        }
+      ]
+    },
+    {
+      "source_id": "lnu-guangmingbao-1941-index",
+      "title": "岭南大学《光明报，1941》剪报索引",
+      "source_role": "university_finding_aid",
+      "evidence_level": "L4",
+      "source_file": "data/domestic/press_scans/LNU_PROFMKCHAN_INDEXLIST_14_光明報_1941.pdf",
+      "source_sha256": "7ff54b899dddbbfe4f089aca87c3ca98b4de1fcd0074e0ae571f598bdcceb3a9",
+      "source_file_size": 545386,
+      "page_count": 2,
+      "source_url": "https://commons.ln.edu.hk/profmkchan_indexlist/14/",
+      "access_note": "岭南大学数字典藏索引；提供原刊日期/页码追索，不是原刊影像",
+      "page_records": [
+        {
+          "page_id": null,
+          "local_pdf_page_no": 2,
+          "target": "1941年10—11月《光明報》原刊定位",
+          "role": "记录剪报标题、出版日期、印行页码和版位的馆藏追索入口",
+          "status": "navigation_only",
+          "review_status": "human_verified",
+          "citation_ready": false,
+          "needs_human_review": false,
+          "review_scope": "finding_aid_locator_only",
+          "page_image_sha256": null,
+          "caveat": "索引经核读未直接提供10月10日成立宣言原刊影像；不得当作原刊正文。"
+        }
+      ]
+    },
+    {
+      "source_id": "hku-guangmingbao-1941-microfilm",
+      "title": "香港大学特别馆藏《光明報》1941年缩微胶卷",
+      "source_role": "university_catalogue_access_route",
+      "evidence_level": "L4",
+      "source_file": "data/domestic/official_research_public_20260730/pdf/domestic:HKU:guangmingbao-1941-microform-holdings__光明報_1941年9月18日_12月12日馆藏缩微胶卷记录_075.pdf",
+      "source_sha256": "7b9b1d8c3de9396ffd0dd5e58c75e8f70c07142671109aef4c1cb6df1b10e52a",
+      "source_file_size": 190224,
+      "page_count": 3,
+      "source_url": "https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKU_IZ21440249790003414&vid=HKU&lang=en_US",
+      "official_url": "https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/newspaper_1940s_update_072021.pdf",
+      "access_note": "馆藏记录确认1941-09-18至12-12且标注无缺期；原刊需按香港大学 Special Collections 规则预约调取",
+      "page_records": [
+        {
+          "page_id": null,
+          "local_pdf_page_no": 1,
+          "target": "1941-09-18、1941-10-10、1941-10-16原刊调取",
+          "role": "原刊缩微胶卷的可执行馆藏入口",
+          "status": "access_route",
+          "review_status": "human_verified",
+          "citation_ready": false,
+          "needs_human_review": false,
+          "review_scope": "catalogue_access_route",
+          "page_image_sha256": null,
+          "caveat": "馆藏记录不等于已取得逐期影像、版次、页码或复制许可。"
+        }
+      ]
+    }
+  ]
+}
