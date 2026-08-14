@@ -5,6 +5,14 @@
 
 ## 2026-08-14
 
+### 1949 新政协：追加四页页级视觉复核
+
+- 对北上邀请电报、筹备会概要、代表名单连续页和主席团名单各一页做本地图像视觉复核，严格人工可引用页由 179 增至 183。
+- 批次为 `work/domestic/saac_1949_pcc_followup_20260814/BATCH_NEXT.json`；只写页级身份、来源 SHA256、页序和复核范围，不保存正文或 OCR 文本。
+- 写入前数据库 SHA256 为 `93c3cce2e2d119d981d99ad2fd158b34c2c8313a9020bd87c4dc62ae26038edc`，写入后为 `dae8eb8a6afa2da8753e6506532669f1ac0aaa02e12938b17b5866285c6605a2`；备份为 `/private/tmp/mingmeng_research_index_20260814_saac_followup_next.bak`。
+- 这四页只增强 1949 专题的页级导航和有限事实核对，不替代完整新政协会议档案、民盟代表发言或完整代表名册。
+- 四页随后回接 `domestic-1949-new-pcc` 专题事件索引，新增 4 条导航关联；写入前 SHA256 为 `dae8eb8a6afa2da8753e6506532669f1ac0aaa02e12938b17b5866285c6605a2`，写入后为 `d309ce966121bdce6341171c1a467b6caac4946de3c836c8ebb32d9f3905b997`，备份为 `/private/tmp/mingmeng_research_index_20260814_saac_followup_next_links.bak`。
+
 ### 固化国内学术对读元数据快照
 
 - 新增 `data/domestic/academic_topic_crosswalk.json`，保存九个国内专题的 159 条学术匹配计数、质量层级和不含正文的记录标识。

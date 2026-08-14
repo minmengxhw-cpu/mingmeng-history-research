@@ -341,6 +341,34 @@
       "page_label": "page-02",
       "navigation_title": "中央档案馆专题扫描：第一届全体会议每日议程页",
       "rationale": "本地页图可辨认第一届全体会议每日议程的连续页结构，作为题名页的程序交叉页；不据此宣称完整会议记录或全部议程已收齐。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p01-dde13",
+      "page_label": "page-01",
+      "navigation_title": "中央档案馆专题扫描：邀请张澜、黄炎培北上的电报页",
+      "rationale": "本地页图显示1949年北上邀请电报的单页档案影像；作为新政协筹备与民主人士北上专题的页级入口，不替代完整电报往来或筹备档案。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p02-dde01-f1",
+      "page_label": "page-01",
+      "navigation_title": "中央档案馆专题扫描：新政协筹备会各小组开会概要页",
+      "rationale": "本地页图显示新政协筹备会各小组开会概要的单页及页码；作为筹备会工作档案的页级入口，不宣称筹备会全套档案或正文已完整核校。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-07",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页",
+      "rationale": "本地页图显示政协一届全体会议单位及代表名单的连续第7页；作为代表名册页级入口，不核定姓名全文或宣称完整名单已经逐页复核。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde07-i3",
+      "page_label": "page-01",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议主席团名单页",
+      "rationale": "本地页图清晰显示中国人民政治协商会议第一届全体会议主席团名单题名及名单版面；作为会议组织结构的页级入口，不替代完整会议档案或姓名逐字校勘。"
     }
   ],
   "known_uncovered_topics": []
