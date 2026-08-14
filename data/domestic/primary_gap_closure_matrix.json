@@ -1,0 +1,1429 @@
+{
+  "schema": "domestic_primary_gap_closure_matrix.v1",
+  "generated_at": "2026-08-14T19:37:10.416595+00:00",
+  "scope": "九个国内专题的主证据闭环执行矩阵",
+  "body_read": false,
+  "formal_db_written": false,
+  "policy": "导航、汇编重刊、目录、OCR草稿和学术解释不自动关闭主证据缺口；每个升级必须保留来源、版本、页码、SHA256和复核边界。",
+  "inputs": {
+    "coverage": "data/domestic/event_coverage.json",
+    "queue": "data/domestic/primary_retrieval_queue.json",
+    "source_map_dir": "data/domestic"
+  },
+  "summary": {
+    "topic_count": 9,
+    "open_primary_topics": 9,
+    "closed_primary_topics": 0,
+    "open_target_count": 9,
+    "candidate_route_count": 124,
+    "target_match_route_count": 121,
+    "source_map_count": 9,
+    "source_map_page_record_count": 192,
+    "route_status_counts": {
+      "CATALOGUE_OR_FINDING_AID": 4,
+      "OFFICIAL_VIEWER_LOCKED": 1,
+      "PUBLIC_ITEM_CANDIDATE": 69,
+      "PUBLIC_NAVIGATION_LEAD": 3,
+      "PUBLIC_SURROGATE": 44,
+      "RELATED_CONTEXT_ONLY": 3
+    }
+  },
+  "topics": [
+    {
+      "event_id": "domestic-1941-formation",
+      "event_name": "1941年中国民主政团同盟成立",
+      "priority": "P0",
+      "priority_rationale": "成立宣言和早期组织来源决定整个国内时间轴的起点。",
+      "primary_evidence_status": "partial",
+      "primary_evidence_label": "一手证据部分闭环",
+      "primary_evidence_gap": "成立宣言原件影像、档号与版本关系仍待回追；现有转录和汇编不能替代原始底本。",
+      "open_target_count": 1,
+      "open_targets": [
+        {
+          "target": "1941年成立宣言或成立会议的独立原件影像、馆藏档号和版本关系",
+          "why_it_matters": "决定“成立时间、签署主体、文本版本”能否以原始底本作严格引用。",
+          "status": "open",
+          "retrieval_class": "CATALOGUE_OR_SURROGATE_REVIEW",
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 12,
+          "formal_page_count": 26,
+          "formal_strict_citation_page_count": 0
+        }
+      ],
+      "candidate_route_count": 12,
+      "target_match_route_count": 9,
+      "route_status_counts": {
+        "CATALOGUE_OR_FINDING_AID": 3,
+        "PUBLIC_NAVIGATION_LEAD": 3,
+        "PUBLIC_SURROGATE": 3,
+        "RELATED_CONTEXT_ONLY": 3
+      },
+      "priority_candidate_routes": [
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-formation-declaration",
+          "title": "中国民主政团同盟成立宣言",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开数字副本候选，但原件层级仍需核对",
+          "authenticity_level": "L2",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 120,
+          "formal_page_count": 7,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:MMHIST:formation-declaration-1941",
+          "title": "中国民主政团同盟成立宣言",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开替代本或转录，需回追原件",
+          "authenticity_level": "L2",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 120,
+          "formal_page_count": 0,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-whole",
+          "title": "《民主同盟文獻》",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开数字副本候选，但原件层级仍需核对",
+          "authenticity_level": "L2",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 100,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:HKU:guangmingbao-1941-microform-holdings",
+          "title": "《光明報》1941年9月18日—12月12日馆藏缩微胶卷记录",
+          "route_status": "CATALOGUE_OR_FINDING_AID",
+          "route_label": "目录/说明/索引线索，不是正文原件",
+          "authenticity_level": "L2",
+          "evidence_type": "printed_finding_aid",
+          "access_mode": "reading_room",
+          "target_match": true,
+          "route_score": 95,
+          "formal_page_count": 0,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:LNU:guangmingbao-index-1941",
+          "title": "《光明报，1941》香港工运剪报索引",
+          "route_status": "CATALOGUE_OR_FINDING_AID",
+          "route_label": "目录/说明/索引线索，不是正文原件",
+          "authenticity_level": "L3",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 90,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:MMSH:guangmingbao-formation-editorial-1941",
+          "title": "《光明报》1941年10月16日关于中国民主政团同盟成立宣言的社论线索",
+          "route_status": "CATALOGUE_OR_FINDING_AID",
+          "route_label": "目录/说明/索引线索，不是正文原件",
+          "authenticity_level": "L4",
+          "evidence_type": "official_description",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 80,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:HNMM:lead-民盟精神解析",
+          "title": "民盟精神解析",
+          "route_status": "PUBLIC_NAVIGATION_LEAD",
+          "route_label": "公开导航或后期叙述，需回追一手来源",
+          "authenticity_level": "L4",
+          "evidence_type": "secondary_lead",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 45,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:CPPCC:liang-shuming-guangmingbao-founding-2020",
+          "title": "梁漱溟：中国民主同盟的创建（述及1941《光明报》创刊与10-10/10-16发表）",
+          "route_status": "PUBLIC_NAVIGATION_LEAD",
+          "route_label": "公开导航或后期叙述，需回追一手来源",
+          "authenticity_level": "L4",
+          "evidence_type": "secondary_lead",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 45,
+          "formal_page_count": 1,
+          "body_read": false
+        }
+      ],
+      "event_link_pages": 6,
+      "event_link_strict_page_count": 6,
+      "source_map": {
+        "path": "data/domestic/1941_formation_source_map.json",
+        "review_status": "reprint_page_ready_original_periodical_open",
+        "primary_evidence_closed": false,
+        "source_count": 3,
+        "page_record_count": 7,
+        "evidence_level_counts": {
+          "L2": 1,
+          "L4": 2
+        }
+      },
+      "minimum_closure_checks": [
+        "original_periodical_or_archive_image",
+        "catalogue_call_number_and_version_crosswalk",
+        "page_level_visual_review"
+      ],
+      "body_read": false,
+      "formal_db_written": false,
+      "status": "open_primary_gap"
+    },
+    {
+      "event_id": "domestic-1947-illegal-dissolution",
+      "event_name": "1947年民盟被宣布非法与组织解散",
+      "priority": "P0",
+      "priority_rationale": "政府公函与解散公告是组织危机叙事的事件定义原件。",
+      "primary_evidence_status": "partial",
+      "primary_evidence_label": "一手证据部分闭环",
+      "primary_evidence_gap": "1947-10-27政府公函、1947-11-06解散/宣布非法公告及全文页级转录仍待完成；报刊报道不能替代行政原件。",
+      "open_target_count": 1,
+      "open_targets": [
+        {
+          "target": "1947-10-27政府公函、1947-11-06行政/组织解散公告及完整底本",
+          "why_it_matters": "这是把“同期报道”提升为“行政决定/组织正式公告”所必需的事件定义原件。",
+          "status": "open",
+          "retrieval_class": "AUTHORIZED_VIEWER_REQUIRED",
+          "next_action": "由有权限账户取得允许保存的官方影像；记录授权范围、文件 SHA256、页码和人工复核。现有正式库页只能作同期交叉材料，不能替代该权限路径所指向的原件。",
+          "candidate_route_count": 15,
+          "formal_page_count": 19,
+          "formal_strict_citation_page_count": 3
+        }
+      ],
+      "candidate_route_count": 15,
+      "target_match_route_count": 15,
+      "route_status_counts": {
+        "CATALOGUE_OR_FINDING_AID": 1,
+        "OFFICIAL_VIEWER_LOCKED": 1,
+        "PUBLIC_ITEM_CANDIDATE": 11,
+        "PUBLIC_SURROGATE": 2
+      },
+      "priority_candidate_routes": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-si-tan-guo-shi",
+          "title": "肆談國事",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 3,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-second-plenum-domestic-situation",
+          "title": "民盟二中全會與國內局勢",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-respond-anti-us-military",
+          "title": "響應反對美軍暴行運動",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-interview-shen-junru",
+          "title": "訪問沈鈞儒先生",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-12-congratulate-second-plenum-editorial",
+          "title": "祝民盟二中全會",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:dagongbao-tianjin-1947-11-06-page2-full",
+          "title": "民盟宣布解散·公告与政府洽商之经过·通知盟员停止政治活动·一律免除登记可享合法自由",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:dagongbao-shanghai-1947-11-06-page2-full",
+          "title": "民盟今日解散·张澜等昨开会决定·通告各地盟员停止政治活动",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:dagongbao-hankow-1947-11-06-league-dissolution",
+          "title": "民盟正式宣告解散·通告各地盟员停止政治活动",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        }
+      ],
+      "event_link_pages": 16,
+      "event_link_strict_page_count": 16,
+      "source_map": {
+        "path": "data/domestic/1947_dissolution_source_map.json",
+        "review_status": "page_evidence_ready_primary_gap_open",
+        "primary_evidence_closed": false,
+        "source_count": 11,
+        "page_record_count": 64,
+        "evidence_level_counts": {
+          "L1": 11
+        }
+      },
+      "minimum_closure_checks": [
+        "government_letter_or_gazette_original",
+        "minmeng_dissolution_notice_original",
+        "date_actor_version_and_page_chain"
+      ],
+      "body_read": false,
+      "formal_db_written": false,
+      "status": "open_primary_gap"
+    },
+    {
+      "event_id": "domestic-1945-first-congress",
+      "event_name": "1945年民盟第一次全国代表大会",
+      "priority": "P1",
+      "priority_rationale": "大会政治报告、宣言和组织规程是组织制度史的核心底本。",
+      "primary_evidence_status": "partial",
+      "primary_evidence_label": "一手证据部分闭环",
+      "primary_evidence_gap": "大会原件或可靠底本的页级链、政治报告/宣言/组织规程的版本和缺页仍待核对。",
+      "open_target_count": 1,
+      "open_targets": [
+        {
+          "target": "1945年大会完整原始档案、会议记录、宣言/政治报告的底本和缺页关系",
+          "why_it_matters": "现有页级材料已能支撑部分文本，但不能据此宣称大会档案链完整。",
+          "status": "open",
+          "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
+          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "candidate_route_count": 12,
+          "formal_page_count": 63,
+          "formal_strict_citation_page_count": 31
+        }
+      ],
+      "candidate_route_count": 12,
+      "target_match_route_count": 12,
+      "route_status_counts": {
+        "PUBLIC_ITEM_CANDIDATE": 4,
+        "PUBLIC_SURROGATE": 8
+      },
+      "priority_candidate_routes": [
+        {
+          "candidate_id": "domestic:NLC:minxian-85455-1945-06-13",
+          "title": "《民憲》第二卷第二期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-85454-1945-05-15",
+          "title": "《民憲》第二卷第一期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-85453-1945-02-25",
+          "title": "《民憲》第一卷第十二期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-85452-1945-01-15",
+          "title": "《民憲》第一卷第十一期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-yanlunji-1945-congress-political-report",
+          "title": "中国民主同盟临时全国代表大会政治报告（言论集／民主星期刊转载）",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开数字副本候选，但原件层级仍需核对",
+          "authenticity_level": "L2",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 120,
+          "formal_page_count": 18,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-yanlunji-1945-congress-declaration",
+          "title": "中国民主同盟临时全国代表大会宣言（言论集／民主星期刊转载）",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开数字副本候选，但原件层级仍需核对",
+          "authenticity_level": "L2",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 120,
+          "formal_page_count": 6,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-minmeng-platform-1945",
+          "title": "中国民主同盟纲领",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开数字副本候选，但原件层级仍需核对",
+          "authenticity_level": "L2",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 120,
+          "formal_page_count": 25,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minmeng-wenxian-1946-congress-declaration-1945-10-16",
+          "title": "中国民主同盟临时全国代表大会宣言",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开数字副本候选，但原件层级仍需核对",
+          "authenticity_level": "L2",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 120,
+          "formal_page_count": 6,
+          "body_read": false
+        }
+      ],
+      "event_link_pages": 9,
+      "event_link_strict_page_count": 9,
+      "source_map": {
+        "path": "data/domestic/1945_first_congress_source_map.json",
+        "review_status": "sourcebook_page_evidence_ready_original_congress_gap_open",
+        "primary_evidence_closed": false,
+        "source_count": 2,
+        "page_record_count": 8,
+        "evidence_level_counts": {
+          "L2": 2
+        }
+      },
+      "minimum_closure_checks": [
+        "congress_record_or_reliable_base_text",
+        "report_declaration_and_regulation_version_crosswalk",
+        "page_level_missing_page_audit"
+      ],
+      "body_read": false,
+      "formal_db_written": false,
+      "status": "open_primary_gap"
+    },
+    {
+      "event_id": "domestic-1946-li-wen",
+      "event_name": "1946年李公朴、闻一多遇害及各方反应",
+      "priority": "P1",
+      "priority_rationale": "独立抗议、司法或行政档案可把报刊反应与事件过程分开。",
+      "primary_evidence_status": "partial",
+      "primary_evidence_label": "一手证据部分闭环",
+      "primary_evidence_gap": "《民主周刊》原版、民盟抗议文件或司法/行政原件的页级闭环与全文转录仍待查。",
+      "open_target_count": 1,
+      "open_targets": [
+        {
+          "target": "《民主周刊》原版、民盟抗议文件以及司法/行政档案的页级链",
+          "why_it_matters": "要把遇害事实、民盟反应、社会舆论和后续纪念分别落到可核验的原始来源。",
+          "status": "open",
+          "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 14,
+          "formal_page_count": 32,
+          "formal_strict_citation_page_count": 0
+        }
+      ],
+      "candidate_route_count": 14,
+      "target_match_route_count": 14,
+      "route_status_counts": {
+        "PUBLIC_ITEM_CANDIDATE": 12,
+        "PUBLIC_SURROGATE": 2
+      },
+      "priority_candidate_routes": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-mourn-and-spur-song",
+          "title": "悼念逝者，鞭策自己",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-liwen-anniversary-qian",
+          "title": "李聞週年祭",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-gongpu-still-beside-zhang",
+          "title": "公樸，你還在我的身邊",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-gongpu-rest-in-peace-simu",
+          "title": "公樸，安眠吧！",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-fight-for-human-rights-editorial",
+          "title": "為爭取基本的人權而奮鬥",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-double-effort-people-shen",
+          "title": "加倍為人民事業努力",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-dictators-killed-them-ye",
+          "title": "是獨裁者殺死了他們！",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1947-issue22-cry-recall-xingzhi-deng",
+          "title": "哭憶行知",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        }
+      ],
+      "event_link_pages": 4,
+      "event_link_strict_page_count": 4,
+      "source_map": {
+        "path": "data/domestic/1946_li_wen_source_map.json",
+        "review_status": "compiled_statements_and_contemporary_press_ready_independent_archive_gap_open",
+        "primary_evidence_closed": false,
+        "source_count": 2,
+        "page_record_count": 4,
+        "evidence_level_counts": {
+          "L1": 1,
+          "L2": 1
+        }
+      },
+      "minimum_closure_checks": [
+        "independent_statement_or_case_record",
+        "contemporary_periodical_full_page",
+        "event_date_and_actor_crosswalk"
+      ],
+      "body_read": false,
+      "formal_db_written": false,
+      "status": "open_primary_gap"
+    },
+    {
+      "event_id": "domestic-1946-pcc",
+      "event_name": "1946年政治协商会议（旧政协）",
+      "priority": "P1",
+      "priority_rationale": "正式会议记录和民盟代表发言需要与报刊、境外记录逐日对位。",
+      "primary_evidence_status": "partial",
+      "primary_evidence_label": "一手证据部分闭环",
+      "primary_evidence_gap": "正式会议档案、会议日期轴与民盟报刊/人物发言的逐条页级对位仍待核。",
+      "open_target_count": 1,
+      "open_targets": [
+        {
+          "target": "1946年旧政协正式会议档案、民盟代表发言/提案和完整日期轴",
+          "why_it_matters": "只有正式会议档案才能把报刊表达与会议程序、代表身份和具体日期逐条对位。",
+          "status": "open",
+          "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 19,
+          "formal_page_count": 12,
+          "formal_strict_citation_page_count": 0
+        }
+      ],
+      "candidate_route_count": 19,
+      "target_match_route_count": 19,
+      "route_status_counts": {
+        "PUBLIC_ITEM_CANDIDATE": 10,
+        "PUBLIC_SURROGATE": 9
+      },
+      "priority_candidate_routes": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue06",
+          "title": "《光明報》新六號",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue05-beijing-comrades-editorial",
+          "title": "為赴京的同盟同志們！",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue05",
+          "title": "《光明報》新五號",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue03-ceasefire-telegram",
+          "title": "民盟呼吁停战恢复和平电文",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue01-refounding-editorial",
+          "title": "复刊词",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue01",
+          "title": "《光明報》新一號（复刊号）",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue03-double-ten-task-article",
+          "title": "為完成雙十節的歷史任務而奮鬥",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue03",
+          "title": "《光明報》新三號",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 1,
+          "body_read": false
+        }
+      ],
+      "event_link_pages": 6,
+      "event_link_strict_page_count": 6,
+      "source_map": {
+        "path": "data/domestic/1946_old_pcc_source_map.json",
+        "review_status": "page_identity_and_boundary_human_verified_formal_pcc_archive_gap_open",
+        "primary_evidence_closed": false,
+        "source_count": 3,
+        "page_record_count": 15,
+        "evidence_level_counts": {
+          "L1": 1,
+          "L2": 2
+        }
+      },
+      "minimum_closure_checks": [
+        "formal_pcc_record",
+        "date_axis_and_representative_identity_crosswalk",
+        "page_level_speech_alignment"
+      ],
+      "body_read": false,
+      "formal_db_written": false,
+      "status": "open_primary_gap"
+    },
+    {
+      "event_id": "domestic-1946-refuse-national-assembly",
+      "event_name": "1946年民盟拒绝参加国民大会",
+      "priority": "P1",
+      "priority_rationale": "拒参声明或函电决定政治立场能否以民盟自身文件引用。",
+      "primary_evidence_status": "partial",
+      "primary_evidence_label": "一手证据部分闭环",
+      "primary_evidence_gap": "民盟正式声明、函电或可定位的同期报道原件仍待取得，并需记录主体、日期和版本差异。",
+      "open_target_count": 1,
+      "open_targets": [
+        {
+          "target": "1946年民盟正式拒绝参加国民大会的独立原件、函电或同期报刊原版（汇编重刊已定位）",
+          "why_it_matters": "要区分1946年形成的独立原件、后期汇编重刊、机关报评论和政协相关背景文件。",
+          "status": "open",
+          "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
+          "next_action": "已有正式库页但尚未通过严格引用门禁：先做页级 provenance 和人工复核，不要重复下载或 OCR。",
+          "candidate_route_count": 15,
+          "formal_page_count": 14,
+          "formal_strict_citation_page_count": 0
+        }
+      ],
+      "candidate_route_count": 15,
+      "target_match_route_count": 15,
+      "route_status_counts": {
+        "PUBLIC_ITEM_CANDIDATE": 12,
+        "PUBLIC_SURROGATE": 3
+      },
+      "priority_candidate_routes": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue8-conditional-national-assembly",
+          "title": "论有条件参加国大",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue8",
+          "title": "《光明報》新八號（1946年8期）",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-zhang-lan-shanghai-welcome-speech",
+          "title": "张澜在上海各人民团体欢迎茶会演讲词",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue11-anti-one-party-constitution",
+          "title": "反对一党独裁的宪法！",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue07-why-not-national-assembly",
+          "title": "我们为什么不参加国大",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue07",
+          "title": "《光明報》新七號",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue06",
+          "title": "《光明報》新六號",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1946-issue05-beijing-comrades-editorial",
+          "title": "為赴京的同盟同志們！",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        }
+      ],
+      "event_link_pages": 7,
+      "event_link_strict_page_count": 7,
+      "source_map": {
+        "path": "data/domestic/1946_refuse_national_assembly_source_map.json",
+        "review_status": "compiled_notice_and_contemporary_press_ready_original_statement_gap_open",
+        "primary_evidence_closed": false,
+        "source_count": 6,
+        "page_record_count": 7,
+        "evidence_level_counts": {
+          "L1": 5,
+          "L2": 1
+        }
+      },
+      "minimum_closure_checks": [
+        "minmeng_statement_or_correspondence_original",
+        "issuer_date_and_version_record",
+        "contemporary_report_cross_check"
+      ],
+      "body_read": false,
+      "formal_db_written": false,
+      "status": "open_primary_gap"
+    },
+    {
+      "event_id": "domestic-1944-reorganization",
+      "event_name": "1944年改组并更名为中国民主同盟",
+      "priority": "P2",
+      "priority_rationale": "需要把改组会议、改名决定和同期刊物从后期汇编中拆出。",
+      "primary_evidence_status": "partial",
+      "primary_evidence_label": "一手证据部分闭环",
+      "primary_evidence_gap": "改组会议原件、同期刊物原版与1946年汇编之间的版本关系仍待互校。",
+      "open_target_count": 1,
+      "open_targets": [
+        {
+          "target": "1944年改组会议记录、改名决定和同期原刊的独立原版",
+          "why_it_matters": "要把“改组/更名”从后来的汇编叙述还原为可定位的会议或同期刊物证据。",
+          "status": "open",
+          "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
+          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "candidate_route_count": 13,
+          "formal_page_count": 28,
+          "formal_strict_citation_page_count": 3
+        }
+      ],
+      "candidate_route_count": 13,
+      "target_match_route_count": 13,
+      "route_status_counts": {
+        "PUBLIC_ITEM_CANDIDATE": 11,
+        "PUBLIC_SURROGATE": 2
+      },
+      "priority_candidate_routes": [
+        {
+          "candidate_id": "domestic:NLC:minxian-v1n9-democracy-vs-nondemocracy-1944-11-20",
+          "title": "民主政治與非民主政治",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 6,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-v1n9-1944-11-20",
+          "title": "《民憲》第一卷第九期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-v1n6-1944-08-15",
+          "title": "《民憲》第一卷第六期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-v1n10-1944-12-20",
+          "title": "《民憲》第一卷第十期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-v1n1-1944-05-16",
+          "title": "《民憲》第一卷第一期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-85449-1944-10-12",
+          "title": "《民憲》第一卷第八期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-85448-1944-09-10",
+          "title": "《民憲》第一卷第七期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:minxian-85446-1944-07-16",
+          "title": "《民憲》第一卷第五期",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 2,
+          "body_read": false
+        }
+      ],
+      "event_link_pages": 1,
+      "event_link_strict_page_count": 1,
+      "source_map": {
+        "path": "data/domestic/1944_reorganization_source_map.json",
+        "review_status": "compiled_text_and_contemporary_locator_ready_original_reorganization_gap_open",
+        "primary_evidence_closed": false,
+        "source_count": 4,
+        "page_record_count": 7,
+        "evidence_level_counts": {
+          "L1": 3,
+          "L2": 1
+        }
+      },
+      "minimum_closure_checks": [
+        "reorganization_record_or_reliable_original",
+        "contemporary_periodical_full_page",
+        "reprint_to_original_version_crosswalk"
+      ],
+      "body_read": false,
+      "formal_db_written": false,
+      "status": "open_primary_gap"
+    },
+    {
+      "event_id": "domestic-1948-third-plenum-may-day",
+      "event_name": "1948年一届三中全会及响应“五一口号”",
+      "priority": "P2",
+      "priority_rationale": "需将三中全会、五一口号和香港传播拆成独立证据单元。",
+      "primary_evidence_status": "partial",
+      "primary_evidence_label": "一手证据部分闭环",
+      "primary_evidence_gap": "中央档案条目的原始页、档号、页码和复制权利仍待人工复核；三中全会、五一口号和香港传播需拆成独立证据单元。",
+      "open_target_count": 1,
+      "open_targets": [
+        {
+          "target": "三中全会、五一口号及香港传播的独立档案原页、档号和复制权利",
+          "why_it_matters": "需要把机关报报道、中央档案和民盟内部会议拆成不同证据单元，避免一篇报道承担全部结论。",
+          "status": "open",
+          "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
+          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "candidate_route_count": 12,
+          "formal_page_count": 18,
+          "formal_strict_citation_page_count": 2
+        }
+      ],
+      "candidate_route_count": 12,
+      "target_match_route_count": 12,
+      "route_status_counts": {
+        "PUBLIC_ITEM_CANDIDATE": 7,
+        "PUBLIC_SURROGATE": 5
+      },
+      "priority_candidate_routes": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12-three-premises-li-xiangfu",
+          "title": "三個前提與五項原則",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 3,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12-article",
+          "title": "反對美國援蔣扶日",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n12",
+          "title": "《光明報》1948年1卷12期（1948-08-16）",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-current-tasks-zhangbojun",
+          "title": "略論民主同盟當前的任務",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-article",
+          "title": "民盟三中全会的成就",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 3,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1",
+          "title": "《光明報》1948年1卷1期（1948-03-01）",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v1n1-refute-hu-shi-gaoji",
+          "title": "駁胡適《國際形勢裏的兩個問題》",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 145,
+          "formal_page_count": 3,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:SAAC:catalog-01-01_05",
+          "title": "中共中央关于与各民主党派及人民团体交换召开政治协商会议的意见给上海局、香港分局等的指示",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开替代本或转录，需回追原件",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 130,
+          "formal_page_count": 0,
+          "body_read": false
+        }
+      ],
+      "event_link_pages": 9,
+      "event_link_strict_page_count": 9,
+      "source_map": {
+        "path": "data/domestic/1948_third_plenum_mayday_source_map.json",
+        "review_status": "contemporary_and_archival_page_evidence_ready_primary_gap_open",
+        "primary_evidence_closed": false,
+        "source_count": 8,
+        "page_record_count": 9,
+        "evidence_level_counts": {
+          "L1": 8
+        }
+      },
+      "minimum_closure_checks": [
+        "archive_item_and_call_number",
+        "three_plenary_meeting_unit",
+        "may_day_release_and_propagation_crosswalk"
+      ],
+      "body_read": false,
+      "formal_db_written": false,
+      "status": "open_primary_gap"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "event_name": "1949年新政协筹备、民主人士北上与第一届全体会议",
+      "priority": "P2",
+      "priority_rationale": "已有公开影像入口，下一步是会议连续件、代表名册和民盟发言对位。",
+      "primary_evidence_status": "partial",
+      "primary_evidence_label": "一手证据部分闭环",
+      "primary_evidence_gap": "1949年新政协筹备会议记录、民盟代表发言、完整代表名册和第一届全体会议完整档案仍待逐页取得与对位；已核验的五个公开扫描影像页不等同于完整会议档案。",
+      "open_target_count": 1,
+      "open_targets": [
+        {
+          "target": "1949年新政协筹备会议记录、民盟代表发言、完整代表名册及第一届全体会议完整档案",
+          "why_it_matters": "只有正式会议记录和代表档案才能核对人物、程序、日期和民盟角色。",
+          "status": "open",
+          "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
+          "next_action": "已有正式库严格引用页：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "candidate_route_count": 12,
+          "formal_page_count": 30,
+          "formal_strict_citation_page_count": 7
+        }
+      ],
+      "candidate_route_count": 12,
+      "target_match_route_count": 12,
+      "route_status_counts": {
+        "PUBLIC_ITEM_CANDIDATE": 2,
+        "PUBLIC_SURROGATE": 10
+      },
+      "priority_candidate_routes": [
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1-article",
+          "title": "新政协问题笔谈",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 1,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1",
+          "title": "《光明報》1949年2卷1期（1949-01-10）",
+          "route_status": "PUBLIC_ITEM_CANDIDATE",
+          "route_label": "公开原刊/影像候选，需核字节和页级 provenance",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 165,
+          "formal_page_count": 2,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:SAAC:catalog-02-02_02",
+          "title": "毛泽东在新政治协商会议筹备会开幕典礼上的讲话",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开替代本或转录，需回追原件",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 130,
+          "formal_page_count": 0,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:SAAC:catalog-02-02_01",
+          "title": "新政治协商会议筹备会关于召开成立会的通知",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开替代本或转录，需回追原件",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 130,
+          "formal_page_count": 0,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:SAAC:catalog-01-01_22",
+          "title": "毛泽东《论人民民主专政》手稿",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开替代本或转录，需回追原件",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 130,
+          "formal_page_count": 0,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:SAAC:catalog-01-01_21",
+          "title": "周恩来给宋庆龄的信",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开替代本或转录，需回追原件",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 130,
+          "formal_page_count": 0,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:SAAC:catalog-01-01_20",
+          "title": "毛泽东给宋庆龄的信",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开替代本或转录，需回追原件",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 130,
+          "formal_page_count": 0,
+          "body_read": false
+        },
+        {
+          "candidate_id": "domestic:SAAC:catalog-01-01_13",
+          "title": "中共中央关于邀请张澜、黄炎培北上给方方、潘汉年等的电报",
+          "route_status": "PUBLIC_SURROGATE",
+          "route_label": "公开替代本或转录，需回追原件",
+          "authenticity_level": "L1",
+          "evidence_type": "digital_image",
+          "access_mode": "open",
+          "target_match": true,
+          "route_score": 130,
+          "formal_page_count": 0,
+          "body_read": false
+        }
+      ],
+      "event_link_pages": 20,
+      "event_link_strict_page_count": 20,
+      "source_map": {
+        "path": "data/domestic/1949_new_pcc_source_map.json",
+        "review_status": "archival_page_identity_boundary_reviewed_primary_gap_open",
+        "primary_evidence_closed": false,
+        "source_count": 71,
+        "page_record_count": 71,
+        "evidence_level_counts": {
+          "L1": 71
+        }
+      },
+      "minimum_closure_checks": [
+        "continuous_preparatory_record",
+        "complete_representative_roster_chain",
+        "minmeng_speech_and_session_alignment"
+      ],
+      "body_read": false,
+      "formal_db_written": false,
+      "status": "open_primary_gap"
+    }
+  ],
+  "status": "PASS"
+}

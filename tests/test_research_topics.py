@@ -1196,7 +1196,7 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
     assert report["page_items"] == 147
-    assert report["strict_citation_items"] == 121
+    assert report["strict_citation_items"] == 124
 
 
 def test_high_value_reviewed_pages_are_reconnected_without_primary_upgrade():
