@@ -100,6 +100,17 @@ def event_source_map_summary(event_id: str) -> dict[str, Any]:
         if isinstance(page, dict)
     ]
     statuses = [str(page.get("status") or "") for page in pages]
+    raw_access_audit = payload.get("access_audit") if isinstance(payload, dict) else None
+    access_audit: dict[str, Any] = {}
+    if isinstance(raw_access_audit, dict):
+        confirmed_routes = raw_access_audit.get("confirmed_routes")
+        access_audit = {
+            "status": str(raw_access_audit.get("status") or ""),
+            "metadata_reviewed_on": str(raw_access_audit.get("metadata_reviewed_on") or ""),
+            "next_minimum_target": str(raw_access_audit.get("next_minimum_target") or ""),
+            "confirmed_route_count": len(confirmed_routes) if isinstance(confirmed_routes, list) else 0,
+            "body_read": False,
+        }
     return {
         "available": bool(payload),
         "source_count": len(sources),
@@ -111,6 +122,7 @@ def event_source_map_summary(event_id: str) -> dict[str, Any]:
         "primary_evidence_closed": payload.get("primary_evidence_closed") is True,
         "review_status": str(payload.get("review_status") or ""),
         "primary_evidence_gap": str(payload.get("primary_evidence_gap") or ""),
+        "access_audit": access_audit,
     }
 
 
@@ -660,8 +672,10 @@ def research_packet_page(event_id: str) -> bytes:
         primary_status_label = "一手证据已闭合" if primary_closed else "一手证据仍开放"
         access_audit = source_map.get("access_audit")
         audit_status = ""
+        audit_target = ""
         if isinstance(access_audit, dict):
             audit_status = str(access_audit.get("status") or "")
+            audit_target = str(access_audit.get("next_minimum_target") or "")
         source_rows = []
         for source in sources:
             if not isinstance(source, dict):
@@ -685,6 +699,7 @@ def research_packet_page(event_id: str) -> bytes:
   <div class="tagline"><span class="pstatus ok">页级证据已登记</span><span class="pstatus {primary_status_class}">{esc(primary_status_label)}</span><span class="tag">正文未复制</span></div>
   <div class="snippet">{esc(source_map.get("primary_evidence_gap") or "仍有一手原件缺口")}</div>
   {f'<div class="snippet"><strong>访问审计：</strong>{esc(audit_status)}</div>' if audit_status else ''}
+  {f'<div class="snippet"><strong>当前最小闭环目标：</strong>{esc(audit_target)}</div>' if audit_target else ''}
   <ul>{"".join(source_rows)}</ul>
 </div></article>'''
         )

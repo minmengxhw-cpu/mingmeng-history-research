@@ -74,6 +74,8 @@ def test_scoped_domestic_acquisition_smoke(live_server, db_missing_reason):
     assert body is not None
     assert "专题原件目标：1941年中国民主政团同盟成立" in body
     assert "证据边界" in body
+    assert "当前最小闭环目标" in body
+    assert "取得1941-10-10《光明報》整期或正式复制件" in body
     assert "取得路由" in body or "下一步" in body
     assert "/research/domestic-1941-formation/packet" in body
     assert "/Users/cheer" not in body

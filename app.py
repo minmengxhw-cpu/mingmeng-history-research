@@ -6785,6 +6785,12 @@ def domestic_acquisition_page(event_id: str = "") -> bytes:
         if not event_id or str(gap.get("event_id") or "") == event_id
     ]
     focused_event_name = str(focused_gaps[0].get("event_name") or event_id) if focused_gaps else event_id
+    focused_source_map = event_source_map_summary(event_id) if event_id else {}
+    focused_access_audit = focused_source_map.get("access_audit") if isinstance(focused_source_map, dict) else {}
+    if not isinstance(focused_access_audit, dict):
+        focused_access_audit = {}
+    focused_minimum_target = str(focused_access_audit.get("next_minimum_target") or "")
+    focused_access_status = str(focused_access_audit.get("status") or "")
     focused_target_cards: list[str] = []
     for gap in focused_gaps:
         candidate_rows: list[str] = []
@@ -6816,9 +6822,20 @@ def domestic_acquisition_page(event_id: str = "") -> bytes:
 </article>"""
         )
     if event_id and focused_gaps:
+        minimum_target_html = (
+            f'<div class="snippet"><strong>当前最小闭环目标：</strong>{h(focused_minimum_target)}</div>'
+            if focused_minimum_target
+            else ""
+        )
+        access_status_html = (
+            f'<div class="snippet"><strong>访问审计状态：</strong>{h(focused_access_status)} · body_read=false</div>'
+            if focused_access_status
+            else ""
+        )
         focused_section = f"""
 <section class="doc-head"><div><h2>专题原件目标：{h(focused_event_name)}</h2><div class="meta">从证据链直接回接的 {h(len(focused_gaps))} 个开放目标；本区只显示调档元数据，不提供正文。</div></div><div class="doc-tools"><a class="button" href="/research/{quote(event_id, safe='')}">回到专题</a><a class="button" href="/research/{quote(event_id, safe='')}/packet">打开研究包</a></div></section>
 <div class="notice"><strong>证据边界：</strong>这些目标尚未达到一手闭环；候选、目录、汇编和后期回顾资料只能帮助定位，不能替代待取得原件。取得后仍需登记馆藏档号、版本关系、页级 provenance、文件 SHA256 和复核状态。</div>
+{minimum_target_html}{access_status_html}
 <section class="result-list">{"".join(focused_target_cards)}</section>"""
     elif event_id:
         focused_section = f"""
