@@ -10,7 +10,7 @@
   "formal_db_written_by_map": false,
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
-  "primary_evidence_gap": "已核验20个档案影像页；国家档案局公开页面列出的22页代表名单影像序列已全部登记，其中第8—22页保持review_only；另登记1幅中国国家博物馆代表签名册公开文物图像。1949年筹备会完整记录、代表发言、代表名单逐人转录与民盟代表识别、第一届全体会议全套档案，以及民盟代表在会中发言和互动的完整页级对位仍待补齐。本地图不把连续影像序列或文物展示图宣称为完整档案卷宗或完成名单研究。",
+  "primary_evidence_gap": "已核验20个档案影像页；国家档案局公开页面列出的22页代表名单影像序列已全部登记，其中第8—22页保持review_only；另登记1幅中国国家博物馆代表签名册公开文物图像，并新增共同纲领官方影像3页（review_only）。1949年筹备会完整记录、代表发言、代表名单逐人转录与民盟代表识别、第一届全体会议全套档案，以及民盟代表在会中发言和互动的完整页级对位仍待补齐。本地图不把连续影像序列、共同纲领三页或文物展示图宣称为完整档案卷宗或完成名单研究。",
   "sources": [
     {
       "source_id": "saac-1949-pcc-invitation-telegram-p01",
@@ -2231,6 +2231,73 @@
           "review_scope": "official_artifact_identity_only",
           "page_image_sha256": "02ffebefe3172d5e71010b694b8e859ed7f2b902a1537b67ee9fd7c7a3688ce5",
           "caveat": "官方页面和图像确认文物身份，但当前为带水印拼图而非完整签名册或签到簿；尚未完成页序、民盟代表身份和完整名单对位，不能关闭1949主证据缺口。"
+        }
+      ]
+    },
+    {
+      "source_id": "saac-1949-pcc-common-program-p01-p03",
+      "title": "中国人民政治协商会议第一届全体会议通过的《中国人民政治协商会议共同纲领》（1949-09-29）第1—3页",
+      "source_role": "official_archive_digital_scan_review_only",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-68/",
+      "source_file_size": 946784,
+      "page_count": 3,
+      "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_68.html",
+      "official_image_url_template": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/{page}.jpg",
+      "metadata_snapshot_file": "data/domestic/metadata_snapshots/saac_1949_common_program_p01_p03_20260815.json",
+      "metadata_snapshot_sha256": "c72654bd4bca60f61c36cc45bca203f9049abdb9f76a44bd85c6c84e6a05e365",
+      "access_note": "国家档案局公开专题官方影像；本地三张图像已下载并完成文件哈希与题名/日期/页序视觉确认，当前只作review_only来源路线，尚未写入正式SQLite。",
+      "local_acquisition": {
+        "status": "review_only",
+        "local_file": "data/domestic/raw/saac_scans/sec05_05-68/",
+        "metadata_snapshot": "data/domestic/metadata_snapshots/saac_1949_common_program_p01_p03_20260815.json",
+        "body_read": false,
+        "formal_db_written": false,
+        "citation_ready": false,
+        "rights_status": "citation_only_pending_rights_confirmation"
+      },
+      "page_records": [
+        {
+          "page_id": null,
+          "physical_page_no": 1,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/01.jpg",
+          "target": "共同纲领题名与日期",
+          "role": "官方影像题名页",
+          "status": "review_only",
+          "review_status": "visual_identity_checked",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "official_scan_identity_only",
+          "page_image_sha256": "8a26c2f2be7c515d4ab804adca9a040ca2528409a46947cfa8f42494d229415d",
+          "caveat": "只确认公开影像身份、题名和日期；未逐字核对正文。"
+        },
+        {
+          "page_id": null,
+          "physical_page_no": 2,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/02.jpg",
+          "target": "共同纲领正文页",
+          "role": "官方影像正文页",
+          "status": "review_only",
+          "review_status": "visual_identity_checked",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "official_scan_identity_only",
+          "page_image_sha256": "b573a20e449ad8f65a86edde71bc9a0f71fa956a3c5f30f7ebd64914c869450d",
+          "caveat": "只确认页序和正文影像存在；未进行逐字核对或民盟代表内容对位。"
+        },
+        {
+          "page_id": null,
+          "physical_page_no": 3,
+          "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/03.jpg",
+          "target": "共同纲领正文末页",
+          "role": "官方影像末页",
+          "status": "review_only",
+          "review_status": "visual_identity_checked",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "official_scan_identity_only",
+          "page_image_sha256": "84096a1ada5fcd771a3810fdc8c93e4dca471257879850117824f27c19c7124b",
+          "caveat": "只确认页序和末页影像存在；三页不代表共同纲领全件或民盟发言闭环。"
         }
       ]
     }

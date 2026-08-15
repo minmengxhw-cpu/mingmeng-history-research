@@ -66,6 +66,8 @@ def _load_event_source_map(event_id: str, public: bool) -> dict[str, Any]:
         source = dict(raw_source)
         if public and source.get("source_file"):
             source["source_file"] = "内部 provenance 已保存（公开模式隐藏本地路径）"
+        if public and source.get("metadata_snapshot_file"):
+            source["metadata_snapshot_file"] = "内部元数据快照已保存（公开模式隐藏本地路径）"
         local_acquisition = source.get("local_acquisition")
         if public and isinstance(local_acquisition, dict):
             local_acquisition = dict(local_acquisition)

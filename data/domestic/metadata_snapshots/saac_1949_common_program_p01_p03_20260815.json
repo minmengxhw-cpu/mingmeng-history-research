@@ -1,0 +1,57 @@
+{
+  "schema": "domestic_public_media_metadata.v1",
+  "generated_at": "2026-08-15",
+  "event_id": "domestic-1949-new-pcc",
+  "candidate_id": "domestic:SAAC:1949-09-29-01",
+  "title": "中国人民政治协商会议第一届全体会议通过的《中国人民政治协商会议共同纲领》（1949-09-29）",
+  "source_role": "official_archive_scan",
+  "repository_name": "中央档案馆 / 国家档案局专题页",
+  "catalog_reference": "国家档案局《从五一口号到开国大典档案文献专辑》05_68",
+  "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_68.html",
+  "official_image_url_template": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/{page}.jpg",
+  "local_directory": "data/domestic/raw/saac_scans/sec05_05-68/",
+  "page_count": 3,
+  "body_read": false,
+  "formal_db_written": false,
+  "review_status": "review_only",
+  "citation_ready": false,
+  "visual_review": {
+    "status": "official_scan_identity_and_page_sequence_visually_checked",
+    "review_scope": "official_item_identity_cover_and_page_identity_only",
+    "ocr_performed": false,
+    "article_or_document_body_reviewed": false,
+    "common_program_full_text_verified": false,
+    "民盟_specific_content_verified": false
+  },
+  "rights_status": "citation_only_pending_rights_confirmation",
+  "files": [
+    {
+      "physical_page": 1,
+      "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/01.jpg",
+      "local_file": "data/domestic/raw/saac_scans/sec05_05-68/01.jpg",
+      "bytes": 256291,
+      "image_sha256": "8a26c2f2be7c515d4ab804adca9a040ca2528409a46947cfa8f42494d229415d",
+      "image_dimensions": "449x650",
+      "page_identity": "题名页；页面可见‘中国人民政治协商会议共同纲领’和1949年9月29日"
+    },
+    {
+      "physical_page": 2,
+      "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/02.jpg",
+      "local_file": "data/domestic/raw/saac_scans/sec05_05-68/02.jpg",
+      "bytes": 409798,
+      "image_sha256": "b573a20e449ad8f65a86edde71bc9a0f71fa956a3c5f30f7ebd64914c869450d",
+      "image_dimensions": "470x650",
+      "page_identity": "正文页；页眉物理页码54，题名和日期可见"
+    },
+    {
+      "physical_page": 3,
+      "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/03.jpg",
+      "local_file": "data/domestic/raw/saac_scans/sec05_05-68/03.jpg",
+      "bytes": 280695,
+      "image_sha256": "84096a1ada5fcd771a3810fdc8c93e4dca471257879850117824f27c19c7124b",
+      "image_dimensions": "476x650",
+      "page_identity": "末页；正文末段和物理页码64可见"
+    }
+  ],
+  "caveat": "这是国家档案局公开专题中的共同纲领影像序列。本轮只核验官方页面、题名、日期、三张图像及文件哈希；尚未进行逐字校读、民盟代表发言对位或正式数据库导入，因此只能作为review_only原件路线，不关闭1949新政协主证据缺口。"
+}
