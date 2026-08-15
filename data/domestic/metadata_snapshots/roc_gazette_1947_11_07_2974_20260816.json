@@ -1,0 +1,32 @@
+{
+  "schema": "domestic_public_media_metadata.v1",
+  "generated_at": "2026-08-16",
+  "event_id": "domestic-1947-illegal-dissolution",
+  "candidate_id": "domestic:ROC:gazette-2974-1947-11-07",
+  "title": "《國民政府公報》第2974號（1947-11-07）",
+  "source_role": "official_gazette_issue_navigation",
+  "repository_name": "Wikimedia Commons公开扫描（中华民国政府公报）",
+  "catalog_reference": "ROC1947-11-07國民政府公報2974.pdf",
+  "source_url": "https://commons.wikimedia.org/wiki/File:ROC1947-11-07%E5%9C%8B%E6%B0%91%E6%94%BF%E5%BA%9C%E5%85%AC%E5%A0%B12974.pdf",
+  "direct_file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/ROC1947-11-07%E5%9C%8B%E6%B0%91%E6%94%BF%E5%BA%9C%E5%85%AC%E5%A0%B12974.pdf",
+  "local_file": "data/domestic/raw/public_sources/roc_gazette_1947-11-07_2974.pdf",
+  "page_count": 17,
+  "file_bytes": 1040687,
+  "file_sha256": "5e04a2d4ecc2ebe9ae09b978127bcb9cd11477481e9966fe8a9eb0b4be9bb592",
+  "body_read": false,
+  "formal_db_written": false,
+  "review_status": "negative_control_review_only",
+  "citation_ready": false,
+  "visual_review": {
+    "status": "full_issue_identity_and_target_negative_visual_review",
+    "review_scope": "all_pages_issue_identity_and_target_search_not_transcription",
+    "pages_reviewed": 17,
+    "ocr_performed": false,
+    "full_text_verified": false,
+    "target_terms": ["民盟", "中国民主同盟", "非法团体", "解散公告", "停止政治活动", "内政部"],
+    "target_match": false,
+    "finding": "第1页确认《国民政府公报》及2974号刊期；逐页视觉检查未发现1947-11-06民盟总部解散公告或相关行政原件。负向结果只适用于本扫描，不证明目标文件不存在。"
+  },
+  "rights_status": "public_mirror_citation_only_pending_rights_confirmation",
+  "caveat": "本快照记录的是公开扫描的来源身份、哈希和整册负向核查，不提供正文转录，不把公报未命中目标文件解释为档案不存在，也不关闭1947年行政原件缺口。"
+}

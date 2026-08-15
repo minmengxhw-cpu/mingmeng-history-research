@@ -2,15 +2,15 @@
   "schema": "domestic_event_source_map.v1",
   "event_id": "domestic-1947-illegal-dissolution",
   "title": "1947年民盟被宣布非法与组织解散：同期报刊页级证据地图",
-  "review_status": "page_and_sourcebook_evidence_ready_primary_gap_open",
-  "evidence_scope": "同期报刊页级证据、1983年正式历史文献汇编重刊页、官方公报负向核查，以及正式库已登记的四期官方公报整册导航；正文原件、OCR和严格引用状态分离登记",
+  "review_status": "page_and_sourcebook_evidence_ready_gazette_negative_controls_added_primary_gap_open",
+  "evidence_scope": "同期报刊页级证据、1983年正式历史文献汇编重刊页、官方公报负向核查，以及正式库已登记的四期官方公报整册导航；新增2967号与2974号整册公开扫描及目标负向视觉核查；正文原件、OCR和严格引用状态分离登记",
   "body_text_included": false,
   "ocr_text_included": false,
   "raw_files_included": false,
   "formal_db_written_by_map": false,
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
-  "primary_evidence_gap": "现有同期报刊严格页级证据保留不变；新增四期官方公报共56个导航页，其中1947-10-27政府公函、1947-11-06民盟总部解散公告及其完整底本仍未完成原件闭环。导航页只提供整册和页级定位，不把负向核查误报为目标文件不存在。",
+  "primary_evidence_gap": "现有同期报刊严格页级证据保留不变；新增四期官方公报共56个导航页，其中1947-10-27政府公函、1947-11-06民盟总部解散公告及其完整底本仍未完成原件闭环。2967号与2974号整册公开扫描已完成目标负向视觉核查，但只说明本扫描未命中，不证明目标文件不存在。导航页只提供整册和页级定位，不把负向核查误报为目标文件不存在。",
   "sources": [
     {
       "source_id": "nlc-dagangbao-hankow-1947-11-04",
@@ -501,7 +501,26 @@
       "source_sha256": "61eef4effac2abda2812a1ec507e7e9bb9bed219b31426dd07415b60c36f83e5",
       "source_file_size": 953781,
       "page_count": 13,
-      "access_note": "正式库已有 canonical 页级 provenance；影像与 PDF 位于本地资料根，本轮只补专题导航，不把整册或其中任一页升级为严格引用。",
+      "metadata_snapshot_file": "data/domestic/metadata_snapshots/roc_gazette_1947_10_30_2967_20260816.json",
+      "metadata_snapshot_sha256": "c9b13bab7f31c16ba4badfaa0262b225ea7191adfbc7f8968debd438946bbf1b",
+      "access_note": "Wikimedia Commons公开扫描；本轮下载并逐页视觉检查13页，确认刊期身份且未命中目标文件；仍保持整册导航/负向核查，不升级为严格引用。",
+      "local_acquisition": {
+        "local_file": "data/domestic/raw/public_sources/roc_gazette_1947-10-30_2967.pdf",
+        "sha256": "61eef4effac2abda2812a1ec507e7e9bb9bed219b31426dd07415b60c36f83e5",
+        "bytes": 953781,
+        "page_count": 13,
+        "metadata_snapshot": "data/domestic/metadata_snapshots/roc_gazette_1947_10_30_2967_20260816.json",
+        "review_status": "negative_control_review_only",
+        "body_read": false,
+        "formal_db_written": false
+      },
+      "target_review": {
+        "status": "negative_control",
+        "pages_reviewed": 13,
+        "target_match": false,
+        "review_scope": "all_pages_visual_target_search_not_transcription",
+        "caveat": "只说明本公开扫描未命中1947-10-27宣布民盟非法公函或相关目标文件，不证明目标文件不存在。"
+      },
       "page_records": [
         {
           "page_id": 16290,
@@ -857,7 +876,26 @@
       "source_sha256": "5e04a2d4ecc2ebe9ae09b978127bcb9cd11477481e9966fe8a9eb0b4be9bb592",
       "source_file_size": 1040687,
       "page_count": 17,
-      "access_note": "正式库已有 canonical 页级 provenance；影像与 PDF 位于本地资料根，本轮只补专题导航，不把整册或其中任一页升级为严格引用。",
+      "metadata_snapshot_file": "data/domestic/metadata_snapshots/roc_gazette_1947_11_07_2974_20260816.json",
+      "metadata_snapshot_sha256": "eb45184dcf1e9372eb5350942f01802bc365ef0a00ca85d652de71e7b77907f9",
+      "access_note": "Wikimedia Commons公开扫描；本轮下载并逐页视觉检查17页，确认刊期身份且未命中目标文件；仍保持整册导航/负向核查，不升级为严格引用。",
+      "local_acquisition": {
+        "local_file": "data/domestic/raw/public_sources/roc_gazette_1947-11-07_2974.pdf",
+        "sha256": "5e04a2d4ecc2ebe9ae09b978127bcb9cd11477481e9966fe8a9eb0b4be9bb592",
+        "bytes": 1040687,
+        "page_count": 17,
+        "metadata_snapshot": "data/domestic/metadata_snapshots/roc_gazette_1947_11_07_2974_20260816.json",
+        "review_status": "negative_control_review_only",
+        "body_read": false,
+        "formal_db_written": false
+      },
+      "target_review": {
+        "status": "negative_control",
+        "pages_reviewed": 17,
+        "target_match": false,
+        "review_scope": "all_pages_visual_target_search_not_transcription",
+        "caveat": "只说明本公开扫描未命中1947-11-06民盟总部解散公告或相关目标文件，不证明目标文件不存在。"
+      },
       "page_records": [
         {
           "page_id": 16560,

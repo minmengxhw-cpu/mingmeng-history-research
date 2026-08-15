@@ -1,6 +1,6 @@
 {
   "schema": "domestic_primary_gap_closure_matrix.v1",
-  "generated_at": "2026-08-15T00:46:45.602311+00:00",
+  "generated_at": "2026-08-15T01:20:01.552418+00:00",
   "scope": "九个国内专题的主证据闭环执行矩阵",
   "body_read": false,
   "formal_db_written": false,
@@ -351,7 +351,7 @@
       "event_link_strict_page_count": 19,
       "source_map": {
         "path": "data/domestic/1947_dissolution_source_map.json",
-        "review_status": "page_and_sourcebook_evidence_ready_primary_gap_open",
+        "review_status": "page_and_sourcebook_evidence_ready_gazette_negative_controls_added_primary_gap_open",
         "primary_evidence_closed": false,
         "source_count": 12,
         "page_record_count": 67,
