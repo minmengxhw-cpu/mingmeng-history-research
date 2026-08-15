@@ -361,15 +361,15 @@ def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_bod
     packet = build_research_packet("domestic-1949-new-pcc")
     assert packet is not None
     assert packet["counts"]["event_source_map_count"] == 1
-    assert packet["counts"]["event_source_page_record_count"] == 90
+    assert packet["counts"]["event_source_page_record_count"] == 98
     source_map = packet["event_source_maps"][0]
     assert source_map["primary_evidence_closed"] is False
     assert source_map["body_text_included"] is False
-    assert len(source_map["sources"]) == 74
+    assert len(source_map["sources"]) == 75
     pages = [page for source in source_map["sources"] for page in source["page_records"]]
     assert sum(page["status"] == "strict_citation" for page in pages) == 20
     assert sum(page["status"] == "navigation_only" for page in pages) == 36
-    assert sum(page["status"] == "review_only" for page in pages) == 34
+    assert sum(page["status"] == "review_only" for page in pages) == 42
     remaining_pages = next(
         source
         for source in source_map["sources"]
