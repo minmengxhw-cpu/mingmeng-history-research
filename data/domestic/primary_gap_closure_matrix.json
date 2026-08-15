@@ -1,6 +1,6 @@
 {
   "schema": "domestic_primary_gap_closure_matrix.v1",
-  "generated_at": "2026-08-14T23:52:58.670452+00:00",
+  "generated_at": "2026-08-15T00:05:19.520339+00:00",
   "scope": "九个国内专题的主证据闭环执行矩阵",
   "body_read": false,
   "formal_db_written": false,
@@ -18,7 +18,7 @@
     "candidate_route_count": 124,
     "target_match_route_count": 121,
     "source_map_count": 9,
-    "source_map_page_record_count": 206,
+    "source_map_page_record_count": 221,
     "route_status_counts": {
       "CATALOGUE_OR_FINDING_AID": 4,
       "OFFICIAL_VIEWER_LOCKED": 1,
@@ -1495,10 +1495,10 @@
         "path": "data/domestic/1949_new_pcc_source_map.json",
         "review_status": "archival_page_identity_boundary_reviewed_primary_gap_open",
         "primary_evidence_closed": false,
-        "source_count": 72,
-        "page_record_count": 72,
+        "source_count": 73,
+        "page_record_count": 87,
         "evidence_level_counts": {
-          "L1": 71,
+          "L1": 72,
           "L3": 1
         }
       },

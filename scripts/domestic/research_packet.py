@@ -703,6 +703,10 @@ def research_packet_page(event_id: str) -> bytes:
                 source_links.append(
                     f'<a href="{esc(official_image_url)}" target="_blank" rel="noreferrer">官方图像</a>'
                 )
+            if source.get("official_image_url_template"):
+                source_links.append(
+                    f'<a href="{esc(source_link)}" target="_blank" rel="noreferrer">官方图像序列</a>'
+                )
             local_acquisition = source.get("local_acquisition")
             acquisition_label = ""
             if isinstance(local_acquisition, dict):

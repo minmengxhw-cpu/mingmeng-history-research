@@ -361,15 +361,28 @@ def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_bod
     packet = build_research_packet("domestic-1949-new-pcc")
     assert packet is not None
     assert packet["counts"]["event_source_map_count"] == 1
-    assert packet["counts"]["event_source_page_record_count"] == 72
+    assert packet["counts"]["event_source_page_record_count"] == 87
     source_map = packet["event_source_maps"][0]
     assert source_map["primary_evidence_closed"] is False
     assert source_map["body_text_included"] is False
-    assert len(source_map["sources"]) == 72
+    assert len(source_map["sources"]) == 73
     pages = [page for source in source_map["sources"] for page in source["page_records"]]
     assert sum(page["status"] == "strict_citation" for page in pages) == 20
     assert sum(page["status"] == "navigation_only" for page in pages) == 36
-    assert sum(page["status"] == "review_only" for page in pages) == 16
+    assert sum(page["status"] == "review_only" for page in pages) == 31
+    remaining_pages = next(
+        source
+        for source in source_map["sources"]
+        if source["source_id"] == "saac-1949-pcc-representative-list-p08-p22"
+    )["page_records"]
+    assert len(remaining_pages) == 15
+    assert {page["physical_page_no"] for page in remaining_pages} == set(range(8, 23))
+    assert all(
+        page["status"] == "review_only"
+        and page["page_id"] is None
+        and page["citation_ready"] is False
+        for page in remaining_pages
+    )
     assert all(
         page["citation_ready"] is True
         and page["needs_human_review"] is False
@@ -388,6 +401,7 @@ def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_bod
     html = research_packet_page("domestic-1949-new-pcc").decode("utf-8")
     assert "专题来源地图" in html
     assert "官方图像" in html
+    assert "官方图像序列" in html
 
 
 def test_1948_third_plenum_packet_carries_press_and_archive_pages_without_body():
