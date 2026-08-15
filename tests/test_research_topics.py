@@ -493,6 +493,11 @@ def test_1944_reorganization_packet_separates_compilation_and_periodical_locator
         20142,
         20143,
         20144,
+        17291,
+        17292,
+        17293,
+        17294,
+        17295,
         20286,
         20288,
         20290,
@@ -528,14 +533,30 @@ def test_1946_refuse_packet_separates_notice_from_contemporary_press():
     packet = build_research_packet("domestic-1946-refuse-national-assembly")
     assert packet is not None
     assert packet["counts"]["event_source_map_count"] == 1
-    assert packet["counts"]["event_source_page_record_count"] == 7
+    assert packet["counts"]["event_source_page_record_count"] == 8
     source_map = packet["event_source_maps"][0]
     assert source_map["primary_evidence_closed"] is False
     assert source_map["body_text_included"] is False
     pages = [page for source in source_map["sources"] for page in source["page_records"]]
-    assert {page["page_id"] for page in pages} == {19000, 1578, 16351, 16335, 16367, 16634, 16636}
-    assert len(pages) == 7
-    assert all(page["status"] == "strict_citation" and page["citation_ready"] is True for page in pages)
+    assert {
+        page["page_id"]
+        for page in pages
+        if page["page_id"] is not None
+    } == {19000, 1578, 16351, 16335, 16367, 16634, 16636}
+    assert len(pages) == 8
+    assert sum(page["status"] == "strict_citation" for page in pages) == 7
+    assert sum(page["status"] == "review_only" for page in pages) == 1
+    assert all(
+        page["status"] == "strict_citation" and page["citation_ready"] is True
+        for page in pages
+        if page["status"] == "strict_citation"
+    )
+    assert any(
+        page["page_id"] is None
+        and page["status"] == "review_only"
+        and page["citation_ready"] is False
+        for page in pages
+    )
     assert validate_packet(packet, "domestic-1946-refuse-national-assembly")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1946-refuse-national-assembly").decode("utf-8")
     assert '"text"' not in raw
@@ -553,13 +574,31 @@ def test_1946_li_wen_packet_separates_compiled_statements_from_press():
     packet = build_research_packet("domestic-1946-li-wen")
     assert packet is not None
     assert packet["counts"]["event_source_map_count"] == 1
-    assert packet["counts"]["event_source_page_record_count"] == 4
+    assert packet["counts"]["event_source_page_record_count"] == 9
     source_map = packet["event_source_maps"][0]
     assert source_map["primary_evidence_closed"] is False
     assert source_map["body_text_included"] is False
     pages = [page for source in source_map["sources"] for page in source["page_records"]]
-    assert {page["page_id"] for page in pages} == {18936, 18945, 18948, 1768}
-    assert all(page["status"] == "strict_citation" and page["citation_ready"] is True for page in pages)
+    assert {
+        page["page_id"]
+        for page in pages
+        if page["page_id"] is not None
+    } == {18936, 18945, 18948, 1768}
+    assert len(pages) == 9
+    assert sum(page["status"] == "strict_citation" for page in pages) == 4
+    assert sum(page["status"] == "review_only" for page in pages) == 3
+    assert all(
+        page["status"] == "strict_citation" and page["citation_ready"] is True
+        for page in pages
+        if page["status"] == "strict_citation"
+    )
+    assert all(
+        page["status"] == "review_only"
+        and page["page_id"] is None
+        and page["citation_ready"] is False
+        for page in pages
+        if page["status"] == "review_only"
+    )
     assert validate_packet(packet, "domestic-1946-li-wen")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1946-li-wen").decode("utf-8")
     assert '"text"' not in raw
@@ -1255,8 +1294,8 @@ def test_parity_matrix_separates_navigation_from_primary_closure(tmp_path):
     assert summary["research_ready"] == 0
     assert summary["primary_evidence_partial"] == 9
     assert summary["evidence_chain_ready"] == 9
-    assert summary["evidence_chain_page_items"] == 151
-    assert summary["evidence_chain_strict_items"] == 127
+    assert summary["evidence_chain_page_items"] == 155
+    assert summary["evidence_chain_strict_items"] == 131
     assert summary["evidence_chain_open_targets"] == 9
     assert all(row["navigation_ready"] for row in report["topics"])
     assert all(row["evidence_chain_ready"] for row in report["topics"])
@@ -1283,8 +1322,8 @@ def test_evidence_chain_validator_is_reproducible(tmp_path):
     report = json.loads(report_path.read_text(encoding="utf-8"))
     assert report["status"] == "PASS"
     assert report["topics"] == report["chains"] == 9
-    assert report["page_items"] == 151
-    assert report["strict_citation_items"] == 127
+    assert report["page_items"] == 155
+    assert report["strict_citation_items"] == 131
 
 
 def test_high_value_reviewed_pages_are_reconnected_without_primary_upgrade():

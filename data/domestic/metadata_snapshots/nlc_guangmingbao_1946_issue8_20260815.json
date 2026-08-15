@@ -1,0 +1,55 @@
+{
+  "schema": "domestic_public_media_metadata.v1",
+  "generated_at": "2026-08-15",
+  "event_id": "domestic-1946-li-wen",
+  "candidate_id": "domestic:NLC:guangmingbao-1946-issue8",
+  "title": "《光明報》新八號（1946-08-11）",
+  "source_role": "contemporary_newspaper_scan",
+  "repository_name": "中国国家图书馆民国时期文献公开扫描（Wikimedia Commons镜像）",
+  "catalog_reference": "NLC404-01J000514-10429",
+  "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
+  "direct_file_url": "https://commons.wikimedia.org/wiki/Special:FilePath/NLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
+  "local_file": "data/domestic/raw/public_sources/nlc_guangmingbao_1946_issue8.pdf",
+  "page_count": 16,
+  "file_bytes": 1092786,
+  "file_sha256": "a0953d77e33497a9af58d458818a2cbafae011e76ef88f0901ac4a11e4702773",
+  "body_read": false,
+  "formal_db_written": false,
+  "review_status": "review_only",
+  "citation_ready": false,
+  "visual_review": {
+    "status": "issue_identity_and_selected_pages_visually_checked",
+    "review_scope": "issue_identity_and_selected_article_heading_only",
+    "ocr_performed": false,
+    "full_article_text_verified": false,
+    "selected_pages": [
+      {
+        "pdf_page_no": 1,
+        "physical_page_no": 1,
+        "finding": "刊名《光明報》、新八號及1946年8月11日刊期身份可见"
+      },
+      {
+        "pdf_page_no": 2,
+        "physical_page_no": 2,
+        "finding": "可见《民盟重申嚴正立場堅決擁護政協決議反對參加國大》题名"
+      },
+      {
+        "pdf_page_no": 9,
+        "physical_page_no": 9,
+        "finding": "可见《民盟粵方負責人張文對南京傀儡國大發表談話》题名"
+      },
+      {
+        "pdf_page_no": 14,
+        "physical_page_no": 14,
+        "finding": "可见《李聞慘案前後的昆明（續）》及作者赵鸿"
+      },
+      {
+        "pdf_page_no": 15,
+        "physical_page_no": 15,
+        "finding": "为上述《李聞慘案前後的昆明（續）》连续正文页"
+      }
+    ]
+  },
+  "rights_status": "public_mirror_citation_only_pending_rights_confirmation",
+  "caveat": "本轮保存的是国家图书馆编号公开扫描的本地副本，并完成刊期及选定页的人工视觉核验；未做OCR、未逐字校读、未写入正式SQLite。第14至15页可作为李闻专题的同期报刊取件路线，但不替代《民主周刊》原版、民盟独立抗议文件或司法行政档案。"
+}

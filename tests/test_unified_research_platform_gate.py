@@ -44,6 +44,7 @@ def test_external_navigation_sources_use_hashed_metadata_snapshots():
     assert set(sources) == {
         "minmeng-yunnan-democracy-weekly-history",
         "jiuwenku-guangmingbao-1946-catalogue",
+        "nlc-guangmingbao-1946-v8-li-wen",
     }
     for source in sources.values():
         snapshot = ROOT / source["metadata_snapshot_file"]

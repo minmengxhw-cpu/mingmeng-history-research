@@ -3,7 +3,7 @@
   "event_id": "domestic-1946-refuse-national-assembly",
   "title": "1946年民盟拒绝参加国民大会：汇编通告与同期《光明報》页级证据地图",
   "review_status": "compiled_notice_and_contemporary_press_ready_original_statement_gap_open",
-  "evidence_scope": "1983公开文献汇编中的1946-11-14《紧急通告》页与1946—1947年《光明報》同期版页；只登记来源、哈希和复核边界",
+  "evidence_scope": "1983公开文献汇编中的1946-11-14《紧急通告》页与1946—1947年《光明報》同期版页；新增1946年第8期第2页的同期社论路线；只登记来源、哈希和复核边界",
   "body_text_included": false,
   "ocr_text_included": false,
   "raw_files_included": false,
@@ -106,7 +106,19 @@
       "source_file_size": 1092786,
       "page_count": 16,
       "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
-      "access_note": "国家图书馆公开同期报纸扫描；已人工核对刊期和《论有条件参加国大》题名，保留其与正式拒参决定的时间/立场差异。",
+      "metadata_snapshot_file": "data/domestic/metadata_snapshots/nlc_guangmingbao_1946_issue8_20260815.json",
+      "metadata_snapshot_sha256": "52a03a0ea335e3f5c311bca8708f4567361e180ea7c7d6cb54b1ae13afe38ca4",
+      "access_note": "国家图书馆公开同期报纸扫描；已人工核对刊期、《论有条件参加国大》题名及第2页同期社论题名，保留其与正式拒参决定的时间/立场差异。",
+      "local_acquisition": {
+        "local_file": "data/domestic/raw/public_sources/nlc_guangmingbao_1946_issue8.pdf",
+        "sha256": "a0953d77e33497a9af58d458818a2cbafae011e76ef88f0901ac4a11e4702773",
+        "bytes": 1092786,
+        "page_count": 16,
+        "metadata_snapshot": "data/domestic/metadata_snapshots/nlc_guangmingbao_1946_issue8_20260815.json",
+        "review_status": "review_only",
+        "body_read": false,
+        "formal_db_written": false
+      },
       "page_records": [
         {
           "page_id": 16367,
@@ -121,6 +133,20 @@
           "review_scope": "periodical_issue_identity_editorial_title",
           "page_image_sha256": null,
           "caveat": "这是条件性参加的同期社论入口，不能与11月正式拒参通告混为同一文件或同一立场阶段。"
+        },
+        {
+          "page_id": null,
+          "pdf_page_no": 2,
+          "physical_page_no": 2,
+          "target": "民盟拒参国大的同期立场表达",
+          "role": "《民盟重申嚴正立場堅決擁護政協決議反對參加國大》同期社论页",
+          "status": "review_only",
+          "review_status": "human_verified",
+          "citation_ready": false,
+          "needs_human_review": false,
+          "review_scope": "selected_editorial_heading_and_page_identity",
+          "page_image_sha256": null,
+          "caveat": "已确认同期社论题名和页界；未OCR、未逐字校读，不把同期报刊社论升级为1946年民盟正式拒参原件。"
         }
       ]
     },

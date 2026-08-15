@@ -669,9 +669,10 @@ def research_packet_page(event_id: str) -> bytes:
   <div class="snippet">定向目标：{esc(target_labels)}。本包只复制来源身份、页码和状态，不复制扫描正文或 OCR。</div>
 </div><div class="cite">{' · '.join(links)}</div></article>"""
         )
+    sourcebook_body = "".join(sourcebook_cards) or '<div class="notice">本专题没有登记 sourcebook。</div>'
     sourcebook_html = (
         '<div class="section-head"><h2>本地 sourcebook staging</h2><span class="meta">不替代正式原件</span></div>'
-        f'<section class="result-list">{"".join(sourcebook_cards) or "<div class=\"notice\">本专题没有登记 sourcebook。</div>"}</section>'
+        f'<section class="result-list">{sourcebook_body}</section>'
     )
 
     source_map_cards = []
@@ -730,9 +731,10 @@ def research_packet_page(event_id: str) -> bytes:
   <ul>{"".join(source_rows)}</ul>
 </div></article>'''
         )
+    source_map_body = "".join(source_map_cards) or '<div class="notice">本专题没有登记来源地图。</div>'
     source_map_html = (
         '<div class="section-head"><h2>专题来源地图</h2><span class="meta">页级证据与开放缺口分开呈现</span></div>'
-        f'<section class="result-list">{"".join(source_map_cards) or "<div class=\"notice\">本专题没有登记来源地图。</div>"}</section>'
+        f'<section class="result-list">{source_map_body}</section>'
     )
 
     topic_event_cards = "".join(

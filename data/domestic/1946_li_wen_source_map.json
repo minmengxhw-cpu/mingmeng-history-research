@@ -2,15 +2,15 @@
   "schema": "domestic_event_source_map.v1",
   "event_id": "domestic-1946-li-wen",
   "title": "1946年李公朴、闻一多遇害与民盟反应：汇编声明及同期报刊页级证据地图",
-  "review_status": "compiled_statements_and_contemporary_press_ready_independent_archive_gap_open",
-  "evidence_scope": "1983公开文献汇编中的民盟自身声明页与1947年《光明報》纪念版页；只登记来源、哈希和证据边界",
+  "review_status": "compiled_statements_and_contemporary_press_review_route_added_independent_archive_gap_open",
+  "evidence_scope": "1983公开文献汇编中的民盟自身声明页、1946年第8期及1947年《光明報》同期页；只登记来源、哈希和证据边界",
   "body_text_included": false,
   "ocr_text_included": false,
   "raw_files_included": false,
   "formal_db_written_by_map": false,
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
-  "primary_evidence_gap": "《民主周刊》原版、民盟抗议文件独立底本、司法/行政档案和案件过程材料仍未形成页级闭环；1983汇编中的三处声明是可回链的重刊页，不等同于独立原件。",
+  "primary_evidence_gap": "《民主周刊》原版、民盟抗议文件独立底本、司法/行政档案和案件过程材料仍未形成页级闭环；新增的1946年第8期《光明報》第14—15页是同期报刊路线，不等同于独立原件；1983汇编中的三处声明也是可回链的重刊页。",
   "access_audit": {
     "audit_document": "docs/domestic/DOMESTIC_LIWEN_ORIGINAL_ACCESS_AUDIT_20260815.md",
     "metadata_reviewed_on": "2026-08-15",
@@ -18,7 +18,8 @@
     "scope": "公开官方盟史、商业目录和既有本地页级材料；未复制商业正文原件",
     "confirmed_routes": [
       "民盟云南官方盟史：1944-12-09至1946-08-02共3卷71期",
-      "商业影印目录：1946年第3、5、6、7、8期李闻相关篇目和目录线索"
+      "商业影印目录：1946年第3、5、6、7、8期李闻相关篇目和目录线索",
+      "国家图书馆编号公开扫描：《光明報》1946年第8期第14—15页《李聞慘案前後的昆明（續）》"
     ],
     "next_minimum_target": "核对并取得1946年第3卷第16期和第19期相关原刊影像或正式复制件，完成逐页馆藏标识、影像SHA和人工视觉复核"
   },
@@ -151,6 +152,74 @@
           "needs_human_review": true,
           "review_scope": "commercial_catalogue_locator_only",
           "caveat": "目录题名不能证明正文页界、署名、版次或原刊影像已取得。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-guangmingbao-1946-v8-li-wen",
+      "title": "《光明報》新八號（1946-08-11）第1、14、15页",
+      "source_role": "contemporary_newspaper_scan",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/raw/public_sources/nlc_guangmingbao_1946_issue8.pdf",
+      "source_sha256": "a0953d77e33497a9af58d458818a2cbafae011e76ef88f0901ac4a11e4702773",
+      "source_file_size": 1092786,
+      "page_count": 16,
+      "metadata_snapshot_file": "data/domestic/metadata_snapshots/nlc_guangmingbao_1946_issue8_20260815.json",
+      "metadata_snapshot_sha256": "52a03a0ea335e3f5c311bca8708f4567361e180ea7c7d6cb54b1ae13afe38ca4",
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
+      "access_note": "国家图书馆编号公开扫描；第1、14、15页已人工视觉核对，第14—15页确认《李闻惨案前后的昆明（续）》连续版面；未做OCR、未写入正式SQLite。",
+      "local_acquisition": {
+        "local_file": "data/domestic/raw/public_sources/nlc_guangmingbao_1946_issue8.pdf",
+        "sha256": "a0953d77e33497a9af58d458818a2cbafae011e76ef88f0901ac4a11e4702773",
+        "bytes": 1092786,
+        "page_count": 16,
+        "metadata_snapshot": "data/domestic/metadata_snapshots/nlc_guangmingbao_1946_issue8_20260815.json",
+        "review_status": "review_only",
+        "body_read": false,
+        "formal_db_written": false
+      },
+      "page_records": [
+        {
+          "page_id": null,
+          "pdf_page_no": 1,
+          "physical_page_no": 1,
+          "target": "同期刊物身份与李闻专题路线定位",
+          "role": "《光明報》新八號首版及刊期身份页",
+          "status": "review_only",
+          "review_status": "human_verified",
+          "citation_ready": false,
+          "needs_human_review": false,
+          "review_scope": "periodical_issue_identity_and_selected_article_locator",
+          "page_image_sha256": null,
+          "caveat": "只证明公开扫描的刊期身份和路线入口，不把该页升级为李闻案件原始档案。"
+        },
+        {
+          "page_id": null,
+          "pdf_page_no": 14,
+          "physical_page_no": 14,
+          "target": "李闻惨案后的昆明叙述",
+          "role": "《李聞慘案前後的昆明（續）》标题及正文页",
+          "status": "review_only",
+          "review_status": "human_verified",
+          "citation_ready": false,
+          "needs_human_review": false,
+          "review_scope": "selected_article_heading_and_page_identity",
+          "page_image_sha256": null,
+          "caveat": "已确认标题、作者和页界；未OCR、未逐字校读，不能作为正式逐字引文。"
+        },
+        {
+          "page_id": null,
+          "pdf_page_no": 15,
+          "physical_page_no": 15,
+          "target": "李闻惨案后的昆明叙述",
+          "role": "《李聞慘案前後的昆明（續）》连续正文页",
+          "status": "review_only",
+          "review_status": "human_verified",
+          "citation_ready": false,
+          "needs_human_review": false,
+          "review_scope": "selected_article_continuation_and_page_identity",
+          "page_image_sha256": null,
+          "caveat": "已确认与第14页连续；未OCR、未逐字校读，不能作为正式逐字引文。"
         }
       ]
     }
