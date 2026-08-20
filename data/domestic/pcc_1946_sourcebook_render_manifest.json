@@ -78,6 +78,7 @@
       "rotated_image_bytes": 1345619,
       "visual_review_status": "visually_inspected",
       "manual_review_ref": "work/domestic/pcc_1946_page125_manual_review_20260821/PAGE125_MANUAL_REVIEW.json",
+      "fragment_review_ref": "work/domestic/pcc_1946_page125_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
       "targets": [{"target_id": "zhang-bojun-democratic-league-view", "role": "title_start"}]
     },
     {

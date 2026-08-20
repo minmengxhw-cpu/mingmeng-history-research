@@ -1,0 +1,61 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对章伯钧说明民主同盟意见第125页标题下方开头短语进行第二次高分辨率视觉核对，并确认第126页连续正文与邓颖超说明的边界。",
+  "source_page_review_ref": "work/domestic/pcc_1946_page125_manual_review_20260821/PAGE125_MANUAL_REVIEW.json",
+  "source_boundary_review_ref": "work/domestic/pcc_1946_pages125_126_boundary_review_20260821/PAGES125_126_BOUNDARY_REVIEW.json",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 125,
+    "printed_page": 116,
+    "page_image_300dpi": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-125-r270.png",
+    "page_image_300dpi_sha256": "8f4f80fb8ecba3e45b0f6c47baf8f7f83c5fc5b1248f0a1ebc688dab5af3983f",
+    "page_image_600dpi_probe": "work/domestic/pcc_1946_sourcebook_render_20260821_highres/pdf-125-r270.jpg",
+    "page_image_600dpi_probe_sha256": "116b400a4b6c449b0165aac7a757cf703e842bb17fd85ca9ed3b650400dfb582",
+    "boundary_page": 126,
+    "boundary_page_image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-126-r270.png",
+    "boundary_page_image_sha256": "0b366a40c0c74ca490e8d5015dca80b21f7c4aa5b1238a878af7b008fee7ef34"
+  },
+  "review_passes": [
+    {
+      "pass_id": "initial_visual_pass",
+      "method": "300dpi_rotated_page_manual_reading",
+      "scope": "title_anchor_and_target_body_region",
+      "status": "completed"
+    },
+    {
+      "pass_id": "second_visual_pass",
+      "method": "600dpi_local_rerender_manual_reading",
+      "scope": "opening_phrase_characters_and_page126_boundary",
+      "status": "completed",
+      "finding": "标题‘章伯鈞說明民主同盟意見’及其下方短语‘已經不適合於十年後今天的中國情況’字符可辨认；第126页正文先承接，随后出现‘鄧穎超說明中共意見’新标题。"
+    }
+  ],
+  "fragment": {
+    "target_id": "zhang-bojun-democratic-league-view",
+    "title": "章伯钧说明民主同盟意见",
+    "scope": "目标标题下方正文中的开头论断短语；排除前置材料和第126页邓颖超说明",
+    "text": "已經不適合於十年後今天的中國情況",
+    "fragment_ends_mid_sentence": true,
+    "display_suffix": "……",
+    "transcription_mode": "manual_visual_transcription_600dpi_crosschecked_300dpi",
+    "character_check": "confirmed",
+    "punctuation_check": "not_applicable_fragment_ends_before_source_continuation",
+    "ocr_crosscheck": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-125-r270.ocr.md",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "continuation_boundary_status": "page126_continuation_and_deng_yingchao_new_title_visually_confirmed",
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅目标短语达到片段级引用门禁",
+    "promotion_scope": "引用时必须保留省略标记、目标标题和页125锚点；不得把短语扩展为完整章伯钧说明或中共意见"
+  },
+  "status": "HUMAN_VERIFIED_FRAGMENT_QUOTE_READY_PAGE_BODY_OPEN"
+}
