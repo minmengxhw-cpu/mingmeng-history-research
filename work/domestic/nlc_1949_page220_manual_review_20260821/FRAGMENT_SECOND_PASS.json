@@ -1,0 +1,56 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1949年政协一届全体会议会刊第220页宣言草案标题下方的开头完整句进行第二次视觉核对；只开放这一句的片段引用，不升级整页正文。",
+  "source_page_review_ref": "work/domestic/nlc_1949_page220_manual_review_20260821/PAGE220_MANUAL_REVIEW.json",
+  "source": {
+    "source_id": "nlc-1949-first-plenary-conference-journal",
+    "source_sha256": "20069c88dd8520e034f47beb614bca4c1c86ae6b8baf41aaf1988a13f95c7e4a",
+    "pdf_page": 220,
+    "printed_page": 220,
+    "page_image_300dpi": "work/domestic/nlc_1949_first_plenary_visual_review_20260815/page-220.jpg",
+    "page_image_300dpi_sha256": "11c6e032a7094edf3bcbad65bff2da649046c6faeb34aaca50cd720ac32cc5dc",
+    "page_image_600dpi_probe": "work/domestic/nlc_1949_page220_render_20260821/page-220.jpg",
+    "page_image_600dpi_probe_sha256": "409b7719a74995f002f48aed82de765ddeb6fd0b1aec395424073b935e06a2fe"
+  },
+  "review_passes": [
+    {
+      "pass_id": "initial_page_identity_pass",
+      "method": "existing_300dpi_visual_review",
+      "scope": "title_date_page_identity",
+      "status": "completed"
+    },
+    {
+      "pass_id": "second_visual_pass",
+      "method": "600dpi_local_rerender_manual_reading_crosschecked_300dpi",
+      "scope": "opening_sentence_characters_and_punctuation",
+      "status": "completed",
+      "finding": "开头句字符、句号和句界在600dpi及300dpi复核中一致。"
+    }
+  ],
+  "fragment": {
+    "target_id": "1949-pcc-declaration-draft-opening",
+    "title": "第一届全体会议宣言（草案）开头",
+    "scope": "‘全國同胞們：’之后的第一句；不含标题、日期和后续句段",
+    "text": "中國人民政治協商會議第一屆全體會議業已勝利地完成了自己的任務。",
+    "fragment_ends_mid_sentence": false,
+    "transcription_mode": "manual_visual_transcription_600dpi_crosschecked_300dpi",
+    "character_check": "confirmed",
+    "punctuation_check": "confirmed",
+    "ocr_crosscheck": "",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "continuation_boundary": "仅开放标题下方第一句；后续正文未逐字校读",
+    "page_body_status": "整页正文未逐字校读；仅该完整句达到片段级引用门禁",
+    "promotion_scope": "引用时必须保留宣言草案题名、1949-09-30日期、会刊PDF第220页、来源SHA和片段边界；不得把该句扩展为整页或完整宣言"
+  },
+  "status": "HUMAN_VERIFIED_FRAGMENT_QUOTE_READY_PAGE_BODY_OPEN"
+}

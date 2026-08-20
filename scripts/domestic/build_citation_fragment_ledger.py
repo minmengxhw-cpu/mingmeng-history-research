@@ -25,6 +25,7 @@ FRAGMENT_REFS = [
     "work/domestic/pcc_1946_page101_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/pcc_1946_page125_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/pcc_1946_page206_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
+    "work/domestic/nlc_1949_page220_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
 ]
 DEFAULT_LEDGER = ROOT / "data" / "domestic" / "citation_fragments.jsonl"
 DEFAULT_MANIFEST = ROOT / "data" / "domestic" / "citation_fragments_manifest.json"
@@ -91,10 +92,15 @@ def build_row(relative_ref: str) -> dict[str, Any]:
         ensure_relative(value, label)
 
     target_id = str(fragment["target_id"])
+    source_id = str(source["source_id"])
     pdf_page = int(source["pdf_page"])
+    if source_id == "nlc-pcc-1946-NLC416-01jh004019-12949":
+        fragment_prefix = "pcc-1946"
+    else:
+        fragment_prefix = source_id
     row = {
         "schema": "domestic_citation_fragment.v1",
-        "fragment_id": f"pcc-1946-p{pdf_page:03d}-{target_id}",
+        "fragment_id": f"{fragment_prefix}-p{pdf_page:03d}-{target_id}",
         "target_id": target_id,
         "title": str(fragment["title"]),
         "text": str(fragment["text"]),
@@ -108,7 +114,7 @@ def build_row(relative_ref: str) -> dict[str, Any]:
         "body_read": False,
         "formal_db_written": False,
         "main_db_page_id": int(page_source["main_db_page_id"]),
-        "source_id": str(source["source_id"]),
+        "source_id": source_id,
         "source_file": str(page_source["source_file"]),
         "source_sha256": str(source["source_sha256"]),
         "pdf_page": pdf_page,
@@ -170,7 +176,7 @@ def build(ledger_path: Path, manifest_path: Path, report_path: Path) -> dict[str
         "page_citation_ready_count": sum(bool(row["page_citation_ready"]) for row in rows),
         "formal_db_written_count": sum(bool(row["formal_db_written"]) for row in rows),
         "body_read_count": sum(bool(row["body_read"]) for row in rows),
-        "scope": "six manually verified short fragments from the 1946 old PCC sourcebook; not full-page body promotion",
+        "scope": "six manually verified short fragments from the 1946 old PCC sourcebook plus one 1949 first-plenary declaration fragment; not full-page body promotion",
     }
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

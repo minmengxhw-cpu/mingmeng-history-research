@@ -1,0 +1,56 @@
+{
+  "schema": "domestic_sourcebook_page_manual_review.v1",
+  "review_id": "nlc-1949-page220-manual-review-20260821",
+  "reviewer": "codex-visual-audit-20260821",
+  "reviewed_at": "2026-08-21",
+  "purpose": "对1949年政协一届全体会议会刊第220页宣言草案的题名、日期、页界和一个短正文片段做独立视觉复核；不升级整页正文。",
+  "source": {
+    "source_id": "nlc-1949-first-plenary-conference-journal",
+    "source_file": "data/domestic/raw/public_sources/nlc_1949_first_plenary_conference_journal.pdf",
+    "source_sha256": "20069c88dd8520e034f47beb614bca4c1c86ae6b8baf41aaf1988a13f95c7e4a",
+    "main_db_page_id": 20937,
+    "pdf_page": 220,
+    "printed_page": 220,
+    "page_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/NLC416-18jh000828-104705_%E4%B8%AD%E5%9C%8B%E4%BA%BA%E6%B0%91%E6%94%BF%E6%B2%BB%E5%8D%94%E5%95%86%E6%9C%83%E8%AD%B0%E7%AC%AC%E4%B8%80%E5%B1%86%E5%85%A8%E9%AB%94%E6%9C%83%E5%88%8A.pdf#page=220"
+  },
+  "page_identity": {
+    "title": "中國人民政治協商會議第一屆全體會議宣言（草案）",
+    "date": "一九四九年九月三十日",
+    "page_label": "會刊印刷頁三",
+    "identity_status": "human_verified",
+    "body_text_verified": false
+  },
+  "review_passes": [
+    {
+      "pass_id": "existing_page_identity_pass",
+      "method": "existing_300dpi_visual_review",
+      "scope": "title_date_page_identity",
+      "reference": "work/domestic/nlc_1949_conference_journal_page_identity_review_20260815.json",
+      "status": "completed"
+    },
+    {
+      "pass_id": "fragment_second_pass_300dpi_600dpi",
+      "method": "local_300dpi_and_600dpi_rerender_manual_reading",
+      "scope": "opening_sentence_after 全國同胞們",
+      "status": "completed",
+      "finding": "标题、日期、页界和开头完整句在300dpi与600dpi渲染中一致；本复核只开放该句，不扩展至整页。"
+    }
+  ],
+  "render_refs": {
+    "page_image_300dpi": "work/domestic/nlc_1949_first_plenary_visual_review_20260815/page-220.jpg",
+    "page_image_300dpi_sha256": "11c6e032a7094edf3bcbad65bff2da649046c6faeb34aaca50cd720ac32cc5dc",
+    "page_image_600dpi_probe": "work/domestic/nlc_1949_page220_render_20260821/page-220.jpg",
+    "page_image_600dpi_probe_sha256": "409b7719a74995f002f48aed82de765ddeb6fd0b1aec395424073b935e06a2fe",
+    "page_image_300dpi_second_pass": "work/domestic/nlc_1949_page220_render_20260821/page300-220.jpg",
+    "page_image_300dpi_second_pass_sha256": "c29a0a8c8f539432bf9a975375999afeffed8b44632be7dfa77a351432f05e2f"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅开头一句达到片段级引用门禁",
+    "promotion_scope": "允许在带会刊PDF页码、来源SHA和片段边界的证据卡中引用；不得把该句扩展为整页宣言或完整会议宣言"
+  }
+}
