@@ -43,6 +43,7 @@
       "rotated_image_bytes": 1428403,
       "visual_review_status": "visually_inspected",
       "manual_review_ref": "work/domestic/pcc_1946_page52_manual_review_20260821/PAGE52_MANUAL_REVIEW.json",
+      "fragment_review_ref": "work/domestic/pcc_1946_page52_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
       "targets": [{"target_id": "zhang-junmai-closing", "role": "title_start"}]
     },
     {

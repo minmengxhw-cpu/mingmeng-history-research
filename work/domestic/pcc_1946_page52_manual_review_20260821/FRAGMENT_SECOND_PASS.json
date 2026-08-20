@@ -1,0 +1,59 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对张君劢闭会词第52页标题下方首句进行第二次高分辨率视觉核对，并确认第53页顶部到新标题的边界；只开放首句片段引用。",
+  "source_page_review_ref": "work/domestic/pcc_1946_page52_manual_review_20260821/PAGE52_MANUAL_REVIEW.json",
+  "source_boundary_review_ref": "work/domestic/pcc_1946_page52_boundary_candidate_20260821/PAGE52_53_BOUNDARY_CANDIDATE.json",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 52,
+    "printed_page": 45,
+    "page_image_300dpi": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-052-r270.png",
+    "page_image_300dpi_sha256": "65f98380ca7a3d0f7e39ac62929f3ce154c725dedc1121e74a0e064e092e23b7",
+    "page_image_600dpi_probe": "work/domestic/pcc_1946_sourcebook_render_20260821_highres/pdf-052-r270.jpg",
+    "page_image_600dpi_probe_sha256": "ac0e7174cf6fa0d4e66a7866bdd3a3e518ad8a91d16e92456b39481ef9784180",
+    "boundary_probe_pdf_page": 53,
+    "boundary_probe_image": "work/domestic/pcc_1946_sourcebook_boundary_probe_20260821/pdf-053-r270.jpg",
+    "boundary_probe_image_sha256": "5625b624d86849b67abc36602665a791e5925c5aae64984a4da998a0e57b5ce1"
+  },
+  "review_passes": [
+    {
+      "pass_id": "initial_visual_pass",
+      "method": "300dpi_rotated_page_manual_reading",
+      "scope": "title_anchor_and_opening_sentence",
+      "status": "completed"
+    },
+    {
+      "pass_id": "second_visual_pass",
+      "method": "600dpi_local_rerender_manual_reading",
+      "scope": "opening_sentence_characters_and_terminal_punctuation",
+      "status": "completed",
+      "finding": "首句字符、两处分句逗号和句末句号均可辨认；第53页顶部仍为无新标题的连续正文，之后才出现青年党代表曾琦闭会词标题。"
+    }
+  ],
+  "fragment": {
+    "target_id": "zhang-junmai-closing",
+    "title": "民主同盟代表张君劢闭会词",
+    "scope": "标题下方首句；不含第52页前置材料、后续段落或第53页正文",
+    "text": "本人此次自海外歸來，深切知道國際方面期望中國和平統一很切要，知道中國自身負有治國的義務。",
+    "transcription_mode": "manual_visual_transcription_600dpi_crosschecked_300dpi",
+    "character_check": "confirmed",
+    "punctuation_check": "confirmed",
+    "ocr_crosscheck": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-052-r270.ocr.md",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "continuation_boundary_status": "page53_top_continuation_and_new_title_visually_confirmed",
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅该首句达到片段级引用门禁",
+    "promotion_scope": "允许在带页码、来源SHA、首句范围和第53页边界说明的证据卡中引用；不得扩展为整篇闭会词"
+  },
+  "status": "HUMAN_VERIFIED_FRAGMENT_QUOTE_READY_PAGE_BODY_OPEN"
+}

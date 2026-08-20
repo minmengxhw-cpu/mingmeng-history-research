@@ -28,7 +28,8 @@
   },
   "evidence_boundary": {
     "page_identity_ready": true,
-    "continuation_confirmed": false,
+    "continuation_confirmed": true,
+    "second_pass_review_ref": "work/domestic/pcc_1946_page52_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "new_title_boundary_seen": true,
     "body_read": false,
     "citation_ready": false,
@@ -39,5 +40,5 @@
       "将青年党代表曾琦闭会词作为独立目标，不与张君劢文章合并"
     ]
   },
-  "status": "BOUNDARY_CANDIDATE_PAGE53_TOP_AND_NEW_TITLE_SEEN"
+  "status": "BOUNDARY_VISUALLY_CONFIRMED_PAGE53_TOP_CONTINUATION_AND_NEW_TITLE"
 }

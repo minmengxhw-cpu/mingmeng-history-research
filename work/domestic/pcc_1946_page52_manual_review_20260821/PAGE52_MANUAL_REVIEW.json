@@ -37,6 +37,8 @@
     "body_read": false,
     "citation_ready": false,
     "formal_body_promotion": false,
+    "fragment_review_ref": "work/domestic/pcc_1946_page52_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
+    "fragment_citation_ready": true,
     "next_promotion_requirements": [
       "确认第53页顶部是否为本目标的连续正文",
       "人工核对需要引用的段落",
