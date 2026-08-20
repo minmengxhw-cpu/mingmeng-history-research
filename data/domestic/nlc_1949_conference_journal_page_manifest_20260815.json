@@ -1,0 +1,102 @@
+{
+  "schema": "domestic_nlc_conference_journal_page_manifest.v1",
+  "generated_at": "2026-08-15",
+  "batch_id": "nlc-1949-conference-journal-page-metadata-20260815",
+  "event_id": "domestic-1949-new-pcc",
+  "source_id": "nlc-1949-first-plenary-conference-journal",
+  "source_title": "中國人民政治協商會議第一屆全體會議會刊（1949）",
+  "source_url": "https://commons.wikimedia.org/wiki/File:NLC416-18jh000828-104705_%E4%B8%AD%E5%9C%8B%E4%BA%BA%E6%B0%91%E6%94%BF%E6%B2%BB%E5%8D%94%E5%95%86%E6%9C%83%E8%AD%B0%E7%AC%AC%E4%B8%80%E5%B1%86%E5%85%A8%E9%AB%94%E6%9C%83%E5%88%8A.pdf",
+  "direct_file_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/NLC416-18jh000828-104705_%E4%B8%AD%E5%9C%8B%E4%BA%BA%E6%B0%91%E6%94%BF%E6%B2%BB%E5%8D%94%E5%95%86%E6%9C%83%E8%AD%B0%E7%AC%AC%E4%B8%80%E5%B1%86%E5%85%A8%E9%AB%94%E6%9C%83%E5%88%8A.pdf",
+  "source_file": "data/domestic/raw/public_sources/nlc_1949_first_plenary_conference_journal.pdf",
+  "source_sha256": "20069c88dd8520e034f47beb614bca4c1c86ae6b8baf41aaf1988a13f95c7e4a",
+  "source_file_size": 17174315,
+  "page_count": 276,
+  "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+  "volume_id": "NLC416-18jh000828-104705",
+  "document_date": "1949",
+  "body_text_included": false,
+  "ocr_included": false,
+  "citation_ready": false,
+  "pages": [
+    {
+      "pdf_page_no": 1,
+      "page_label": "pdf-001 / 会刊封面",
+      "review_status": "human_verified",
+      "citation_ready": true,
+      "needs_human_review": false,
+      "role": "会刊身份与合刊范围",
+      "search_terms": ["会刊", "1949", "第一期至第十二期"],
+      "visual_review": "封面身份已核验；正文/OCR未核验，不据此宣称全套会议档案完整。"
+    },
+    {
+      "pdf_page_no": 17,
+      "page_label": "pdf-017 / 开幕式程序",
+      "review_status": "human_verified",
+      "citation_ready": true,
+      "needs_human_review": false,
+      "role": "第一届全体会议开幕式程序",
+      "search_terms": ["开幕式", "1949-09-21", "第一届全体会议"],
+      "visual_review": "题名与日期已核验；正文/OCR未核验，未逐字校读。"
+    },
+    {
+      "pdf_page_no": 30,
+      "page_label": "pdf-030 / 主席团名单",
+      "review_status": "human_verified",
+      "citation_ready": true,
+      "needs_human_review": false,
+      "role": "第一届全体会议主席团名单",
+      "search_terms": ["主席团", "张澜", "沈钧儒", "章伯钧", "张东荪", "史良", "沙千里"],
+      "visual_review": "页身份已核验；可作名册页定位和可见姓名锚点，正文/OCR及人名与民盟代表身份仍待人工逐人复核。"
+    },
+    {
+      "pdf_page_no": 31,
+      "page_label": "pdf-031 / 议事规则-1",
+      "review_status": "human_verified",
+      "citation_ready": true,
+      "needs_human_review": false,
+      "role": "第一届全体会议议事规则页1",
+      "search_terms": ["议事规则", "第一届全体会议"],
+      "visual_review": "页身份已核验；正文/OCR未核验，未逐字校读。"
+    },
+    {
+      "pdf_page_no": 32,
+      "page_label": "pdf-032 / 议事规则-2",
+      "review_status": "human_verified",
+      "citation_ready": true,
+      "needs_human_review": false,
+      "role": "第一届全体会议议事规则页2",
+      "search_terms": ["议事规则", "第一届全体会议"],
+      "visual_review": "页身份已核验；正文/OCR未核验，未逐字校读。"
+    },
+    {
+      "pdf_page_no": 220,
+      "page_label": "pdf-220 / 宣言草案",
+      "review_status": "human_verified",
+      "citation_ready": true,
+      "needs_human_review": false,
+      "role": "第一届全体会议宣言（草案）",
+      "search_terms": ["宣言", "草案", "1949-09-30"],
+      "visual_review": "草案页身份与日期已核验；本记录只确认页级身份，公开转录页未校对，不能替代原图正文。"
+    },
+    {
+      "pdf_page_no": 242,
+      "page_label": "pdf-242 / 电文与纪念碑语境 / review_only",
+      "review_status": "review_only",
+      "citation_ready": false,
+      "needs_human_review": true,
+      "role": "会刊图文记录页",
+      "search_terms": ["电慰", "人民英雄纪念碑", "第一届全体会议"],
+      "visual_review": "会刊图文语境已核验；不单独证明民盟发言或人物行为。"
+    },
+    {
+      "pdf_page_no": 243,
+      "page_label": "pdf-243 / 会议影像语境 / review_only",
+      "review_status": "review_only",
+      "citation_ready": false,
+      "needs_human_review": true,
+      "role": "会刊会议影像页",
+      "search_terms": ["第一届全体会议", "会议影像"],
+      "visual_review": "图像页身份已核验；不据图像推断人物身份或发言内容。"
+    }
+  ]
+}

@@ -1,8 +1,8 @@
 [
   {
     "event_id": "domestic-1941-formation",
-    "last_audited": "2026-08-15",
-    "audit_basis": "正式库页级元数据、既有人工复核决定、来源登记和受控转录导入记录；不把汇编转载或后期转录升级为原始底本。",
+    "last_audited": "2026-08-20",
+    "audit_basis": "正式库页级元数据、既有人工复核决定、来源登记、受控转录导入记录和三期《新华日报》同期扫描负向核查；不把汇编转载或后期转录升级为原始底本。",
     "layers": {
       "primary": [
         {
@@ -64,7 +64,32 @@
           "caveat": "不是1941年《光明報》原刊或成立会议底本；不能替代原件或关闭1941主证据缺口。"
         }
       ],
-      "negative_checks": [],
+      "negative_checks": [
+        {
+          "label": "1941-10-10《新华日报》全版扫描（同日负向核查）",
+          "page_id": 1726,
+          "doc_key": "domestic-ocr/NLC:xinhua-daily-1941-10-10-full-ocr",
+          "status": "negative_control",
+          "role": "国家图书馆来源同期报刊的同日原刊扫描排除项",
+          "caveat": "本批次全版扫描已完成页级视觉核查，未见《中国民主政团同盟成立宣言》的明确标题或版面；这只说明本页未提供目标文本，不证明《光明報》原刊或成立文件不存在，也不关闭1941主证据缺口。"
+        },
+        {
+          "label": "1941-10-16《新华日报》全版扫描（后续负向核查）",
+          "page_id": 1732,
+          "doc_key": "domestic-ocr/NLC:xinhua-daily-1941-10-16-full-ocr",
+          "status": "negative_control",
+          "role": "国家图书馆来源同期报刊的成立宣言后续日期排除项",
+          "caveat": "本批次扫描作为同期报刊检索排除项保存；未见可替代《光明報》成立宣言原刊的明确目标页，不证明目标原件不存在。"
+        },
+        {
+          "label": "1941-10-28《新华日报》全版扫描（后续负向核查）",
+          "page_id": 1734,
+          "doc_key": "domestic-ocr/NLC:xinhua-daily-1941-10-28-full-ocr",
+          "status": "negative_control",
+          "role": "国家图书馆来源同期报刊的成立后续报道排除项",
+          "caveat": "本批次扫描未发现可替代成立宣言原件的明确目标页；只用于限定检索范围和防止误配，不证明《光明報》原刊、成立会议或底本关系不存在。"
+        }
+      ],
       "missing_primary": [
         {
           "target": "1941年成立宣言或成立会议的独立原件影像、馆藏档号和版本关系",
@@ -74,11 +99,11 @@
         }
       ]
     },
-    "chain_note": "当前已能严谨支持成立宣言的连续页范围、同一汇编中的早期政治主张页，以及一条后期公开转录的检索/版本对读入口；后两者均不能替代1941年原刊，独立成立原件、档号和版本关系尚未闭环。"
+    "chain_note": "当前已能严谨支持成立宣言的连续页范围、同一汇编中的早期政治主张页、一条后期公开转录的检索/版本对读入口，以及三期同期《新华日报》的负向核查；这些材料均不能替代1941年《光明報》原刊，独立成立原件、档号和版本关系尚未闭环。"
   },
   {
     "event_id": "domestic-1944-reorganization",
-    "last_audited": "2026-08-15",
+    "last_audited": "2026-08-18",
     "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
     "layers": {
       "primary": [],
@@ -170,6 +195,22 @@
           "status": "strict_citation",
           "role": "同期政论文章原刊印刷页16连续页",
           "caveat": "第20页存在文章交界，本页组不自动包含第20页。"
+        },
+        {
+          "label": "《民憲》第一卷第七期目录页（1944-09-10）",
+          "page_id": 17124,
+          "doc_key": "domestic-page/NLC404-00J001436-85448",
+          "status": "review_only",
+          "role": "改组前同期刊物刊名、卷期、出版日和目录页的导航入口",
+          "caveat": "2026-08-18已再核刊名《民憲》、第一卷第七期和中華民國三十三年九月十日；正式库仍为 machine_verified，不能替代改组会议记录或把目录列文当作已核验正文。"
+        },
+        {
+          "label": "《民憲》第一卷第七期封面卷期标识",
+          "page_id": 17123,
+          "doc_key": "domestic-page/NLC404-00J001436-85448",
+          "status": "review_only",
+          "role": "第1卷第7期封面标识页",
+          "caveat": "只证明期号标识；不是目录或会议原件。"
         }
       ],
       "negative_checks": [],
@@ -182,7 +223,7 @@
         }
       ]
     },
-    "chain_note": "1944专题现有同期刊物目录页和1946年民盟总部官方汇编中的1944政治文本页已绑定真实PDF并通过页级引用门禁；汇编页只支持版本、篇名、标注日期和页界，不替代改组会议、改名决定或独立同期正式文件原件。"
+    "chain_note": "1944专题已回链《民憲》第一卷第七期正式库页17123/17124作为刊期导航；目录页身份已再核，但仍非改组会议、改名决定或独立同期正式文件原件。"
   },
   {
     "event_id": "domestic-1945-first-congress",
@@ -760,7 +801,7 @@
   },
   {
     "event_id": "domestic-1946-li-wen",
-    "last_audited": "2026-08-14",
+    "last_audited": "2026-08-18",
     "audit_basis": "正式库页级元数据、官方汇编源文件及页图哈希、2026-08-14本地页图视觉复核决定；本文件不读取正文。",
     "layers": {
       "primary": [
@@ -805,6 +846,22 @@
           "status": "review_only",
           "role": "1946年同期机关报入口",
           "caveat": "机器/OCR层，尚未进入正式引用层。"
+        },
+        {
+          "label": "《光明報》新八號第14页《李聞慘案前後的昆明（續）》",
+          "page_id": 16380,
+          "doc_key": "domestic-page/NLC404-01J000514-10429",
+          "status": "review_only",
+          "role": "1946年8月同期机关报李闻叙述标题页的导航入口",
+          "caveat": "2026-08-18已再核标题与页界；正式库仍为 machine_verified，未作逐字校读，不能作为正式引文，也不替代《民主周刊》或司法/行政原件。"
+        },
+        {
+          "label": "《光明報》新八號第15页李闻叙述续页",
+          "page_id": 16381,
+          "doc_key": "domestic-page/NLC404-01J000514-10429",
+          "status": "review_only",
+          "role": "第14页连续正文页的导航入口",
+          "caveat": "只确认连续页界；OCR未升级，不能作为逐字引文。"
         }
       ],
       "negative_checks": [],
@@ -817,7 +874,7 @@
         }
       ]
     },
-    "chain_note": "李闻专题不能只靠后来的纪念文章；本轮已将官方历史文献汇编中的三处民盟自身声明页完成页图视觉复核并纳入严格页级导航，但它们仍是汇编重刊，不是独立原件；原始刊物、独立抗议文件和司法材料仍必须分层补齐。"
+    "chain_note": "李闻专题已回链《光明報》新八號正式库页16367（刊期身份）及16380/16381（李闻叙述页，仍review_only）。汇编声明页仍是重刊；《民主周刊》原版、独立抗议文件和司法/行政档案缺口仍开放。"
   },
   {
     "event_id": "domestic-1947-illegal-dissolution",
@@ -1102,8 +1159,8 @@
   },
   {
     "event_id": "domestic-1949-new-pcc",
-    "last_audited": "2026-08-15",
-    "audit_basis": "正式库页级元数据、既有人工复核决定和来源登记；本文件不读取正文。",
+    "last_audited": "2026-08-17",
+    "audit_basis": "正式库页级元数据、既有人工复核决定、来源登记和1949会刊页级身份审查记录；本文件不读取正文。",
     "layers": {
       "primary": [
         {
@@ -1259,12 +1316,140 @@
           "caveat": "只确认名单页身份和范围，不核定姓名全文或宣称完整名册已逐页复核。"
         },
         {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页8",
+          "page_id": 20740,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "民主建国会分栏的页级身份与连续页序证据",
+          "caveat": "只确认分栏题名、印页号和页界，不转录名单姓名或职务。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页9",
+          "page_id": 20741,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "同一代表名单的连续页级证据",
+          "caveat": "只确认连续页身份和可见范围，不核定候补代表姓名全文。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页10",
+          "page_id": 20742,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "无党派民主人士分栏的页级身份证据",
+          "caveat": "只确认新分栏题名和页序，不宣称完整代表识别或档案卷宗已闭合。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页11",
+          "page_id": 20743,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "无党派民主人士名单的连续页级证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页12",
+          "page_id": 20744,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "中国民主促进会分栏的页级身份证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页13",
+          "page_id": 20745,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "中国农工民主党分栏的页级身份证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页14",
+          "page_id": 20746,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "农工民主党名单连续候补页的页级证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页15",
+          "page_id": 20747,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "中国人民救国会分栏的页级身份证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页16",
+          "page_id": 20748,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "救国会名单连续候补页的页级证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页17",
+          "page_id": 20749,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "三民主义同志联合会分栏的页级身份证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页18",
+          "page_id": 20750,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "民联名单连续候补页的页级证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页19",
+          "page_id": 20751,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "国民党民主促进会分栏的页级身份证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页20",
+          "page_id": 20752,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "中国致公党分栏的页级身份证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页21",
+          "page_id": 20753,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "九三学社分栏的页级身份证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议代表名单连续页22",
+          "page_id": 20754,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "status": "strict_citation",
+          "role": "台湾民主自治同盟分栏的页级身份证据",
+          "caveat": "只确认分栏题名、页序和页界，不转录名单姓名或职务，也不关闭完整名册转录缺口。"
+        },
+        {
           "label": "中央档案馆专题扫描：政协一届全体会议主席团名单页",
           "page_id": 20771,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde07-i3",
           "status": "strict_citation",
           "role": "第一届全体会议主席团名单的页级组织结构证据",
           "caveat": "只确认题名和页级范围，不核定姓名全文或替代完整会议档案。"
+        },
+        {
+          "label": "中央档案馆专题扫描：政协一届全体会议主席团名单连续页2",
+          "page_id": 20772,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde07-i3",
+          "status": "strict_citation",
+          "role": "主席团名单连续页，可见合计八十九名",
+          "caveat": "只确认连续名单页身份，不核定姓名全文。"
         }
       ],
       "cross_source": [
@@ -1276,35 +1461,35 @@
           "role": "整期和文章级检索入口",
           "caveat": "尚未进入正式引用层。"
         },
-      {
-        "label": "国家档案局专题扫描：第一届全体会议第一天会议记录页1",
-        "page_id": 20913,
-        "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-06",
-        "status": "strict_citation",
-        "role": "1949-09-21第一届全体会议记录的官方扫描图页级证据",
-        "caveat": "已完成人工视觉核验，严格范围仅覆盖官方扫描版本、页身份、页序和可重放定位；OCR 只作检索，正文、人名和数字仍未逐字校勘。"
-      },
-      {
-        "label": "国家档案局专题扫描：第一届全体会议第一天会议记录页2",
-        "page_id": 20914,
-        "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-06",
-        "status": "strict_citation",
-        "role": "1949-09-21第一届全体会议记录的官方扫描图页级证据",
-        "caveat": "已完成人工视觉核验，严格范围仅覆盖官方扫描版本、页身份、页序和可重放定位；OCR 只作检索，正文、人名和数字仍未逐字校勘。"
-      },
-      {
-        "label": "国家档案局专题扫描：第一届全体会议第一天会议记录页3",
-        "page_id": 20915,
-        "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-06",
-        "status": "strict_citation",
-        "role": "1949-09-21第一届全体会议记录的官方扫描图页级证据",
-        "caveat": "已完成人工视觉核验，严格范围仅覆盖官方扫描版本、页身份、页序和可重放定位；OCR 只作检索，正文、人名和数字仍未逐字校勘。"
-      },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议第一天会议记录页1",
+          "page_id": 20913,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-06",
+          "status": "strict_citation",
+          "role": "1949-09-21第一届全体会议记录的官方扫描图页级证据",
+          "caveat": "已完成人工视觉核验，严格范围仅覆盖官方扫描版本、页身份、页序和可重放定位；OCR 只作检索，正文、人名和数字仍未逐字校勘。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议第一天会议记录页2",
+          "page_id": 20914,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-06",
+          "status": "strict_citation",
+          "role": "1949-09-21第一届全体会议记录的官方扫描图页级证据",
+          "caveat": "已完成人工视觉核验，严格范围仅覆盖官方扫描版本、页身份、页序和可重放定位；OCR 只作检索，正文、人名和数字仍未逐字校勘。"
+        },
+        {
+          "label": "国家档案局专题扫描：第一届全体会议第一天会议记录页3",
+          "page_id": 20915,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-06",
+          "status": "strict_citation",
+          "role": "1949-09-21第一届全体会议记录的官方扫描图页级证据",
+          "caveat": "已完成人工视觉核验，严格范围仅覆盖官方扫描版本、页身份、页序和可重放定位；OCR 只作检索，正文、人名和数字仍未逐字校勘。"
+        },
         {
           "label": "国家档案局专题扫描：主席团第一次会议纪要页1",
           "page_id": 20916,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-21主席团第一次会议纪要的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
         },
@@ -1312,7 +1497,7 @@
           "label": "国家档案局专题扫描：主席团第一次会议纪要页2",
           "page_id": 20917,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-21主席团第一次会议纪要的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
         },
@@ -1320,7 +1505,7 @@
           "label": "国家档案局专题扫描：主席团第一次会议纪要页3",
           "page_id": 20918,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-21主席团第一次会议纪要的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
         },
@@ -1328,7 +1513,7 @@
           "label": "国家档案局专题扫描：谭平山筹备会第二小组报告页1",
           "page_id": 20919,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-01",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-22政协筹备会工作报告的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，正文和人名尚未逐字人工复核。"
         },
@@ -1336,7 +1521,7 @@
           "label": "国家档案局专题扫描：谭平山筹备会第二小组报告页2",
           "page_id": 20920,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-01",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-22政协筹备会工作报告的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，正文和人名尚未逐字人工复核。"
         },
@@ -1344,7 +1529,7 @@
           "label": "国家档案局专题扫描：共同纲领草案报告页1",
           "page_id": 20921,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-22共同纲领草案报告的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，页面方向和正文尚未逐字人工复核。"
         },
@@ -1352,7 +1537,7 @@
           "label": "国家档案局专题扫描：共同纲领草案报告页2",
           "page_id": 20922,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-22共同纲领草案报告的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，页面方向和正文尚未逐字人工复核。"
         },
@@ -1360,7 +1545,7 @@
           "label": "国家档案局专题扫描：共同纲领草案报告页3",
           "page_id": 20923,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-22共同纲领草案报告的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，页面方向和正文尚未逐字人工复核。"
         },
@@ -1368,7 +1553,7 @@
           "label": "国家档案局专题扫描：主席团常委会第一次会议记录页1",
           "page_id": 20924,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c15",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-22主席团常委会记录的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
         },
@@ -1376,7 +1561,7 @@
           "label": "国家档案局专题扫描：主席团常委会第一次会议记录页2",
           "page_id": 20925,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c15",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-22主席团常委会记录的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，手写记录和人名尚未逐字人工复核。"
         },
@@ -1384,7 +1569,7 @@
           "label": "国家档案局专题扫描：第一届全体会议会刊第二期页1",
           "page_id": 20926,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c17",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-22第一届全体会议会刊的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，报刊版式和正文尚未逐字人工复核。"
         },
@@ -1392,7 +1577,7 @@
           "label": "国家档案局专题扫描：第一届全体会议会刊第二期页2",
           "page_id": 20927,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c17",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-22第一届全体会议会刊的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，报刊版式和正文尚未逐字人工复核。"
         },
@@ -1400,7 +1585,7 @@
           "label": "国家档案局专题扫描：第一届全体会议第三天会议记录页1",
           "page_id": 20928,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-23第一届全体会议第三天记录的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，手写记录、人名和发言目录尚未逐字人工复核。"
         },
@@ -1408,7 +1593,7 @@
           "label": "国家档案局专题扫描：第一届全体会议第三天会议记录页2",
           "page_id": 20929,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-23第一届全体会议第三天记录的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，手写记录、人名和发言目录尚未逐字人工复核。"
         },
@@ -1416,9 +1601,161 @@
           "label": "国家档案局专题扫描：第一届全体会议第三天会议记录页3",
           "page_id": 20930,
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
-          "status": "review_only",
+          "status": "strict_citation",
           "role": "1949-09-23第一届全体会议第三天记录的官方扫描图检索入口",
           "caveat": "OCR 仅用于检索，手写记录、人名和发言目录尚未逐字人工复核。"
+        },
+        {
+          "label": "国家图书馆1949年政协一届全体会议会刊封面（PDF第1页）",
+          "page_id": 20932,
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "status": "strict_citation",
+          "role": "1949年正式会议会刊题名、年份和第一期至第十二期合刊范围的页级身份锚点",
+          "caveat": "仅确认封面身份和可见范围；正文字符数为0、未做OCR，不能据此宣称全套会议记录完整。"
+        },
+        {
+          "label": "国家图书馆1949年政协一届全体会议会刊开幕式程序页（PDF第17页）",
+          "page_id": 20933,
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "status": "strict_citation",
+          "role": "1949-09-21第一届全体会议开幕式程序的会刊页级身份与日期入口",
+          "caveat": "只确认程序页身份和日期；未逐字校读程序正文，也不替代完整会议记录。"
+        },
+        {
+          "label": "国家图书馆1949年政协一届全体会议会刊主席团名单页（PDF第30页）",
+          "page_id": 20934,
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "status": "strict_citation",
+          "role": "第一届全体会议主席团名单的会刊页级定位和可见姓名锚点",
+          "caveat": "只确认名册页身份和可见姓名范围；逐人姓名、职务和民盟代表资格尚未校勘。"
+        },
+        {
+          "label": "国家图书馆1949年政协一届全体会议会刊议事规则页1（PDF第31页）",
+          "page_id": 20935,
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "status": "strict_citation",
+          "role": "第一届全体会议议事规则的会刊页级身份入口",
+          "caveat": "只确认正式规则页身份；正文/OCR未核验，不逐字引用规则条文。"
+        },
+        {
+          "label": "国家图书馆1949年政协一届全体会议会刊议事规则页2（PDF第32页）",
+          "page_id": 20936,
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "status": "strict_citation",
+          "role": "第一届全体会议议事规则连续页的会刊页级身份入口",
+          "caveat": "只确认正式规则页身份和连续范围；正文/OCR未核验，不逐字引用规则条文。"
+        },
+        {
+          "label": "国家图书馆1949年政协一届全体会议会刊宣言草案页（PDF第220页）",
+          "page_id": 20937,
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "status": "strict_citation",
+          "role": "1949-09-30第一届全体会议宣言（草案）的会刊页级身份与日期入口",
+          "caveat": "只确认草案题名、日期和页界；正文/OCR未核验，不逐字引用宣言正文，也不关闭完整会议档案缺口。"
+        },
+        {
+          "label": "国家图书馆1949年政协一届全体会议会刊电文与纪念碑语境页（PDF第242页）",
+          "page_id": 20938,
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "status": "review_only",
+          "role": "正式会刊中的电文与纪念碑奠基语境页",
+          "caveat": "仍为review_only；只作会议出版物内容范围辅助，不单独证明民盟具体发言或代表行为。"
+        },
+        {
+          "label": "国家图书馆1949年政协一届全体会议会刊会议影像语境页（PDF第243页）",
+          "page_id": 20939,
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "status": "review_only",
+          "role": "正式会刊中的会议影像语境页",
+          "caveat": "仍为review_only；影像语境页不能替代会议记录、发言对位或完整档案。"
+        },
+        {
+          "label": "国家档案局共同纲领题名页（选定页，非全件）",
+          "page_id": 20940,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+          "status": "strict_citation",
+          "role": "共同纲领题名与1949-09-29日期",
+          "caveat": "三页不是共同纲领全件，正文未核验。"
+        },
+        {
+          "label": "国家档案局共同纲领第54页（选定页，非全件）",
+          "page_id": 20941,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+          "status": "strict_citation",
+          "role": "共同纲领序言与总纲页身份",
+          "caveat": "不补中间缺页，不转录正文。"
+        },
+        {
+          "label": "国家档案局共同纲领第64页（选定页，非全件）",
+          "page_id": 20942,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+          "status": "strict_citation",
+          "role": "共同纲领第六十条页身份",
+          "caveat": "不把末页当成全件已经取得。"
+        },
+        {
+          "label": "会刊第十一期题名/闭幕页",
+          "page_id": 20774,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde02-f1",
+          "status": "strict_citation",
+          "role": "一届全体会议闭幕公开刊物页",
+          "caveat": "只确认期次身份，不转录正文。"
+        },
+        {
+          "label": "会刊第十一期全国委员会名单页",
+          "page_id": 20775,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde02-f1",
+          "status": "strict_citation",
+          "role": "会刊第十一期连续页",
+          "caveat": "不核定委员姓名全文。"
+        },
+        {
+          "label": "会刊第十一期第八天大会经过页",
+          "page_id": 20776,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde02-f1",
+          "status": "strict_citation",
+          "role": "会刊第十一期连续页",
+          "caveat": "不转录大会经过正文。"
+        },
+        {
+          "label": "中央人民政府委员会第一次会议通知",
+          "page_id": 20773,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde01-f1",
+          "status": "strict_citation",
+          "role": "建国当日会议通知页",
+          "caveat": "只确认日期地点，不转录正文。"
+        },
+        {
+          "label": "中央人民政府委员会第一次会议议程",
+          "page_id": 20781,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde04-f1",
+          "status": "strict_citation",
+          "role": "建国当日会议议程页",
+          "caveat": "只确认议程页身份。"
+        },
+        {
+          "label": "中央人民政府委员会第一次会议记录封面",
+          "page_id": 20782,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde05-f1",
+          "status": "strict_citation",
+          "role": "建国当日会议记录封面",
+          "caveat": "只确认封面身份，不转录记录正文。"
+        },
+        {
+          "label": "任命周恩来为政务院总理兼外交部长的通知书",
+          "page_id": 20786,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde06-f1",
+          "status": "strict_citation",
+          "role": "建国当日任命文书页",
+          "caveat": "只确认文书身份和日期。"
+        },
+        {
+          "label": "中华人民共和国中央人民政府公告",
+          "page_id": 20802,
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde09-f1",
+          "status": "strict_citation",
+          "role": "建国当日公告页",
+          "caveat": "只确认公告题名、署款和日期，不转录正文。"
         }
       ],
       "negative_checks": [],
@@ -1431,6 +1768,6 @@
         }
       ]
     },
-    "chain_note": "1949专题保留原有机关报和17个已人工核验的中央档案专题页级锚点，并新增18个官方扫描图页级入口；其中1949-09-21第一届全体会议第一天会议记录3页已完成人工视觉核验并进入strict_citation，其余15页仍为review_only。筹备会记录、代表发言和完整会议档案仍未闭环。"
+    "chain_note": "1949专题保留原有机关报和已人工核验的中央档案专题页级锚点，并新增国家图书馆1949年政协一届全体会议会刊8个选定页：其中封面、开幕程序、主席团名单和议事规则共5页仅完成页级身份引用，宣言草案和影像语境3页仍为review_only。正文字符数均为0、未执行OCR。筹备会完整记录、代表发言、逐人名单和全套会议档案仍未闭环。"
   }
 ]

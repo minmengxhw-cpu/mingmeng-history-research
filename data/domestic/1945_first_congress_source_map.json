@@ -3,7 +3,7 @@
   "event_id": "domestic-1945-first-congress",
   "title": "1945年民盟临时全国代表大会：政治报告、宣言与官方汇编页级证据地图",
   "review_status": "sourcebook_page_evidence_ready_original_congress_gap_open",
-  "evidence_scope": "1983公开文献扫描与1946年民盟文献官方汇编中的核心文献首末页；只登记页级来源、版本层级和复核边界",
+  "evidence_scope": "1983公开文献扫描、1946年民盟文献官方汇编中的核心文献首末页，以及官方盟史页转载的宣言/纲领影像入口；只登记页级来源、版本层级和复核边界",
   "body_text_included": false,
   "ocr_text_included": false,
   "raw_files_included": false,
@@ -12,6 +12,21 @@
   "primary_evidence_closed": false,
   "primary_evidence_gap": "1945年大会完整会议记录、政治报告和宣言的独立底本、组织规程、议程、缺页和版本关系仍待档案原件或可靠底本互校；本地图是核心文献页级入口，不把后期汇编等同于大会原始档案。",
   "sources": [
+    {
+      "source_id": "bjdcmm-1945-congress-declaration-surrogate",
+      "title": "临时全国代表大会宣言和纲领（官方盟史页转载影像剪影）",
+      "source_role": "official_curated_reproduction",
+      "evidence_level": "L1",
+      "source_file": "",
+      "source_sha256": "",
+      "source_file_size": 0,
+      "page_count": 0,
+      "source_url": "https://www.bjdcmm.org.cn/01msjs/20040310/02.htm",
+      "image_url": "https://www.bjdcmm.org.cn/01msjs/20040310/lsl10.jpg",
+      "identity_status": "metadata_verified_surrogate_only",
+      "access_note": "北京民盟东城区官方盟史页面展示的低清历史影像剪影；页面说明为临时全国代表大会宣言和纲领，但未给出原刊日期、报头、版次、档号、形成机关或完整页码。仅作为公开追索入口，不进入正式引文，不关闭1945年大会原件缺口。",
+      "page_records": []
+    },
     {
       "source_id": "mmhist-1945-congress-core-scan",
       "title": "《中国民主同盟历史文献 1941—1949》（1983）公开扫描中的1945大会核心文献页组",

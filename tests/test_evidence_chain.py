@@ -12,6 +12,12 @@ from scripts.closeout.repair_evidence_chain_20260813 import (
     valid_date,
 )
 from scripts.closeout.verify_research_index_manifest import audit_source_files
+from scripts.domestic.validate_topic_evidence_chain import (
+    DEFAULT_CHAIN,
+    DEFAULT_COVERAGE,
+    DEFAULT_DB,
+    validate,
+)
 
 
 def test_date_consensus_accepts_only_compatible_precision() -> None:
@@ -85,3 +91,23 @@ def test_source_audit_blocks_relative_path_escape(tmp_path: Path) -> None:
         conn.close()
     assert result["source_files_outside_project"] == 1
     assert result["source_file_bytes"] == 0
+
+
+def test_1949_journal_page_identity_split_stays_on_open_primary() -> None:
+    report = validate(DEFAULT_DB, DEFAULT_COVERAGE, DEFAULT_CHAIN)
+    assert report["status"] == "PASS"
+    assert report["layer_item_counts"]["missing_primary"] == 9
+    journal = [
+        row
+        for row in report["page_refs"]
+        if row["event_id"] == "domestic-1949-new-pcc"
+        and row["doc_key"] == "domestic-nlc/NLC:1949-first-plenary-conference-journal"
+    ]
+    by_id = {int(row["page_id"]): row for row in journal}
+    assert set(by_id) == {20932, 20933, 20934, 20935, 20936, 20937, 20938, 20939}
+    for page_id in (20932, 20933, 20934, 20935, 20936, 20937):
+        assert by_id[page_id]["status"] == "strict_citation"
+        assert by_id[page_id]["layer"] == "cross_source"
+    for page_id in (20938, 20939):
+        assert by_id[page_id]["status"] == "review_only"
+        assert by_id[page_id]["layer"] == "cross_source"

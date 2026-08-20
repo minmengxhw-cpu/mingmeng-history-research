@@ -45,7 +45,7 @@
       
         <div class="nav-group active">
           <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#i-library"/></svg>资料库<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-          <div class="nav-flyout"><a class="nav-sub" href="/">首页</a><a class="nav-sub" href="/about">项目介绍</a><a class="nav-sub" href="/docs">全部文档</a><a class="nav-sub current" href="/domestic">国内史料库</a><a class="nav-sub" href="/research">多源专题研究</a><a class="nav-sub" href="/domestic/library">国内核心可阅</a><a class="nav-sub" href="/domestic/events">国内事件墙</a><a class="nav-sub" href="/domestic/sources">国内来源</a><a class="nav-sub" href="/domestic/academic">国内学术研究</a><a class="nav-sub" href="/papers">研究论文</a><a class="nav-sub" href="/sourcebooks">史料长编</a><a class="nav-sub" href="/standards">收录标准</a><a class="nav-sub" href="/timeline">年表</a><a class="nav-sub" href="/glossary">术语表</a></div>
+          <div class="nav-flyout"><a class="nav-sub" href="/">首页</a><a class="nav-sub" href="/about">项目介绍</a><a class="nav-sub" href="/docs">全部文档</a><a class="nav-sub current" href="/domestic">国内史料库</a><a class="nav-sub" href="/domestic/workbench">国内研究平台</a><a class="nav-sub" href="/research">多源专题研究</a><a class="nav-sub" href="/domestic/library">国内核心可阅</a><a class="nav-sub" href="/domestic/events">国内事件墙</a><a class="nav-sub" href="/domestic/sources">国内来源</a><a class="nav-sub" href="/domestic/academic">国内学术研究</a><a class="nav-sub" href="/papers">研究论文</a><a class="nav-sub" href="/sourcebooks">史料长编</a><a class="nav-sub" href="/standards">收录标准</a><a class="nav-sub" href="/timeline">年表</a><a class="nav-sub" href="/glossary">术语表</a></div>
         </div>
         <div class="nav-group">
           <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#i-edit"/></svg>研究工作台<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
@@ -57,13 +57,14 @@
         </div>
     </nav>
   </header>
-  <main><nav class="breadcrumb"><a href="/">首页</a><span class="sep">›</span><span class="current">国内史料库</span></nav>
+  <main><nav class="breadcrumb"><a href="/">首页</a><span class="sep">›</span><a href="/domestic/workbench">国内研究平台</a><span class="sep">›</span><span class="current">国内史料库</span></nav>
 <section class="doc-head">
   <div>
     <h1>国内史料库</h1>
     <div class="meta">与境外七源并列的国内阅读层：核心可阅文献 · 九大事件证据墙 · 背景线索与调档工作台分册</div>
   </div>
   <div class="doc-tools">
+    <a class="button" href="/domestic/workbench">国内研究平台</a>
     <a class="button" href="/domestic">核心库首页</a>
     <a class="button" href="/domestic/library?layer=core">核心可阅全文</a>
     <a class="button secondary" href="/domestic/events">事件墙</a>
@@ -73,16 +74,16 @@
   </div>
 </section>
 <section class="stats">
-  <div class="stat"><strong>125</strong><span>核心可阅文档</span></div>
-  <div class="stat"><strong>220</strong><span>人工核验可引用页</span></div>
-  <div class="stat"><strong>3956</strong><span>机器核验可阅页</span></div>
-  <div class="stat"><strong>5195/5196</strong><span>源文件哈希已锚定</span></div>
+  <div class="stat"><strong>139</strong><span>核心可阅文档</span></div>
+  <div class="stat"><strong>268</strong><span>人工核验可引用页</span></div>
+  <div class="stat"><strong>4004</strong><span>机器核验可阅页</span></div>
+  <div class="stat"><strong>5206/5207</strong><span>源文件哈希已锚定</span></div>
   <div class="stat"><strong>1</strong><span>待补 provenance 页</span></div>
   <div class="stat"><strong>10</strong><span>日期待核文档</span></div>
   <div class="stat"><strong>425</strong><span>核心候选</span></div>
   <div class="stat"><strong>265</strong><span>背景/线索</span></div>
   <div class="stat"><strong>29</strong><span>待人工复核</span></div>
-  <div class="stat"><strong>552</strong><span>已收文档(含非核心)</span></div>
+  <div class="stat"><strong>554</strong><span>已收文档(含非核心)</span></div>
 </section>
 <div class="notice"><strong>证据纪律：</strong>源文件哈希锚定只证明“当前文字能回到哪份本地原件”，不证明 OCR 内容正确。机器核验和 OCR 仍不等于正式引用；只有 human_verified 且有人工复核说明的页面才能生成正式引文。「已接受候选」(661/690) 也不等于可引用全文。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-calendar"/></svg>九大关键事件证据墙</h2></div>
@@ -207,7 +208,7 @@
 </article>
 </section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>核心可阅库精选</h2>
-  <a class="button secondary" href="/domestic/library?layer=core">查看全部 125 篇</a>
+  <a class="button secondary" href="/domestic/library?layer=core">查看全部 139 篇</a>
 </div>
 <section class="result-list">
 
@@ -218,6 +219,14 @@
     <div class="tagline"><span class="tag">人工核验可引用</span><span class="pstatus ok">正式库</span></div>
   </div>
   <div class="cite"><a href="/doc/domestic-ocr/S3%3Adomestic%3ANLC%3Aminmeng-wenxian-1946-minmeng-platform-1945">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A51koukou-p05-dde02">政协一届全体会议单位及代表名单（1949-09-21）</a></h2>
+    <div class="meta">1949-09-21 · 22 页 · 人工引用 22 · 机器可阅 22 · saac_page_ocr</div>
+    <div class="tagline"><span class="tag">人工核验可引用</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A51koukou-p05-dde02">阅读</a></div>
 </article>
 <article class="result">
   <div>
@@ -293,14 +302,6 @@
 </article>
 <article class="result">
   <div>
-    <h2><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A51koukou-p05-dde02">政协一届全体会议单位及代表名单（1949-09-21）</a></h2>
-    <div class="meta">1949-09-21 · 22 页 · 人工引用 7 · 机器可阅 7 · saac_page_ocr</div>
-    <div class="tagline"><span class="tag">人工核验可引用</span><span class="pstatus ok">正式库</span></div>
-  </div>
-  <div class="cite"><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A51koukou-p05-dde02">阅读</a></div>
-</article>
-<article class="result">
-  <div>
     <h2><a href="/doc/domestic-ocr/NLC%3Axinhua-daily-1941-10-10-full-ocr">《新华日报》1941年10月10日全版扫描（OCR试点）</a></h2>
     <div class="meta">1941-10-10 · 6 页 · 人工引用 6 · 机器可阅 6 · domestic_ocr_pilot</div>
     <div class="tagline"><span class="tag">人工核验可引用</span><span class="pstatus ok">正式库</span></div>
@@ -322,6 +323,14 @@
     <div class="tagline"><span class="tag">人工核验可引用</span><span class="pstatus ok">正式库</span></div>
   </div>
   <div class="cite"><a href="/doc/domestic-ocr/S3%3Adomestic%3ANLC%3Aminmeng-wenxian-1946-congress-declaration-1945-10-16">阅读</a></div>
+</article>
+<article class="result">
+  <div>
+    <h2><a href="/doc/domestic-nlc/NLC%3A1949-first-plenary-conference-journal">中國人民政治協商會議第一屆全體會議會刊（1949）</a></h2>
+    <div class="meta">1949 · 8 页 · 人工引用 6 · 机器可阅 6 · domestic_conference_journal_review</div>
+    <div class="tagline"><span class="tag">人工核验可引用</span><span class="pstatus ok">正式库</span></div>
+  </div>
+  <div class="cite"><a href="/doc/domestic-nlc/NLC%3A1949-first-plenary-conference-journal">阅读</a></div>
 </article>
 <article class="result">
   <div>
@@ -381,27 +390,19 @@
 </article>
 <article class="result">
   <div>
-    <h2><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A1949-09-21-06">中国人民政治协商会议第一届全体会议第一天会议记录（1949年9月21日）</a></h2>
-    <div class="meta">1949-09-21 · 3 页 · 人工引用 3 · 机器可阅 3 · saac_page_ocr</div>
+    <h2><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A1949-09-22-02">周恩来关于中国人民政治协商会议共同纲领草案的起草经过及其特点的报告（1949年9月22日）</a></h2>
+    <div class="meta">1949-09-22 · 3 页 · 人工引用 3 · 机器可阅 3 · saac_page_ocr</div>
     <div class="tagline"><span class="tag">人工核验可引用</span><span class="pstatus ok">正式库</span></div>
   </div>
-  <div class="cite"><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A1949-09-21-06">阅读</a></div>
+  <div class="cite"><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A1949-09-22-02">阅读</a></div>
 </article>
 <article class="result">
   <div>
-    <h2><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A51koukou-p05-dde03-i3">政协一届全体会议代表签名册（1949-09-21）</a></h2>
-    <div class="meta">1949-09-21 · 3 页 · 人工引用 3 · 机器可阅 3 · saac_page_ocr</div>
+    <h2><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A51koukou-p06-dde02-f1">中国人民政治协商会议第一届全体会议会刊第十一期（1949-10-01）</a></h2>
+    <div class="meta">1949-10-01 · 3 页 · 人工引用 3 · 机器可阅 3 · saac_page_ocr</div>
     <div class="tagline"><span class="tag">人工核验可引用</span><span class="pstatus ok">正式库</span></div>
   </div>
-  <div class="cite"><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A51koukou-p05-dde03-i3">阅读</a></div>
-</article>
-<article class="result">
-  <div>
-    <h2><a href="/doc/domestic-page/NLC404-01J000514-23806">《光明報》1946 年11期</a></h2>
-    <div class="meta">1946 · 20 页 · 人工引用 2 · 机器可阅 20 · domestic_page_ocr</div>
-    <div class="tagline"><span class="tag">人工核验可引用</span><span class="pstatus ok">正式库</span></div>
-  </div>
-  <div class="cite"><a href="/doc/domestic-page/NLC404-01J000514-23806">阅读</a></div>
+  <div class="cite"><a href="/doc/domestic-ocr/SAAC%3Adomestic%3ASAAC%3A51koukou-p06-dde02-f1">阅读</a></div>
 </article>
 </section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-building"/></svg>权威馆藏与报刊入口</h2>

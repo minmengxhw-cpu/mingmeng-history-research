@@ -117,7 +117,8 @@
         "metadata_snapshot": "data/domestic/metadata_snapshots/nlc_guangmingbao_1946_issue8_20260815.json",
         "review_status": "review_only",
         "body_read": false,
-        "formal_db_written": false
+        "formal_db_written": true,
+        "formal_db_page_ids": [16367]
       },
       "page_records": [
         {

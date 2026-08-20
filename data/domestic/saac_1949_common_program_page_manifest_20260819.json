@@ -1,0 +1,53 @@
+{
+  "schema": "domestic_saac_image_page_manifest.v1",
+  "batch_id": "saac-1949-common-program-import-20260819",
+  "event_id": "domestic-1949-new-pcc",
+  "candidate_id": "domestic:SAAC:1949-09-29-01",
+  "source_id": "saac-51koukou",
+  "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+  "source_title": "中国人民政治协商会议第一届全体会议通过的《中国人民政治协商会议共同纲领》（1949-09-29）选定页",
+  "document_date": "1949-09-29",
+  "source_url": "https://www.saac.gov.cn/daj/gqzt/content/05/05_68.html",
+  "local_directory": "data/domestic/raw/saac_scans/sec05_05-68/",
+  "body_text_included": false,
+  "ocr_included": false,
+  "caveat": "官方专题抽出的题名页、第54页和第64页，不是共同纲领全件。",
+  "pages": [
+    {
+      "index": 1,
+      "physical_page_no": 1,
+      "printed_page": "53",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-68/01.jpg",
+      "source_sha256": "8a26c2f2be7c515d4ab804adca9a040ca2528409a46947cfa8f42494d229415d",
+      "source_file_size": 256157,
+      "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/01.jpg",
+      "page_label": "image-01 / 共同纲领题名页",
+      "role": "共同纲领题名与1949-09-29日期",
+      "search_terms": ["共同纲领", "1949", "九月二十九日"]
+    },
+    {
+      "index": 2,
+      "physical_page_no": 2,
+      "printed_page": "54",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-68/02.jpg",
+      "source_sha256": "b573a20e449ad8f65a86edde71bc9a0f71fa956a3c5f30f7ebd64914c869450d",
+      "source_file_size": 410017,
+      "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/02.jpg",
+      "page_label": "image-02 / 共同纲领序言与总纲页",
+      "role": "共同纲领第54页身份（序言/第一条）",
+      "search_terms": ["共同纲领", "序言", "总纲"]
+    },
+    {
+      "index": 3,
+      "physical_page_no": 3,
+      "printed_page": "64",
+      "source_file": "data/domestic/raw/saac_scans/sec05_05-68/03.jpg",
+      "source_sha256": "84096a1ada5fcd771a3810fdc8c93e4dca471257879850117824f27c19c7124b",
+      "source_file_size": 280894,
+      "official_image_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/03.jpg",
+      "page_label": "image-03 / 共同纲领第六十条页",
+      "role": "共同纲领第64页身份（第六十条）",
+      "search_terms": ["共同纲领", "第六十条"]
+    }
+  ]
+}

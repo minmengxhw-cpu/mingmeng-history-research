@@ -13,6 +13,32 @@
   "primary_evidence_gap": "现有同期报刊严格页级证据保留不变；新增四期官方公报共56个导航页，其中1947-10-27政府公函、1947-11-06民盟总部解散公告及其完整底本仍未完成原件闭环。2967号与2974号整册公开扫描已完成目标负向视觉核查，但只说明本扫描未命中，不证明目标文件不存在。导航页只提供整册和页级定位，不把负向核查误报为目标文件不存在。",
   "sources": [
     {
+      "source_id": "93js-official-curated-reproduction-1947-10-27",
+      "title": "九三学社中央专题页转载的1947年10月27日民盟非法化报纸图像",
+      "source_role": "official_curated_reproduction",
+      "evidence_level": "L1",
+      "source_file": "",
+      "source_sha256": "",
+      "source_file_size": 0,
+      "page_count": 0,
+      "source_url": "https://www.93.gov.cn/html/93gov/zt/wykh2018/xhxc/180417164558481095.html",
+      "image_url": "https://www.93.gov.cn/11002/upload/webcms/content/image/2018/04/17/16_15_29_560_91431_4.webp.jpg",
+      "identity_status": "unresolved",
+      "identity_audit": {
+        "caption_date": "1947-10-27",
+        "possible_related_item": {
+          "date": "1947-10-28",
+          "title": "中央社《政府宣布民盟非法》声明",
+          "source_url": "https://www.gxmm.gov.cn/index/index/artical/id/7063",
+          "role": "later_official_retelling",
+          "used_to_identify_image": false
+        },
+        "note": "公开后期官方叙述将相近标题归于10月28日中央社声明，但未提供该转载图像的报头、版次、页码或原始档号；图注日期与可能相关报道日期不能合并为同一原刊身份。"
+      },
+      "access_note": "官方专题页明确标注为1947-10-27当时报纸报道图像；后期官方叙述另提到1947-10-28中央社相关声明。转载图未提供报头、版次、页码和原始档号，不能替代内政部公函原件。",
+      "page_records": []
+    },
+    {
       "source_id": "nlc-dagangbao-hankow-1947-11-04",
       "title": "《大剛報》汉口版 1947年11月4日",
       "source_role": "contemporary_newspaper_scan",
@@ -62,7 +88,7 @@
       "source_file_size": 8704911,
       "page_count": 4,
       "source_url": "https://commons.wikimedia.org/wiki/File:NLC1080-00N001037-7606_%E5%A4%A7%E5%89%9B%E5%A0%B1_1947%E5%B9%B411%E6%9C%8806%E6%97%A5.pdf",
-      "access_note": "国家图书馆民国报纸公开扫描；正式库已有页级 provenance",
+      "access_note": "国家图书馆民国报纸公开扫描；public_sources 副本 SHA256 与 press_scans 正式库源文件一致。页 20309 / 1752 已在正式库，仅作同期报道页级入口。",
       "local_acquisition": {
         "local_file": "data/domestic/raw/public_sources/nlc_dagongbao_hankow_1947-11-06.pdf",
         "sha256": "9b4c22a6e905c40f0efef1ce24aa6f1f447b4eb64a1137513a5f6b6532f83284",
@@ -71,7 +97,12 @@
         "metadata_snapshot": "data/domestic/metadata_snapshots/nlc_dagongbao_hankow_1947_11_06_20260815.json",
         "review_status": "review_only",
         "body_read": false,
-        "formal_db_written": false
+        "formal_db_written": true,
+        "formal_db_page_ids": [
+          20309,
+          1752
+        ],
+        "public_sources_sha_matches_press_scan": true
       },
       "page_records": [
         {
@@ -99,7 +130,7 @@
       "source_file_size": 130699,
       "page_count": 1,
       "source_url": "http://tk.dhcdb.com.tw/tknewsc/tknewskm?@@1#page=01",
-      "access_note": "试用数据库导出的单页副本；来源哈希已登记，授权边界仍须遵守原平台规则",
+      "access_note": "试用数据库导出的单页副本；来源哈希已登记，授权边界仍须遵守原平台规则；2026-08-21完成页身份与可见标题视觉核验，见work/domestic/dagangbao_page_identity_review_20260821/PAGE_IDENTITY_REVIEW.json",
       "page_records": [
         {
           "page_id": 1773,
@@ -111,8 +142,9 @@
           "citation_ready": true,
           "needs_human_review": false,
           "review_scope": "press_page_identity_heading",
-          "page_image_sha256": null,
-          "caveat": "只覆盖该页报刊报道；不等同于完整馆藏下载授权、民盟公告原件或政府档案。"
+        "page_image_sha256": "90ca44feb14dadbd85fc0e97bc87535f59a96ec0440717c179a7f7cd46252f9c",
+        "identity_status": "human_verified",
+        "caveat": "只覆盖该页报刊报道；不等同于完整馆藏下载授权、民盟公告原件或政府档案。"
         }
       ]
     },
@@ -126,7 +158,7 @@
       "source_file_size": 131852,
       "page_count": 1,
       "source_url": "http://tk.dhcdb.com.tw/tknewsc/tknewskm?@@1#page=01",
-      "access_note": "试用数据库导出的单页副本；来源哈希已登记，授权边界仍须遵守原平台规则",
+      "access_note": "试用数据库导出的单页副本；来源哈希已登记，授权边界仍须遵守原平台规则；2026-08-21完成页身份与可见标题视觉核验，见work/domestic/dagangbao_page_identity_review_20260821/PAGE_IDENTITY_REVIEW.json",
       "page_records": [
         {
           "page_id": 1774,
@@ -138,8 +170,9 @@
           "citation_ready": true,
           "needs_human_review": false,
           "review_scope": "press_page_identity_heading",
-          "page_image_sha256": null,
-          "caveat": "只覆盖该页报刊报道；不等同于行政原件或民盟总部公告。"
+        "page_image_sha256": "8afc804ecdfee21253d28f5083a795891c7b6d6a75ef422b48628fa75cb12658",
+        "identity_status": "human_verified",
+        "caveat": "只覆盖该页报刊报道；不等同于行政原件或民盟总部公告。"
         }
       ]
     },

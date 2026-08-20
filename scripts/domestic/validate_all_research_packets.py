@@ -54,6 +54,11 @@ def build_report() -> dict[str, object]:
                 "foreign_machine_pages": counts.get("foreign_machine_pages", 0),
             }
         )
+        result["research_usable_with_boundaries"] = bool(
+            result.get("status") == "PASS"
+            and int(counts.get("evidence_chain_page_items") or 0) > 0
+            and int(counts.get("topic_event_domestic_strict_pages") or 0) > 0
+        )
         rows.append(result)
     statuses = [str(row.get("status")) for row in rows]
     return {
@@ -69,6 +74,9 @@ def build_report() -> dict[str, object]:
         ),
         "research_ready_count": sum(
             row.get("primary_evidence_status") == "closed" for row in rows
+        ),
+        "research_usable_with_boundaries_count": sum(
+            bool(row.get("research_usable_with_boundaries")) for row in rows
         ),
         "database_sha256": next(
             (str(row.get("database_sha256")) for row in rows if row.get("database_sha256")),
@@ -92,7 +100,7 @@ def main() -> int:
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({key: report[key] for key in (
         "topic_count", "packet_count", "failed_packet_count", "primary_evidence_partial_count",
-        "research_ready_count", "status",
+        "research_ready_count", "research_usable_with_boundaries_count", "status",
     )}, ensure_ascii=False))
     return 0 if report["status"] == "PASS" else 1
 

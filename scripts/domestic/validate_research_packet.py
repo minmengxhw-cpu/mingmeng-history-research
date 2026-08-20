@@ -139,7 +139,22 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
                 continue
             source_sha = str(source.get("source_sha256") or "")
             metadata_sha = str(source.get("metadata_snapshot_sha256") or "")
-            if len(source_sha) != 64:
+            pages = source.get("page_records") or []
+            route_only_source = (
+                str(source.get("source_role") or "") in {
+                    "official_curated_reproduction",
+                    "public_facsimile_ocr_transcription",
+                    "public_periodical_scan_route",
+                }
+                and not source.get("source_file")
+                and not source.get("metadata_snapshot_file")
+                and not pages
+                and any(
+                    str(source.get(key) or "").startswith(("http://", "https://"))
+                    for key in ("source_url", "image_url")
+                )
+            )
+            if len(source_sha) != 64 and not route_only_source:
                 snapshot_file = str(source.get("metadata_snapshot_file") or "")
                 if len(metadata_sha) != 64 or not snapshot_file:
                     errors.append(f"event source {source.get('source_id')} missing source or metadata snapshot SHA256")
@@ -153,7 +168,6 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
                                 errors.append(f"event source {source.get('source_id')} metadata snapshot SHA256 mismatch")
                         except OSError as exc:
                             errors.append(f"event source {source.get('source_id')} metadata snapshot unreadable: {exc}")
-            pages = source.get("page_records") or []
             if not isinstance(pages, list):
                 errors.append(f"event source {source.get('source_id')} page_records must be a list")
                 continue

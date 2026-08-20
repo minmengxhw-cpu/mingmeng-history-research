@@ -477,6 +477,27 @@
     },
     {
       "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-08",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页8",
+      "rationale": "本地页图显示民主建国会分栏题名和印页号七（二）；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-09",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页9",
+      "rationale": "同一代表名单的连续页级入口，印页号八（二）；只确认页序和范围，不核定候补代表姓名。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-10",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页10",
+      "rationale": "本地页图显示无党派民主人士分栏题名和印页号九（二）；只作为名单页级入口，不宣称完整代表识别已闭合。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
       "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3",
       "page_label": "page-01",
       "navigation_title": "中央档案馆专题扫描：中国民主同盟代表签名册题名页",
@@ -576,6 +597,328 @@
       "event_date": "1946-11-14",
       "navigation_title": "1946年11月14日民盟总部秘书处《紧急通告》汇编重刊页",
       "rationale": "官方历史文献汇编公开扫描第276页（印刷页246）已完成本地原图视觉复核；作为民盟正式通告的汇编重刊页级入口，不等同于1946年独立原件，不替代原始底本和同期原刊互校。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+      "page_label": "pdf-001 / 会刊封面",
+      "navigation_title": "1949年政协一届全体会议会刊封面",
+      "rationale": "本地PDF封面页标明1949年及第一期至第十二期合刊范围；只作正式会议会刊身份入口，不宣称全套会议档案完整。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+      "page_label": "pdf-017 / 开幕式程序",
+      "navigation_title": "1949-09-21第一届全体会议开幕式程序页",
+      "rationale": "本地PDF第17页为开幕式程序页并可见1949-09-21日期；只确认程序页身份和日期，不逐字引用程序正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+      "page_label": "pdf-030 / 主席团名单",
+      "navigation_title": "1949年第一届全体会议主席团名单会刊页",
+      "rationale": "本地PDF第30页为会刊中的主席团名单页；只作名册页定位和可见姓名锚点，不完成逐人校勘或代表资格认定。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+      "page_label": "pdf-031 / 议事规则-1",
+      "navigation_title": "1949年第一届全体会议议事规则页1",
+      "rationale": "本地PDF第31页为正式议事规则首页；只确认规则页身份，不逐字引用规则正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+      "page_label": "pdf-032 / 议事规则-2",
+      "navigation_title": "1949年第一届全体会议议事规则页2",
+      "rationale": "本地PDF第32页为正式议事规则连续页；只确认规则页身份和连续范围，不逐字引用规则正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+      "page_label": "pdf-220 / 宣言草案",
+      "navigation_title": "1949-09-30第一届全体会议宣言草案会刊页",
+      "rationale": "本地PDF第220页题名为中国人民政治协商会议第一届全体会议宣言（草案），日期一九四九年九月三十日；只作页级身份和日期入口，不逐字引用草案正文。"
+    },
+    {
+      "event_id": "domestic-1946-li-wen",
+      "doc_key": "domestic-page/NLC404-01J000514-10429",
+      "page_label": "1",
+      "navigation_title": "1946年《光明報》新八號首版（李闻专题同期报刊入口）",
+      "rationale": "新八號首版已视觉确认刊期和日期；作为李闻专题的同期机关报入口，不把该页社论当作李闻案件原件。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-11",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页11",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-12",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页12",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-13",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页13",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-14",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页14",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-15",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页15",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-16",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页16",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-17",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页17",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-18",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页18",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-19",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页19",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-20",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页20",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-21",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页21",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+      "page_label": "page-22",
+      "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页22",
+      "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+      "page_label": "image-01 / 官方扫描图 01",
+      "navigation_title": "中央档案馆专题扫描：主席团第一次会议纪要首页",
+      "rationale": "本地页图可辨主席团第一次会议题名和1949-09-21日期；只确认页身份，不转录决议正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+      "page_label": "image-02 / 官方扫描图 02",
+      "navigation_title": "中央档案馆专题扫描：主席团第一次会议纪要连续页",
+      "rationale": "同一份会议纪要的连续手写页；只确认页序，不转录决议正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+      "page_label": "image-03 / 官方扫描图 03",
+      "navigation_title": "中央档案馆专题扫描：主席团第一次会议纪要末页",
+      "rationale": "同一份会议纪要的连续末页；只确认结束范围，不转录执行主席姓名。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-01",
+      "page_label": "image-01 / 官方扫描图 01",
+      "navigation_title": "中央档案馆专题扫描：筹备会第二小组工作报告首页",
+      "rationale": "本地页图可辨谭平山第二小组工作报告题名；只确认页身份，不转录正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-01",
+      "page_label": "image-02 / 官方扫描图 02",
+      "navigation_title": "中央档案馆专题扫描：筹备会第二小组工作报告连续页",
+      "rationale": "同一份报告的连续印刷页；只确认页序，不转录正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+      "page_label": "image-01 / 官方扫描图 01",
+      "navigation_title": "中央档案馆专题扫描：周恩来共同纲领报告首页",
+      "rationale": "原图横置，可辨周恩来共同纲领报告题名；只确认页身份，不转录正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+      "page_label": "image-02 / 官方扫描图 02",
+      "navigation_title": "中央档案馆专题扫描：周恩来共同纲领报告连续页",
+      "rationale": "原图横置的连续印刷页；只确认页序，不转录正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+      "page_label": "image-03 / 官方扫描图 03",
+      "navigation_title": "中央档案馆专题扫描：周恩来共同纲领报告末页",
+      "rationale": "原图横置的连续印刷末页；只确认结束范围，不转录正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c15",
+      "page_label": "image-01 / 官方扫描图 01",
+      "navigation_title": "中央档案馆专题扫描：主席团常委会第一次会议记录首页",
+      "rationale": "本地页图可辨常委会第一次会议记录题名和1949-09-22日期；只确认页身份，不转录出席名单。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c15",
+      "page_label": "image-02 / 官方扫描图 02",
+      "navigation_title": "中央档案馆专题扫描：主席团常委会第一次会议记录连续页",
+      "rationale": "同一份常委会记录的连续手写页；只确认页序，不转录决议正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c17",
+      "page_label": "image-01 / 官方扫描图 01",
+      "navigation_title": "中央档案馆专题扫描：一届全体会议会刊第二期首页",
+      "rationale": "本地页图可辨会刊第二期题名和1949-09-22出版信息；只确认期次身份，不转录会刊正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c17",
+      "page_label": "image-02 / 官方扫描图 02",
+      "navigation_title": "中央档案馆专题扫描：一届全体会议会刊第二期连续页",
+      "rationale": "会刊第二期连续页，可见第一次大会程序题名；只确认页身份，不转录程序正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+      "page_label": "image-01 / 官方扫描图 01",
+      "navigation_title": "中央档案馆专题扫描：第三天会议记录首页",
+      "rationale": "本地页图可辨第三天会议记录题名和1949-09-23日期；只确认页身份，不转录人数或发言名单。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+      "page_label": "image-02 / 官方扫描图 02",
+      "navigation_title": "中央档案馆专题扫描：第三天会议记录连续页",
+      "rationale": "同一份第三天会议记录的连续手写页；只确认页序，不转录附注正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+      "page_label": "image-03 / 官方扫描图 03",
+      "navigation_title": "中央档案馆专题扫描：第三天会议记录发言次序页",
+      "rationale": "同一份第三天会议记录的连续发言次序页；只确认页身份，不转录发言人名单。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde07-i3",
+      "page_label": "page-02",
+      "navigation_title": "中央档案馆专题扫描：主席团名单连续页2",
+      "rationale": "可见合计八十九名的连续名单页；不核定姓名全文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde01-f1",
+      "page_label": "page-01",
+      "navigation_title": "中央档案馆专题扫描：第一次会议通知",
+      "rationale": "可辨十月一日、怀仁堂；不转录通知正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde02-f1",
+      "page_label": "page-01",
+      "navigation_title": "会刊第十一期题名/闭幕页",
+      "rationale": "可辨会刊第十一期和大会胜利闭幕；不转录正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde02-f1",
+      "page_label": "page-02",
+      "navigation_title": "会刊第十一期全国委员会名单页",
+      "rationale": "会刊连续页；不核定委员姓名。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde02-f1",
+      "page_label": "page-03",
+      "navigation_title": "会刊第十一期第八天大会经过页",
+      "rationale": "会刊连续页；不转录大会经过。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde04-f1",
+      "page_label": "page-01",
+      "navigation_title": "第一次会议议程页",
+      "rationale": "可辨议程题名；不转录条目正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde05-f1",
+      "page_label": "page-01",
+      "navigation_title": "第一次会议记录封面",
+      "rationale": "可辨会议纪录题名；不转录记录正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde06-f1",
+      "page_label": "page-01",
+      "navigation_title": "任命周恩来通知书",
+      "rationale": "可辨任命事项和一九四九年十月；不把署款当作笔迹鉴定。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde09-f1",
+      "page_label": "page-01",
+      "navigation_title": "中央人民政府公告",
+      "rationale": "可辨公告题名、毛泽东署款和十月一日；不转录公告正文。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+      "page_label": "image-01 / 共同纲领题名页",
+      "navigation_title": "共同纲领题名页",
+      "rationale": "可辨共同纲领题名和一九四九年九月二十九日；三页不是全件。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+      "page_label": "image-02 / 共同纲领序言与总纲页",
+      "navigation_title": "共同纲领第54页",
+      "rationale": "可见序言与第一条；不补中间缺页。"
+    },
+    {
+      "event_id": "domestic-1949-new-pcc",
+      "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+      "page_label": "image-03 / 共同纲领第六十条页",
+      "navigation_title": "共同纲领第64页",
+      "rationale": "可见第六十条；不把末页当成全件。"
     }
   ],
   "known_uncovered_topics": []

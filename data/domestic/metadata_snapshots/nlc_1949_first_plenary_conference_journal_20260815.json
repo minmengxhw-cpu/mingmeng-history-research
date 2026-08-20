@@ -17,7 +17,21 @@
   "publisher_or_creator": "中國人民政治協商會議第一屆全體會議新聞處",
   "body_read": false,
   "ocr_performed": false,
-  "formal_db_written": false,
+  "formal_db_written": true,
+  "formal_db_binding": {
+    "database": "data/research_index.sqlite",
+    "document_id": 1600,
+    "page_ids": [20932, 20933, 20934, 20935, 20936, 20937, 20938, 20939],
+    "review_status": "mixed_page_status",
+    "citation_ready_pages": 6,
+    "citation_ready_page_ids": [20932, 20933, 20934, 20935, 20936, 20937],
+    "review_only_page_ids": [20938, 20939],
+    "body_text_included": false,
+    "ocr_included": false,
+    "before_sha256": "25624cc9b9713a72e3777c515571b26fc322444bf2101b0e9e72bcbe8802fee0",
+    "after_sha256": "1250e6ee3d20cc670bbfb5f53bf5a4a8a1658f35826617035bdb04c5cb59d3a3",
+    "backup": "work/domestic/backups/research_index_before_nlc_1949_page_identity_20260815.sqlite"
+  },
   "review_status": "review_only",
   "citation_ready": false,
   "visual_review": {
@@ -32,6 +46,9 @@
       "220": "第一届全体会议宣言（草案），日期为1949年9月30日",
       "242-243": "会议正式刊物中的电文、纪念碑奠基及会议影像语境页"
     },
+    "page_identity_review_file": "work/domestic/nlc_1949_conference_journal_page_identity_review_20260815.json",
+    "promoted_citation_ready_pdf_pages": [1, 17, 30, 31, 32, 220],
+    "retained_review_only_pdf_pages": [242, 243],
     "wikisource_status": {
       "index": "12期合刊，页面标示约50%进度且整体未校对",
       "page_30": "本页已校对；仅作发现和对读辅助，不替代本地原始扫描",

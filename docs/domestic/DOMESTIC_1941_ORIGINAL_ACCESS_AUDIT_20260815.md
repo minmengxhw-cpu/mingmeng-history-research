@@ -43,6 +43,7 @@ research_ready = false
 ### 香港大学：馆藏目录入口
 
 - 目录入口：<https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKU_IZ21440249790003414&vid=HKU&lang=en_US>
+- 调取申请模板：[`HKU_GUANGMING_1941_RETRIEVAL_REQUEST.md`](HKU_GUANGMING_1941_RETRIEVAL_REQUEST.md)
 - 现有本地来源地图：[`1941_formation_source_map.json`](../../data/domestic/1941_formation_source_map.json)
 - 当前本地记录已保存馆藏入口及其 SHA256；没有把外部目录正文写入正式库，也没有把访问路线升级为 `citation_ready`。
 
@@ -75,4 +76,3 @@ research_ready = false
 - OCR 仅作为可检索草稿，并与原图分层；
 - 1946 汇编、原刊和后期转录三者的版本关系说明；
 - 统一平台门禁继续通过，且没有把原刊缺口误报为已闭合。
-

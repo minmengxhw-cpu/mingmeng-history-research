@@ -185,6 +185,17 @@ def main() -> int:
                     "evidence_chain_layers": chain_layer_counts,
                     "evidence_chain_page_items": chain_page_items,
                     "research_ready": navigation_status == "navigation_ready" and primary_status == "closed",
+                    # A bounded topic is usable for research when its shared
+                    # navigation, strict page evidence, and four-layer chain
+                    # are present.  This deliberately does not promote an
+                    # open primary-source target to ``research_ready``.
+                    "research_usable_with_boundaries": (
+                        navigation_status == "navigation_ready"
+                        and domestic["citation_pages"] > 0
+                        and evidence_chain_report["status"] == "PASS"
+                        and event_id in evidence_chains
+                        and chain_page_items > 0
+                    ),
                     "gaps": gaps,
                     "next_action": cards.get(event_id, {}).get("next_action", "")
                 }
@@ -197,6 +208,9 @@ def main() -> int:
             # strict page. The former broad count is exposed as
             # `navigation_ready` instead.
             "research_ready": sum(row["research_ready"] for row in topics),
+            "research_usable_with_boundaries": sum(
+                row["research_usable_with_boundaries"] for row in topics
+            ),
             "navigation_ready": sum(row["navigation_ready"] for row in topics),
             "primary_evidence_partial": sum(row["primary_evidence_status"] == "partial" for row in topics),
             "primary_evidence_closed": sum(row["primary_evidence_status"] == "closed" for row in topics),

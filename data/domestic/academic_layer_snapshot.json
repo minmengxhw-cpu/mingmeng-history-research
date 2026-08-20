@@ -1,0 +1,68 @@
+{
+  "schema_version": "domestic_academic_layer_snapshot.v1",
+  "generated_at": "2026-08-13",
+  "last_audited": "2026-08-13",
+  "status": "PASS",
+  "body_read": false,
+  "formal_db_written": false,
+  "snapshot_only": true,
+  "purpose": "在没有私有 staging SQLite 的清洁 checkout 中保留学术层的可审计元数据统计，不复制正文或私有路径。",
+  "records": 288,
+  "academic_records": 155,
+  "high_priority": 120,
+  "articles": 99,
+  "citation_ready": 0,
+  "human_verified": 0,
+  "quality_tiers": {
+    "A": 93,
+    "B": 152,
+    "C": 1,
+    "S": 42
+  },
+  "fulltext_statuses": {
+    "METADATA_ONLY": 182,
+    "BIBLIOGRAPHIC_AUTHOR_PROFILE": 46,
+    "LOCAL_FILE_PRESENT_METADATA_ONLY": 29,
+    "FULLTEXT_HTML_CANDIDATE": 18,
+    "FULLTEXT_PDF": 6,
+    "METADATA_OR_WRONG_PAGE": 3,
+    "CATALOG_OR_REFERENCE_PAGE": 2,
+    "SHARED_BIBLIOGRAPHIC_OR_INDEX_PAGE": 2
+  },
+  "fulltext_readiness": {
+    "indexed_fulltext": 0,
+    "review_only_indexed": 0,
+    "stable_fulltext": 6,
+    "fulltext_candidates": 18,
+    "discovery_only": 264
+  },
+  "metadata_missing": {
+    "author": 90,
+    "institution": 43,
+    "publication_date": 43,
+    "source_url": 36
+  },
+  "institutions": [
+    {"name": "中国社会科学院近代史研究所", "count": 64},
+    {"name": "机构未标注", "count": 43},
+    {"name": "《民盟历史文献全媒体数据库》（minmeng1941.cn）", "count": 26},
+    {"name": "待核", "count": 17},
+    {"name": "首都师范大学", "count": 15},
+    {"name": "群言出版社（民盟中央直属）", "count": 8},
+    {"name": "待从全文页核验", "count": 7},
+    {"name": "上海市地方志办公室／上海民主党派志验收稿", "count": 6},
+    {"name": "中共中央党史和文献研究院系统", "count": 5},
+    {"name": "民盟上海市委数字报", "count": 4},
+    {"name": "民盟上海市委内部传记汇编《盟贤》", "count": 4},
+    {"name": "未标注", "count": 3}
+  ],
+  "duplicate_audit": {
+    "exact_normalized_title_duplicate_groups": 15,
+    "exact_normalized_title_duplicate_records": 30
+  },
+  "warnings": [
+    "机构信号不是985认定或作者任职核验。",
+    "元数据、目录、OCR和索引只能支持发现与定位。",
+    "citation_ready和human_verified均不因快照存在而升级。"
+  ]
+}

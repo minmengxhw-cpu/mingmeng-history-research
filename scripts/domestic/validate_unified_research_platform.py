@@ -41,6 +41,9 @@ MANIFEST_PATH = ROOT / "data" / "research_index.manifest.json"
 CANDIDATES_PATH = ROOT / "data" / "domestic" / "candidates.jsonl"
 SOURCE_REGISTRY_PATH = ROOT / "data" / "domestic" / "source_registry.json"
 ACADEMIC_REPORT_PATH = ROOT / "work" / "domestic" / "academic_source_audit_20260813" / "REPORT.json"
+ACADEMIC_SNAPSHOT_PATH = ROOT / "data" / "domestic" / "academic_layer_snapshot.json"
+ACADEMIC_METADATA_INDEX_PATH = ROOT / "data" / "domestic" / "academic_layer_metadata.json"
+ACADEMIC_FULLTEXT_QUEUE_PATH = ROOT / "data" / "domestic" / "academic_fulltext_priority_queue.json"
 ACADEMIC_CROSSWALK_PATH = ROOT / "data" / "domestic" / "academic_topic_crosswalk.json"
 ADMISSION_PATH = ROOT / "work" / "domestic" / "source_admission_20260814" / "SOURCE_ADMISSION_QUEUE.json"
 QUEUE_PATH = ROOT / "data" / "domestic" / "primary_retrieval_queue.json"
@@ -202,7 +205,24 @@ def source_registry_alignment_check(db_path: Path) -> dict[str, Any]:
 
 
 def academic_layer_check() -> dict[str, Any]:
-    report = json.loads(ACADEMIC_REPORT_PATH.read_text(encoding="utf-8"))
+    report_source = "staging_audit_report"
+    if ACADEMIC_REPORT_PATH.is_file():
+        report = json.loads(ACADEMIC_REPORT_PATH.read_text(encoding="utf-8"))
+    elif ACADEMIC_SNAPSHOT_PATH.is_file():
+        snapshot = json.loads(ACADEMIC_SNAPSHOT_PATH.read_text(encoding="utf-8"))
+        report_source = "tracked_metadata_snapshot"
+        report = {
+            "status": snapshot.get("status"),
+            "body_read": snapshot.get("body_read"),
+            "records": snapshot.get("records"),
+            "academic_records": snapshot.get("academic_records"),
+            "scholarly_articles": snapshot.get("articles"),
+            "high_priority_academic_records_S_or_A": snapshot.get("high_priority"),
+            "quality_tiers": snapshot.get("quality_tiers", {}),
+        }
+    else:
+        report_source = "missing"
+        report = {}
     crosswalk = json.loads(ACADEMIC_CROSSWALK_PATH.read_text(encoding="utf-8"))
     expected_topics = {
         str(topic["item"].get("event_id")) for topic in app._research_topic_rows()
@@ -221,6 +241,79 @@ def academic_layer_check() -> dict[str, Any]:
         errors.append("academic layer has no research records or scholarly articles")
     if int(crosswalk.get("total_topic_matches") or 0) <= 0:
         errors.append("academic crosswalk has no topic matches")
+    metadata_index_records = 0
+    metadata_index_source = "missing"
+    metadata_records: list[dict[str, Any]] = []
+    if ACADEMIC_METADATA_INDEX_PATH.is_file():
+        try:
+            metadata_index = json.loads(ACADEMIC_METADATA_INDEX_PATH.read_text(encoding="utf-8"))
+            metadata_index_source = "tracked_metadata_index"
+            records = metadata_index.get("records") if isinstance(metadata_index, dict) else None
+            metadata_index_records = len(records) if isinstance(records, list) else 0
+            metadata_records = [record for record in records if isinstance(record, dict)] if isinstance(records, list) else []
+            if not isinstance(metadata_index, dict) or metadata_index.get("body_read") is not False:
+                errors.append("academic metadata index must declare body_read=false")
+            if not isinstance(metadata_index, dict) or metadata_index.get("local_paths_included") is not False:
+                errors.append("academic metadata index must exclude local paths")
+            if metadata_index_records != int(report.get("records") or 0):
+                errors.append("academic metadata index record count does not match audit")
+            serialized = json.dumps(metadata_index, ensure_ascii=False)
+            if any(marker in serialized for marker in ("/Users/", "/private/", '"local_path"', '"derived_text_path"')):
+                errors.append("academic metadata index contains a local path marker")
+        except (OSError, json.JSONDecodeError, AttributeError, TypeError):
+            errors.append("academic metadata index is unreadable")
+    else:
+        errors.append("academic metadata index is missing")
+    fulltext_priority_queue_records = 0
+    fulltext_priority_queue_source = "missing"
+    fulltext_priority_queue_classes: dict[str, int] = {}
+    if ACADEMIC_FULLTEXT_QUEUE_PATH.is_file():
+        try:
+            priority_queue = json.loads(ACADEMIC_FULLTEXT_QUEUE_PATH.read_text(encoding="utf-8"))
+            fulltext_priority_queue_source = "tracked_queue"
+            queue_records = priority_queue.get("records") if isinstance(priority_queue, dict) else None
+            summary = priority_queue.get("summary") if isinstance(priority_queue, dict) else None
+            fulltext_priority_queue_records = len(queue_records) if isinstance(queue_records, list) else 0
+            fulltext_priority_queue_classes = (
+                dict(summary.get("queue_classes") or {})
+                if isinstance(summary, dict) else {}
+            )
+            if not isinstance(priority_queue, dict):
+                errors.append("academic fulltext priority queue is unreadable")
+            for key in ("body_read", "formal_db_written", "local_paths_included"):
+                if not isinstance(priority_queue, dict) or priority_queue.get(key) is not False:
+                    errors.append(f"academic fulltext priority queue {key} must be false")
+            expected_statuses = {
+                "FULLTEXT_PDF", "FULLTEXT_HTML",
+                "FULLTEXT_PDF_CANDIDATE", "FULLTEXT_HTML_CANDIDATE",
+            }
+            expected_queue_ids = {
+                str(record.get("external_id"))
+                for record in metadata_records
+                if str(record.get("fulltext_status") or "") in expected_statuses
+            }
+            actual_queue_ids = {
+                str(record.get("external_id"))
+                for record in (queue_records or [])
+                if isinstance(record, dict)
+            }
+            if fulltext_priority_queue_records != len(expected_queue_ids):
+                errors.append("academic fulltext priority queue count does not match metadata selection")
+            if actual_queue_ids != expected_queue_ids:
+                errors.append("academic fulltext priority queue ids do not match metadata selection")
+            if not isinstance(queue_records, list) or not all(isinstance(record, dict) for record in queue_records):
+                errors.append("academic fulltext priority queue records are unreadable")
+            for record in queue_records or []:
+                if str(record.get("fulltext_status") or "") not in expected_statuses:
+                    errors.append("academic fulltext priority queue contains an unsupported status")
+                    break
+            serialized = json.dumps(priority_queue, ensure_ascii=False)
+            if any(marker in serialized for marker in ("/Users/", "/private/", '"local_path"', '"derived_text_path"')):
+                errors.append("academic fulltext priority queue contains a local path marker")
+        except (OSError, json.JSONDecodeError, AttributeError, TypeError):
+            errors.append("academic fulltext priority queue is unreadable")
+    else:
+        errors.append("academic fulltext priority queue is missing")
     return {
         "status": "PASS" if not errors else "FAIL",
         "records": report.get("records"),
@@ -230,6 +323,12 @@ def academic_layer_check() -> dict[str, Any]:
         "quality_tiers": report.get("quality_tiers", {}),
         "crosswalk_topics": len(actual_topics),
         "total_topic_matches": crosswalk.get("total_topic_matches"),
+        "source": report_source,
+        "metadata_index_source": metadata_index_source,
+        "metadata_index_records": metadata_index_records,
+        "fulltext_priority_queue_source": fulltext_priority_queue_source,
+        "fulltext_priority_queue_records": fulltext_priority_queue_records,
+        "fulltext_priority_queue_classes": fulltext_priority_queue_classes,
         "errors": errors,
     }
 
@@ -550,6 +649,12 @@ def packet_check() -> dict[str, Any]:
         result = {"event_id": event_id, "status": "FAIL", "errors": ["packet not found"]}
         if packet is not None:
             result = validate_packet(packet, event_id)
+            counts = packet.get("counts") or {}
+            result["research_usable_with_boundaries"] = bool(
+                result.get("status") == "PASS"
+                and int(counts.get("evidence_chain_page_items") or 0) > 0
+                and int(counts.get("topic_event_domestic_strict_pages") or 0) > 0
+            )
         rows.append(result)
     statuses = [row.get("status") for row in rows]
     partial = sum(
@@ -565,6 +670,9 @@ def packet_check() -> dict[str, Any]:
         "research_ready_count": sum(
             str((topic["item"] or {}).get("primary_evidence_status") or "") == "closed"
             for topic in app._research_topic_rows()
+        ),
+        "research_usable_with_boundaries_count": sum(
+            bool(row.get("research_usable_with_boundaries")) for row in rows
         ),
         "errors": [row for row in rows if row.get("status") != "PASS"],
     }

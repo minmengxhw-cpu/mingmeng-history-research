@@ -1,0 +1,120 @@
+{
+  "schema": "domestic_high_value_candidate_reconciliation.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "metadata_only_reconciliation_before_formal_admission",
+  "body_read": false,
+  "raw_files_copied": false,
+  "formal_db_written": false,
+  "origin_checkout": "local origin checkout (not published)",
+  "closeout_checkout": "local closeout checkout (not published)",
+  "policy": {
+    "no_deletion": true,
+    "no_duplicate_ocr": true,
+    "ocr_only_after_text_layer_and_page_scope_check": true,
+    "citation_ready_requires_page_identity_and_human_review": true,
+    "primary_evidence_not_inferred_from_filename": true
+  },
+  "candidates": [
+    {
+      "candidate_id": "HC-1941-XH-001",
+      "source_file": "data/domestic/press_scans/NLC1080-00N000846-8631_新华日报_1941-10-10.pdf",
+      "sha256": "6165c58624e3c2dd595f9a3f43688f766916e459ccec18e6c3cf7c8881ab787e",
+      "bytes": 7167806,
+      "pdf_pages": 6,
+      "source_url": "https://commons.wikimedia.org/wiki/File:NLC1080-00N000846-8631_%E6%96%B0%E8%8F%AF%E6%97%A5%E5%A0%B1_1941-10-10.pdf",
+      "date": "1941-10-10",
+      "source_layer": "L1_or_L1_compiled_contemporary_press_scan",
+      "evidence_level": "L1",
+      "value_decision": "KEEP_RESEARCH_OBJECT",
+      "existing_status": {
+        "mapping_class": "MAPPED_EXACT_EVIDENCE",
+        "ocr_disposition": "OCR_REQUIRED_CANDIDATE_IMAGE_ONLY",
+        "page_chain": "6/6",
+        "ocr_pages": "6/6",
+        "citation_ready": false,
+        "human_verified": false,
+        "formal_db_apply": false
+      },
+      "next_action": "selective_visual review of page identity and relevant 1941 formation coverage; retain as contemporaneous cross-source, not as the formation original",
+      "admission_decision": "STAGING_ONLY"
+    },
+    {
+      "candidate_id": "HC-1948-TP-001",
+      "source_file": "data/domestic/grok_cycle_0011_20260801/pdf/commons_NLC_中国民主同盟三中全会.pdf",
+      "sha256": "f9099aa01475c7509d8c82013c8f8ec19333ae3e0fcab66eeaa8a3f9151fe9c7",
+      "bytes": 757274,
+      "pdf_pages": 33,
+      "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/NLC416-15jh005144-98822_%E4%B8%AD%E5%9C%8B%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E4%B8%89%E4%B8%AD%E5%85%A8%E6%9C%83.pdf",
+      "date": "1948-01 area; pending page-level confirmation",
+      "source_layer": "contemporary_compiled_primary_scan",
+      "evidence_level": "HOLD",
+      "value_decision": "KEEP_RESEARCH_OBJECT",
+      "existing_status": {
+        "mapping_class": "HOLD_NO_EXACT_EVIDENCE",
+        "ocr_disposition": "OCR_REVIEW_ONLY",
+        "citation_ready": false,
+        "human_verified": false,
+        "formal_db_apply": false
+      },
+      "next_action": "identify edition, date, title page, document boundaries and whether the scan is a contemporary compilation before any targeted OCR",
+      "admission_decision": "STAGING_CROSSWALK_REQUIRED"
+    },
+    {
+      "candidate_id": "HC-1944-46-DMZ-001",
+      "source_file": "data/domestic/grok_cycle_0006_20260801/pdf/commons_NLC_民主周刊.pdf",
+      "sha256": "38e7ca88e6b45efca27c7b685fff1ff57c2dc292ca3c1b8972c05994994e8fae",
+      "bytes": 59527186,
+      "pdf_pages": 1279,
+      "source_url": "https://commons.wikimedia.org/wiki/Special:FilePath/NLC511-026031010040217-290_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.pdf",
+      "date": "1944-1946? pending issue/date map",
+      "source_layer": "contemporary_press_scan_date_uncertain_multi_volume",
+      "evidence_level": "HOLD",
+      "value_decision": "KEEP_RESEARCH_OBJECT",
+      "existing_status": {
+        "mapping_class": "HOLD_NO_EXACT_EVIDENCE",
+        "ocr_disposition": "OCR_REVIEW_ONLY",
+        "citation_ready": false,
+        "human_verified": false,
+        "formal_db_apply": false
+      },
+      "next_action": "build issue/date/page index first; target Li-Wen, 1946 political events and 1947 organization pressure; do not run whole-volume OCR",
+      "admission_decision": "STAGING_CROSSWALK_REQUIRED"
+    },
+    {
+      "candidate_id": "HC-1945-CONG-001",
+      "source_file": "data/domestic/sourcebooks/中国民主同盟临时全国代表大会宣言_公开转录.pdf",
+      "sha256": "088458899f8119895b58e5bc5f2cf2e986c7911423b7fcea69fcee4f93d1cf31",
+      "bytes": 27772278,
+      "pdf_pages": 789,
+      "source_url": null,
+      "date": "1945-10 area; compilation metadata requires confirmation",
+      "source_layer": "modern_transcription_or_republication",
+      "evidence_level": "HOLD",
+      "value_decision": "KEEP_CONTEXT_ONLY",
+      "existing_status": {
+        "mapping_class": "HOLD_NO_EXACT_EVIDENCE",
+        "ocr_disposition": "OCR_REQUIRED_CANDIDATE_IMAGE_ONLY",
+        "citation_ready": false,
+        "human_verified": false,
+        "formal_db_apply": false
+      },
+      "next_action": "stop treating this file as a 1945 P0 candidate; retain as later political-consultative-conference context and use the existing 1945 sourcebook page groups for targeted comparison",
+      "admission_decision": "DOWNGRADED_CONTEXT_ONLY"
+    }
+  ],
+  "duplicate_groups": [
+    {
+      "group_id": "DUP-622P-HISTORY-DOCS-001",
+      "sha256": "257bb7be70abe374be9864ec451b5a4a90e2442ae8c877b15f4e6bbb8bb30be3",
+      "bytes": 18131353,
+      "pdf_pages": 622,
+      "identical_files": [
+        "data/domestic/sourcebooks/中国民主同盟历史文献_1941-1949_公开扫描.pdf",
+        "data/domestic/academic_public_20260730/pdf/中国民主同盟历史文献_1941-1949_marxists.pdf"
+      ],
+      "decision": "ONE_CANONICAL_INDEX_RECORD",
+      "do_not_delete": true,
+      "index_policy": "keep both local paths in provenance as identical storage copies; index only one canonical content identity and mark the other duplicate_storage"
+    }
+  ]
+}

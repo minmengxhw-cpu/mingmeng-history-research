@@ -1,0 +1,51 @@
+{
+  "schema": "domestic_page_identity_review.v1",
+  "review_id": "dagangbao-1947-11-06-page-identity-20260821",
+  "generated_at": "2026-08-21",
+  "body_read": false,
+  "formal_db_written": false,
+  "raw_files_copied": false,
+  "ocr_action": "USE_EXISTING_OCR_ONLY",
+  "scope": "仅核对来源文件身份、PDF页数、渲染页图SHA和可见报道标题；不把同期报刊报道升级为行政原件或民盟公告原件。",
+  "reviews": [
+    {
+      "source_id": "nlc-dagongbao-shanghai-1947-11-06-page2",
+      "source_file": "data/domestic/press_scans/NLC_大公報_上海版_1947-11-06_第2版_完整影像_试用数据库.pdf",
+      "source_sha256": "c5db06a15df0da2042819461b700f3c8c4f629a79e60340486f291ceb166fbb8",
+      "source_file_size": 130699,
+      "pdf_page_count": 1,
+      "pdf_page_no": 1,
+      "rendered_image_sha256": "90ca44feb14dadbd85fc0e97bc87535f59a96ec0440717c179a7f7cd46252f9c",
+      "identity_status": "PASS",
+      "visual_observations": [
+        "可见《大公报》报面和1947年11月6日第2版的版式信息。",
+        "可见主标题“民盟今日解散”，并有张澜等开会决定、通告各地盟员停止政治活动的报道范围。"
+      ],
+      "evidence_scope": "只证明上海版同期报纸对解散事件的报道和页级身份；不证明民盟总部解散公告原件、政府公函或完整报道正文已经校勘。",
+      "citation_ready_change": "UNCHANGED",
+      "rights_note": "试用数据库导出单页副本；继续遵守原平台授权边界。"
+    },
+    {
+      "source_id": "nlc-dagongbao-tianjin-1947-11-06-page2",
+      "source_file": "data/domestic/press_scans/NLC_大公報_天津版_1947-11-06_第2版_完整影像_试用数据库.pdf",
+      "source_sha256": "cb64bd1561540661c6de257313aaf3799c38b83f7f7fab9905f4e096a1ce247f",
+      "source_file_size": 131852,
+      "pdf_page_count": 1,
+      "pdf_page_no": 1,
+      "rendered_image_sha256": "8afc804ecdfee21253d28f5083a795891c7b6d6a75ef422b48628fa75cb12658",
+      "identity_status": "PASS",
+      "visual_observations": [
+        "可见《大公报》报面和1947年11月6日第2版的版式信息。",
+        "可见主标题“民盟宣布解散”，并有通告盟员停止政治活动的报道范围。"
+      ],
+      "evidence_scope": "只证明天津版同期报纸对解散事件的报道和页级身份；不证明民盟总部解散公告原件、政府公函或完整报道正文已经校勘。",
+      "citation_ready_change": "UNCHANGED",
+      "rights_note": "试用数据库导出单页副本；继续遵守原平台授权边界。"
+    }
+  ],
+  "closeout": {
+    "new_primary_source_closed": false,
+    "remaining_gap": "1947-10-27政府公函和1947-11-06民盟总部解散公告的独立原件仍未取得。",
+    "next_action": "如需补建canonical视觉页链，使用本manifest中的源文件SHA和页图SHA；不重复整本OCR。"
+  }
+}

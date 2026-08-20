@@ -48,6 +48,7 @@ def validate(db_path: Path, coverage_path: Path, chain_path: Path) -> dict:
     chain_by_id = {str(item.get("event_id")): item for item in chains if isinstance(item, dict)}
     strict_items = 0
     page_items = 0
+    page_refs: list[dict[str, object]] = []
     layer_counts = {layer: 0 for layer in LAYERS}
     with sqlite3.connect(f"file:{db_path.resolve()}?mode=ro", uri=True) as conn:
         conn.row_factory = sqlite3.Row
@@ -87,6 +88,15 @@ def validate(db_path: Path, coverage_path: Path, chain_path: Path) -> dict:
                     if "page_id" not in item:
                         continue
                     page_items += 1
+                    page_refs.append(
+                        {
+                            "event_id": event_id,
+                            "layer": layer,
+                            "page_id": item["page_id"],
+                            "status": item.get("status"),
+                            "doc_key": item.get("doc_key"),
+                        }
+                    )
                     row = conn.execute(
                         """SELECT d.doc_key, d.source_platform, pp.review_status,
                                   pp.citation_ready, pp.needs_human_review
@@ -122,6 +132,7 @@ def validate(db_path: Path, coverage_path: Path, chain_path: Path) -> dict:
         "topics": len(coverage_ids),
         "chains": len(chain_ids),
         "page_items": page_items,
+        "page_refs": page_refs,
         "strict_citation_items": strict_items,
         "layer_item_counts": layer_counts,
         "missing_chains": missing,

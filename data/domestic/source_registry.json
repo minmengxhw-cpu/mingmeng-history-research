@@ -616,7 +616,7 @@
     "institution": "香港大学图书馆 Special Collections",
     "source_type": "高校特别馆藏报刊馆藏记录",
     "authority_level": "机构馆藏目录；可供原刊缩微胶卷现场核验",
-    "official_url": "https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/newspaper_1940s_update_072021.pdf",
+    "official_url": "https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/HKnewspapers/Chronological_List_032026_0.pdf",
     "record_or_search_url": "https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKU_IZ21440249790003414&vid=HKU&lang=en_US",
     "material_types": [
       "《光明報》1941年9月18日—12月12日",
@@ -626,8 +626,8 @@
     "shanghai_relevance": "中；为1941年民盟机关报原刊回查提供具体馆藏入口",
     "access_mode": "在线馆藏清单；缩微胶卷需按香港大学特别馆藏规则现场或申请阅览",
     "rights_status": "以香港大学图书馆特别馆藏和原报刊复制规则为准",
-    "verification_note": "香港大学图书馆《Hong Kong Newspapers - Chronological List 1940s》明确列出第21项《光明報》，格式为Microform，Access为Microfilm at Special Collections，馆藏起止为1941年9月18日至12月12日且标注Nil gaps。公开 JULAС/Primo 书目片段进一步给出 Special Collections 闭架位置和索书号 HKC 951 G91 M，并可定位记录号 HKU_IZ21440249790003414。港大 Special Collections 官方规则进一步确认 HKC 历史报纸属闭架材料，最多10件应至少提前3个工作日发至 libspeco@hku.hk，现场使用微缩胶片和复制设备；该记录仍没有公开逐期影像或复制下载地址。",
-    "checked_at": "2026-07-19",
+    "verification_note": "香港大学图书馆 2026 年更新的《Chronological List》仍明确列出第52项《光明報》，格式为Microform，Access为Microfilm at Special Collections，馆藏起止为1941年9月18日至12月12日且标注Nil gaps。公开 JULAС/Primo 书目片段进一步给出 Special Collections 闭架位置和索书号 HKC 951 G91 M，并可定位记录号 HKU_IZ21440249790003414。港大 Special Collections 官方规则进一步确认 HKC 历史报纸属闭架材料，最多10件应至少提前3个工作日发至 libspeco@hku.hk，现场使用微缩胶片和复制设备；该记录仍没有公开逐期影像或复制下载地址。",
+    "checked_at": "2026-08-21",
     "status": "verified_entry"
   },
   {
@@ -1814,5 +1814,25 @@
     "verification_note": "项目既有 metadata-only 锚点记录确认平台身份、公开目录入口和登录限制；当前未把目录当正文，浏览器自动化后端暂不可用，具体主办单位和每项授权范围待详情页复核。",
     "checked_at": "2026-08-14",
     "status": "catalogue_verified_authorized_pending"
+  },
+  {
+    "source_id": "domestic:source:nlc_1949_first_plenary_conference_journal",
+    "source_name": "《中國人民政治協商會議第一屆全體會議會刊》（1949）",
+    "institution": "中国国家图书馆数字化民国图书；Wikimedia Commons/Wikisource公开镜像",
+    "source_type": "1949年政协第一届全体会议同期会议刊物扫描",
+    "authority_level": "同期官方会议记录/会刊数字化副本；原件扫描的公开镜像",
+    "official_url": "https://read.nlc.cn/",
+    "record_or_search_url": "https://commons.wikimedia.org/wiki/File:NLC416-18jh000828-104705_%E4%B8%AD%E5%9C%8B%E4%BA%BA%E6%B0%91%E6%94%BF%E6%B2%BB%E5%8D%94%E5%95%86%E6%9C%83%E8%AD%B0%E7%AC%AC%E4%B8%80%E5%B1%86%E5%85%A8%E9%AB%94%E6%9C%83%E5%88%8A.pdf",
+    "material_types": [
+      "1949年政协第一届全体会议会刊",
+      "会议程序与主席团名单",
+      "宣言草案与会议记录"
+    ],
+    "shanghai_relevance": "高；用于1949年新政协与民盟代表角色的全国性制度背景",
+    "access_mode": "公开PDF；8个选定页已入库，其中5页为页级身份严格引用、3页仍为review_only；正文/OCR未核验",
+    "rights_status": "public_domain_claimed_unknown",
+    "verification_note": "2026-08-15取得公开PDF，276页，SHA256为20069c88dd8520e034f47beb614bca4c1c86ae6b8baf41aaf1988a13f95c7e4a。已将PDF第1、17、30、31、32、220、242、243页写入正式SQLite文档1600和页20932—20939。其中20932—20936（封面、开幕程序、主席团名单、议事规则两页）仅完成页级身份人工复核并标citation_ready=1，正文字符数为0、未做OCR；20937—20939仍为review_only、citation_ready=0。不得把页级身份引用写成正文已核验，也不关闭1949主证据缺口。",
+    "checked_at": "2026-08-17",
+    "status": "page_identity_verified_body_pending"
   }
 ]

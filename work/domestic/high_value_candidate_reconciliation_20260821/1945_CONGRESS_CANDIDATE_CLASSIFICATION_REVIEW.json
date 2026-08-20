@@ -1,0 +1,32 @@
+{
+  "schema": "domestic_candidate_classification_review.v1",
+  "review_id": "HC-1945-CONG-001-classification",
+  "reviewed_at": "2026-08-21",
+  "source_file": "data/domestic/sourcebooks/中国民主同盟临时全国代表大会宣言_公开转录.pdf",
+  "source_sha256": "088458899f8119895b58e5bc5f2cf2e986c7911423b7fcea69fcee4f93d1cf31",
+  "source_pdf_pages": 789,
+  "review_method": "first_page_visual_identity_plus_existing_page_manifest_metadata",
+  "full_body_read": false,
+  "raw_files_copied": false,
+  "formal_db_written": false,
+  "classification_result": "DOWNGRADED_CONTEXT_ONLY",
+  "p0_1945_primary_candidate": false,
+  "citation_ready": false,
+  "observed_page_1": {
+    "page_image_path": "work/domestic/month_20260728/pages/SRC-088458899f/images/page-0001.png",
+    "page_image_sha256": "fc30e7c6c7b4c88b36209f0a8a8eded5eb3689ce99e205d18762e11755070a00",
+    "visible_heading": "编者说明",
+    "content_identity": "政治协商会议纪实类编纂材料",
+    "scope_statement": "编者说明称全书系统反映1946年政治协商会议和停战谈判过程，并按五个部分编排",
+    "editor_date_visible": "1988年6月",
+    "target_mismatch": "文件名声称临时全国代表大会宣言，但题名页/编者说明不支持其作为1945年大会原始底本"
+  },
+  "decision": {
+    "evidence_level": "L2_context_compilation",
+    "research_role": "later_compilation_for_1946_political_consultative_conference_context",
+    "ocr_disposition": "STOP_FULL_VOLUME_OCR",
+    "keep_local_file": true,
+    "index_policy": "retain provenance and existing OCR as staging/context only; do not map the whole PDF to the 1945 first-congress event",
+    "next_action": "use the already mapped 1983 and 1946 sourcebook page groups for 1945 targeted comparison; seek an actual 1945 edition or independent contemporary record"
+  }
+}

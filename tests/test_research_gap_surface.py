@@ -27,3 +27,17 @@ def test_research_gap_rows_surface_formal_overlay():
         assert "页级导航" in body
     finally:
         app._request.public_mode = previous
+
+
+def test_research_topic_source_map_exposes_public_route_without_promoting_it():
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = True
+    try:
+        body = app.research_topic_page("domestic-1947-illegal-dissolution").decode("utf-8")
+        assert "九三学社中央专题页转载的1947年10月27日民盟非法化报纸图像" in body
+        assert "官方转载图像" in body
+        assert "没有页级记录的入口不会自动进入正式引文" in body
+        assert "primary_evidence_closed" not in body
+        assert "/Users/" not in body and "/private/" not in body
+    finally:
+        app._request.public_mode = previous

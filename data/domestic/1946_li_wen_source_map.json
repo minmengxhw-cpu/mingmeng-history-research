@@ -10,18 +10,19 @@
   "formal_db_written_by_map": false,
   "formal_db_binding": "仅引用已存在的正式库文档/页号与 provenance，不在构建地图时写入 SQLite",
   "primary_evidence_closed": false,
-  "primary_evidence_gap": "《民主周刊》原版、民盟抗议文件独立底本、司法/行政档案和案件过程材料仍未形成页级闭环；新增的1946年第8期《光明報》第14—15页是同期报刊路线，不等同于独立原件；1983汇编中的三处声明也是可回链的重刊页。",
+  "primary_evidence_gap": "《民主周刊》原版、民盟抗议文件独立底本、司法/行政档案和案件过程材料仍未形成页级闭环；新增的1946年第8期《光明報》第14—15页和《民主周刊》期号入口是同期报刊路线，不等同于独立原件；1983汇编中的三处声明也是可回链的重刊页。",
   "access_audit": {
     "audit_document": "docs/domestic/DOMESTIC_LIWEN_ORIGINAL_ACCESS_AUDIT_20260815.md",
     "metadata_reviewed_on": "2026-08-15",
-    "status": "issue_routes_narrowed_original_image_not_obtained",
-    "scope": "公开官方盟史、商业目录和既有本地页级材料；未复制商业正文原件",
+    "status": "issue_index_audit_added_original_issue_page_map_pending",
+    "scope": "公开官方盟史、CADAL/Commons期号元数据、合订扫描容器和既有本地页级材料；未把期号入口当作正式正文页",
     "confirmed_routes": [
       "民盟云南官方盟史：1944-12-09至1946-08-02共3卷71期",
       "商业影印目录：1946年第3、5、6、7、8期李闻相关篇目和目录线索",
-      "国家图书馆编号公开扫描：《光明報》1946年第8期第14—15页《李聞慘案前後的昆明（續）》"
+      "国家图书馆编号公开扫描：《光明報》1946年第8期第14—15页《李聞慘案前後的昆明（續）》",
+      "CADAL/Commons《民主周刊》1946年第8、16期公开影像入口与期号元数据"
     ],
-    "next_minimum_target": "核对并取得1946年第3卷第16期和第19期相关原刊影像或正式复制件，完成逐页馆藏标识、影像SHA和人工视觉复核"
+    "next_minimum_target": "优先核对并取得1946年第3卷第16期和第19期相关原刊影像或正式复制件，完成封面、题名页、物理页范围、影像SHA和人工视觉复核"
   },
   "sources": [
     {
@@ -167,7 +168,7 @@
       "metadata_snapshot_file": "data/domestic/metadata_snapshots/nlc_guangmingbao_1946_issue8_20260815.json",
       "metadata_snapshot_sha256": "52a03a0ea335e3f5c311bca8708f4567361e180ea7c7d6cb54b1ae13afe38ca4",
       "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf",
-      "access_note": "国家图书馆编号公开扫描；第1、14、15页已人工视觉核对，第14—15页确认《李闻惨案前后的昆明（续）》连续版面；未做OCR、未写入正式SQLite。",
+      "access_note": "国家图书馆编号公开扫描；第1页正式库 16367 已是刊期身份严格页；第14—15页正式库 16380/16381 已回链，仍为 machine_verified/review_only。2026-08-18 再核封面题名《光明報》新八號及第14页《李聞慘案前後的昆明（續）》标题。未做新 OCR，不关闭李闻原件缺口。",
       "local_acquisition": {
         "local_file": "data/domestic/raw/public_sources/nlc_guangmingbao_1946_issue8.pdf",
         "sha256": "a0953d77e33497a9af58d458818a2cbafae011e76ef88f0901ac4a11e4702773",
@@ -176,25 +177,30 @@
         "metadata_snapshot": "data/domestic/metadata_snapshots/nlc_guangmingbao_1946_issue8_20260815.json",
         "review_status": "review_only",
         "body_read": false,
-        "formal_db_written": false
+        "formal_db_written": true,
+        "formal_db_page_ids": [
+          16367,
+          16380,
+          16381
+        ]
       },
       "page_records": [
         {
-          "page_id": null,
+          "page_id": 16367,
           "pdf_page_no": 1,
           "physical_page_no": 1,
           "target": "同期刊物身份与李闻专题路线定位",
           "role": "《光明報》新八號首版及刊期身份页",
-          "status": "review_only",
+          "status": "strict_citation",
           "review_status": "human_verified",
-          "citation_ready": false,
+          "citation_ready": true,
           "needs_human_review": false,
           "review_scope": "periodical_issue_identity_and_selected_article_locator",
           "page_image_sha256": null,
           "caveat": "只证明公开扫描的刊期身份和路线入口，不把该页升级为李闻案件原始档案。"
         },
         {
-          "page_id": null,
+          "page_id": 16380,
           "pdf_page_no": 14,
           "physical_page_no": 14,
           "target": "李闻惨案后的昆明叙述",
@@ -208,7 +214,7 @@
           "caveat": "已确认标题、作者和页界；未OCR、未逐字校读，不能作为正式逐字引文。"
         },
         {
-          "page_id": null,
+          "page_id": 16381,
           "pdf_page_no": 15,
           "physical_page_no": 15,
           "target": "李闻惨案后的昆明叙述",
@@ -222,6 +228,76 @@
           "caveat": "已确认与第14页连续；未OCR、未逐字校读，不能作为正式逐字引文。"
         }
       ]
+    },
+    {
+      "source_id": "cadal-democracy-weekly-03016374-liwen-route",
+      "title": "《民主周刊》第8期（1946-06）公开影像入口",
+      "source_role": "public_periodical_scan_route",
+      "evidence_level": "L1",
+      "source_sha256": "5ba6e7db4d7ee5b0ef4ea495b4b83aec902198150cfd9be6295dce0d4ff740b2",
+      "source_file_size": 2457222,
+      "scan_page_count": 20,
+      "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016374_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
+      "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016374",
+      "access_note": "本地影像和Commons期号描述已登记在期号审计；当前只作为公开影像入口，没有建立正式库页记录，也没有逐字校读。",
+      "identity_status": "metadata_verified_issue_candidate",
+      "page_records": [],
+      "citation_ready": false,
+      "formal_db_apply": false
+    },
+    {
+      "source_id": "cadal-democracy-weekly-03016380-liwen-route",
+      "title": "《民主周刊》第三卷第八期（1946-05）公开影像入口",
+      "source_role": "public_periodical_scan_route",
+      "evidence_level": "L1",
+      "scan_page_count": 16,
+      "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016380_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
+      "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016380",
+      "access_note": "期号、出版月和Commons元数据已确认；本地审计未取得正文文件，不把搜索摘要当作文章页界。",
+      "identity_status": "metadata_verified_issue_candidate",
+      "page_records": [],
+      "citation_ready": false,
+      "formal_db_apply": false
+    },
+    {
+      "source_id": "cadal-democracy-weekly-03016381-liwen-route",
+      "title": "《民主周刊》第三卷第十期（1946-05）公开影像入口",
+      "source_role": "public_periodical_scan_route",
+      "evidence_level": "L1",
+      "source_role_note": "公开期号追索入口，不是已核验的正式库页",
+      "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016381_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
+      "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016381",
+      "access_note": "Commons描述给出第三卷第十期和1946年5月；正文、页数和目标文章仍待取件及人工核验。",
+      "identity_status": "metadata_verified_issue_candidate",
+      "page_records": [],
+      "citation_ready": false,
+      "formal_db_apply": false
+    },
+    {
+      "source_id": "cadal-democracy-weekly-03016382-liwen-route",
+      "title": "《民主周刊》第三卷第十四期（1946-06）公开影像入口",
+      "source_role": "public_periodical_scan_route",
+      "evidence_level": "L1",
+      "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016382_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
+      "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016382",
+      "access_note": "Commons目录给出第三卷第十四期和1946年6月；只承担李闻事件前后期号追索，未登记正文页。",
+      "identity_status": "metadata_verified_issue_candidate",
+      "page_records": [],
+      "citation_ready": false,
+      "formal_db_apply": false
+    },
+    {
+      "source_id": "cadal-democracy-weekly-03016383-liwen-route",
+      "title": "《民主周刊》第三卷第十六期（1946-07）公开影像入口",
+      "source_role": "public_periodical_scan_route",
+      "evidence_level": "L1",
+      "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
+      "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016383",
+      "access_note": "P0追索对象：Commons元数据给出1946年7月第三卷第十六期；必须先核验封面、出版日期、闻一多/李公朴相关文章和物理页码。",
+      "identity_status": "metadata_verified_issue_candidate",
+      "page_records": [],
+      "citation_ready": false,
+      "formal_db_apply": false
     }
   ]
 }

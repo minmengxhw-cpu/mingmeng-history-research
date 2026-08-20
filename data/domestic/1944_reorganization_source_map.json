@@ -276,7 +276,7 @@
       "source_file_size": 10304436,
       "page_count": 51,
       "source_url": "https://commons.wikimedia.org/wiki/File:NLC404-00J001436-85448_%E6%B0%91%E6%86%B2_1944%E2%80%931945%E5%B9%B4%E7%AC%AC%E4%B8%80%E5%8D%B7%E7%AC%AC%E4%B8%83%E6%9C%9F.pdf",
-      "access_note": "国家图书馆公开扫描；本地只保存公开 PDF 的 acquisition snapshot，当前只核验刊期、日期和目录页身份，不复制正文。",
+      "access_note": "国家图书馆公开扫描；2026-08-18 再核封面第1卷第7期标识和目录页刊名/卷期/中華民國三十三年九月十日。正式库页 17123（封面标识）/17124（目录）已回链，仍非改组会议原件。",
       "local_acquisition": {
         "local_file": "data/domestic/raw/public_sources/nlc_minxian_1944_v1n7.pdf",
         "sha256": "a1e2269150fea87cfcca1e2016662ecc953f9a9b2a151184aad62fad776f09e0",
@@ -285,11 +285,30 @@
         "metadata_snapshot": "data/domestic/metadata_snapshots/nlc_minxian_1944_v1n7_20260815.json",
         "review_status": "review_only",
         "body_read": false,
-        "formal_db_written": false
+        "formal_db_written": true,
+        "formal_db_page_ids": [
+          17123,
+          17124
+        ]
       },
       "page_records": [
         {
-          "page_id": null,
+          "page_id": 17123,
+          "pdf_page_no": 1,
+          "physical_page_no": 1,
+          "target": "1944-09-19改组前同期刊物身份",
+          "role": "《民憲》第一卷第七期封面卷期标识页",
+          "status": "review_only",
+          "review_status": "visual_identity_checked",
+          "citation_ready": false,
+          "needs_human_review": true,
+          "review_scope": "issue_number_plate_only",
+          "page_image_sha256": null,
+          "caveat": "只证明第1卷第7期标识；不是目录正文，更不是改组会议记录。",
+          "doc_key": "domestic-page/NLC404-00J001436-85448"
+        },
+        {
+          "page_id": 17124,
           "pdf_page_no": 2,
           "physical_page_no": 2,
           "target": "1944-09-19改组前同期刊物与目录线索",
@@ -300,7 +319,8 @@
           "needs_human_review": true,
           "review_scope": "issue_identity_contents_only",
           "page_image_sha256": null,
-          "caveat": "只证明公开扫描的刊期、日期和目录页身份；不证明目录所列文章正文、1944-09-19会议记录或改名决定。"
+          "caveat": "只证明公开扫描的刊期、日期和目录页身份；不证明目录所列文章正文、1944-09-19会议记录或改名决定。",
+          "doc_key": "domestic-page/NLC404-00J001436-85448"
         }
       ]
     },

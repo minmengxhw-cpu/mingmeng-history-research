@@ -1,0 +1,24 @@
+{
+  "schema": "domestic_route_review.v1",
+  "review_id": "HC-1945-BJDCMM-surrogate",
+  "reviewed_at": "2026-08-21",
+  "candidate_id": "domestic:BJDCMM:1945-congress-declaration-platform-clipping",
+  "title": "临时全国代表大会宣言和纲领（官方盟史页转载影像剪影）",
+  "source_url": "https://www.bjdcmm.org.cn/01msjs/20040310/02.htm",
+  "image_url": "https://www.bjdcmm.org.cn/01msjs/20040310/lsl10.jpg",
+  "local_snapshot_sha256": "0b78d4117c42390eb352b505aaef419e3799440079da7b9a15a17b3401ca5ae1",
+  "source_layer": "official_retrospective_surrogate",
+  "evidence_level": "L1",
+  "page_records": 0,
+  "citation_ready": false,
+  "human_verified": false,
+  "body_read": false,
+  "decision": "ROUTE_ONLY",
+  "limitations": [
+    "官方盟史页转载的低清影像剪影，不是独立原件扫描",
+    "缺少原刊日期、报头、版次、档号、形成机关和完整页码",
+    "页面标题可支持追索线索，不能单独支持原始主张"
+  ],
+  "formal_db_apply": false,
+  "next_action": "追查宣言、纲领的完整印本或同期报刊底本，并建立页级 provenance"
+}

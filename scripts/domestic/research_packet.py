@@ -109,6 +109,25 @@ def event_source_map_summary(event_id: str) -> dict[str, Any]:
         for page in (source.get("page_records") or [])
         if isinstance(page, dict)
     ]
+    source_routes = []
+    for source in sources:
+        if not isinstance(source, dict):
+            continue
+        route = {
+            "source_id": str(source.get("source_id") or ""),
+            "title": str(source.get("title") or source.get("source_id") or "未命名来源"),
+            "source_role": str(source.get("source_role") or ""),
+            "evidence_level": str(source.get("evidence_level") or ""),
+            "page_count": len(source.get("page_records") or []) if isinstance(source.get("page_records"), list) else 0,
+            "source_url": str(source.get("source_url") or "")
+            if str(source.get("source_url") or "").startswith(("http://", "https://"))
+            else "",
+            "image_url": str(source.get("image_url") or "")
+            if str(source.get("image_url") or "").startswith(("http://", "https://"))
+            else "",
+        }
+        if route["source_url"] or route["image_url"]:
+            source_routes.append(route)
     statuses = [str(page.get("status") or "") for page in pages]
     raw_access_audit = payload.get("access_audit") if isinstance(payload, dict) else None
     access_audit: dict[str, Any] = {}
@@ -129,6 +148,7 @@ def event_source_map_summary(event_id: str) -> dict[str, Any]:
         "review_only_page_count": sum(status == "review_only" for status in statuses),
         "navigation_page_count": sum(status == "navigation_only" for status in statuses),
         "access_route_count": sum(status == "access_route" for status in statuses),
+        "source_routes": source_routes,
         "primary_evidence_closed": payload.get("primary_evidence_closed") is True,
         "review_status": str(payload.get("review_status") or ""),
         "primary_evidence_gap": str(payload.get("primary_evidence_gap") or ""),
@@ -316,12 +336,18 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             if isinstance(value, dict) and value.get("page_id") is not None
         ]
 
+    event_id_value = str(item.get("event_id") or event_id)
+    event_id_quoted = quote(event_id_value)
     open_targets = [
         {
             "target": str(value.get("target") or ""),
             "why_it_matters": str(value.get("why_it_matters") or ""),
             "status": str(value.get("status") or "open"),
             "next_action": str(value.get("next_action") or ""),
+            "workbench_url": "/domestic/workbench",
+            "gaps_url": "/research/gaps",
+            "topic_url": f"/research/{event_id_quoted}",
+            "acquisition_url": f"/domestic/acquisition?event={event_id_quoted}",
         }
         for value in layers.get("missing_primary", [])
         if isinstance(value, dict)
@@ -594,6 +620,8 @@ def research_packet_page(event_id: str) -> bytes:
     def esc(value: object) -> str:
         return app.h(value)
 
+    event_id_safe = app.quote(str(packet["event_id"]))
+
     layer_titles = {
         "primary": "主证据（页级）",
         "cross_source": "同期交叉",
@@ -632,7 +660,12 @@ def research_packet_page(event_id: str) -> bytes:
         f'<article class="result compact-result"><div><h3>{esc(target.get("target"))}</h3>'
         f'<div class="snippet"><strong>为什么重要：</strong>{esc(target.get("why_it_matters"))}</div>'
         f'<div class="snippet"><strong>下一步：</strong>{esc(target.get("next_action"))}</div>'
-        f'</div><div class="cite"><span class="pstatus warn">开放目标</span></div></article>'
+        f'</div><div class="cite"><span class="pstatus warn">开放目标</span><br>'
+        f'<a href="{esc(target.get("workbench_url") or "/domestic/workbench")}">国内研究平台</a><br>'
+        f'<a href="{esc(target.get("gaps_url") or "/research/gaps")}">一手证据缺口</a><br>'
+        f'<a href="{esc(target.get("topic_url") or f"/research/{event_id_safe}")}">回到专题</a><br>'
+        f'<a href="{esc(target.get("acquisition_url") or f"/domestic/acquisition?event={event_id_safe}")}">对应调档</a>'
+        f'</div></article>'
         for target in packet["open_primary_targets"]
     ) or '<div class="notice">当前专题没有登记开放目标。</div>'
     academic = "".join(
@@ -693,7 +726,14 @@ def research_packet_page(event_id: str) -> bytes:
                 continue
             pages = source.get("page_records") if isinstance(source.get("page_records"), list) else []
             page_labels = "、".join(
-                f"page_id {page.get('page_id')} / {page.get('status')}"
+                (
+                    '<a href="'
+                    + esc(page.get("citation_url") or "/cite/" + str(page.get("page_id")))
+                    + '">page_id '
+                    + esc(page.get("page_id"))
+                    + "</a> / "
+                    + esc(page.get("status"))
+                )
                 for page in pages
                 if isinstance(page, dict) and page.get("page_id") is not None
             ) or "未绑定正式页号"
@@ -717,7 +757,7 @@ def research_packet_page(event_id: str) -> bytes:
                 acquisition_label = f" · 本地取件 {esc(acquisition_status)}"
             source_rows.append(
                 f'<li><strong>{esc(source.get("title") or source.get("source_id"))}</strong> · '
-                f'{esc(source.get("source_role") or "")}; {esc(page_labels)}{acquisition_label} · '
+                f'{esc(source.get("source_role") or "")}; {page_labels}{acquisition_label} · '
                 f'{" · ".join(source_links)}</li>'
             )
         source_map_cards.append(
@@ -729,7 +769,7 @@ def research_packet_page(event_id: str) -> bytes:
   {f'<div class="snippet"><strong>访问审计：</strong>{esc(audit_status)}</div>' if audit_status else ''}
   {f'<div class="snippet"><strong>当前最小闭环目标：</strong>{esc(audit_target)}</div>' if audit_target else ''}
   <ul>{"".join(source_rows)}</ul>
-</div></article>'''
+</div><div class="cite"><a href="/domestic/workbench">国内研究平台</a><br><a href="/research/gaps">一手证据缺口</a><br><a href="/research/{event_id_safe}">回到专题</a><br><a href="/domestic/acquisition?event={event_id_safe}">对应调档</a></div></article>'''
         )
     source_map_body = "".join(source_map_cards) or '<div class="notice">本专题没有登记来源地图。</div>'
     source_map_html = (
@@ -749,11 +789,15 @@ def research_packet_page(event_id: str) -> bytes:
 
     scope = packet["scope"]
     counts = packet["counts"]
-    event_id_safe = app.quote(str(packet["event_id"]))
     body = app.breadcrumb_html(
-        [("/research", "多源专题研究"), (None, "专题研究包")]
+        [
+            ("/", "首页"),
+            ("/domestic/workbench", "国内研究平台"),
+            ("/research", "多源专题研究"),
+            (None, "专题研究包"),
+        ]
     ) + f"""
-<section class="doc-head"><div><h1>{esc(packet['event_name'])} · 研究包</h1><div class="meta">元数据和页级证据导航包 · 生成于 {esc(packet['generated_at'])}</div></div><div class="doc-tools"><a class="button" href="/research/{event_id_safe}">返回专题</a><a class="button secondary" href="/research/{event_id_safe}/packet.json">下载 JSON</a></div></section>
+<section class="doc-head"><div><h1>{esc(packet['event_name'])} · 研究包</h1><div class="meta">元数据和页级证据导航包 · 生成于 {esc(packet['generated_at'])}</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/research/{event_id_safe}">返回专题</a><a class="button secondary" href="/research/{event_id_safe}/packet.json">下载 JSON</a></div></section>
 <section class="stats"><div class="stat"><strong>{counts['evidence_chain_page_items']}</strong><span>证据链页级记录</span></div><div class="stat"><strong>{counts['evidence_chain_strict_gate_passed']}</strong><span>严格门禁通过</span></div><div class="stat"><strong>{counts['topic_event_domestic_strict_pages']}</strong><span>专题回接严格页</span></div><div class="stat"><strong>{counts['academic_candidates']}</strong><span>学术解释候选</span></div><div class="stat"><strong>{len(packet['open_primary_targets'])}</strong><span>开放原件目标</span></div></section>
 <div class="notice"><strong>研究问题：</strong>{esc(packet['research_question'])}<br><strong>证据状态：</strong>{esc(scope['primary_evidence_label'])}。{esc(scope['primary_evidence_gap'])}<br><strong>边界：</strong>本包只导出题目、证据层、页级定位、来源 SHA256、复核范围和缺口；不复制正文、OCR、译文或逐字引文。正式引用必须打开对应的引用门禁页，并遵守该页的 review_scope。</div>
 <div class="section-head"><h2>国内—境外对读摘要</h2></div><section class="result-list"><article class="result compact-result"><div><h3>国内材料</h3><div class="snippet">{esc(scope['domestic_anchor'])}</div></div></article><article class="result compact-result"><div><h3>境外材料</h3><div class="snippet">{esc(scope['foreign_anchor'])}</div></div></article><article class="result compact-result"><div><h3>差异与下一步</h3><div class="snippet"><strong>差异：</strong>{esc(scope['difference'])}<br><strong>下一步：</strong>{esc(scope['next_action'])}</div></div></article></section>

@@ -1,0 +1,27 @@
+{
+  "schema": "domestic_page_identity_review.v1",
+  "review_id": "HC-1941-XH-001-page-identity",
+  "reviewed_at": "2026-08-21",
+  "source_file": "data/domestic/press_scans/NLC1080-00N000846-8631_新华日报_1941-10-10.pdf",
+  "source_sha256": "6165c58624e3c2dd595f9a3f43688f766916e459ccec18e6c3cf7c8881ab787e",
+  "source_pdf_pages": 6,
+  "body_read": false,
+  "raw_files_copied": false,
+  "formal_db_written": false,
+  "review_method": "visual_identity_only",
+  "identity_result": "PASS",
+  "citation_ready": false,
+  "evidence_level": "L1",
+  "research_role": "contemporaneous_press_cross_source_only",
+  "not_a_closure": "This review confirms issue/page identity only; it does not establish that the pages contain the 1941 formation original or close the formation P0 gap.",
+  "pages": [
+    {"pdf_page_no": 1, "physical_page_no": 1, "page_image_sha256": "bd29734231b724ba7145a598f0e96325d4ded129b6ad732d601d15b6b855d948", "identity_status": "human_verified", "observation": "新华日报报头、民国三十年十月十日日期和第一版版次可见"},
+    {"pdf_page_no": 2, "physical_page_no": 2, "page_image_sha256": "c68062871823b484582eb752ff6eaadee2e1be8f49fb107351d02b665c7742c0", "identity_status": "human_verified", "observation": "新华日报报头、同一日期和第二版版次可见"},
+    {"pdf_page_no": 3, "physical_page_no": 3, "page_image_sha256": "a3ef0378913009a8d01df81123a8f0942179d3af0823ab58a0c65d1645e81211", "identity_status": "human_verified", "observation": "新华日报报头、同一日期和第三版版次可见"},
+    {"pdf_page_no": 4, "physical_page_no": 4, "page_image_sha256": "aa74f245f3cb43a63615085d8e620064767eee5436ba04317f7db2c73d95b24e", "identity_status": "human_verified", "observation": "新华日报报头、同一日期和第四版版次可见"},
+    {"pdf_page_no": 5, "physical_page_no": 5, "page_image_sha256": "8809a98004d6f9371a7c28ccddfcf98c888258bcc771e902899ad13e124c5698", "identity_status": "human_verified", "observation": "新华日报报头、同一日期和第五版版次可见"},
+    {"pdf_page_no": 6, "physical_page_no": 6, "page_image_sha256": "a420c8ae1cf334e32f2e4ef44cdf90dd6ce7602f2900cf276a17780919599f14", "identity_status": "human_verified", "observation": "新华日报报头、同一日期和第六版版次可见"}
+  ],
+  "next_gate": "selective_article_relevance_review_then_staging_only",
+  "formal_db_apply": false
+}

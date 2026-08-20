@@ -41,6 +41,16 @@ python3 scripts/domestic/build_source_admission_queue.py \
 
 这些输出属于本地工作产物，不应替代正式库，也不应把正文/OCR上传到 GitHub。
 
+## 2026-08-20 当前刷新
+
+已用最新页链对账结果重新生成 [`source_admission_20260820`](../../work/domestic/source_admission_20260820/)：
+
+- 来源行：61；同 SHA 复核组：0；正式库未被写入；没有自动删除；
+- `RETAIN_FORMAL_PAGE_CHAIN`：58；`RETAIN_TARGETED_REVIEW`：2；`RETAIN_NAVIGATION_ONLY`：1；
+- 58 个来源明确不需要重复 OCR；2 个来源只使用已有 OCR 做定向复核；1 个索引/导航来源不做全文 OCR。
+
+这说明当前国内资料层的主要瓶颈不是“再跑一遍 OCR”，而是取得并核验仍缺失的原件级来源，尤其是 1941 年成立和 1947 年非法化/解散两条 P0 主线。
+
 ## 分流规则
 
 | 情形 | 平台动作 | OCR 动作 |

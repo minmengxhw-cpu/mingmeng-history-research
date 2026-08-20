@@ -22,6 +22,11 @@
 - 规范化题名重复组 15 组、涉及 30 条记录；同文不同版本需要保留版本关系，不能按条目数重复计算论据。
 - 机构字段中出现中国社会科学院、民盟中央或高校信号，但这只是元数据匹配，不是独立的985认定或作者任职核验。
 - 正式 SQLite 当前已有 16 条学术全文文档：12 条 HTML、3 条可按页提取的 PDF 和 1 条本地 PaddleOCR 扫描 PDF，共 76 页；全部是 `review_only / citation_ready=0`。另外 2 条 S/A PDF（29 页、622 页）无可用电子文本，继续留在 OCR HOLD。
+- 清洁 checkout 若没有私有 staging SQLite，`/domestic/academic` 会读取提交的 `data/domestic/academic_layer_snapshot.json` 展示 288 条审计元数据，并同时标出正式 SQLite 的 16 条 `review_only` 全文；快照不含正文、私有路径或授权文件，不会改变任何引用门禁。
+- 清洁 checkout 的 `/domestic/search?scope=research` 和专题学术交叉索引同时读取 `data/domestic/academic_layer_metadata.json`，因此 288 条资料可按题名、作者、机构、时期和结构化主题检索；该索引由 `scripts/domestic/export_academic_metadata_index_20260820.py` 从 staging 只读导出，明确排除正文、OCR 文件和本地路径。
+- 研究资料检索还支持 `tier=S|A|B|C` 与 `availability=fulltext|candidate|discovery` 筛选：先找高质量候选，再处理全文状态；筛选结果仍明确显示 `citation_ready=0`，不会把稳定全文误标为正式引文。
+- 版本化的 `data/domestic/academic_fulltext_priority_queue.json` 从同一份学术元数据索引生成 24 条全文取证队列：P0 稳定全文 5 条、P1 全文候选 13 条、P2 稳定背景 1 条、P3 候选背景 5 条。队列只包含安全书目字段和下一步动作，不读取正文、不包含本地路径、不写正式库，并优先排列 S/A 记录。
+- 统一平台门禁在 staging 审计报告不可用时也回退到同一份快照，并在报告中标注 `source=tracked_metadata_snapshot`；因此页面统计和门禁统计不会因 checkout 是否挂载私有 staging 而分叉。
 
 ## 分级与引用链
 
@@ -42,6 +47,26 @@
 - 下一步要补哪一类原件、页码或档号。
 
 专题页入口：`/research`；学术层入口：`/domestic/academic`；研究资料检索：`/domestic/search?scope=research`。
+
+常用筛选入口：
+
+```text
+/domestic/search?scope=research&tier=S
+/domestic/search?scope=research&tier=S&availability=candidate
+/domestic/search?scope=research&availability=fulltext
+```
+
+筛选只是研究队列排序，不是证据等级提升；正式引用仍需来源入口、稳定全文、页码/章节、SHA-256、复核状态和 `citation-ready` 全部闭合。
+
+全文取证队列可复现：
+
+```bash
+python3 scripts/domestic/build_academic_fulltext_priority_queue_20260821.py \
+  --input data/domestic/academic_layer_metadata.json \
+  --output data/domestic/academic_fulltext_priority_queue.json
+```
+
+P0 的“稳定全文”只表示已有可访问的 PDF/HTML 入口，仍要核对版本、页码、作者/机构和哈希；P1 的“全文候选”先做来源入口、权限和版本核验，只有确认是扫描件时才做定向 OCR。已有电子文本的资料不重复 OCR，任何候选都不会自动变成正式引文。
 
 学术层总览同时展示版本化的 `academic_topic_crosswalk.json`：按 9 个国内专题显示学术匹配数量，并可直接回到专题对读和国内一手覆盖页；交叉表只使用书目/结构化元数据，`body_read=false` 不变。
 

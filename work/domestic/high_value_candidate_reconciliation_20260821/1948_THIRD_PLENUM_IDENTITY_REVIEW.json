@@ -1,0 +1,35 @@
+{
+  "schema": "domestic_page_identity_review.v1",
+  "review_id": "HC-1948-TP-001-identity",
+  "reviewed_at": "2026-08-21",
+  "source_file": "data/domestic/grok_cycle_0011_20260801/pdf/commons_NLC_中国民主同盟三中全会.pdf",
+  "source_sha256": "f9099aa01475c7509d8c82013c8f8ec19333ae3e0fcab66eeaa8a3f9151fe9c7",
+  "source_pdf_pages": 33,
+  "body_read": false,
+  "raw_files_copied": false,
+  "formal_db_written": false,
+  "review_method": "sampled_visual_identity_only",
+  "identity_result": "PARTIAL_PASS",
+  "confirmed_evidence_level": "HOLD",
+  "proposed_evidence_level": "L2_candidate_contemporary_compilation",
+  "citation_ready": false,
+  "human_verified": true,
+  "research_role": "1948_third_plenum_candidate_for_targeted_transcription_and_cross_read",
+  "observed_identity": {
+    "title": "中国民主同盟三中全会紧急声明、政治报告、宣言",
+    "date_on_title_page": "民国三十七年一月",
+    "body_printed_page_start": "正文起始页印刷页 1",
+    "document_boundary": "抽样确认末尾页存在，PDF 共 33 页；未对全部页逐页核定缺页和印刷页码",
+    "publisher_or_edition": "未从抽样页完成完整版本、出版者和馆藏来源核定"
+  },
+  "sampled_pages": [
+    {"pdf_page_no": 1, "role": "cover", "identity_status": "human_verified", "observation": "封面题名与三中全会、紧急声明/政治报告/宣言组合一致"},
+    {"pdf_page_no": 2, "role": "title_page", "identity_status": "human_verified", "observation": "题名页显示中国民主同盟三中全会和民国三十七年一月"},
+    {"pdf_page_no": 3, "role": "body_start", "identity_status": "human_verified", "observation": "正文标题可见，印刷页码从 1 开始"},
+    {"pdf_page_no": 32, "role": "tail_notice", "identity_status": "human_verified", "observation": "末段为注意事项页，说明该扫描件具有完整文档尾部结构线索"},
+    {"pdf_page_no": 33, "role": "back_matter", "identity_status": "human_verified", "observation": "末页含印刷/装订信息，但出版信息尚未完成规范化录入"}
+  ],
+  "not_a_closure": "题名与日期确认不等于确认该扫描件就是完整原始会议档案；在版本、出版者、来源记录和页级连续性未完成前，不关闭 1948 P0。",
+  "next_gate": "complete_source_provenance_and_page_manifest_then_targeted_ocr_of_body_pages",
+  "formal_db_apply": false
+}

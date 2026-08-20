@@ -101,6 +101,9 @@ TOPIC_FOREIGN_CROSSWALK_PATH = DATA_ROOT / "domestic" / "topic_foreign_crosswalk
 PRIMARY_EVIDENCE_ACCESS_AUDIT_PATH = DATA_ROOT / "domestic" / "primary_evidence_access_audit.json"
 ACADEMIC_SOURCE_POLICY_PATH = DATA_ROOT / "domestic" / "academic_source_policy.json"
 ACADEMIC_TOPIC_CROSSWALK_PATH = DATA_ROOT / "domestic" / "academic_topic_crosswalk.json"
+ACADEMIC_LAYER_SNAPSHOT_PATH = DATA_ROOT / "domestic" / "academic_layer_snapshot.json"
+ACADEMIC_METADATA_INDEX_PATH = DATA_ROOT / "domestic" / "academic_layer_metadata.json"
+ACADEMIC_FULLTEXT_QUEUE_PATH = DATA_ROOT / "domestic" / "academic_fulltext_priority_queue.json"
 SOURCE_ADMISSION_POLICY_PATH = DATA_ROOT / "domestic" / "source_admission_policy.json"
 PRIMARY_RETRIEVAL_QUEUE_PATH = DATA_ROOT / "domestic" / "primary_retrieval_queue.json"
 PCC_1946_SOURCEBOOK_MAP_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_targets.json"
@@ -924,6 +927,7 @@ NAV_GROUPS = [
         ("/about", "项目介绍"),
         ("/docs", "全部文档"),
         ("/domestic", "国内史料库"),
+        ("/domestic/workbench", "国内研究平台"),
         ("/research", "多源专题研究"),
         ("/domestic/library", "国内核心可阅"),
         ("/domestic/events", "国内事件墙"),
@@ -1206,10 +1210,10 @@ def platforms_panel_html(c: sqlite3.Connection) -> str:
     except sqlite3.OperationalError:
         domestic_pages = 0
     cards.append(f'''
-<a class="platform-card active" href="/domestic/library">
-  <h3>国内资料库</h3>
-  <div class="pmeta">国内史料层 · 同期报刊 · 公开扫描 · 官方来源</div>
-  <div class="pdesc">已收 {domestic_docs} 篇国内资料文档、{domestic_pages} 个页面；可查看已收文献，候选目录与复核状态另行保留。</div>
+<a class="platform-card active" href="/domestic/workbench">
+  <h3>国内研究平台</h3>
+  <div class="pmeta">九专题工作台 · 页级证据 · 缺口看板</div>
+  <div class="pdesc">已收 {domestic_docs} 篇国内资料文档、{domestic_pages} 个页面。从问题进入专题、原件页和引用门禁；导航可用不等于一手原件已闭环。</div>
   <div class="pstatus ok">已上线 · {domestic_docs} 篇</div>
 </a>''')
     return '<section class="platforms">' + "".join(cards) + "</section>"
@@ -1946,17 +1950,57 @@ def _search_domestic_evidence_labels(
     return labels
 
 
-def result_html(row: sqlite3.Row, evidence_label: str = "") -> str:
+def _search_hit_reason(query: str, row: sqlite3.Row) -> str:
+    """Explain why a row entered the result list. This is not a historical claim."""
+    needle = str(query or "").strip()
+    if not needle:
+        return ""
+    fields: list[str] = []
+    if needle in str(row["title"] or ""):
+        fields.append("题名")
+    if needle in str(row["page_label"] or ""):
+        fields.append("页标签")
+    if needle in str(row["matched_terms"] or ""):
+        fields.append("来源标签")
+    if needle in str(row["original_text"] or ""):
+        fields.append("页文本检索层")
+    zh_text = ""
+    if "zh_text" in row.keys():
+        zh_text = str(row["zh_text"] or "")
+    if needle and needle in zh_text:
+        fields.append("中文译文")
+    if fields:
+        return "命中位置：" + "、".join(fields) + "。这不是史实确认，须打开页级来源和引用门禁。"
+    return "关键词进入统一检索；打开原文页后才能核对命中位置。这不是史实确认。"
+
+
+def result_html(row: sqlite3.Row, evidence_label: str = "", query: str = "") -> str:
     page = f"p. {row['page_label']}" if row["page_label"] else "doc-level"
     href = f"/doc/{quote(row['doc_key'])}?page_id={row['page_id']}"
     terms = [t.strip() for t in (row["matched_terms"] or "").split(";") if t.strip()]
     tags = "".join(f'<span class="tag">{h(t)}</span>' for t in terms[:6])
     grade = grade_badge(row)
     platform = str(row["source_platform"] or "frus")
+    evidence_badge = ""
+    hit_html = ""
+    cite = (
+        f'<a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">原始来源</a>'
+        f"<br>{h(page)}"
+    )
     if platform == "domestic":
         tags = '<span class="tag">国内史料</span>' + tags
         if evidence_label:
+            ev_class = "ok" if evidence_label == "正式可引用" else "warn"
+            evidence_badge = f'<span class="pstatus {ev_class}">{h(evidence_label)}</span>'
             tags += f'<span class="tag">{h(evidence_label)}</span>'
+        reason = _search_hit_reason(query, row)
+        if reason:
+            hit_html = f'<div class="snippet"><strong>命中理由：</strong>{h(reason)}</div>'
+        cite = (
+            f'<a href="/cite/{h(row["page_id"])}">引用门禁</a><br>'
+            f'<a href="{h(href)}">原文页</a><br>'
+            f'<a href="/domestic/workbench">国内研究平台</a>'
+        )
     zh = (
         f'<div class="zh">中文({h(row["zh_status"])}): {h(compact(row["zh_text"], 300))}</div>'
         if row["zh_text"]
@@ -1967,11 +2011,12 @@ def result_html(row: sqlite3.Row, evidence_label: str = "") -> str:
   <div>
     {title_block(row["title"], href)}
     <div class="meta">{h(row["volume_id"])}/{h(row["doc_id"])} · {h(row["date_guess"])} · {h(page)} {grade}</div>
+    <div class="tagline">{evidence_badge}{tags}</div>
+    {hit_html}
     <div class="snippet">原文: {h(compact(row["original_text"], 330))}</div>
     {zh}
-    <div class="tagline">{tags}</div>
   </div>
-  <div class="cite"><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">原始来源</a><br>{h(page)}</div>
+  <div class="cite">{cite}</div>
 </article>"""
 
 
@@ -2989,15 +3034,17 @@ def domestic_library_page(query: dict[str, list[str]] | None = None) -> bytes:
         '<div class="notice">公开模式仅显示已明确标记为 public 且处于 L0–L3 的国内文档；未授权记录不会因已有 OCR 而出现在此处。</div>'
         if public_only else ""
     )
-    body = breadcrumb_html([("/", "首页"), ("/domestic", "国内史料库"), (None, "核心可阅")]) + f"""
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/domestic", "国内史料库"), (None, "核心可阅")]) + f"""
 <section class="doc-head">
   <div>
     <h1>国内核心可阅库</h1>
     <div class="meta">对标境外档案源的阅读层：默认同期原刊/原件 OCR 与 citation 页；网页史志与二手线索不在此列。</div>
   </div>
   <div class="doc-tools">
+    <a class="button" href="/domestic/workbench">国内研究平台</a>
     <a class="{core_cls}" href="/domestic/library?layer=core">仅核心可阅</a>
     <a class="{all_cls}" href="/domestic/library?layer=all">全部已收</a>
+    <a class="button secondary" href="/research/gaps">一手证据缺口</a>
     <a class="button secondary" href="/domestic">国内史料库首页</a>
     <a class="button secondary" href="/domestic?layer=background">背景线索</a>
   </div>
@@ -3299,13 +3346,14 @@ def domestic_page(query: dict[str, list[str]] | None = None) -> bytes:
     layer_bg_cls = "button" if layer == "background" else "button secondary"
     layer_all_cls = "button" if layer == "all" else "button secondary"
 
-    body = breadcrumb_html([("/", "首页"), (None, "国内史料库")]) + f"""
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), (None, "国内史料库")]) + f"""
 <section class="doc-head">
   <div>
     <h1>国内史料库</h1>
     <div class="meta">与境外七源并列的国内阅读层：核心可阅文献 · 九大事件证据墙 · 背景线索与调档工作台分册</div>
   </div>
   <div class="doc-tools">
+    <a class="button" href="/domestic/workbench">国内研究平台</a>
     <a class="{layer_core_cls}" href="/domestic">核心库首页</a>
     <a class="button" href="/domestic/library?layer=core">核心可阅全文</a>
     <a class="button secondary" href="/domestic/events">事件墙</a>
@@ -4127,18 +4175,60 @@ def domestic_academic_page() -> bytes:
   <div class="stat"><strong>{h(snapshot["academic_records"])}</strong><span>学术研究记录</span></div>
   <div class="stat"><strong>{h(snapshot["high_priority"])}</strong><span>S/A 优先记录</span></div>
   <div class="stat"><strong>{h(snapshot["articles"])}</strong><span>学术文章记录</span></div>
-  <div class="stat"><strong>{h(snapshot["citation_ready"])}</strong><span>staging citation-ready</span></div>
+  <div class="stat"><strong>{h(snapshot["citation_ready"])}</strong><span>当前层 citation-ready</span></div>
 </section>'''
     else:
         availability = '<div class="notice">当前 checkout 没有可读的国内 staging 数据库；正式学术全文索引也尚未可读，研究资料统计将在 staging 或正式数据库恢复后显示。</div>'
     if snapshot.get("fallback") == "formal_index":
         availability += '<div class="notice">当前显示的是正式 SQLite 中已索引的学术全文 fallback；书目机构字段仍以 staging 为准，正文仅为 review_only 检索层。</div>'
-    body = breadcrumb_html([("/domestic", "国内史料"), (None, "学术研究层")]) + f"""
-<section class="doc-head"><div><h1>国内学术研究层</h1><div class="meta">把学术论文、专著、档案指南和民盟中央研究资料放入解释层，并与一手史料分开管理。</div></div><div class="doc-tools"><a class="button" href="/domestic/search?scope=research">检索研究资料</a><a class="button secondary" href="/research">多源专题</a></div></section>
+    elif snapshot.get("fallback") == "academic_metadata_snapshot":
+        availability += f'<div class="notice">当前总量来自版本化学术元数据审计快照（{h(snapshot.get("metadata_snapshot_generated_at") or "日期未标注")}）；正式 SQLite 另有 {h(snapshot.get("formal_index_records", 0))} 条已索引全文。快照不包含正文，不改变 staging 或正式库的引用门禁。</div>'
+    readiness = snapshot.get("fulltext_readiness") or {}
+    missing = snapshot.get("metadata_missing") or {}
+    scope_labels = {
+        "staging_metadata_only": "staging 元数据快照",
+        "formal_index_fallback": "正式索引回退层",
+        "tracked_metadata_snapshot": "版本化元数据快照 + 正式索引",
+        "unavailable": "数据层不可读",
+    }
+    scope_label = scope_labels.get(str(snapshot.get("scope") or ""), "未标注")
+    readiness_section = f'''<div class="section-head"><h2><svg class="ico"><use href="#i-check"/></svg>研究可用性分层</h2><span class="meta">{h(scope_label)}</span></div>
+<section class="stats">
+  <div class="stat"><strong>{h(readiness.get("review_only_indexed", 0))}</strong><span>正式索引全文（待核）</span></div>
+  <div class="stat"><strong>{h(readiness.get("stable_fulltext", 0))}</strong><span>全文已具备</span></div>
+  <div class="stat"><strong>{h(readiness.get("fulltext_candidates", 0))}</strong><span>全文候选待核</span></div>
+  <div class="stat"><strong>{h(readiness.get("discovery_only", 0))}</strong><span>发现/导航层</span></div>
+  <div class="stat"><strong>{h(snapshot.get("citation_ready", 0))}</strong><span>正式引文候选</span></div>
+</section>
+<div class="notice">“全文已具备”仍需逐条检查版本、页码、来源哈希和复核状态；“全文候选”只代表可继续取证；发现/导航层只能用于发现和导航。当前作者缺失 {h(missing.get("author", 0))} 条、机构缺失 {h(missing.get("institution", 0))} 条、年份缺失 {h(missing.get("publication_date", 0))} 条、来源入口缺失 {h(missing.get("source_url", 0))} 条。任何一项都不会被平台自动补写或推断。</div>'''
+    priority_queue = snapshot.get("fulltext_priority_queue") or {}
+    queue_classes = priority_queue.get("queue_classes") if isinstance(priority_queue, dict) else {}
+    if not isinstance(queue_classes, dict):
+        queue_classes = {}
+    queue_class_labels = (
+        ("P0_STABLE_FULLTEXT", "P0 稳定全文"),
+        ("P1_FULLTEXT_CANDIDATE", "P1 全文候选"),
+        ("P2_STABLE_CONTEXT", "P2 稳定背景"),
+        ("P3_CANDIDATE_CONTEXT", "P3 候选背景"),
+    )
+    queue_cards = "".join(
+        f'<div class="stat"><strong>{h(queue_classes.get(code, 0))}</strong><span>{h(label)}</span></div>'
+        for code, label in queue_class_labels
+    )
+    if priority_queue.get("available"):
+        queue_section = f'''<div class="section-head"><h2><svg class="ico"><use href="#i-arrow-right"/></svg>全文取证优先队列</h2><span class="meta">{h(priority_queue.get("total", 0))} 条</span></div>
+<section class="stats">{queue_cards}</section>
+<div class="notice">该队列只从版本化学术元数据中生成，优先安排 S/A 记录；它不读取正文、不包含本地路径、不写正式库。P0/P1 是下一轮获取稳定全文和页码的工作入口，完成页级取证后仍需 SHA-256、版本关系和复核，citation-ready 不会由队列自动改变。<br><a href="/domestic/search?scope=research&amp;availability=fulltext">查看稳定全文候选</a> · <a href="/domestic/search?scope=research&amp;availability=candidate">查看全文候选</a></div>'''
+    else:
+        queue_section = '<div class="section-head"><h2><svg class="ico"><use href="#i-arrow-right"/></svg>全文取证优先队列</h2></div><div class="notice">当前 checkout 尚未生成版本化全文取证队列；学术元数据仍可用于发现和专题交叉索引。</div>'
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/domestic", "国内史料"), (None, "学术研究层")]) + f"""
+<section class="doc-head"><div><h1>国内学术研究层</h1><div class="meta">把学术论文、专著、档案指南和民盟中央研究资料放入解释层，并与一手史料分开管理。</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/domestic/search?scope=research">检索研究资料</a><a class="button secondary" href="/research">多源专题</a><a class="button secondary" href="/research/gaps">一手证据缺口</a></div></section>
 {availability}
 <div class="notice"><strong>核心口径：</strong>{h(policy.get("purpose") or "学术研究用于解释、索引和交叉核对，不自动替代一手史料。")}
 <br><strong>机构核验：</strong>{h(policy.get("institution_rule") or "机构层级必须回到可追溯的记录字段和来源。")}
 <br><strong>全文门禁：</strong>{h(policy.get("fulltext_rule") or "目录、摘要、OCR 和索引页不自动进入正式引文。")}</div>
+{readiness_section}
+{queue_section}
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>来源层级</h2><span class="meta">{tier_summary}</span></div>
 <section class="result-list">{tier_cards or '<div class="notice">学术来源分级策略尚未生成。</div>'}</section>
 <div class="section-head"><h2><svg class="ico"><use href="#i-check"/></svg>全文与引用状态</h2><span class="meta">{status_summary}</span></div>
@@ -4180,7 +4270,129 @@ def _formal_academic_documents(external_ids: list[str]) -> dict[str, sqlite3.Row
     return {str(row["doc_id"]): row for row in rows}
 
 
-def domestic_formal_academic_search_page(raw_q: str = "", phase: str = "") -> bytes:
+_ACADEMIC_AVAILABILITY_STATUSES = {
+    "fulltext": {"FULLTEXT_PDF", "FULLTEXT_HTML"},
+    "candidate": {"FULLTEXT_PDF_CANDIDATE", "FULLTEXT_HTML_CANDIDATE"},
+    "discovery": {
+        "METADATA_ONLY",
+        "BIBLIOGRAPHIC_AUTHOR_PROFILE",
+        "LOCAL_FILE_PRESENT_METADATA_ONLY",
+        "METADATA_OR_WRONG_PAGE",
+        "CATALOG_OR_REFERENCE_PAGE",
+        "SHARED_BIBLIOGRAPHIC_OR_INDEX_PAGE",
+    },
+}
+_ACADEMIC_AVAILABILITY_LABELS = {
+    "fulltext": "稳定全文",
+    "candidate": "全文候选",
+    "discovery": "发现/元数据",
+}
+
+
+def _academic_filter_values(tier: str = "", availability: str = "") -> tuple[str, str]:
+    normalized_tier = str(tier or "").strip().upper()
+    normalized_availability = str(availability or "").strip().lower()
+    if normalized_tier not in {"S", "A", "B", "C"}:
+        normalized_tier = ""
+    if normalized_availability not in _ACADEMIC_AVAILABILITY_STATUSES:
+        normalized_availability = ""
+    return normalized_tier, normalized_availability
+
+
+def _academic_filter_summary(tier: str = "", availability: str = "") -> str:
+    tier, availability = _academic_filter_values(tier, availability)
+    parts = []
+    if tier:
+        parts.append(f"质量 {tier}")
+    if availability:
+        parts.append(_ACADEMIC_AVAILABILITY_LABELS[availability])
+    return " · ".join(parts) if parts else "无附加筛选"
+
+
+def _academic_filter_form(raw_q: str, phase: str, tier: str, availability: str) -> str:
+    tier, availability = _academic_filter_values(tier, availability)
+    tier_options = "".join(
+        f'<option value="{value}"{" selected" if value == tier else ""}>{label}</option>'
+        for value, label in (("", "全部质量"), ("S", "S — 核心优先"), ("A", "A — 高优先"), ("B", "B — 普通候选"), ("C", "C — 谨慎使用"))
+    )
+    availability_options = "".join(
+        f'<option value="{value}"{" selected" if value == availability else ""}>{label}</option>'
+        for value, label in (("", "全部全文状态"), ("fulltext", "稳定全文（仍待引用复核）"), ("candidate", "全文候选（待核）"), ("discovery", "发现/元数据层"))
+    )
+    return f'''
+<form class="filter-form" method="get" action="/domestic/search">
+  <input type="hidden" name="scope" value="research">
+  <label>关键词 <input name="q" value="{h(raw_q)}" placeholder="题名、作者、机构、事件词"></label>
+  <label>时期 <input name="phase" value="{h(phase)}" placeholder="如 1946"></label>
+  <label>质量 <select name="tier">{tier_options}</select></label>
+  <label>全文状态 <select name="availability">{availability_options}</select></label>
+  <button class="button" type="submit">检索</button>
+</form>'''
+
+
+def domestic_metadata_academic_search_page(
+    raw_q: str = "", phase: str = "", tier: str = "", availability: str = ""
+) -> bytes:
+    """在没有 staging SQLite 时检索提交的正文外学术元数据索引。"""
+    tier, availability = _academic_filter_values(tier, availability)
+    records = _load_academic_metadata_index()
+    like = raw_q.casefold()
+    matched: list[dict[str, object]] = []
+    for record in records:
+        metadata = record.get("metadata") if isinstance(record.get("metadata"), dict) else {}
+        if tier and str(record.get("quality_tier") or "").strip().upper() != tier:
+            continue
+        if availability and str(record.get("fulltext_status") or "") not in _ACADEMIC_AVAILABILITY_STATUSES[availability]:
+            continue
+        searchable = " ".join(
+            str(record.get(key) or "")
+            for key in (
+                "external_id",
+                "title",
+                "author",
+                "institution",
+                "publication_date",
+                "research_type",
+                "quality_tier",
+                "fulltext_status",
+            )
+        ) + " " + json.dumps(metadata, ensure_ascii=False)
+        if like and like not in searchable.casefold():
+            continue
+        if phase:
+            phase_blob = " ".join(
+                [
+                    str(record.get("publication_date") or ""),
+                    str(metadata.get("research_theme_phase") or ""),
+                    json.dumps(metadata.get("historical_periods") or [], ensure_ascii=False),
+                ]
+            )
+            if phase not in phase_blob:
+                continue
+        matched.append(record)
+    matched = matched[:100]
+    formal_academic = _formal_academic_documents(
+        [str(record.get("external_id") or "") for record in matched]
+    )
+    result_html = "".join(
+        f'''<article class="result"><div><h2>{h(record.get("title") or record.get("external_id"))}</h2>
+        <div class="meta">{h(record.get("external_id"))} · {h(record.get("layer") or "研究资料")} · {h(record.get("research_type") or "未标注类型")} · 质量 {h(record.get("quality_tier") or "未分级")}</div>
+        <div class="snippet">{h(record.get("institution") or "机构未标注")} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{f' · <a href="/doc/{quote(str(formal_academic[str(record.get("external_id"))]["doc_key"]), safe="")}">正式全文页</a> <span class="meta">{h(formal_academic[str(record.get("external_id"))]["page_count"])}页</span>' if str(record.get("external_id")) in formal_academic else ' · <span class="meta">尚未进入正式全文层</span>'}</div></article>'''
+        for record in matched
+    ) or '<div class="notice">版本化学术元数据索引中没有匹配结果。</div>'
+    body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""
+<section class="doc-head"><div><h1>国内研究资料检索</h1><div class="meta">tracked metadata index · body_read=false · 不复制正文</div></div><div class="doc-tools"><a class="button secondary" href="/domestic/academic">学术层说明</a></div></section>
+{_academic_filter_form(raw_q, phase, tier, availability)}
+<div class="notice">当前结果来自版本化书目/结构化元数据索引；元数据只能用于发现和导航，不能替代正文、页码或正式引文。已入正式 SQLite 的全文仍统一显示为 review_only / citation_ready=0。当前筛选：{h(_academic_filter_summary(tier, availability))}。</div>
+<div class="section-head"><h2><svg class="ico"><use href="#i-search"/></svg>研究资料（{len(matched)} 条）</h2></div>
+<section class="result-list">{result_html}</section>
+"""
+    return layout("国内检索", body, active_path="/domestic/search")
+
+
+def domestic_formal_academic_search_page(
+    raw_q: str = "", phase: str = "", tier: str = "", availability: str = ""
+) -> bytes:
     """没有 staging 时，用正式库中已索引的学术全文提供可用的研究检索。"""
     clauses = [
         "d.source_platform='domestic'",
@@ -4217,13 +4429,8 @@ def domestic_formal_academic_search_page(raw_q: str = "", phase: str = "") -> by
     ) or '<div class="notice">正式学术全文索引中没有匹配结果。</div>'
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""
 <section class="doc-head"><div><h1>国内研究资料检索</h1><div class="meta">formal SQLite academic fallback · staging 不可用时仍可检索已入库全文</div></div><div class="doc-tools"><a class="button secondary" href="/domestic/academic">学术层说明</a></div></section>
-<form class="filter-form" method="get" action="/domestic/search">
-  <input type="hidden" name="scope" value="research">
-  <label>关键词 <input name="q" value="{h(raw_q)}" placeholder="题名、作者、事件词"></label>
-  <label>时期 <input name="phase" value="{h(phase)}" placeholder="如 1946"></label>
-  <button class="button" type="submit">检索</button>
-</form>
-<div class="notice">这是解释层全文，不是正式一手证据；当前条目统一保持 review_only / citation_ready=0。</div>
+{_academic_filter_form(raw_q, phase, tier, availability)}
+<div class="notice">这是解释层全文，不是正式一手证据；当前条目统一保持 review_only / citation_ready=0。当前筛选：{h(_academic_filter_summary(tier, availability))}。formal fallback 只保证全文入口，不含 staging 的质量分级字段。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-search"/></svg>正式学术全文（{len(rows)} 条）</h2></div>
 <section class="result-list">{result_html}</section>
 """
@@ -4238,9 +4445,15 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
     if scope not in {"documents", "pages", "machine", "ocr", "claims", "local", "research"}:
         scope = "documents"
     phase = (query.get("phase", [""])[0] or "").strip()[:80]
+    tier, availability = _academic_filter_values(
+        (query.get("tier", [""])[0] or "").strip(),
+        (query.get("availability", [""])[0] or "").strip(),
+    )
     if not DOMESTIC_STAGING_DB_PATH.exists():
         if scope == "research":
-            return domestic_formal_academic_search_page(raw_q, phase)
+            if _load_academic_metadata_index():
+                return domestic_metadata_academic_search_page(raw_q, phase, tier, availability)
+            return domestic_formal_academic_search_page(raw_q, phase, tier, availability)
         return layout(
             "国内检索",
             '<div class="notice">国内 staging 数据库尚未建立。请先运行 Phase 0 reconciliation 与 staging 构建。</div>',
@@ -4417,6 +4630,14 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
                 if phase:
                     clauses.append("(r.publication_date LIKE ? OR json_extract(r.metadata_json, '$.research_theme_phase') LIKE ?)")
                     params.extend([f"%{phase}%", f"%{phase}%"])
+                if tier:
+                    clauses.append("r.quality_tier = ?")
+                    params.append(tier)
+                if availability:
+                    statuses = sorted(_ACADEMIC_AVAILABILITY_STATUSES[availability])
+                    placeholders = ",".join("?" for _ in statuses)
+                    clauses.append(f"r.fulltext_status IN ({placeholders})")
+                    params.extend(statuses)
                 where = " WHERE " + " AND ".join(clauses) if clauses else ""
                 rows = c.execute(
                     f"""SELECT r.external_id, r.title, r.author, r.institution,
@@ -4564,14 +4785,16 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
     local_cls = "button" if scope == "local" else "button secondary"
     research_cls = "button" if scope == "research" else "button secondary"
     scope_label = {"documents": "文献对象", "pages": "物理页资产", "machine": "官方/机器文本", "ocr": "OCR provenance", "claims": "语义候选片段", "local": "本地 staging 对象", "research": "国内研究资料"}[scope]
-    body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""
-<section class="doc-head"><div><h1>国内 staging 检索</h1><div class="meta">文献对象、物理页资产、官方/机器文本、OCR provenance、语义候选、本地 staging 材料和研究资料分开计数；结果来自独立 staging，不会修改正式库</div></div><div class="doc-tools"><a class="{doc_cls}" href="/domestic/search?scope=documents&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">文献对象</a><a class="{page_cls}" href="/domestic/search?scope=pages&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">物理页</a><a class="{machine_cls}" href="/domestic/search?scope=machine&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">官方/机器文本</a><a class="{ocr_cls}" href="/domestic/search?scope=ocr&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">OCR provenance</a><a class="{claims_cls}" href="/domestic/search?scope=claims&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">语义候选片段</a><a class="{local_cls}" href="/domestic/search?scope=local&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">本地 staging</a><a class="{research_cls}" href="/domestic/search?scope=research&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">研究资料</a></div></section>
+    research_filter_html = _academic_filter_form(raw_q, phase, tier, availability) if scope == "research" else f"""
 <form class="filter-form" method="get" action="/domestic/search">
   <input type="hidden" name="scope" value="{h(scope)}">
   <label>关键词 <input name="q" value="{h(raw_q)}" placeholder="报刊名、来源编号、时期、文件类型"></label>
   <label>时期 <input name="phase" value="{h(phase)}" placeholder="如 1947"></label>
   <button class="button" type="submit">检索</button>
-</form>
+</form>"""
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/domestic", "国内史料"), (None, "国内检索")]) + f"""
+<section class="doc-head"><div><h1>国内 staging 检索</h1><div class="meta">文献对象、物理页资产、官方/机器文本、OCR provenance、语义候选、本地 staging 材料和研究资料分开计数；结果来自独立 staging，不会修改正式库</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="{doc_cls}" href="/domestic/search?scope=documents&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">文献对象</a><a class="{page_cls}" href="/domestic/search?scope=pages&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">物理页</a><a class="{machine_cls}" href="/domestic/search?scope=machine&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">官方/机器文本</a><a class="{ocr_cls}" href="/domestic/search?scope=ocr&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">OCR provenance</a><a class="{claims_cls}" href="/domestic/search?scope=claims&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">语义候选片段</a><a class="{local_cls}" href="/domestic/search?scope=local&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">本地 staging</a><a class="{research_cls}" href="/domestic/search?scope=research&amp;q={quote(raw_q)}&amp;phase={quote(phase)}">研究资料</a></div></section>
+{research_filter_html}
 <div class="notice">最多显示 100 条。路径和 SHA 只用于 provenance 追踪；机器 OCR、目录和未核验页不会自动成为 citation-ready。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-search"/></svg>{scope_label}（{len(rows)} 条）</h2></div>
 <section class="result-list">{result_html}</section>
@@ -4672,8 +4895,8 @@ def domestic_sources_page() -> bytes:
             f'<div class="snippet">来源卡仍按机构、权威级别、访问方式和权利状态逐条复核。</div>'
             f'</div><div class="cite"><a href="/domestic/sources?q={quote(family)}">查看</a></div></article>'
         )
-    body = breadcrumb_html([("/domestic", "国内史料"), (None, "来源地图")]) + f"""
-<section class="doc-head"><div><h1>国内研究平台：来源与馆藏地图</h1><div class="meta">来源家族、权威入口、访问方式与上海关联度</div></div><div class="doc-tools"><a class="button" href="/domestic">候选目录</a></div></section>
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/domestic", "国内史料"), (None, "来源地图")]) + f"""
+<section class="doc-head"><div><h1>国内研究平台：来源与馆藏地图</h1><div class="meta">来源家族、权威入口、访问方式与上海关联度</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/domestic">候选目录</a></div></section>
 <section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>来源卡</span></div><div class="stat"><strong>{h(sum(1 for row in rows if row['access_mode'] == 'open'))}</strong><span>开放入口</span></div><div class="stat"><strong>{h(sum(1 for row in rows if row['rights_status'] != 'public'))}</strong><span>权利待核</span></div></section>
 <div class="notice"><strong>国内史料层：</strong>来源卡是检索入口，不等于已取得原件；记录级档号、卷期、影像和复制权利仍以候选卡的复核结果为准。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-building"/></svg>五个来源家族</h2></div><section class="result-list">{''.join(family_rows)}</section>
@@ -4718,8 +4941,8 @@ def domestic_events_page(query: dict[str, list[str]] | None = None) -> bytes:
   <div class="snippet">{h(item['review_note'])}</div></div>
   <div class="cite"><a href="{h(unified_link)}">统一事件线索</a> · <a href="{h(domestic_link)}">查看国内记录</a>{' · ' + ' · '.join(foreign_links) if foreign_links else ''}</div></article>""")
     selector = '<a class="button secondary" href="/domestic/events">显示全部</a>' if selected else ''
-    body = breadcrumb_html([("/domestic", "国内史料"), (None, "关键事件")]) + f"""
-<section class="doc-head"><div><h1>国内关键事件覆盖</h1><div class="meta">国内记录、境外对位和仍待调档的差异说明</div></div><div class="doc-tools"><a class="button" href="/domestic">候选目录</a>{selector}</div></section>
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/domestic", "国内史料"), (None, "关键事件")]) + f"""
+<section class="doc-head"><div><h1>国内关键事件覆盖</h1><div class="meta">国内记录、境外对位和仍待调档的差异说明</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/domestic">候选目录</a>{selector}</div></section>
 <div class="notice">“已关联”只表示存在可追踪的境外事件入口，不代表国内原件已经取得；“一手证据部分闭环”也不等于事件定义原件已完成闭环。L4/LX 仍停留在线索层。</div>
 <section class="result-list">{''.join(cards) or '<div class="notice">未找到该事件。</div>'}</section>"""
     return layout("国内关键事件", body, active_path="/domestic/events")
@@ -5575,7 +5798,7 @@ def research_gaps_page() -> bytes:
 <section class="result-list">{"".join(target_cards)}</section>"""
         )
 
-    body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, "一手证据收口看板")]) + f"""
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/research", "多源专题研究"), (None, "一手证据收口看板")]) + f"""
 <section class="hero hero-compact">
   <div class="hero-eyebrow">DOMESTIC PRIMARY EVIDENCE CLOSEOUT</div>
   <h1>国内一手证据收口看板</h1>
@@ -5585,6 +5808,7 @@ def research_gaps_page() -> bytes:
 <div class="notice"><strong>执行规则：</strong>先按“下一步”取得或定位原件，再记录馆藏档号/卷期、版本关系、页级 provenance、源文件 SHA256 和人工复核结果；完成前保持开放状态。正式引用请回到专题详情和 <a href="/domestic/review">国内复核看板</a>，不要把本页当成原件正文。</div>
 {"".join(topic_sections) or '<div class="notice">当前没有从证据链读取到开放目标；请先运行证据链校验器。</div>'}
 <section class="doc-tools" style="margin-top:20px;justify-content:center;">
+  <a class="button" href="/domestic/workbench">国内研究平台</a>
   <a class="button" href="/research">返回专题索引</a>
   <a class="button" href="/domestic/acquisition">完整调档清单</a>
   <a class="button" href="/domestic/review">国内复核看板</a>
@@ -5625,6 +5849,53 @@ def _load_academic_topic_crosswalk() -> dict[str, object]:
     return payload if isinstance(payload, dict) else {}
 
 
+def _load_academic_layer_snapshot() -> dict[str, object]:
+    """读取可提交的学术元数据快照，不读取正文、不写数据库。"""
+    if not ACADEMIC_LAYER_SNAPSHOT_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(ACADEMIC_LAYER_SNAPSHOT_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(payload, dict) or payload.get("body_read") is not False:
+        return {}
+    return payload
+
+
+def _load_academic_metadata_index() -> list[dict[str, object]]:
+    """读取正文之外的学术元数据索引；失败时返回空列表。"""
+    if not ACADEMIC_METADATA_INDEX_PATH.is_file():
+        return []
+    try:
+        payload = json.loads(ACADEMIC_METADATA_INDEX_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    if not isinstance(payload, dict) or payload.get("body_read") is not False:
+        return []
+    records = payload.get("records")
+    if not isinstance(records, list):
+        return []
+    return [record for record in records if isinstance(record, dict)]
+
+
+def _load_academic_fulltext_priority_queue() -> dict[str, object]:
+    """读取正文之外的全文优先队列；只暴露安全的元数据统计。"""
+    if not ACADEMIC_FULLTEXT_QUEUE_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(ACADEMIC_FULLTEXT_QUEUE_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(payload, dict):
+        return {}
+    if any(payload.get(key) is not False for key in ("body_read", "formal_db_written", "local_paths_included")):
+        return {}
+    records = payload.get("records")
+    if not isinstance(records, list) or not all(isinstance(record, dict) for record in records):
+        return {}
+    return payload
+
+
 def _load_primary_retrieval_queue() -> dict[str, object]:
     if not PRIMARY_RETRIEVAL_QUEUE_PATH.is_file():
         return {}
@@ -5647,8 +5918,36 @@ def _academic_layer_snapshot() -> dict[str, object]:
         "human_verified": 0,
         "tiers": {},
         "fulltext_statuses": {},
+        "fulltext_priority_queue": {
+            "available": False,
+            "total": 0,
+            "queue_classes": {},
+            "quality_tiers": {},
+            "fulltext_statuses": {},
+        },
         "institutions": [],
+        "metadata_missing": {},
+        "fulltext_readiness": {
+            "indexed_fulltext": 0,
+            "review_only_indexed": 0,
+            "stable_fulltext": 0,
+            "fulltext_candidates": 0,
+            "discovery_only": 0,
+        },
+        "scope": "unavailable",
     }
+    queue = _load_academic_fulltext_priority_queue()
+    if queue:
+        summary = queue.get("summary") if isinstance(queue.get("summary"), dict) else {}
+        snapshot["fulltext_priority_queue"] = {
+            "available": True,
+            "total": int(summary.get("total") or len(queue.get("records") or [])),
+            "queue_classes": summary.get("queue_classes") or {},
+            "quality_tiers": summary.get("quality_tiers") or {},
+            "fulltext_statuses": summary.get("fulltext_statuses") or {},
+            "generated_at": queue.get("generated_at", ""),
+            "body_read": False,
+        }
     if not DOMESTIC_STAGING_DB_PATH.exists():
         # 清洁 checkout 可能只有正式 SQLite，没有本地 staging。此时仍显示
         # 已正式建索引的学术全文，并明确标注为 formal-index fallback。
@@ -5667,6 +5966,45 @@ def _academic_layer_snapshot() -> dict[str, object]:
             tier_match = re.search(r"quality_tier=([^,]+)", str(row["matched_terms"] or ""))
             tier = tier_match.group(1) if tier_match else "未分级"
             tiers[tier] = tiers.get(tier, 0) + 1
+        metadata_snapshot = _load_academic_layer_snapshot()
+        if metadata_snapshot.get("status") == "PASS":
+            def snapshot_count(value: object) -> int:
+                try:
+                    return max(0, int(value or 0))
+                except (TypeError, ValueError):
+                    return 0
+
+            readiness = metadata_snapshot.get("fulltext_readiness")
+            if not isinstance(readiness, dict):
+                readiness = {}
+            readiness = {
+                "indexed_fulltext": len(rows),
+                "review_only_indexed": len(rows),
+                "stable_fulltext": snapshot_count(readiness.get("stable_fulltext")),
+                "fulltext_candidates": snapshot_count(readiness.get("fulltext_candidates")),
+                "discovery_only": snapshot_count(readiness.get("discovery_only")),
+            }
+            snapshot.update(
+                {
+                    "available": snapshot_count(metadata_snapshot.get("records")) > 0,
+                    "records": snapshot_count(metadata_snapshot.get("records")),
+                    "academic_records": snapshot_count(metadata_snapshot.get("academic_records")),
+                    "high_priority": snapshot_count(metadata_snapshot.get("high_priority")),
+                    "articles": snapshot_count(metadata_snapshot.get("articles")),
+                    "citation_ready": snapshot_count(metadata_snapshot.get("citation_ready")),
+                    "human_verified": snapshot_count(metadata_snapshot.get("human_verified")),
+                    "tiers": metadata_snapshot.get("quality_tiers") or {},
+                    "fulltext_statuses": metadata_snapshot.get("fulltext_statuses") or {},
+                    "institutions": metadata_snapshot.get("institutions") or [],
+                    "metadata_missing": metadata_snapshot.get("metadata_missing") or {},
+                    "fulltext_readiness": readiness,
+                    "scope": "tracked_metadata_snapshot",
+                    "fallback": "academic_metadata_snapshot",
+                    "metadata_snapshot_generated_at": metadata_snapshot.get("generated_at", ""),
+                    "formal_index_records": len(rows),
+                }
+            )
+            return snapshot
         snapshot.update(
             {
                 "available": bool(rows),
@@ -5679,6 +6017,15 @@ def _academic_layer_snapshot() -> dict[str, object]:
                 "tiers": dict(sorted(tiers.items())),
                 "fulltext_statuses": {"FORMAL_INDEX_REVIEW_ONLY": len(rows)} if rows else {},
                 "institutions": [],
+                "metadata_missing": {},
+                "fulltext_readiness": {
+                    "indexed_fulltext": len(rows),
+                    "review_only_indexed": len(rows),
+                    "stable_fulltext": 0,
+                    "fulltext_candidates": 0,
+                    "discovery_only": 0,
+                },
+                "scope": "formal_index_fallback",
                 "fallback": "formal_index",
             }
         )
@@ -5694,7 +6041,8 @@ def _academic_layer_snapshot() -> dict[str, object]:
             return snapshot
         rows = c.execute(
             """SELECT layer, quality_tier, research_type, fulltext_status,
-                      citation_ready, human_verified, institution
+                      citation_ready, human_verified, author, institution,
+                      publication_date, source_url
                FROM domestic_research_materials"""
         ).fetchall()
         c.close()
@@ -5703,6 +6051,12 @@ def _academic_layer_snapshot() -> dict[str, object]:
     tiers: dict[str, int] = {}
     fulltext_statuses: dict[str, int] = {}
     institutions: dict[str, int] = {}
+    metadata_missing = {"author": 0, "institution": 0, "publication_date": 0, "source_url": 0}
+    stable_fulltext_statuses = {"FULLTEXT_PDF", "FULLTEXT_HTML"}
+    candidate_fulltext_statuses = {"FULLTEXT_PDF_CANDIDATE", "FULLTEXT_HTML_CANDIDATE"}
+    stable_fulltext = 0
+    fulltext_candidates = 0
+    discovery_only = 0
     for row in rows:
         tier = str(row["quality_tier"] or "未分级")
         tiers[tier] = tiers.get(tier, 0) + 1
@@ -5710,6 +6064,15 @@ def _academic_layer_snapshot() -> dict[str, object]:
         fulltext_statuses[status] = fulltext_statuses.get(status, 0) + 1
         institution = str(row["institution"] or "机构未标注").strip()
         institutions[institution] = institutions.get(institution, 0) + 1
+        for field in metadata_missing:
+            if not str(row[field] or "").strip():
+                metadata_missing[field] += 1
+        if status in stable_fulltext_statuses:
+            stable_fulltext += 1
+        elif status in candidate_fulltext_statuses:
+            fulltext_candidates += 1
+        else:
+            discovery_only += 1
     academic_records = [row for row in rows if row["layer"] == "SCHOLARLY_RESEARCH"]
     snapshot.update(
         {
@@ -5726,6 +6089,15 @@ def _academic_layer_snapshot() -> dict[str, object]:
                 {"name": name, "count": count}
                 for name, count in sorted(institutions.items(), key=lambda pair: (-pair[1], pair[0]))[:12]
             ],
+            "metadata_missing": metadata_missing,
+            "fulltext_readiness": {
+                "indexed_fulltext": 0,
+                "review_only_indexed": 0,
+                "stable_fulltext": stable_fulltext,
+                "fulltext_candidates": fulltext_candidates,
+                "discovery_only": discovery_only,
+            },
+            "scope": "staging_metadata_only",
         }
     )
     return snapshot
@@ -6149,25 +6521,42 @@ def _research_academic_matches(
         except sqlite3.Error:
             return result
     else:
-        # 没有 staging 时，从正式 SQLite 的学术全文层回退；这只使用题名和
-        # 已写入的机器标签，仍不读取正文语义，也不改变引用门禁。
-        try:
-            with conn() as c:
-                source_rows = c.execute(
-                    """SELECT d.doc_id AS external_id, d.title,
-                              '' AS author, '' AS institution, d.date_guess AS publication_date,
-                              CASE WHEN d.matched_terms LIKE '%research_type=SCHOLARLY_ARTICLE%' THEN 'SCHOLARLY_ARTICLE' ELSE 'SCHOLARLY_RESEARCH' END AS research_type,
-                              CASE WHEN d.matched_terms LIKE '%quality_tier=S%' THEN 'S'
-                                   WHEN d.matched_terms LIKE '%quality_tier=A%' THEN 'A' ELSE '未分级' END AS quality_tier,
-                              d.url AS source_url, 'FORMAL_INDEX_REVIEW_ONLY' AS fulltext_status,
-                              'review_only' AS review_status, 0 AS citation_ready,
-                              0 AS human_verified, '' AS metadata_json, d.matched_terms
-                       FROM documents d
-                       WHERE d.source_platform='domestic'
-                         AND d.hit_type='domestic_academic_fulltext'"""
-                ).fetchall()
-        except sqlite3.Error:
-            return result
+        metadata_records = [
+            record
+            for record in _load_academic_metadata_index()
+            if str(record.get("layer") or "") == "SCHOLARLY_RESEARCH"
+        ]
+        if metadata_records:
+            # 清洁 checkout 使用正文之外的版本化元数据索引，保留专题匹配能力；
+            # 不把 source_url、OCR 或目录字段升级为正文/引用证据。
+            source_rows = [
+                {
+                    **record,
+                    "metadata_json": json.dumps(record.get("metadata") or {}, ensure_ascii=False),
+                    "matched_terms": "",
+                }
+                for record in metadata_records
+            ]
+        else:
+            # 没有元数据索引时，从正式 SQLite 的学术全文层回退；这只使用题名和
+            # 已写入的机器标签，仍不读取正文语义，也不改变引用门禁。
+            try:
+                with conn() as c:
+                    source_rows = c.execute(
+                        """SELECT d.doc_id AS external_id, d.title,
+                                  '' AS author, '' AS institution, d.date_guess AS publication_date,
+                                  CASE WHEN d.matched_terms LIKE '%research_type=SCHOLARLY_ARTICLE%' THEN 'SCHOLARLY_ARTICLE' ELSE 'SCHOLARLY_RESEARCH' END AS research_type,
+                                  CASE WHEN d.matched_terms LIKE '%quality_tier=S%' THEN 'S'
+                                       WHEN d.matched_terms LIKE '%quality_tier=A%' THEN 'A' ELSE '未分级' END AS quality_tier,
+                                  d.url AS source_url, 'FORMAL_INDEX_REVIEW_ONLY' AS fulltext_status,
+                                  'review_only' AS review_status, 0 AS citation_ready,
+                                  0 AS human_verified, '' AS metadata_json, d.matched_terms
+                           FROM documents d
+                           WHERE d.source_platform='domestic'
+                             AND d.hit_type='domestic_academic_fulltext'"""
+                    ).fetchall()
+            except sqlite3.Error:
+                return result
 
     matches: list[dict[str, object]] = []
     tier_score = {"S": 4, "A": 3, "B": 2, "C": 1}
@@ -6216,6 +6605,8 @@ def _research_academic_matches(
         quality = str(source["quality_tier"] or "C")
         fulltext_status = str(source["fulltext_status"] or "")
         score += tier_score.get(quality, 0) + fulltext_score.get(fulltext_status, 0)
+        duplicate_group_id = str(source["duplicate_group_id"] or "") if "duplicate_group_id" in source.keys() else ""
+        version_relation = str(source["version_relation"] or "") if "version_relation" in source.keys() else ""
         matches.append(
             {
                 "external_id": source["external_id"],
@@ -6232,6 +6623,8 @@ def _research_academic_matches(
                 "human_verified": int(source["human_verified"] or 0),
                 "matched_terms": matched[:6],
                 "match_score": score,
+                "duplicate_group_id": duplicate_group_id,
+                "version_relation": version_relation,
             }
         )
     matches.sort(
@@ -6337,8 +6730,10 @@ def research_parity_page() -> bytes:
     The dashboard deliberately keeps three states separate:
     navigation_ready means a topic can be researched through the shared
     navigation; strict citation means at least one event-linked domestic page
-    passed the human gate; research_ready still requires the editorial
-    primary-evidence declaration to be closed.  No page bodies are read here.
+    passed the human gate; research_usable_with_boundaries additionally
+    requires the four-layer chain and source map; research_ready still
+    requires the editorial primary-evidence declaration to be closed.  No
+    page bodies are read here.
     """
     topics = _research_topic_rows()
     rows: list[str] = []
@@ -6346,6 +6741,7 @@ def research_parity_page() -> bytes:
     strict_count = 0
     primary_closed_count = 0
     research_ready_count = 0
+    bounded_research_count = 0
     open_target_count = 0
     chain_ready_count = 0
     source_map_count = 0
@@ -6378,10 +6774,17 @@ def research_parity_page() -> bytes:
         )
         strict_ready = strict_pages > 0
         research_ready = navigation_ready and primary_status == "closed"
+        research_usable_with_boundaries = bool(
+            navigation_ready
+            and strict_ready
+            and layer_count == 4
+            and source_map_ready
+        )
         navigation_count += int(navigation_ready)
         strict_count += int(strict_ready)
         primary_closed_count += int(primary_status == "closed")
         research_ready_count += int(research_ready)
+        bounded_research_count += int(research_usable_with_boundaries)
         open_target_count += open_targets
         chain_ready_count += int(layer_count == 4)
         source_map_count += int(source_map_ready)
@@ -6403,6 +6806,11 @@ def research_parity_page() -> bytes:
             if research_ready
             else '<span class="pstatus warn">尚未 research_ready</span>'
         )
+        bounded_badge = (
+            '<span class="pstatus ok">可研究（带边界）</span>'
+            if research_usable_with_boundaries
+            else '<span class="pstatus warn">研究路径待补</span>'
+        )
         source_map_badge = (
             f'<span class="pstatus ok">来源地图 {h(source_map_pages)} 页</span>'
             if source_map_ready
@@ -6414,7 +6822,7 @@ def research_parity_page() -> bytes:
   <div>
     <h2><a href="/research/{quote(event_id)}">{h(item.get('event_name') or event_id)}</a></h2>
     <div class="meta">国内事件页 {h(domestic_pages)} · 境外对位页 {h(foreign_pages)} · 学术匹配 {h(academic_total)} · 证据链 {h(layer_count)}/4 · 来源地图 {h(source_map_pages)} 页（严格 {h(source_map_strict)} / 待复核 {h(source_map_review)} / 导航 {h(source_map_navigation)} / 入口 {h(source_map_access)}） · 开放原件 {h(open_targets)}</div>
-    <div class="tagline">{navigation_badge}{strict_badge}{source_map_badge}<span class="pstatus {primary['class']}">{h(primary['label'])}</span>{final_badge}</div>
+    <div class="tagline">{navigation_badge}{strict_badge}{source_map_badge}{bounded_badge}<span class="pstatus {primary['class']}">{h(primary['label'])}</span>{final_badge}</div>
     <div class="snippet"><strong>研究问题：</strong>{h((topic.get('comparison') or {}).get('research_question') or '未登记')}</div>
     <div class="snippet"><strong>当前边界：</strong>{h(primary['gap'])}</div>
   </div>
@@ -6422,16 +6830,17 @@ def research_parity_page() -> bytes:
 </article>"""
         )
 
-    body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, "国内—海外对齐")]) + f"""
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/research", "多源专题研究"), (None, "国内—海外对齐")]) + f"""
 <section class="hero hero-compact">
   <div class="hero-eyebrow">DOMESTIC · FOREIGN · PARITY</div>
   <h1>国内—海外对齐仪表盘</h1>
   <p class="hero-sub">用同一套研究能力检查国内资料层与境外档案层：导航、页级引用、学术解释、证据链和一手原件闭环分别计数。</p>
-  <div class="hero-chips"><span><b>{h(len(topics))}</b> 个专题</span><span><b>{h(navigation_count)}</b> 个导航可用</span><span><b>{h(source_map_count)}</b> 个来源地图</span><span><b>{h(source_map_page_count)}</b> 个来源地图页</span><span><b>{h(strict_count)}</b> 个有严格页</span><span><b>{h(primary_closed_count)}</b> 个一手闭环</span><span><b>{h(research_ready_count)}</b> 个 research_ready</span><span><b>{h(open_target_count)}</b> 个开放原件目标</span></div>
+  <div class="hero-chips"><span><b>{h(len(topics))}</b> 个专题</span><span><b>{h(navigation_count)}</b> 个导航可用</span><span><b>{h(bounded_research_count)}</b> 个带边界可研究</span><span><b>{h(source_map_count)}</b> 个来源地图</span><span><b>{h(source_map_page_count)}</b> 个来源地图页</span><span><b>{h(strict_count)}</b> 个有严格页</span><span><b>{h(primary_closed_count)}</b> 个一手闭环</span><span><b>{h(research_ready_count)}</b> 个 research_ready</span><span><b>{h(open_target_count)}</b> 个开放原件目标</span></div>
 </section>
-<div class="notice"><strong>阅读规则：</strong>来源地图只统计专题与页级 provenance 的关联，不代表所有原件已开放；导航可用不等于一手原件闭环；严格引用页只表示已有部分页通过人工门禁；只有专题主证据、同期交叉、负向核查、版本关系和研究包全部闭环，才会显示 <code>research_ready</code>。本页只读元数据，<code>body_read=false</code>。</div>
+<div class="notice"><strong>阅读规则：</strong>来源地图只统计专题与页级 provenance 的关联，不代表所有原件已开放；“可研究（带边界）”表示已有导航、严格页、四层证据链和来源地图，可以开展有边界的检索与比较；它不等于一手原件闭环。只有专题主证据、同期交叉、负向核查、版本关系和研究包全部闭环，才会显示 <code>research_ready</code>。本页只读元数据，<code>body_read=false</code>。</div>
 <section class="result-list">{"".join(rows) or '<div class="notice">暂无专题 parity 数据。</div>'}</section>
 <section class="doc-tools" style="margin-top:20px;justify-content:center;">
+  <a class="button" href="/domestic/workbench">国内研究平台</a>
   <a class="button" href="/research">返回专题索引</a>
   <a class="button" href="/research/gaps">一手证据收口看板</a>
   <a class="button secondary" href="/domestic">国内史料库</a>
@@ -6440,6 +6849,98 @@ def research_parity_page() -> bytes:
 <div class="notice" style="margin-top:16px;">四层证据链已就绪专题：{h(chain_ready_count)} / {h(len(topics))}；已接入来源地图：{h(source_map_count)} / {h(len(topics))}。具体来源、页码、SHA256 和复核范围请从专题详情或研究包进入。</div>
 """
     return layout("国内—海外对齐", body, active_path="/research")
+
+
+def domestic_workbench_page() -> bytes:
+    """国内研究平台工作台：九专题路径、证据分层和仍开放的原件缺口。"""
+    topics = _research_topic_rows()
+    nav_ready = 0
+    primary_closed = 0
+    open_targets = 0
+    source_map_pages = 0
+    cards: list[str] = []
+    p0_rows: list[str] = []
+    for topic in topics:
+        item = topic["item"]
+        event_id = str(item.get("event_id") or "")
+        primary = _primary_evidence_display(item)
+        chain = topic.get("evidence_chain_summary") or {}
+        source_map = topic.get("event_source_map") or {}
+        nav_ready += 1
+        if primary.get("status") == "closed":
+            primary_closed += 1
+        open_targets += int(chain.get("open_targets") or 0)
+        source_map_pages += int(source_map.get("page_record_count") or 0)
+        gap = primary.get("gap") or "事件定义原件仍待补。"
+        cards.append(
+            f"""
+<article class="result compact-result"><div>
+  <h3><a href="/research/{quote(event_id)}">{h(item.get("event_name"))}</a></h3>
+  <div class="tagline">
+    <span class="pstatus ok">导航可用</span>
+    <span class="pstatus {primary['class']}">{h(primary['label'])}</span>
+    <span class="tag">证据链 {h(chain.get('page_items', 0))} 页</span>
+    <span class="tag">来源地图 {h(source_map.get('page_record_count') or 0)} 页</span>
+  </div>
+  <div class="snippet"><strong>仍缺原件：</strong>{h(gap)}</div>
+</div>
+<div class="cite">
+  <a href="/research/{quote(event_id)}">专题</a><br>
+  <a href="/research/{quote(event_id)}/packet">研究包</a><br>
+  <a href="/domestic/acquisition?event={quote(event_id)}">调档</a>
+</div></article>"""
+        )
+        if event_id in {"domestic-1941-formation", "domestic-1947-illegal-dissolution"}:
+            p0_rows.append(
+                f"<li><a href=\"/domestic/acquisition?event={quote(event_id)}\">{h(item.get('event_name'))}</a> — {h(gap)}</li>"
+            )
+
+    overnight_note = ""
+    overnight_path = ROOT / "work/domestic/overnight_long_task_20260817/STATE.json"
+    if overnight_path.is_file():
+        try:
+            overnight = json.loads(overnight_path.read_text(encoding="utf-8"))
+            overnight_note = (
+                f'<div class="notice">通宵长任务当前波次：{h(overnight.get("wave") or "未标注")}。'
+                f'下一最小动作：{h(overnight.get("next_action") or "见任务合同")}。</div>'
+            )
+        except (OSError, json.JSONDecodeError):
+            overnight_note = ""
+
+    body = breadcrumb_html([("/", "首页"), (None, "国内研究平台")]) + f"""
+<section class="hero hero-compact">
+  <div class="hero-eyebrow">DOMESTIC RESEARCH PLATFORM</div>
+  <h1>国内民盟史研究平台</h1>
+  <p class="hero-sub">从研究问题进入专题、页级来源和引用门禁。这里把国内史料做成与海外档案同一条研究路径；导航可用不等于一手原件已经闭环。</p>
+  <div class="hero-chips">
+    <span><b>{len(topics)}</b> 个专题</span>
+    <span><b>{nav_ready}</b> 个导航可用</span>
+    <span><b>{primary_closed}</b> 个一手闭环</span>
+    <span><b>{open_targets}</b> 个开放原件目标</span>
+    <span><b>{source_map_pages}</b> 个来源地图页</span>
+  </div>
+</section>
+<div class="notice"><strong>使用方式：</strong>先检索或打开专题，再回到页级 provenance 和 <code>/cite/&lt;page_id&gt;</code>。汇编、会刊、报刊和学术文章分层显示，不能替代 1941 原刊、1947 政府公函/总部公告或完整会议档案。</div>
+{overnight_note}
+<form class="search" method="get" action="/search" role="search">
+  <input type="hidden" name="platform" value="domestic">
+  <input type="search" name="q" placeholder="在国内史料中检索人物、会议、报刊或档号">
+  <button type="submit">检索国内史料</button>
+</form>
+<section class="doc-tools" style="margin:16px 0;">
+  <a class="button" href="/research">九专题总览</a>
+  <a class="button" href="/research/gaps">一手证据缺口</a>
+  <a class="button" href="/research/packets">研究包</a>
+  <a class="button secondary" href="/research/parity">国内外对齐</a>
+  <a class="button secondary" href="/domestic/library">核心可阅库</a>
+  <a class="button secondary" href="/timeline?platform=domestic">国内年表</a>
+</section>
+<div class="section-head"><h2>P0 仍待原件</h2><span class="section-meta">通宵任务优先队列</span></div>
+<ul>{''.join(p0_rows) or '<li>当前没有单独标出的 P0 专题。</li>'}</ul>
+<div class="section-head"><h2>九个国内专题</h2><span class="section-meta">导航与一手闭环分开显示</span></div>
+<section class="result-list">{''.join(cards)}</section>
+"""
+    return layout("国内研究平台", body, active_path="/domestic/workbench")
 
 
 def research_topics_page() -> bytes:
@@ -6504,6 +7005,7 @@ def research_topics_page() -> bytes:
     body += "</section>"
     body += """
 <section class="doc-tools" style="margin-top:20px;justify-content:center;">
+  <a class="button" href="/domestic/workbench">国内研究平台</a>
   <a class="button" href="/research/parity">国内—海外对齐仪表盘</a>
   <a class="button" href="/align">多源对位视图</a>
   <a class="button" href="/research/gaps">一手证据收口看板</a>
@@ -6533,8 +7035,8 @@ def research_packets_page() -> bytes:
   <div class="tagline"><span class="pstatus {status_class}">{h(primary['label'])}</span><span class="tag">研究包可生成</span><span class="tag">正文不复制</span></div>
   <div class="snippet"><strong>当前缺口：</strong>{h(primary['gap'])}</div>
 </div><div class="cite"><a href="/research/{quote(event_id)}/packet">打开研究包</a><br><a href="/research/{quote(event_id)}/packet.json">下载 JSON</a></div></article>""")
-    body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, "全部研究包")]) + f"""
-<section class="doc-head"><div><h1>全部专题研究包</h1><div class="meta">九个国内专题的统一研究工作台</div></div><div class="doc-tools"><a class="button" href="/research">专题索引</a><a class="button secondary" href="/research/gaps">证据缺口</a></div></section>
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/research", "多源专题研究"), (None, "全部研究包")]) + f"""
+<section class="doc-head"><div><h1>全部专题研究包</h1><div class="meta">九个国内专题的统一研究工作台</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/research">专题索引</a><a class="button secondary" href="/research/gaps">证据缺口</a></div></section>
 <div class="notice"><strong>使用方式：</strong>先从研究问题进入专题，再用研究包统一查看国内材料、境外对读、学术解释、页级 provenance 和待补原件。这里把“证据链页”“专题回接页”和“候选回接严格页”分开统计：三者来源路径不同，不能互相替代。研究包只复制元数据和链接，不复制正文、OCR、译文或逐字引文。</div>
 <section class="result-list">{"".join(cards) or '<div class="notice">暂无专题研究包。</div>'}</section>
 """
@@ -6585,7 +7087,7 @@ def research_topic_page(event_id: str) -> bytes:
   <h3>{h(academic.get('title') or academic.get('external_id'))}</h3>
   <div class="meta">{h(academic.get('author') or '作者未标注')} · {h(academic.get('institution') or '机构未标注')} · {h(academic.get('publication_date') or '日期未标注')}</div>
   <div class="tagline"><span class="pstatus {tier_class}">学术 {h(tier)}</span><span class="tag">{h(academic.get('research_type') or '研究资料')}</span><span class="tag">命中：{h('、'.join(academic.get('matched_terms') or []))}</span></div>
-  <div class="snippet">全文状态：{h(academic.get('fulltext_status') or '未标注')} · citation_ready={h(academic.get('citation_ready'))} · 该条目只作为解释层候选，不自动替代国内一手页级证据。</div>
+  <div class="snippet">全文状态：{h(academic.get('fulltext_status') or '未标注')} · citation_ready={h(academic.get('citation_ready'))} · 版本关系：{h(academic.get('version_relation') or '未建立同题名关系')} · 该条目只作为解释层候选，不自动替代国内一手页级证据。</div>
 </div><div class="cite"><a href="{search_href}">研究资料</a> · <a href="/domestic/events?event={quote(str(item.get('event_id')))}">一手对照</a>{f' · <a href="{h(source_url)}" target="_blank" rel="noreferrer">来源入口</a>' if source_url != '#' else ''}</div></article>""")
     academic_total = int(topic.get("academic_total", 0))
     academic_html = "".join(academic_cards) or f'<div class="notice">学术—专题交叉表已登记 {h(academic_total)} 条元数据匹配，但当前 checkout 没有对应的详情字段；这不代表学术资料不存在，也不代表已经读取正文。请从 <a href="/domestic/academic">学术研究层</a>继续筛选，再回到 <a href="/domestic/events?event={quote(str(item.get("event_id")))}">一手对照</a>。</div>'
@@ -6673,9 +7175,42 @@ def research_topic_page(event_id: str) -> bytes:
     source_map_review = int(source_map.get("review_only_page_count") or 0)
     source_map_navigation = int(source_map.get("navigation_page_count") or 0)
     source_map_access = int(source_map.get("access_route_count") or 0)
+    source_routes = source_map.get("source_routes") if isinstance(source_map.get("source_routes"), list) else []
+    route_cards: list[str] = []
+    route_role_labels = {
+        "official_curated_reproduction": "官方转载图像",
+        "public_facsimile_ocr_transcription": "公开影印本 OCR 转录",
+        "public_periodical_scan_route": "公开期刊影像入口",
+        "public_sourcebook_scan_candidate": "公开汇编扫描候选",
+        "contemporary_newspaper_scan": "同期报刊扫描",
+        "official_archive_image": "官方档案影像",
+        "sourcebook_scan": "汇编扫描",
+    }
+    for route in source_routes:
+        if not isinstance(route, dict):
+            continue
+        links: list[str] = []
+        source_url = str(route.get("source_url") or "")
+        image_url = str(route.get("image_url") or "")
+        if source_url:
+            links.append(f'<a href="{h(source_url)}" rel="noreferrer">来源入口</a>')
+        if image_url:
+            links.append(f'<a href="{h(image_url)}" rel="noreferrer">转载图像</a>')
+        role_label = route_role_labels.get(str(route.get("source_role") or ""), str(route.get("source_role") or "来源入口"))
+        route_cards.append(
+            f'<li><strong>{h(route.get("title") or route.get("source_id"))}</strong> '
+            f'<span class="meta">{h(role_label)} · {h(route.get("evidence_level") or "未分级")} · 页级记录 {h(route.get("page_count", 0))}</span> '
+            f'{" · ".join(links)}</li>'
+        )
+    source_route_html = (
+        f'<div class="snippet"><strong>可执行来源入口：</strong><ul>{"".join(route_cards)}</ul>'
+        '入口只用于追索和版本核验；没有页级记录的入口不会自动进入正式引文。</div>'
+        if route_cards
+        else ""
+    )
     source_map_html = f"""
 <section class="result compact-result" style="border-left:4px solid var(--accent);background:var(--panel-warm);">
-  <div><h3>专题来源地图</h3><div class="meta">{h(source_map.get('source_count', 0))} 个来源 · {h(source_map_pages)} 个页级记录 · 严格 {h(source_map_strict)} · 待复核 {h(source_map_review)} · 导航 {h(source_map_navigation)} · 入口 {h(source_map_access)}</div><div class="snippet">该摘要只提供来源与页级定位状态，不复制正文、OCR、译文或本地路径；当前一手闭环状态：{h(source_map.get('review_status') or '未标注')}。{h(source_map.get('primary_evidence_gap') or '正式结论仍需回到原件和人工复核。')}</div></div>
+  <div><h3>专题来源地图</h3><div class="meta">{h(source_map.get('source_count', 0))} 个来源 · {h(source_map_pages)} 个页级记录 · 严格 {h(source_map_strict)} · 待复核 {h(source_map_review)} · 导航 {h(source_map_navigation)} · 入口 {h(source_map_access)}</div><div class="snippet">该摘要只提供来源与页级定位状态，不复制正文、OCR、译文或本地路径；当前一手闭环状态：{h(source_map.get('review_status') or '未标注')}。{h(source_map.get('primary_evidence_gap') or '正式结论仍需回到原件和人工复核。')}</div>{source_route_html}</div>
   <div class="cite"><a href="/research/{quote(event_id)}/packet">打开研究包</a><br><a href="/domestic/sources">完整来源地图</a></div>
 </section>"""
 
@@ -6688,10 +7223,10 @@ def research_topic_page(event_id: str) -> bytes:
 </section>"""
 
     event_link = f"/domestic/events?event={quote(event_id)}"
-    body = breadcrumb_html([("/", "首页"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/research", "多源专题研究"), (None, str(item.get("event_name")))]) + f"""
 <section class="doc-head">
   <div><h1>{h(item.get('event_name'))}</h1><div class="meta">{h(item.get('domestic_status'))}</div></div>
-  <div class="doc-tools"><a class="button" href="/research">专题索引</a><a class="button secondary" href="/research/{quote(event_id)}/packet">打开研究包</a><a class="button secondary" href="/events?topic={quote(event_id)}">统一事件线索</a><a class="button secondary" href="{event_link}">国内覆盖</a></div>
+  <div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/research">专题索引</a><a class="button secondary" href="/research/{quote(event_id)}/packet">打开研究包</a><a class="button secondary" href="/events?topic={quote(event_id)}">统一事件线索</a><a class="button secondary" href="{event_link}">国内覆盖</a></div>
 </section>
 <section class="stats">
   <div class="stat"><strong>{len(topic['domestic_rows'])}</strong><span>国内候选关联</span></div>
@@ -6730,7 +7265,7 @@ def research_topic_page(event_id: str) -> bytes:
 {foreign_html}
 <section class="doc-head" style="margin-top:20px;background:var(--panel-warm);border-left:4px solid var(--accent);">
   <div><h2>下一步核验</h2><div class="meta">优先核对原件、档号/卷期、日期冲突和页码；只有人工复核后才进入正式引用层。</div></div>
-  <div class="doc-tools"><a class="button" href="/research/gaps">一手证据收口看板</a><a class="button" href="/domestic/review">国内复核看板</a><a class="button" href="/domestic/acquisition">调档清单</a></div>
+  <div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/research/gaps">一手证据收口看板</a><a class="button" href="/domestic/review">国内复核看板</a><a class="button" href="/domestic/acquisition">调档清单</a></div>
 </section>
 """
     return layout(str(item.get("event_name")), body, active_path="/research")
@@ -6833,7 +7368,7 @@ def domestic_acquisition_page(event_id: str = "") -> bytes:
             else ""
         )
         focused_section = f"""
-<section class="doc-head"><div><h2>专题原件目标：{h(focused_event_name)}</h2><div class="meta">从证据链直接回接的 {h(len(focused_gaps))} 个开放目标；本区只显示调档元数据，不提供正文。</div></div><div class="doc-tools"><a class="button" href="/research/{quote(event_id, safe='')}">回到专题</a><a class="button" href="/research/{quote(event_id, safe='')}/packet">打开研究包</a></div></section>
+<section class="doc-head"><div><h2>专题原件目标：{h(focused_event_name)}</h2><div class="meta">从证据链直接回接的 {h(len(focused_gaps))} 个开放目标；本区只显示调档元数据，不提供正文。</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/research/{quote(event_id, safe='')}">回到专题</a><a class="button" href="/research/{quote(event_id, safe='')}/packet">打开研究包</a></div></section>
 <div class="notice"><strong>证据边界：</strong>这些目标尚未达到一手闭环；候选、目录、汇编和后期回顾资料只能帮助定位，不能替代待取得原件。取得后仍需登记馆藏档号、版本关系、页级 provenance、文件 SHA256 和复核状态。</div>
 {minimum_target_html}{access_status_html}
 <section class="result-list">{"".join(focused_target_cards)}</section>"""
@@ -6849,8 +7384,8 @@ def domestic_acquisition_page(event_id: str = "") -> bytes:
         focused_section = f"""
 <div class="section-head"><h2>按专题进入原件目标</h2><span class="meta">{h(len(all_event_ids))} 个专题仍有开放主证据目标</span></div>
 <div class="notice">从专题缺口看板进入时，本页会自动筛选对应任务；当前先列出全部可进入的专题。<div class="tagline" style="margin-top:10px">{topic_links or '<span class="meta">当前没有开放目标。</span>'}</div></div>"""
-    body = breadcrumb_html([("/domestic", "国内史料"), (None, "调档清单")]) + f"""
-<section class="doc-head"><div><h1>国内史料调档与获取清单</h1><div class="meta">记录级档号、卷期、影像和权利的下一步任务</div></div><div class="doc-tools"><a class="button" href="/domestic/review">复核看板</a></div></section>
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/domestic", "国内史料"), (None, "调档清单")]) + f"""
+<section class="doc-head"><div><h1>国内史料调档与获取清单</h1><div class="meta">记录级档号、卷期、影像和权利的下一步任务</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/domestic/review">复核看板</a><a class="button secondary" href="/research/gaps">一手证据缺口</a></div></section>
 <section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>候选记录</span></div><div class="stat"><strong>{h(with_archive)}</strong><span>含档号字段</span></div><div class="stat"><strong>{h(len(rows) - with_archive)}</strong><span>待定位</span></div><div class="stat"><strong>{h(len(mmda_pending_rows))}</strong><span>MMDA 原件待取</span></div></section>
 <div class="notice">本页只列调档元数据和公开入口；受限扫描件、PDF、图片和本地缓存不会通过公开 URL 提供。</div>
 {focused_section}
@@ -6937,8 +7472,8 @@ def domestic_review_page() -> bytes:
         <div class="cite"><a href="/domestic/evidence-review/{row["page_id"]}">页级复核</a></div></article>'''
         for row in page_review_queue
     )
-    body = breadcrumb_html([("/domestic", "国内史料"), (None, "复核看板")]) + f"""
-<section class="doc-head"><div><h1>国内史料复核看板</h1><div class="meta">原始性等级、字段缺口、人工验收和编辑边界</div></div><div class="doc-tools"><a class="button" href="/domestic/acquisition">调档清单</a></div></section>
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/domestic", "国内史料"), (None, "复核看板")]) + f"""
+<section class="doc-head"><div><h1>国内史料复核看板</h1><div class="meta">原始性等级、字段缺口、人工验收和编辑边界</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/domestic/acquisition">调档清单</a><a class="button secondary" href="/research/gaps">一手证据缺口</a></div></section>
 <section class="stats"><div class="stat"><strong>{h(len(rows))}</strong><span>候选</span></div><div class="stat"><strong>{h(statuses.get('accepted', 0))}</strong><span>已接受</span></div><div class="stat"><strong>{h(statuses.get('needs_human_review', 0))}</strong><span>待人工复核</span></div><div class="stat"><strong>{h(missing_archive)}</strong><span>缺档号/卷期</span></div><div class="stat"><strong>{h(decision_count)}</strong><span>编辑决策</span></div><div class="stat"><strong>{h(page_review_count)}</strong><span>待页级引用复核</span></div></section>
 <div class="notice">只有完成形成者、日期、档号/卷期、页码/影像和权利核验的记录，才可从 needs_human_review 升级为 accepted；本看板不把拟议等级当作验收结论。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-layer"/></svg>原始性分布</h2></div><section class="result-list">{level_cards}</section>
@@ -7166,6 +7701,12 @@ def home() -> bytes:
     <span><b>{n_docs}</b> 篇文档</span>
     <span><b>{n_zh}</b> 条中文译文</span>
     <span><b>{cov_pct}%</b> 人工复核</span>
+    <span><b>{n_domestic_docs}</b> 篇国内资料</span>
+  </div>
+  <div class="doc-tools" style="margin-top:16px;">
+    <a class="button" href="/domestic/workbench">进入国内研究平台</a>
+    <a class="button secondary" href="/research">多源专题研究</a>
+    <a class="button secondary" href="/research/gaps">一手证据缺口</a>
   </div>
 </section>
 
@@ -7210,6 +7751,9 @@ def search_filter_form(query: str, platform: str | None, year: str, grade: str, 
     for key, meta in PLATFORM_META.items():
         selected = " selected" if platform == key else ""
         platform_options.append(f'<option value="{h(key)}"{selected}>{h(meta["name"])}</option>')
+    if "domestic" not in PLATFORM_META:
+        selected = " selected" if platform == "domestic" else ""
+        platform_options.append(f'<option value="domestic"{selected}>国内史料</option>')
     grade_options = ['<option value="">全部分级</option>']
     for value in ["核心文献", "相关文献", "人物关联", "背景材料", "A", "B"]:
         selected = " selected" if grade == value else ""
@@ -7236,7 +7780,7 @@ def search(query: str, platform: str | None = None, year: str = "", grade: str =
         title_text = f"搜索：{query}" if query.strip() else "筛选档案"
         chips = []
         if platform:
-            chips.append(PLATFORM_META.get(platform, {}).get("name", platform))
+            chips.append(PLATFORM_META.get(platform, {}).get("name", "国内史料" if platform == "domestic" else platform))
         if year.strip():
             chips.append(f"{year.strip()[:4]} 年")
         if grade.strip():
@@ -7248,11 +7792,23 @@ def search(query: str, platform: str | None = None, year: str = "", grade: str =
         chip_html = "".join(f'<span class="tag">{h(chip)}</span>' for chip in chips)
         body += f'<h1 style="font-size:20px;margin:0 0 12px;">{h(title_text)}</h1>'
         body += search_filter_form(query, platform, year, grade, person, cited)
+        if platform == "domestic":
+            body += (
+                '<div class="notice"><strong>国内检索：</strong>每条结果会标出来源层、页级证据状态和命中理由。'
+                '“正式可引用”只表示页级身份或正文已过人工门禁，不等于事件原件已闭环。'
+                '请从结果回到引用门禁，或进入 <a href="/domestic/workbench">国内研究平台</a>、'
+                '<a href="/research/gaps">一手证据缺口</a>、'
+                '<a href="/timeline?platform=domestic">国内年表</a>。</div>'
+            )
         if chip_html:
             body += f'<div class="tagline" style="margin:-8px 0 14px;">{chip_html}<span class="tag">{len(rows)} 条结果</span></div>'
         if rows:
             body += '<section class="result-list">' + "".join(
-                result_html(row, domestic_evidence_labels.get(int(row["page_id"]), ""))
+                result_html(
+                    row,
+                    domestic_evidence_labels.get(int(row["page_id"]), ""),
+                    query,
+                )
                 for row in rows
             ) + "</section>"
         else:
@@ -7783,7 +8339,21 @@ def doc_page(doc_key: str, page_id: str | None = None) -> bytes:
                 f'<span><strong>本库 ID</strong> doc/{h(doc["doc_key"])}</span>'
             )
 
-    body = breadcrumb_html([("/", "首页"), ("/docs", "全部文档"), (None, translate_title(doc["title"])[:36])]) + f"""
+    if platform == "domestic":
+        tools_html = (
+            '<a class="button" href="/domestic/workbench">国内研究平台</a>'
+            + tools_html
+        )
+        crumbs = [
+            ("/", "首页"),
+            ("/domestic/workbench", "国内研究平台"),
+            ("/docs", "全部文档"),
+            (None, translate_title(doc["title"])[:36]),
+        ]
+    else:
+        crumbs = [("/", "首页"), ("/docs", "全部文档"), (None, translate_title(doc["title"])[:36])]
+
+    body = breadcrumb_html(crumbs) + f"""
 <section class="doc-head{' cia-doc' if is_cia else ''}">
   <div>
     {title_block(doc["title"], None, "h1")}
@@ -10006,6 +10576,7 @@ def citation_page(page_id: int) -> bytes:
   </div>
   <div class="doc-tools">
     <a class="button" href="/doc/{quote(row["doc_key"])}?page_id={h(row["page_id"])}">返回阅读</a>
+    <a class="button" href="/domestic/workbench">国内研究平台</a>
     <a class="button secondary" href="{h(source_href(source_url))}" target="_blank" rel="noreferrer">查看来源</a>
   </div>
 </section>
@@ -10090,6 +10661,7 @@ def citation_page(page_id: int) -> bytes:
   <div class="doc-tools">
     <a class="button" href="/doc/{quote(row["doc_key"])}?page_id={h(row["page_id"])}">并排阅读</a>
     <a class="button" href="/review/{h(row["page_id"])}">校订译文</a>
+    {('<a class="button" href="/domestic/workbench">国内研究平台</a><a class="button secondary" href="/research/gaps">一手证据缺口</a>' if row["source_platform"] == "domestic" else "")}
     <a class="button" href="{h(source_href(source_url))}" target="_blank" rel="noreferrer">原始来源</a>
   </div>
 </section>
@@ -10205,6 +10777,7 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
             """,
             tuple(params),
         ).fetchall()
+        domestic_evidence_labels = _search_domestic_evidence_labels(c, rows)
     # 按月（YYYY-MM）和年（YYYY）双重分组
     months: dict[str, list[sqlite3.Row]] = {}
     years_for_density: dict[str, int] = {}
@@ -10266,11 +10839,14 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
     <div class="meta">{len({row["doc_key"] for row in rows})} 篇文档 · {len(rows)} 个片段 · 按月细化</div>
   </div>
   <div class="doc-tools">
+    <a class="button" href="/domestic/workbench">国内研究平台</a>
+    <a class="button" href="/research/gaps">一手证据缺口</a>
     <a class="button" href="/people">人物</a>
     <a class="button" href="/events">事件线索</a>
     <a class="button" href="/events/key">关键事件</a>
   </div>
 </section>
+{('<div class="notice"><strong>国内年表：</strong>这里按日期排列国内已入库页。页级证据徽章只说明复核状态，不把汇编、报刊或会刊升级为事件定义原件。请回到 <a href="/domestic/workbench">国内研究平台</a> 或 <a href="/research/gaps">一手证据缺口</a>。</div>' if platform_slug == "domestic" else "")}
 <div class="filters">{''.join(filter_links)}</div>
 {density_html}
 """
@@ -10307,16 +10883,31 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
                 _color = TIMELINE_PLAT_COLOR.get(src_platform or 'frus', '#0f6b5b')
                 src_badge = (f'<span class="src-badge" style="font-size:11px;background:{_color};color:#fff;'
                              f'padding:1px 7px;border-radius:3px;letter-spacing:.02em;">{_label}</span> ')
+                evidence_label = domestic_evidence_labels.get(int(row["page_id"]), "")
+                evidence_badge = ""
+                if src_platform == "domestic" and evidence_label:
+                    ev_class = "ok" if evidence_label == "正式可引用" else "warn"
+                    evidence_badge = f'<span class="pstatus {ev_class}">{h(evidence_label)}</span>'
+                if src_platform == "domestic":
+                    review_href = f'/domestic/evidence-review/{row["page_id"]}'
+                    review_label = "证据复核"
+                    extra_cite = '<br><a href="/domestic/workbench">国内研究平台</a>'
+                    cite_label = "引用门禁"
+                else:
+                    review_href = f'/review/{row["page_id"]}'
+                    review_label = "校订"
+                    extra_cite = f'<br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">来源</a>'
+                    cite_label = "摘录卡片"
                 body += f"""
 <article class="result">
   <div>
     {title_block(row["title"], href)}
     <div class="meta">{src_badge}{h(row["date_guess"])} · {h(row["volume_id"])}/{h(row["doc_id"])} · {h(page)} {grade_badge(row)}</div>
+    <div class="tagline">{evidence_badge}{''.join(f'<span class="tag">{h(tag)}</span>' for tag in topic_tags(row))}{issue}</div>
     <div class="snippet">原文: {h(compact(row["original_text"], 230))}</div>
     <div class="zh">中文: {h(compact(row["zh_text"], 230))}</div>
-    <div class="tagline">{''.join(f'<span class="tag">{h(tag)}</span>' for tag in topic_tags(row))}{issue}</div>
   </div>
-  <div class="cite"><a href="/cite/{h(row["page_id"])}">摘录卡片</a><br><a href="/review/{h(row["page_id"])}">校订</a><br><a href="{h(source_href(row["page_url"]))}" target="_blank" rel="noreferrer">来源</a></div>
+  <div class="cite"><a href="/cite/{h(row["page_id"])}">{cite_label}</a><br><a href="{h(review_href)}">{review_label}</a>{extra_cite}</div>
 </article>"""
             body += "</section>"
     return layout(title, body)
@@ -11546,6 +12137,8 @@ class Handler(BaseHTTPRequestHandler):
             return
         elif parsed.path == "/domestic/document":
             payload = domestic_staging_document_page(qs)
+        elif parsed.path == "/domestic/workbench":
+            payload = domestic_workbench_page()
         elif parsed.path == "/domestic/library":
             payload = domestic_library_page(qs)
         elif parsed.path == "/domestic/search":
