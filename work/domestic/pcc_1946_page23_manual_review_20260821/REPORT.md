@@ -14,4 +14,4 @@
 
 状态：`TITLE_AND_PAGE_IDENTITY_HUMAN_VERIFIED_BODY_REVIEW_OPEN`；`citation_ready=false`；未修改 SQLite。
 
-另登记了标题下方开头句的检索片段候选，使用 600 dpi 本地重渲染辅助阅读；该片段仍标记为 `quote_safe=false`，只能用于检索和下一轮人工复核，不能直接作为引文：[`FRAGMENT_CANDIDATE.json`](./FRAGMENT_CANDIDATE.json)。
+另登记了标题下方开头句的检索片段候选，使用 600 dpi 本地重渲染进行了第二次视觉核对。第二次核对确认该句的字符、分句标点和句末标点，片段级 `quote_safe=true`；整页正文仍未逐字校读，不能扩展为整页或完整开会词：[`FRAGMENT_SECOND_PASS.json`](./FRAGMENT_SECOND_PASS.json)。原始候选记录保留用于审计：[`FRAGMENT_CANDIDATE.json`](./FRAGMENT_CANDIDATE.json)。

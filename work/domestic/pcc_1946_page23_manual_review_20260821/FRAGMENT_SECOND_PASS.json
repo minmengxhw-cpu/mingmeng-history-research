@@ -1,0 +1,56 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对张澜开会词标题下方第一句进行第二次高分辨率视觉核对；只开放这一句的片段引用，不升级整页正文。",
+  "source_page_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/PAGE23_MANUAL_REVIEW.json",
+  "original_candidate_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/FRAGMENT_CANDIDATE.json",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 23,
+    "printed_page": 16,
+    "page_image_300dpi": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-023-r270.png",
+    "page_image_300dpi_sha256": "12e50c5215e1b5ed97824841ccb7deab793afc15d49ed9eb055700c6a7a87e65",
+    "page_image_600dpi_probe": "work/domestic/pcc_1946_sourcebook_render_20260821_highres/pdf-023-r270.jpg",
+    "page_image_600dpi_probe_sha256": "20289b8d54435122dcc9b08ee32f75244fd1b0153b95b8bd590fac1f348a6f48"
+  },
+  "review_passes": [
+    {
+      "pass_id": "initial_visual_pass",
+      "method": "300dpi_rotated_page_manual_reading",
+      "scope": "title_anchor_and_opening_sentence",
+      "status": "completed"
+    },
+    {
+      "pass_id": "second_visual_pass",
+      "method": "600dpi_local_rerender_manual_reading",
+      "scope": "opening_sentence_characters_and_punctuation",
+      "status": "completed",
+      "finding": "首句字符、分句逗号和句末句号均与片段转录一致；下一句以‘這個會議的成功或失敗’开始。"
+    }
+  ],
+  "fragment": {
+    "target_id": "zhang-lan-opening",
+    "title": "民盟代表张澜开会词（沈钧儒代）",
+    "scope": "标题下方首句；截至句末，不含标题上方前置段落和下一句",
+    "text": "主席、各位代表：今天政治協商會議開幕，這不只是全國人民注意的一件事，這是全世界人士注意的一件事。",
+    "transcription_mode": "manual_visual_transcription_600dpi_crosschecked_300dpi",
+    "character_check": "confirmed",
+    "punctuation_check": "confirmed",
+    "ocr_crosscheck": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-023-r270.ocr.md",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅该首句达到片段级引用门禁",
+    "continuation_boundary": "第24页仍需作为相邻页确认，不影响本首句的页23锚定",
+    "promotion_scope": "允许在带页码、来源SHA和片段边界的证据卡中引用；不得把片段扩展为整页或完整开会词"
+  },
+  "status": "HUMAN_VERIFIED_FRAGMENT_QUOTE_READY_PAGE_BODY_OPEN"
+}

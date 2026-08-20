@@ -24,11 +24,14 @@
     "quote_safe": false,
     "search_safe": true
   },
+  "second_pass_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
+  "second_pass_status": "completed_fragment_candidate_record_retained_for_audit",
   "evidence_boundary": {
     "page_identity_ready": true,
     "fragment_candidate_only": true,
     "page_citation_ready": false,
     "formal_db_written": false,
+    "fragment_citation_ready": true,
     "promotion_requirements": [
       "第二次人工逐字复核字符和标点",
       "确认正文起点和第24页连续关系",

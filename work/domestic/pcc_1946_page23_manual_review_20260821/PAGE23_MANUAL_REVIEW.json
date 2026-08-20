@@ -38,6 +38,8 @@
     "body_read": false,
     "citation_ready": false,
     "formal_body_promotion": false,
+    "fragment_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
+    "fragment_citation_ready": true,
     "source_level": "L2_sourcebook_scan",
     "next_promotion_requirements": [
       "人工核对目标正文的起止范围",

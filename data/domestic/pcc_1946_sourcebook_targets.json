@@ -30,7 +30,8 @@
       "adjacent_pdf_pages": [24],
       "boundary_review_ref": "work/domestic/pcc_1946_pages23_24_boundary_review_20260821/PAGES23_24_BOUNDARY_REVIEW.json",
       "status": "page_identity_boundary_verified",
-      "manual_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/PAGE23_MANUAL_REVIEW.json"
+      "manual_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/PAGE23_MANUAL_REVIEW.json",
+      "fragment_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/FRAGMENT_SECOND_PASS.json"
     },
     {
       "id": "zhang-junmai-closing",

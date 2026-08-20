@@ -26,6 +26,7 @@
       "rotated_image_bytes": 1349258,
       "visual_review_status": "visually_inspected",
       "manual_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/PAGE23_MANUAL_REVIEW.json",
+      "fragment_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
       "targets": [{"target_id": "zhang-lan-opening", "role": "title_start"}]
     },
     {
