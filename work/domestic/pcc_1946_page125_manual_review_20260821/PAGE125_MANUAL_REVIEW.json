@@ -1,0 +1,45 @@
+{
+  "schema": "domestic_sourcebook_page_manual_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1946年旧政协文献第125页完成章伯钧说明民主同盟意见的标题和印刷页码人工核验，并分离第126页后的邓颖超材料。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 125,
+    "printed_page": 116,
+    "page_image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-125-r270.png",
+    "page_image_sha256": "8f4f80fb8ecba3e45b0f6c47baf8f7f83c5fc5b1248f0a1ebc688dab5af3983f",
+    "main_db_page_id": 20909,
+    "main_db_page_label": "pdf-125 / printed-116 / 章伯钧说明民主同盟的意见",
+    "page_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/NLC416-01jh004019-12949_%E6%94%BF%E5%8D%8F%E6%96%87%E7%8C%AE_1946.pdf#page=125"
+  },
+  "target": {
+    "target_id": "zhang-bojun-democratic-league-view",
+    "visual_title": "章伯钧说明民主同盟意见",
+    "normalized_label": "章伯钧说明民主同盟的意见",
+    "title_status": "human_verified_visual_title",
+    "printed_page_status": "human_verified_visual_printed_page_116",
+    "body_status": "ocr_draft_only_not_line_by_line_human_verified",
+    "continuation_status": "page126_boundary_reviewed_separately"
+  },
+  "ocr": {
+    "draft_ref": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-125-r270.ocr.md",
+    "title_line": "章伯钧说明民主同盟意见",
+    "title_line_confidence": 0.9554,
+    "page_number_warning": "OCR将页码116误识别为011；以页图人工核验为准。"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "target_anchor_ready": true,
+    "body_read": false,
+    "citation_ready": false,
+    "formal_body_promotion": false,
+    "next_promotion_requirements": [
+      "逐字校读章伯钧说明的目标段落",
+      "确认第126页连续正文和邓颖超标题的分界",
+      "不把中共意见材料并入民盟意见节点"
+    ]
+  },
+  "status": "TITLE_AND_PAGE_IDENTITY_HUMAN_VERIFIED_CONTINUATION_BOUNDARY_OPEN"
+}

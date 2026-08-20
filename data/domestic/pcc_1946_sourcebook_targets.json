@@ -11,6 +11,7 @@
   "page_count": 247,
   "source_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/NLC416-01jh004019-12949_%E6%94%BF%E5%8D%94%E6%96%87%E7%8D%BB.pdf",
   "render_manifest": "data/domestic/pcc_1946_sourcebook_render_manifest.json",
+  "manual_review_coverage_ref": "work/domestic/pcc_1946_sourcebook_manual_review_coverage_20260821/COVERAGE.json",
   "render_dpi": 300,
   "render_rotation": "270deg",
   "body_read": false,
@@ -27,7 +28,9 @@
       "pdf_page_start": 23,
       "printed_page_start": 16,
       "adjacent_pdf_pages": [24],
-      "status": "page_identity_boundary_verified"
+      "boundary_review_ref": "work/domestic/pcc_1946_pages23_24_boundary_review_20260821/PAGES23_24_BOUNDARY_REVIEW.json",
+      "status": "page_identity_boundary_verified",
+      "manual_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/PAGE23_MANUAL_REVIEW.json"
     },
     {
       "id": "zhang-junmai-closing",
@@ -35,6 +38,8 @@
       "pdf_page_start": 52,
       "printed_page_start": 45,
       "adjacent_pdf_pages": [],
+      "manual_review_ref": "work/domestic/pcc_1946_page52_manual_review_20260821/PAGE52_MANUAL_REVIEW.json",
+      "boundary_candidate_ref": "work/domestic/pcc_1946_page52_boundary_candidate_20260821/PAGE52_53_BOUNDARY_CANDIDATE.json",
       "status": "page_identity_boundary_verified"
     },
     {
@@ -43,6 +48,8 @@
       "pdf_page_start": 62,
       "printed_page_start": 55,
       "adjacent_pdf_pages": [63],
+      "manual_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/PAGE62_MANUAL_REVIEW.json",
+      "boundary_review_ref": "work/domestic/pcc_1946_pages62_63_boundary_review_20260821/PAGES62_63_BOUNDARY_REVIEW.json",
       "status": "page_identity_boundary_verified"
     },
     {
@@ -51,6 +58,8 @@
       "pdf_page_start": 101,
       "printed_page_start": 94,
       "adjacent_pdf_pages": [],
+      "manual_review_ref": "work/domestic/pcc_1946_page101_manual_review_20260821/PAGE101_MANUAL_REVIEW.json",
+      "boundary_candidate_ref": "work/domestic/pcc_1946_pages101_102_boundary_review_20260821/PAGES101_102_BOUNDARY_REVIEW.json",
       "status": "page_identity_boundary_verified"
     },
     {
@@ -59,6 +68,8 @@
       "pdf_page_start": 125,
       "printed_page_start": 116,
       "adjacent_pdf_pages": [126],
+      "manual_review_ref": "work/domestic/pcc_1946_page125_manual_review_20260821/PAGE125_MANUAL_REVIEW.json",
+      "boundary_review_ref": "work/domestic/pcc_1946_pages125_126_boundary_review_20260821/PAGES125_126_BOUNDARY_REVIEW.json",
       "status": "page_identity_boundary_verified"
     },
     {
@@ -67,6 +78,8 @@
       "pdf_page_start": 206,
       "printed_page_start": 197,
       "adjacent_pdf_pages": [],
+      "manual_review_ref": "work/domestic/pcc_1946_page206_manual_review_20260821/PAGE206_MANUAL_REVIEW.json",
+      "boundary_candidate_ref": "work/domestic/pcc_1946_pages206_207_boundary_review_20260821/PAGES206_207_BOUNDARY_REVIEW.json",
       "status": "page_identity_boundary_verified"
     }
   ]

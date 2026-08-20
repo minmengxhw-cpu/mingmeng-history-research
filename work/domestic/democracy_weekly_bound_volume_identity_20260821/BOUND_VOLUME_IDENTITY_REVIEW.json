@@ -1,0 +1,98 @@
+{
+  "schema": "domestic_periodical_bound_volume_identity_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "固化《民主周刊》合订扫描的容器身份、文本层判断和定向OCR边界",
+  "scope": "国家图书馆/Wikimedia Commons《民主周刊》1944-12至1946-08合订扫描",
+  "body_read": false,
+  "whole_volume_ocr_run": false,
+  "raw_files_copied": false,
+  "formal_db_written": false,
+  "policy": {
+    "no_deletion": true,
+    "no_duplicate_ocr": true,
+    "metadata_is_not_citation": true,
+    "ocr_is_not_citation_without_page_review": true,
+    "targeted_ocr_only_after_issue_page_scope": true
+  },
+  "container": {
+    "source_id": "nlc-democracy-weekly-bound-volume-1944-1946",
+    "title": "《民主周刊》国家图书馆合订扫描",
+    "source_file": "data/domestic/grok_cycle_0006_20260801/pdf/commons_NLC_民主周刊.pdf",
+    "sha256": "38e7ca88e6b45efca27c7b685fff1ff57c2dc292ca3c1b8972c05994994e8fae",
+    "bytes": 59527186,
+    "pdf_pages": 1279,
+    "source_url": "https://commons.wikimedia.org/wiki/File:NLC511-026031010040217-290_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.pdf",
+    "institution": "国家图书馆 / Wikimedia Commons",
+    "catalogue_span": "1944.12-1946.8",
+    "catalogue_span_status": "metadata_verified_from_local_landing",
+    "source_role": "contemporary_periodical_bound_scan",
+    "identity_status": "bound_volume_identity_verified_issue_boundaries_pending",
+    "evidence_level": "HOLD",
+    "citation_ready": false,
+    "formal_db_apply": false
+  },
+  "text_layer_review": {
+    "status": "TEXT_LAYER_WEAK",
+    "usable_for_search": false,
+    "probe_method": "pdftotext_layout_and_prior_minimax_manifest",
+    "observed_issue": "PDF没有可用的正文文本层；既有试跑只形成空白/极短页级输出，不能替代影像阅读。",
+    "decision": "SKIP_WHOLE_VOLUME_OCR",
+    "reason": "合订册共有1279页，期号边界和目标文章页尚未定位；全量OCR会产生大量无效派生物，且不能自动获得可引用身份。"
+  },
+  "container_identity_clue": {
+    "source_page_index": 0,
+    "source_page_label": "p1",
+    "evidence_type": "prior_ocr_container_clue",
+    "ocr_model": "PaddleOCR/PP-OCRv6_medium lang=ch",
+    "ocr_dpi": 110,
+    "rendered_image_sha256": "6bce6b1dfd11d4bcea0b164cf908e2f3848c1364333756473209fff3377d54b0",
+    "ocr_md_sha256": "e67f0427b775b17f0bd4df5e16f1c1baed42f4e0d35016716f6940b7c7f98fc7",
+    "mean_confidence": 0.9866,
+    "line_count": 15,
+    "normalized_clues": [
+      "民主周刊",
+      "1944年至1946年",
+      "卷期",
+      "增刊 no.1至no.3"
+    ],
+    "interpretation": "该页足以支持合订册/容器身份线索和出版范围线索，但不能确定任何单期期号的物理页范围，也不能支撑正文事实引文。",
+    "citation_ready": false,
+    "human_verified": false,
+    "formal_db_apply": false
+  },
+  "promotion_blockers": [
+    "合订册期号到物理页的连续映射尚未建立",
+    "单期封面、题名页、首尾页尚未完成人工核验",
+    "目标文章页尚未定位",
+    "当前OCR是检索草稿/容器线索，不是人工校读引文"
+  ],
+  "next_gates": [
+    {
+      "gate": "G1_issue_identity",
+      "requirement": "从已有CADAL单期锚点中完成至少一个封面、题名页、首尾页人工核验",
+      "output": "issue_identity_review.json",
+      "promotion": "允许进入期号导航和定向OCR队列，仍不自动成为citation_ready"
+    },
+    {
+      "gate": "G2_bound_volume_page_map",
+      "requirement": "建立期号、卷号、出版月、合订册物理页范围和页图SHA映射",
+      "output": "democracy_weekly_issue_page_map.json",
+      "promotion": "允许把目标页加入研究包，不等于整册可引用"
+    },
+    {
+      "gate": "G3_targeted_content_review",
+      "requirement": "仅对1945大会、1946李闻及相关组织压力的已定位目标页进行OCR和人工校读",
+      "output": "issue_article_locator_and_review.json",
+      "promotion": "逐页决定review_only或citation_ready"
+    }
+  ],
+  "target_issue_anchors": [
+    "cadal-democracy-weekly-03016375",
+    "cadal-democracy-weekly-03016376",
+    "cadal-democracy-weekly-03016377",
+    "cadal-democracy-weekly-03016378",
+    "cadal-democracy-weekly-03016374",
+    "cadal-democracy-weekly-03016383"
+  ],
+  "status": "METADATA_ONLY_CONTAINER_IDENTITY_REVIEW_COMPLETE"
+}

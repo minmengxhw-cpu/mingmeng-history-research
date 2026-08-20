@@ -1,0 +1,54 @@
+{
+  "schema": "domestic_sourcebook_adjacent_page_boundary_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "核验1946年旧政协文献中张澜开会词目标页的第23—24页连续关系，不把OCR草稿提升为完整正文引文。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf"
+  },
+  "target": {
+    "target_id": "zhang-lan-opening",
+    "title_start_pdf_page": 23,
+    "title_start_printed_page": 16,
+    "adjacent_pdf_page": 24,
+    "adjacent_printed_page": 17,
+    "title_start_manual_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/PAGE23_MANUAL_REVIEW.json"
+  },
+  "pages": [
+    {
+      "pdf_page": 23,
+      "printed_page_visual": 16,
+      "image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-023-r270.png",
+      "image_sha256": "12e50c5215e1b5ed97824841ccb7deab793afc15d49ed9eb055700c6a7a87e65",
+      "role": "title_start_and_body_start",
+      "visual_status": "human_verified_title_and_printed_page"
+    },
+    {
+      "pdf_page": 24,
+      "printed_page_visual": 17,
+      "image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-024-r270.png",
+      "image_sha256": "aa17998653bb0de9bba92dabafdcbc3ad2e1c5d056ee7b8ad394b1b39ec689bd",
+      "role": "adjacent_continuation",
+      "visual_status": "human_verified_printed_page_and_no_new_target_heading",
+      "ocr_draft_ref": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-024-r270.ocr.md",
+      "ocr_page_number_warning": "OCR草稿将页码17误识别为15；以页图人工核验为准。"
+    }
+  ],
+  "boundary_result": {
+    "printed_pagination_continuity": "confirmed_16_to_17",
+    "new_heading_on_page_24": false,
+    "target_continuation": "supported_by_page_layout_and_ocr_context_not_full_line_by_line_transcription",
+    "page_identity_ready": true,
+    "body_read": false,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "promotion": "可以把第24页作为张澜开会词的相邻连续页导航；不能把OCR全文直接升级为正式正文。"
+  },
+  "next_action": [
+    "核验第23页末行与第24页首行的逐字接续",
+    "继续处理第24页正文的目标段落范围",
+    "保持页级来源、OCR草稿和人工核验分层"
+  ],
+  "status": "BOUNDARY_16_TO_17_HUMAN_CONFIRMED_BODY_REVIEW_OPEN"
+}

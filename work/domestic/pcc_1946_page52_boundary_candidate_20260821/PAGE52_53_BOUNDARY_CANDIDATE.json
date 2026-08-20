@@ -1,0 +1,43 @@
+{
+  "schema": "domestic_sourcebook_adjacent_boundary_candidate.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "登记张君劢闭会词第52页末与第53页顶部之间的连续关系候选，并标出第53页新标题的边界；尚未纳入正式页链。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf"
+  },
+  "target": {
+    "target_id": "zhang-junmai-closing",
+    "page52_pdf": 52,
+    "page52_printed": 45,
+    "page52_review_ref": "work/domestic/pcc_1946_page52_manual_review_20260821/PAGE52_MANUAL_REVIEW.json",
+    "page52_high_resolution_probe": "work/domestic/pcc_1946_sourcebook_render_20260821_highres/pdf-052-r270.jpg",
+    "page52_high_resolution_probe_sha256": "ac0e7174cf6fa0d4e66a7866bdd3a3e518ad8a91d16e92456b39481ef9784180",
+    "page53_pdf": 53,
+    "page53_printed_visual": 46,
+    "page53_probe_image": "work/domestic/pcc_1946_sourcebook_boundary_probe_20260821/pdf-053-r270.jpg",
+    "page53_probe_image_sha256": "5625b624d86849b67abc36602665a791e5925c5aae64984a4da998a0e57b5ce1",
+    "page53_probe_ocr": "work/domestic/pcc_1946_sourcebook_boundary_probe_20260821/pdf-053-r270.ocr.md"
+  },
+  "observations": {
+    "page52_end": "OCR在张君劢闭会词正文末尾以‘走上政…’截断；需要以原页逐字核对。",
+    "page53_top": "页图顶部先出现无新标题的正文行，随后出现‘青年党代表曾琦闭会词’新标题。",
+    "printed_pagination": "page52=45, page53=46, both visually checked",
+    "boundary_interpretation": "page53顶部很可能是张君劢闭会词的末段，青年党代表曾琦闭会词从其后标题开始；当前仍是边界候选。"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "continuation_confirmed": false,
+    "new_title_boundary_seen": true,
+    "body_read": false,
+    "citation_ready": false,
+    "formal_db_written": false,
+    "do_not_promote_until": [
+      "逐字对照第52页末行与第53页首段",
+      "确认第53页顶部正文确属张君劢闭会词而非上一材料残段",
+      "将青年党代表曾琦闭会词作为独立目标，不与张君劢文章合并"
+    ]
+  },
+  "status": "BOUNDARY_CANDIDATE_PAGE53_TOP_AND_NEW_TITLE_SEEN"
+}

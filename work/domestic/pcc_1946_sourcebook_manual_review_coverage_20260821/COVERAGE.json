@@ -1,0 +1,76 @@
+{
+  "schema": "domestic_sourcebook_manual_review_coverage.v1",
+  "generated_at": "2026-08-21",
+  "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+  "source_map": "data/domestic/pcc_1946_sourcebook_targets.json",
+  "render_manifest": "data/domestic/pcc_1946_sourcebook_render_manifest.json",
+  "audit_method": "逐项读取六个目标的manual_review_ref和boundary_ref，确认文件存在并读取citation状态；不读取正文作为通过依据。",
+  "target_count": 6,
+  "manual_review_ref_exists": true,
+  "boundary_ref_exists": true,
+  "manual_citation_ready_count": 0,
+  "boundary_page_citation_ready_count": 0,
+  "formal_body_promotion_count": 0,
+  "targets": [
+    {
+      "id": "zhang-lan-opening",
+      "pdf_page": 23,
+      "printed_page": 16,
+      "manual_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/PAGE23_MANUAL_REVIEW.json",
+      "boundary_ref": "work/domestic/pcc_1946_pages23_24_boundary_review_20260821/PAGES23_24_BOUNDARY_REVIEW.json",
+      "citation_ready": false,
+      "boundary_status": "confirmed_16_to_17"
+    },
+    {
+      "id": "zhang-junmai-closing",
+      "pdf_page": 52,
+      "printed_page": 45,
+      "manual_review_ref": "work/domestic/pcc_1946_page52_manual_review_20260821/PAGE52_MANUAL_REVIEW.json",
+      "boundary_ref": "work/domestic/pcc_1946_page52_boundary_candidate_20260821/PAGE52_53_BOUNDARY_CANDIDATE.json",
+      "citation_ready": false,
+      "boundary_status": "candidate_page53_top_and_next_title_seen"
+    },
+    {
+      "id": "luo-longji-democratic-league-view",
+      "pdf_page": 62,
+      "printed_page": 55,
+      "manual_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/PAGE62_MANUAL_REVIEW.json",
+      "boundary_ref": "work/domestic/pcc_1946_pages62_63_boundary_review_20260821/PAGES62_63_BOUNDARY_REVIEW.json",
+      "citation_ready": false,
+      "boundary_status": "confirmed_55_to_56_next_title_separated"
+    },
+    {
+      "id": "democratic-league-proposal",
+      "pdf_page": 101,
+      "printed_page": 94,
+      "manual_review_ref": "work/domestic/pcc_1946_page101_manual_review_20260821/PAGE101_MANUAL_REVIEW.json",
+      "boundary_ref": "work/domestic/pcc_1946_pages101_102_boundary_review_20260821/PAGES101_102_BOUNDARY_REVIEW.json",
+      "citation_ready": false,
+      "boundary_status": "confirmed_94_to_95_next_title_separated"
+    },
+    {
+      "id": "zhang-bojun-democratic-league-view",
+      "pdf_page": 125,
+      "printed_page": 116,
+      "manual_review_ref": "work/domestic/pcc_1946_page125_manual_review_20260821/PAGE125_MANUAL_REVIEW.json",
+      "boundary_ref": "work/domestic/pcc_1946_pages125_126_boundary_review_20260821/PAGES125_126_BOUNDARY_REVIEW.json",
+      "citation_ready": false,
+      "boundary_status": "confirmed_116_to_117_next_title_separated"
+    },
+    {
+      "id": "zhang-lan-march-21-talk",
+      "pdf_page": 206,
+      "printed_page": 197,
+      "manual_review_ref": "work/domestic/pcc_1946_page206_manual_review_20260821/PAGE206_MANUAL_REVIEW.json",
+      "boundary_ref": "work/domestic/pcc_1946_pages206_207_boundary_review_20260821/PAGES206_207_BOUNDARY_REVIEW.json",
+      "citation_ready": false,
+      "boundary_status": "confirmed_197_to_198_next_title_separated"
+    }
+  ],
+  "conclusion": {
+    "identity_and_navigation": "all_six_targets_have_traceable_manual_and_boundary_records",
+    "formal_citation": "not_ready_for_any_target_until_body_fragments_are_manually_transcribed_and_verified",
+    "next_stage": "select_short_high_value_fragments for second-pass transcription; do not bulk-promote OCR"
+  },
+  "status": "P0_PAGE_IDENTITY_AND_BOUNDARY_COVERAGE_COMPLETE_BODY_CITATION_OPEN"
+}

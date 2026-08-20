@@ -1,0 +1,53 @@
+{
+  "schema": "domestic_sourcebook_adjacent_page_boundary_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "核验民主同盟的提案第101—102页的页码关系、正文承接和梁漱溟说明的新标题边界。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf"
+  },
+  "target": {
+    "target_id": "democratic-league-proposal",
+    "title_start_pdf_page": 101,
+    "title_start_printed_page": 94,
+    "adjacent_pdf_page": 102,
+    "adjacent_printed_page_visual": 95,
+    "title_start_manual_review_ref": "work/domestic/pcc_1946_page101_manual_review_20260821/PAGE101_MANUAL_REVIEW.json"
+  },
+  "pages": [
+    {
+      "pdf_page": 101,
+      "printed_page_visual": 94,
+      "image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-101-r270.png",
+      "image_sha256": "e5df5b201b21fbe401069df81abba2889d16c7cc920662144dbb91324e4f8cdc",
+      "role": "preceding_material_then_target_title_start",
+      "visual_status": "human_verified_in_page_target_boundary"
+    },
+    {
+      "pdf_page": 102,
+      "printed_page_visual": 95,
+      "image": "work/domestic/pcc_1946_sourcebook_boundary_probe_20260821/pdf-102-r270.jpg",
+      "image_sha256": "0f95f458daa7dfc6e31f1404854e5c53c3edd38155298060b88ae9700a756e5b",
+      "role": "target_continuation_then_new_title",
+      "ocr_draft_ref": "work/domestic/pcc_1946_sourcebook_boundary_probe_20260821/pdf-102-r270.ocr.md",
+      "new_title_visual": "梁漱溟对民主同盟提案的说明"
+    }
+  ],
+  "boundary_result": {
+    "printed_pagination_continuity": "confirmed_94_to_95",
+    "page102_target_continuation": "supported_by_page_layout_and_ocr_context",
+    "next_title_boundary": "human_verified_new_title_after_page102_lead_body",
+    "page_identity_ready": true,
+    "body_read": false,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "promotion": "第102页可作为民主同盟提案的相邻导航页；梁漱溟说明必须作为独立内容节点。"
+  },
+  "next_action": [
+    "逐字核对第101页标题后和第102页页首的正文接续",
+    "把梁漱溟说明作为独立P0候选评估",
+    "保持页内前置青年党材料、民盟提案和梁漱溟说明三者分层"
+  ],
+  "status": "BOUNDARY_94_TO_95_HUMAN_CONFIRMED_NEXT_TITLE_SEPARATED"
+}

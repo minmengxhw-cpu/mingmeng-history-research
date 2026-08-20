@@ -1,0 +1,39 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_candidate.v1",
+  "generated_at": "2026-08-21",
+  "source_page_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/PAGE23_MANUAL_REVIEW.json",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "pdf_page": 23,
+    "printed_page": 16,
+    "page_image_300dpi": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-023-r270.png",
+    "page_image_600dpi_probe": "work/domestic/pcc_1946_sourcebook_render_20260821_highres/pdf-023-r270.jpg",
+    "page_image_600dpi_probe_sha256": "20289b8d54435122dcc9b08ee32f75244fd1b0153b95b8bd590fac1f348a6f48"
+  },
+  "target": {
+    "target_id": "zhang-lan-opening",
+    "title": "民盟代表张澜开会词（沈钧儒代）",
+    "fragment_scope": "标题下方开头句；不是整页，也不含标题上方前置内容"
+  },
+  "fragment": {
+    "text": "主席、各位代表：今天政治協商會議開幕，這不只是全國人民注意的一件事，這是全世界人士注意的一件事。",
+    "transcription_mode": "manual_reading_with_punctuation_normalization",
+    "visual_basis": "600dpi local rerender and 300dpi rotated page image",
+    "ocr_crosscheck": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-023-r270.ocr.md",
+    "human_review_status": "single_review_fragment_punctuation_and_character_check_open",
+    "quote_safe": false,
+    "search_safe": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_candidate_only": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "promotion_requirements": [
+      "第二次人工逐字复核字符和标点",
+      "确认正文起点和第24页连续关系",
+      "在正式库中保留原页、OCR草稿和人工片段的来源链"
+    ]
+  },
+  "status": "SEARCHABLE_FRAGMENT_CANDIDATE_NOT_QUOTE_READY"
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "domestic_sqlite_platform_audit.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对当前研究索引 SQLite 做只读完整性、schema、国内资料规模和第十六期入库状态审计",
+  "db_path": "<local-formal-sqlite-db>",
+  "mutation": false,
+  "integrity_check": "ok",
+  "schema_observed": {
+    "documents_columns": ["id", "source_id", "doc_key", "volume_id", "volume_title", "doc_id", "doc_number", "title", "date_guess", "url", "local_html", "local_txt", "hit_type", "matched_terms", "source_platform", "ingested_candidate_id"],
+    "page_provenance_columns": ["page_id", "document_id", "source_id", "source_file", "source_sha256", "source_file_size", "pdf_page_no", "physical_page_no", "printed_page", "page_image_path", "page_image_sha256", "ocr_md_path", "ocr_md_sha256", "ocr_engine", "ocr_model", "ocr_mode", "ocr_lines", "ocr_mean_confidence", "text_chars", "citation_ready", "needs_human_review", "review_status", "machine_review_note", "human_review_note", "period", "year", "event_tags", "source_title", "batch_id", "created_at", "updated_at"]
+  },
+  "counts": {
+    "documents_total": 1415,
+    "domestic_documents": 560,
+    "page_provenance_total": 5493,
+    "citation_ready_pages": 268,
+    "human_verified_status_pages": 268,
+    "needs_human_review_pages": 762,
+    "review_only_pages": 1424,
+    "fts_page_rows": 6277,
+    "issue16_formal_page_records": 0
+  },
+  "documents_by_source_platform": {
+    "cia": 102,
+    "domestic": 554,
+    "drnh": 287,
+    "frus": 299,
+    "hathitrust": 54,
+    "hoover": 2,
+    "newspapersg": 93,
+    "wilson": 24
+  },
+  "page_review_status_counts": {
+    "human_verified": 268,
+    "machine_verified": 3736,
+    "needs_fix": 1,
+    "review_only": 1424,
+    "unreadable": 64
+  },
+  "issue16_status": {
+    "formal_db_written": false,
+    "citation_ready": false,
+    "reason": "单期日期冲突、合订册与单期版本一一对应关系、候选页正文转录尚未收口；本地审核文件和页图证据已保留。"
+  },
+  "acceptance": {
+    "sqlite_integrity": "PASS",
+    "fts_presence": "PASS",
+    "schema_query": "PASS",
+    "source_mutation": "NONE",
+    "unified_platform_gate": "PASS / OPEN_PRIMARY_GAPS"
+  },
+  "next_action": [
+    "不将issue16候选页直接写入正式SQLite",
+    "完成第5页电文和第14页报道的正文级人工转录/版本对齐后，再进行独立页记录导入",
+    "继续用本审计口径更新国内平台完成度，区分正式库、review_only和导航材料"
+  ],
+  "status": "READ_ONLY_PLATFORM_AUDIT_COMPLETE_ISSUE16_FORMAL_IMPORT_OPEN"
+}

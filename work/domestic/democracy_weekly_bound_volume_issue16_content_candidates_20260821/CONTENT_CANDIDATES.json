@@ -1,0 +1,69 @@
+{
+  "schema": "domestic_periodical_content_candidate.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "登记《民主周刊》第三卷第十六期合订本范围内的内容发现线索，供后续人工逐字校读和版本对齐，不作为正式正文或引文。",
+  "source_issue": {
+    "source_id": "cadal-democracy-weekly-03016383",
+    "title": "《民主周刊》第三卷第十六期",
+    "single_issue_source_sha256": "d334a6a7c7d1c776e10af68d9e57ffffe9541773dc491d3ca4b84b18769906d3",
+    "bound_map_ref": "work/domestic/democracy_weekly_bound_volume_issue16_map_20260821/ISSUE16_BOUND_MAP.json"
+  },
+  "policy": {
+    "no_deletion": true,
+    "ocr_is_discovery_only": true,
+    "machine_text_is_not_primary_body_evidence": true,
+    "no_title_completion_by_guess": true,
+    "no_single_issue_alignment_by_page_offset": true,
+    "citation_ready": false,
+    "formal_db_written": false
+  },
+  "candidates": [
+    {
+      "candidate_id": "nlc-issue16-bound-p1199-wen-yiduo-title-prefix",
+      "bound_volume_pdf_page": 1199,
+      "bound_render_260dpi": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_probe_260dpi/pdf-page-1199.jpg",
+      "bound_render_260dpi_sha256": "b8f1a5bf0118b29b86c1606196850238c32279a0ae7b7ea7c585e4b1de5affe8",
+      "higher_resolution_probe": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_probe_600dpi/pdf-page-1199.jpg",
+      "higher_resolution_probe_sha256": "71f0f2eea48e14aafd3431e39a0841473182ab0913cd312ab063be77f823ed0b",
+      "higher_resolution_probe_status": "rendered_and_hash_verified_continuation_still_open",
+      "page_identity_render_140dpi": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1199.jpg",
+      "page_identity_render_140dpi_sha256": "b0e3a83d103f789e976137ed2125144e6d694b42a50efc33074f463ce52a6238",
+      "ocr_draft_ref": "work/domestic/democracy_weekly_issue16_bound_ocr_140dpi_20260821/issue16-1199.ocr.md",
+      "machine_lead": {
+        "text": "聞一多就是我們的",
+        "confidence": 0.8198,
+        "engine": "PaddleOCR 3.7.0 / PP-OCRv6_medium_det + PP-OCRv6_medium_rec",
+        "role": "discovery_lead_only"
+      },
+      "visual_observation": "右侧竖排题名框可见‘闻一多就是我们的……’前缀；当前探针图像和裁切不足以人工逐字确认续字或完整题名。",
+      "research_value": [
+        "可能涉及闻一多及民主政治语境",
+        "可作为《民主周刊》第十六期内容目录和李闻专题的定向复核入口"
+      ],
+      "status": "title_prefix_visually_verified_continuation_open",
+      "body_read": false,
+      "human_transcription": false,
+      "page_identity": "human_verified_issue_segment_only",
+      "citation_ready": false,
+      "formal_db_written": false,
+      "single_issue_alignment": "not_confirmed",
+      "not_to_be_promoted_until": [
+        "完整题名和正文由人工逐字校读",
+        "印刷页码和文章边界确认",
+        "与CADAL单期页或其他版本建立明确页级版本关系",
+        "来源权限和公开展示边界确认"
+      ]
+    }
+  ],
+  "conclusion": {
+    "candidate_count": 1,
+    "usable_now": "仅用于检索导航、人工复核排队和研究线索发现",
+    "not_usable_now": "正式引用、正式正文、单期页码替代、人物事实的独立证明",
+    "next_action": [
+      "对1199页题名框和正文做更高分辨率人工校读",
+      "检查1199页与单期第5/14页是否存在可核验的标题、版式或印刷页码对应",
+      "若正文可读，另建独立页级provenance记录，不覆盖现有单期来源"
+    ]
+  },
+  "status": "REVIEW_ONLY_CONTENT_CANDIDATE"
+}

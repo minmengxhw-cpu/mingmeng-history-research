@@ -196,16 +196,24 @@
     },
     {
       "source_id": "cadal-democracy-weekly-03016383",
-      "title": "《民主周刊》第三卷第十六期（1946-07）",
-      "source_file": null,
+      "title": "《民主周刊》第三卷第十六期（封面日期1946-06-22；CADAL目录记1946-07）",
+      "source_file": "data/domestic/raw/public_sources/cadal/CADAL03016383_民主周刊.djvu",
+      "source_file_size_bytes": 1538717,
+      "source_sha256": "d334a6a7c7d1c776e10af68d9e57ffffe9541773dc491d3ca4b84b18769906d3",
       "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
       "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016383",
-      "metadata_description": "第三卷第十六期v.3，no.16（1946，7）；Commons元数据登记16页",
-      "status": "visual_issue_identity_confirmed_remote_preview_only",
+      "metadata_description": "第三卷第十六期v.3，no.16（CADAL目录1946，7）；封面视觉日期为三十五年六月二十二日（1946-06-22）；Commons元数据登记16页",
+      "status": "local_source_verified_visual_date_conflict_open",
       "identity_review_ref": "work/domestic/democracy_weekly_issue16_identity_review_20260821/ISSUE16_IDENTITY_REVIEW.json",
+      "ocr_draft_dir": "work/domestic/democracy_weekly_issue16_ocr_full_20260821",
+      "bound_volume_review_ref": "work/domestic/democracy_weekly_bound_volume_issue16_map_20260821/ISSUE16_BOUND_MAP.json",
+      "bound_volume_pdf_page_start": 1190,
+      "bound_volume_pdf_page_end_candidate": 1205,
+      "bound_volume_following_partition_pdf_page": 1206,
+      "bound_volume_mapping_status": "navigation_only_end_candidate_open",
       "page_identity_status": "human_verified_identity_only",
       "formal_db_apply": false,
-      "next_action": "P0追索对象：已核验封面、期号、公开页2和页16入口；下一步取得本地原文件及SHA256，再定位闻一多/李公朴相关文章和物理页码。"
+      "next_action": "P0追索对象：本地原文件和SHA256已核验；已定位第1、5、14页候选文章；合订册第1190页封面、第1205页末页候选和第1206页增刊分区已定位，下一步做单期/合订影像逐页版本对齐、人工逐字校读并处理日期冲突。"
     }
   ],
   "next_gates": [

@@ -18,12 +18,14 @@
   "page_level_citation_ready": true,
   "visual_review_status": "page_identity_and_boundary_human_verified_body_ocr_pending",
   "page_image_policy": "raw_and_rotated_images_remain_local_under_work; only hashes and coordinates are committed",
+  "manual_review_coverage_ref": "work/domestic/pcc_1946_sourcebook_manual_review_coverage_20260821/COVERAGE.json",
   "pages": [
     {
       "pdf_page": 23,
       "rotated_image_sha256": "12e50c5215e1b5ed97824841ccb7deab793afc15d49ed9eb055700c6a7a87e65",
       "rotated_image_bytes": 1349258,
       "visual_review_status": "visually_inspected",
+      "manual_review_ref": "work/domestic/pcc_1946_page23_manual_review_20260821/PAGE23_MANUAL_REVIEW.json",
       "targets": [{"target_id": "zhang-lan-opening", "role": "title_start"}]
     },
     {
@@ -31,6 +33,7 @@
       "rotated_image_sha256": "aa17998653bb0de9bba92dabafdcbc3ad2e1c5d056ee7b8ad394b1b39ec689bd",
       "rotated_image_bytes": 1469071,
       "visual_review_status": "visually_inspected",
+      "manual_review_ref": "work/domestic/pcc_1946_pages23_24_boundary_review_20260821/PAGES23_24_BOUNDARY_REVIEW.json",
       "targets": [{"target_id": "zhang-lan-opening", "role": "adjacent_boundary"}]
     },
     {
@@ -38,6 +41,7 @@
       "rotated_image_sha256": "65f98380ca7a3d0f7e39ac62929f3ce154c725dedc1121e74a0e064e092e23b7",
       "rotated_image_bytes": 1428403,
       "visual_review_status": "visually_inspected",
+      "manual_review_ref": "work/domestic/pcc_1946_page52_manual_review_20260821/PAGE52_MANUAL_REVIEW.json",
       "targets": [{"target_id": "zhang-junmai-closing", "role": "title_start"}]
     },
     {
@@ -45,6 +49,7 @@
       "rotated_image_sha256": "0f8c115a912c24e88be34f77ae7aef6dc1d4b328ce8b14113b9a902f4b897bb0",
       "rotated_image_bytes": 1342010,
       "visual_review_status": "visually_inspected",
+      "manual_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/PAGE62_MANUAL_REVIEW.json",
       "targets": [{"target_id": "luo-longji-democratic-league-view", "role": "title_start"}]
     },
     {
@@ -52,6 +57,7 @@
       "rotated_image_sha256": "7240389410a05ac19e4c546fcc1ec7ca62cb5d3a4e03ef8302b3cf9dbef46375",
       "rotated_image_bytes": 1261283,
       "visual_review_status": "visually_inspected",
+      "manual_review_ref": "work/domestic/pcc_1946_pages62_63_boundary_review_20260821/PAGES62_63_BOUNDARY_REVIEW.json",
       "targets": [{"target_id": "luo-longji-democratic-league-view", "role": "adjacent_boundary"}]
     },
     {
@@ -59,6 +65,7 @@
       "rotated_image_sha256": "e5df5b201b21fbe401069df81abba2889d16c7cc920662144dbb91324e4f8cdc",
       "rotated_image_bytes": 1167509,
       "visual_review_status": "visually_inspected",
+      "manual_review_ref": "work/domestic/pcc_1946_page101_manual_review_20260821/PAGE101_MANUAL_REVIEW.json",
       "targets": [{"target_id": "democratic-league-proposal", "role": "title_start"}]
     },
     {
@@ -66,6 +73,7 @@
       "rotated_image_sha256": "8f4f80fb8ecba3e45b0f6c47baf8f7f83c5fc5b1248f0a1ebc688dab5af3983f",
       "rotated_image_bytes": 1345619,
       "visual_review_status": "visually_inspected",
+      "manual_review_ref": "work/domestic/pcc_1946_page125_manual_review_20260821/PAGE125_MANUAL_REVIEW.json",
       "targets": [{"target_id": "zhang-bojun-democratic-league-view", "role": "title_start"}]
     },
     {
@@ -73,6 +81,7 @@
       "rotated_image_sha256": "0b366a40c0c74ca490e8d5015dca80b21f7c4aa5b1238a878af7b008fee7ef34",
       "rotated_image_bytes": 1561869,
       "visual_review_status": "visually_inspected",
+      "manual_review_ref": "work/domestic/pcc_1946_pages125_126_boundary_review_20260821/PAGES125_126_BOUNDARY_REVIEW.json",
       "targets": [{"target_id": "zhang-bojun-democratic-league-view", "role": "adjacent_boundary"}]
     },
     {
@@ -80,6 +89,7 @@
       "rotated_image_sha256": "6d0aff9b0ba2b398eca69eec416c47cbae54e3e26da53213d3ec8702c1ed6667",
       "rotated_image_bytes": 1152265,
       "visual_review_status": "visually_inspected",
+      "manual_review_ref": "work/domestic/pcc_1946_page206_manual_review_20260821/PAGE206_MANUAL_REVIEW.json",
       "targets": [{"target_id": "zhang-lan-march-21-talk", "role": "title_start"}]
     }
   ]

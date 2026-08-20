@@ -1,0 +1,88 @@
+{
+  "schema": "domestic_periodical_bound_volume_page_probe.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "用少量本地渲染页确认合订册的卷期分隔、广告页和重复页风险",
+  "source_id": "nlc-democracy-weekly-bound-volume-1944-1946",
+  "source_sha256": "38e7ca88e6b45efca27c7b685fff1ff57c2dc292ca3c1b8972c05994994e8fae",
+  "source_pdf_pages": 1279,
+  "source_file": "data/domestic/grok_cycle_0006_20260801/pdf/commons_NLC_民主周刊.pdf",
+  "method": {
+    "render": "pdftoppm_jpeg_scale_to_1200",
+    "review": "local_visual_inspection",
+    "body_transcription": false,
+    "raw_files_copied": false,
+    "formal_db_written": false,
+    "whole_volume_ocr": false,
+    "ocr_sampling": "low_resolution_pilot_interrupted_before_any_formal_promotion"
+  },
+  "sample_pages": [
+    {
+      "pdf_page": 1,
+      "render_sha256": "5c6663b389008115b35f6c052c05e21ebe32c91f82d7032c1dfe2b682ca7c781",
+      "role": "bound_container_title_page",
+      "visual_observation": "可见《民主周刊》、1944年第一卷第一期至1946年第三卷第十九期及增刊no.1至no.3的合订范围线索。",
+      "identity_value": "container_scope_only",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 2,
+      "render_sha256": "b24ae27c1af0da1277f915aaf06ad5ac061752b9116437d7e08226bcbb0f4fec",
+      "role": "volume_partition_page",
+      "visual_observation": "可见‘1944-45年 第一卷 1-13期’的分卷线索。",
+      "identity_value": "volume_partition_only",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 3,
+      "render_sha256": "96387199b69add9b62964cfd5a908db18ad70f5ae08b6a435ef827926181b188",
+      "role": "issue_start_anchor",
+      "visual_observation": "可见《民主周刊》‘第一卷第一期’封面/题名页，确认合订册第3页进入第一卷第一期。",
+      "identity_value": "issue_start_anchor_confirmed",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 23,
+      "render_sha256": "76957ca478ac753c6c3826b8dd2ba0ca4472b2c77294815b42145e3f97cc7088",
+      "role": "same_issue_endpoint_candidate",
+      "visual_observation": "页眉仍可见‘第一卷第一期’，并显示印刷页21；可作为该期末端候选，但还没有完成连续页链复核。",
+      "identity_value": "same_issue_endpoint_candidate",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 24,
+      "render_sha256": "bf5090b4fac178ec6dd957c8d3f17661b56e4969ded9f9068c5f21f1a8365947",
+      "role": "advertising_page",
+      "visual_observation": "主要为广告版面，不能因为出现于期号附近就当作新期封面或新正文页。",
+      "identity_value": "boundary_noise",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 28,
+      "render_sha256": "524c5d8220b4e01166c1d7034a1292cb2efd795af3265f8c55b9b242e97f61af",
+      "role": "repeated_printed_page_marker_probe",
+      "visual_observation": "仍观察到与第23页相同的‘第一卷第一期/印刷页21’标记线索；需按页图和版面复核处理为重复或重扫页，不能简单计为新期。",
+      "identity_value": "duplicate_or_rescan_risk",
+      "citation_ready": false
+    }
+  ],
+  "conclusion": {
+    "status": "G2_PARTIAL_START_ANCHOR_ONLY",
+    "confirmed": [
+      "合订册第3页是第一卷第一期的起始锚点",
+      "合订册存在广告页和重复/重扫页风险",
+      "卷期边界不能按固定页数或文件页数推断"
+    ],
+    "not_confirmed": [
+      "03016374（1946年第三卷第八期）在合订册中的物理页范围",
+      "第一卷第一期的严格连续页链和末页边界",
+      "任何目标文章的正式页级引文"
+    ],
+    "citation_ready": false,
+    "formal_db_apply": false
+  },
+  "next_action": [
+    "优先定位1946年第三卷第八期和第十六期的封面锚点，而不是继续扩大全量OCR",
+    "建立issue_start、issue_end、advertisement、duplicate_or_rescan四类页节点",
+    "只有页界稳定后，才把目标文章页加入定向OCR和人工校读队列"
+  ]
+}

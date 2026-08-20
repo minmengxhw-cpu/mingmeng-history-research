@@ -1,0 +1,51 @@
+{
+  "schema": "domestic_sourcebook_page_manual_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1946年旧政协文献第206页完成张澜三月二十一日谈话标题和印刷页码人工核验，并分离页内前置函件和第207页后的罗隆基演说。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 206,
+    "printed_page": 197,
+    "page_image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-206-r270.png",
+    "page_image_sha256": "6d0aff9b0ba2b398eca69eec416c47cbae54e3e26da53213d3ec8702c1ed6667",
+    "main_db_page_id": 20911,
+    "main_db_page_label": "pdf-206 / printed-197 / 张澜三月二十一日谈话",
+    "page_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/NLC416-01jh004019-12949_%E6%94%BF%E5%8D%8F%E6%96%87%E7%8C%AE_1946.pdf#page=206"
+  },
+  "page_regions": [
+    {
+      "region": "upper",
+      "role": "preceding_correspondence_not_part_of_target",
+      "visual_status": "human_verified_separate_text_block"
+    },
+    {
+      "region": "lower",
+      "title": "民盟主席張瀾三月廿一日的重要談話",
+      "normalized_label": "民盟主席张澜三月二十一日的重要谈话",
+      "role": "target_title_start",
+      "visual_status": "human_verified_title_region"
+    }
+  ],
+  "ocr": {
+    "draft_ref": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-206-r270.ocr.md",
+    "target_title_line": "民盟主席張瀾三月廿一日的重要談話",
+    "target_title_confidence": 0.9721,
+    "body_status": "ocr_draft_only_not_line_by_line_human_verified"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "target_anchor_ready": true,
+    "body_read": false,
+    "citation_ready": false,
+    "formal_body_promotion": false,
+    "continuation_status": "page207_boundary_reviewed_separately",
+    "next_promotion_requirements": [
+      "逐字校读张澜谈话的目标段落",
+      "确认第207页页首连续正文范围",
+      "把罗隆基昆明五四演说作为独立内容节点"
+    ]
+  },
+  "status": "PAGE_IDENTITY_AND_IN_PAGE_BOUNDARY_HUMAN_VERIFIED_CONTINUATION_OPEN"
+}

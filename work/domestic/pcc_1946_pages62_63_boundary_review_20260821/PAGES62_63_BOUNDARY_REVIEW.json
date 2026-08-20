@@ -1,0 +1,54 @@
+{
+  "schema": "domestic_sourcebook_adjacent_page_boundary_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "核验罗隆基报告民主同盟意见第62—63页的连续页码、正文承接和下一篇曾琦报告的标题边界。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf"
+  },
+  "target": {
+    "target_id": "luo-longji-democratic-league-view",
+    "title_start_pdf_page": 62,
+    "title_start_printed_page": 55,
+    "adjacent_pdf_page": 63,
+    "adjacent_printed_page": 56,
+    "title_start_manual_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/PAGE62_MANUAL_REVIEW.json"
+  },
+  "pages": [
+    {
+      "pdf_page": 62,
+      "printed_page_visual": 55,
+      "image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-062-r270.png",
+      "image_sha256": "0f8c115a912c24e88be34f77ae7aef6dc1d4b328ce8b14113b9a902f4b897bb0",
+      "role": "title_start_and_body",
+      "visual_status": "human_verified_title_and_printed_page"
+    },
+    {
+      "pdf_page": 63,
+      "printed_page_visual": 56,
+      "image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-063-r270.png",
+      "image_sha256": "7240389410a05ac19e4c546fcc1ec7ca62cb5d3a4e03ef8302b3cf9dbef46375",
+      "role": "adjacent_continuation_then_next_title",
+      "visual_status": "human_verified_printed_page_and_new_title_boundary",
+      "ocr_draft_ref": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-063-r270.ocr.md",
+      "new_title_visual": "曾琦报告青年党意见"
+    }
+  ],
+  "boundary_result": {
+    "printed_pagination_continuity": "confirmed_55_to_56",
+    "page63_continuation": "supported_by_layout_and_ocr_context",
+    "next_title_boundary": "human_verified_new_title_after_page63_top_body",
+    "page_identity_ready": true,
+    "body_read": false,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "promotion": "第63页可作为罗隆基报告的相邻导航页；曾琦报告须作为独立目标，不与罗隆基报告合并。"
+  },
+  "next_action": [
+    "逐字核对第62页末行与第63页首段",
+    "将曾琦报告青年党意见作为独立P0目标评估是否入选",
+    "在正文人工校读完成前保持citation_ready=false"
+  ],
+  "status": "BOUNDARY_55_TO_56_HUMAN_CONFIRMED_NEXT_TITLE_SEPARATED"
+}

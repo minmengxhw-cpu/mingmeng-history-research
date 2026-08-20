@@ -1,0 +1,132 @@
+{
+  "schema": "domestic_periodical_issue_bound_map.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "用合订册第十六期封面和后续分区页建立1946年第三卷第十六期的物理页范围候选，供页级对齐和定向内容复核使用",
+  "body_read": false,
+  "ocr_run": false,
+  "raw_files_copied": false,
+  "formal_db_written": false,
+  "citation_ready": false,
+  "policy": {
+    "no_deletion": true,
+    "metadata_is_not_body_evidence": true,
+    "bound_volume_range_is_not_single_issue_page_mapping": true,
+    "partition_page_is_not_next_issue_identity": true,
+    "page_level_alignment_required_before_citation": true
+  },
+  "container": {
+    "source_id": "nlc-democracy-weekly-bound-volume-1944-1946",
+    "title": "《民主周刊》国家图书馆合订扫描",
+    "source_file": "data/domestic/grok_cycle_0006_20260801/pdf/commons_NLC_民主周刊.pdf",
+    "sha256": "38e7ca88e6b45efca27c7b685fff1ff57c2dc292ca3c1b8972c05994994e8fae",
+    "pdf_pages": 1279,
+    "source_url": "https://commons.wikimedia.org/wiki/File:NLC511-026031010040217-290_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.pdf"
+  },
+  "target_issue": {
+    "source_id": "cadal-democracy-weekly-03016383",
+    "title": "《民主周刊》第三卷第十六期（封面日期1946-06-22；CADAL目录记1946-07）",
+    "single_issue_pages": 16,
+    "single_issue_source_sha256": "d334a6a7c7d1c776e10af68d9e57ffffe9541773dc491d3ca4b84b18769906d3",
+    "identity_review_ref": "work/domestic/democracy_weekly_issue16_identity_review_20260821/ISSUE16_IDENTITY_REVIEW.json"
+  },
+  "bound_volume_boundary": {
+    "start_pdf_page": 1190,
+    "start_render": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_probe_260dpi/pdf-page-1190.jpg",
+    "start_render_sha256": "36760f5285836e4705ec74be7a82af2ac0a3d9289a6365705ee14d8d785a0123",
+    "start_role": "issue_cover_start_anchor",
+    "start_visual_observation": "页图可见《民主周刊》及第三卷第十六期字样；封面日期视觉上与单期公开影像的1946-06-22相符。",
+    "end_pdf_page_candidate": 1205,
+    "end_render": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_probe_260dpi/pdf-page-1205.jpg",
+    "end_render_sha256": "0fdaefdb454bc53cd1ce94978141b7cab72c6ac77ac0badc05a3b08fa9d64cac",
+    "end_role": "last_page_before_following_partition_candidate",
+    "end_visual_observation": "第1205页仍为正文版面，位于第1190页封面之后；尚未把正文逐字校读或与单期第16页作版式级对齐。",
+    "following_partition_pdf_page": 1206,
+    "following_partition_render": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_probe_260dpi/pdf-page-1206.jpg",
+    "following_partition_render_sha256": "caf40066f47154c28854e1feed518ae51a93e2b685a60a7883c66dfe45222304",
+    "following_partition_role": "bound_volume_partition_page",
+    "following_partition_visual_observation": "页图明确显示‘1945年 增刊 1-3期’，可作为第十六期之后的合订册分区锚点，但不是第三卷第十七期身份锚点。",
+    "inclusive_bound_span_pages_candidate": 16,
+    "span_count_vs_single_issue": "match",
+    "mapping_status": "BOUND_START_AND_FOLLOWING_PARTITION_CONFIRMED_END_CANDIDATE_OPEN"
+  },
+  "provisional_alignment": {
+    "formula": "bound_pdf_page = single_issue_physical_page + 1189",
+    "range": "single_issue_pages_1_to_16 -> bound_pdf_pages_1190_to_1205",
+    "status": "navigation_only_not_citation_ready",
+    "reason": "封面锚点、16页跨度和后续分区页相互支持，但尚未逐页核对单期与合订影像的版本、缺页、重扫和印刷页码关系。"
+  },
+  "page_identity_chain_ref": "work/domestic/democracy_weekly_issue16_page_identity_20260821/ISSUE16_PAGE_IDENTITY.json",
+  "content_candidate_review_ref": "work/domestic/democracy_weekly_bound_volume_issue16_content_candidates_20260821/CONTENT_CANDIDATES.json",
+  "stable_probe_render_dir": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi",
+  "version_alignment_probe": {
+    "method": "local_visual_side_by_side_spot_check",
+    "status": "one_to_one_page_alignment_not_confirmed",
+    "checked_pairs": [
+      {
+        "single_issue_physical_page": 1,
+        "bound_pdf_page": 1190,
+        "result": "issue_identity_and_cover_anchor_confirmed",
+        "citation_ready": false
+      },
+      {
+        "single_issue_physical_page": 5,
+        "bound_pdf_page": 1194,
+        "result": "content_or_layout_correspondence_not_confirmed",
+        "reason": "两份扫描版式、裁切和可见标题线索尚不足以证明这是同一印刷页的直接对应。",
+        "citation_ready": false
+      },
+      {
+        "single_issue_physical_page": 14,
+        "bound_pdf_page": 1203,
+        "result": "content_or_layout_correspondence_not_confirmed",
+        "reason": "合订页可见正文版面，但尚未确认与单期第14页的标题、印刷页码和版式一一对应。",
+        "citation_ready": false
+      }
+    ],
+    "promotion": "不得用公式偏移替代页级来源关系；正文引用继续保持HOLD。"
+  },
+  "page_anchors": [
+    {
+      "pdf_page": 1190,
+      "role": "issue_start",
+      "render": "pdftoppm JPEG at 260 dpi; stable local probe copy",
+      "identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 1205,
+      "role": "issue_end_candidate",
+      "render": "pdftoppm JPEG at 260 dpi; stable local probe copy",
+      "identity_status": "boundary_candidate_only",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 1206,
+      "role": "following_partition",
+      "render": "pdftoppm JPEG at 260 dpi; stable local probe copy",
+      "identity_status": "partition_identity_only",
+      "citation_ready": false
+    }
+  ],
+  "conclusion": {
+    "confirmed": [
+      "合订册第1190页是第三卷第十六期封面/卷首锚点",
+      "第1206页是明确的1945年增刊1-3期分区页",
+      "1190—1205形成16页的第十六期物理范围候选，与CADAL单期16页数量相符"
+    ],
+    "not_confirmed": [
+      "1190—1205与CADAL单期16页的一一版式对应；初步对照仅确认封面，不确认第5、14页直接对应",
+      "第1205页是否确为该期印刷页16的无缺页末页",
+      "目标文章在合订册中的逐字正文和正式引文页码",
+      "第十七期在该合订册中的独立封面位置"
+    ],
+    "promotion": "只允许进入期号导航和定向内容复核队列；不写入正式页级引文，不关闭1946李闻专题原件缺口。"
+  },
+  "next_action": [
+    "逐页对照单期第1、5、14页与合订册候选页1190、1194、1203，确认文章候选的版本对应关系",
+    "核对合订册第1205页的印刷页码和末页状态",
+    "在完成手工转录和日期冲突说明前，保持review_only/citation_ready=false",
+    "如需把合订册正文写入正式库，先建立独立页级provenance和版本关系，不覆盖单期来源"
+  ],
+  "status": "G2_ISSUE16_BOUND_START_AND_PARTITION_ANCHORED_END_CANDIDATE_OPEN"
+}

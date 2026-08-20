@@ -1,0 +1,194 @@
+{
+  "schema": "domestic_periodical_issue_page_identity_chain.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "记录合订册第三卷第十六期候选段落的逐页图像身份和连续范围，不转录正文、不宣称印刷页码已闭环",
+  "source_id": "nlc-democracy-weekly-bound-volume-1944-1946",
+  "source_sha256": "38e7ca88e6b45efca27c7b685fff1ff57c2dc292ca3c1b8972c05994994e8fae",
+  "source_file": "data/domestic/grok_cycle_0006_20260801/pdf/commons_NLC_民主周刊.pdf",
+  "target_issue_source_id": "cadal-democracy-weekly-03016383",
+  "review": {
+    "method": "local_visual_inspection_of_pdftoppm_renders",
+    "render": "JPEG at 140 dpi; stable local probe copies",
+    "body_read": false,
+    "body_transcription": false,
+    "ocr_run": false,
+    "formal_db_written": false,
+    "citation_ready": false,
+    "review_scope": "issue_identity_and_contiguous_segment_only",
+    "printed_page_numbers_asserted": false
+  },
+  "page_records": [
+    {
+      "bound_pdf_page": 1190,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1190.jpg",
+      "render_sha256": "88ca104a03ce5a5f64b3523d9e1483d54bb0a12d2a59e90c55a3cb8e006776c7",
+      "role": "issue_cover_start",
+      "printed_page": null,
+      "visual_identity": "《民主周刊》第三卷第十六期封面/卷首",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1191,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1191.jpg",
+      "render_sha256": "11634cde89c350d5d4cf87cfb63f4d6b2ead942aa1cdb4fa51f7ce3dc8a08914",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1192,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1192.jpg",
+      "render_sha256": "1590bdfa166e1ec41ead9f43b9c64dbd1759a86f3d63f9dd0b219dd1c2b0b891",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1193,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1193.jpg",
+      "render_sha256": "8706d17065652adb3fce8ee654ef00114ae3a111cca864ed0737398bf320b733",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1194,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1194.jpg",
+      "render_sha256": "48a4c3dbc393c977e05009e1b58f8426f6b39a8bd5504036019fbb21bf142c75",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；与CADAL单期第5页直接对应尚未确认",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1195,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1195.jpg",
+      "render_sha256": "d288e91561f2683e595662d3299ef2ed8b8f1720d4176facac202a67f7c2e614",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1196,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1196.jpg",
+      "render_sha256": "706c2ab3acf27cea8ef0ef40d9980b081ebfb9152416cc2e378f0e411d5fcbba",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1197,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1197.jpg",
+      "render_sha256": "0d070585e756f0cda2a8a5f60a05d4704396ce2bbfc4dc1bad363c449ff4fc0e",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1198,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1198.jpg",
+      "render_sha256": "c36541a8c9a13502344cfd10dbd72f50cd53f49c953c713dbedfe1721d740b10",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1199,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1199.jpg",
+      "render_sha256": "b0e3a83d103f789e976137ed2125144e6d694b42a50efc33074f463ce52a6238",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1200,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1200.jpg",
+      "render_sha256": "f80c8295041728f1df0d16c2944d203134a963aecc05b1731b70bb2c2840fdea",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1201,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1201.jpg",
+      "render_sha256": "542694b04ef71dbd51e5d764a87abf3a1612b7d518bc5c1cd0e648f510eeab65",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1202,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1202.jpg",
+      "render_sha256": "b575d462ce3acc558152f1dc928369c096085b66597493775235e23a9c317726",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1203,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1203.jpg",
+      "render_sha256": "2090b6b9703d1c82fe3e5f95cfed63e1b50c3e85c1d159e65693bbc124420013",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；与CADAL单期第14页直接对应尚未确认",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1204,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1204.jpg",
+      "render_sha256": "b992412561400d9db14b4673ae8ed9f3ea6cd848863c1fa34e08ee021e7ce956",
+      "role": "issue_segment_interior",
+      "printed_page": null,
+      "visual_identity": "封面之后的连续期刊版面；不据此断言印刷页码",
+      "page_identity_status": "human_verified_issue_segment_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1205,
+      "local_image": "data/domestic/raw/public_sources/nlc_bound_volume/issue16_page_identity_140dpi/issue16-1205.jpg",
+      "render_sha256": "db88afebb442b771a9b1788bcd4cd8b63f72fb959d589c008fe0c66811cc2ec3",
+      "role": "issue_last_page_before_partition_candidate",
+      "printed_page": null,
+      "visual_identity": "第十六期候选段落末页；下一页为1945年增刊1-3期分区页",
+      "page_identity_status": "boundary_candidate_only",
+      "citation_ready": false
+    }
+  ],
+  "variant_and_gap": {
+    "bound_segment_pdf_span_candidate": 16,
+    "cadal_issue_page_count": 16,
+    "printed_page_numbers": "not_asserted",
+    "interpretation": "当前确认的是合订册封面锚点和连续16页候选段落；未把连续页码或单期正文一一对应写成正式页级引用。"
+  },
+  "next_action": [
+    "补做关键候选页的印刷页码和文章边界核验",
+    "将单期第1、5、14页与合订册候选页作为两种版本并列，先完成内容级对照再建立版本关系",
+    "保持所有记录citation_ready=false，直到完成手工转录和日期冲突处理"
+  ],
+  "status": "G2_ISSUE16_CONTIGUOUS_SEGMENT_IDENTITY_REVIEW_ONLY"
+}

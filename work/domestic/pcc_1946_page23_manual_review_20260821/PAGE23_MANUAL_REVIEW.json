@@ -1,0 +1,50 @@
+{
+  "schema": "domestic_sourcebook_page_manual_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1946年旧政协文献汇编第23页进行页身份、目标标题和印刷页码的人工视觉核验；不把OCR草稿升级为正文引文。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 23,
+    "printed_page": 16,
+    "page_image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-023-r270.png",
+    "page_image_sha256": "12e50c5215e1b5ed97824841ccb7deab793afc15d49ed9eb055700c6a7a87e65",
+    "main_db_page_id": 20903,
+    "main_db_page_label": "pdf-023 / printed-016 / 张澜开会词",
+    "page_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/NLC416-01jh004019-12949_%E6%94%BF%E5%8D%8F%E6%96%87%E7%8C%AE_1946.pdf#page=23"
+  },
+  "target": {
+    "target_id": "zhang-lan-opening",
+    "role": "title_start",
+    "visual_title": "民盟代表张澜开会词（沈钧儒代）",
+    "normalized_label": "民主同盟代表张澜开会词（开幕词）",
+    "title_status": "human_verified_visual_title",
+    "printed_page_status": "human_verified_visual_printed_page_16",
+    "boundary_status": "target_title_start_confirmed_adjacent_page_24_needed_for_continuation",
+    "preceding_content_warning": "同一页标题上方仍有前一段内容；不得把整页文字无条件归入张澜开会词。"
+  },
+  "ocr": {
+    "draft_ref": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-023-r270.ocr.md",
+    "engine": "PaddleOCR",
+    "title_line": "民盟代表張瀾開會詞",
+    "title_line_confidence": 0.8823,
+    "body_status": "ocr_draft_only_not_line_by_line_human_verified",
+    "known_risk": "OCR草稿存在繁简、异体字和字符误识别，不能单独支持正文引文。"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "target_anchor_ready": true,
+    "body_read": false,
+    "citation_ready": false,
+    "formal_body_promotion": false,
+    "source_level": "L2_sourcebook_scan",
+    "next_promotion_requirements": [
+      "人工核对目标正文的起止范围",
+      "对需要引用的段落进行逐字校读并保留页图定位",
+      "核对第24页是否为同一目标的连续正文",
+      "保留OCR、人工校读和原页之间的版本关系"
+    ]
+  },
+  "status": "TITLE_AND_PAGE_IDENTITY_HUMAN_VERIFIED_BODY_REVIEW_OPEN"
+}

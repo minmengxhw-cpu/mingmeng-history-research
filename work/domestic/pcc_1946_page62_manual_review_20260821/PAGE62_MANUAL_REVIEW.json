@@ -1,0 +1,45 @@
+{
+  "schema": "domestic_sourcebook_page_manual_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1946年旧政协文献第62页完成罗隆基报告民主同盟意见的标题和印刷页码人工核验；跨页和正文引用边界另行记录。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 62,
+    "printed_page": 55,
+    "page_image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-062-r270.png",
+    "page_image_sha256": "0f8c115a912c24e88be34f77ae7aef6dc1d4b328ce8b14113b9a902f4b897bb0",
+    "main_db_page_id": 20906,
+    "main_db_page_label": "pdf-062 / printed-055 / 罗隆基报告民主同盟意见",
+    "page_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/NLC416-01jh004019-12949_%E6%94%BF%E5%8D%8F%E6%96%87%E7%8C%AE_1946.pdf#page=62"
+  },
+  "target": {
+    "target_id": "luo-longji-democratic-league-view",
+    "visual_title": "羅隆基報告民主同盟意見",
+    "normalized_label": "罗隆基报告民主同盟意见",
+    "title_status": "human_verified_visual_title",
+    "printed_page_status": "human_verified_visual_printed_page_55",
+    "body_status": "ocr_draft_only_not_line_by_line_human_verified",
+    "continuation_status": "page63_boundary_reviewed_separately"
+  },
+  "ocr": {
+    "draft_ref": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-062-r270.ocr.md",
+    "title_line": "羅隆基報告民主同盟意見",
+    "title_line_confidence": 0.9709,
+    "page_number_warning": "OCR将页码55误识别为5；以页图人工核验为准。"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "target_anchor_ready": true,
+    "body_read": false,
+    "citation_ready": false,
+    "formal_body_promotion": false,
+    "next_promotion_requirements": [
+      "逐字校读需要引用的罗隆基报告段落",
+      "确认第63页正文接续和新标题边界",
+      "保留繁体原页与规范化检索文本的来源关系"
+    ]
+  },
+  "status": "TITLE_AND_PAGE_IDENTITY_HUMAN_VERIFIED_CONTINUATION_BOUNDARY_OPEN"
+}

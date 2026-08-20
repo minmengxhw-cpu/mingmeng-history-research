@@ -1,0 +1,53 @@
+{
+  "schema": "domestic_sourcebook_page_manual_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1946年旧政协文献第101页完成民主同盟的提案标题和印刷页码人工核验，并分离页内前置青年党材料。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 101,
+    "printed_page": 94,
+    "page_image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-101-r270.png",
+    "page_image_sha256": "e5df5b201b21fbe401069df81abba2889d16c7cc920662144dbb91324e4f8cdc",
+    "main_db_page_id": 20908,
+    "main_db_page_label": "pdf-101 / printed-094 / 民主同盟的提案",
+    "page_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/NLC416-01jh004019-12949_%E6%94%BF%E5%8D%8F%E6%96%87%E7%8C%AE_1946.pdf#page=101"
+  },
+  "page_regions": [
+    {
+      "region": "upper",
+      "title": "陳啓天對青年黨提案的說明",
+      "role": "preceding_material_not_part_of_democratic_league_target",
+      "visual_status": "human_verified_title_region"
+    },
+    {
+      "region": "lower",
+      "title": "民主同盟的提案",
+      "normalized_label": "民主同盟的提案",
+      "role": "target_title_start",
+      "visual_status": "human_verified_title_region"
+    }
+  ],
+  "ocr": {
+    "draft_ref": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-101-r270.ocr.md",
+    "target_title_line": "民主同盟的提案",
+    "target_title_confidence": 0.8839,
+    "page_number_warning": "页图视觉为印刷页94；本轮以图像和既有页级记录为准。",
+    "body_status": "ocr_draft_only_not_line_by_line_human_verified"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "target_anchor_ready": true,
+    "body_read": false,
+    "citation_ready": false,
+    "formal_body_promotion": false,
+    "continuation_status": "page102_boundary_candidate_open",
+    "next_promotion_requirements": [
+      "逐字校读民主同盟提案标题后的正文",
+      "确认第102页页首的连续关系",
+      "将梁漱溟说明与民主同盟提案分为两个内容节点"
+    ]
+  },
+  "status": "PAGE_IDENTITY_AND_IN_PAGE_TARGET_BOUNDARY_HUMAN_VERIFIED_CONTINUATION_OPEN"
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "domestic_sourcebook_page_manual_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1946年旧政协文献第52页完成张君劢闭会词标题和印刷页码的人工视觉核验；正文及跨页边界另行记录。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 52,
+    "printed_page": 45,
+    "page_image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-052-r270.png",
+    "page_image_sha256": "65f98380ca7a3d0f7e39ac62929f3ce154c725dedc1121e74a0e064e092e23b7",
+    "higher_resolution_probe": "work/domestic/pcc_1946_sourcebook_render_20260821_highres/pdf-052-r270.jpg",
+    "higher_resolution_probe_sha256": "ac0e7174cf6fa0d4e66a7866bdd3a3e518ad8a91d16e92456b39481ef9784180",
+    "main_db_page_id": 20905,
+    "main_db_page_label": "pdf-052 / printed-045 / 张君劢闭会词",
+    "page_url": "https://upload.wikimedia.org/wikipedia/commons/e/e6/NLC416-01jh004019-12949_%E6%94%BF%E5%8D%8F%E6%96%87%E7%8C%AE_1946.pdf#page=52"
+  },
+  "target": {
+    "target_id": "zhang-junmai-closing",
+    "visual_title": "民主同盟代表張君勱閉會詞",
+    "normalized_label": "民主同盟代表张君劢闭会词",
+    "title_status": "human_verified_visual_title",
+    "printed_page_status": "human_verified_visual_printed_page_45",
+    "body_status": "ocr_draft_only_not_line_by_line_human_verified",
+    "page_end_status": "continuation_probe_required"
+  },
+  "ocr": {
+    "draft_ref": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-052-r270.ocr.md",
+    "title_line": "民主同盟代表張君勸閉會詞",
+    "title_line_confidence": 0.9212,
+    "page_number_warning": "OCR将页码45误识别为5；以页图人工核验为准。"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "target_anchor_ready": true,
+    "body_read": false,
+    "citation_ready": false,
+    "formal_body_promotion": false,
+    "next_promotion_requirements": [
+      "确认第53页顶部是否为本目标的连续正文",
+      "人工核对需要引用的段落",
+      "保持张君劢闭会词与下一篇青年党代表发言的边界分开"
+    ]
+  },
+  "status": "TITLE_AND_PAGE_IDENTITY_HUMAN_VERIFIED_CONTINUATION_PROBE_OPEN"
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "domestic_sourcebook_adjacent_page_boundary_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "核验张澜三月二十一日谈话第206—207页的页码关系、正文承接和罗隆基昆明五四演说的新标题边界。",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004019-12949_政協文獻_1946.pdf"
+  },
+  "target": {
+    "target_id": "zhang-lan-march-21-talk",
+    "title_start_pdf_page": 206,
+    "title_start_printed_page": 197,
+    "adjacent_pdf_page": 207,
+    "adjacent_printed_page": 198,
+    "title_start_manual_review_ref": "work/domestic/pcc_1946_page206_manual_review_20260821/PAGE206_MANUAL_REVIEW.json"
+  },
+  "pages": [
+    {
+      "pdf_page": 206,
+      "printed_page_visual": 197,
+      "image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-206-r270.png",
+      "image_sha256": "6d0aff9b0ba2b398eca69eec416c47cbae54e3e26da53213d3ec8702c1ed6667",
+      "role": "preceding_correspondence_then_target_title_start",
+      "visual_status": "human_verified_in_page_target_boundary"
+    },
+    {
+      "pdf_page": 207,
+      "printed_page_visual": 198,
+      "image": "work/domestic/pcc_1946_sourcebook_boundary_probe_20260821/pdf-207-r270.jpg",
+      "image_sha256": "6cdeb83ea5f3062b5ea95fde714ef6c32addc557956f400f6ae64329f6fadbc5",
+      "role": "target_continuation_then_new_title",
+      "ocr_draft_ref": "work/domestic/pcc_1946_sourcebook_boundary_probe_20260821/pdf-207-r270.ocr.md",
+      "new_title_visual": "羅隆基在昆明五四紀念會上演說擇要"
+    }
+  ],
+  "boundary_result": {
+    "printed_pagination_continuity": "confirmed_197_to_198",
+    "page207_target_continuation": "supported_by_layout_and_ocr_context",
+    "next_title_boundary": "human_verified_new_title_after_page207_top_body",
+    "page_identity_ready": true,
+    "body_read": false,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "promotion": "第207页可作为张澜谈话的相邻导航页；罗隆基昆明演说必须作为独立内容节点。"
+  },
+  "next_action": [
+    "逐字核对第206页标题后及第207页页首的正文接续",
+    "将罗隆基昆明五四演说作为独立P0候选评估",
+    "在正文人工校读完成前保持citation_ready=false"
+  ],
+  "status": "BOUNDARY_197_TO_198_HUMAN_CONFIRMED_NEXT_TITLE_SEPARATED"
+}

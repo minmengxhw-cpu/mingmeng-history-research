@@ -1,0 +1,108 @@
+{
+  "schema": "domestic_periodical_target_page_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "从03016383完整16页本地OCR草稿和页面视觉核验中筛出高价值候选页，供人工校读和后续引用链建立",
+  "source": {
+    "source_id": "cadal-democracy-weekly-03016383",
+    "title": "《民主周刊》第三卷第十六期",
+    "local_file": "data/domestic/raw/public_sources/cadal/CADAL03016383_民主周刊.djvu",
+    "source_file_size_bytes": 1538717,
+    "source_sha256": "d334a6a7c7d1c776e10af68d9e57ffffe9541773dc491d3ca4b84b18769906d3",
+    "source_pages": 16,
+    "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
+    "catalogue_date": "1946-07",
+    "cover_date_visual": "三十五年六月二十二日（1946-06-22）",
+    "date_status": "catalogue_and_cover_conflict_open"
+  },
+  "ocr": {
+    "engine": "PaddleOCR 3.7.0",
+    "model": "PP-OCRv6_medium_det + PP-OCRv6_medium_rec",
+    "runtime": "local_cpu",
+    "input_dir": "data/domestic/raw/public_sources/cadal",
+    "output_dir": "work/domestic/democracy_weekly_issue16_ocr_full_20260821",
+    "page_count": 16,
+    "average_confidence_mean_of_page_means": 0.7375,
+    "pages_below_0_70_mean_confidence": [2, 3, 9, 14, 15],
+    "body_read": false,
+    "draft_only": true,
+    "citation_ready": false,
+    "formal_db_written": false
+  },
+  "candidate_pages": [
+    {
+      "physical_page": 1,
+      "local_image": "data/domestic/raw/public_sources/cadal/page-01-1920.jpg",
+      "local_image_sha256": "36618bb4502be570901d217fbf0399d1595a336e4db073675b63705d0d609ffb",
+      "ocr_draft": "work/domestic/democracy_weekly_issue16_ocr_full_20260821/page-01-1920.ocr.md",
+      "visual_titles": [
+        "云南警备部随意搜查人民住宅及书店之紧急抗议",
+        "阻住内战的逆流"
+      ],
+      "research_value": "民盟地方组织、人权/搜查事件、反内战立场的一手期刊材料",
+      "identity_status": "human_verified_title_and_page_identity_only",
+      "transcription_status": "manual_short_box_labels_reviewed_full_body_pending",
+      "manual_review_ref": "work/domestic/democracy_weekly_issue16_manual_review_20260821/ISSUE16_MANUAL_REVIEW.json",
+      "citation_ready": false
+    },
+    {
+      "physical_page": 5,
+      "local_image": "data/domestic/raw/public_sources/cadal/page-05-1920.jpg",
+      "local_image_sha256": "1c5f19621b766165aae714a0e8fb2104f166a3d79f020560d51035d35fa6ff8f",
+      "ocr_draft": "work/domestic/democracy_weekly_issue16_ocr_full_20260821/page-05-1920.ocr.md",
+      "visual_titles": [
+        "南京下关事件的认识谈"
+      ],
+      "visual_named_entities": [
+        "闻一多",
+        "李公朴",
+        "马叙伦"
+      ],
+      "research_value": "下关事件、李闻与民盟/和平运动关系的一手期刊材料",
+      "identity_status": "human_verified_title_and_page_identity_only",
+      "transcription_status": "manual_identity_and_selected_labels_reviewed_full_body_pending",
+      "manual_review_ref": "work/domestic/democracy_weekly_issue16_manual_review_20260821/ISSUE16_MANUAL_REVIEW.json",
+      "citation_ready": false
+    },
+    {
+      "physical_page": 14,
+      "local_image": "data/domestic/raw/public_sources/cadal/page-14-1920.jpg",
+      "local_image_sha256": "85943fb9c6bd7cdfb87b5803225d601190fc3abd5380662d9c2b2373f7107741",
+      "ocr_draft": "work/domestic/democracy_weekly_issue16_ocr_full_20260821/page-14-1920.ocr.md",
+      "visual_titles": [
+        "中国民主同盟云南省支部招待各界茶会记"
+      ],
+      "visual_named_entities": [
+        "李公朴",
+        "闻一多",
+        "中国民主同盟云南省支部"
+      ],
+      "research_value": "民盟地方组织活动、组织公开主张与李闻交往的一手期刊材料",
+      "identity_status": "human_verified_title_and_page_identity_only",
+      "transcription_status": "manual_identity_and_selected_labels_reviewed_full_body_pending",
+      "manual_review_ref": "work/domestic/democracy_weekly_issue16_manual_review_20260821/ISSUE16_MANUAL_REVIEW.json",
+      "citation_ready": false
+    }
+  ],
+  "ocr_only_leads": [
+    {
+      "physical_page": 2,
+      "lead": "抗议下关暴行",
+      "confidence_note": "OCR识别行置信度较高，但本轮未完成该标题的独立视觉核对",
+      "status": "review_only_not_promoted"
+    }
+  ],
+  "admission_decision": {
+    "source_admission": "RETAIN_TARGETED_REVIEW",
+    "ocr_disposition": "USE_EXISTING_OCR_TARGETED_REVIEW",
+    "formal_db_action": "HOLD_UNTIL_MANUAL_TRANSCRIPTION_AND_DATE_RECONCILIATION",
+    "citation_action": "HOLD",
+    "deletion": false
+  },
+  "next_actions": [
+    "人工逐字校读第1、5、14页并记录作者、日期、印刷页码和版面边界",
+    "对第2页OCR线索做独立视觉核验后再决定是否纳入候选页",
+    "在国家图书馆合订册中反查第三卷第十六期物理页范围",
+    "完成日期冲突解释后，再建立正式页记录和引用链"
+  ],
+  "status": "CANDIDATES_IDENTIFIED_MANUAL_TRANSCRIPTION_PENDING"
+}
