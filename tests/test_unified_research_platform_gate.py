@@ -41,6 +41,43 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert report["checks"]["research_packets"]["topic_count"] == 9
     assert report["checks"]["research_packets"]["research_usable_with_boundaries_count"] == 9
     assert report["checks"]["research_question_benchmark"]["path_ready_count"] == 36
+    fragments = report["checks"]["citation_fragment_ledger"]
+    assert fragments["status"] == "PASS"
+    assert fragments["fragment_count"] == 6
+    assert fragments["fragment_citation_ready_count"] == 6
+    assert fragments["page_citation_ready_count"] == 0
+    assert fragments["formal_db_written_count"] == 0
+
+
+def test_domestic_fragment_ledger_and_page_panel_keep_page_gate_separate():
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = False
+    try:
+        ledger = app.domestic_fragment_ledger_page({}).decode("utf-8")
+        citation = app.citation_page(20911).decode("utf-8")
+    finally:
+        app._request.public_mode = previous
+    assert "国内片段证据台账" in ledger
+    assert "片段级可引用" in ledger
+    assert "page_citation_ready=false" in ledger
+    assert "政治協商會議會期中就政府改組問題爭執最久" in ledger
+    assert "片段级证据（非整页引用）" in citation
+    assert "政治協商會議會期中就政府改組問題爭執最久" in citation
+    assert "整页正文仍未逐字校读" in citation
+
+
+def test_fragments_are_discoverable_from_unified_search_and_domestic_timeline():
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = False
+    try:
+        search = app.search("政府改组", platform="domestic").decode("utf-8")
+        timeline = app.timeline(platform_slug="domestic").decode("utf-8")
+    finally:
+        app._request.public_mode = previous
+    assert "国内片段级证据命中" in search
+    assert "政治協商會議會期中就政府改組問題爭執最久" in search
+    assert "片段级证据时间锚点" in timeline
+    assert "1946（出版年锚点）" in timeline
 
 
 def test_academic_gate_uses_tracked_snapshot_without_staging_report(tmp_path, monkeypatch):

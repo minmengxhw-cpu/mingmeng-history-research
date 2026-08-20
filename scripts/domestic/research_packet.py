@@ -156,6 +156,50 @@ def event_source_map_summary(event_id: str) -> dict[str, Any]:
     }
 
 
+def _citation_fragment_refs(event_id: str, public: bool) -> list[dict[str, Any]]:
+    """Return body-free links to verified fragments for a topic packet."""
+    if str(event_id) != "domestic-1946-pcc":
+        return []
+    app = _app()
+    loader = getattr(app, "_load_citation_fragment_rows", None)
+    if loader is None:
+        return []
+    refs: list[dict[str, Any]] = []
+    for row in loader():
+        if not isinstance(row, dict):
+            continue
+        page_id = int(row.get("main_db_page_id") or 0)
+        if not page_id:
+            continue
+        refs.append(
+            {
+                "fragment_id": str(row.get("fragment_id") or ""),
+                "target_id": str(row.get("target_id") or ""),
+                "title": str(row.get("title") or ""),
+                "pdf_page": int(row.get("pdf_page") or 0),
+                "printed_page": int(row.get("printed_page") or 0),
+                "page_id": page_id,
+                "source_id": str(row.get("source_id") or ""),
+                "source_sha256": str(row.get("source_sha256") or ""),
+                "page_url": str(row.get("page_url") or ""),
+                "fragment_review_ref": (
+                    "内部片段复核台账（公开模式隐藏路径）"
+                    if public
+                    else str(row.get("fragment_review_ref") or "")
+                ),
+                "scope": str(row.get("scope") or ""),
+                "boundary_status": str(row.get("boundary_status") or ""),
+                "fragment_citation_ready": row.get("fragment_citation_ready") is True,
+                "page_citation_ready": row.get("page_citation_ready") is True,
+                "body_text_included": False,
+                "fragment_text_included": False,
+                "ledger_url": "/domestic/citations/fragments",
+                "citation_url": f"/cite/{page_id}",
+            }
+        )
+    return refs
+
+
 def _page_row(connection, page_id: int):
     return connection.execute(
         """
@@ -224,6 +268,7 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
         manifest = {}
 
     public = bool(getattr(app._request, "public_mode", False))
+    citation_fragments = _citation_fragment_refs(event_id, public)
     sourcebooks: list[dict[str, Any]] = []
     if event_id == "domestic-1946-pcc" and hasattr(app, "_load_pcc_1946_sourcebook_map"):
         sourcebook = app._load_pcc_1946_sourcebook_map()
@@ -530,8 +575,10 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
                 for source in source_map.get("sources") or []
                 if isinstance(source, dict)
             ),
+            "citation_fragment_count": len(citation_fragments),
         },
         "sourcebooks": sourcebooks,
+        "citation_fragments": citation_fragments,
         "event_source_maps": event_source_maps,
         "evidence_chain": evidence_chain,
         "research_matrix": {
@@ -593,6 +640,8 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
                 for source in source_map.get("sources") or []
                 if isinstance(source, dict)
             ),
+            "citation_fragment_count": len(citation_fragments),
+            "citation_fragment_text_included": False,
             "source_sha256_exported": True,
             "citation_policy": "正式引文仍须打开 /cite/<page_id>，并遵守该页明确的 review_scope。",
         },
@@ -708,6 +757,25 @@ def research_packet_page(event_id: str) -> bytes:
         f'<section class="result-list">{sourcebook_body}</section>'
     )
 
+    fragment_cards = []
+    for fragment in packet.get("citation_fragments", []):
+        fragment_cards.append(
+            f"""<article class="result compact-result"><div>
+  <h3>{esc(fragment.get('title') or fragment.get('target_id'))}</h3>
+  <div class="meta">PDF 第 {esc(fragment.get('pdf_page'))} 页 · 印刷页 {esc(fragment.get('printed_page'))} · page_id {esc(fragment.get('page_id'))}</div>
+  <div class="tagline"><span class="pstatus ok">片段级可引用</span><span class="tag">正文不复制</span><span class="tag">整页 citation_ready=false</span></div>
+  <div class="snippet">范围：{esc(fragment.get('scope') or '')}</div>
+  <div class="snippet">边界：{esc(fragment.get('boundary_status') or '未登记')}</div>
+</div><div class="cite"><a href="{esc(fragment.get('citation_url') or '#')}">页级引用门禁</a><br><a href="{esc(fragment.get('ledger_url') or '/domestic/citations/fragments')}">片段台账</a></div></article>"""
+        )
+    fragment_body = "".join(fragment_cards) or '<div class="notice">当前专题没有片段级证据台账记录。</div>'
+    fragment_html = (
+        '<div class="section-head"><h2>片段级证据入口</h2>'
+        f'<span class="meta">{len(fragment_cards)} 条 · 不替代整页引用</span></div>'
+        f'<div class="notice">片段正文不复制到研究包 JSON；请进入片段台账查看核验短片段和来源页。</div>'
+        f'<section class="result-list">{fragment_body}</section>'
+    )
+
     source_map_cards = []
     for source_map in packet.get("event_source_maps", []):
         sources = source_map.get("sources") if isinstance(source_map.get("sources"), list) else []
@@ -804,6 +872,7 @@ def research_packet_page(event_id: str) -> bytes:
 {matrix_html}
 {foreign_crosswalk_html}
 {sourcebook_html}
+{fragment_html}
 {source_map_html}
 {"".join(sections)}
 <div class="section-head"><h2>仍待补原件</h2><span class="meta">{len(packet['open_primary_targets'])} 项</span></div><section class="result-list">{targets}</section>

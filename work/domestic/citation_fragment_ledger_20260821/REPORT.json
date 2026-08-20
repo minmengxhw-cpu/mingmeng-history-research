@@ -1,0 +1,15 @@
+{
+  "schema": "domestic_citation_fragment_ledger_report.v1",
+  "generated_at": "2026-08-21",
+  "status": "PASS",
+  "ledger": "data/domestic/citation_fragments.jsonl",
+  "manifest": "data/domestic/citation_fragments_manifest.json",
+  "fragment_count": 6,
+  "checks": {
+    "all_review_artifacts_present": true,
+    "all_fragment_gates_valid": true,
+    "all_paths_repository_relative": true,
+    "formal_db_written": false,
+    "page_citation_ready": false
+  }
+}

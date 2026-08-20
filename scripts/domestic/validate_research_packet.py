@@ -110,6 +110,32 @@ def validate_packet(packet: dict[str, object], event_id: str) -> dict[str, objec
         for target in sourcebook.get("targets") or []:
             if not isinstance(target, dict) or target.get("body_text_included") is not False:
                 errors.append(f"sourcebook {sourcebook.get('source_id')} target exports body text")
+    fragments = packet.get("citation_fragments") or []
+    if not isinstance(fragments, list):
+        errors.append("citation_fragments must be a list")
+        fragments = []
+    if len(fragments) != counts.get("citation_fragment_count"):
+        errors.append("citation fragment count mismatch")
+    if audit.get("citation_fragment_count") != len(fragments):
+        errors.append("citation fragment audit count mismatch")
+    if audit.get("citation_fragment_text_included") is not False:
+        errors.append("citation fragment text must not be included in packet")
+    for fragment in fragments:
+        if not isinstance(fragment, dict):
+            errors.append("citation fragment entry is not an object")
+            continue
+        if fragment.get("body_text_included") is not False:
+            errors.append(f"citation fragment {fragment.get('fragment_id')} exports body text")
+        if fragment.get("fragment_text_included") is not False:
+            errors.append(f"citation fragment {fragment.get('fragment_id')} exports fragment text")
+        if fragment.get("fragment_citation_ready") is not True:
+            errors.append(f"citation fragment {fragment.get('fragment_id')} is not fragment-ready")
+        if fragment.get("page_citation_ready") is not False:
+            errors.append(f"citation fragment {fragment.get('fragment_id')} promotes page citation")
+        if len(str(fragment.get("source_sha256") or "")) != 64:
+            errors.append(f"citation fragment {fragment.get('fragment_id')} missing source SHA256")
+        if not fragment.get("citation_url") or not fragment.get("ledger_url"):
+            errors.append(f"citation fragment {fragment.get('fragment_id')} missing navigation links")
     source_maps = packet.get("event_source_maps") or []
     if not isinstance(source_maps, list):
         errors.append("event_source_maps must be a list")

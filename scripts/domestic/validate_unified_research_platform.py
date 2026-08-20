@@ -53,6 +53,8 @@ CARDS_PATH = ROOT / "data" / "domestic" / "topic_comparison_cards.json"
 COVERAGE_PATH = ROOT / "data" / "domestic" / "event_coverage.json"
 PCC_1946_SOURCEBOOK_MAP_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourcebook_targets.json"
 PCC_1946_RENDER_MANIFEST_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourcebook_render_manifest.json"
+CITATION_FRAGMENT_LEDGER_PATH = ROOT / "data" / "domestic" / "citation_fragments.jsonl"
+CITATION_FRAGMENT_MANIFEST_PATH = ROOT / "data" / "domestic" / "citation_fragments_manifest.json"
 
 
 def sha256(path: Path) -> str:
@@ -615,6 +617,64 @@ def pcc_1946_render_manifest_check() -> dict[str, Any]:
     }
 
 
+def citation_fragment_ledger_check() -> dict[str, Any]:
+    """Validate the additive fragment ledger without promoting page bodies."""
+    errors: list[str] = []
+    rows: list[dict[str, Any]] = []
+    manifest: dict[str, Any] = {}
+    if not CITATION_FRAGMENT_LEDGER_PATH.is_file():
+        errors.append("citation fragment ledger is missing")
+    if not CITATION_FRAGMENT_MANIFEST_PATH.is_file():
+        errors.append("citation fragment manifest is missing")
+    if not errors:
+        try:
+            manifest_payload = json.loads(CITATION_FRAGMENT_MANIFEST_PATH.read_text(encoding="utf-8"))
+            if isinstance(manifest_payload, dict):
+                manifest = manifest_payload
+            else:
+                errors.append("citation fragment manifest is not an object")
+            for line in CITATION_FRAGMENT_LEDGER_PATH.read_text(encoding="utf-8").splitlines():
+                if line.strip():
+                    item = json.loads(line)
+                    if isinstance(item, dict):
+                        rows.append(item)
+                    else:
+                        errors.append("citation fragment ledger contains a non-object row")
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"citation fragment ledger parse failed: {exc}")
+    if rows:
+        if int(manifest.get("fragment_count") or -1) != len(rows):
+            errors.append("manifest fragment_count does not match ledger")
+        if str(manifest.get("ledger_sha256") or "") != sha256(CITATION_FRAGMENT_LEDGER_PATH):
+            errors.append("manifest ledger_sha256 does not match ledger")
+        if len({str(row.get("fragment_id") or "") for row in rows}) != len(rows):
+            errors.append("fragment_id values are not unique")
+        for row in rows:
+            if row.get("fragment_citation_ready") is not True:
+                errors.append(f"fragment is not citation-ready: {row.get('fragment_id')}")
+            for key in ("page_citation_ready", "body_read", "formal_db_written"):
+                if row.get(key) is not False:
+                    errors.append(f"fragment boundary {key} is not false: {row.get('fragment_id')}")
+            if len(str(row.get("source_sha256") or "")) != 64:
+                errors.append(f"source SHA256 missing: {row.get('fragment_id')}")
+            for key in ("fragment_review_ref", "page_review_ref", "source_file"):
+                value = str(row.get(key) or "")
+                if value.startswith(("/", "file://")):
+                    errors.append(f"absolute path in fragment ledger: {key}")
+            review_ref = str(row.get("fragment_review_ref") or "")
+            if not review_ref or not (ROOT / review_ref).is_file():
+                errors.append(f"fragment review artifact missing: {review_ref}")
+    return {
+        "status": "PASS" if rows and not errors else "FAIL",
+        "fragment_count": len(rows),
+        "fragment_citation_ready_count": sum(bool(row.get("fragment_citation_ready")) for row in rows),
+        "page_citation_ready_count": sum(bool(row.get("page_citation_ready")) for row in rows),
+        "formal_db_written_count": sum(bool(row.get("formal_db_written")) for row in rows),
+        "body_read_count": sum(bool(row.get("body_read")) for row in rows),
+        "errors": errors,
+    }
+
+
 def missing_provenance_check(db_path: Path) -> dict[str, Any]:
     connection = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
     connection.row_factory = sqlite3.Row
@@ -728,6 +788,7 @@ def build_report() -> dict[str, Any]:
         "primary_gap_matrix": primary_gap_matrix_check(),
         "pcc_1946_sourcebook_map": pcc_1946_sourcebook_map_check(),
         "pcc_1946_sourcebook_render_manifest": pcc_1946_render_manifest_check(),
+        "citation_fragment_ledger": citation_fragment_ledger_check(),
         "missing_provenance": missing_provenance_check(db_path),
         "research_packets": packet_check(),
         "event_source_map_coverage": event_source_map_coverage_check(),

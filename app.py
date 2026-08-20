@@ -109,6 +109,8 @@ PRIMARY_RETRIEVAL_QUEUE_PATH = DATA_ROOT / "domestic" / "primary_retrieval_queue
 PCC_1946_SOURCEBOOK_MAP_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_targets.json"
 PCC_1946_RENDER_MANIFEST_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_render_manifest.json"
 PCC_1946_SOURCEBOOK_PATH = DATA_ROOT / "domestic" / "sourcebooks" / "NLC416-01jh004019-12949_政協文獻_1946.pdf"
+CITATION_FRAGMENT_LEDGER_PATH = DATA_ROOT / "domestic" / "citation_fragments.jsonl"
+CITATION_FRAGMENT_MANIFEST_PATH = DATA_ROOT / "domestic" / "citation_fragments_manifest.json"
 STYLE_PATH = ROOT / "static" / "style.css"
 FONTS_CSS_PATH = ROOT / "static" / "fonts.css"
 RESEARCH_PACKAGE_DIR = ROOT / "output" / "research_packages"
@@ -945,6 +947,7 @@ NAV_GROUPS = [
         ("/domestic/quality", "国内质量底座"),
         ("/domestic/acquisition", "国内调档清单"),
         ("/domestic/review", "国内复核"),
+        ("/domestic/citations/fragments", "国内片段证据台账"),
         ("/align", "多源对位"),
         ("/cards", "证据卡片库"),
         ("/tasks", "校订任务"),
@@ -967,7 +970,7 @@ PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisit
                         "/open-sources", "/dashboard", "/review", "/excluded", "/domestic/review",
                         "/domestic/evidence-review", "/domestic/search", "/domestic/document",
                         "/domestic/quality", "/domestic/acquisition", "/domestic/academic",
-                        "/domestic/sourcebook", "/research/gaps"}
+                        "/domestic/sourcebook", "/domestic/citations", "/research/gaps"}
 
 PUBLIC_DOMESTIC_LEVELS = {"L0", "L1", "L2", "L3"}
 
@@ -2446,6 +2449,122 @@ def _load_pcc_1946_render_manifest() -> dict[str, object]:
     return payload if isinstance(payload, dict) else {}
 
 
+def _load_citation_fragment_rows() -> list[dict[str, object]]:
+    """Load the additive fragment ledger; never infer page-level citation status."""
+    if not CITATION_FRAGMENT_LEDGER_PATH.is_file():
+        return []
+    rows: list[dict[str, object]] = []
+    try:
+        for line in CITATION_FRAGMENT_LEDGER_PATH.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            item = json.loads(line)
+            if isinstance(item, dict):
+                rows.append(item)
+    except (OSError, json.JSONDecodeError):
+        return []
+    return rows
+
+
+def _citation_fragments_for_page(page_id: int) -> list[dict[str, object]]:
+    return [
+        row
+        for row in _load_citation_fragment_rows()
+        if int(row.get("main_db_page_id") or 0) == int(page_id)
+    ]
+
+
+def domestic_fragment_panel(page_id: int) -> str:
+    """Render short verified fragments without opening the full-page gate."""
+    rows = _citation_fragments_for_page(page_id)
+    if not rows:
+        return ""
+    cards: list[str] = []
+    for row in rows:
+        text = f"{row.get('text') or ''}{row.get('display_suffix') or ''}"
+        cards.append(
+            f"""
+<article class="result compact-result">
+  <div>
+    <h3>{h(row.get('title') or row.get('target_id'))}</h3>
+    <div class="meta">PDF 第 {h(row.get('pdf_page'))} 页 · 印刷页 {h(row.get('printed_page'))} · page_id {h(row.get('main_db_page_id'))}</div>
+    <div class="tagline"><span class="pstatus ok">片段级可引用</span><span class="tag">quote_safe=true</span><span class="tag">整页 citation_ready=false</span></div>
+    <div class="snippet"><strong>核验片段：</strong>“{h(text)}”</div>
+    <div class="snippet"><strong>范围：</strong>{h(row.get('scope') or '仅限登记片段')}；{h(row.get('promotion_scope') or '')}</div>
+  </div>
+  <div class="cite"><a href="/domestic/citations/fragments?q={quote(str(row.get('target_id') or ''))}">片段台账</a><br><a href="{h(source_href(row.get('page_url') or '#'))}" target="_blank" rel="noreferrer">原始来源</a></div>
+</article>"""
+        )
+    return f"""
+<section class="meta-card" style="margin-top:16px;">
+  <div class="meta-card-head"><h3><svg class="ico"><use href="#i-quote"/></svg>片段级证据（非整页引用）</h3><span class="pstatus ok">{h(len(rows))} 条已核验</span></div>
+  <div class="snippet">这些短片段经过 300dpi/600dpi 视觉交叉核对，可以作为带页码和来源哈希的片段级证据；整页正文仍未逐字校读，不会生成整页正式引文。</div>
+  {''.join(cards)}
+  <div class="meta-card-foot"><a href="/domestic/citations/fragments">打开国内片段证据台账</a></div>
+</section>
+"""
+
+
+def domestic_fragment_ledger_page(qs: dict[str, list[str]]) -> bytes:
+    """Display the unified ledger of short, manually verified fragments."""
+    rows = _load_citation_fragment_rows()
+    query = str(qs.get("q", [""])[0] or "").strip()
+    needle = query.casefold()
+    filtered = [
+        row
+        for row in rows
+        if not needle
+        or needle in " ".join(
+            str(row.get(key) or "")
+            for key in ("title", "text", "target_id", "source_id", "pdf_page", "printed_page")
+        ).casefold()
+    ]
+    manifest: dict[str, object] = {}
+    try:
+        loaded = json.loads(CITATION_FRAGMENT_MANIFEST_PATH.read_text(encoding="utf-8"))
+        if isinstance(loaded, dict):
+            manifest = loaded
+    except (OSError, json.JSONDecodeError):
+        manifest = {}
+    cards: list[str] = []
+    for row in filtered:
+        text = f"{row.get('text') or ''}{row.get('display_suffix') or ''}"
+        page_id = int(row.get("main_db_page_id") or 0)
+        source_url = source_href(row.get("page_url") or "#")
+        cards.append(
+            f"""
+<article class="result">
+  <div>
+    <h2>{h(row.get('title') or row.get('target_id'))}</h2>
+    <div class="meta">PDF 第 {h(row.get('pdf_page'))} 页 · 印刷页 {h(row.get('printed_page'))} · 主库 page_id {h(page_id)} · {h(row.get('target_id'))}</div>
+    <div class="tagline"><span class="pstatus ok">片段级可引用</span><span class="tag">视觉复核完成</span><span class="tag">整页未升级</span></div>
+    <div class="snippet" style="font-family:var(--serif);font-size:16px;line-height:1.9;">“{h(text)}”</div>
+    <div class="snippet"><strong>证据范围：</strong>{h(row.get('scope') or '')}</div>
+    <div class="snippet"><strong>边界：</strong>{h(row.get('boundary_status') or '未登记')}；{h(row.get('promotion_scope') or '')}</div>
+  </div>
+  <div class="cite"><a href="/cite/{h(page_id)}">页级引用门禁</a><br><a href="{h(source_url)}" target="_blank" rel="noreferrer">原始来源</a><br><span class="meta">SHA {h(str(row.get('source_sha256') or '')[:16])}…</span></div>
+</article>"""
+        )
+    search_value = h(query)
+    body = breadcrumb_html(
+        [
+            ("/", "首页"),
+            ("/domestic/workbench", "国内研究平台"),
+            (None, "片段证据台账"),
+        ]
+    ) + f"""
+<section class="doc-head">
+  <div><h1>国内片段证据台账</h1><div class="meta">把已人工核验的短片段接入国内—海外统一研究路径；片段级可引用不等于整页 citation-ready。</div></div>
+  <div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button secondary" href="/domestic/sourcebook/1946-pcc">1946 政協文獻</a></div>
+</section>
+<section class="stats"><div class="stat"><strong>{h(manifest.get('fragment_count') or len(rows))}</strong><span>已登记片段</span></div><div class="stat"><strong>{h(manifest.get('fragment_citation_ready_count') or 0)}</strong><span>片段级可引用</span></div><div class="stat"><strong>{h(manifest.get('page_citation_ready_count') or 0)}</strong><span>整页可引用</span></div><div class="stat"><strong>{h(manifest.get('formal_db_written_count') or 0)}</strong><span>正式库写入</span></div></section>
+<div class="notice"><strong>证据纪律：</strong>这些记录只展示经过视觉交叉核对的短片段，并保留来源文件 SHA256、PDF/印刷页和边界说明。机器 OCR 仅用于交叉检索；整页正文仍保持 <code>body_read=false</code>、<code>page_citation_ready=false</code>，不会因为台账存在而升级。</div>
+<form class="search" method="get" action="/domestic/citations/fragments" role="search"><input type="search" name="q" value="{search_value}" placeholder="搜索人物、主题、片段或页码"><button type="submit">筛选片段</button></form>
+<section class="result-list">{''.join(cards) or '<div class="notice">没有匹配的片段记录。</div>'}</section>
+"""
+    return layout("国内片段证据台账", body, query=query, active_path="/domestic/citations/fragments")
+
+
 def domestic_sourcebook_page() -> bytes:
     """Expose the 1946 PCC scan as a local staging reading entry.
 
@@ -2511,7 +2630,7 @@ def domestic_sourcebook_page() -> bytes:
 <div class="table-wrap"><table><thead><tr><th>目标文种</th><th>起始 PDF 页</th><th>印刷页</th><th>相邻页</th><th>状态</th></tr></thead><tbody>{''.join(target_rows) or '<tr><td colspan="5">暂无定向页映射。</td></tr>'}</tbody></table></div>
 <section class="doc-head" style="margin-top:20px;background:var(--panel-warm);border-left:4px solid var(--accent);">
   <div><h2>下一步</h2><div class="meta">逐字复核 OCR 草稿 → 补独立会议记录/提案/代表身份 → 与同期报刊对位；不做整本 OCR。</div></div>
-  <div class="doc-tools"><a class="button" href="/research/domestic-1946-pcc/packet">研究包</a><a class="button secondary" href="/research/gaps">证据缺口</a></div>
+  <div class="doc-tools"><a class="button" href="/research/domestic-1946-pcc/packet">研究包</a><a class="button" href="/domestic/citations/fragments">片段证据台账</a><a class="button secondary" href="/research/gaps">证据缺口</a></div>
 </section>
 """
     return layout("1946年政協文獻", body, active_path="/research")
@@ -6931,6 +7050,7 @@ def domestic_workbench_page() -> bytes:
   <a class="button" href="/research">九专题总览</a>
   <a class="button" href="/research/gaps">一手证据缺口</a>
   <a class="button" href="/research/packets">研究包</a>
+  <a class="button" href="/domestic/citations/fragments">片段证据台账</a>
   <a class="button secondary" href="/research/parity">国内外对齐</a>
   <a class="button secondary" href="/domestic/library">核心可阅库</a>
   <a class="button secondary" href="/timeline?platform=domestic">国内年表</a>
@@ -7772,10 +7892,81 @@ def search_filter_form(query: str, platform: str | None, year: str, grade: str, 
 """
 
 
+_FRAGMENT_TRADITIONAL_TO_SIMPLIFIED = str.maketrans({
+    "協": "协", "會": "会", "議": "议", "國": "国", "內": "内",
+    "與": "与", "為": "为", "爭": "争", "組": "组", "張": "张",
+    "瀾": "澜", "劢": "劢", "劑": "剂",
+})
+
+
+def _fragment_search_key(value: object) -> str:
+    text = str(value or "")
+    return text.translate(_FRAGMENT_TRADITIONAL_TO_SIMPLIFIED).casefold()
+
+
+def _domestic_fragment_search_hits(
+    query: str,
+    platform: str | None,
+    year: str,
+    person: str,
+) -> list[dict[str, object]]:
+    """Search the additive fragment layer alongside the formal page search."""
+    if platform not in (None, "domestic"):
+        return []
+    if year.strip() and "1946" not in year.strip():
+        return []
+    if not query.strip() and platform != "domestic":
+        return []
+    rows = _load_citation_fragment_rows()
+    query_key = _fragment_search_key(query) if query.strip() else ""
+    person_key = _fragment_search_key(person) if person.strip() else ""
+    hits: list[dict[str, object]] = []
+    for row in rows:
+        raw_haystack = " ".join(
+            str(row.get(key) or "")
+            for key in ("title", "text", "target_id", "source_id", "pdf_page", "printed_page")
+        )
+        if str(row.get("source_id") or "").startswith("nlc-pcc"):
+            raw_haystack += " 政协 旧政协 pcc"
+        haystack = _fragment_search_key(raw_haystack)
+        if query_key and query_key not in haystack:
+            continue
+        if person_key and person_key not in haystack:
+            continue
+        hits.append(row)
+    return hits[:24]
+
+
+def _domestic_fragment_search_html(rows: list[dict[str, object]]) -> str:
+    if not rows:
+        return ""
+    cards: list[str] = []
+    for row in rows:
+        page_id = int(row.get("main_db_page_id") or 0)
+        display = f"{row.get('text') or ''}{row.get('display_suffix') or ''}"
+        cards.append(
+            f"""
+<article class="result compact-result"><div>
+  <h3>{h(row.get('title') or row.get('target_id'))}</h3>
+  <div class="meta">国内片段证据 · 1946 · PDF 第 {h(row.get('pdf_page'))} 页 · 印刷页 {h(row.get('printed_page'))}</div>
+  <div class="tagline"><span class="pstatus ok">片段级可引用</span><span class="tag">整页未升级</span></div>
+  <div class="snippet" style="font-family:var(--serif);">“{h(display)}”</div>
+  <div class="snippet">{h(row.get('scope') or '')}</div>
+</div><div class="cite"><a href="/cite/{h(page_id)}">引用门禁</a><br><a href="/domestic/citations/fragments?q={quote(str(row.get('target_id') or ''))}">证据台账</a></div></article>"""
+        )
+    return (
+        '<div class="section-head" style="margin-top:20px;"><h2>国内片段级证据命中</h2>'
+        f'<span class="meta">{len(rows)} 条 · 不替代整页引用</span></div>'
+        '<div class="notice">这些命中来自人工视觉核验的短片段；正式页级引用状态仍须打开引用门禁确认。</div>'
+        f'<section class="result-list">{"".join(cards)}</section>'
+    )
+
+
 def search(query: str, platform: str | None = None, year: str = "", grade: str = "", person: str = "", cited: bool = False) -> bytes:
     with conn() as c:
         rows = rows_for_search(c, query, platform=platform, year=year, grade=grade, person=person, cited=cited)
         domestic_evidence_labels = _search_domestic_evidence_labels(c, rows)
+        fragment_hits = _domestic_fragment_search_hits(query, platform, year, person)
         body = stats_html(c)
         title_text = f"搜索：{query}" if query.strip() else "筛选档案"
         chips = []
@@ -7811,7 +8002,8 @@ def search(query: str, platform: str | None = None, year: str = "", grade: str =
                 )
                 for row in rows
             ) + "</section>"
-        else:
+        body += _domestic_fragment_search_html(fragment_hits)
+        if not rows and not fragment_hits:
             body += '<div class="notice">没有找到结果。</div>'
     return layout(f"搜索 {query}", body, query)
 
@@ -10568,6 +10760,7 @@ def citation_page(page_id: int) -> bytes:
                 "人工复核记录及复核说明，因此不生成正式引文。"
             )
             gate_label = "国内史料"
+        fragment_panel = domestic_fragment_panel(page_id) if row["source_platform"] == "domestic" else ""
         body = f"""
 <section class="doc-head">
   <div>
@@ -10582,11 +10775,12 @@ def citation_page(page_id: int) -> bytes:
 </section>
 <div class="notice">{gate_notice} 当前状态：{h(row["provenance_review_status"])}。</div>
 <section class="reader">
-  <article class="pane">
+    <article class="pane">
     <div class="pane-head"><span>{gate_label}</span><span>{h(page)}</span></div>
     <div class="pane-body">{h(row["original_text"])}</div>
-  </article>
+    </article>
 </section>
+{fragment_panel}
 """
         return layout("引用门禁未通过", body)
     metadata_scope_only = (
@@ -10652,6 +10846,11 @@ def citation_page(page_id: int) -> bytes:
         if row["source_platform"] in {"domestic", "drnh"}
         else ""
     )
+    fragment_panel = (
+        domestic_fragment_panel(page_id)
+        if row["source_platform"] == "domestic"
+        else ""
+    )
     body = f"""
 <section class="doc-head">
   <div>
@@ -10675,6 +10874,7 @@ def citation_page(page_id: int) -> bytes:
     <div class="pane-body">{h(row["zh_text"] or "")}</div>
   </article>'''}
 </section>
+{fragment_panel}
 {domestic_panel}
 <section style="margin-top:14px;">
   <textarea class="copybox" readonly>{h(citation)}</textarea>
@@ -10909,6 +11109,25 @@ def timeline(topic_slug: str = "", person_slug: str = "", platform_slug: str = "
   </div>
   <div class="cite"><a href="/cite/{h(row["page_id"])}">{cite_label}</a><br><a href="{h(review_href)}">{review_label}</a>{extra_cite}</div>
 </article>"""
+            body += "</section>"
+    if platform_slug == "domestic" and not getattr(_request, "public_mode", False):
+        fragment_rows = sorted(
+            _load_citation_fragment_rows(),
+            key=lambda row: (int(row.get("pdf_page") or 0), str(row.get("title") or "")),
+        )
+        if fragment_rows:
+            body += '<div class="section-head" style="margin-top:28px;"><h2>片段级证据时间锚点</h2><span class="meta">1946 出版年锚点 · 不代替材料事件日期</span></div>'
+            body += '<div class="notice">以下记录把已核验短片段接入国内年表，按汇编 PDF 页排序；它们不是新增事件，也不会把汇编页自动升级为事件定义原件。</div><section class="result-list">'
+            for row in fragment_rows:
+                page_id = int(row.get("main_db_page_id") or 0)
+                display = f"{row.get('text') or ''}{row.get('display_suffix') or ''}"
+                body += f"""
+<article class="result compact-result"><div>
+  <h3>{h(row.get('title') or row.get('target_id'))}</h3>
+  <div class="meta">1946（出版年锚点） · PDF 第 {h(row.get('pdf_page'))} 页 · 印刷页 {h(row.get('printed_page'))} · page_id {h(page_id)}</div>
+  <div class="tagline"><span class="pstatus ok">片段级可引用</span><span class="tag">整页未升级</span></div>
+  <div class="snippet" style="font-family:var(--serif);">“{h(display)}”</div>
+</div><div class="cite"><a href="/cite/{h(page_id)}">引用门禁</a><br><a href="/domestic/citations/fragments?q={quote(str(row.get('target_id') or ''))}">证据台账</a></div></article>"""
             body += "</section>"
     return layout(title, body)
 
@@ -12119,6 +12338,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = public_page()
         elif parsed.path == "/domestic/sourcebook/1946-pcc":
             payload = domestic_sourcebook_page()
+        elif parsed.path == "/domestic/citations/fragments":
+            payload = domestic_fragment_ledger_page(qs)
         elif parsed.path == "/domestic/sourcebook/file/1946-pcc":
             if not PCC_1946_SOURCEBOOK_PATH.is_file():
                 self.send_response(404)
