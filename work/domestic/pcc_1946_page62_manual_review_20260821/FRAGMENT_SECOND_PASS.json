@@ -1,0 +1,61 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对罗隆基报告民主同盟意见第62页标题下方的开头主张短语进行第二次高分辨率视觉核对，并确认第63页连续正文和曾琦报告的标题边界。",
+  "source_page_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/PAGE62_MANUAL_REVIEW.json",
+  "source_boundary_review_ref": "work/domestic/pcc_1946_pages62_63_boundary_review_20260821/PAGES62_63_BOUNDARY_REVIEW.json",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 62,
+    "printed_page": 55,
+    "page_image_300dpi": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-062-r270.png",
+    "page_image_300dpi_sha256": "0f8c115a912c24e88be34f77ae7aef6dc1d4b328ce8b14113b9a902f4b897bb0",
+    "page_image_600dpi_probe": "work/domestic/pcc_1946_sourcebook_render_20260821_highres/pdf-062-r270.jpg",
+    "page_image_600dpi_probe_sha256": "94c1570c38395158d29179b8fabe31016c8a2b84fe7addfe2b900d808dd5308c",
+    "boundary_page": 63,
+    "boundary_page_image": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-063-r270.png",
+    "boundary_page_image_sha256": "7240389410a05ac19e4c546fcc1ec7ca62cb5d3a4e03ef8302b3cf9dbef46375"
+  },
+  "review_passes": [
+    {
+      "pass_id": "initial_visual_pass",
+      "method": "300dpi_rotated_page_manual_reading",
+      "scope": "title_anchor_and_opening_text",
+      "status": "completed"
+    },
+    {
+      "pass_id": "second_visual_pass",
+      "method": "600dpi_local_rerender_manual_reading",
+      "scope": "opening_phrase_characters_and_page63_boundary",
+      "status": "completed",
+      "finding": "标题下方开头短语‘民主同盟也主張改組政府’字符可辨认；第63页上部仍为无新标题连续正文，随后出现‘曾琦报告青年党意见’新标题。"
+    }
+  ],
+  "fragment": {
+    "target_id": "luo-longji-democratic-league-view",
+    "title": "罗隆基报告民主同盟意见",
+    "scope": "标题下方开头短语；不含后续未逐字校读的完整句子",
+    "text": "民主同盟也主張改組政府",
+    "fragment_ends_mid_sentence": true,
+    "display_suffix": "……",
+    "transcription_mode": "manual_visual_transcription_600dpi_crosschecked_300dpi",
+    "character_check": "confirmed",
+    "punctuation_check": "not_applicable_fragment_ends_before_source_comma",
+    "ocr_crosscheck": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-062-r270.ocr.md",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "continuation_boundary_status": "page63_continuation_and_next_title_visually_confirmed",
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅开头短语达到片段级引用门禁",
+    "promotion_scope": "引用时必须保留省略标记和‘片段止于原页逗号前’说明；不得把短语扩展为完整观点或整篇报告"
+  },
+  "status": "HUMAN_VERIFIED_FRAGMENT_QUOTE_READY_PAGE_BODY_OPEN"
+}

@@ -52,6 +52,7 @@
       "adjacent_pdf_pages": [63],
       "manual_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/PAGE62_MANUAL_REVIEW.json",
       "boundary_review_ref": "work/domestic/pcc_1946_pages62_63_boundary_review_20260821/PAGES62_63_BOUNDARY_REVIEW.json",
+      "fragment_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
       "status": "page_identity_boundary_verified"
     },
     {

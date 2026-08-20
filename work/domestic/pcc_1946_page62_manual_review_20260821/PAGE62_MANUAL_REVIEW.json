@@ -35,6 +35,8 @@
     "body_read": false,
     "citation_ready": false,
     "formal_body_promotion": false,
+    "fragment_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
+    "fragment_citation_ready": true,
     "next_promotion_requirements": [
       "逐字校读需要引用的罗隆基报告段落",
       "确认第63页正文接续和新标题边界",

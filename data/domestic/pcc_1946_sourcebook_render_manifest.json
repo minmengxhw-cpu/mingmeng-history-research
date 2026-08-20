@@ -52,6 +52,7 @@
       "rotated_image_bytes": 1342010,
       "visual_review_status": "visually_inspected",
       "manual_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/PAGE62_MANUAL_REVIEW.json",
+      "fragment_review_ref": "work/domestic/pcc_1946_page62_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
       "targets": [{"target_id": "luo-longji-democratic-league-view", "role": "title_start"}]
     },
     {
