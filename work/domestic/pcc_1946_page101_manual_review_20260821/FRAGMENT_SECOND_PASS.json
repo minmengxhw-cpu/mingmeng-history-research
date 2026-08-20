@@ -1,0 +1,61 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对民主同盟提案第101页标题下方开头短语进行第二次高分辨率视觉核对，并确认第102页连续正文与梁漱溟说明的边界。",
+  "source_page_review_ref": "work/domestic/pcc_1946_page101_manual_review_20260821/PAGE101_MANUAL_REVIEW.json",
+  "source_boundary_review_ref": "work/domestic/pcc_1946_pages101_102_boundary_review_20260821/PAGES101_102_BOUNDARY_REVIEW.json",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 101,
+    "printed_page": 94,
+    "page_image_300dpi": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-101-r270.png",
+    "page_image_300dpi_sha256": "e5df5b201b21fbe401069df81abba2889d16c7cc920662144dbb91324e4f8cdc",
+    "page_image_600dpi_probe": "work/domestic/pcc_1946_sourcebook_render_20260821_highres/pdf-101-r270.jpg",
+    "page_image_600dpi_probe_sha256": "316c2ed20e1044ef0e315f1649c941cf60b80da89e5e5a35aa2b21ea0770f035",
+    "boundary_page": 102,
+    "boundary_page_image": "work/domestic/pcc_1946_sourcebook_boundary_probe_20260821/pdf-102-r270.jpg",
+    "boundary_page_image_sha256": "0f95f458daa7dfc6e31f1404854e5c53c3edd38155298060b88ae9700a756e5b"
+  },
+  "review_passes": [
+    {
+      "pass_id": "initial_visual_pass",
+      "method": "300dpi_rotated_page_manual_reading",
+      "scope": "in_page_target_title_and_opening_line",
+      "status": "completed"
+    },
+    {
+      "pass_id": "second_visual_pass",
+      "method": "600dpi_local_rerender_manual_reading",
+      "scope": "opening_phrase_characters_and_page102_boundary",
+      "status": "completed",
+      "finding": "目标标题下方开头短语‘同盟主張本會議爲奠定國家統一’字符可辨认；第102页正文先承接目标，之后出现‘梁漱溟對民主同盟提案的說明’新标题。"
+    }
+  ],
+  "fragment": {
+    "target_id": "democratic-league-proposal",
+    "title": "民主同盟的提案",
+    "scope": "目标标题下方开头短语；排除第101页上方陈启天材料及后续完整条目",
+    "text": "同盟主張本會議爲奠定國家統一",
+    "fragment_ends_mid_sentence": true,
+    "display_suffix": "……",
+    "transcription_mode": "manual_visual_transcription_600dpi_crosschecked_300dpi",
+    "character_check": "confirmed",
+    "punctuation_check": "not_applicable_fragment_ends_before_source_continuation",
+    "ocr_crosscheck": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-101-r270.ocr.md",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "continuation_boundary_status": "page102_continuation_and_liang_shuming_new_title_visually_confirmed",
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅开头短语达到片段级引用门禁",
+    "promotion_scope": "引用时必须保留省略标记、目标标题和页101锚点；不得把短语扩展为完整提案或梁漱溟说明"
+  },
+  "status": "HUMAN_VERIFIED_FRAGMENT_QUOTE_READY_PAGE_BODY_OPEN"
+}

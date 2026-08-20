@@ -69,6 +69,7 @@
       "rotated_image_bytes": 1167509,
       "visual_review_status": "visually_inspected",
       "manual_review_ref": "work/domestic/pcc_1946_page101_manual_review_20260821/PAGE101_MANUAL_REVIEW.json",
+      "fragment_review_ref": "work/domestic/pcc_1946_page101_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
       "targets": [{"target_id": "democratic-league-proposal", "role": "title_start"}]
     },
     {
