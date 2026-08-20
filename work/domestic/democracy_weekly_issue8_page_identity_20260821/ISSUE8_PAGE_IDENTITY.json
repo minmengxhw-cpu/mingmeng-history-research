@@ -1,0 +1,179 @@
+{
+  "schema": "domestic_periodical_issue_page_identity_chain.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "记录合订册中第三卷第八期已视觉核对的卷首与连续印刷页身份，不转录正文",
+  "source_id": "nlc-democracy-weekly-bound-volume-1944-1946",
+  "source_sha256": "38e7ca88e6b45efca27c7b685fff1ff57c2dc292ca3c1b8972c05994994e8fae",
+  "source_file": "data/domestic/grok_cycle_0006_20260801/pdf/commons_NLC_民主周刊.pdf",
+  "target_issue_source_id": "cadal-democracy-weekly-03016374",
+  "target_issue_sha256": "5ba6e7db4d7ee5b0ef4ea495b4b83aec902198150cfd9be6295dce0d4ff740b2",
+  "review": {
+    "method": "local_visual_inspection_of_pdftoppm_renders",
+    "render": "JPEG at 140 dpi for chain; selected boundary pages separately checked at 300 dpi",
+    "body_read": false,
+    "body_transcription": false,
+    "ocr_run": false,
+    "formal_db_written": false,
+    "citation_ready": false,
+    "review_scope": "issue_identity_and_printed_page_number_only"
+  },
+  "page_records": [
+    {
+      "bound_pdf_page": 1056,
+      "render_sha256": "3031d7453d1e5242f01f1a322857085fe28cbb1168e397b1e5f7d9b43cc8ecee",
+      "role": "issue_cover_start",
+      "printed_page": null,
+      "visual_identity": "《民主周刊》第三卷第八期卷首",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1057,
+      "render_sha256": "15b7a5653ccda8b1ce43144c6474dca6f700e1b5291fa9a1fdd33917fb0e42a",
+      "role": "issue_interior",
+      "printed_page": 2,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1058,
+      "render_sha256": "c3b999d0c5de406127447c872112373d5b1e72cb00d193b7fd0c0b87af5da810",
+      "role": "issue_interior",
+      "printed_page": 3,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1059,
+      "render_sha256": "c2b3a6830f35b312c8115870f8eabc49a718a5113dbb62ea7fdd8d7be6f1864b",
+      "role": "issue_interior",
+      "printed_page": 4,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1060,
+      "render_sha256": "46e033efeb10ff792e1608ac0f30885d000e1dc8251155b053c54b6a59118e61",
+      "role": "issue_interior",
+      "printed_page": 5,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1061,
+      "render_sha256": "4676b2c806ec326edb1e36672c8d1617fd65070ef8beb7125a3d964b67abe9ea",
+      "role": "issue_interior",
+      "printed_page": 6,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1062,
+      "render_sha256": "90eb8904fbf6610543e3650c58a2c0630cb50c6d8907f2435804dfeaca3097e1",
+      "role": "issue_interior",
+      "printed_page": 7,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1063,
+      "render_sha256": "a72ef9ce15466fbc73ed86ef70e4307810832bfbbe0194b6511d423506ad30f3",
+      "role": "issue_interior",
+      "printed_page": 8,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1064,
+      "render_sha256": "e84fe00fc9043424a602745a3294f2c3ffdbcb5f6bcfae2dd3b4132a8431faf2",
+      "role": "issue_interior",
+      "printed_page": 9,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1065,
+      "render_sha256": "b57b5b83446b80aab7eb39b0beeba612be4129e5a81f2142facc4d44dddc7dd2",
+      "role": "issue_interior",
+      "printed_page": 10,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1066,
+      "render_sha256": "b8e9ec5c0aa2f6579bd654c2beffa15e4f7df03cd8c344675cada05f6595560",
+      "role": "issue_interior",
+      "printed_page": 11,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1067,
+      "render_sha256": "2a7d6a3b3274169170680891a4027649bd013df6f1f0ebb09cc58af3095e0350",
+      "role": "issue_interior",
+      "printed_page": 12,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1068,
+      "render_sha256": "c459870f4ac051ef10dab63eafa402b6c8802c8c296af3742f71f91e3cbceafb",
+      "role": "issue_interior",
+      "printed_page": 13,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1069,
+      "render_sha256": "f0047bc1ec7bfee703aa6d3171337bd8d0eb1058ed055b24bb399de9c87ff033",
+      "role": "issue_interior",
+      "printed_page": 14,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1070,
+      "render_sha256": "c36ca6dd6af0d23039ebe9c40812c1b75c62c7546b3670ca14f9cffb5d2dea04",
+      "role": "issue_interior",
+      "printed_page": 15,
+      "visual_identity": "页眉期号与印刷页码可见",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "bound_pdf_page": 1071,
+      "render_sha256": "2175be3f6628d33b876b61ac22ff6fe381fccb19d3f13c3a07e8638c3ee583de",
+      "role": "issue_last_page_in_bound_segment",
+      "printed_page": 16,
+      "visual_identity": "页眉期号与印刷页码可见；下一页为第三卷第九期卷首",
+      "page_identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    }
+  ],
+  "variant_and_gap": {
+    "bound_segment_pdf_span": 16,
+    "bound_printed_page_span": "cover plus 2-16",
+    "cadal_issue_page_count": 20,
+    "unresolved_pages": "CADAL physical pages 17-20, or equivalent version/scan difference",
+    "interpretation": "当前只能确认合订册中的一个16页版本段落，不能据此断言CADAL 20页单期完整内容已在合订册中取得。"
+  },
+  "next_action": [
+    "查询同一合订册中是否存在第三卷第八期印刷页17—20的另一个段落或补页",
+    "对CADAL单期20页与合订册16页做封面、目录/标题和印刷页码的版本关系对账",
+    "只对研究问题命中的页做定向OCR，保持draft_ocr与citation_ready分离"
+  ],
+  "status": "G2_PAGE_IDENTITY_CHAIN_16_PAGE_VARIANT_CONFIRMED_CADAL_GAP_OPEN"
+}

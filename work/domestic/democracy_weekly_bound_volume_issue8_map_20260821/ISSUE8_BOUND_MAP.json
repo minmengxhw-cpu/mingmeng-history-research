@@ -1,0 +1,112 @@
+{
+  "schema": "domestic_periodical_issue_bound_map.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "用合订册卷首和下一期卷首建立1946年第三卷第八期的物理页边界候选，供后续定向OCR和页级对齐使用",
+  "body_read": false,
+  "ocr_run": false,
+  "raw_files_copied": false,
+  "formal_db_written": false,
+  "citation_ready": false,
+  "policy": {
+    "no_deletion": true,
+    "metadata_is_not_body_evidence": true,
+    "bound_volume_range_is_not_single_issue_page_mapping": true,
+    "next_issue_boundary_is_required": true,
+    "page_level_alignment_required_before_citation": true
+  },
+  "container": {
+    "source_id": "nlc-democracy-weekly-bound-volume-1944-1946",
+    "title": "《民主周刊》国家图书馆合订扫描",
+    "source_file": "data/domestic/grok_cycle_0006_20260801/pdf/commons_NLC_民主周刊.pdf",
+    "sha256": "38e7ca88e6b45efca27c7b685fff1ff57c2dc292ca3c1b8972c05994994e8fae",
+    "pdf_pages": 1279,
+    "source_url": "https://commons.wikimedia.org/wiki/File:NLC511-026031010040217-290_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.pdf"
+  },
+  "target_issue": {
+    "source_id": "cadal-democracy-weekly-03016374",
+    "title": "《民主周刊》第三卷第八期（1946-06）",
+    "source_file": "data/domestic/grok_cycle_0006_20260801/pdf/commons_CADAL_民主周刊_16374.djvu",
+    "sha256": "5ba6e7db4d7ee5b0ef4ea495b4b83aec902198150cfd9be6295dce0d4ff740b2",
+    "djvu_pages": 20,
+    "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016374",
+    "identity_basis": "G1 visual identity review confirmed the CADAL single-issue cover, interior pagination sample, and last physical page; this is an issue identity anchor, not a citation-ready body review."
+  },
+  "bound_volume_boundary": {
+    "start_pdf_page": 1056,
+    "start_render_sha256": "a1357e771ce3f932e02fae1448c017eda66d865521b09abef190a5ce9daf1739",
+    "start_role": "issue_cover_start_anchor",
+    "start_visual_observation": "页图可见《民主周刊》及‘第三卷第八期’字样，确认该物理页进入目标期卷首。",
+    "next_issue_start_pdf_page": 1072,
+    "next_issue_start_render_sha256": "7b6d4edc768383651f4c688eb9f205167d95bdc5ae8ac380005209a9388b42b7",
+    "next_issue_start_role": "next_issue_identity_boundary",
+    "next_issue_start_visual_observation": "卷首可见《民主周刊》第三卷第九期，作为目标期之后的下一期边界锚点。",
+    "end_pdf_page_candidate": 1071,
+    "inclusive_bound_span_pages": 16,
+    "single_issue_source_pages": 20,
+    "span_count_mismatch": -4,
+    "boundary_noise_risk": [
+      "合订册目标段落包含卷首页及印刷页2—16，未见印刷页17—20",
+      "CADAL单期为20页，和合订册当前16页跨度存在版本/缺页差异",
+      "不能把合订册16页直接当作CADAL 20页的一一对应完整版本"
+    ]
+  },
+  "page_anchors": [
+    {
+      "pdf_page": 1056,
+      "role": "issue_start",
+      "render": "pdftoppm JPEG at 260 dpi",
+      "render_sha256": "a1357e771ce3f932e02fae1448c017eda66d865521b09abef190a5ce9daf1739",
+      "identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 1057,
+      "role": "issue_interior_first_page_candidate",
+      "render": "pdftoppm JPEG at 260 dpi",
+      "render_sha256": "f902d0a5f711232446b67172d7043e4f452e513f158592f447f7db4d8411ad22",
+      "visual_observation": "目标期卷首后的内页，作为页序探针；未作正文转录或逐字校读。",
+      "identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 1071,
+      "role": "last_page_before_next_issue_candidate",
+      "render": "pdftoppm JPEG at 260 dpi",
+      "render_sha256": "2c70a165c71f76e93fa4977eb26799f117d2887e51e312a90a32cc61390cbb88",
+      "identity_status": "boundary_candidate_only",
+      "citation_ready": false
+    },
+    {
+      "pdf_page": 1072,
+      "role": "next_issue_start",
+      "render": "pdftoppm JPEG at 260 dpi",
+      "render_sha256": "7b6d4edc768383651f4c688eb9f205167d95bdc5ae8ac380005209a9388b42b7",
+      "identity_status": "human_verified_identity_only",
+      "citation_ready": false
+    }
+  ],
+  "mapping_status": "BOUND_BOUNDARIES_CONFIRMED_VERSION_OR_MISSING_PAGE_GAP_PENDING",
+  "conclusion": {
+    "confirmed": [
+      "合订册第1056页是第三卷第八期卷首锚点",
+      "合订册第1072页已经进入第三卷第九期",
+      "第三卷第八期在当前合订册中的物理范围应暂记为1056—1071",
+      "1056—1071内部印刷页连续显示卷首及第2—16页"
+    ],
+    "not_confirmed": [
+      "1056—1071与CADAL 20页单期影像的一一对应关系",
+      "印刷页17—20是否缺失、另有版本或位于合订册其他位置",
+      "目标文章在该范围内的具体页号",
+      "任何目标文章正文的正式逐字引文"
+    ],
+    "promotion": "只允许进入期号导航和定向OCR队列；不写入正式页级引文，不关闭1946李闻专题原件缺口。"
+  },
+  "next_action": [
+    "在1056—1071范围内用封面、印刷页码和版式建立单期页级对齐表",
+    "查明印刷页17—20是合订册缺页、版本差异还是位于其他卷期位置",
+    "优先查找目标文章标题/目录页，再对命中页做定向OCR",
+    "对广告、缺页、重复/重扫页单独登记，不并入连续正文页链",
+    "完成页级对齐和人工校读后，再决定review_only或citation_ready"
+  ],
+  "status": "G2_BOUNDARY_ANCHORS_CONFIRMED_VERSION_OR_MISSING_PAGE_GAP_PENDING"
+}

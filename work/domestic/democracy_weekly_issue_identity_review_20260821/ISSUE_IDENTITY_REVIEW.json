@@ -1,0 +1,66 @@
+{
+  "schema": "domestic_periodical_issue_identity_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对一个CADAL单期完成封面/内页/末页视觉身份核验，作为合订册页映射锚点",
+  "body_read": false,
+  "raw_files_copied": false,
+  "formal_db_written": false,
+  "review_mode": "computer_use_visual_review_of_public_page_previews",
+  "source": {
+    "source_id": "cadal-democracy-weekly-03016374",
+    "title": "《民主周刊》第八期（1946-06）",
+    "source_file": "data/domestic/grok_cycle_0006_20260801/pdf/commons_CADAL_民主周刊_16374.djvu",
+    "sha256": "5ba6e7db4d7ee5b0ef4ea495b4b83aec902198150cfd9be6295dce0d4ff740b2",
+    "bytes": 2457222,
+    "djvu_pages": 20,
+    "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016374_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
+    "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016374",
+    "catalogue_description": "周刊no.8[1946-06]"
+  },
+  "reviewed_pages": [
+    {
+      "source_page_index": 0,
+      "physical_page": 1,
+      "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/CADAL03016374_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu/page1-960px-CADAL03016374_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu.jpg",
+      "preview_sha256": "1e66329bd2e74388f82fb2e5f819a0dd7de61d37ced04b4639c6157b621cfaff",
+      "visual_finding": "封面/题名页可见《民主周刊》及‘第八期’字样；小字日期和出版信息未作为正式转录字段。",
+      "identity_role": "issue_cover_and_title_page",
+      "page_identity": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "source_page_index": 1,
+      "physical_page": 2,
+      "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/CADAL03016374_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu/page2-960px-CADAL03016374_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu.jpg",
+      "preview_sha256": "5dd5b6a72f3c5c5655ef8ea39f9bc81c41dfeb60c3360ae740ab9c236bdf2ada",
+      "visual_finding": "内页为正文排版，并可见印刷页码‘2’，支持单期内部页码连续性的初步判断。",
+      "identity_role": "interior_pagination_check",
+      "page_identity": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "source_page_index": 19,
+      "physical_page": 20,
+      "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/CADAL03016374_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu/page20-960px-CADAL03016374_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu.jpg",
+      "preview_sha256": "ee44a10d0931758a5dbde8e141b650b3ffd6294ef904d243f2cfedea7cec1b45",
+      "visual_finding": "末页影像可以正常取得，为正文版面；本轮不转录文章内容，也不据此判断文章标题或事实。",
+      "identity_role": "physical_extent_last_page_check",
+      "page_identity": "human_verified_identity_only",
+      "citation_ready": false
+    }
+  ],
+  "conclusion": {
+    "identity_status": "ISSUE_IDENTITY_CONFIRMED",
+    "page_extent_status": "single_issue_20_pages_visually_checked_at_endpoints",
+    "citation_ready": false,
+    "formal_db_apply": false,
+    "promotion_scope": "允许作为合订册期号导航和定向OCR锚点；不允许把未校读正文直接升级为正式引文。",
+    "remaining_gap": "该单期尚未完成目标文章的页级定位和人工校读，且尚未建立它在1279页合订册中的物理页范围。"
+  },
+  "next_action": [
+    "将03016374加入合订册期号—物理页映射队列",
+    "用同一方法核验其余高价值单期，优先1946年7月第16期03016383",
+    "仅对已定位的研究目标页启动定向OCR"
+  ],
+  "status": "G1_COMPLETE_IDENTITY_ONLY"
+}

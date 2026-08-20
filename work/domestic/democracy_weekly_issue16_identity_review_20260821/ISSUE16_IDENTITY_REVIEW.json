@@ -1,0 +1,71 @@
+{
+  "schema": "domestic_periodical_issue_identity_review.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1946年第三卷第十六期公开影像入口完成封面、内页和末页身份核验，作为李闻专题的期号追索锚点",
+  "body_read": false,
+  "raw_files_copied": false,
+  "formal_db_written": false,
+  "review_mode": "computer_use_visual_review_of_public_page_previews",
+  "source": {
+    "source_id": "cadal-democracy-weekly-03016383",
+    "title": "《民主周刊》第三卷第十六期（1946-07）",
+    "source_file": null,
+    "sha256": null,
+    "sha256_status": "not_computed_remote_preview_only",
+    "djvu_pages": 16,
+    "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
+    "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016383",
+    "catalogue_description": "第三卷第十六期v.3，no.16（1946，7）",
+    "source_role": "contemporary_periodical_public_scan_route",
+    "evidence_level": "L1"
+  },
+  "reviewed_pages": [
+    {
+      "source_page_index": 0,
+      "physical_page": 1,
+      "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu/page1-960px-CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu.jpg",
+      "preview_sha256": null,
+      "preview_hash_status": "browser_preview_not_localized",
+      "visual_finding": "封面/题名页可见《民主周刊》及‘第三卷第十六期’字样；封面文章标题只作为研究定位线索，不转录正文。",
+      "identity_role": "issue_cover_and_title_page",
+      "page_identity": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "source_page_index": 1,
+      "physical_page": 2,
+      "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu/page2-960px-CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu.jpg",
+      "preview_sha256": null,
+      "preview_hash_status": "browser_preview_not_localized",
+      "visual_finding": "正文内页可见印刷页码‘2’，支持单期页码身份的初步核验；未转录文章内容。",
+      "identity_role": "interior_pagination_check",
+      "page_identity": "human_verified_identity_only",
+      "citation_ready": false
+    },
+    {
+      "source_page_index": 15,
+      "physical_page": 16,
+      "preview_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu/page16-960px-CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu.jpg",
+      "preview_sha256": null,
+      "preview_hash_status": "browser_preview_not_localized",
+      "visual_finding": "第16个公开页图可取得，为单期期末正文版面入口；本轮不据此转录正文或判断文章边界。",
+      "identity_role": "physical_extent_last_page_check",
+      "page_identity": "human_verified_identity_only",
+      "citation_ready": false
+    }
+  ],
+  "conclusion": {
+    "identity_status": "ISSUE_IDENTITY_CONFIRMED_REMOTE_PREVIEW_ONLY",
+    "page_extent_status": "16_page_public_preview_endpoint_checked",
+    "citation_ready": false,
+    "formal_db_apply": false,
+    "promotion_scope": "允许作为李闻专题期号导航和后续取件锚点；不允许把远程预览中的未校读正文升级为正式引文。",
+    "remaining_gap": "尚未取得本地原文件和来源字节哈希，未定位目标文章页，也未建立该期在1279页合订册中的物理范围。"
+  },
+  "next_action": [
+    "在用户已授权的资料入口或可复现公开下载路径取得本地文件并核对SHA256",
+    "对封面目录/标题和目标文章页做页级定位，再启动定向OCR",
+    "将03016383与合订册第三卷卷期边界建立版本关系，不将远程入口写成正式库页"
+  ],
+  "status": "G1_COMPLETE_IDENTITY_ONLY_REMOTE_SOURCE_HASH_PENDING"
+}

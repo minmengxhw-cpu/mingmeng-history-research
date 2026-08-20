@@ -51,13 +51,26 @@
       "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016374",
       "catalogue_description": "周刊no.8[1946-06]",
       "publication_date": "1946-06",
-      "identity_status": "metadata_verified_issue_candidate",
-      "page_identity_status": "not_human_verified_in_this_audit",
+      "identity_status": "visual_issue_identity_confirmed",
+      "page_identity_status": "human_verified_identity_only",
+      "identity_review_ref": "work/domestic/democracy_weekly_issue_identity_review_20260821/ISSUE_IDENTITY_REVIEW.json",
+      "bound_volume_map_ref": "work/domestic/democracy_weekly_bound_volume_issue8_map_20260821/ISSUE8_BOUND_MAP.json",
+      "page_identity_ref": "work/domestic/democracy_weekly_issue8_page_identity_20260821/ISSUE8_PAGE_IDENTITY.json",
+      "bound_volume_scope": {
+        "pdf_start_page": 1056,
+        "pdf_end_page": 1071,
+        "next_issue_start_pdf_page": 1072,
+        "printed_page_span": "cover plus 2-16",
+        "bound_pdf_page_count": 16,
+        "cadal_page_count": 20,
+        "status": "identity_confirmed_version_or_missing_page_gap_open",
+        "citation_ready": false
+      },
       "source_role": "contemporary_periodical_scan",
       "evidence_level": "L1",
       "citation_ready": false,
       "formal_db_apply": false,
-      "next_action": "人工核对封面/题名页/首尾页后，作为合订册期号映射锚点。"
+      "next_action": "保留1056—1071为合订册身份链；先查明CADAL 20页与合订册16页的版本/缺页差异，再定位目标文章并定向OCR。"
     },
     {
       "source_id": "cadal-democracy-weekly-03016375",
@@ -188,9 +201,11 @@
       "source_url": "https://commons.wikimedia.org/wiki/File:CADAL03016383_%E6%B0%91%E4%B8%BB%E5%91%A8%E5%88%8A.djvu",
       "catalogue_url": "http://cadal.edu.cn/cardpage/bookCardPage?ssno=03016383",
       "metadata_description": "第三卷第十六期v.3，no.16（1946，7）；Commons元数据登记16页",
-      "status": "metadata_lead_not_locally_acquired",
+      "status": "visual_issue_identity_confirmed_remote_preview_only",
+      "identity_review_ref": "work/domestic/democracy_weekly_issue16_identity_review_20260821/ISSUE16_IDENTITY_REVIEW.json",
+      "page_identity_status": "human_verified_identity_only",
       "formal_db_apply": false,
-      "next_action": "P0追索对象：优先核验封面、出版日期、闻一多/李公朴相关文章和物理页码。"
+      "next_action": "P0追索对象：已核验封面、期号、公开页2和页16入口；下一步取得本地原文件及SHA256，再定位闻一多/李公朴相关文章和物理页码。"
     }
   ],
   "next_gates": [
