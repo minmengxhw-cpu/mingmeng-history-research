@@ -1,0 +1,61 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对民盟主席张澜三月二十一日的重要谈话第206页标题下方短片段进行第二次高分辨率视觉核对，并确认第207页连续正文与罗隆基演说新标题的边界。",
+  "source_page_review_ref": "work/domestic/pcc_1946_page206_manual_review_20260821/PAGE206_MANUAL_REVIEW.json",
+  "source_boundary_review_ref": "work/domestic/pcc_1946_pages206_207_boundary_review_20260821/PAGES206_207_BOUNDARY_REVIEW.json",
+  "source": {
+    "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+    "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+    "pdf_page": 206,
+    "printed_page": 197,
+    "page_image_300dpi": "work/domestic/pcc_1946_sourcebook_render_20260814/pdf-206-r270.png",
+    "page_image_300dpi_sha256": "6d0aff9b0ba2b398eca69eec416c47cbae54e3e26da53213d3ec8702c1ed6667",
+    "page_image_600dpi_probe": "work/domestic/pcc_1946_sourcebook_render_20260821_highres/pdf-206-r270.jpg",
+    "page_image_600dpi_probe_sha256": "f70ed6379cd8891c30c5fce26290f778f72ea45caa1c9ef725362ea3f2d7c390",
+    "boundary_page": 207,
+    "boundary_page_image": "work/domestic/pcc_1946_sourcebook_boundary_probe_20260821/pdf-207-r270.jpg",
+    "boundary_page_image_sha256": "6cdeb83ea5f3062b5ea95fde714ef6c32addc557956f400f6ae64329f6fadbc5"
+  },
+  "review_passes": [
+    {
+      "pass_id": "initial_visual_pass",
+      "method": "300dpi_rotated_page_manual_reading",
+      "scope": "title_anchor_and_target_body_region",
+      "status": "completed"
+    },
+    {
+      "pass_id": "second_visual_pass",
+      "method": "600dpi_local_rerender_manual_reading",
+      "scope": "opening_phrase_characters_and_page207_boundary",
+      "status": "completed",
+      "finding": "标题‘民盟主席張瀾三月廿一日的重要談話’及其下方短片段‘政治協商會議會期中就政府改組問題爭執最久’字符可辨认；第207页页首仍为连续正文，随后出现‘羅隆基在昆明五四紀念會上演說擇要’新标题。"
+    }
+  ],
+  "fragment": {
+    "target_id": "zhang-lan-march-21-talk",
+    "title": "民盟主席张澜三月二十一日的重要谈话",
+    "scope": "目标标题下方正文中的政府改组问题开头短片段；排除第206页上半部前置函件和第207页罗隆基演说",
+    "text": "政治協商會議會期中就政府改組問題爭執最久",
+    "fragment_ends_mid_sentence": true,
+    "display_suffix": "……",
+    "transcription_mode": "manual_visual_transcription_600dpi_crosschecked_300dpi",
+    "character_check": "confirmed",
+    "punctuation_check": "not_applicable_fragment_ends_before_source_continuation",
+    "ocr_crosscheck": "work/domestic/pcc_1946_sourcebook_ocr_20260814/pdf-206-r270.ocr.md",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "continuation_boundary_status": "page207_continuation_and_luo_longji_new_title_visually_confirmed",
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅目标短片段达到片段级引用门禁",
+    "promotion_scope": "引用时必须保留省略标记、目标标题和印刷页197锚点；不得把短片段扩展为完整张澜谈话或把罗隆基演说并入该节点"
+  },
+  "status": "HUMAN_VERIFIED_FRAGMENT_QUOTE_READY_PAGE_BODY_OPEN"
+}
