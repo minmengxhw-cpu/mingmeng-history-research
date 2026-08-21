@@ -135,7 +135,7 @@
       "layer": "SCHOLARLY_RESEARCH",
       "title": "论民盟与国民党的“制宪国大”",
       "author": "刘大禹、王球云",
-      "institution": "作者单位待核；《民国档案》期刊条目",
+      "institution": "江南大学（刘大禹：马克思主义学院；王球云：图书馆）〔作者交叉核验，本文刊期单位待核〕",
       "publication_date": "2012",
       "research_type": "SCHOLARLY_ARTICLE",
       "quality_tier": "B",
@@ -160,7 +160,11 @@
         ],
         "research_type": "SCHOLARLY_ARTICLE",
         "bibliographic_citation": "《民国档案》2012年第1期，第134—139页",
-        "bibliographic_verification": "公开期刊索引已核对题名、作者、刊名、年份、期次和页码；作者单位及全文仍待文章首页或正式期刊页核验"
+        "bibliographic_verification": "公开期刊索引已核对题名、作者、刊名、年份、期次和页码；作者交叉机构已核验，本文刊期单位及全文仍待文章首页或正式期刊页核验",
+        "institution_verification_sources": [
+          "https://marxism.jiangnan.edu.cn/info/1018/4603.htm",
+          "https://library.ttcdw.com/dev/upload/webUploader/202312/170324854415c476fedf4d14d1.pdf"
+        ]
       },
       "duplicate_group_id": "",
       "version_relation": "no_exact_title_duplicate_detected"
@@ -170,7 +174,7 @@
       "layer": "SCHOLARLY_RESEARCH",
       "title": "旧政协前后民盟的政治参与（1945—1946）",
       "author": "刘大禹、王球云",
-      "institution": "作者单位待核；《党史研究与教学》期刊条目",
+      "institution": "江南大学（刘大禹：马克思主义学院；王球云：图书馆）〔作者交叉核验，本文刊期单位待核〕",
       "publication_date": "2012",
       "research_type": "SCHOLARLY_ARTICLE",
       "quality_tier": "B",
@@ -199,7 +203,11 @@
           "重庆",
           "南京"
         ],
-        "research_type": "SCHOLARLY_ARTICLE"
+        "research_type": "SCHOLARLY_ARTICLE",
+        "institution_verification_sources": [
+          "https://marxism.jiangnan.edu.cn/info/1018/4603.htm",
+          "https://library.ttcdw.com/dev/upload/webUploader/202312/170324854415c476fedf4d14d1.pdf"
+        ]
       },
       "duplicate_group_id": "",
       "version_relation": "no_exact_title_duplicate_detected"

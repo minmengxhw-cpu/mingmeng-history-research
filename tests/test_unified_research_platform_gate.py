@@ -300,7 +300,8 @@ def test_academic_search_shows_explicit_bibliographic_locator():
     finally:
         app._request.public_mode = previous
     assert "《民国档案》2012年第1期，第134—139页" in body
-    assert "作者单位待核" in body
+    assert "江南大学（刘大禹：马克思主义学院；王球云：图书馆）" in body
+    assert "本文刊期单位待核" in body
 
 
 def test_public_domestic_views_hide_relative_artifact_paths():
