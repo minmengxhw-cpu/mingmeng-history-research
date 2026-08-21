@@ -118,7 +118,7 @@
         "review_status": "review_only",
         "body_read": false,
         "formal_db_written": true,
-        "formal_db_page_ids": [16367]
+        "formal_db_page_ids": [16367, 16368]
       },
       "page_records": [
         {
@@ -136,7 +136,7 @@
           "caveat": "这是条件性参加的同期社论入口，不能与11月正式拒参通告混为同一文件或同一立场阶段。"
         },
         {
-          "page_id": null,
+          "page_id": 16368,
           "pdf_page_no": 2,
           "physical_page_no": 2,
           "target": "民盟拒参国大的同期立场表达",
@@ -146,7 +146,8 @@
           "citation_ready": false,
           "needs_human_review": false,
           "review_scope": "selected_editorial_heading_and_page_identity",
-          "page_image_sha256": null,
+          "page_image_sha256": "b80154ef08a742a7a0c8d742191774126aed6ed0fa0def156399b61fe77f959e",
+          "page_identity_ref": "work/domestic/guangmingbao_1946_issue8_refuse_fragment_review_20260821/PAGE16368_MANUAL_REVIEW.json",
           "caveat": "已确认同期社论题名和页界；未OCR、未逐字校读，不把同期报刊社论升级为1946年民盟正式拒参原件。"
         }
       ]

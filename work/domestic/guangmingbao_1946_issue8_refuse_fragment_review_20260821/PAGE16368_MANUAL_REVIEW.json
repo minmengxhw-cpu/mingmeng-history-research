@@ -1,0 +1,50 @@
+{
+  "schema": "domestic_periodical_page_manual_review.v1",
+  "review_id": "guangmingbao-1946-issue8-page16368-manual-review-20260821",
+  "reviewer": "codex-visual-audit-20260821",
+  "reviewed_at": "2026-08-21",
+  "purpose": "对1946年《光明報》新八號第2页的同期社论题名和页身份做视觉复核；只开放题名身份，不开放正文，不把它当作正式拒参通告。",
+  "source": {
+    "source_id": "nlc-guangmingbao-1946-v8-front",
+    "source_file": "data/domestic/raw/public_sources/nlc_guangmingbao_1946_issue8.pdf",
+    "source_sha256": "a0953d77e33497a9af58d458818a2cbafae011e76ef88f0901ac4a11e4702773",
+    "main_db_page_id": 16368,
+    "pdf_page": 2,
+    "source_page_no": 2,
+    "printed_page": 2,
+    "page_url": "https://commons.wikimedia.org/wiki/File:NLC404-01J000514-10429_%E5%85%89%E6%98%8E%E5%A0%B1_1946%E5%B9%B48%E6%9C%9F.pdf#page=2",
+    "source_year": 1946,
+    "event_year": 1946,
+    "page_type": "pdf",
+    "page_locator": "PDF 第 2 页（印刷页 2）",
+    "year_anchor_label": "1946（刊期年锚点）"
+  },
+  "page_identity": {
+    "title": "民盟重申嚴正立場堅決擁護政協決議反對參加國大",
+    "page_label": "PDF第2页；印刷页2",
+    "identity_status": "human_verified",
+    "body_text_verified": false
+  },
+  "review_passes": [
+    {
+      "pass_id": "page2_visual_review",
+      "method": "local_issue_scan_manual_visual_review",
+      "scope": "issue_identity_printed_page_and_editorial_title",
+      "status": "completed",
+      "finding": "PDF第2页报面右侧题名‘民盟重申嚴正立場堅決擁護政協決議反對參加國大’及印刷页2清晰可辨；该页是同期机关报社论，不等于1946-11-14正式拒参通告。"
+    }
+  ],
+  "render_refs": {
+    "page_image_300dpi": "work/domestic/guangmingbao_1946_issue8_visual_review_20260815/page-02.jpg",
+    "page_image_300dpi_sha256": "b80154ef08a742a7a0c8d742191774126aed6ed0fa0def156399b61fe77f959e"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅刊期、印刷页和社论题名达到身份片段门禁。",
+    "promotion_scope": "允许在带刊期、PDF页码、印刷页、来源SHA和‘同期社论不等于正式拒参文件’边界的身份卡中引用；不得扩展为民盟正式拒参声明。"
+  }
+}

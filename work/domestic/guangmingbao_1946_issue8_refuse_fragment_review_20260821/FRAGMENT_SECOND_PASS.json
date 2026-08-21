@@ -1,0 +1,54 @@
+{
+  "schema": "domestic_periodical_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1946年《光明報》新八號第2页同期社论题名做视觉核对；只开放题名身份片段，不升级正文或正式拒参文件。",
+  "source_page_review_ref": "work/domestic/guangmingbao_1946_issue8_refuse_fragment_review_20260821/PAGE16368_MANUAL_REVIEW.json",
+  "source": {
+    "source_id": "nlc-guangmingbao-1946-v8-front",
+    "source_sha256": "a0953d77e33497a9af58d458818a2cbafae011e76ef88f0901ac4a11e4702773",
+    "pdf_page": 2,
+    "source_page_no": 2,
+    "source_page_type": "pdf",
+    "printed_page": 2,
+    "page_locator": "PDF 第 2 页（印刷页 2）",
+    "page_image_300dpi": "work/domestic/guangmingbao_1946_issue8_visual_review_20260815/page-02.jpg",
+    "page_image_300dpi_sha256": "b80154ef08a742a7a0c8d742191774126aed6ed0fa0def156399b61fe77f959e",
+    "source_year": 1946,
+    "event_year": 1946,
+    "year_anchor_label": "1946（刊期年锚点）"
+  },
+  "review_passes": [
+    {
+      "pass_id": "second_visual_pass",
+      "method": "local_issue_scan_manual_reading",
+      "scope": "editorial_title_identity",
+      "status": "completed",
+      "finding": "题名‘民盟重申嚴正立場堅決擁護政協決議反對參加國大’在PDF第2页右侧竖排标题中可辨认；只登记为同期机关报社论身份片段。"
+    }
+  ],
+  "fragment": {
+    "target_id": "1946-refuse-national-assembly-editorial-identity",
+    "title": "1946年《光明報》拒参国大社论题名身份",
+    "scope": "PDF第2页同期社论题名；不含题名下方连续正文。",
+    "text": "民盟重申嚴正立場堅決擁護政協決議反對參加國大",
+    "display_suffix": "",
+    "fragment_ends_mid_sentence": false,
+    "transcription_mode": "manual_visual_transcription_issue_title_identity_only",
+    "character_check": "confirmed",
+    "punctuation_check": "not_applicable_title_identity",
+    "ocr_crosscheck": "",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "continuation_boundary_status": "仅开放第2页社论题名；正文未逐字校读，不开放正文片段。",
+    "promotion_scope": "引用时必须保留1946年《光明報》新八號、PDF第2页、印刷页2、来源SHA和‘同期社论不等于1946-11-14正式拒参通告’边界；不得扩展为正式拒参文件。"
+  },
+  "status": "HUMAN_VERIFIED_IDENTITY_FRAGMENT_QUOTE_READY_PRIMARY_GAP_OPEN"
+}

@@ -639,7 +639,7 @@ def test_1946_refuse_packet_separates_notice_from_contemporary_press():
         page["page_id"]
         for page in pages
         if page["page_id"] is not None
-    } == {19000, 1578, 16351, 16335, 16367, 16634, 16636}
+    } == {19000, 1578, 16351, 16335, 16367, 16368, 16634, 16636}
     assert len(pages) == 8
     assert sum(page["status"] == "strict_citation" for page in pages) == 7
     assert sum(page["status"] == "review_only" for page in pages) == 1
@@ -649,15 +649,23 @@ def test_1946_refuse_packet_separates_notice_from_contemporary_press():
         if page["status"] == "strict_citation"
     )
     assert any(
-        page["page_id"] is None
+        page["page_id"] == 16368
         and page["status"] == "review_only"
         and page["citation_ready"] is False
         for page in pages
     )
+    assert packet["counts"]["citation_fragment_count"] == 1
+    fragment = packet["citation_fragments"][0]
+    assert fragment["source_id"] == "nlc-guangmingbao-1946-v8-front"
+    assert fragment["page_id"] == 16368
+    assert fragment["pdf_page"] == 2
+    assert fragment["printed_page"] == 2
+    assert fragment["body_text_included"] is False
     assert validate_packet(packet, "domestic-1946-refuse-national-assembly")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1946-refuse-national-assembly").decode("utf-8")
     assert '"text"' not in raw
     assert "专题来源地图" in research_packet_page("domestic-1946-refuse-national-assembly").decode("utf-8")
+    assert "1946年《光明報》拒参国大社论题名身份" in research_packet_page("domestic-1946-refuse-national-assembly").decode("utf-8")
 
 
 def test_1946_li_wen_packet_separates_compiled_statements_from_press():
