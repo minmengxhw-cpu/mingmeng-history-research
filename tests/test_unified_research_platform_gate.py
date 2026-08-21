@@ -41,6 +41,10 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert report["checks"]["pcc_1946_sourcebook_render_manifest"]["review_status"] == "page_identity_and_boundary_human_verified_body_ocr_pending"
     assert report["checks"]["research_packets"]["topic_count"] == 9
     assert report["checks"]["research_packets"]["research_usable_with_boundaries_count"] == 9
+    public_surface = report["checks"]["public_surface"]
+    assert public_surface["status"] == "PASS"
+    assert public_surface["route_count"] == 22
+    assert public_surface["errors"] == []
     source_map_consistency = report["checks"]["source_map_status_consistency"]
     assert source_map_consistency["status"] == "PASS"
     assert source_map_consistency["checked_page_count"] > 0

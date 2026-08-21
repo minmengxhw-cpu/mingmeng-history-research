@@ -59,6 +59,20 @@ PRIMARY_SUBTARGET_SUPPORT_PATH = ROOT / "data" / "domestic" / "primary_subtarget
 DRNH_PREVIEW_EVENT_MAP_PATH = ROOT / "data" / "domestic" / "drnh_preview_event_map.json"
 
 
+PUBLIC_SURFACE_MARKERS = (
+    "/Users/",
+    "/private/",
+    "/tmp/",
+    "file://",
+    "local_path",
+    "source_file",
+    "page_image_path",
+    "data/domestic/",
+    "work/domestic/",
+    "output/",
+)
+
+
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -1119,6 +1133,73 @@ def drnh_preview_event_map_check(db_path: Path) -> dict[str, Any]:
     }
 
 
+def public_surface_check() -> dict[str, Any]:
+    """Check the public HTML surface without reading source-page bodies.
+
+    Public mode is a release boundary: generated pages may expose stable
+    external source URLs and evidence labels, but must not expose local
+    filesystem paths, private artifact URLs, or internal schema field names.
+    The check renders only the application UI and restores the request state
+    before returning; it never writes SQLite or changes source metadata.
+    """
+    routes = {
+        "/": lambda: app.home(),
+        "/public": lambda: app.public_page(),
+        "/domestic": lambda: app.domestic_page({}),
+        "/domestic/workbench": app.domestic_workbench_page,
+        "/domestic/academic": app.domestic_academic_page,
+        "/domestic/intake": app.domestic_authorized_intake_page,
+        "/domestic/acquisition": lambda: app.domestic_acquisition_page(
+            "domestic-1947-illegal-dissolution"
+        ),
+        "/domestic/events": lambda: app.domestic_events_page(
+            {"event": ["domestic-1947-illegal-dissolution"]}
+        ),
+        "/domestic/sources": app.domestic_sources_page,
+        "/domestic/library": lambda: app.domestic_library_page({}),
+        "/domestic/search": lambda: app.domestic_staging_search_page(
+            {"scope": ["research"], "q": ["民盟"]}
+        ),
+        "/domestic/citations/fragments": lambda: app.domestic_fragment_ledger_page({}),
+        "/research": app.research_topics_page,
+        "/research/questions": app.research_questions_page,
+        "/research/parity": app.research_parity_page,
+        "/research/gaps": app.research_gaps_page,
+        "/research/packets": app.research_packets_page,
+        "/research/domestic-1947-illegal-dissolution/packet": lambda: app.research_packet_page(
+            "domestic-1947-illegal-dissolution"
+        ),
+        "/research/domestic-1947-illegal-dissolution": lambda: app.research_topic_page(
+            "domestic-1947-illegal-dissolution"
+        ),
+        "/timeline": lambda: app.timeline(platform_slug="domestic"),
+        "/search": lambda: app.search("民盟", platform="domestic"),
+        "/cite/1473": lambda: app.citation_page(1473),
+    }
+    errors: list[dict[str, object]] = []
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = True
+    try:
+        for route, renderer in routes.items():
+            try:
+                body = renderer().decode("utf-8", "replace")
+            except Exception as exc:  # pragma: no cover - reported as gate data
+                errors.append({"route": route, "error": f"{type(exc).__name__}: {exc}"})
+                continue
+            markers = [marker for marker in PUBLIC_SURFACE_MARKERS if marker in body]
+            if markers:
+                errors.append({"route": route, "markers": markers})
+    finally:
+        app._request.public_mode = previous
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "route_count": len(routes),
+        "errors": errors,
+        "body_read": False,
+        "formal_db_written": False,
+    }
+
+
 def build_report() -> dict[str, Any]:
     db_path = Path(app.DB_PATH).resolve()
     candidate_check = candidate_alignment_check(db_path)
@@ -1140,6 +1221,7 @@ def build_report() -> dict[str, Any]:
         "primary_subtarget_support": primary_subtarget_support_check(db_path),
         "drnh_preview_event_map": drnh_preview_event_map_check(db_path),
         "comparison_cards": validate_cards(COVERAGE_PATH, CARDS_PATH),
+        "public_surface": public_surface_check(),
     }
     benchmark = build_benchmark_report()
     checks["research_question_benchmark"] = {
