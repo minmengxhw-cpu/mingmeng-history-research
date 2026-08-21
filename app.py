@@ -7885,6 +7885,10 @@ def domestic_authorized_intake_page() -> bytes:
     report_status = str(report.get("status") or "NOT_RUN")
     incoming_count = int(report.get("incoming_file_count") or 0)
     generated_at = str(report.get("generated_at") or "尚未生成")
+    incoming_path = str(
+        report.get("incoming")
+        or (DATA_ROOT / "domestic" / "raw" / "authorized_originals" / "incoming")
+    )
     body = breadcrumb_html([
         ("/", "首页"),
         ("/domestic/workbench", "国内研究平台"),
@@ -7892,7 +7896,7 @@ def domestic_authorized_intake_page() -> bytes:
     ]) + f"""
 <section class="doc-head"><div><h1>授权原件接收前置门禁</h1><div class="meta">只登记授权文件、来源、SHA256、权利和页身份；不读取正文、不 OCR、不写正式 SQLite。</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button secondary" href="/domestic/acquisition">调档清单</a></div></section>
 <section class="stats"><div class="stat"><strong>{h(len(targets))}</strong><span>P0 目标</span></div><div class="stat"><strong>{h(incoming_count)}</strong><span>incoming 文件</span></div><div class="stat"><strong>{h(ready_count)}</strong><span>可 dry-run</span></div><div class="stat"><strong>{h(report_status)}</strong><span>接收报告</span></div></section>
-<div class="notice">当前报告：{h(generated_at)}。运行命令：<code>python3 scripts/domestic/prepare_authorized_original_intake.py</code>。只有显式映射、来源/权利字段、文件哈希、页数和页身份复核齐全，才会显示“可进入 staging dry-run”；这仍不等于正式引用或主证据闭合。</div>
+<div class="notice">当前报告：{h(generated_at)}。先把已获授权的 PDF/页图放入 <code>{h(incoming_path)}</code>，再运行 <code>python3 scripts/domestic/prepare_authorized_original_intake.py</code>。只有显式映射、来源/权利字段、文件哈希、页数和页身份复核齐全，才会显示“可进入 staging dry-run”；这仍不等于正式引用或主证据闭合。</div>
 <section class="section-head"><h2>P0 原件目标</h2><span class="section-meta">状态与正式引用门禁分离</span></section>
 <section class="result-list">{''.join(cards) or '<div class="notice">目标配置未找到。</div>'}</section>
 """

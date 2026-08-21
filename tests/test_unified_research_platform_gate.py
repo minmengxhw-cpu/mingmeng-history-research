@@ -368,6 +368,7 @@ def test_authorized_original_intake_page_is_honest_before_download(tmp_path, mon
     assert "尚未运行接收检查" in body
     assert "不 OCR" in body
     assert "正式引用" in body
+    assert "data/domestic/raw/authorized_originals/incoming" in body
 
 
 def test_1949_journal_routes_keep_page_identity_and_open_gap():
