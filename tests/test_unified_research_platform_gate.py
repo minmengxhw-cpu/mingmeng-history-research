@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from io import BytesIO
 from pathlib import Path
 
 import app
@@ -88,16 +89,57 @@ def test_verified_domestic_page_image_is_hash_bound_and_private():
     image_path, content_type = matched
     assert image_path.is_file()
     assert content_type == "image/png"
+    source = app.domestic_source_file(1473)
+    assert source is not None
+    source_path, source_type = source
+    assert source_path.is_file()
+    assert source_type == "application/pdf"
     previous = getattr(app._request, "public_mode", False)
     app._request.public_mode = False
     try:
         private_body = app.citation_page(1473).decode("utf-8")
         assert "/domestic/page-image/1473" in private_body
         assert "打开本机页图" in private_body
+        assert "/domestic/source-file/1473" in private_body
+        assert "打开本机原文件" in private_body
         app._request.public_mode = True
         public_body = app.citation_page(1473).decode("utf-8")
         assert "/domestic/page-image/1473" not in public_body
+        assert "/domestic/source-file/1473" not in public_body
         assert "公开模式不可用" in public_body
+    finally:
+        app._request.public_mode = previous
+
+
+def test_domestic_source_file_route_streams_private_and_blocks_public():
+    class FakeRequest:
+        def __init__(self, path):
+            self.path = path
+            self.headers = {}
+            self.wfile = BytesIO()
+            self.events = []
+
+        def send_response(self, value):
+            self.events.append(("status", value))
+
+        def send_header(self, key, value):
+            self.events.append((key, value))
+
+        def end_headers(self):
+            self.events.append(("end", None))
+
+    previous = getattr(app._request, "public_mode", False)
+    try:
+        private = FakeRequest("/domestic/source-file/1473")
+        app.Handler._do_GET_inner(private)
+        assert ("status", 200) in private.events
+        assert ("Content-Type", "application/pdf") in private.events
+        assert private.wfile.getvalue()[:5] == b"%PDF-"
+
+        public = FakeRequest("/domestic/source-file/1473?public=1")
+        app.Handler._do_GET_inner(public)
+        assert ("status", 302) in public.events
+        assert ("Location", "/public") in public.events
     finally:
         app._request.public_mode = previous
 

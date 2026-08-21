@@ -6,6 +6,7 @@ import datetime
 import csv
 import hashlib
 import html
+import shutil
 import sys
 import json
 import os
@@ -784,11 +785,24 @@ def domestic_provenance_summary(row: sqlite3.Row) -> str:
     )
     source_url = source_href(row["page_url"] or row["doc_url"] or "")
     verified_page_image = None
+    verified_source_file = None
     if not public and row["page_image_path"]:
         try:
             verified_page_image = domestic_page_image_file(int(row["page_id"]))
         except (TypeError, ValueError):
             verified_page_image = None
+    if not public and row["source_file"]:
+        try:
+            # The serving route recomputes SHA256; avoid hashing a large PDF
+            # merely to render a citation page containing its local link.
+            verified_source_file = domestic_source_file(int(row["page_id"]), verify_hash=False)
+        except (TypeError, ValueError):
+            verified_source_file = None
+    local_source_link = (
+        f'<a href="/domestic/source-file/{h(row["page_id"])}" target="_blank" rel="noreferrer">打开本机原文件</a>'
+        if verified_source_file is not None
+        else ""
+    )
     local_image_link = (
         f'<a href="/domestic/page-image/{h(row["page_id"])}" target="_blank" rel="noreferrer">打开本机页图</a>'
         if verified_page_image is not None
@@ -808,7 +822,7 @@ def domestic_provenance_summary(row: sqlite3.Row) -> str:
     <span><strong>印刷页</strong> {h(row["printed_page"] or "未标注")}</span>
     <span><strong>来源 SHA256</strong> {h(row["source_sha256"] or "未绑定")}</span>
   </div>
-  <div class="snippet"><strong>来源文件：</strong>{h(source_file)}</div>
+  <div class="snippet"><strong>来源文件：</strong>{h(source_file)} {local_source_link}</div>
   <div class="snippet"><strong>页图入口：</strong>{h(image_path)} {local_image_link}</div>
   <div class="snippet"><strong>页级 URL：</strong><a href="{h(source_url)}" target="_blank" rel="noreferrer">{h(source_url)}</a></div>
   <div class="snippet"><strong>人工复核：</strong>{h(row["human_review_note"] or "未标注")}</div>
@@ -816,20 +830,33 @@ def domestic_provenance_summary(row: sqlite3.Row) -> str:
 """
 
 
-def domestic_page_image_file(page_id: int) -> tuple[Path, str] | None:
-    """Resolve a strictly verified domestic page image for the private UI.
+def _verified_domestic_file(
+    page_id: int,
+    path_key: str,
+    sha_key: str,
+    content_types: dict[str, str],
+    *,
+    verify_hash: bool = True,
+) -> tuple[Path, str] | None:
+    """Resolve one formally verified domestic file without exposing paths.
 
-    The path comes from formal page provenance, must remain relative to the
-    external research checkout, and is served only after its stored SHA256 is
-    recomputed. Public-mode access is blocked by the route guard.
+    Both the source file and page image are treated as private evidence
+    objects. The path is constrained to the external research checkout and
+    the stored SHA256 is recomputed before an object can be linked or served.
     """
     if page_id <= 0:
+        return None
+    if path_key not in {"source_file", "page_image_path"} or sha_key not in {
+        "source_sha256",
+        "page_image_sha256",
+    }:
         return None
     try:
         with conn() as c:
             row = c.execute(
                 """
-                SELECT pp.page_image_path, pp.page_image_sha256,
+                SELECT pp.source_file, pp.source_sha256,
+                       pp.page_image_path, pp.page_image_sha256,
                        pp.citation_ready, pp.needs_human_review,
                        pp.review_status, d.source_platform
                 FROM page_provenance pp
@@ -848,8 +875,8 @@ def domestic_page_image_file(page_id: int) -> tuple[Path, str] | None:
         return None
     if str(row["review_status"] or "") != "human_verified":
         return None
-    raw_path = str(row["page_image_path"] or "").strip()
-    expected_sha = str(row["page_image_sha256"] or "").strip().lower()
+    raw_path = str(row[path_key] or "").strip()
+    expected_sha = str(row[sha_key] or "").strip().lower()
     path = Path(raw_path)
     if not raw_path or path.is_absolute() or ".." in path.parts or not re.fullmatch(r"[0-9a-f]{64}", expected_sha):
         return None
@@ -859,25 +886,55 @@ def domestic_page_image_file(page_id: int) -> tuple[Path, str] | None:
         resolved.relative_to(source_root)
     except (OSError, ValueError):
         return None
-    if not resolved.is_file() or resolved.suffix.lower() not in {".png", ".jpg", ".jpeg", ".tif", ".tiff"}:
+    suffix = resolved.suffix.lower()
+    if not resolved.is_file() or suffix not in content_types:
         return None
-    digest = hashlib.sha256()
-    try:
-        with resolved.open("rb") as handle:
-            for block in iter(lambda: handle.read(1 << 20), b""):
-                digest.update(block)
-    except OSError:
-        return None
-    if digest.hexdigest() != expected_sha:
-        return None
-    content_type = {
-        ".png": "image/png",
-        ".jpg": "image/jpeg",
-        ".jpeg": "image/jpeg",
-        ".tif": "image/tiff",
-        ".tiff": "image/tiff",
-    }[resolved.suffix.lower()]
-    return resolved, content_type
+    if verify_hash:
+        digest = hashlib.sha256()
+        try:
+            with resolved.open("rb") as handle:
+                for block in iter(lambda: handle.read(1 << 20), b""):
+                    digest.update(block)
+        except OSError:
+            return None
+        if digest.hexdigest() != expected_sha:
+            return None
+    return resolved, content_types[suffix]
+
+
+def domestic_page_image_file(page_id: int) -> tuple[Path, str] | None:
+    """Resolve a strictly verified domestic page image for the private UI."""
+    return _verified_domestic_file(
+        page_id,
+        "page_image_path",
+        "page_image_sha256",
+        {
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".tif": "image/tiff",
+            ".tiff": "image/tiff",
+        },
+    )
+
+
+def domestic_source_file(page_id: int, *, verify_hash: bool = True) -> tuple[Path, str] | None:
+    """Resolve a domestic source file; the serving route always verifies SHA256."""
+    return _verified_domestic_file(
+        page_id,
+        "source_file",
+        "source_sha256",
+        {
+            ".pdf": "application/pdf",
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".tif": "image/tiff",
+            ".tiff": "image/tiff",
+            ".webp": "image/webp",
+        },
+        verify_hash=verify_hash,
+    )
 
 
 # 民盟相关度分级 → 前台统一标签（CSS 类 + 显示名）
@@ -1072,6 +1129,7 @@ PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisit
                         "/domestic/quality", "/domestic/acquisition", "/domestic/academic",
                         "/domestic/intake",
                         "/domestic/sourcebook", "/domestic/citations", "/domestic/page-image",
+                        "/domestic/source-file",
                         "/research/gaps"}
 
 PUBLIC_DOMESTIC_LEVELS = {"L0", "L1", "L2", "L3"}
@@ -12869,6 +12927,40 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Cache-Control", "no-store")
             self.end_headers()
             self.wfile.write(data)
+            return
+        elif parsed.path.startswith("/domestic/source-file/"):
+            try:
+                page_id = int(parsed.path.rsplit("/", 1)[-1])
+            except ValueError:
+                page_id = 0
+            matched = domestic_source_file(page_id)
+            if matched is None:
+                self.send_response(404)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+            source_path, content_type = matched
+            try:
+                file_size = source_path.stat().st_size
+                source_handle = source_path.open("rb")
+            except OSError:
+                self.send_response(404)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+            self.send_response(200)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(file_size))
+            self.send_header(
+                "Content-Disposition",
+                f"inline; filename*=UTF-8''{quote(source_path.name)}",
+            )
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            with source_handle:
+                shutil.copyfileobj(source_handle, self.wfile, length=1 << 20)
             return
         elif parsed.path == "/domestic/document":
             payload = domestic_staging_document_page(qs)
