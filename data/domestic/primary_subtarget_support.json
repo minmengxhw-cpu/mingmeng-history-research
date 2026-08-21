@@ -210,6 +210,37 @@
         "scope": "可支持1983公开历史文献汇编中解散公告、政府宣布非法团体文本的题名、页界和版本定位。",
         "caveat": "汇编重刊可以用于版本对读和线索追索，但不等同于1947年民盟总部公告或政府公函原件。"
       }
+    ],
+    "domestic-1944-reorganization": [
+      {
+        "unit_id": "1944-reorganization-political-platform-reprint",
+        "label": "1944-10-10 民盟政治主张汇编重刊页组",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-1946-minmeng-wenxian-1944-political-platform"],
+        "page_ids": [20141, 20142, 20143, 20144],
+        "scope": "可支持1946年正式汇编中标注1944-10-10的政治文本页界、版本入口和改组后公共政治主张的有限研究。",
+        "caveat": "汇编文本不替代1944-09-19改组会议记录、改名决定或组织内部正式文件；专题主目标仍开放。"
+      },
+      {
+        "unit_id": "1944-reorganization-contemporary-minxian-discourse",
+        "label": "1944-11-20 《民憲》改组后同期政论文章页组",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-minxian-1944-v1n9-democracy-vs-nondemocracy"],
+        "page_ids": [17291, 17292, 17293, 17294],
+        "scope": "可支持改组后同期机关刊物的公共论述、刊期和文章页界研究，用于观察改组后的政治语境。",
+        "caveat": "同期政论不能证明改组会议决定或更名程序本身；不替代1944年会议原件。"
+      }
+    ],
+    "domestic-1946-li-wen": [
+      {
+        "unit_id": "1946-li-wen-minmeng-statements-reprint",
+        "label": "1946 李公朴、闻一多遇害后民盟声明汇编重刊页组",
+        "status": "bounded_unit_ready",
+        "source_ids": ["mmhist-1946-li-wen-statements"],
+        "page_ids": [18936, 18945, 18948],
+        "scope": "可支持民盟地方支部抗议、民盟组织声明和事件日期轴之间的有限页级对读。",
+        "caveat": "这是1983历史文献汇编重刊层，不替代《民主周刊》原版、民盟抗议文件独立底本或司法/行政档案。"
+      }
     ]
   }
 }

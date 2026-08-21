@@ -24,6 +24,8 @@ def test_primary_subtarget_support_is_metadata_only_and_scoped():
         "domestic-1946-pcc",
         "domestic-1946-refuse-national-assembly",
         "domestic-1947-illegal-dissolution",
+        "domestic-1944-reorganization",
+        "domestic-1946-li-wen",
     }
     assert all(
         row["status"] == "bounded_unit_ready"
@@ -40,6 +42,14 @@ def test_topic_page_shows_bounded_units_without_closing_primary_gap():
     body_1947 = app.research_topic_page("domestic-1947-illegal-dissolution").decode("utf-8")
     assert "1947-11-04至11-06 同期报刊对民盟解散的公开报道" in body_1947
     assert "政府公函" in body_1947
+
+    body_1944 = app.research_topic_page("domestic-1944-reorganization").decode("utf-8")
+    assert "1944-10-10 民盟政治主张汇编重刊页组" in body_1944
+    assert "改组会议原件" in body_1944
+
+    body_li_wen = app.research_topic_page("domestic-1946-li-wen").decode("utf-8")
+    assert "1946 李公朴、闻一多遇害后民盟声明汇编重刊页组" in body_li_wen
+    assert "《民主周刊》原版" in body_li_wen
 
     body_1948 = app.research_topic_page("domestic-1948-third-plenum-may-day").decode("utf-8")
     assert "有边界可研究的一手子单元" in body_1948
