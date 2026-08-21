@@ -131,8 +131,8 @@
     },
     {
       "source_id": "hku-guangmingbao-1941-microfilm",
-      "title": "香港大学特别馆藏《光明報》1941年缩微胶卷",
-      "source_role": "university_catalogue_access_route",
+      "title": "香港大学特别馆藏1940年代香港报刊目录（《光明報》题名尚未核实）",
+      "source_role": "unverified_university_catalogue_route",
       "evidence_level": "L4",
       "source_file": "data/domestic/official_research_public_20260730/pdf/domestic:HKU:guangmingbao-1941-microform-holdings__光明報_1941年9月18日_12月12日馆藏缩微胶卷记录_075.pdf",
       "source_sha256": "7b9b1d8c3de9396ffd0dd5e58c75e8f70c07142671109aef4c1cb6df1b10e52a",
@@ -140,20 +140,20 @@
       "page_count": 3,
       "source_url": "https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKU_IZ21440249790003414&vid=HKU&lang=en_US",
       "official_url": "https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/newspaper_1940s_update_072021.pdf",
-      "access_note": "馆藏记录确认1941-09-18至12-12且标注无缺期；原刊需按香港大学 Special Collections 规则预约调取",
+      "access_note": "本地 PDF 视觉核验为香港大学《Hong Kong Newspapers - Chronological List 1940s》总目录，不是《光明報》逐期记录；当前未见足以确认《光明報》1941馆藏范围的题名级证据。须重新核对 Primo 记录后，再按 Special Collections 规则预约调取。",
       "page_records": [
         {
           "page_id": null,
           "local_pdf_page_no": 1,
-          "target": "1941-09-18、1941-10-10、1941-10-16原刊调取",
-          "role": "原刊缩微胶卷的可执行馆藏入口",
+          "target": "重新核对 1941-10-10《光明報》题名级馆藏记录，再申请原刊调取",
+          "role": "待复核的大学馆藏路线（当前 PDF 非原刊影像）",
           "status": "access_route",
           "review_status": "human_verified",
           "citation_ready": false,
           "needs_human_review": false,
-          "review_scope": "catalogue_access_route",
+          "review_scope": "catalogue_identity_audit",
           "page_image_sha256": null,
-          "caveat": "馆藏记录不等于已取得逐期影像、版次、页码或复制许可。"
+          "caveat": "当前 3 页 PDF 是 1940 年代香港报刊总目录；视觉复核未据此确认《光明報》题名、逐期影像、版次、页码或复制许可。不得关闭 1941 主证据缺口。"
         }
       ]
     },

@@ -150,6 +150,21 @@ def test_external_navigation_sources_use_hashed_metadata_snapshots():
         assert digest == source["metadata_snapshot_sha256"]
 
 
+def test_1941_catalogue_routes_do_not_claim_original_source_closure():
+    source_map = json.loads(
+        (ROOT / "data/domestic/1941_formation_source_map.json").read_text(encoding="utf-8")
+    )
+    sources = {str(source["source_id"]): source for source in source_map["sources"]}
+    hku = sources["hku-guangmingbao-1941-microfilm"]
+    lnu = sources["lnu-guangmingbao-1941-index"]
+    assert hku["source_role"] == "unverified_university_catalogue_route"
+    assert "总目录" in hku["access_note"]
+    assert hku["page_records"][0]["citation_ready"] is False
+    assert "不得关闭" in hku["page_records"][0]["caveat"]
+    assert lnu["page_records"][0]["status"] == "navigation_only"
+    assert lnu["page_records"][0]["citation_ready"] is False
+
+
 def test_domestic_search_shows_hit_reason_and_workbench():
     previous = getattr(app._request, "public_mode", False)
     app._request.public_mode = False
