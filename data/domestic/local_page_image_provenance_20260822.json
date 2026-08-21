@@ -1,0 +1,82 @@
+{
+  "schema": "domestic_local_page_image_provenance.v1",
+  "generated_at": "2026-08-22",
+  "scope": "将已经 human_verified 的 1941 成立专题汇编页和 1947 解散专题同期报刊页绑定到本地页图；不改变正文、OCR 或证据等级",
+  "formal_db_sha256_before": "2212f24c6b3663308996ac9cf89c93deb8edb14109ef49fc5ccc84f1accd452c",
+  "raw_repo_root_rel": "../mingmeng-history-research",
+  "body_read": false,
+  "ocr_performed": false,
+  "citation_status_changed": false,
+  "pages": [
+    {
+      "page_id": 1473,
+      "source_file": "data/domestic/sourcebooks/NLC416-01jh004281-12557_民主同盟文獻_1946.pdf",
+      "source_sha256": "276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f",
+      "pdf_page_no": 9,
+      "physical_page_no": 9,
+      "expected_current_page_image_path": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf#page=009",
+      "page_image_path": "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/images/page-0009.png",
+      "page_image_sha256": "5970c030c64a673c3b928475fbf00dae7174a108718cea51f67efe5fe647cf03"
+    },
+    {
+      "page_id": 1474,
+      "source_file": "data/domestic/sourcebooks/NLC416-01jh004281-12557_民主同盟文獻_1946.pdf",
+      "source_sha256": "276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f",
+      "pdf_page_no": 10,
+      "physical_page_no": 10,
+      "expected_current_page_image_path": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf#page=010",
+      "page_image_path": "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/images/page-0010.png",
+      "page_image_sha256": "88fe8ceaa62c0be31db4d7d537c17f9f8ccb05f5ae05652bc3f25c7ec96a1fba"
+    },
+    {
+      "page_id": 1475,
+      "source_file": "data/domestic/sourcebooks/NLC416-01jh004281-12557_民主同盟文獻_1946.pdf",
+      "source_sha256": "276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f",
+      "pdf_page_no": 11,
+      "physical_page_no": 11,
+      "expected_current_page_image_path": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf#page=011",
+      "page_image_path": "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/images/page-0011.png",
+      "page_image_sha256": "27d10956a2becb752721024df83b6a4c9a3a9b2c3da3b1b350d10ba59efd54b2"
+    },
+    {
+      "page_id": 1476,
+      "source_file": "data/domestic/sourcebooks/NLC416-01jh004281-12557_民主同盟文獻_1946.pdf",
+      "source_sha256": "276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f",
+      "pdf_page_no": 12,
+      "physical_page_no": 12,
+      "expected_current_page_image_path": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf#page=012",
+      "page_image_path": "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/images/page-0012.png",
+      "page_image_sha256": "b35f05d63ecd7508ba1346c4c9b867ca0f3d33fe3be4e694231924c9524235fe"
+    },
+    {
+      "page_id": 1477,
+      "source_file": "data/domestic/sourcebooks/NLC416-01jh004281-12557_民主同盟文獻_1946.pdf",
+      "source_sha256": "276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f",
+      "pdf_page_no": 13,
+      "physical_page_no": 13,
+      "expected_current_page_image_path": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf#page=013",
+      "page_image_path": "work/domestic/month_20260728/pages/NLC416-01jh004281-12557/images/page-0013.png",
+      "page_image_sha256": "9c0130df85c417c2bc3df7169703af0fc5fe69f7206f980301c7d5512036d471"
+    },
+    {
+      "page_id": 1773,
+      "source_file": "data/domestic/press_scans/NLC_大公報_上海版_1947-11-06_第2版_完整影像_试用数据库.pdf",
+      "source_sha256": "c5db06a15df0da2042819461b700f3c8c4f629a79e60340486f291ceb166fbb8",
+      "pdf_page_no": 1,
+      "physical_page_no": 1,
+      "expected_current_page_image_path": "http://tk.dhcdb.com.tw/tknewsc/tknewskm?@@1#page=01",
+      "page_image_path": "work/domestic/claude_ocr_batches_20260726/P3-GXMM_rescan/NLC_大公報_上海版_1947-11-06_第2版_完整影像_试用数据库.p001.png",
+      "page_image_sha256": "198af5ff88292781ece7ce51cb368fecb0c98ba758d1d467bb24de073a946d4c"
+    },
+    {
+      "page_id": 1774,
+      "source_file": "data/domestic/press_scans/NLC_大公報_天津版_1947-11-06_第2版_完整影像_试用数据库.pdf",
+      "source_sha256": "cb64bd1561540661c6de257313aaf3799c38b83f7f7fab9905f4e096a1ce247f",
+      "pdf_page_no": 1,
+      "physical_page_no": 1,
+      "expected_current_page_image_path": "http://tk.dhcdb.com.tw/tknewsc/tknewskm?@@1#page=01",
+      "page_image_path": "work/domestic/claude_ocr_batches_20260726/P3-GXMM_rescan/NLC_大公報_天津版_1947-11-06_第2版_完整影像_试用数据库.p001.png",
+      "page_image_sha256": "bbbd044b6c6383c6a310a4120d5ef2bb063f5ae37be61434c906c8759a96a04f"
+    }
+  ]
+}

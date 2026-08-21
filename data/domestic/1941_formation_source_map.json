@@ -45,7 +45,7 @@
           "citation_ready": true,
           "needs_human_review": false,
           "review_scope": "sourcebook_reprint_page_identity",
-          "page_image_sha256": null,
+          "page_image_sha256": "5970c030c64a673c3b928475fbf00dae7174a108718cea51f67efe5fe647cf03",
           "caveat": "可引用的是1946年汇编中的重刊页，不等于1941年《光明報》原刊或成立会议底本。"
         },
         {
@@ -58,7 +58,7 @@
           "citation_ready": true,
           "needs_human_review": false,
           "review_scope": "sourcebook_reprint_page_identity",
-          "page_image_sha256": null,
+          "page_image_sha256": "88fe8ceaa62c0be31db4d7d537c17f9f8ccb05f5ae05652bc3f25c7ec96a1fba",
           "caveat": "连续页只证明汇编中的文本边界，不单独证明原始版本关系。"
         },
         {
@@ -71,7 +71,7 @@
           "citation_ready": true,
           "needs_human_review": false,
           "review_scope": "sourcebook_reprint_page_identity",
-          "page_image_sha256": null,
+          "page_image_sha256": "27d10956a2becb752721024df83b6a4c9a3a9b2c3da3b1b350d10ba59efd54b2",
           "caveat": "这是汇编重刊的连续末页，不能替代原刊影像。"
         },
         {
@@ -84,7 +84,7 @@
           "citation_ready": true,
           "needs_human_review": false,
           "review_scope": "sourcebook_reprint_page_identity",
-          "page_image_sha256": null,
+          "page_image_sha256": "b35f05d63ecd7508ba1346c4c9b867ca0f3d33fe3be4e694231924c9524235fe",
           "caveat": "提供纲领的汇编页级入口，不解释为1941年原刊已取得。"
         },
         {
@@ -97,7 +97,7 @@
           "citation_ready": true,
           "needs_human_review": false,
           "review_scope": "sourcebook_reprint_page_identity",
-          "page_image_sha256": null,
+          "page_image_sha256": "9c0130df85c417c2bc3df7169703af0fc5fe69f7206f980301c7d5512036d471",
           "caveat": "与前页同属1946年汇编重刊，不能替代《光明報》原刊。"
         }
       ]

@@ -11,6 +11,10 @@
 
 香港大学文件标题是 `Hong Kong Newspapers - Chronological List 1940s`，第 2 页列出《光明報》；岭南文件是 `香港工運剪報索引列表` 的题名页。两者都应停留在馆藏/导航层，不进入原件池，不重复 OCR，不改变 `primary_evidence_closed`。
 
+## 2026-08-22 页图 provenance 更新
+
+1946 年汇编中的正式库页 `1473—1477` 已完成本地页图绑定，页图 SHA256 见 [`local_page_image_provenance_20260822.json`](../../data/domestic/local_page_image_provenance_20260822.json)。这只加强了汇编重刊的文件—页—哈希回链，仍不等于取得 1941 年《光明報》原刊；`primary_evidence_closed` 继续为 `false`。
+
 ## 平台处理
 
 - `data/domestic/1941_formation_source_map.json` 将香港大学记录保留为 `university_catalogue_access_route`，并记录目录覆盖范围。
