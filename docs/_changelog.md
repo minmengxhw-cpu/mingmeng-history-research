@@ -5,6 +5,12 @@
 
 ## 2026-08-21
 
+### 授权原件接收前置门禁
+
+- 新增 [`AUTHORIZED_ORIGINAL_INTAKE_20260821.md`](domestic/AUTHORIZED_ORIGINAL_INTAKE_20260821.md)、P0 目标配置和 `prepare_authorized_original_intake.py`。
+- 接收器只对授权放入 incoming 的文件做 SHA256 和显式目标映射；缺来源、权利、页数或页身份复核时保持 HOLD，不 OCR、不写正式 SQLite、不自动升级引用或关闭主证据缺口。
+- 预置 1947-10-27 行政原件与 1947-11-06 民盟总部公告两个目标，空 incoming 的回归结果为 `WAITING_FOR_LOCAL_ORIGINAL`。
+
 ### 1947 行政原件最小调档包
 
 - 新增 [`1947_ADMIN_ORIGINAL_ACQUISITION_BRIEF_20260821.md`](domestic/1947_ADMIN_ORIGINAL_ACQUISITION_BRIEF_20260821.md)，将上海档案馆 `6-5-1216`、`Q6-5-947`、已授权民盟全媒体数据库和 DRNH 并行路线按“能证明什么/不能证明什么/取得后如何验收”固化。

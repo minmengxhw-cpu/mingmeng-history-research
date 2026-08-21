@@ -1,0 +1,66 @@
+{
+  "schema": "domestic_authorized_original_intake_targets.v1",
+  "generated_at": "2026-08-21",
+  "scope": "1947 年民盟非法化与组织解散专题的两个 P0 原件目标",
+  "policy": "目标路线可以是目录、授权浏览器或档案馆申请；只有本地文件、显式映射、来源/权利元数据和页身份审计齐备后，才允许进入 staging dry-run。",
+  "targets": [
+    {
+      "target_id": "P0-1947-10-27-GOVERNMENT-ADMINISTRATIVE-ORIGINAL",
+      "event_id": "domestic-1947-illegal-dissolution",
+      "target_class": "government_administrative_original",
+      "title": "1947-10-27 政府宣布民盟为非法团体的行政原件",
+      "document_date": "1947-10-27",
+      "document_date_role": "event_decision_date",
+      "candidate_ids": [
+        "domestic:SHAC:6-5-1216-meng-illegal-transfer-1947"
+      ],
+      "routes": [
+        {
+          "route_id": "SHAC-6-5-1216",
+          "institution": "上海市档案馆",
+          "catalog_reference": "上档6-5-1216",
+          "route_role": "地方执行转令路线；不预先等同于 1947-10-27 中央决定原件",
+          "access_mode": "archive_request",
+          "access_status": "route_only"
+        },
+        {
+          "route_id": "MM1941-1947-ADMIN",
+          "institution": "民盟历史文献全媒体数据库",
+          "source_url": "http://www.minmeng1941.cn/WEB/INDEX.html",
+          "route_role": "已授权浏览器中的目标检索路线",
+          "access_mode": "authorized_browser",
+          "access_status": "catalogue_pending"
+        }
+      ]
+    },
+    {
+      "target_id": "P0-1947-11-06-MM-HEADQUARTERS-DISSOLUTION-ANNOUNCEMENT",
+      "event_id": "domestic-1947-illegal-dissolution",
+      "target_class": "organization_original_announcement",
+      "title": "1947-11-06 民盟总部解散公告或正式声明原始底本",
+      "document_date": "1947-11-06",
+      "document_date_role": "organization_statement_date",
+      "candidate_ids": [
+        "domestic:MMHIST:league-dissolution-announcement-1947-11-06"
+      ],
+      "routes": [
+        {
+          "route_id": "MM1941-1947-ANNOUNCEMENT",
+          "institution": "民盟历史文献全媒体数据库",
+          "source_url": "http://www.minmeng1941.cn/WEB/INDEX.html",
+          "route_role": "已授权浏览器中的目标检索和下载路线",
+          "access_mode": "authorized_browser",
+          "access_status": "catalogue_pending"
+        },
+        {
+          "route_id": "MMHIST-1983-SURROGATE",
+          "institution": "中国民主同盟历史文献 1941—1949",
+          "catalog_reference": "1983 年汇编第 355 页",
+          "route_role": "后出汇编重刊；只能做版本追索，不是本目标原件",
+          "access_mode": "public_surrogate",
+          "access_status": "surrogate_only"
+        }
+      ]
+    }
+  ]
+}

@@ -69,6 +69,14 @@
 
 电子文本优先直接进入检索层；扫描件只对确定有价值的页做定向 OCR。任何材料先进入 staging，不直接写正式 SQLite，也不因为 OCR 完成而关闭主证据缺口。
 
+本项目已提供接收前置脚本和目标配置：
+
+```bash
+python3 scripts/domestic/prepare_authorized_original_intake.py
+```
+
+脚本默认扫描 `data/domestic/raw/authorized_originals/incoming/`，并在首次运行时生成显式映射模板。它只计算文件哈希和检查元数据，不解析正文、不 OCR、不写正式库；具体状态和后续门禁见 [`AUTHORIZED_ORIGINAL_INTAKE_20260821.md`](AUTHORIZED_ORIGINAL_INTAKE_20260821.md)。
+
 ## 关闭条件
 
 只有同时满足以下条件，1947 主证据状态才可从 `OPEN_PRIMARY_GAPS` 申请变更：
