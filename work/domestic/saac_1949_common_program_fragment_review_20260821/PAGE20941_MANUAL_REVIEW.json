@@ -1,0 +1,53 @@
+{
+  "schema": "domestic_sourcebook_page_manual_review.v1",
+  "review_id": "saac-1949-common-program-page20941-manual-review-20260821",
+  "reviewer": "codex-visual-audit-20260821",
+  "reviewed_at": "2026-08-21",
+  "purpose": "对国家档案局公开《共同纲领》官方影像第2图（印刷页54）的页身份和第一条开头短语做独立视觉复核；不升级三页摘录为完整共同纲领正文。",
+  "source": {
+    "source_id": "saac-1949-pcc-common-program-p02",
+    "source_file": "data/domestic/raw/saac_scans/sec05_05-68/02.jpg",
+    "source_sha256": "b573a20e449ad8f65a86edde71bc9a0f71fa956a3c5f30f7ebd64914c869450d",
+    "main_db_page_id": 20941,
+    "page_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/02.jpg"
+  },
+  "page_identity": {
+    "title": "中國人民政治協商會議共同綱領",
+    "date": "一九四九年九月二十九日",
+    "official_image_no": 2,
+    "printed_page": 54,
+    "identity_status": "human_verified",
+    "body_text_verified": false
+  },
+  "review_passes": [
+    {
+      "pass_id": "existing_page_identity_pass",
+      "method": "existing_official_scan_visual_review",
+      "scope": "title_date_page_identity_and_article_one_boundary",
+      "reference": "work/domestic/saac_1949_common_program_closeout_visual_review_20260819/REVIEW_DECISIONS.json",
+      "status": "completed"
+    },
+    {
+      "pass_id": "fragment_second_pass_2x_visual",
+      "method": "local_2x_resample_manual_reading_crosschecked_source_image",
+      "scope": "第一條开头短语",
+      "status": "completed",
+      "finding": "官方影像第2图与2倍放大复核中，第一条开头短语的字符边界一致；本复核只开放逗号前短语。"
+    }
+  ],
+  "render_refs": {
+    "page_image_300dpi": "data/domestic/raw/saac_scans/sec05_05-68/02.jpg",
+    "page_image_300dpi_sha256": "b573a20e449ad8f65a86edde71bc9a0f71fa956a3c5f30f7ebd64914c869450d",
+    "page_image_600dpi_probe": "work/domestic/saac_1949_common_program_fragment_render_20260821/page-02-2x.jpg",
+    "page_image_600dpi_probe_sha256": "1b9f47fe3e1e9d5c29fe9b57c9e25333de1b77a22532f93a9fd7e77b058f887a"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅第一条开头短语达到片段级引用门禁",
+    "promotion_scope": "允许在官方影像 URL、页图 SHA、官方影像编号和印刷页54锚点下引用；不得把三页摘录扩展为完整共同纲领或整页正文"
+  }
+}

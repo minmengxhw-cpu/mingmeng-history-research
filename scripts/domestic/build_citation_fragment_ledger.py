@@ -26,6 +26,7 @@ FRAGMENT_REFS = [
     "work/domestic/pcc_1946_page125_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/pcc_1946_page206_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/nlc_1949_page220_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
+    "work/domestic/saac_1949_common_program_fragment_review_20260821/FRAGMENT_SECOND_PASS.json",
 ]
 DEFAULT_LEDGER = ROOT / "data" / "domestic" / "citation_fragments.jsonl"
 DEFAULT_MANIFEST = ROOT / "data" / "domestic" / "citation_fragments_manifest.json"
@@ -93,14 +94,38 @@ def build_row(relative_ref: str) -> dict[str, Any]:
 
     target_id = str(fragment["target_id"])
     source_id = str(source["source_id"])
-    pdf_page = int(source["pdf_page"])
+    raw_source_page_no = source.get("source_page_no", source.get("pdf_page"))
+    if raw_source_page_no in (None, ""):
+        raise ValueError(f"{relative_ref}: source_page_no/pdf_page is required")
+    source_page_no = int(raw_source_page_no)
+    raw_pdf_page = source.get("pdf_page")
+    pdf_page = int(raw_pdf_page) if raw_pdf_page not in (None, "") else None
+    source_page_type = str(source.get("page_type") or ("pdf" if pdf_page is not None else "official_image"))
+    raw_year = source.get("source_year", source.get("publication_year"))
+    if raw_year in (None, ""):
+        raw_year = next((year for year in (1941, 1944, 1945, 1946, 1947, 1948, 1949) if str(year) in source_id), None)
+    source_year = int(raw_year) if raw_year not in (None, "") else None
+    year_anchor_label = str(source.get("year_anchor_label") or "")
+    if not year_anchor_label and source_year:
+        year_anchor_label = (
+            f"{source_year}（出版年锚点）"
+            if source_year == 1946
+            else f"{source_year}（来源年锚点）"
+        )
+    page_locator = str(source.get("page_locator") or "")
+    if not page_locator:
+        page_locator = (
+            f"PDF 第 {pdf_page} 页"
+            if pdf_page is not None
+            else f"官方影像第 {source_page_no} 图"
+        )
     if source_id == "nlc-pcc-1946-NLC416-01jh004019-12949":
         fragment_prefix = "pcc-1946"
     else:
         fragment_prefix = source_id
     row = {
         "schema": "domestic_citation_fragment.v1",
-        "fragment_id": f"{fragment_prefix}-p{pdf_page:03d}-{target_id}",
+        "fragment_id": f"{fragment_prefix}-p{source_page_no:03d}-{target_id}",
         "target_id": target_id,
         "title": str(fragment["title"]),
         "text": str(fragment["text"]),
@@ -118,7 +143,12 @@ def build_row(relative_ref: str) -> dict[str, Any]:
         "source_file": str(page_source["source_file"]),
         "source_sha256": str(source["source_sha256"]),
         "pdf_page": pdf_page,
+        "source_page_no": source_page_no,
+        "source_page_type": source_page_type,
+        "page_locator": page_locator,
         "printed_page": int(source["printed_page"]),
+        "source_year": source_year,
+        "year_anchor_label": year_anchor_label,
         "page_url": str(page_source.get("page_url") or ""),
         "page_review_ref": page_ref,
         "fragment_review_ref": relative_ref,
@@ -152,7 +182,7 @@ def build_row(relative_ref: str) -> dict[str, Any]:
 
 def build(ledger_path: Path, manifest_path: Path, report_path: Path) -> dict[str, Any]:
     rows = [build_row(relative) for relative in FRAGMENT_REFS]
-    rows.sort(key=lambda row: (int(row["pdf_page"]), str(row["fragment_id"])))
+    rows.sort(key=lambda row: (int(row.get("source_page_no") or row.get("pdf_page") or 0), str(row["fragment_id"])))
     seen_ids: set[str] = set()
     for row in rows:
         if row["fragment_id"] in seen_ids:
@@ -176,7 +206,7 @@ def build(ledger_path: Path, manifest_path: Path, report_path: Path) -> dict[str
         "page_citation_ready_count": sum(bool(row["page_citation_ready"]) for row in rows),
         "formal_db_written_count": sum(bool(row["formal_db_written"]) for row in rows),
         "body_read_count": sum(bool(row["body_read"]) for row in rows),
-        "scope": "six manually verified short fragments from the 1946 old PCC sourcebook plus one 1949 first-plenary declaration fragment; not full-page body promotion",
+        "scope": "eight manually verified short fragments from 1946 and 1949 PDF/official-image sources; not full-page body promotion",
     }
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

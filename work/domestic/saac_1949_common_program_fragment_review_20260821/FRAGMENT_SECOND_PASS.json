@@ -1,0 +1,63 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对国家档案局公开《共同纲领》官方影像第2图（印刷页54）第一条开头短语进行第二次视觉核对；只开放该短语，不升级整页正文。",
+  "source_page_review_ref": "work/domestic/saac_1949_common_program_fragment_review_20260821/PAGE20941_MANUAL_REVIEW.json",
+  "source": {
+    "source_id": "saac-1949-pcc-common-program-p02",
+    "source_sha256": "b573a20e449ad8f65a86edde71bc9a0f71fa956a3c5f30f7ebd64914c869450d",
+    "source_file": "data/domestic/raw/saac_scans/sec05_05-68/02.jpg",
+    "page_type": "official_image",
+    "source_page_no": 2,
+    "printed_page": 54,
+    "page_locator": "国家档案局官方影像第2图（印刷页54）",
+    "page_url": "https://www.saac.gov.cn/daj/gqzt/img/a05/68/02.jpg",
+    "source_year": 1949,
+    "year_anchor_label": "1949（文件年锚点）",
+    "page_image_300dpi": "data/domestic/raw/saac_scans/sec05_05-68/02.jpg",
+    "page_image_300dpi_sha256": "b573a20e449ad8f65a86edde71bc9a0f71fa956a3c5f30f7ebd64914c869450d",
+    "page_image_600dpi_probe": "work/domestic/saac_1949_common_program_fragment_render_20260821/page-02-2x.jpg",
+    "page_image_600dpi_probe_sha256": "1b9f47fe3e1e9d5c29fe9b57c9e25333de1b77a22532f93a9fd7e77b058f887a"
+  },
+  "review_passes": [
+    {
+      "pass_id": "initial_page_identity_pass",
+      "method": "existing_official_scan_visual_review",
+      "scope": "title_date_and_printed_page_identity",
+      "status": "completed"
+    },
+    {
+      "pass_id": "second_visual_pass",
+      "method": "2x_local_resample_manual_reading_crosschecked_source_image",
+      "scope": "第一條开头短语字符边界",
+      "status": "completed",
+      "finding": "短语在原始300dpi图与2倍放大图中字符一致，止于原页逗号前。"
+    }
+  ],
+  "fragment": {
+    "target_id": "1949-common-program-article-one-opening",
+    "title": "共同纲领第一条开头",
+    "scope": "印刷页54‘第一条’开头至逗号；不含后续条文",
+    "text": "中華人民共和國為新民主主義即人民民主專政的國家",
+    "fragment_ends_mid_sentence": true,
+    "display_suffix": "……",
+    "transcription_mode": "manual_visual_transcription_2x_crosschecked_source_image",
+    "character_check": "confirmed",
+    "punctuation_check": "not_applicable_fragment_ends_before_source_comma",
+    "ocr_crosscheck": "",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "continuation_boundary": "片段止于原页逗号前；后续条文和共同纲领缺页未逐字校读",
+    "page_body_status": "整页正文未逐字校读；仅该短语达到片段级引用门禁",
+    "promotion_scope": "引用时必须保留官方影像 URL、影像第2图、印刷页54、页图 SHA 和省略边界；不得扩展为完整第一条或完整共同纲领"
+  },
+  "status": "HUMAN_VERIFIED_FRAGMENT_QUOTE_READY_PAGE_BODY_OPEN"
+}

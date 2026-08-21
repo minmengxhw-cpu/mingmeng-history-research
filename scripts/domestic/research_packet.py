@@ -158,7 +158,17 @@ def event_source_map_summary(event_id: str) -> dict[str, Any]:
 
 def _citation_fragment_refs(event_id: str, public: bool) -> list[dict[str, Any]]:
     """Return body-free links to verified fragments for a topic packet."""
-    if str(event_id) != "domestic-1946-pcc":
+    event_source_ids = {
+        "domestic-1946-pcc": {
+            "nlc-pcc-1946-NLC416-01jh004019-12949",
+        },
+        "domestic-1949-new-pcc": {
+            "nlc-1949-first-plenary-conference-journal",
+            "saac-1949-pcc-common-program-p02",
+        },
+    }
+    source_ids = event_source_ids.get(str(event_id))
+    if not source_ids:
         return []
     app = _app()
     loader = getattr(app, "_load_citation_fragment_rows", None)
@@ -168,6 +178,8 @@ def _citation_fragment_refs(event_id: str, public: bool) -> list[dict[str, Any]]
     for row in loader():
         if not isinstance(row, dict):
             continue
+        if str(row.get("source_id") or "") not in source_ids:
+            continue
         page_id = int(row.get("main_db_page_id") or 0)
         if not page_id:
             continue
@@ -176,8 +188,13 @@ def _citation_fragment_refs(event_id: str, public: bool) -> list[dict[str, Any]]
                 "fragment_id": str(row.get("fragment_id") or ""),
                 "target_id": str(row.get("target_id") or ""),
                 "title": str(row.get("title") or ""),
-                "pdf_page": int(row.get("pdf_page") or 0),
-                "printed_page": int(row.get("printed_page") or 0),
+                "pdf_page": int(row["pdf_page"]) if row.get("pdf_page") not in (None, "") else None,
+                "source_page_no": int(row["source_page_no"]) if row.get("source_page_no") not in (None, "") else None,
+                "source_page_type": str(row.get("source_page_type") or "pdf"),
+                "page_locator": str(row.get("page_locator") or ""),
+                "source_year": int(row["source_year"]) if row.get("source_year") not in (None, "") else None,
+                "year_anchor_label": str(row.get("year_anchor_label") or ""),
+                "printed_page": int(row["printed_page"]) if row.get("printed_page") not in (None, "") else None,
                 "page_id": page_id,
                 "source_id": str(row.get("source_id") or ""),
                 "source_sha256": str(row.get("source_sha256") or ""),
@@ -759,10 +776,18 @@ def research_packet_page(event_id: str) -> bytes:
 
     fragment_cards = []
     for fragment in packet.get("citation_fragments", []):
+        page_locator = str(fragment.get("page_locator") or "").strip()
+        if not page_locator:
+            page_no = fragment.get("source_page_no") or fragment.get("pdf_page")
+            if fragment.get("source_page_type") == "official_image":
+                page_locator = f"官方影像第 {page_no} 图" if page_no else "页码未标注"
+            else:
+                page_locator = f"PDF 第 {page_no} 页" if page_no else "页码未标注"
+        year_label = str(fragment.get("year_anchor_label") or "").strip()
         fragment_cards.append(
             f"""<article class="result compact-result"><div>
   <h3>{esc(fragment.get('title') or fragment.get('target_id'))}</h3>
-  <div class="meta">PDF 第 {esc(fragment.get('pdf_page'))} 页 · 印刷页 {esc(fragment.get('printed_page'))} · page_id {esc(fragment.get('page_id'))}</div>
+  <div class="meta">{esc(page_locator)} · 印刷页 {esc(fragment.get('printed_page') or '未标注')} · page_id {esc(fragment.get('page_id'))}{f' · {esc(year_label)}' if year_label else ''}</div>
   <div class="tagline"><span class="pstatus ok">片段级可引用</span><span class="tag">正文不复制</span><span class="tag">整页 citation_ready=false</span></div>
   <div class="snippet">范围：{esc(fragment.get('scope') or '')}</div>
   <div class="snippet">边界：{esc(fragment.get('boundary_status') or '未登记')}</div>

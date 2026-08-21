@@ -1,0 +1,189 @@
+{
+  "schema_version": "domestic_unified_research_platform_gate.v1",
+  "scope": "formal_domestic_database_metadata_only",
+  "body_read": false,
+  "formal_db_written": false,
+  "auto_delete": false,
+  "status": "PASS",
+  "research_content_status": "OPEN_PRIMARY_GAPS",
+  "checks": {
+    "manifest": {
+      "status": "PASS",
+      "mismatches": {},
+      "actual": {
+        "database_size_bytes": 703549440,
+        "sha256": "1250e6ee3d20cc670bbfb5f53bf5a4a8a1658f35826617035bdb04c5cb59d3a3",
+        "documents": 1415,
+        "domestic_documents": 554,
+        "pages": 6277,
+        "page_fts": 6277,
+        "research_events": 2556,
+        "domestic_research_event_rows": 639,
+        "domestic_research_event_pages": 624,
+        "domestic_research_event_scopes": 9,
+        "domestic_candidates": 690,
+        "domestic_file_backed_provenance": 5206,
+        "strict_human_citation_pages": 268,
+        "domestic_pages_missing_provenance": 1,
+        "domestic_documents_missing_date": 10,
+        "integrity_check": "ok",
+        "foreign_key_violations": 0,
+        "pages_without_fts": 0,
+        "fts_without_pages": 0,
+        "source_files_checked": 664,
+        "source_file_bytes": 750498463,
+        "source_files_missing": 0,
+        "source_hash_mismatches": 0,
+        "absolute_source_paths": 0,
+        "source_files_outside_project": 0
+      }
+    },
+    "candidate_alignment": {
+      "status": "PASS",
+      "file_count": 690,
+      "db_count": 690,
+      "missing_from_db": [],
+      "extra_in_db": []
+    },
+    "source_registry_alignment": {
+      "status": "PASS",
+      "file_count": 91,
+      "db_count": 91,
+      "missing_from_db": [],
+      "extra_in_db": []
+    },
+    "academic_layer": {
+      "status": "PASS",
+      "records": 288,
+      "academic_records": 155,
+      "scholarly_articles": 99,
+      "high_priority_academic_records_S_or_A": 120,
+      "quality_tiers": {
+        "A": 93,
+        "B": 152,
+        "C": 1,
+        "S": 42
+      },
+      "crosswalk_topics": 9,
+      "total_topic_matches": 159,
+      "source": "staging_audit_report",
+      "metadata_index_source": "tracked_metadata_index",
+      "metadata_index_records": 288,
+      "fulltext_priority_queue_source": "tracked_queue",
+      "fulltext_priority_queue_records": 24,
+      "fulltext_priority_queue_classes": {
+        "P0_STABLE_FULLTEXT": 5,
+        "P1_FULLTEXT_CANDIDATE": 13,
+        "P2_STABLE_CONTEXT": 1,
+        "P3_CANDIDATE_CONTEXT": 5
+      },
+      "errors": []
+    },
+    "source_admission": {
+      "status": "PASS",
+      "source_rows": 61,
+      "admission_counts": {
+        "HOLD_PAGE_RECONCILIATION": 15,
+        "RETAIN_FORMAL_PAGE_CHAIN": 2,
+        "RETAIN_NAVIGATION_ONLY": 14,
+        "RETAIN_TARGETED_REVIEW": 30
+      },
+      "ocr_action_counts": {
+        "NO_FULL_OCR_INDEX_ONLY": 14,
+        "NO_OCR_UNTIL_PAGE_RECONCILE": 15,
+        "NO_REPEAT_OCR_FORMAL_PAGES_EXIST": 2,
+        "USE_EXISTING_OCR_TARGETED_REVIEW": 30
+      },
+      "errors": []
+    },
+    "retrieval_queue": {
+      "status": "PASS",
+      "topic_count": 9,
+      "open_target_count": 9,
+      "formal_candidate_count": 690,
+      "event_link_page_count": 81,
+      "errors": []
+    },
+    "primary_gap_matrix": {
+      "status": "PASS",
+      "topic_count": 9,
+      "source_map_count": 9,
+      "source_map_page_record_count": 248,
+      "candidate_route_count": 124,
+      "errors": []
+    },
+    "pcc_1946_sourcebook_map": {
+      "status": "PASS",
+      "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+      "target_count": 6,
+      "source_sha256": "4b45976ffdea727f0e26f79c4cb2688e01093d5d7901103c17d99823e7e4d50f",
+      "errors": []
+    },
+    "pcc_1946_sourcebook_render_manifest": {
+      "status": "PASS",
+      "source_id": "nlc-pcc-1946-NLC416-01jh004019-12949",
+      "page_count": 9,
+      "review_status": "page_identity_and_boundary_human_verified_body_ocr_pending",
+      "errors": []
+    },
+    "citation_fragment_ledger": {
+      "status": "PASS",
+      "fragment_count": 8,
+      "fragment_citation_ready_count": 8,
+      "page_citation_ready_count": 0,
+      "formal_db_written_count": 0,
+      "body_read_count": 0,
+      "errors": []
+    },
+    "missing_provenance": {
+      "status": "PASS",
+      "missing_count": 1,
+      "allowed_navigation_index_count": 1,
+      "unexpected_missing": []
+    },
+    "research_packets": {
+      "status": "PASS",
+      "topic_count": 9,
+      "packet_count": 9,
+      "failed_packet_count": 0,
+      "primary_evidence_partial_count": 9,
+      "research_ready_count": 0,
+      "research_usable_with_boundaries_count": 9,
+      "errors": []
+    },
+    "event_source_map_coverage": {
+      "status": "PASS",
+      "topic_count": 9,
+      "mapped_topic_count": 9,
+      "page_record_count": 248,
+      "strict_page_count": 137,
+      "review_only_page_count": 13,
+      "navigation_page_count": 95,
+      "access_route_count": 1,
+      "errors": []
+    },
+    "comparison_cards": {
+      "coverage_path": "data/domestic/event_coverage.json",
+      "cards_path": "data/domestic/topic_comparison_cards.json",
+      "coverage_topics": 9,
+      "comparison_cards": 9,
+      "missing_cards": [],
+      "orphan_cards": [],
+      "errors": [],
+      "status": "PASS"
+    },
+    "research_question_benchmark": {
+      "status": "PASS",
+      "question_count": 36,
+      "path_ready_count": 36,
+      "strict_page_query_count": 23,
+      "failed_path_count": 0,
+      "topic_count": 9
+    }
+  },
+  "failed_checks": [],
+  "interpretation": {
+    "status": "Platform mechanics are coherent only; this is not a claim that all historical primary-source gaps are closed.",
+    "research_content_status": "At least one topic still has unresolved primary-source targets."
+  }
+}

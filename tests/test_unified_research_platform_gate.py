@@ -43,8 +43,8 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert report["checks"]["research_question_benchmark"]["path_ready_count"] == 36
     fragments = report["checks"]["citation_fragment_ledger"]
     assert fragments["status"] == "PASS"
-    assert fragments["fragment_count"] == 6
-    assert fragments["fragment_citation_ready_count"] == 6
+    assert fragments["fragment_count"] == 8
+    assert fragments["fragment_citation_ready_count"] == 8
     assert fragments["page_citation_ready_count"] == 0
     assert fragments["formal_db_written_count"] == 0
 
@@ -78,6 +78,9 @@ def test_fragments_are_discoverable_from_unified_search_and_domestic_timeline():
     assert "政治協商會議會期中就政府改組問題爭執最久" in search
     assert "片段级证据时间锚点" in timeline
     assert "1946（出版年锚点）" in timeline
+    search_1949 = app.search("共同纲领", platform="domestic", year="1949").decode("utf-8")
+    assert "共同纲领第一条开头" in search_1949
+    assert "国家档案局官方影像第2图（印刷页54）" in search_1949
 
 
 def test_academic_gate_uses_tracked_snapshot_without_staging_report(tmp_path, monkeypatch):

@@ -422,6 +422,19 @@ def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_bod
         for page in pages
         if page["status"] == "navigation_only"
     )
+    assert packet["counts"]["citation_fragment_count"] == 2
+    fragment_by_source = {
+        fragment["source_id"]: fragment
+        for fragment in packet["citation_fragments"]
+    }
+    assert set(fragment_by_source) == {
+        "nlc-1949-first-plenary-conference-journal",
+        "saac-1949-pcc-common-program-p02",
+    }
+    assert fragment_by_source["nlc-1949-first-plenary-conference-journal"]["page_locator"] == "PDF 第 220 页"
+    assert fragment_by_source["saac-1949-pcc-common-program-p02"]["page_locator"] == "国家档案局官方影像第2图（印刷页54）"
+    assert fragment_by_source["saac-1949-pcc-common-program-p02"]["pdf_page"] is None
+    assert all(fragment["body_text_included"] is False for fragment in packet["citation_fragments"])
     assert validate_packet(packet, "domestic-1949-new-pcc")["status"] == "PASS"
     app._request.public_mode = True
     raw = packet_json_bytes("domestic-1949-new-pcc").decode("utf-8")
@@ -434,6 +447,7 @@ def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_bod
     assert "专题来源地图" in html
     assert "官方图像" in html
     assert "官方图像序列" in html
+    assert "国家档案局官方影像第2图（印刷页54）" in html
 
 
 def test_1948_third_plenum_packet_carries_press_and_archive_pages_without_body():

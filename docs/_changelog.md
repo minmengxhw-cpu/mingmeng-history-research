@@ -59,6 +59,11 @@
 - 新增一条 1949 来源片段记录并接入统一台账、国内片段证据页、统一搜索和 `/cite/20937`；片段为 `fragment_citation_ready=true`，整页保持 `page_citation_ready=false`、`body_read=false`，正式 SQLite 未写入。
 - 统一平台门禁 `PASS / OPEN_PRIMARY_GAPS`；运行态片段页、检索页、引用页和公共模式重定向均通过验收。
 
+### 1949 年共同纲领官方影像：片段级引用与非 PDF 页定位
+
+- 对国家档案局官方影像第 2 图（印刷页 54）完成来源图与 2x 视觉复核，确认《共同纲领》第一条开头短片段；原图 SHA256、官方 URL、图号和印刷页均写入片段台账。
+- 统一页定位模型现在同时支持 PDF 页和官方独立影像；该记录明确 `pdf_page=null`、`source_page_type=official_image`，不把官方图片页伪装成 PDF 页。
+- 片段接入 1949 新政协研究包、国内搜索、时间线和页级引用入口；整页仍保持 `page_citation_ready=false`、`body_read=false`，研究内容状态仍为 `OPEN_PRIMARY_GAPS`。
 ## 2026-08-19
 
 ### 长任务：共同纲领选定页与闭幕/建国当日扫描页级收口

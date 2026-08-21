@@ -1,0 +1,26 @@
+{
+  "event_id": "domestic-1949-new-pcc",
+  "status": "PASS",
+  "errors": [],
+  "counts": {
+    "domestic_candidate_rows": 167,
+    "domestic_documents": 19,
+    "domestic_pages": 64,
+    "domestic_strict_pages": 49,
+    "topic_event_domestic_pages": 79,
+    "topic_event_domestic_file_backed_pages": 79,
+    "topic_event_domestic_strict_pages": 68,
+    "evidence_chain_page_items": 74,
+    "evidence_chain_resolved_page_items": 74,
+    "evidence_chain_strict_gate_passed": 71,
+    "topic_event_sample_rows": 24,
+    "academic_candidates": 15,
+    "foreign_machine_pages": 242,
+    "sourcebook_count": 0,
+    "sourcebook_target_count": 0,
+    "event_source_map_count": 1,
+    "event_source_page_record_count": 106,
+    "citation_fragment_count": 2
+  },
+  "database_sha256": "1250e6ee3d20cc670bbfb5f53bf5a4a8a1658f35826617035bdb04c5cb59d3a3"
+}
