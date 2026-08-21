@@ -259,6 +259,20 @@ def test_domestic_search_shows_hit_reason_and_workbench():
     assert "primary_evidence_closed" not in body
 
 
+def test_public_domestic_intake_hides_local_paths_and_internal_field_names():
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = True
+    try:
+        body = app.domestic_authorized_intake_page().decode("utf-8")
+    finally:
+        app._request.public_mode = previous
+    assert "公开模式隐藏本地路径" in body
+    assert "/Users/" not in body
+    assert "/private/" not in body
+    assert "local_path" not in body
+    assert "授权原件文件" in body
+
+
 def test_domestic_timeline_links_workbench():
     previous = getattr(app._request, "public_mode", False)
     app._request.public_mode = False

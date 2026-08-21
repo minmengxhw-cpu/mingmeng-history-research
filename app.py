@@ -7965,6 +7965,7 @@ def domestic_workbench_page() -> bytes:
 
 def domestic_authorized_intake_page() -> bytes:
     """Show the metadata-only state of the authorized-original intake gate."""
+    public_mode = bool(getattr(_request, "public_mode", False))
     targets: list[dict] = []
     try:
         payload = json.loads(AUTHORIZED_ORIGINAL_INTAKE_TARGETS_PATH.read_text(encoding="utf-8"))
@@ -8010,7 +8011,19 @@ def domestic_authorized_intake_page() -> bytes:
         if status == "STAGED_READY_FOR_DRY_RUN":
             ready_count += 1
         missing = row.get("missing_fields") or []
-        missing_label = "、".join(str(value) for value in missing[:6]) or "无"
+        missing_labels = [str(value) for value in missing[:6]]
+        if public_mode:
+            # Do not expose internal schema names on the public intake view.
+            missing_labels = [
+                {
+                    "target_id": "目标标识",
+                    "local_path": "授权原件文件",
+                    "source_url": "来源入口",
+                    "rights_status": "权利状态",
+                }.get(value, value)
+                for value in missing_labels
+            ]
+        missing_label = "、".join(missing_labels) or "无"
         status_class = "ok" if status == "STAGED_READY_FOR_DRY_RUN" else "warn"
         cards.append(
             f"""
@@ -8028,6 +8041,11 @@ def domestic_authorized_intake_page() -> bytes:
         report.get("incoming")
         or (DATA_ROOT / "domestic" / "raw" / "authorized_originals" / "incoming")
     )
+    incoming_display = (
+        "内部授权接收目录（公开模式隐藏本地路径）"
+        if public_mode
+        else incoming_path
+    )
     body = breadcrumb_html([
         ("/", "首页"),
         ("/domestic/workbench", "国内研究平台"),
@@ -8035,7 +8053,7 @@ def domestic_authorized_intake_page() -> bytes:
     ]) + f"""
 <section class="doc-head"><div><h1>授权原件接收前置门禁</h1><div class="meta">只登记授权文件、来源、SHA256、权利和页身份；不读取正文、不 OCR、不写正式 SQLite。</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button secondary" href="/domestic/acquisition">调档清单</a></div></section>
 <section class="stats"><div class="stat"><strong>{h(len(targets))}</strong><span>P0 目标</span></div><div class="stat"><strong>{h(incoming_count)}</strong><span>incoming 文件</span></div><div class="stat"><strong>{h(ready_count)}</strong><span>可 dry-run</span></div><div class="stat"><strong>{h(report_status)}</strong><span>接收报告</span></div></section>
-<div class="notice">当前报告：{h(generated_at)}。先把已获授权的 PDF/页图放入 <code>{h(incoming_path)}</code>，再运行 <code>python3 scripts/domestic/prepare_authorized_original_intake.py</code>。只有显式映射、来源/权利字段、文件哈希、页数和页身份复核齐全，才会显示“可进入 staging dry-run”；这仍不等于正式引用或主证据闭合。</div>
+<div class="notice">当前报告：{h(generated_at)}。先把已获授权的 PDF/页图放入 <code>{h(incoming_display)}</code>，再运行 <code>python3 scripts/domestic/prepare_authorized_original_intake.py</code>。只有显式映射、来源/权利字段、文件哈希、页数和页身份复核齐全，才会显示“可进入 staging dry-run”；这仍不等于正式引用或主证据闭合。</div>
 <section class="section-head"><h2>P0 原件目标</h2><span class="section-meta">状态与正式引用门禁分离</span></section>
 <section class="result-list">{''.join(cards) or '<div class="notice">目标配置未找到。</div>'}</section>
 """
