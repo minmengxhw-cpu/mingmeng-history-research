@@ -16,3 +16,16 @@
 - `data/domestic/1941_formation_source_map.json` 将香港大学记录保留为 `university_catalogue_access_route`，并记录目录覆盖范围。
 - 两条路线均保持 `citation_ready=false`，不写入正式正文，不关闭 1941 成立专题缺口。
 - 下一步是按已确认的馆藏范围申请/调取缩微胶卷，优先取得 1941-10-10 原刊影像及许可信息；取得前不安排全文 OCR。
+
+## 可执行调取单
+
+1. 以香港大学 Primo 记录 `HKU_IZ21440249790003414` 为馆藏核对入口，先确认实际 call number/馆藏前缀。
+2. 向 HKU Special Collections 预约 Microform Scanner；如需闭架调取，按馆方要求提前通过 `libspeco@hku.hk` 申请，并填写书名、call number、到访日期和预约时段。
+3. 首批只申请 1941-10-10，同时可把 1941-09-18 和 1941-10-16 作为相邻期对照，不申请整卷批量扫描。
+4. 接收时逐项记录：馆藏题名、期日、胶卷/载体标识、扫描文件 SHA256、物理页/印刷页、是否完整、复制许可；未经这些字段复核，不进入 OCR 或正式 SQLite。
+
+官方流程入口：
+
+- [HKU 1940s Hong Kong Newspapers 目录](https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/newspaper_1940s_update_072021.pdf)
+- [HKU Special Collections 材料申请](https://lib.hku.hk/hkspc/requesting_materials.html)
+- [HKU Special Collections 设施与微缩扫描](https://lib.hku.hk/hkspc/facilities.html)
