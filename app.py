@@ -96,6 +96,7 @@ LOCAL_SEMANTIC_SIGNALS_REPORT_PATH = WORK_ROOT / "domestic" / "local_private_ocr
 HOME_FOCUS_PATH = DATA_ROOT / "home_focus.json"
 TOPIC_COMPARISON_CARDS_PATH = DATA_ROOT / "domestic" / "topic_comparison_cards.json"
 TOPIC_EVIDENCE_CHAIN_PATH = DATA_ROOT / "domestic" / "topic_evidence_chain.json"
+PRIMARY_SUBTARGET_SUPPORT_PATH = DATA_ROOT / "domestic" / "primary_subtarget_support.json"
 TOPIC_RESEARCH_MATRIX_PATH = DATA_ROOT / "domestic" / "topic_research_matrix.json"
 TOPIC_FOREIGN_CROSSWALK_PATH = DATA_ROOT / "domestic" / "topic_foreign_crosswalk.json"
 PRIMARY_EVIDENCE_ACCESS_AUDIT_PATH = DATA_ROOT / "domestic" / "primary_evidence_access_audit.json"
@@ -5204,6 +5205,56 @@ def _load_topic_evidence_chains() -> dict[str, dict[str, object]]:
     }
 
 
+def _load_primary_subtarget_support() -> dict[str, list[dict[str, object]]]:
+    """读取有边界研究子单元；不把子单元升级为专题主证据闭环。"""
+    if not PRIMARY_SUBTARGET_SUPPORT_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(PRIMARY_SUBTARGET_SUPPORT_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    if not isinstance(payload, dict) or payload.get("body_read") is not False:
+        return {}
+    topics = payload.get("topics")
+    if not isinstance(topics, dict):
+        return {}
+    return {
+        str(event_id): [row for row in rows if isinstance(row, dict)]
+        for event_id, rows in topics.items()
+        if isinstance(rows, list)
+    }
+
+
+def _primary_subtarget_support_html(event_id: str) -> str:
+    """Render bounded units with links to the existing citation gate."""
+    rows = _load_primary_subtarget_support().get(str(event_id), [])
+    if not rows:
+        return ""
+    cards: list[str] = []
+    for row in rows:
+        page_ids = [str(value) for value in row.get("page_ids", []) if value]
+        page_links = " · ".join(
+            f'<a href="/cite/{quote(page_id)}">页级门禁 #{h(page_id)}</a>'
+            for page_id in page_ids
+        )
+        source_ids = "、".join(str(value) for value in row.get("source_ids", []) if value)
+        cards.append(f"""
+<article class="result compact-result">
+  <div>
+    <h3>{h(row.get('label') or row.get('unit_id') or '未命名子单元')}</h3>
+    <div class="tagline"><span class="pstatus ok">有边界可研究</span><span class="tag">{h(len(page_ids))} 个页级入口</span><span class="tag">主目标仍开放</span></div>
+    <div class="snippet"><strong>可以支持：</strong>{h(row.get('scope') or '')}</div>
+    <div class="snippet"><strong>限制：</strong>{h(row.get('caveat') or '')}</div>
+    <div class="meta">来源标识：{h(source_ids or '未登记')}</div>
+  </div>
+  <div class="cite">{page_links or '未登记页级入口'}</div>
+</article>""")
+    return f"""
+<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>有边界可研究的一手子单元</h2><span class="meta">只显示页级元数据，不关闭专题主目标</span></div>
+<div class="notice"><strong>阅读规则：</strong>以下材料可以回答范围受限的问题；“有边界可研究”不等于完整档案、不等于正文已逐字校读，也不等于专题 <code>research_ready</code>。完整原件缺口仍以四层证据链为准。</div>
+<section class="result-list">{"".join(cards)}</section>"""
+
+
 def _load_topic_research_matrix() -> dict[str, dict[str, object]]:
     """读取专题的研究问题—证据矩阵；只消费元数据，不读取正文。"""
     if not TOPIC_RESEARCH_MATRIX_PATH.is_file():
@@ -7429,6 +7480,7 @@ def research_topic_page(event_id: str) -> bytes:
 </section>
 """
     evidence_chain_html = _topic_evidence_chain_html(evidence_chain)
+    primary_subtarget_support_html = _primary_subtarget_support_html(event_id)
     research_matrix_html = _topic_research_matrix_html(research_matrix, evidence_chain)
     foreign_crosswalk_html = _topic_foreign_crosswalk_html(foreign_crosswalk)
 
@@ -7509,6 +7561,7 @@ def research_topic_page(event_id: str) -> bytes:
 {research_matrix_html}
 {foreign_crosswalk_html}
 {evidence_chain_html}
+{primary_subtarget_support_html}
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>学术研究资料（解释层）</h2><span class="meta">{h(academic_total)} 条机器主题候选</span></div>
 <div class="notice">学术材料用于解释、争议定位和检索扩展；只有全文/页码/哈希/复核齐全后才可能进入正式引用。下方命中依据是书目元数据和结构化主题字段，不是正文语义确认。</div>
 <section class="result-list">{academic_html}</section>

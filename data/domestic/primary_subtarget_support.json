@@ -1,0 +1,83 @@
+{
+  "schema_version": "domestic_primary_subtarget_support.v1",
+  "generated_at": "2026-08-22",
+  "purpose": "登记已有页级证据可以独立支持的有边界研究子单元；不关闭专题主证据缺口。",
+  "body_read": false,
+  "formal_db_written": false,
+  "primary_evidence_closed": false,
+  "topics": {
+    "domestic-1948-third-plenum-may-day": [
+      {
+        "unit_id": "1948-mayday-telegram",
+        "label": "1948-05-01 毛泽东给李济深、沈钧儒电报",
+        "status": "bounded_unit_ready",
+        "source_ids": ["saac-1948-mayday-telegram-p01", "saac-1948-mayday-telegram-p02"],
+        "page_ids": [20665, 20666],
+        "scope": "可支持五一口号相关邀请与民主人士回应的官方公开影像页身份、页序和文档范围。",
+        "caveat": "不等于档案馆母版、完整卷宗、民盟内部回应或三中全会原始档案；正文仍未逐字校读。"
+      },
+      {
+        "unit_id": "1948-mayday-invitation-directive",
+        "label": "1948-05-01 中共中央关于邀请民主党派等代表来解放区开政协的指示",
+        "status": "bounded_unit_ready",
+        "source_ids": [
+          "saac-1948-mayday-invitation-directive-p01",
+          "saac-1948-mayday-invitation-directive-p02",
+          "saac-1948-mayday-invitation-directive-p03",
+          "saac-1948-mayday-invitation-directive-p04",
+          "saac-1948-mayday-invitation-directive-p05"
+        ],
+        "page_ids": [20667, 20668, 20669, 20670, 20671],
+        "scope": "可支持五一口号后召开新政协组织指示的公开档案影像页身份和连续件范围。",
+        "caveat": "不替代民盟内部正式回应，也不关闭三中全会、五一口号和香港传播的完整档案链、档号和复制权利缺口。"
+      }
+    ],
+    "domestic-1949-new-pcc": [
+      {
+        "unit_id": "1949-pcc-invitation-telegram",
+        "label": "1949-01-20 中央关于邀请张澜、黄炎培北上的电报",
+        "status": "bounded_unit_ready",
+        "source_ids": ["saac-1949-pcc-invitation-telegram-p01"],
+        "page_ids": [20672],
+        "scope": "可支持新政协筹备中的邀请与动员这一有限问题。",
+        "caveat": "不替代完整筹备档案、民盟代表发言或北上过程的全链条记录。"
+      },
+      {
+        "unit_id": "1949-pcc-preparatory-groups-summary",
+        "label": "1949-06至07 新政协筹备会各小组开会概要",
+        "status": "bounded_unit_ready",
+        "source_ids": ["saac-1949-pcc-preparatory-groups-p01"],
+        "page_ids": [20690],
+        "scope": "可支持筹备会组织过程的公开档案页身份和主题范围。",
+        "caveat": "单页概要不等于完整小组会议记录、议题过程或民盟代表发言全集。"
+      },
+      {
+        "unit_id": "1949-pcc-representative-list",
+        "label": "1949-09-21 政协一届全体会议单位及代表名单",
+        "status": "bounded_unit_ready",
+        "source_ids": [
+          "saac-1949-pcc-representative-list-p01",
+          "saac-1949-pcc-representative-list-p02",
+          "saac-1949-pcc-representative-list-p03",
+          "saac-1949-pcc-representative-list-p04",
+          "saac-1949-pcc-representative-list-p05",
+          "saac-1949-pcc-representative-list-p06",
+          "saac-1949-pcc-representative-list-p07",
+          "saac-1949-pcc-representative-list-p08-p22"
+        ],
+        "page_ids": [20733, 20734, 20735, 20736, 20737, 20738, 20739, 20740, 20741, 20742, 20743, 20744, 20745, 20746, 20747, 20748, 20749, 20750, 20751, 20752, 20753, 20754],
+        "scope": "可支持公开代表名单影像的页级连续范围和名册定位。",
+        "caveat": "完整名单转录、民盟代表识别和完整会议档案仍待核验；名单子单元不关闭 1949 专题主目标。"
+      },
+      {
+        "unit_id": "1949-common-program-selected-pages",
+        "label": "1949-09-29 《共同纲领》官方影像选页",
+        "status": "bounded_unit_ready",
+        "source_ids": ["saac-1949-pcc-common-program-p01-p03"],
+        "page_ids": [20940, 20941, 20942],
+        "scope": "可支持题名页、日期和三个已登记官方影像页的页级身份。",
+        "caveat": "三页不是《共同纲领》全件，正文未逐字校读，不替代完整第一届全体会议档案。"
+      }
+    ]
+  }
+}
