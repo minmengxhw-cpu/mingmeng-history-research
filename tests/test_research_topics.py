@@ -1753,6 +1753,40 @@ def test_academic_metadata_search_filters_by_quality_and_fulltext_status(tmp_pat
     assert str(b_candidate["title"]) not in body
     assert "当前筛选：质量 S · 全文候选" in body
     assert 'name="tier"' in body and 'name="availability"' in body
+    assert 'name="institution_signal"' in body
+    assert body.count('name="scope"') == 1
+    assert "/Users/" not in body and "/private/" not in body
+
+
+def test_academic_metadata_search_filters_explicit_institution_field_signals(tmp_path, monkeypatch, db_missing_reason):
+    """机构筛选只使用记录字段信号，并明确保持待核边界。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证 institution signal filter: {db_missing_reason}")
+    import app
+
+    monkeypatch.setattr(app, "DOMESTIC_STAGING_DB_PATH", tmp_path / "staging-does-not-exist.sqlite")
+    records = app._load_academic_metadata_index()
+    signal_record = next(
+        record
+        for record in records
+        if app._academic_institution_signal_value(record.get("institution")) == "985_or_c9_signal"
+    )
+    no_signal_record = next(
+        record
+        for record in records
+        if app._academic_institution_signal_value(record.get("institution")) == ""
+    )
+    body = app.domestic_staging_search_page(
+        {
+            "scope": ["research"],
+            "q": [str(signal_record["external_id"])],
+            "institution_signal": ["985_or_c9_signal"],
+        }
+    ).decode("utf-8")
+    assert str(signal_record["title"]) in body
+    assert str(no_signal_record["title"]) not in body
+    assert "985/C9 字段信号（待核）" in body
+    assert "不是 985 认证" in body
     assert "/Users/" not in body and "/private/" not in body
 
 

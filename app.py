@@ -4440,6 +4440,19 @@ def domestic_academic_page() -> bytes:
         for row in snapshot.get("institutions", [])
         if isinstance(row, dict)
     ) or '<div class="notice">当前层没有机构分布；正式库 fallback 不复制 staging 机构字段。</div>'
+    metadata_records = _load_academic_metadata_index()
+    institution_signal_counts = {
+        signal: sum(
+            1
+            for record in metadata_records
+            if _academic_institution_signal_value(record.get("institution")) == signal
+        )
+        for signal, _label in _ACADEMIC_INSTITUTION_SIGNAL_OPTIONS
+    }
+    institution_signal_summary = " · ".join(
+        f'<a href="/domestic/search?scope=research&amp;institution_signal={quote(signal)}">{h(label)}</a> {h(institution_signal_counts.get(signal, 0))} 条'
+        for signal, label in _ACADEMIC_INSTITUTION_SIGNAL_OPTIONS
+    ) or "暂无机构字段信号"
     crosswalk = _load_academic_topic_crosswalk()
     crosswalk_topics = crosswalk.get("topics") if isinstance(crosswalk, dict) else []
     crosswalk_cards: list[str] = []
@@ -4524,7 +4537,6 @@ def domestic_academic_page() -> bytes:
 <div class="notice">该队列只从版本化学术元数据中生成，优先安排 S/A 记录；它不读取正文、不包含本地路径、不写正式库。P0/P1 是下一轮获取稳定全文和页码的工作入口，完成页级取证后仍需 SHA-256、版本关系和复核，citation-ready 不会由队列自动改变。<br><a href="/domestic/search?scope=research&amp;availability=fulltext">查看稳定全文候选</a> · <a href="/domestic/search?scope=research&amp;availability=candidate">查看全文候选</a></div>'''
     else:
         queue_section = '<div class="section-head"><h2><svg class="ico"><use href="#i-arrow-right"/></svg>全文取证优先队列</h2></div><div class="notice">当前 checkout 尚未生成版本化全文取证队列；学术元数据仍可用于发现和专题交叉索引。</div>'
-    metadata_records = _load_academic_metadata_index()
     gap_note_count = sum(1 for record in metadata_records if _academic_record_is_gap_note(record))
     gap_note_notice = (
         f'<div class="notice"><strong>资料角色分流：</strong>已识别 {h(gap_note_count)} 条研究缺口说明；它们保留用于追踪未取得的学术资料，但不进入学术专题匹配、全文队列或高质量文章展示。</div>'
@@ -4546,6 +4558,7 @@ def domestic_academic_page() -> bytes:
 <div class="notice">正式引用链必须经过：研究记录 → 来源入口/目录 → 本地文件或稳定全文 → 页码/章节定位 → SHA-256 → 复核状态 → citation-ready。当前统计中的 staging 字段不会自动修改正式库门禁。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-building"/></svg>机构元数据分布</h2><span class="meta">仅显示记录字段，不自动宣称985或任职资格</span></div>
 <section class="result-list">{institution_cards}</section>
+<div class="notice"><strong>机构字段筛选：</strong>{institution_signal_summary}<br>这些是记录字段中的字符串信号，仅用于发现和补证排序；它们不是 985 认定、作者任职核验或学术质量结论。</div>
 {crosswalk_section}
 <div class="section-head"><h2><svg class="ico"><use href="#i-arrow-right"/></svg>下一步工作</h2></div>
 <section class="result-list">
@@ -4599,6 +4612,64 @@ _ACADEMIC_AVAILABILITY_LABELS = {
     "discovery": "发现/元数据",
 }
 
+# 这些是从“机构”字段中抽取的发现信号，不是 985 认定、作者任职核验或
+# 学术质量结论。故意把出版社记录排除，避免把出版机构误显示成作者单位。
+_ACADEMIC_INSTITUTION_SIGNAL_OPTIONS = (
+    ("985_or_c9_signal", "985/C9 字段信号（待核）"),
+    ("cassi_or_research_institute_signal", "中央/研究机构字段信号（待核）"),
+    ("central_league_signal", "民盟中央字段信号（待核）"),
+    ("central_document_signal", "中央文献机构字段信号（待核）"),
+    ("recognized_university_signal", "其他高校字段信号（待核）"),
+)
+_ACADEMIC_INSTITUTION_SIGNAL_NEEDLES = {
+    "985_or_c9_signal": (
+        "北京大学",
+        "清华大学",
+        "复旦大学",
+        "上海交通大学",
+        "浙江大学",
+        "南京大学",
+        "武汉大学",
+        "中山大学",
+        "南开大学",
+        "四川大学",
+        "中国人民大学",
+        "华东师范大学",
+        "中国科学技术大学",
+    ),
+    "cassi_or_research_institute_signal": (
+        "中国社会科学院",
+        "中国科学院",
+        "中央研究院",
+        "近现代史研究所",
+    ),
+    "central_league_signal": ("中国民主同盟中央", "民盟中央"),
+    "central_document_signal": ("中央文献研究室", "中共中央党史和文献研究院"),
+    "recognized_university_signal": ("首都师范大学", "香港中文大学"),
+}
+_ACADEMIC_INSTITUTION_SIGNAL_LABELS = dict(_ACADEMIC_INSTITUTION_SIGNAL_OPTIONS)
+
+
+def _academic_institution_signal_value(raw: object) -> str:
+    """Return an explicit institution-field signal; never infer from author names."""
+    value = str(raw or "").strip()
+    if not value or "出版社" in value:
+        return ""
+    for signal, _label in _ACADEMIC_INSTITUTION_SIGNAL_OPTIONS:
+        if any(needle in value for needle in _ACADEMIC_INSTITUTION_SIGNAL_NEEDLES[signal]):
+            return signal
+    return ""
+
+
+def _academic_institution_filter_value(raw: object) -> str:
+    value = str(raw or "").strip()
+    return value if value in _ACADEMIC_INSTITUTION_SIGNAL_LABELS else ""
+
+
+def _academic_institution_signal_label(raw: object) -> str:
+    value = _academic_institution_filter_value(raw)
+    return _ACADEMIC_INSTITUTION_SIGNAL_LABELS.get(value, "无明确机构字段信号")
+
 
 def _academic_filter_values(tier: str = "", availability: str = "") -> tuple[str, str]:
     normalized_tier = str(tier or "").strip().upper()
@@ -4620,8 +4691,15 @@ def _academic_filter_summary(tier: str = "", availability: str = "") -> str:
     return " · ".join(parts) if parts else "无附加筛选"
 
 
-def _academic_filter_form(raw_q: str, phase: str, tier: str, availability: str) -> str:
+def _academic_filter_form(
+    raw_q: str,
+    phase: str,
+    tier: str,
+    availability: str,
+    institution_signal: str = "",
+) -> str:
     tier, availability = _academic_filter_values(tier, availability)
+    institution_signal = _academic_institution_filter_value(institution_signal)
     tier_options = "".join(
         f'<option value="{value}"{" selected" if value == tier else ""}>{label}</option>'
         for value, label in (("", "全部质量"), ("S", "S — 核心优先"), ("A", "A — 高优先"), ("B", "B — 普通候选"), ("C", "C — 谨慎使用"))
@@ -4630,6 +4708,10 @@ def _academic_filter_form(raw_q: str, phase: str, tier: str, availability: str) 
         f'<option value="{value}"{" selected" if value == availability else ""}>{label}</option>'
         for value, label in (("", "全部全文状态"), ("fulltext", "稳定全文（仍待引用复核）"), ("candidate", "全文候选（待核）"), ("discovery", "发现/元数据层"))
     )
+    institution_options = "".join(
+        f'<option value="{value}"{" selected" if value == institution_signal else ""}>{label}</option>'
+        for value, label in (("", "全部机构字段"),) + _ACADEMIC_INSTITUTION_SIGNAL_OPTIONS
+    )
     return f'''
 <form class="filter-form" method="get" action="/domestic/search">
   <input type="hidden" name="scope" value="research">
@@ -4637,15 +4719,22 @@ def _academic_filter_form(raw_q: str, phase: str, tier: str, availability: str) 
   <label>时期 <input name="phase" value="{h(phase)}" placeholder="如 1946"></label>
   <label>质量 <select name="tier">{tier_options}</select></label>
   <label>全文状态 <select name="availability">{availability_options}</select></label>
+  <label>机构字段 <select name="institution_signal">{institution_options}</select></label>
   <button class="button" type="submit">检索</button>
-</form>'''
+</form>
+<div class="meta">机构筛选只匹配记录中的显式机构字段；“待核”不是 985 认证，也不是作者任职认证。</div>'''
 
 
 def domestic_metadata_academic_search_page(
-    raw_q: str = "", phase: str = "", tier: str = "", availability: str = ""
+    raw_q: str = "",
+    phase: str = "",
+    tier: str = "",
+    availability: str = "",
+    institution_signal: str = "",
 ) -> bytes:
     """在没有 staging SQLite 时检索提交的正文外学术元数据索引。"""
     tier, availability = _academic_filter_values(tier, availability)
+    institution_signal = _academic_institution_filter_value(institution_signal)
     records = _load_academic_metadata_index()
     like = raw_q.casefold()
     matched: list[dict[str, object]] = []
@@ -4656,6 +4745,8 @@ def domestic_metadata_academic_search_page(
         if tier and str(record.get("quality_tier") or "").strip().upper() != tier:
             continue
         if availability and str(record.get("fulltext_status") or "") not in _ACADEMIC_AVAILABILITY_STATUSES[availability]:
+            continue
+        if institution_signal and _academic_institution_signal_value(record.get("institution")) != institution_signal:
             continue
         searchable = " ".join(
             str(record.get(key) or "")
@@ -4690,13 +4781,13 @@ def domestic_metadata_academic_search_page(
     result_html = "".join(
         f'''<article class="result"><div><h2>{h(record.get("title") or record.get("external_id"))}</h2>
         <div class="meta">{h(record.get("external_id"))} · {h(record.get("layer") or "研究资料")} · {h(record.get("research_type") or "未标注类型")} · 质量 {h(record.get("quality_tier") or "未分级")}</div>
-        <div class="snippet">{h(record.get("institution") or "机构未标注")} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{f' · <a href="/doc/{quote(str(formal_academic[str(record.get("external_id"))]["doc_key"]), safe="")}">正式全文页</a> <span class="meta">{h(formal_academic[str(record.get("external_id"))]["page_count"])}页</span>' if str(record.get("external_id")) in formal_academic else ' · <span class="meta">尚未进入正式全文层</span>'}</div></article>'''
+        <div class="snippet">{h(record.get("institution") or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(record.get("institution"))))} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{f' · <a href="/doc/{quote(str(formal_academic[str(record.get("external_id"))]["doc_key"]), safe="")}">正式全文页</a> <span class="meta">{h(formal_academic[str(record.get("external_id"))]["page_count"])}页</span>' if str(record.get("external_id")) in formal_academic else ' · <span class="meta">尚未进入正式全文层</span>'}</div></article>'''
         for record in matched
     ) or '<div class="notice">版本化学术元数据索引中没有匹配结果。</div>'
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""
 <section class="doc-head"><div><h1>国内研究资料检索</h1><div class="meta">tracked metadata index · body_read=false · 不复制正文</div></div><div class="doc-tools"><a class="button secondary" href="/domestic/academic">学术层说明</a></div></section>
-{_academic_filter_form(raw_q, phase, tier, availability)}
-<div class="notice">当前结果来自版本化书目/结构化元数据索引；元数据只能用于发现和导航，不能替代正文、页码或正式引文。已入正式 SQLite 的全文仍统一显示为 review_only / citation_ready=0。当前筛选：{h(_academic_filter_summary(tier, availability))}。</div>
+{_academic_filter_form(raw_q, phase, tier, availability, institution_signal)}
+<div class="notice">当前结果来自版本化书目/结构化元数据索引；元数据只能用于发现和导航，不能替代正文、页码或正式引文。已入正式 SQLite 的全文仍统一显示为 review_only / citation_ready=0。当前筛选：{h(_academic_filter_summary(tier, availability))} · {h(_academic_institution_signal_label(institution_signal))}。</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-search"/></svg>研究资料（{len(matched)} 条）</h2></div>
 <section class="result-list">{result_html}</section>
 """
@@ -4704,9 +4795,22 @@ def domestic_metadata_academic_search_page(
 
 
 def domestic_formal_academic_search_page(
-    raw_q: str = "", phase: str = "", tier: str = "", availability: str = ""
+    raw_q: str = "",
+    phase: str = "",
+    tier: str = "",
+    availability: str = "",
+    institution_signal: str = "",
 ) -> bytes:
     """没有 staging 时，用正式库中已索引的学术全文提供可用的研究检索。"""
+    tier, availability = _academic_filter_values(tier, availability)
+    institution_signal = _academic_institution_filter_value(institution_signal)
+    unsupported_filters = []
+    if tier:
+        unsupported_filters.append("质量分级")
+    if institution_signal:
+        unsupported_filters.append("机构字段信号")
+    if availability in {"candidate", "discovery"}:
+        unsupported_filters.append("非稳定全文状态")
     clauses = [
         "d.source_platform='domestic'",
         "d.hit_type='domestic_academic_fulltext'",
@@ -4721,7 +4825,7 @@ def domestic_formal_academic_search_page(
         params.append(f"%{phase}%")
     try:
         with conn() as c:
-            rows = c.execute(
+            rows = [] if unsupported_filters else c.execute(
                 f"""SELECT d.doc_key, d.doc_id, d.title, d.date_guess, d.url,
                            d.matched_terms, count(p.id) AS page_count,
                            sum(length(COALESCE(p.text,''))) AS text_chars
@@ -4742,8 +4846,8 @@ def domestic_formal_academic_search_page(
     ) or '<div class="notice">正式学术全文索引中没有匹配结果。</div>'
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""
 <section class="doc-head"><div><h1>国内研究资料检索</h1><div class="meta">formal SQLite academic fallback · staging 不可用时仍可检索已入库全文</div></div><div class="doc-tools"><a class="button secondary" href="/domestic/academic">学术层说明</a></div></section>
-{_academic_filter_form(raw_q, phase, tier, availability)}
-<div class="notice">这是解释层全文，不是正式一手证据；当前条目统一保持 review_only / citation_ready=0。当前筛选：{h(_academic_filter_summary(tier, availability))}。formal fallback 只保证全文入口，不含 staging 的质量分级字段。</div>
+{_academic_filter_form(raw_q, phase, tier, availability, institution_signal)}
+<div class="notice">这是解释层全文，不是正式一手证据；当前条目统一保持 review_only / citation_ready=0。当前筛选：{h(_academic_filter_summary(tier, availability))} · {h(_academic_institution_signal_label(institution_signal))}。formal fallback 只保证全文入口，不含 staging 的质量分级字段。{f' 当前回退层无法可靠应用：{h("、".join(unsupported_filters))}，因此不显示未过滤结果。' if unsupported_filters else ''}</div>
 <div class="section-head"><h2><svg class="ico"><use href="#i-search"/></svg>正式学术全文（{len(rows)} 条）</h2></div>
 <section class="result-list">{result_html}</section>
 """
@@ -4762,11 +4866,18 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
         (query.get("tier", [""])[0] or "").strip(),
         (query.get("availability", [""])[0] or "").strip(),
     )
+    institution_signal = _academic_institution_filter_value(
+        (query.get("institution_signal", [""])[0] or "").strip()
+    )
     if not DOMESTIC_STAGING_DB_PATH.exists():
         if scope == "research":
             if _load_academic_metadata_index():
-                return domestic_metadata_academic_search_page(raw_q, phase, tier, availability)
-            return domestic_formal_academic_search_page(raw_q, phase, tier, availability)
+                return domestic_metadata_academic_search_page(
+                    raw_q, phase, tier, availability, institution_signal
+                )
+            return domestic_formal_academic_search_page(
+                raw_q, phase, tier, availability, institution_signal
+            )
         return layout(
             "国内检索",
             '<div class="notice">国内 staging 数据库尚未建立。请先运行 Phase 0 reconciliation 与 staging 构建。</div>',
@@ -4951,6 +5062,15 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
                     placeholders = ",".join("?" for _ in statuses)
                     clauses.append(f"r.fulltext_status IN ({placeholders})")
                     params.extend(statuses)
+                if institution_signal:
+                    needles = _ACADEMIC_INSTITUTION_SIGNAL_NEEDLES[institution_signal]
+                    placeholders = ",".join("?" for _ in needles)
+                    clauses.append(
+                        f"r.institution NOT LIKE ? AND "
+                        f"({ ' OR '.join('r.institution LIKE ?' for _ in needles) })"
+                    )
+                    params.append("%出版社%")
+                    params.extend(f"%{needle}%" for needle in needles)
                 where = " WHERE " + " AND ".join(clauses) if clauses else ""
                 rows = c.execute(
                     f"""SELECT r.external_id, r.title, r.author, r.institution,
@@ -5070,7 +5190,7 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
         result_html = "".join(
             f'''<article class="result"><div><h2>{h(row["title"] or row["external_id"])}</h2>
             <div class="meta">{h(row["external_id"])} · {h(row["layer"] or "研究资料")} · {h(row["research_type"] or "未标注类型")} · 质量 {h(row["quality_tier"] or "未分级")}</div>
-            <div class="snippet">{h(row["institution"] or "机构未标注")} · 出版/发表 {h(row["publication_date"] or "未标注")} · {h(row["fulltext_status"])} · citation_ready={h(row["citation_ready"])} · human_verified={h(row["human_verified"])}</div></div><div class="cite"><a href="{h(source_href(row["source_url"] or "#"))}">来源入口</a>{f' · <a href="/doc/{quote(str(formal_academic[str(row["external_id"])] ["doc_key"]), safe="")}">正式全文页</a> <span class="meta">{h(formal_academic[str(row["external_id"])] ["page_count"])}页</span>' if str(row["external_id"]) in formal_academic else ' · <span class="meta">尚未进入正式全文层</span>'}</div></article>'''
+            <div class="snippet">{h(row["institution"] or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(row["institution"]))) } · 出版/发表 {h(row["publication_date"] or "未标注")} · {h(row["fulltext_status"])} · citation_ready={h(row["citation_ready"])} · human_verified={h(row["human_verified"])}</div></div><div class="cite"><a href="{h(source_href(row["source_url"] or "#"))}">来源入口</a>{f' · <a href="/doc/{quote(str(formal_academic[str(row["external_id"])] ["doc_key"]), safe="")}">正式全文页</a> <span class="meta">{h(formal_academic[str(row["external_id"])] ["page_count"])}页</span>' if str(row["external_id"]) in formal_academic else ' · <span class="meta">尚未进入正式全文层</span>'}</div></article>'''
             for row in rows
         )
     else:
@@ -5098,7 +5218,7 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
     local_cls = "button" if scope == "local" else "button secondary"
     research_cls = "button" if scope == "research" else "button secondary"
     scope_label = {"documents": "文献对象", "pages": "物理页资产", "machine": "官方/机器文本", "ocr": "OCR provenance", "claims": "语义候选片段", "local": "本地 staging 对象", "research": "国内研究资料"}[scope]
-    research_filter_html = _academic_filter_form(raw_q, phase, tier, availability) if scope == "research" else f"""
+    research_filter_html = _academic_filter_form(raw_q, phase, tier, availability, institution_signal) if scope == "research" else f"""
 <form class="filter-form" method="get" action="/domestic/search">
   <input type="hidden" name="scope" value="{h(scope)}">
   <label>关键词 <input name="q" value="{h(raw_q)}" placeholder="报刊名、来源编号、时期、文件类型"></label>
