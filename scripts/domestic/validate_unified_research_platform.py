@@ -791,6 +791,7 @@ def source_map_status_consistency_check(db_path: Path) -> dict[str, Any]:
     checked_page_count = 0
     strict_claim_count = 0
     citation_claim_count = 0
+    non_citation_statuses = {"navigation_only", "access_route", "review_only"}
     connection = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
     connection.row_factory = sqlite3.Row
     try:
@@ -820,6 +821,10 @@ def source_map_status_consistency_check(db_path: Path) -> dict[str, Any]:
                     if claimed_strict and not claimed_citation:
                         errors.append(
                             f"{source_map_path.name}:{source_id}: strict_citation without citation_ready=true"
+                        )
+                    if claimed_citation and record.get("status") in non_citation_statuses:
+                        errors.append(
+                            f"{source_map_path.name}:{source_id}: {record.get('status')} page {record.get('page_id')} claims citation-ready"
                         )
                     value = record.get("page_id")
                     page_id: int | None = None
