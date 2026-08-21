@@ -15,6 +15,12 @@
 - 新增 `/domestic/intake` 内部页面，从 P0 目标配置和接收报告展示“等待原件、等待映射、页身份复核、可 dry-run”等状态。
 - 页面不展示正文或本地文件路径，明确不 OCR、不写正式 SQLite、不等同于严格引用；真实 HTTP 路由和公开模式隐藏边界已回归通过。
 
+### 国内外双侧研究路径验收
+
+- 新增 `scripts/domestic/build_domestic_foreign_parity_acceptance.py`，将 36 个国内研究问题、9 个国内专题、海外事件入口、学术交叉表、四层证据链、严格页和来源地图放入同一条只读验收。
+- `status=PASS` 只表示国内外研究路径可用；`research_content_status=OPEN_PRIMARY_GAPS` 继续单独表示事件定义原件尚未闭环，避免把导航能力误报成史料收齐。
+- 当前重算结果为 36/36 问题路径、9/9 专题 parity path、9/9 海外对位、0/9 `research_ready`、9 个开放一手目标；不写正式 SQLite、不读取或复制正文。
+
 ## 2026-08-21
 
 ### 授权原件接收前置门禁

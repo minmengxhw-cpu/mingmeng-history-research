@@ -136,3 +136,21 @@ failed_checks=[]
 ## 6. 当前下一步
 
 当前最优先事项是等待或取得两个 1947 P0 原件，并用新的接收器进入 staging；在原件尚未到达前，继续做 1941、1946 的路线审计和现有页级证据整理，但不把替代本升级成原件闭环。
+
+## 7. 双侧研究路径验收
+
+除 parity 矩阵外，平台现在有一条可重复的国内—海外研究路径验收命令：
+
+```bash
+python3 scripts/domestic/build_domestic_foreign_parity_acceptance.py \
+  --output work/domestic/domestic_foreign_parity_acceptance_current/REPORT.json
+```
+
+它会运行 36 个国内研究问题，并对每个专题同时检查国内问题路径、海外事件入口、学术交叉表、四层证据链、国内严格页和来源地图。它只查询既有搜索索引和元数据，不复制正文、不写正式 SQLite、不改变任何一手证据状态。
+
+报告中的两个状态必须同时阅读：
+
+- `status=PASS`：研究路径和对读基础设施可用；
+- `research_content_status=OPEN_PRIMARY_GAPS`：事件定义原件仍未全部闭环。
+
+因此，路径回归通过可以证明国内平台已经能像海外平台一样“进入问题、找到来源、回到页级证据”，但不能把它解释成国内一手史料已经收齐。
