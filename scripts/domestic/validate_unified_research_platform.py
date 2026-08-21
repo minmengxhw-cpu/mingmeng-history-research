@@ -55,6 +55,7 @@ PCC_1946_SOURCEBOOK_MAP_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourcebook
 PCC_1946_RENDER_MANIFEST_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourcebook_render_manifest.json"
 CITATION_FRAGMENT_LEDGER_PATH = ROOT / "data" / "domestic" / "citation_fragments.jsonl"
 CITATION_FRAGMENT_MANIFEST_PATH = ROOT / "data" / "domestic" / "citation_fragments_manifest.json"
+PRIMARY_SUBTARGET_SUPPORT_PATH = ROOT / "data" / "domestic" / "primary_subtarget_support.json"
 
 
 def sha256(path: Path) -> str:
@@ -775,6 +776,158 @@ def event_source_map_coverage_check() -> dict[str, Any]:
     }
 
 
+def primary_subtarget_support_check(db_path: Path) -> dict[str, Any]:
+    """Validate bounded primary subunits without reading or promoting bodies.
+
+    The support file is intentionally a partial view: it may cover only some
+    of the nine topics, and a passing result never changes a topic's primary
+    evidence status.  This gate checks that every declared page and source
+    remains anchored to the formal database/source map while keeping the
+    artifact metadata-only.
+    """
+    errors: list[str] = []
+    payload: dict[str, Any] = {}
+    if not PRIMARY_SUBTARGET_SUPPORT_PATH.is_file():
+        return {
+            "status": "FAIL",
+            "topic_count": 0,
+            "unit_count": 0,
+            "page_count": 0,
+            "unique_page_count": 0,
+            "errors": ["primary subtarget support file is missing"],
+        }
+    try:
+        loaded = json.loads(PRIMARY_SUBTARGET_SUPPORT_PATH.read_text(encoding="utf-8"))
+        if isinstance(loaded, dict):
+            payload = loaded
+        else:
+            errors.append("primary subtarget support is not an object")
+    except (OSError, json.JSONDecodeError) as exc:
+        return {
+            "status": "FAIL",
+            "topic_count": 0,
+            "unit_count": 0,
+            "page_count": 0,
+            "unique_page_count": 0,
+            "errors": [f"primary subtarget support is unreadable: {exc}"],
+        }
+
+    if payload.get("schema_version") != "domestic_primary_subtarget_support.v1":
+        errors.append("unexpected primary subtarget support schema")
+    for key in ("body_read", "formal_db_written", "primary_evidence_closed"):
+        if payload.get(key) is not False:
+            errors.append(f"primary subtarget support {key} must be false")
+
+    topics = payload.get("topics")
+    if not isinstance(topics, dict):
+        topics = {}
+        errors.append("primary subtarget support topics must be an object")
+    expected_event_ids = {
+        str(topic["item"].get("event_id") or "")
+        for topic in app._research_topic_rows()
+        if isinstance(topic, dict) and isinstance(topic.get("item"), dict)
+    }
+    unknown_events = sorted(set(map(str, topics)) - expected_event_ids)
+    if unknown_events:
+        errors.append(f"primary subtarget support has unknown event ids: {unknown_events}")
+
+    source_map_by_event: dict[str, dict[str, set[int]]] = {}
+    for source_map_path in sorted(SOURCE_MAP_DIR.glob("*_source_map.json")):
+        try:
+            source_map = json.loads(source_map_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            errors.append(f"source map unreadable {source_map_path.name}: {exc}")
+            continue
+        event_id = str(source_map.get("event_id") or "")
+        source_map_by_event.setdefault(event_id, {})
+        for source in source_map.get("sources") or []:
+            if not isinstance(source, dict):
+                continue
+            source_id = str(source.get("source_id") or "")
+            page_ids: set[int] = set()
+            for page in source.get("page_records") or []:
+                if not isinstance(page, dict):
+                    continue
+                value = page.get("page_id")
+                if isinstance(value, int) and not isinstance(value, bool):
+                    page_ids.add(value)
+                elif isinstance(value, str) and value.isdigit():
+                    page_ids.add(int(value))
+            if source_id:
+                source_map_by_event[event_id][source_id] = page_ids
+
+    unit_ids: set[str] = set()
+    page_ids: list[int] = []
+    for event_id, rows in topics.items():
+        event_id = str(event_id)
+        if not isinstance(rows, list):
+            errors.append(f"primary subtarget rows are not a list: {event_id}")
+            continue
+        event_sources = source_map_by_event.get(event_id, {})
+        for index, row in enumerate(rows):
+            if not isinstance(row, dict):
+                errors.append(f"primary subtarget row is not an object: {event_id}[{index}]")
+                continue
+            unit_id = str(row.get("unit_id") or "")
+            if not unit_id or unit_id in unit_ids:
+                errors.append(f"primary subtarget unit_id is missing or duplicated: {event_id}[{index}]")
+            unit_ids.add(unit_id)
+            for key in ("label", "scope", "caveat"):
+                if not str(row.get(key) or "").strip():
+                    errors.append(f"primary subtarget {key} is missing: {unit_id or event_id}")
+            if row.get("status") != "bounded_unit_ready":
+                errors.append(f"primary subtarget status is not bounded_unit_ready: {unit_id or event_id}")
+            declared_sources = row.get("source_ids")
+            declared_pages = row.get("page_ids")
+            if not isinstance(declared_sources, list) or not declared_sources:
+                errors.append(f"primary subtarget source_ids are missing: {unit_id or event_id}")
+                declared_sources = []
+            if not isinstance(declared_pages, list) or not declared_pages:
+                errors.append(f"primary subtarget page_ids are missing: {unit_id or event_id}")
+                declared_pages = []
+            normalized_pages: list[int] = []
+            for value in declared_pages:
+                if isinstance(value, int) and not isinstance(value, bool) and value > 0:
+                    normalized_pages.append(value)
+                else:
+                    errors.append(f"primary subtarget page_id is not a positive integer: {unit_id or event_id}")
+            page_ids.extend(normalized_pages)
+            normalized_sources = [str(value) for value in declared_sources if str(value).strip()]
+            for source_id in normalized_sources:
+                source_pages = event_sources.get(source_id)
+                if source_pages is None:
+                    errors.append(f"primary subtarget source is absent from event source map: {source_id}")
+                elif not set(normalized_pages) & source_pages:
+                    errors.append(f"primary subtarget source has no declared page overlap: {source_id}")
+
+    if page_ids:
+        placeholders = ",".join("?" for _ in sorted(set(page_ids)))
+        connection = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+        found_page_ids = {
+            int(row[0])
+            for row in connection.execute(
+                f"SELECT id FROM pages WHERE id IN ({placeholders})", sorted(set(page_ids))
+            )
+        }
+        connection.close()
+        missing_page_ids = sorted(set(page_ids) - found_page_ids)
+        if missing_page_ids:
+            errors.append(f"primary subtarget page ids are absent from formal database: {missing_page_ids}")
+
+    serialized = json.dumps(payload, ensure_ascii=False)
+    for marker in ("/Users/", "/private/", '"body_text"', '"ocr_text"', '"source_file"'):
+        if marker in serialized:
+            errors.append(f"primary subtarget support contains forbidden marker: {marker}")
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "topic_count": len(topics),
+        "unit_count": len(unit_ids),
+        "page_count": len(page_ids),
+        "unique_page_count": len(set(page_ids)),
+        "errors": errors,
+    }
+
+
 def build_report() -> dict[str, Any]:
     db_path = Path(app.DB_PATH).resolve()
     candidate_check = candidate_alignment_check(db_path)
@@ -792,6 +945,7 @@ def build_report() -> dict[str, Any]:
         "missing_provenance": missing_provenance_check(db_path),
         "research_packets": packet_check(),
         "event_source_map_coverage": event_source_map_coverage_check(),
+        "primary_subtarget_support": primary_subtarget_support_check(db_path),
         "comparison_cards": validate_cards(COVERAGE_PATH, CARDS_PATH),
     }
     benchmark = build_benchmark_report()

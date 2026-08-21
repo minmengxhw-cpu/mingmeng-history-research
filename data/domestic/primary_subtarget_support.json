@@ -78,6 +78,102 @@
         "scope": "可支持题名页、日期和三个已登记官方影像页的页级身份。",
         "caveat": "三页不是《共同纲领》全件，正文未逐字校读，不替代完整第一届全体会议档案。"
       }
+    ],
+    "domestic-1945-first-congress": [
+      {
+        "unit_id": "1945-congress-political-report-boundary",
+        "label": "1945 临时全国代表大会政治报告页界",
+        "status": "bounded_unit_ready",
+        "source_ids": ["mmhist-1945-congress-core-scan"],
+        "page_ids": [1443, 1444],
+        "scope": "可支持1983公开文献扫描中政治报告已复核起止页的来源身份和页界。",
+        "caveat": "这是1983汇编扫描层，不等同于1945年大会政治报告原始底本，不覆盖会议记录和完整版本关系。"
+      },
+      {
+        "unit_id": "1945-congress-declaration-boundary",
+        "label": "1945 临时全国代表大会宣言页界",
+        "status": "bounded_unit_ready",
+        "source_ids": ["mmhist-1945-congress-core-scan", "nlc-1946-minmeng-wenxian-1945-core-pages"],
+        "page_ids": [1445, 1446, 20174, 20179],
+        "scope": "可支持1983公开扫描和1946年官方汇编中宣言首末页、版本层级和页界对读。",
+        "caveat": "两个来源都是后出汇编/重刊，不能替代1945年大会宣言原始底本或证明全文无缺页。"
+      },
+      {
+        "unit_id": "1945-congress-program-boundary",
+        "label": "1945 年中国民主同盟纲领汇编页界",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-1946-minmeng-wenxian-1945-core-pages"],
+        "page_ids": [20149, 20173],
+        "scope": "可支持1946年官方汇编版本中纲领页组的起止页和版本关系入口。",
+        "caveat": "仅覆盖汇编版本和页界，不等同于1945大会原始纲领全文或大会档案链。"
+      }
+    ],
+    "domestic-1946-pcc": [
+      {
+        "unit_id": "1946-pcc-minmeng-speeches-sourcebook",
+        "label": "1946 旧政协民盟代表发言/提案汇编目标页",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-pcc-1946-sourcebook-target-pages"],
+        "page_ids": [20903, 20904, 20905, 20906, 20907, 20908, 20909, 20910, 20911],
+        "scope": "可支持《政協文獻》汇编中张澜、张君劢、罗隆基、章伯钧等目标页的题名、页界和引用入口。",
+        "caveat": "不替代旧政协正式会议记录、代表身份档案或逐日日期轴；OCR和正文逐字核验仍未完成。"
+      },
+      {
+        "unit_id": "1946-pcc-late-speech-compilation",
+        "label": "1946 《民主同盟文獻》旧政协前后发言页组",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-minmeng-wenxian-1946-late-pcc-pages"],
+        "page_ids": [1512, 1513, 1514, 1515, 1516],
+        "scope": "可支持汇编中停战、政治协商会议、国民大会问题和张澜发言的页级版本入口。",
+        "caveat": "汇编重刊不能替代正式会议记录、发言原件或完整日期轴。"
+      },
+      {
+        "unit_id": "1946-pcc-contemporary-followup",
+        "label": "1947 《光明報》对旧政协议题的同期后续回顾",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-guangmingbao-1947-v19-p02"],
+        "page_ids": [1518],
+        "scope": "可支持后续同期报刊如何回顾旧政协议题的页级定位。",
+        "caveat": "这是后续同期交叉材料，不回溯替代1946年正式会议档案或代表发言原件。"
+      }
+    ],
+    "domestic-1946-refuse-national-assembly": [
+      {
+        "unit_id": "1946-refuse-emergency-notice-reprint",
+        "label": "1946-11-14 民盟总部《紧急通告》汇编重刊页",
+        "status": "bounded_unit_ready",
+        "source_ids": ["mmhist-1946-refuse-emergency-notice"],
+        "page_ids": [19000],
+        "scope": "可支持1983公开汇编中总部通告的题名、日期、页码和版本定位。",
+        "caveat": "这是汇编重刊，不宣称取得1946年独立原件、函电或独立刊本。"
+      },
+      {
+        "unit_id": "1946-refuse-conditional-editorial",
+        "label": "1946-08 《光明報》条件性参加国大社论",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-guangmingbao-1946-v8-front"],
+        "page_ids": [16367],
+        "scope": "可支持拒参立场形成前史中的同期机关报社论题名和页级入口。",
+        "caveat": "条件性参加立场不能与11月正式拒参通告混为同一文件或同一阶段；不替代正式原件。"
+      },
+      {
+        "unit_id": "1946-refuse-issue11-editorial",
+        "label": "1946-09 《光明報》反对一党独裁宪法社论",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-guangmingbao-1946-v11"],
+        "page_ids": [16634, 16636],
+        "scope": "可支持同期刊期、目录和社论题名的页级定位，作为正式拒参前的政治语境材料。",
+        "caveat": "目录和社论不等同于民盟总部正式拒参文件或国民大会原始档案。"
+      },
+      {
+        "unit_id": "1946-refuse-periodical-context",
+        "label": "1946-11 《光明報》同期拒参舆论背景",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-guangmingbao-1946-v6-front", "nlc-guangmingbao-1946-v7-front"],
+        "page_ids": [16335, 16351],
+        "scope": "可支持同期机关报刊期和拒参舆论背景的页级定位。",
+        "caveat": "同期报刊背景不替代民盟正式声明、函电或独立原始刊本。"
+      }
     ]
   }
 }

@@ -40,6 +40,12 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert report["checks"]["pcc_1946_sourcebook_render_manifest"]["review_status"] == "page_identity_and_boundary_human_verified_body_ocr_pending"
     assert report["checks"]["research_packets"]["topic_count"] == 9
     assert report["checks"]["research_packets"]["research_usable_with_boundaries_count"] == 9
+    subtargets = report["checks"]["primary_subtarget_support"]
+    assert subtargets["status"] == "PASS"
+    assert subtargets["topic_count"] == 5
+    assert subtargets["unit_count"] == 16
+    assert subtargets["page_count"] == 63
+    assert subtargets["unique_page_count"] == 63
     assert report["checks"]["research_question_benchmark"]["path_ready_count"] == 36
     fragments = report["checks"]["citation_fragment_ledger"]
     assert fragments["status"] == "PASS"

@@ -19,6 +19,9 @@ def test_primary_subtarget_support_is_metadata_only_and_scoped():
     assert set(payload["topics"]) == {
         "domestic-1948-third-plenum-may-day",
         "domestic-1949-new-pcc",
+        "domestic-1945-first-congress",
+        "domestic-1946-pcc",
+        "domestic-1946-refuse-national-assembly",
     }
     assert all(
         row["status"] == "bounded_unit_ready"
@@ -51,3 +54,14 @@ def test_research_packet_exports_bounded_units_without_body_text():
     body = research_packet_page("domestic-1949-new-pcc").decode("utf-8")
     assert "有边界可研究的一手子单元" in body
     assert "页级门禁 #20733" in body
+
+    expected = {
+        "domestic-1945-first-congress": (3, 8),
+        "domestic-1946-pcc": (3, 15),
+        "domestic-1946-refuse-national-assembly": (4, 6),
+    }
+    for event_id, (unit_count, page_count) in expected.items():
+        packet = build_research_packet(event_id)
+        assert packet is not None
+        assert packet["counts"]["primary_subtarget_count"] == unit_count
+        assert packet["counts"]["primary_subtarget_page_count"] == page_count
