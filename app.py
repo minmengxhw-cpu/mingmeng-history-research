@@ -4594,6 +4594,84 @@ def _formal_academic_documents(external_ids: list[str]) -> dict[str, sqlite3.Row
     return {str(row["doc_id"]): row for row in rows}
 
 
+def _formal_related_documents(records: list[dict[str, object]]) -> dict[str, list[sqlite3.Row]]:
+    """找出同 URL/题名的正式库相关条目；不把不同角色升级为学术全文。"""
+    if not records or not DB_PATH.exists():
+        return {}
+    urls = sorted({str(row.get("source_url") or "").strip() for row in records if str(row.get("source_url") or "").strip()})
+    titles = sorted({str(row.get("title") or "").strip() for row in records if str(row.get("title") or "").strip()})
+    if not urls and not titles:
+        return {}
+    clauses: list[str] = []
+    params: list[object] = []
+    if urls:
+        placeholders = ",".join("?" for _ in urls)
+        clauses.append(f"d.url IN ({placeholders})")
+        params.extend(urls)
+    if titles:
+        placeholders = ",".join("?" for _ in titles)
+        clauses.append(f"d.title IN ({placeholders})")
+        params.extend(titles)
+    try:
+        with conn() as c:
+            rows = c.execute(
+                f"""SELECT d.doc_key, d.doc_id, d.title, d.hit_type, d.url,
+                           count(DISTINCT p.id) AS page_count
+                    FROM documents d
+                    LEFT JOIN pages p ON p.document_id=d.id
+                    WHERE d.source_platform='domestic'
+                      AND ({' OR '.join(clauses)})
+                    GROUP BY d.id, d.doc_key, d.doc_id, d.title, d.hit_type, d.url
+                    ORDER BY d.doc_id""",
+                params,
+            ).fetchall()
+    except sqlite3.Error:
+        return {}
+    priority = {
+        "domestic_public_web": 0,
+        "domestic_web": 1,
+        "domestic_page_ocr": 2,
+        "domestic_ocr_pilot": 3,
+    }
+    result: dict[str, list[sqlite3.Row]] = {}
+    for record in records:
+        external_id = str(record.get("external_id") or "").strip()
+        source_url = str(record.get("source_url") or "").strip()
+        title = str(record.get("title") or "").strip()
+        matches = [
+            row
+            for row in rows
+            if (source_url and str(row["url"] or "").strip() == source_url)
+            or (title and str(row["title"] or "").strip() == title)
+        ]
+        matches.sort(key=lambda row: (priority.get(str(row["hit_type"] or ""), 9), str(row["doc_id"] or "")))
+        if external_id and matches:
+            result[external_id] = matches[:4]
+    return result
+
+
+def _academic_result_links(
+    external_id: str,
+    formal_academic: dict[str, sqlite3.Row],
+    related_formal: dict[str, list[sqlite3.Row]],
+) -> str:
+    row = formal_academic.get(external_id)
+    if row is not None:
+        return (
+            f' · <a href="/doc/{quote(str(row["doc_key"]), safe="")}">正式学术全文页</a>'
+            f' <span class="meta">{h(row["page_count"])}页</span>'
+        )
+    related = related_formal.get(external_id) or []
+    if related:
+        links = " · ".join(
+            f'<a href="/doc/{quote(str(item["doc_key"]), safe="")}">相关库入口</a>'
+            f' <span class="meta">{h(item["hit_type"] or "库条目")} · {h(item["page_count"])}页</span>'
+            for item in related
+        )
+        return f' · <span class="meta">相关库条目（角色不同）</span> · {links}'
+    return ' · <span class="meta">尚未进入正式全文层</span>'
+
+
 _ACADEMIC_AVAILABILITY_STATUSES = {
     "fulltext": {"FULLTEXT_PDF", "FULLTEXT_HTML"},
     "candidate": {"FULLTEXT_PDF_CANDIDATE", "FULLTEXT_HTML_CANDIDATE"},
@@ -4778,10 +4856,20 @@ def domestic_metadata_academic_search_page(
     formal_academic = _formal_academic_documents(
         [str(record.get("external_id") or "") for record in matched]
     )
+    related_formal = _formal_related_documents(
+        [
+            {
+                "external_id": str(record.get("external_id") or ""),
+                "source_url": str(record.get("source_url") or ""),
+                "title": str(record.get("title") or ""),
+            }
+            for record in matched
+        ]
+    )
     result_html = "".join(
         f'''<article class="result"><div><h2>{h(record.get("title") or record.get("external_id"))}</h2>
         <div class="meta">{h(record.get("external_id"))} · {h(record.get("layer") or "研究资料")} · {h(record.get("research_type") or "未标注类型")} · 质量 {h(record.get("quality_tier") or "未分级")}</div>
-        <div class="snippet">{h(record.get("institution") or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(record.get("institution"))))} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{f' · <a href="/doc/{quote(str(formal_academic[str(record.get("external_id"))]["doc_key"]), safe="")}">正式全文页</a> <span class="meta">{h(formal_academic[str(record.get("external_id"))]["page_count"])}页</span>' if str(record.get("external_id")) in formal_academic else ' · <span class="meta">尚未进入正式全文层</span>'}</div></article>'''
+        <div class="snippet">{h(record.get("institution") or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(record.get("institution"))))} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{_academic_result_links(str(record.get("external_id") or ""), formal_academic, related_formal)}</div></article>'''
         for record in matched
     ) or '<div class="notice">版本化学术元数据索引中没有匹配结果。</div>'
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""
@@ -5141,6 +5229,16 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
     formal_academic = _formal_academic_documents(
         [str(row["external_id"]) for row in rows]
     ) if scope == "research" else {}
+    related_formal = _formal_related_documents(
+        [
+            {
+                "external_id": str(row["external_id"]),
+                "source_url": str(row["source_url"] or ""),
+                "title": str(row["title"] or ""),
+            }
+            for row in rows
+        ]
+    ) if scope == "research" else {}
 
     def document_title(raw: object) -> str:
         try:
@@ -5190,7 +5288,7 @@ def domestic_staging_search_page(query: dict[str, list[str]] | None = None) -> b
         result_html = "".join(
             f'''<article class="result"><div><h2>{h(row["title"] or row["external_id"])}</h2>
             <div class="meta">{h(row["external_id"])} · {h(row["layer"] or "研究资料")} · {h(row["research_type"] or "未标注类型")} · 质量 {h(row["quality_tier"] or "未分级")}</div>
-            <div class="snippet">{h(row["institution"] or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(row["institution"]))) } · 出版/发表 {h(row["publication_date"] or "未标注")} · {h(row["fulltext_status"])} · citation_ready={h(row["citation_ready"])} · human_verified={h(row["human_verified"])}</div></div><div class="cite"><a href="{h(source_href(row["source_url"] or "#"))}">来源入口</a>{f' · <a href="/doc/{quote(str(formal_academic[str(row["external_id"])] ["doc_key"]), safe="")}">正式全文页</a> <span class="meta">{h(formal_academic[str(row["external_id"])] ["page_count"])}页</span>' if str(row["external_id"]) in formal_academic else ' · <span class="meta">尚未进入正式全文层</span>'}</div></article>'''
+            <div class="snippet">{h(row["institution"] or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(row["institution"]))) } · 出版/发表 {h(row["publication_date"] or "未标注")} · {h(row["fulltext_status"])} · citation_ready={h(row["citation_ready"])} · human_verified={h(row["human_verified"])}</div></div><div class="cite"><a href="{h(source_href(row["source_url"] or "#"))}">来源入口</a>{_academic_result_links(str(row["external_id"]), formal_academic, related_formal)}</div></article>'''
             for row in rows
         )
     else:

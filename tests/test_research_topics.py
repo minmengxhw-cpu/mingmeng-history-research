@@ -1790,6 +1790,21 @@ def test_academic_metadata_search_filters_explicit_institution_field_signals(tmp
     assert "/Users/" not in body and "/private/" not in body
 
 
+def test_academic_metadata_reconciles_related_formal_roles(tmp_path, monkeypatch, db_missing_reason):
+    """稳定全文若只对应 OCR/网页条目，要显示相关入口而非伪装成学术全文页。"""
+    if db_missing_reason:
+        pytest.skip(f"数据库缺失,无法验证 academic formal linkage: {db_missing_reason}")
+    import app
+
+    monkeypatch.setattr(app, "DOMESTIC_STAGING_DB_PATH", tmp_path / "staging-does-not-exist.sqlite")
+    body = app.domestic_staging_search_page(
+        {"scope": ["research"], "q": ["GAR-639C5E94AE"]}
+    ).decode("utf-8")
+    assert "相关库条目（角色不同）" in body
+    assert "正式学术全文页" not in body
+    assert "尚未进入正式全文层" not in body
+
+
 def test_domestic_evidence_review_smoke(live_server, db_missing_reason):
     if db_missing_reason:
         pytest.skip(f"数据库缺失,无法验证页级证据复核: {db_missing_reason}")
