@@ -7447,6 +7447,56 @@ def _research_academic_matches(
             except sqlite3.Error:
                 return result
 
+    # A sibling staging corpus may be present on the same Mac and can contain
+    # an older export of the same academic record.  Keep the current tracked
+    # metadata snapshot as the explicit bibliographic overlay so the search
+    # page and research packet cannot disagree about a verified field.  This
+    # only changes metadata fields; it never imports staging body text or
+    # promotes citation state.
+    tracked_metadata_by_id = {
+        str(record.get("external_id") or "").strip(): record
+        for record in _load_academic_metadata_index()
+        if isinstance(record, dict) and str(record.get("external_id") or "").strip()
+    }
+    normalized_source_rows: list[dict[str, object]] = []
+    overlay_fields = (
+        "title",
+        "author",
+        "institution",
+        "publication_date",
+        "research_type",
+        "quality_tier",
+        "source_url",
+        "fulltext_status",
+        "review_status",
+        "citation_ready",
+        "human_verified",
+        "duplicate_group_id",
+        "version_relation",
+    )
+    for source in source_rows:
+        normalized = dict(source)
+        external_id = str(normalized.get("external_id") or "").strip()
+        overlay = tracked_metadata_by_id.get(external_id)
+        if overlay:
+            for field in overlay_fields:
+                if field in overlay and overlay.get(field) not in (None, ""):
+                    normalized[field] = overlay[field]
+            try:
+                base_metadata = json.loads(str(normalized.get("metadata_json") or "{}"))
+            except (TypeError, json.JSONDecodeError):
+                base_metadata = {}
+            if not isinstance(base_metadata, dict):
+                base_metadata = {}
+            overlay_metadata = overlay.get("metadata")
+            if isinstance(overlay_metadata, dict):
+                base_metadata.update(overlay_metadata)
+                normalized["metadata_json"] = json.dumps(
+                    base_metadata, ensure_ascii=False
+                )
+        normalized_source_rows.append(normalized)
+    source_rows = normalized_source_rows
+
     matches: list[dict[str, object]] = []
     tier_score = {"S": 4, "A": 3, "B": 2, "C": 1}
     fulltext_score = {

@@ -85,3 +85,34 @@ def test_research_packet_exports_bounded_units_without_body_text():
         assert packet is not None
         assert packet["counts"]["primary_subtarget_count"] == unit_count
         assert packet["counts"]["primary_subtarget_page_count"] == page_count
+
+
+def test_research_packet_preserves_academic_metadata_boundary():
+    packet = build_research_packet("domestic-1946-refuse-national-assembly")
+    assert packet is not None
+    record = next(
+        row
+        for row in packet["academic_candidates"]
+        if row["external_id"] == "ACADEMIC-20260813-LIU-DAYU-CONSTITUTIONAL-NATIONAL-ASSEMBLY"
+    )
+    assert record["bibliographic_citation"] == "《民国档案》2012年第1期，第134—139页"
+    assert record["metadata_verification"] == "机构字段、书目字段来源内核验"
+    assert record["citation_ready"] == 0
+    assert record["human_verified"] == 0
+    assert all(value.startswith("https://") for value in record["metadata_verification_sources"])
+    body = research_packet_page("domestic-1946-refuse-national-assembly").decode("utf-8")
+    assert "元数据核验：机构字段、书目字段来源内核验" in body
+    assert "citation_ready=0" in body
+
+
+def test_research_packet_uses_tracked_academic_overlay_over_sibling_staging():
+    packet = build_research_packet("domestic-1946-refuse-national-assembly")
+    assert packet is not None
+    record = next(
+        row
+        for row in packet["academic_candidates"]
+        if row["external_id"] == "ACADEMIC-20260813-LIU-DAYU-CONSTITUTIONAL-NATIONAL-ASSEMBLY"
+    )
+    assert "江南大学" in record["institution"]
+    assert "本文刊期单位待核" in record["institution"]
+    assert record["metadata_verification"] == "机构字段、书目字段来源内核验"

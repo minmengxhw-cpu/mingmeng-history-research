@@ -266,6 +266,46 @@ def _page_row(connection, page_id: int):
     ).fetchone()
 
 
+def _academic_packet_record(academic: dict[str, Any]) -> dict[str, Any]:
+    """Keep academic provenance labels in the metadata-only research packet."""
+    app = _app()
+    metadata = academic.get("metadata") if isinstance(academic.get("metadata"), dict) else {}
+    verification_sources = [
+        str(value).strip()
+        for value in metadata.get("institution_verification_sources", [])
+        if str(value).strip().startswith(("http://", "https://"))
+    ]
+    verification_label = "未标注来源内核验"
+    helper = getattr(app, "_academic_metadata_verification_label", None)
+    if callable(helper):
+        verification_label = str(helper(academic) or verification_label)
+    return {
+        key: value
+        for key, value in {
+            "external_id": academic.get("external_id"),
+            "title": academic.get("title"),
+            "author": academic.get("author"),
+            "institution": academic.get("institution"),
+            "publication_date": academic.get("publication_date"),
+            "research_type": academic.get("research_type"),
+            "quality_tier": academic.get("quality_tier"),
+            "source_url": academic.get("source_url"),
+            "fulltext_status": academic.get("fulltext_status"),
+            "review_status": academic.get("review_status"),
+            "citation_ready": academic.get("citation_ready"),
+            "human_verified": academic.get("human_verified"),
+            "matched_terms": academic.get("matched_terms"),
+            "match_score": academic.get("match_score"),
+            "duplicate_group_id": academic.get("duplicate_group_id"),
+            "version_relation": academic.get("version_relation"),
+            "bibliographic_citation": str(metadata.get("bibliographic_citation") or "").strip(),
+            "metadata_verification": verification_label,
+            "metadata_verification_sources": verification_sources,
+        }.items()
+        if value not in (None, "", [])
+    }
+
+
 def build_research_packet(event_id: str) -> dict[str, Any] | None:
     """Build one domestic topic packet using metadata and page provenance only."""
     app = _app()
@@ -708,27 +748,7 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
         "topic_event_pages": topic_event_rows,
         "open_primary_targets": open_targets,
         "academic_candidates": [
-            {
-                key: value
-                for key, value in academic.items()
-                if key
-                in {
-                    "external_id",
-                    "title",
-                    "author",
-                    "institution",
-                    "publication_date",
-                    "research_type",
-                    "quality_tier",
-                    "source_url",
-                    "fulltext_status",
-                    "review_status",
-                    "citation_ready",
-                    "human_verified",
-                    "matched_terms",
-                    "match_score",
-                }
-            }
+            _academic_packet_record(academic)
             for academic in topic.get("academic_rows", [])
         ],
         "foreign_routes": foreign_routes,
@@ -831,13 +851,19 @@ def research_packet_page(event_id: str) -> bytes:
         f'</div></article>'
         for target in packet["open_primary_targets"]
     ) or '<div class="notice">当前专题没有登记开放目标。</div>'
-    academic = "".join(
-        f'<article class="result compact-result"><div><h3>{esc(row.get("title") or row.get("external_id"))}</h3>'
-        f'<div class="meta">{esc(row.get("author") or "作者未标注")} · {esc(row.get("institution") or "机构未标注")} · {esc(row.get("publication_date") or "日期未标注")}</div>'
-        f'<div class="tagline"><span class="tag">学术 {esc(row.get("quality_tier") or "未分级")}</span><span class="tag">解释层候选</span></div>'
-        f'</div><div class="cite"><a href="{esc(app.source_href(row.get("source_url") or "#"))}" target="_blank" rel="noreferrer">来源入口</a></div></article>'
-        for row in packet["academic_candidates"]
-    ) or '<div class="notice">当前没有匹配到学术解释候选。</div>'
+    academic_cards = []
+    for row in packet["academic_candidates"]:
+        bibliography = row.get("bibliographic_citation")
+        bibliography_html = f"书目定位：{esc(bibliography)} · " if bibliography else ""
+        verification = esc(row.get("metadata_verification") or "未标注来源内核验")
+        academic_cards.append(
+            f'<article class="result compact-result"><div><h3>{esc(row.get("title") or row.get("external_id"))}</h3>'
+            f'<div class="meta">{esc(row.get("author") or "作者未标注")} · {esc(row.get("institution") or "机构未标注")} · {esc(row.get("publication_date") or "日期未标注")}</div>'
+            f'<div class="tagline"><span class="tag">学术 {esc(row.get("quality_tier") or "未分级")}</span><span class="tag">解释层候选</span></div>'
+            f'<div class="snippet">{bibliography_html}元数据核验：{verification} · citation_ready={esc(row.get("citation_ready", 0))}</div>'
+            f'</div><div class="cite"><a href="{esc(app.source_href(row.get("source_url") or "#"))}" target="_blank" rel="noreferrer">来源入口</a></div></article>'
+        )
+    academic = "".join(academic_cards) or '<div class="notice">当前没有匹配到学术解释候选。</div>'
 
     matrix_html = app._topic_research_matrix_html(
         packet.get("research_matrix"), packet.get("evidence_chain")
