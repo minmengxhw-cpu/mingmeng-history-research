@@ -330,6 +330,9 @@ def test_domestic_workbench_is_the_research_front_door():
     assert "导航可用" in body
     assert "一手证据部分闭环" in body
     assert "P0 仍待原件" in body
+    assert "授权原件接收状态" in body
+    assert "incoming 文件 0" in body
+    assert "/domestic/intake" in body
     assert "/research/gaps" in body
     assert "/search" in body
     assert "platform" in body and "domestic" in body

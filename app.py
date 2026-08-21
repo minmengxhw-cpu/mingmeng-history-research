@@ -7540,6 +7540,30 @@ def domestic_workbench_page() -> bytes:
         except (OSError, json.JSONDecodeError):
             overnight_note = ""
 
+    intake_note = ""
+    try:
+        intake_report = json.loads(
+            AUTHORIZED_ORIGINAL_INTAKE_REPORT_PATH.read_text(encoding="utf-8")
+        )
+        status_counts = intake_report.get("status_counts") or {}
+        status_text = " · ".join(
+            f"{h(key)} {h(value)}"
+            for key, value in status_counts.items()
+        ) or "暂无目标状态"
+        intake_note = (
+            f'<div class="notice"><strong>授权原件接收状态：</strong>'
+            f'目标 {h(intake_report.get("target_count") or 0)} · '
+            f'incoming 文件 {h(intake_report.get("incoming_file_count") or 0)} · '
+            f'映射 {h(intake_report.get("mapping_count") or 0)} · {status_text}。'
+            f' <a href="/domestic/intake">打开接收门禁</a>。'
+            '该状态只表示文件接收前置检查，不等于正文已读或一手闭环。</div>'
+        )
+    except (OSError, json.JSONDecodeError, AttributeError):
+        intake_note = (
+            '<div class="notice"><strong>授权原件接收状态：</strong>尚未生成接收报告；'
+            '<a href="/domestic/intake">打开接收门禁</a>查看前置流程。</div>'
+        )
+
     body = breadcrumb_html([("/", "首页"), (None, "国内研究平台")]) + f"""
 <section class="hero hero-compact">
   <div class="hero-eyebrow">DOMESTIC RESEARCH PLATFORM</div>
@@ -7555,6 +7579,7 @@ def domestic_workbench_page() -> bytes:
 </section>
 <div class="notice"><strong>使用方式：</strong>先检索或打开专题，再回到页级 provenance 和 <code>/cite/&lt;page_id&gt;</code>。汇编、会刊、报刊和学术文章分层显示，不能替代 1941 原刊、1947 政府公函/总部公告或完整会议档案。</div>
 {overnight_note}
+{intake_note}
 <form class="search" method="get" action="/search" role="search">
   <input type="hidden" name="platform" value="domestic">
   <input type="search" name="q" placeholder="在国内史料中检索人物、会议、报刊或档号">
