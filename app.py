@@ -26,6 +26,18 @@ from scripts.domestic.research_packet import (
 # 当前请求路径的 thread-local 容器，layout() 用来自动 highlight 当前导航
 _request = threading.local()
 
+# Public pages may reuse internal evidence notes that contain relative or
+# machine-specific artifact paths.  Keep those notes useful internally, but
+# never let a public render reveal the local filesystem layout.
+_PUBLIC_LOCAL_PATH_RE = re.compile(
+    r"(?:file://[^<>\s\"'`]+|"
+    r"(?:/Users|/private|/tmp|/data|/work|/output|/exports)/[^<>\s\"'`]+|"
+    r"(?:data|work|output|exports)/[^<>\s\"'`]+)"
+)
+_PUBLIC_INTERNAL_FIELD_RE = re.compile(
+    r"\b(?:local_path|source_file|page_image_path|file_path)\b"
+)
+
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "scripts" / "legacy"))
@@ -128,7 +140,11 @@ NEWSPAPERSG_CLEAN_DIR = DATA_ROOT / "newspapersg" / "documents_clean"
 
 
 def h(value: object) -> str:
-    return html.escape("" if value is None else str(value), quote=True)
+    text = "" if value is None else str(value)
+    if getattr(_request, "public_mode", False):
+        text = _PUBLIC_LOCAL_PATH_RE.sub("内部文件路径已隐藏", text)
+        text = _PUBLIC_INTERNAL_FIELD_RE.sub("内部字段", text)
+    return html.escape(text, quote=True)
 
 
 def source_href(value: object) -> str:

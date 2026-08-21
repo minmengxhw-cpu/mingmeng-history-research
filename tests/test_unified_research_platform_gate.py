@@ -273,6 +273,36 @@ def test_public_domestic_intake_hides_local_paths_and_internal_field_names():
     assert "授权原件文件" in body
 
 
+def test_public_domestic_views_hide_relative_artifact_paths():
+    pages = {
+        "domestic": lambda: app.domestic_page({}),
+        "acquisition": lambda: app.domestic_acquisition_page(
+            "domestic-1947-illegal-dissolution"
+        ),
+        "events": lambda: app.domestic_events_page(
+            {"event": ["domestic-1947-illegal-dissolution"]}
+        ),
+        "sources": app.domestic_sources_page,
+        "research": app.research_topics_page,
+        "topic": lambda: app.research_topic_page(
+            "domestic-1947-illegal-dissolution"
+        ),
+    }
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = True
+    try:
+        for name, page in pages.items():
+            body = page().decode("utf-8")
+            assert "/Users/" not in body, name
+            assert "/private/" not in body, name
+            assert "data/domestic/" not in body, name
+            assert "work/domestic/" not in body, name
+            assert "source_file" not in body, name
+            assert "local_path" not in body, name
+    finally:
+        app._request.public_mode = previous
+
+
 def test_domestic_timeline_links_workbench():
     previous = getattr(app._request, "public_mode", False)
     app._request.public_mode = False
