@@ -11,6 +11,8 @@
 
 香港大学文件标题是 `Hong Kong Newspapers - Chronological List 1940s`，第 2 页列出《光明報》；岭南文件是 `香港工運剪報索引列表` 的题名页。两者都应停留在馆藏/导航层，不进入原件池，不重复 OCR，不改变 `primary_evidence_closed`。
 
+2026-08-22 又复核了香港大学 2026 年 3 月更新版 [Hong Kong Newspapers - Chronological List](https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/HKnewspapers/Chronological_List_032026_0.pdf)：第 52 项仍列出《光明報》，格式为 Microform，访问方式为 Microfilm at Special Collections，馆藏范围为 1941-09-18 至 1941-12-12，且标注 `Nil` 缺期。这是馆藏路线的更新确认，不是逐期影像取得；本地已保存的 3 页 PDF 仍作为旧版目录快照保留。
+
 ## 2026-08-22 页图 provenance 更新
 
 1946 年汇编中的正式库页 `1473—1477` 已完成本地页图绑定，页图 SHA256 见 [`local_page_image_provenance_20260822.json`](../../data/domestic/local_page_image_provenance_20260822.json)。这只加强了汇编重刊的文件—页—哈希回链，仍不等于取得 1941 年《光明報》原刊；`primary_evidence_closed` 继续为 `false`。
@@ -30,6 +32,7 @@
 
 官方流程入口：
 
-- [HKU 1940s Hong Kong Newspapers 目录](https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/newspaper_1940s_update_072021.pdf)
+- [HKU 2026 年 3 月更新的 1940s Hong Kong Newspapers 目录](https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/HKnewspapers/Chronological_List_032026_0.pdf)
+- [HKU 2021 年目录旧版快照](https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/newspaper_1940s_update_072021.pdf)
 - [HKU Special Collections 材料申请](https://lib.hku.hk/hkspc/requesting_materials.html)
 - [HKU Special Collections 设施与微缩扫描](https://lib.hku.hk/hkspc/facilities.html)

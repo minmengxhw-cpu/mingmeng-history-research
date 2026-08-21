@@ -12,13 +12,13 @@
   "primary_evidence_closed": false,
   "primary_evidence_gap": "1941-10-10《光明報》原刊影像、版次页码和成立宣言底本的馆藏/版本关系仍待实际调取；1946汇编重刊不能替代原刊",
   "access_audit": {
-    "audit_document": "docs/domestic/DOMESTIC_1941_ORIGINAL_ACCESS_AUDIT_20260815.md",
-    "metadata_reviewed_on": "2026-08-15",
+    "audit_document": "docs/domestic/1941_CATALOGUE_ROUTE_AUDIT_20260822.md",
+    "metadata_reviewed_on": "2026-08-22",
     "status": "route_confirmed_original_image_not_obtained",
     "scope": "公开馆藏元数据和访问入口；未复制正文原件",
     "confirmed_routes": [
       "岭南大学《光明報，1941》剪报索引：日期、页码和版位定位",
-      "香港大学 Special Collections《光明報》1941年缩微胶卷：1941-09-18至12-12，目录标注无缺期"
+      "香港大学 Special Collections《光明報》1941年缩微胶卷：2026年3月更新目录第52项列出1941-09-18至12-12，标注无缺期"
     ],
     "next_minimum_target": "取得1941-10-10《光明報》整期或正式复制件，并完成逐页馆藏标识、影像SHA和人工视觉复核"
   },
@@ -139,8 +139,10 @@
       "source_file_size": 190224,
       "page_count": 3,
       "source_url": "https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKU_IZ21440249790003414&vid=HKU&lang=en_US",
-      "official_url": "https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/newspaper_1940s_update_072021.pdf",
-      "access_note": "香港大学《Hong Kong Newspapers - Chronological List 1940s》目录第21项明确列出《光明報》：Microform，1941-09-18至1941-12-12，With Gaps=Nil；原刊影像仍需按 Special Collections 规则预约或申请调取。",
+      "official_url": "https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/HKnewspapers/Chronological_List_032026_0.pdf",
+      "legacy_official_url": "https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/newspaper_1940s_update_072021.pdf",
+      "catalogue_checked_on": "2026-08-22",
+      "access_note": "香港大学 2026 年 3 月更新的《Hong Kong Newspapers - Chronological List》在第52项明确列出《光明報》：Microform，Microfilm at Special Collections，1941-09-18至1941-12-12，With Gaps=Nil；本地附件仍是旧版目录快照，原刊影像仍需按 Special Collections 规则预约或申请调取。",
       "page_records": [
         {
           "page_id": null,
