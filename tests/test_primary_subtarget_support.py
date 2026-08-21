@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import app
+from scripts.domestic.research_packet import build_research_packet, research_packet_page
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,3 +37,17 @@ def test_topic_page_shows_bounded_units_without_closing_primary_gap():
     body_1949 = app.research_topic_page("domestic-1949-new-pcc").decode("utf-8")
     assert "页级门禁 #20733" in body_1949
     assert "页级门禁 #20940" in body_1949
+
+
+def test_research_packet_exports_bounded_units_without_body_text():
+    packet = build_research_packet("domestic-1949-new-pcc")
+    assert packet is not None
+    units = packet["primary_subtarget_support"]
+    assert len(units) == 4
+    assert packet["counts"]["primary_subtarget_count"] == 4
+    assert packet["counts"]["primary_subtarget_page_count"] == 27
+    assert all(unit["body_text_included"] is False for unit in units)
+    assert all("source_file" not in unit for unit in units)
+    body = research_packet_page("domestic-1949-new-pcc").decode("utf-8")
+    assert "有边界可研究的一手子单元" in body
+    assert "页级门禁 #20733" in body

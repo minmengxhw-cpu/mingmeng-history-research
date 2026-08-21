@@ -311,6 +311,32 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
 
     public = bool(getattr(app._request, "public_mode", False))
     citation_fragments = _citation_fragment_refs(event_id, public)
+    subtarget_loader = getattr(app, "_load_primary_subtarget_support", None)
+    raw_subtargets = subtarget_loader().get(str(event_id), []) if subtarget_loader else []
+    primary_subtarget_support = []
+    for raw_subtarget in raw_subtargets:
+        if not isinstance(raw_subtarget, dict):
+            continue
+        primary_subtarget_support.append(
+            {
+                "unit_id": str(raw_subtarget.get("unit_id") or ""),
+                "label": str(raw_subtarget.get("label") or ""),
+                "status": str(raw_subtarget.get("status") or "bounded_unit_ready"),
+                "source_ids": [
+                    str(value)
+                    for value in raw_subtarget.get("source_ids", [])
+                    if str(value).strip()
+                ],
+                "page_ids": [
+                    int(value)
+                    for value in raw_subtarget.get("page_ids", [])
+                    if str(value).isdigit()
+                ],
+                "scope": str(raw_subtarget.get("scope") or ""),
+                "caveat": str(raw_subtarget.get("caveat") or ""),
+                "body_text_included": False,
+            }
+        )
     sourcebooks: list[dict[str, Any]] = []
     if event_id == "domestic-1946-pcc" and hasattr(app, "_load_pcc_1946_sourcebook_map"):
         sourcebook = app._load_pcc_1946_sourcebook_map()
@@ -618,9 +644,14 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
                 if isinstance(source, dict)
             ),
             "citation_fragment_count": len(citation_fragments),
+            "primary_subtarget_count": len(primary_subtarget_support),
+            "primary_subtarget_page_count": sum(
+                len(row["page_ids"]) for row in primary_subtarget_support
+            ),
         },
         "sourcebooks": sourcebooks,
         "citation_fragments": citation_fragments,
+        "primary_subtarget_support": primary_subtarget_support,
         "event_source_maps": event_source_maps,
         "evidence_chain": evidence_chain,
         "research_matrix": {
@@ -895,6 +926,28 @@ def research_packet_page(event_id: str) -> bytes:
         f'<section class="result-list">{source_map_body}</section>'
     )
 
+    subtarget_cards = []
+    for subtarget in packet.get("primary_subtarget_support", []):
+        page_links = " · ".join(
+            f'<a href="/cite/{esc(page_id)}">页级门禁 #{esc(page_id)}</a>'
+            for page_id in subtarget.get("page_ids", [])
+        )
+        subtarget_cards.append(
+            f'''<article class="result compact-result"><div>
+  <h3>{esc(subtarget.get("label") or subtarget.get("unit_id"))}</h3>
+  <div class="tagline"><span class="pstatus ok">有边界可研究</span><span class="tag">{len(subtarget.get("page_ids", []))} 个页级入口</span><span class="tag">主目标仍开放</span></div>
+  <div class="snippet"><strong>可以支持：</strong>{esc(subtarget.get("scope"))}</div>
+  <div class="snippet"><strong>限制：</strong>{esc(subtarget.get("caveat"))}</div>
+</div><div class="cite">{page_links or "未登记页级入口"}</div></article>'''
+        )
+    subtarget_body = "".join(subtarget_cards) or '<div class="notice">本专题尚未登记独立的有边界研究子单元。</div>'
+    subtarget_html = (
+        '<div class="section-head"><h2>有边界可研究的一手子单元</h2>'
+        f'<span class="meta">{len(subtarget_cards)} 个 · 不关闭专题主目标</span></div>'
+        '<div class="notice">这些子单元可以支持范围受限的问题，但不等于完整档案、正文逐字校读或专题 research_ready。</div>'
+        f'<section class="result-list">{subtarget_body}</section>'
+    )
+
     topic_event_cards = "".join(
         f'''<article class="result compact-result"><div>
   <h3>{esc(row.get("event_title") or row.get("title") or row.get("doc_key"))}</h3>
@@ -924,6 +977,7 @@ def research_packet_page(event_id: str) -> bytes:
 {sourcebook_html}
 {fragment_html}
 {source_map_html}
+{subtarget_html}
 {"".join(sections)}
 <div class="section-head"><h2>仍待补原件</h2><span class="meta">{len(packet['open_primary_targets'])} 项</span></div><section class="result-list">{targets}</section>
 <div class="section-head"><h2>学术研究（解释层）</h2><span class="meta">不替代一手证据</span></div><section class="result-list">{academic}</section>
