@@ -109,6 +109,7 @@ PRIMARY_RETRIEVAL_QUEUE_PATH = DATA_ROOT / "domestic" / "primary_retrieval_queue
 AUTHORIZED_ORIGINAL_INTAKE_TARGETS_PATH = DATA_ROOT / "domestic" / "authorized_original_intake_targets_20260821.json"
 AUTHORIZED_ORIGINAL_INTAKE_REPORT_PATH = WORK_ROOT / "domestic" / "authorized_original_intake_20260821" / "REPORT.json"
 AUTHORIZED_ORIGINAL_INTAKE_MANIFEST_PATH = WORK_ROOT / "domestic" / "authorized_original_intake_20260821" / "INTAKE_MANIFEST.jsonl"
+DOMESTIC_FOREIGN_PARITY_ACCEPTANCE_REPORT_PATH = WORK_ROOT / "domestic" / "domestic_foreign_parity_acceptance_current_20260822" / "REPORT.json"
 PCC_1946_SOURCEBOOK_MAP_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_targets.json"
 PCC_1946_RENDER_MANIFEST_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_render_manifest.json"
 PCC_1946_SOURCEBOOK_PATH = DATA_ROOT / "domestic" / "sourcebooks" / "NLC416-01jh004019-12949_政協文獻_1946.pdf"
@@ -148,6 +149,24 @@ def source_href(value: object) -> str:
                 return marker + raw.split(marker, 1)[1]
         return "#"
     return raw
+
+
+def _load_domestic_foreign_parity_acceptance_report() -> dict[str, object]:
+    """Load the last internal parity run without exposing its local path.
+
+    The dashboard remains usable when no snapshot has been generated.  This
+    loader is metadata-only: it does not read page bodies or recompute the
+    acceptance run during a web request.
+    """
+    if not DOMESTIC_FOREIGN_PARITY_ACCEPTANCE_REPORT_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(
+            DOMESTIC_FOREIGN_PARITY_ACCEPTANCE_REPORT_PATH.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
 
 
 def compact(text: str, limit: int = 260) -> str:
@@ -6891,6 +6910,7 @@ def research_parity_page() -> bytes:
     chain_ready_count = 0
     source_map_count = 0
     source_map_page_count = 0
+    acceptance_report = _load_domestic_foreign_parity_acceptance_report()
 
     for topic in topics:
         item = topic["item"]
@@ -6975,6 +6995,26 @@ def research_parity_page() -> bytes:
 </article>"""
         )
 
+    acceptance_summary = acceptance_report.get("summary") or {}
+    if acceptance_report:
+        acceptance_note = (
+            f'<div class="notice"><strong>最近一次双侧研究路径回归：</strong>'
+            f'{h(acceptance_report.get("status") or "未标注")} · '
+            f'国内问题路径 {h(acceptance_summary.get("domestic_question_paths_ready") or 0)}/'
+            f'{h(acceptance_summary.get("domestic_questions") or 0)} · '
+            f'parity path {h(acceptance_summary.get("topics_with_parity_path") or 0)}/'
+            f'{h(acceptance_summary.get("topics") or 0)} · '
+            f'一手闭环 {h(acceptance_summary.get("research_ready") or 0)}/'
+            f'{h(acceptance_summary.get("topics") or 0)} · '
+            f'内容状态 <code>{h(acceptance_report.get("research_content_status") or "未标注")}</code>。'
+            '该回归只读搜索索引和元数据，不复制正文；路径通过不等于一手原件已经收齐。</div>'
+        )
+    else:
+        acceptance_note = (
+            '<div class="notice"><strong>双侧研究路径回归：</strong>尚未生成最近一次报告。'
+            '请运行项目路线图中的只读验收命令；当前页面的专题状态仍按实时元数据计算。</div>'
+        )
+
     body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/research", "多源专题研究"), (None, "国内—海外对齐")]) + f"""
 <section class="hero hero-compact">
   <div class="hero-eyebrow">DOMESTIC · FOREIGN · PARITY</div>
@@ -6983,6 +7023,7 @@ def research_parity_page() -> bytes:
   <div class="hero-chips"><span><b>{h(len(topics))}</b> 个专题</span><span><b>{h(navigation_count)}</b> 个导航可用</span><span><b>{h(bounded_research_count)}</b> 个带边界可研究</span><span><b>{h(source_map_count)}</b> 个来源地图</span><span><b>{h(source_map_page_count)}</b> 个来源地图页</span><span><b>{h(strict_count)}</b> 个有严格页</span><span><b>{h(primary_closed_count)}</b> 个一手闭环</span><span><b>{h(research_ready_count)}</b> 个 research_ready</span><span><b>{h(open_target_count)}</b> 个开放原件目标</span></div>
 </section>
 <div class="notice"><strong>阅读规则：</strong>来源地图只统计专题与页级 provenance 的关联，不代表所有原件已开放；“可研究（带边界）”表示已有导航、严格页、四层证据链和来源地图，可以开展有边界的检索与比较；它不等于一手原件闭环。只有专题主证据、同期交叉、负向核查、版本关系和研究包全部闭环，才会显示 <code>research_ready</code>。本页只读元数据，<code>body_read=false</code>。</div>
+{acceptance_note}
 <section class="result-list">{"".join(rows) or '<div class="notice">暂无专题 parity 数据。</div>'}</section>
 <section class="doc-tools" style="margin-top:20px;justify-content:center;">
   <a class="button" href="/domestic/workbench">国内研究平台</a>
