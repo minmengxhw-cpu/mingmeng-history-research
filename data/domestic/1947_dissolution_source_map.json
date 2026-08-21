@@ -3,7 +3,7 @@
   "event_id": "domestic-1947-illegal-dissolution",
   "title": "1947年民盟被宣布非法与组织解散：同期报刊页级证据地图",
   "review_status": "page_and_sourcebook_evidence_ready_gazette_negative_controls_added_primary_gap_open",
-  "evidence_scope": "同期报刊页级证据、1983年正式历史文献汇编重刊页、官方公报负向核查，以及正式库已登记的四期官方公报整册导航；新增2967号与2974号整册公开扫描及目标负向视觉核查；正文原件、OCR和严格引用状态分离登记",
+  "evidence_scope": "同期报刊页级证据（含《大公報》多版与《观察》教授联署声明）、1983年正式历史文献汇编重刊页、官方公报负向核查，以及正式库已登记的四期官方公报整册导航；新增2967号与2974号整册公开扫描及目标负向视觉核查；正文原件、OCR和严格引用状态分离登记",
   "body_text_included": false,
   "ocr_text_included": false,
   "raw_files_included": false,
@@ -117,6 +117,34 @@
           "review_scope": "press_page_identity_heading",
           "page_image_sha256": "1e5d8b286dd68e8b38061dc19b2816870783bb879158f8458b38457e6bad2c6a",
           "caveat": "只证明同期报刊公开报道，不据此宣称已取得民盟公告原件。"
+        }
+      ]
+    },
+    {
+      "source_id": "nlc-observer-1947-v3n11",
+      "title": "《觀察》第三卷第十一期（1947年11月8日）",
+      "source_role": "contemporary_periodical_statement",
+      "evidence_level": "L1",
+      "source_file": "data/domestic/press_scans/NLC404-01J000332-6817_观察_1947年3卷11期.pdf",
+      "source_sha256": "f4232929eca2a91b07b292eea0153528e8bce8e7241499a475e6ecc6d2b0af71",
+      "source_file_size": 1623921,
+      "page_count": 20,
+      "source_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000332-6817_%E8%A7%80%E5%AF%9F_1947%E5%B9%B43%E5%8D%B711%E6%9C%9F.pdf",
+      "access_note": "国家图书馆民国期刊公开扫描；正式库页20276已有来源哈希、页码和人工身份核验；本轮只开放第3页题名身份，不复制正文。",
+      "page_records": [
+        {
+          "page_id": 20276,
+          "pdf_page_no": 3,
+          "target": "社会/知识界回应",
+          "role": "《我們對於政府壓迫民盟的看法》同期公共声明题名身份入口",
+          "status": "strict_citation",
+          "review_status": "human_verified",
+          "citation_ready": true,
+          "needs_human_review": false,
+          "review_scope": "periodical_issue_identity_editorial_title",
+          "page_image_sha256": "c819aeae45051ae959e21fd63dfaf43d2cf2cbdbf25bef82cabe4127e25b649c",
+          "identity_status": "human_verified",
+          "caveat": "只证明同期公共声明的期刊页身份和题名；不替代1947-10-27政府公函、1947-11-06民盟总部公告或完整声明正文。"
         }
       ]
     },

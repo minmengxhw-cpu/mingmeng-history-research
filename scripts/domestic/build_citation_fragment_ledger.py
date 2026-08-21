@@ -32,6 +32,7 @@ FRAGMENT_REFS = [
     "work/domestic/guangmingbao_1946_issue8_refuse_fragment_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/dagangbao_1947_fragment_review_20260821/FRAGMENT_SHANGHAI_SECOND_PASS.json",
     "work/domestic/dagangbao_1947_fragment_review_20260821/FRAGMENT_TIANJIN_SECOND_PASS.json",
+    "work/domestic/observer_v3n11_fragment_review_20260821/FRAGMENT_OBSERVER_SECOND_PASS.json",
 ]
 DEFAULT_LEDGER = ROOT / "data" / "domestic" / "citation_fragments.jsonl"
 DEFAULT_MANIFEST = ROOT / "data" / "domestic" / "citation_fragments_manifest.json"
@@ -218,7 +219,7 @@ def build(ledger_path: Path, manifest_path: Path, report_path: Path) -> dict[str
         "page_citation_ready_count": sum(bool(row["page_citation_ready"]) for row in rows),
         "formal_db_written_count": sum(bool(row["formal_db_written"]) for row in rows),
         "body_read_count": sum(bool(row["body_read"]) for row in rows),
-        "scope": "thirteen manually verified short fragments from 1945, 1946, 1947 and 1949 PDF/official-image sources; not full-page body promotion",
+        "scope": "fourteen manually verified short fragments from 1945, 1946, 1947 and 1949 PDF/official-image sources; not full-page body promotion",
     }
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -1,0 +1,53 @@
+{
+  "schema": "domestic_periodical_page_manual_review.v1",
+  "review_id": "observer-v3n11-page20276-manual-review-20260821",
+  "reviewer": "codex-visual-audit-20260821",
+  "reviewed_at": "2026-08-21",
+  "purpose": "对《观察》第三卷第十一期（1947-11-08）PDF第3页的期刊身份和《我們對於政府壓迫民盟的看法》题名做视觉复核；只开放题名身份，不开放正文。",
+  "source": {
+    "source_id": "nlc-observer-1947-v3n11",
+    "source_file": "data/domestic/press_scans/NLC404-01J000332-6817_观察_1947年3卷11期.pdf",
+    "source_sha256": "f4232929eca2a91b07b292eea0153528e8bce8e7241499a475e6ecc6d2b0af71",
+    "main_db_page_id": 20276,
+    "pdf_page": 3,
+    "source_page_no": 3,
+    "printed_page": null,
+    "page_url": "https://commons.wikimedia.org/wiki/File%3ANLC404-01J000332-6817_%E8%A7%80%E5%AF%9F_1947%E5%B9%B43%E5%8D%B711%E6%9C%9F.pdf#page=3",
+    "source_year": 1947,
+    "event_year": 1947,
+    "page_type": "pdf",
+    "page_locator": "《观察》第三卷第十一期单期扫描（PDF第3页；印刷页未登记）",
+    "year_anchor_label": "1947（刊期日期锚点）"
+  },
+  "page_identity": {
+    "title": "我們對於政府壓迫民盟的看法",
+    "periodical": "《觀察》",
+    "volume_issue": "第三卷第十一期",
+    "date": "1947-11-08",
+    "page_label": "PDF第3页；印刷页未登记",
+    "identity_status": "human_verified",
+    "body_text_verified": false
+  },
+  "review_passes": [
+    {
+      "pass_id": "observer_page_identity_visual_review",
+      "method": "local_300dpi_render_manual_visual_review",
+      "scope": "periodical_identity_and_visible_article_heading",
+      "status": "completed",
+      "finding": "第3页页眉可辨《觀察》第三卷第十一期及1947年11月8日，右侧大标题可辨‘我們對於政府壓迫民盟的看法’；第4页另起‘我對於政府取締民盟的感想’，不并入本片段。"
+    }
+  ],
+  "render_refs": {
+    "page_image_300dpi": "work/domestic/observer_v3n11_fragment_render_20260821/page-03.jpg",
+    "page_image_300dpi_sha256": "0ceef7a9fb6c872d80714d503c4e8807aa6383ec6d1d22e9587421b186ec41f6"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅期刊身份和可见文章题名达到身份片段门禁。",
+    "promotion_scope": "允许引用《观察》卷期、刊期日期、PDF页和题名身份；不把同期公共声明扩展为民盟总部解散公告、政府公函或完整联署名单，也不复制正文。"
+  }
+}

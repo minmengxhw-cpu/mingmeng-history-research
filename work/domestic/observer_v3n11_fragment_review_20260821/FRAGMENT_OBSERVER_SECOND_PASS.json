@@ -1,0 +1,54 @@
+{
+  "schema": "domestic_periodical_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对《观察》第三卷第十一期PDF第3页可见文章题名做视觉核对；只开放题名身份片段，不升级整页正文。",
+  "source_page_review_ref": "work/domestic/observer_v3n11_fragment_review_20260821/PAGE20276_MANUAL_REVIEW.json",
+  "source": {
+    "source_id": "nlc-observer-1947-v3n11",
+    "source_sha256": "f4232929eca2a91b07b292eea0153528e8bce8e7241499a475e6ecc6d2b0af71",
+    "pdf_page": 3,
+    "source_page_no": 3,
+    "source_page_type": "pdf",
+    "printed_page": null,
+    "page_locator": "《观察》第三卷第十一期单期扫描（PDF第3页；印刷页未登记）",
+    "page_image_300dpi": "work/domestic/observer_v3n11_fragment_render_20260821/page-03.jpg",
+    "page_image_300dpi_sha256": "0ceef7a9fb6c872d80714d503c4e8807aa6383ec6d1d22e9587421b186ec41f6",
+    "source_year": 1947,
+    "event_year": 1947,
+    "year_anchor_label": "1947（刊期日期锚点）"
+  },
+  "review_passes": [
+    {
+      "pass_id": "second_visual_pass",
+      "method": "local_300dpi_manual_reading",
+      "scope": "visible_article_heading_identity",
+      "status": "completed",
+      "finding": "第3页右侧大标题‘我們對於政府壓迫民盟的看法’清晰可辨；仅登记题名身份，不开放声明正文、联署名单或第4页另文。"
+    }
+  ],
+  "fragment": {
+    "target_id": "1947-dissolution-observer-professors-statement-heading",
+    "title": "1947年《观察》第三卷第十一期民盟受压声明题名身份",
+    "scope": "PDF第3页文章题名；不含声明正文、联署名单和第4页董时进另文。",
+    "text": "我們對於政府壓迫民盟的看法",
+    "display_suffix": "",
+    "fragment_ends_mid_sentence": false,
+    "transcription_mode": "manual_visual_transcription_issue_title_identity_only",
+    "character_check": "confirmed",
+    "punctuation_check": "not_applicable_title_identity",
+    "ocr_crosscheck": "",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "continuation_boundary_status": "只开放第3页题名身份；第3页声明正文、第4页董时进另文和联署名单均未逐字校读。",
+    "promotion_scope": "必须保留《观察》第三卷第十一期、1947-11-08、PDF第3页、印刷页未登记、来源SHA和‘同期公共声明不等于行政/盟务原件’边界。"
+  },
+  "status": "HUMAN_VERIFIED_IDENTITY_FRAGMENT_QUOTE_READY_PRIMARY_GAP_OPEN"
+}

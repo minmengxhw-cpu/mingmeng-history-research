@@ -2,7 +2,7 @@
   "schema": "domestic_citation_fragment_ledger_manifest.v1",
   "generated_at": "2026-08-21",
   "ledger": "data/domestic/citation_fragments.jsonl",
-  "ledger_sha256": "ea1c3cc5204fe9d7bf4d98ce1b28368e762775e9661c296eb5b210a741aa2f1c",
+  "ledger_sha256": "6d02f584e88cccaef5ed4ceb98f15dc5b5f49c3cb4946db677017e0c6d19af8f",
   "fragment_review_refs": [
     "work/domestic/pcc_1946_page23_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/pcc_1946_page52_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
@@ -16,12 +16,13 @@
     "work/domestic/guangmingbao_1946_issue8_fragment_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/guangmingbao_1946_issue8_refuse_fragment_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/dagangbao_1947_fragment_review_20260821/FRAGMENT_SHANGHAI_SECOND_PASS.json",
-    "work/domestic/dagangbao_1947_fragment_review_20260821/FRAGMENT_TIANJIN_SECOND_PASS.json"
+    "work/domestic/dagangbao_1947_fragment_review_20260821/FRAGMENT_TIANJIN_SECOND_PASS.json",
+    "work/domestic/observer_v3n11_fragment_review_20260821/FRAGMENT_OBSERVER_SECOND_PASS.json"
   ],
-  "fragment_count": 13,
-  "fragment_citation_ready_count": 13,
+  "fragment_count": 14,
+  "fragment_citation_ready_count": 14,
   "page_citation_ready_count": 0,
   "formal_db_written_count": 0,
   "body_read_count": 0,
-  "scope": "thirteen manually verified short fragments from 1945, 1946, 1947 and 1949 PDF/official-image sources; not full-page body promotion"
+  "scope": "fourteen manually verified short fragments from 1945, 1946, 1947 and 1949 PDF/official-image sources; not full-page body promotion"
 }

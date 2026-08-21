@@ -43,8 +43,8 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert report["checks"]["research_question_benchmark"]["path_ready_count"] == 36
     fragments = report["checks"]["citation_fragment_ledger"]
     assert fragments["status"] == "PASS"
-    assert fragments["fragment_count"] == 13
-    assert fragments["fragment_citation_ready_count"] == 13
+    assert fragments["fragment_count"] == 14
+    assert fragments["fragment_citation_ready_count"] == 14
     assert fragments["page_citation_ready_count"] == 0
     assert fragments["formal_db_written_count"] == 0
 

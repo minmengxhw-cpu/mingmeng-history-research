@@ -184,6 +184,7 @@ def _citation_fragment_refs(event_id: str, public: bool) -> list[dict[str, Any]]
         "domestic-1947-illegal-dissolution": {
             "nlc-dagongbao-shanghai-1947-11-06-page2",
             "nlc-dagongbao-tianjin-1947-11-06-page2",
+            "nlc-observer-1947-v3n11",
         },
         "domestic-1949-new-pcc": {
             "nlc-1949-first-plenary-conference-journal",
