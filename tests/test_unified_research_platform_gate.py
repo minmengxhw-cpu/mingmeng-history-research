@@ -157,10 +157,11 @@ def test_1941_catalogue_routes_do_not_claim_original_source_closure():
     sources = {str(source["source_id"]): source for source in source_map["sources"]}
     hku = sources["hku-guangmingbao-1941-microfilm"]
     lnu = sources["lnu-guangmingbao-1941-index"]
-    assert hku["source_role"] == "unverified_university_catalogue_route"
-    assert "总目录" in hku["access_note"]
+    assert hku["source_role"] == "university_catalogue_access_route"
+    assert "1941-09-18至1941-12-12" in hku["access_note"]
+    assert "With Gaps=Nil" in hku["access_note"]
     assert hku["page_records"][0]["citation_ready"] is False
-    assert "不得关闭" in hku["page_records"][0]["caveat"]
+    assert "目录确认馆藏范围" in hku["page_records"][0]["caveat"]
     assert lnu["page_records"][0]["status"] == "navigation_only"
     assert lnu["page_records"][0]["citation_ready"] is False
 

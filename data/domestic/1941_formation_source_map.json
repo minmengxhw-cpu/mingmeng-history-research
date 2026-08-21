@@ -131,8 +131,8 @@
     },
     {
       "source_id": "hku-guangmingbao-1941-microfilm",
-      "title": "香港大学特别馆藏1940年代香港报刊目录（《光明報》题名尚未核实）",
-      "source_role": "unverified_university_catalogue_route",
+      "title": "香港大学特别馆藏《光明報》1941年缩微胶卷",
+      "source_role": "university_catalogue_access_route",
       "evidence_level": "L4",
       "source_file": "data/domestic/official_research_public_20260730/pdf/domestic:HKU:guangmingbao-1941-microform-holdings__光明報_1941年9月18日_12月12日馆藏缩微胶卷记录_075.pdf",
       "source_sha256": "7b9b1d8c3de9396ffd0dd5e58c75e8f70c07142671109aef4c1cb6df1b10e52a",
@@ -140,20 +140,20 @@
       "page_count": 3,
       "source_url": "https://julac.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=HKU_IZ21440249790003414&vid=HKU&lang=en_US",
       "official_url": "https://lib.hku.hk/sites/all/files/files/hkspc/pathfinders/newspaper_1940s_update_072021.pdf",
-      "access_note": "本地 PDF 视觉核验为香港大学《Hong Kong Newspapers - Chronological List 1940s》总目录，不是《光明報》逐期记录；当前未见足以确认《光明報》1941馆藏范围的题名级证据。须重新核对 Primo 记录后，再按 Special Collections 规则预约调取。",
+      "access_note": "香港大学《Hong Kong Newspapers - Chronological List 1940s》目录第21项明确列出《光明報》：Microform，1941-09-18至1941-12-12，With Gaps=Nil；原刊影像仍需按 Special Collections 规则预约或申请调取。",
       "page_records": [
         {
           "page_id": null,
           "local_pdf_page_no": 1,
-          "target": "重新核对 1941-10-10《光明報》题名级馆藏记录，再申请原刊调取",
-          "role": "待复核的大学馆藏路线（当前 PDF 非原刊影像）",
+          "target": "1941-09-18至1941-12-12《光明報》原刊调取，优先核验1941-10-10",
+          "role": "原刊缩微胶卷的已确认馆藏入口",
           "status": "access_route",
           "review_status": "human_verified",
           "citation_ready": false,
           "needs_human_review": false,
-          "review_scope": "catalogue_identity_audit",
+          "review_scope": "catalogue_access_route",
           "page_image_sha256": null,
-          "caveat": "当前 3 页 PDF 是 1940 年代香港报刊总目录；视觉复核未据此确认《光明報》题名、逐期影像、版次、页码或复制许可。不得关闭 1941 主证据缺口。"
+          "caveat": "目录确认馆藏范围，不等于已取得逐期影像、版次、页码或复制许可；不得仅凭目录关闭 1941 主证据缺口。"
         }
       ]
     },
