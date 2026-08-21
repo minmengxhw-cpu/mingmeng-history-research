@@ -1,0 +1,51 @@
+{
+  "schema": "domestic_periodical_page_manual_review.v1",
+  "review_id": "dagongbao-tianjin-1947-11-06-page1774-manual-review-20260821",
+  "reviewer": "codex-visual-audit-20260821",
+  "reviewed_at": "2026-08-21",
+  "purpose": "对天津版《大公報》1947年11月6日第2版的报面身份和‘民盟宣布解散’题名做视觉复核；只开放题名身份，不开放正文。",
+  "source": {
+    "source_id": "nlc-dagongbao-tianjin-1947-11-06-page2",
+    "source_file": "data/domestic/press_scans/NLC_大公報_天津版_1947-11-06_第2版_完整影像_试用数据库.pdf",
+    "source_sha256": "cb64bd1561540661c6de257313aaf3799c38b83f7f7fab9905f4e096a1ce247f",
+    "main_db_page_id": 1774,
+    "pdf_page": 1,
+    "source_page_no": 1,
+    "printed_page": null,
+    "page_url": "http://tk.dhcdb.com.tw/tknewsc/tknewskm?@@1#page=01",
+    "source_year": 1947,
+    "event_year": 1947,
+    "page_type": "pdf",
+    "page_locator": "天津版试用数据库单页副本（PDF第1页；印刷版次未登记）",
+    "year_anchor_label": "1947（报刊日期锚点）"
+  },
+  "page_identity": {
+    "title": "民盟宣布解散",
+    "date": "1947-11-06",
+    "page_label": "天津版第2版；印刷页未登记",
+    "identity_status": "human_verified",
+    "body_text_verified": false
+  },
+  "review_passes": [
+    {
+      "pass_id": "tianjin_page_identity_visual_review",
+      "method": "local_300dpi_render_manual_visual_review",
+      "scope": "newspaper_identity_and_visible_heading",
+      "status": "completed",
+      "finding": "报面可辨认《大公報》天津版、1947年11月6日及第2版；版面中部可辨认题名‘民盟宣布解散’，不对周边正文做逐字转录。"
+    }
+  ],
+  "render_refs": {
+    "page_image_300dpi": "work/domestic/dagangbao_1947_issue_page_render_20260821/tianjin-1.jpg",
+    "page_image_300dpi_sha256": "cccbb42811577e971a7950a8346e4c135df057bf24dfe5b73361450cfb7e87fe"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整版正文未逐字校读；仅报面身份和可见题名达到身份片段门禁。",
+    "promotion_scope": "允许引用题名身份、报刊日期、版次和来源SHA；不将报刊报道扩展为政府公函或民盟公告原件，也不绕过试用数据库授权边界。"
+  }
+}

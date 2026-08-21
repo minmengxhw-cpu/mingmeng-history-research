@@ -303,6 +303,16 @@ def test_1947_research_packet_carries_event_source_map_without_body():
 
     packet = build_research_packet("domestic-1947-illegal-dissolution")
     assert packet is not None
+    assert packet["counts"]["citation_fragment_count"] == 2
+    fragments = {item["source_id"]: item for item in packet["citation_fragments"]}
+    assert set(fragments) == {
+        "nlc-dagongbao-shanghai-1947-11-06-page2",
+        "nlc-dagongbao-tianjin-1947-11-06-page2",
+    }
+    assert fragments["nlc-dagongbao-shanghai-1947-11-06-page2"]["page_id"] == 1773
+    assert fragments["nlc-dagongbao-tianjin-1947-11-06-page2"]["page_id"] == 1774
+    assert all(item["printed_page"] is None for item in fragments.values())
+    assert all(item["body_text_included"] is False for item in fragments.values())
     assert packet["counts"]["event_source_map_count"] == 1
     assert packet["counts"]["event_source_page_record_count"] == 67
     source_map = packet["event_source_maps"][0]
@@ -352,6 +362,8 @@ def test_1947_research_packet_carries_event_source_map_without_body():
     assert "/research/gaps" in html
     assert "/domestic/acquisition?event=domestic-1947-illegal-dissolution" in html
     assert "一手证据仍开放" in html
+    assert "1947年《大公報》上海版民盟今日解散题名身份" in html
+    assert "1947年《大公報》天津版民盟宣布解散题名身份" in html
     assert "primary_evidence_closed" not in html
     assert "正文已核验" not in html
     public_map = _load_event_source_map("domestic-1947-illegal-dissolution", public=True)
