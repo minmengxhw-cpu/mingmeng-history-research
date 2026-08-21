@@ -1128,6 +1128,7 @@ PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisit
                         "/domestic/evidence-review", "/domestic/search", "/domestic/document",
                         "/domestic/quality", "/domestic/acquisition", "/domestic/academic",
                         "/domestic/intake",
+                        "/domestic/workbench",
                         "/domestic/sourcebook", "/domestic/citations", "/domestic/page-image",
                         "/domestic/source-file",
                         "/research/gaps"}
