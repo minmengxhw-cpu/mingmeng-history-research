@@ -232,6 +232,31 @@ def test_domestic_workbench_is_the_research_front_door():
     assert "primary_evidence_closed" not in body
 
 
+def test_authorized_original_intake_page_is_honest_before_download(tmp_path, monkeypatch):
+    previous = getattr(app._request, "public_mode", False)
+    monkeypatch.setattr(
+        app,
+        "AUTHORIZED_ORIGINAL_INTAKE_REPORT_PATH",
+        tmp_path / "missing" / "REPORT.json",
+    )
+    monkeypatch.setattr(
+        app,
+        "AUTHORIZED_ORIGINAL_INTAKE_MANIFEST_PATH",
+        tmp_path / "missing" / "INTAKE_MANIFEST.jsonl",
+    )
+    app._request.public_mode = False
+    try:
+        body = app.domestic_authorized_intake_page().decode("utf-8")
+    finally:
+        app._request.public_mode = previous
+    assert "授权原件接收前置门禁" in body
+    assert "1947-10-27" in body
+    assert "1947-11-06" in body
+    assert "尚未运行接收检查" in body
+    assert "不 OCR" in body
+    assert "正式引用" in body
+
+
 def test_1949_journal_routes_keep_page_identity_and_open_gap():
     previous = getattr(app._request, "public_mode", False)
     app._request.public_mode = False

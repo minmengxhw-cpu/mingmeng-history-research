@@ -106,6 +106,9 @@ ACADEMIC_METADATA_INDEX_PATH = DATA_ROOT / "domestic" / "academic_layer_metadata
 ACADEMIC_FULLTEXT_QUEUE_PATH = DATA_ROOT / "domestic" / "academic_fulltext_priority_queue.json"
 SOURCE_ADMISSION_POLICY_PATH = DATA_ROOT / "domestic" / "source_admission_policy.json"
 PRIMARY_RETRIEVAL_QUEUE_PATH = DATA_ROOT / "domestic" / "primary_retrieval_queue.json"
+AUTHORIZED_ORIGINAL_INTAKE_TARGETS_PATH = DATA_ROOT / "domestic" / "authorized_original_intake_targets_20260821.json"
+AUTHORIZED_ORIGINAL_INTAKE_REPORT_PATH = WORK_ROOT / "domestic" / "authorized_original_intake_20260821" / "REPORT.json"
+AUTHORIZED_ORIGINAL_INTAKE_MANIFEST_PATH = WORK_ROOT / "domestic" / "authorized_original_intake_20260821" / "INTAKE_MANIFEST.jsonl"
 PCC_1946_SOURCEBOOK_MAP_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_targets.json"
 PCC_1946_RENDER_MANIFEST_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_render_manifest.json"
 PCC_1946_SOURCEBOOK_PATH = DATA_ROOT / "domestic" / "sourcebooks" / "NLC416-01jh004019-12949_政協文獻_1946.pdf"
@@ -970,6 +973,7 @@ PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisit
                         "/open-sources", "/dashboard", "/review", "/excluded", "/domestic/review",
                         "/domestic/evidence-review", "/domestic/search", "/domestic/document",
                         "/domestic/quality", "/domestic/acquisition", "/domestic/academic",
+                        "/domestic/intake",
                         "/domestic/sourcebook", "/domestic/citations", "/research/gaps"}
 
 PUBLIC_DOMESTIC_LEVELS = {"L0", "L1", "L2", "L3"}
@@ -7072,6 +7076,7 @@ def domestic_workbench_page() -> bytes:
   <a class="button" href="/research">九专题总览</a>
   <a class="button" href="/research/gaps">一手证据缺口</a>
   <a class="button" href="/research/packets">研究包</a>
+  <a class="button" href="/domestic/intake">授权原件接收</a>
   <a class="button" href="/domestic/citations/fragments">片段证据台账</a>
   <a class="button secondary" href="/research/parity">国内外对齐</a>
   <a class="button secondary" href="/domestic/library">核心可阅库</a>
@@ -7083,6 +7088,81 @@ def domestic_workbench_page() -> bytes:
 <section class="result-list">{''.join(cards)}</section>
 """
     return layout("国内研究平台", body, active_path="/domestic/workbench")
+
+
+def domestic_authorized_intake_page() -> bytes:
+    """Show the metadata-only state of the authorized-original intake gate."""
+    targets: list[dict] = []
+    try:
+        payload = json.loads(AUTHORIZED_ORIGINAL_INTAKE_TARGETS_PATH.read_text(encoding="utf-8"))
+        targets = [row for row in payload.get("targets", []) if isinstance(row, dict)]
+    except (OSError, json.JSONDecodeError):
+        targets = []
+
+    report: dict = {}
+    try:
+        value = json.loads(AUTHORIZED_ORIGINAL_INTAKE_REPORT_PATH.read_text(encoding="utf-8"))
+        report = value if isinstance(value, dict) else {}
+    except (OSError, json.JSONDecodeError):
+        report = {}
+
+    manifest_by_target: dict[str, dict] = {}
+    if AUTHORIZED_ORIGINAL_INTAKE_MANIFEST_PATH.is_file():
+        try:
+            for line in AUTHORIZED_ORIGINAL_INTAKE_MANIFEST_PATH.read_text(encoding="utf-8").splitlines():
+                if not line.strip():
+                    continue
+                row = json.loads(line)
+                if isinstance(row, dict) and row.get("target_id"):
+                    manifest_by_target[str(row["target_id"])] = row
+        except (OSError, json.JSONDecodeError):
+            manifest_by_target = {}
+
+    status_labels = {
+        "NOT_RUN": "尚未运行接收检查",
+        "WAITING_FOR_LOCAL_ORIGINAL": "等待本地授权原件",
+        "WAITING_FOR_EXPLICIT_MAPPING": "等待显式目标映射",
+        "HOLD_MAPPING_METADATA": "来源/权利元数据不完整",
+        "HOLD_SHA256_MISMATCH": "SHA256 不一致，暂停",
+        "HASHED_NEEDS_PAGE_COUNT": "已哈希，等待页数",
+        "STAGED_NEEDS_PAGE_IDENTITY_REVIEW": "等待页身份人工复核",
+        "STAGED_READY_FOR_DRY_RUN": "可进入 staging dry-run",
+    }
+    cards: list[str] = []
+    ready_count = 0
+    for target in targets:
+        target_id = str(target.get("target_id") or "")
+        row = manifest_by_target.get(target_id, {})
+        status = str(row.get("status") or "NOT_RUN")
+        if status == "STAGED_READY_FOR_DRY_RUN":
+            ready_count += 1
+        missing = row.get("missing_fields") or []
+        missing_label = "、".join(str(value) for value in missing[:6]) or "无"
+        status_class = "ok" if status == "STAGED_READY_FOR_DRY_RUN" else "warn"
+        cards.append(
+            f"""
+<article class="result compact-result"><div>
+  <h3>{h(target.get('title') or target_id)}</h3>
+  <div class="tagline"><span class="pstatus {status_class}">{h(status_labels.get(status, status))}</span><span class="tag">{h(target.get('document_date') or '日期待核')}</span></div>
+  <div class="snippet">缺少或待复核字段：{h(missing_label)}</div>
+</div><div class="cite"><a href="/domestic/acquisition?event={quote(str(target.get('event_id') or ''), safe='')}">调档目标</a></div></article>"""
+        )
+
+    report_status = str(report.get("status") or "NOT_RUN")
+    incoming_count = int(report.get("incoming_file_count") or 0)
+    generated_at = str(report.get("generated_at") or "尚未生成")
+    body = breadcrumb_html([
+        ("/", "首页"),
+        ("/domestic/workbench", "国内研究平台"),
+        (None, "授权原件接收"),
+    ]) + f"""
+<section class="doc-head"><div><h1>授权原件接收前置门禁</h1><div class="meta">只登记授权文件、来源、SHA256、权利和页身份；不读取正文、不 OCR、不写正式 SQLite。</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button secondary" href="/domestic/acquisition">调档清单</a></div></section>
+<section class="stats"><div class="stat"><strong>{h(len(targets))}</strong><span>P0 目标</span></div><div class="stat"><strong>{h(incoming_count)}</strong><span>incoming 文件</span></div><div class="stat"><strong>{h(ready_count)}</strong><span>可 dry-run</span></div><div class="stat"><strong>{h(report_status)}</strong><span>接收报告</span></div></section>
+<div class="notice">当前报告：{h(generated_at)}。运行命令：<code>python3 scripts/domestic/prepare_authorized_original_intake.py</code>。只有显式映射、来源/权利字段、文件哈希、页数和页身份复核齐全，才会显示“可进入 staging dry-run”；这仍不等于正式引用或主证据闭合。</div>
+<section class="section-head"><h2>P0 原件目标</h2><span class="section-meta">状态与正式引用门禁分离</span></section>
+<section class="result-list">{''.join(cards) or '<div class="notice">目标配置未找到。</div>'}</section>
+"""
+    return layout("授权原件接收", body, active_path="/domestic/intake")
 
 
 def research_topics_page() -> bytes:
@@ -12471,6 +12551,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = _domestic_facet_page("places")
         elif parsed.path == "/domestic/acquisition":
             payload = domestic_acquisition_page(qs.get("event", [""])[0])
+        elif parsed.path == "/domestic/intake":
+            payload = domestic_authorized_intake_page()
         elif parsed.path.startswith("/domestic/evidence-review/"):
             try:
                 page_id_int = int(parsed.path.removeprefix("/domestic/evidence-review/"))

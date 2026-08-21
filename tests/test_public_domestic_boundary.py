@@ -54,6 +54,7 @@ def test_public_mode_hides_internal_domestic_workbench_routes():
     assert "/domestic/academic" in app.PUBLIC_HIDDEN_PATHS
     assert "/domestic/quality" in app.PUBLIC_HIDDEN_PATHS
     assert "/domestic/acquisition" in app.PUBLIC_HIDDEN_PATHS
+    assert "/domestic/intake" in app.PUBLIC_HIDDEN_PATHS
     assert "/research/gaps" in app.PUBLIC_HIDDEN_PATHS
 
 
