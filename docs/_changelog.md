@@ -10,6 +10,11 @@
 - 新增 [`DOMESTIC_PLATFORM_PARITY_ROADMAP_20260822.md`](domestic/DOMESTIC_PLATFORM_PARITY_ROADMAP_20260822.md)，按 9 个专题、181 个严格引用页、197 个四层证据链页级条目和 159 条学术元数据匹配重算当前基线。
 - 明确当前是 `9/9 navigation_ready`、`9/9 research_usable_with_boundaries`、`0/9 research_ready`、`OPEN_PRIMARY_GAPS`；后续以三个旗舰专题和两个 1947 P0 原件为主要收口目标。
 
+### 国内工作台接入授权原件状态
+
+- 新增 `/domestic/intake` 内部页面，从 P0 目标配置和接收报告展示“等待原件、等待映射、页身份复核、可 dry-run”等状态。
+- 页面不展示正文或本地文件路径，明确不 OCR、不写正式 SQLite、不等同于严格引用；真实 HTTP 路由和公开模式隐藏边界已回归通过。
+
 ## 2026-08-21
 
 ### 授权原件接收前置门禁
