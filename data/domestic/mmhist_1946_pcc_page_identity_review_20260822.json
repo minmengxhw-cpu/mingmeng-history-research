@@ -1,0 +1,30 @@
+{
+  "schema": "domestic_mmhist_1946_pcc_page_identity_review.v1",
+  "generated_at": "2026-08-22",
+  "body_text_included": false,
+  "ocr_text_included": false,
+  "review_scope": "1983年《中国民主同盟历史文献 1941—1949》汇编页身份、标题/日期和页界；不确认逐字正文，不替代1946年政协原始记录",
+  "source_file": "data/domestic/sourcebooks/中国民主同盟历史文献_1941-1949_公开扫描.pdf",
+  "source_sha256": "257bb7be70abe374be9864ec451b5a4a90e2442ae8c877b15f4e6bbb8bb30be3",
+  "reviewer": "codex-visual-audit-20260822",
+  "visual_review_method": "local_page_image_visual_review",
+  "pages": [
+    {"page_id": 18869, "pdf_page_no": 145, "printed_page": "115", "label": "pdf-145 / printed-115 / 中国民主同盟发言人对时局发表谈话", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0145.png", "page_image_sha256": "56869ad85b394b396938d0a88b41ef947e1a6d9e5288c84b57311b044b379ac6"},
+    {"page_id": 18871, "pdf_page_no": 147, "printed_page": "117", "label": "pdf-147 / printed-117 / 中国民主同盟主席张澜在政治协商会议开幕式上的讲话", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0147.png", "page_image_sha256": "774720f058890957cb4fbfd3b5e065c2e0f1162fa84764b8dd6a59dc08320e2f"},
+    {"page_id": 18872, "pdf_page_no": 148, "printed_page": "118", "label": "pdf-148 / printed-118 / 张澜政协开幕式讲话续页", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0148.png", "page_image_sha256": "174afbdbbbc2a4678ab28fbe996f0dda0fa43b59fe3565677b83214962e9dcb4"},
+    {"page_id": 18873, "pdf_page_no": 149, "printed_page": "119", "label": "pdf-149 / printed-119 / 张澜政协开幕式讲话收束页", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0149.png", "page_image_sha256": "6555674273a41976b7498631fb02ca9d3fa7ef6973dc43d0b4444cd84f710dc8"},
+    {"page_id": 18874, "pdf_page_no": 150, "printed_page": "120", "label": "pdf-150 / printed-120 / 张东荪人民基本自由权利发言", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0150.png", "page_image_sha256": "ff5220a340d27daa887046fee57f31b60dcf7f7de2e0e630da8d882afbc92653"},
+    {"page_id": 18875, "pdf_page_no": 151, "printed_page": "121", "label": "pdf-151 / printed-121 / 罗隆基改组政府三原则", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0151.png", "page_image_sha256": "f96b72e5eb763631214d41a3c46b1425e2a70be9e3821fc25b2799a3b67c3500"},
+    {"page_id": 18876, "pdf_page_no": 152, "printed_page": "122", "label": "pdf-152 / printed-122 / 罗隆基改组政府三原则续页", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0152.png", "page_image_sha256": "2cc922eb068d964737c24992bc83cae8b3b51f0a71c0446a535e77938d35f9aa"},
+    {"page_id": 18877, "pdf_page_no": 153, "printed_page": "123", "label": "pdf-153 / printed-123 / 中国民主同盟关于军事问题的提案", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0153.png", "page_image_sha256": "8abaea0084d47c22a144aa18e97e1570697d98e9999e25f2b320c96b6f12a7f2"},
+    {"page_id": 18881, "pdf_page_no": 157, "printed_page": "127", "label": "pdf-157 / printed-127 / 章伯钧共同纲领发言", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0157.png", "page_image_sha256": "76ec0adb4f886f1242291b49a01c74b70bace61f4c6a94be6be441c865bd4c00"},
+    {"page_id": 18882, "pdf_page_no": 158, "printed_page": "128", "label": "pdf-158 / printed-128 / 黄炎培共同纲领发言", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0158.png", "page_image_sha256": "444b1a4cb8b06d05878a10c158a1f9d4e6363c3c28beced3c589e338a9da5d2c"},
+    {"page_id": 18883, "pdf_page_no": 159, "printed_page": "129", "label": "pdf-159 / printed-129 / 罗隆基共同纲领发言", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0159.png", "page_image_sha256": "4fb0231b18deb9fcb3da380090516ff8f34f0757d66016ca8eea406cb8b8ec42"},
+    {"page_id": 18884, "pdf_page_no": 160, "printed_page": "130", "label": "pdf-160 / printed-130 / 罗隆基国民大会主张", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0160.png", "page_image_sha256": "f076cbd031100ad244043fabc861aba6a03ddfd61718179e90f1c50a1ec1c8af"},
+    {"page_id": 18885, "pdf_page_no": 161, "printed_page": "131", "label": "pdf-161 / printed-131 / 罗隆基国民大会主张续页", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0161.png", "page_image_sha256": "18f55e2d66297a2690bb55581e9aa7ab906df0c751fb738ae2fc3d4b379fe12c"},
+    {"page_id": 18886, "pdf_page_no": 162, "printed_page": "132", "label": "pdf-162 / printed-132 / 章伯钧国民大会五项主张", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0162.png", "page_image_sha256": "45159ee8add0246ce1415e4f6e6ee036fce0d45cdda1efc019493672276843cc"},
+    {"page_id": 18887, "pdf_page_no": 163, "printed_page": "133", "label": "pdf-163 / printed-133 / 章伯钧国民大会五项主张续页", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0163.png", "page_image_sha256": "e8fbd0aed6af006c37f8185a8018bac0918494299121d3ffca274ee079ec272f"},
+    {"page_id": 18888, "pdf_page_no": 164, "printed_page": "134", "label": "pdf-164 / printed-134 / 章伯钧国民大会五项主张收束页", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0164.png", "page_image_sha256": "c21ef168a1ff333de4bc7d05dc320f0f31364da7dac82303a97c7b25a0200f58"},
+    {"page_id": 18889, "pdf_page_no": 165, "printed_page": "135", "label": "pdf-165 / printed-135 / 黄炎培修改宪章发言", "page_image_path": "work/domestic/month_20260728/pages/SRC-257bb7be70/images/page-0165.png", "page_image_sha256": "972b6543a5e9198cb0be566efb65df7a4f71b542301614ac2c04554e2bccd592"}
+  ]
+}

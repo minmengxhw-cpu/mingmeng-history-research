@@ -2726,7 +2726,7 @@
           "next_action": "先用正式库页18869、18871—18889核对民盟发言题名、页界和汇编范围；这些页是有边界的后出汇编，不是政协原始记录，不重复OCR。随后追索1946年政协正式会议记录、民盟代表发言/提案原件及完整日期轴，取得前不关闭主证据缺口。",
           "candidate_route_count": 19,
           "formal_page_count": 24,
-          "formal_strict_citation_page_count": 0
+          "formal_strict_citation_page_count": 12
         }
       ],
       "event_link_pages": [
@@ -3349,30 +3349,30 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 3,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 3,
           "formal_provenance_page_count": 3,
           "formal_anchored_page_count": 3,
           "formal_pages": [
             {
               "page_id": 18871,
-              "page_label": "147",
+              "page_label": "pdf-147 / printed-117 / 中国民主同盟主席张澜在政治协商会议开幕式上的讲话",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 18872,
-              "page_label": "148",
+              "page_label": "pdf-148 / printed-118 / 张澜政协开幕式讲话续页",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 18873,
-              "page_label": "149",
+              "page_label": "pdf-149 / printed-119 / 张澜政协开幕式讲话收束页",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
@@ -3380,8 +3380,12 @@
             18872,
             18873
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18871,
+            18872,
+            18873
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协张澜开幕式讲话页组（正式汇编）",
             "page_ids": [
@@ -3424,23 +3428,25 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 1,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
           "formal_pages": [
             {
               "page_id": 18882,
-              "page_label": "158",
+              "page_label": "pdf-158 / printed-128 / 黄炎培共同纲领发言",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
             18882
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18882
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协黄炎培共同纲领发言起始页（正式汇编）",
             "page_ids": [
@@ -3481,23 +3487,25 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 1,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
           "formal_pages": [
             {
               "page_id": 18877,
-              "page_label": "153",
+              "page_label": "pdf-153 / printed-123 / 中国民主同盟关于军事问题的提案",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
             18877
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18877
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协民盟军事提案起始页（正式汇编）",
             "page_ids": [
@@ -3538,23 +3546,25 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 1,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
           "formal_pages": [
             {
               "page_id": 18883,
-              "page_label": "159",
+              "page_label": "pdf-159 / printed-129 / 罗隆基共同纲领发言",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
             18883
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18883
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协罗隆基共同纲领发言起始页（正式汇编）",
             "page_ids": [
@@ -3595,31 +3605,34 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 2,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 2,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
           "formal_pages": [
             {
               "page_id": 18875,
-              "page_label": "151",
+              "page_label": "pdf-151 / printed-121 / 罗隆基改组政府三原则",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 18876,
-              "page_label": "152",
+              "page_label": "pdf-152 / printed-122 / 罗隆基改组政府三原则续页",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
             18875,
             18876
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18875,
+            18876
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协罗隆基改组政府发言页组（正式汇编）",
             "page_ids": [
@@ -3661,23 +3674,25 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 1,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
           "formal_pages": [
             {
               "page_id": 18869,
-              "page_label": "145",
+              "page_label": "pdf-145 / printed-115 / 中国民主同盟发言人对时局发表谈话",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
             18869
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18869
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946-01-02民盟时局谈话起始页（正式汇编）",
             "page_ids": [
@@ -3718,23 +3733,25 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 1,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
           "formal_pages": [
             {
               "page_id": 18881,
-              "page_label": "157",
+              "page_label": "pdf-157 / printed-127 / 章伯钧共同纲领发言",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
             18881
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18881
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协章伯钧共同纲领发言起始页（正式汇编）",
             "page_ids": [
@@ -3775,23 +3792,25 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 1,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
           "formal_pages": [
             {
               "page_id": 18874,
-              "page_label": "150",
+              "page_label": "pdf-150 / printed-120 / 张东荪人民基本自由权利发言",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
             18874
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18874
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协张东荪自由权利发言起始页（正式汇编）",
             "page_ids": [
@@ -3832,23 +3851,25 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 1,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 1,
           "formal_provenance_page_count": 1,
           "formal_anchored_page_count": 1,
           "formal_pages": [
             {
               "page_id": 18889,
-              "page_label": "165",
+              "page_label": "pdf-165 / printed-135 / 黄炎培修改宪章发言",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
             18889
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18889
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协黄炎培宪草发言起始页（正式汇编）",
             "page_ids": [
@@ -3873,7 +3894,7 @@
           "next_action": "先复核正式库页19000的1946-11-14《紧急通告》身份，并对照页18884—18888的旧政协汇编范围；不把汇编重刊当独立通告原件，也不重复OCR。随后追民盟中央底本、张澜/罗隆基等函电和1946-11-14同期报刊原版，取得前不关闭主证据缺口。",
           "candidate_route_count": 15,
           "formal_page_count": 19,
-          "formal_strict_citation_page_count": 0
+          "formal_strict_citation_page_count": 5
         }
       ],
       "event_link_pages": [
@@ -4610,30 +4631,30 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 3,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 3,
           "formal_provenance_page_count": 3,
           "formal_anchored_page_count": 3,
           "formal_pages": [
             {
               "page_id": 18886,
-              "page_label": "162",
+              "page_label": "pdf-162 / printed-132 / 章伯钧国民大会五项主张",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 18887,
-              "page_label": "163",
+              "page_label": "pdf-163 / printed-133 / 章伯钧国民大会五项主张续页",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 18888,
-              "page_label": "164",
+              "page_label": "pdf-164 / printed-134 / 章伯钧国民大会五项主张收束页",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
@@ -4641,8 +4662,12 @@
             18887,
             18888
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18886,
+            18887,
+            18888
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协章伯钧国民大会主张页组（正式汇编）",
             "page_ids": [
@@ -4723,31 +4748,34 @@
           "formal_ingested_document_id": 1291,
           "formal_doc_key": "domestic-page/SRC-257bb7be70",
           "formal_page_count": 2,
-          "formal_strict_citation_page_count": 0,
+          "formal_strict_citation_page_count": 2,
           "formal_provenance_page_count": 2,
           "formal_anchored_page_count": 2,
           "formal_pages": [
             {
               "page_id": 18884,
-              "page_label": "160",
+              "page_label": "pdf-160 / printed-130 / 罗隆基国民大会主张",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 18885,
-              "page_label": "161",
+              "page_label": "pdf-161 / printed-131 / 罗隆基国民大会主张续页",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
             18884,
             18885
           ],
-          "formal_strict_page_ids": [],
-          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_strict_page_ids": [
+            18884,
+            18885
+          ],
+          "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT",
           "formal_page_scope": {
             "scope_label": "1946旧政协罗隆基国民大会发言页组（正式汇编）",
             "page_ids": [
