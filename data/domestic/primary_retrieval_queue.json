@@ -44,7 +44,7 @@
           "why_it_matters": "决定“成立时间、签署主体、文本版本”能否以原始底本作严格引用。",
           "status": "open",
           "retrieval_class": "CATALOGUE_OR_SURROGATE_REVIEW",
-          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "香港大学目录已确认1941-09-18至12-12《光明報》微缩胶卷且无缺期；优先申请1941-10-10，并记录call number、载体、影像SHA256、页码和复制许可。目录不是原刊影像；取得前不要重复OCR或关闭主证据缺口。",
           "candidate_route_count": 12,
           "formal_page_count": 13,
           "formal_strict_citation_page_count": 5
