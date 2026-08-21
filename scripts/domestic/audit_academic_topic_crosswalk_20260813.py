@@ -9,6 +9,7 @@ not read source bodies or change either SQLite database.
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
 import sys
 from pathlib import Path
@@ -30,7 +31,6 @@ def load_tracked_crosswalk(path: Path, db_path: Path) -> dict:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         return {
-            "db_path": str(db_path),
             "body_read": False,
             "source": "tracked_metadata_crosswalk",
             "snapshot_only": True,
@@ -39,7 +39,6 @@ def load_tracked_crosswalk(path: Path, db_path: Path) -> dict:
         }
     if not isinstance(payload, dict):
         return {
-            "db_path": str(db_path),
             "body_read": False,
             "source": "tracked_metadata_crosswalk",
             "snapshot_only": True,
@@ -49,7 +48,6 @@ def load_tracked_crosswalk(path: Path, db_path: Path) -> dict:
     topics = payload.get("topics")
     if payload.get("status") != "PASS" or payload.get("body_read") is not False or not isinstance(topics, list):
         return {
-            "db_path": str(db_path),
             "body_read": False,
             "source": "tracked_metadata_crosswalk",
             "snapshot_only": True,
@@ -57,9 +55,9 @@ def load_tracked_crosswalk(path: Path, db_path: Path) -> dict:
             "reason": "tracked academic crosswalk is not a PASS/body_read=false snapshot",
         }
     report = dict(payload)
+    report.pop("db_path", None)
     report.update(
         {
-            "db_path": str(db_path),
             "source": "tracked_metadata_crosswalk",
             "snapshot_only": True,
             "audit_mode": "metadata_crosswalk_replay",
@@ -107,9 +105,12 @@ def main() -> int:
             }
         )
     report = {
-        "db_path": str(args.db),
+        "schema_version": "academic_topic_crosswalk.v1",
+        "generated_at": dt.date.today().isoformat(),
         "body_read": False,
+        "purpose": "国内九个核心专题的学术解释层元数据快照；只保存专题匹配数量、质量层级和不含正文的记录标识。",
         "matching_basis": "structured metadata fields plus title/author/institution; not body semantics",
+        "source_scope": "local staging metadata snapshot; full records and any academic full text remain outside the code repository",
         "topics": topics,
         "total_topic_matches": sum(int(topic["matched_records"]) for topic in topics),
         "source": "staging_sqlite",

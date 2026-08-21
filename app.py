@@ -4522,9 +4522,17 @@ def domestic_academic_page() -> bytes:
 <div class="notice">该队列只从版本化学术元数据中生成，优先安排 S/A 记录；它不读取正文、不包含本地路径、不写正式库。P0/P1 是下一轮获取稳定全文和页码的工作入口，完成页级取证后仍需 SHA-256、版本关系和复核，citation-ready 不会由队列自动改变。<br><a href="/domestic/search?scope=research&amp;availability=fulltext">查看稳定全文候选</a> · <a href="/domestic/search?scope=research&amp;availability=candidate">查看全文候选</a></div>'''
     else:
         queue_section = '<div class="section-head"><h2><svg class="ico"><use href="#i-arrow-right"/></svg>全文取证优先队列</h2></div><div class="notice">当前 checkout 尚未生成版本化全文取证队列；学术元数据仍可用于发现和专题交叉索引。</div>'
+    metadata_records = _load_academic_metadata_index()
+    gap_note_count = sum(1 for record in metadata_records if _academic_record_is_gap_note(record))
+    gap_note_notice = (
+        f'<div class="notice"><strong>资料角色分流：</strong>已识别 {h(gap_note_count)} 条研究缺口说明；它们保留用于追踪未取得的学术资料，但不进入学术专题匹配、全文队列或高质量文章展示。</div>'
+        if gap_note_count
+        else ""
+    )
     body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/domestic", "国内史料"), (None, "学术研究层")]) + f"""
 <section class="doc-head"><div><h1>国内学术研究层</h1><div class="meta">把学术论文、专著、档案指南和民盟中央研究资料放入解释层，并与一手史料分开管理。</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/domestic/search?scope=research">检索研究资料</a><a class="button secondary" href="/research">多源专题</a><a class="button secondary" href="/research/gaps">一手证据缺口</a></div></section>
 {availability}
+{gap_note_notice}
 <div class="notice"><strong>核心口径：</strong>{h(policy.get("purpose") or "学术研究用于解释、索引和交叉核对，不自动替代一手史料。")}
 <br><strong>机构核验：</strong>{h(policy.get("institution_rule") or "机构层级必须回到可追溯的记录字段和来源。")}
 <br><strong>全文门禁：</strong>{h(policy.get("fulltext_rule") or "目录、摘要、OCR 和索引页不自动进入正式引文。")}</div>
@@ -4640,6 +4648,8 @@ def domestic_metadata_academic_search_page(
     like = raw_q.casefold()
     matched: list[dict[str, object]] = []
     for record in records:
+        if _academic_record_is_gap_note(record):
+            continue
         metadata = record.get("metadata") if isinstance(record.get("metadata"), dict) else {}
         if tier and str(record.get("quality_tier") or "").strip().upper() != tier:
             continue
@@ -6987,6 +6997,36 @@ def _research_topic_event_page_rows(
     return result
 
 
+def _academic_record_is_gap_note(record: object) -> bool:
+    """Return true for task notes that must not masquerade as scholarship."""
+    try:
+        keys = record.keys()  # sqlite3.Row and dict both expose keys()
+    except AttributeError:
+        keys = []
+
+    def value(key: str) -> object:
+        if isinstance(record, dict):
+            return record.get(key)
+        if key in keys:
+            return record[key]
+        return None
+
+    if str(value("record_role") or "") == "RESEARCH_GAP_NOTE":
+        return True
+    try:
+        metadata = json.loads(str(value("metadata_json") or "{}"))
+    except (TypeError, json.JSONDecodeError):
+        metadata = {}
+    if not isinstance(metadata, dict):
+        metadata = {}
+    return (
+        str(value("author") or "").strip() == "本层著录"
+        and str(value("institution") or "").strip() == "任务记录"
+        and str(metadata.get("publisher") or "").strip() == "本任务"
+        and str(metadata.get("verification_note") or "").strip().startswith("真实缺口")
+    )
+
+
 def _research_academic_matches(
     item: dict[str, object], comparison: dict[str, object], limit: int = 10
 ) -> dict[str, object]:
@@ -7087,6 +7127,8 @@ def _research_academic_matches(
         "FULLTEXT_PDF_CANDIDATE": 1,
     }
     for source in source_rows:
+        if _academic_record_is_gap_note(source):
+            continue
         try:
             metadata = json.loads(str(source["metadata_json"] or "{}"))
         except (TypeError, json.JSONDecodeError):

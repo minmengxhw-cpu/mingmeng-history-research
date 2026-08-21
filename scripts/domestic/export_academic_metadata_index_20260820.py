@@ -65,6 +65,19 @@ def clean_metadata(raw: object) -> dict[str, object]:
     return result
 
 
+def record_role(row: sqlite3.Row, metadata: dict[str, object]) -> str:
+    """Separate research-gap notes from actual explanation-layer materials."""
+    author = str(row["author"] or "").strip()
+    institution = str(row["institution"] or "").strip()
+    if author == "本层著录" and institution == "任务记录":
+        return "RESEARCH_GAP_NOTE"
+    if str(row["layer"] or "") == "SCHOLARLY_RESEARCH":
+        return "SCHOLARLY_RESEARCH"
+    if str(row["layer"] or "") == "OFFICIAL_RETROSPECTIVE":
+        return "OFFICIAL_RETROSPECTIVE"
+    return "OTHER_RESEARCH_RECORD"
+
+
 def normalize_title(value: object) -> str:
     return re.sub(r"[\s\W_]+", "", str(value or ""), flags=re.UNICODE).casefold()
 
@@ -109,6 +122,7 @@ def export(db_path: Path, output_path: Path) -> dict[str, Any]:
         metadata = clean_metadata(row["metadata_json"])
         row_url = safe_url(row["source_url"])
         metadata_url = safe_url(metadata.get("source_url"))
+        role = record_role(row, metadata)
         records.append(
             {
                 "external_id": external_id,
@@ -124,6 +138,8 @@ def export(db_path: Path, output_path: Path) -> dict[str, Any]:
                 "review_status": str(row["review_status"] or ""),
                 "citation_ready": int(row["citation_ready"] or 0),
                 "human_verified": int(row["human_verified"] or 0),
+                "record_role": role,
+                "academic_crosswalk_eligible": role != "RESEARCH_GAP_NOTE",
                 "metadata": metadata,
                 "duplicate_group_id": duplicate_group_by_id.get(external_id, ""),
                 "version_relation": (

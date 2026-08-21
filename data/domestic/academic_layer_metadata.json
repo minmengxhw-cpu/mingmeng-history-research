@@ -1,6 +1,6 @@
 {
   "schema_version": "domestic_academic_layer_metadata.v1",
-  "generated_at": "2026-08-20",
+  "generated_at": "2026-08-22",
   "source_scope": "staging_metadata_only",
   "body_read": false,
   "formal_db_written": false,
@@ -144,6 +144,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "1946拒绝国民大会",
@@ -175,6 +177,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "1946政治协商会议",
@@ -212,6 +216,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "1945民盟一大",
@@ -243,6 +249,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "云南民盟组织"
@@ -277,6 +285,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "第二次宪政运动"
@@ -310,6 +320,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "统一建国同志会"
@@ -343,6 +355,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "文化纲领"
@@ -369,6 +383,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941",
@@ -399,6 +415,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "宪政"
@@ -429,6 +447,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "西南联大"
@@ -463,6 +483,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "宪政运动"
@@ -493,6 +515,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主概念"
@@ -520,6 +544,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "宪政运动"
@@ -553,6 +579,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "统一建国同志会名称辨析"
@@ -582,6 +610,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -612,6 +642,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "旧政协",
@@ -647,6 +679,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "第三方面与民主运动"
@@ -676,6 +710,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "合作演变"
@@ -707,6 +743,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -733,6 +771,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "西方民主"
@@ -761,6 +801,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案善后"
@@ -794,6 +836,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -824,6 +868,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "中间路线"
@@ -858,6 +904,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主思想/民盟政制"
@@ -893,6 +941,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "RESEARCH_GAP_NOTE",
+      "academic_crosswalk_eligible": false,
       "metadata": {
         "events": [
           "组织扩展"
@@ -922,6 +972,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "五一口号",
@@ -952,6 +1004,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "抗战建国协进会"
@@ -982,6 +1036,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1940s前史"
@@ -1008,6 +1064,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "学科史"
@@ -1036,6 +1094,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -1062,6 +1122,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案",
@@ -1101,6 +1163,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944"
@@ -1130,6 +1194,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "旧政协",
@@ -1157,6 +1223,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -1183,6 +1251,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "总部解散"
@@ -1218,6 +1288,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "新政协",
@@ -1245,6 +1317,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "五一口号",
@@ -1277,6 +1351,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主思想"
@@ -1303,6 +1379,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案善后"
@@ -1338,6 +1416,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案"
@@ -1370,6 +1450,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944"
@@ -1396,6 +1478,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "前史"
@@ -1422,6 +1506,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟解散"
@@ -1460,6 +1546,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "1940年代研究",
@@ -1488,6 +1576,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "中间路线论战"
@@ -1522,6 +1612,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主论述"
@@ -1549,6 +1641,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主政团同盟成立",
@@ -1600,6 +1694,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "五一口号",
@@ -1634,6 +1730,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟解散",
@@ -1669,6 +1767,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "宪政运动"
@@ -1700,6 +1800,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "皖南事变",
@@ -1741,6 +1843,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "特园成立"
@@ -1773,6 +1877,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -1799,6 +1905,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主思想"
@@ -1825,6 +1933,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -1856,6 +1966,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主思想/民盟政制"
@@ -1886,6 +1998,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟解散",
@@ -1924,6 +2038,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案"
@@ -1957,6 +2073,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案",
@@ -1998,6 +2116,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "闻一多"
@@ -2031,6 +2151,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -2057,6 +2179,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟在港活动",
@@ -2094,6 +2218,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案"
@@ -2126,6 +2252,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -2157,6 +2285,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案"
@@ -2189,6 +2319,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "昆明民主运动"
@@ -2218,6 +2350,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟组建"
@@ -2252,6 +2386,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "闻一多"
@@ -2285,6 +2421,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟解散后在港活动",
@@ -2316,6 +2454,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "宪政运动"
@@ -2347,6 +2487,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟主席文献"
@@ -2384,6 +2526,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -2414,6 +2558,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "闻一多"
@@ -2447,6 +2593,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "五一口号"
@@ -2477,6 +2625,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "政治协商"
@@ -2507,6 +2657,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "第一次宪政运动"
@@ -2536,6 +2688,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主运动"
@@ -2569,6 +2723,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "西南联大"
@@ -2603,6 +2759,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944"
@@ -2629,6 +2787,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主思想/民盟政制"
@@ -2656,6 +2816,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "成立至建国"
@@ -2695,6 +2857,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "新政协筹备"
@@ -2724,6 +2888,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案"
@@ -2757,6 +2923,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "统一建国同志会",
@@ -2794,6 +2962,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟"
@@ -2829,6 +2999,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "各党派委员会"
@@ -2863,6 +3035,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "盟史回忆"
@@ -2902,6 +3076,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "豫湘桂"
@@ -2932,6 +3108,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "七君子",
@@ -2971,6 +3149,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "宪政运动"
@@ -3004,6 +3184,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "全国代表会议",
@@ -3035,6 +3217,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "统一建国同志会",
@@ -3072,6 +3256,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -3098,6 +3284,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "统一建国同志会",
@@ -3137,6 +3325,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "政协",
@@ -3165,6 +3355,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1945-1946",
@@ -3196,6 +3388,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -3224,6 +3418,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "皖南事变"
@@ -3253,6 +3449,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "政治参与"
@@ -3280,6 +3478,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "最后一次讲演"
@@ -3312,6 +3512,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "第三种力量"
@@ -3343,6 +3545,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -3373,6 +3577,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案"
@@ -3406,6 +3612,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "统一建国同志会"
@@ -3442,6 +3650,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "中间路线",
@@ -3477,6 +3687,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "闻一多入盟"
@@ -3510,6 +3722,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案"
@@ -3542,6 +3756,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -3572,6 +3788,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -3598,6 +3816,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "最后一次讲演"
@@ -3630,6 +3850,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "研究述评"
@@ -3661,6 +3883,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -3691,6 +3915,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟西北"
@@ -3726,6 +3952,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941",
@@ -3756,6 +3984,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟人物研究述评"
@@ -3800,6 +4030,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "建国前民盟文件汇编"
@@ -3842,6 +4074,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "统一建国同志会"
@@ -3875,6 +4109,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -3901,6 +4137,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "皖南事变"
@@ -3930,6 +4168,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "昆明民主运动"
@@ -3963,6 +4203,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "对民盟四中全会讲话"
@@ -3992,6 +4234,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -4018,6 +4262,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "第三种力量"
@@ -4050,6 +4296,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主思想/民盟政制"
@@ -4085,6 +4333,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "RESEARCH_GAP_NOTE",
+      "academic_crosswalk_eligible": false,
       "metadata": {
         "events": [
           "人物研究缺口"
@@ -4123,6 +4373,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941"
@@ -4152,6 +4404,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -4182,6 +4436,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "新民主主义"
@@ -4208,6 +4464,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "第三种力量研究史"
@@ -4238,6 +4496,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941",
@@ -4263,6 +4523,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1939-1941",
@@ -4295,6 +4557,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟中央常委"
@@ -4326,6 +4590,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "统一建国同志会",
@@ -4362,6 +4628,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "第三种力量聚合",
@@ -4405,6 +4673,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "皖南事变"
@@ -4434,6 +4704,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "总目"
@@ -4464,6 +4736,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -4494,6 +4768,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "第三种力量"
@@ -4525,6 +4801,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主精神"
@@ -4552,6 +4830,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "成立",
@@ -4584,6 +4864,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "统一建国同志会"
@@ -4613,6 +4895,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -4643,6 +4927,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1945-1946"
@@ -4675,6 +4961,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "合作方式"
@@ -4706,6 +4994,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944",
@@ -4733,6 +5023,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案"
@@ -4766,6 +5058,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主思想"
@@ -4794,6 +5088,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "historical_periods": [
           "1944"
@@ -4820,6 +5116,8 @@
       "review_status": "machine_fulltext_candidate",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民盟解散",
@@ -4858,6 +5156,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "抗日民族统一战线",
@@ -4885,6 +5185,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "李闻惨案"
@@ -4920,6 +5222,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民治宪政"
@@ -4950,6 +5254,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主概念"
@@ -4976,6 +5282,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "一届三中全会"
@@ -5011,6 +5319,8 @@
       "review_status": "machine_metadata_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "SCHOLARLY_RESEARCH",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "events": [
           "民主思想/民盟政制"
@@ -5037,6 +5347,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1945' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1945",
@@ -5063,6 +5375,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024-05-12'; source_type='官方数字报文章'.",
         "date_or_period_original": "2024-05-12",
@@ -5089,6 +5403,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024-10-12'; source_type='官方数字报文章'.",
         "date_or_period_original": "2024-10-12",
@@ -5115,6 +5431,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1945' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1945",
@@ -5141,6 +5459,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024-10-12'; source_type='官方数字报文章'.",
         "date_or_period_original": "2024-10-12",
@@ -5167,6 +5487,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名主题年为 1941—1949，但 source_type 标明转录/转载/线索，对象是后期呈现而非同期原件。",
         "date_or_period_original": "1941-10-10",
@@ -5193,6 +5515,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1945-10-01/1945-10-12' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1945-10-01/1945-10-12",
@@ -5219,6 +5543,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1947-11' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1947-11",
@@ -5245,6 +5571,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "日期字段在 1941—1949，但原记录 primary_source=false 且为官方网页/叙述；按官方回顾处理，不抬升为同期一手。",
         "date_or_period_original": "1945—1949",
@@ -5271,6 +5599,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名主题年为 1941—1949，但 source_type 标明转录/转载/线索，对象是后期呈现而非同期原件。",
         "date_or_period_original": "1941-10-28",
@@ -5297,6 +5627,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1941-10-10' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1941-10-10",
@@ -5323,6 +5655,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1941-10-16' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1941-10-16",
@@ -5349,6 +5683,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名主题年为 1941—1949，但 source_type 标明转录/转载/线索，对象是后期呈现而非同期原件。",
         "date_or_period_original": "1947-11-04",
@@ -5375,6 +5711,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名主题年为 1941—1949，但 source_type 标明转录/转载/线索，对象是后期呈现而非同期原件。",
         "date_or_period_original": "1946-11-19",
@@ -5401,6 +5739,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名主题年为 1941—1949，但 source_type 标明转录/转载/线索，对象是后期呈现而非同期原件。",
         "date_or_period_original": "1947-11-07",
@@ -5427,6 +5767,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2020-10-18'; source_type='上海民主党派志验收稿资料长编收录的史良入盟时间条目'.",
         "date_or_period_original": "2020-10-18",
@@ -5453,6 +5795,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2020-10-18'; source_type='上海民主党派志验收稿资料长编收录的尚丁入盟时间条目'.",
         "date_or_period_original": "2020-10-18",
@@ -5479,6 +5823,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2020-10-18'; source_type='上海民主党派志验收稿资料长编收录的刘思慕 1942 年春回国条目'.",
         "date_or_period_original": "2020-10-18",
@@ -5505,6 +5851,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2020-07-01'; source_type='上海民主党派志印刷厂验收稿正文收录的苏延宾入盟时间条目'.",
         "date_or_period_original": "2020-07-01",
@@ -5531,6 +5879,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2020-07-01'; source_type='上海民主党派志印刷厂验收稿正文收录的尚丁入盟时间条目（精确到月）'.",
         "date_or_period_original": "2020-07-01",
@@ -5557,6 +5907,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2020-07-01'; source_type='上海民主党派志印刷厂验收稿正文收录的周谷城聘为民主政团同盟顾问条目'.",
         "date_or_period_original": "2020-07-01",
@@ -5583,6 +5935,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1987'; source_type='民国时期报刊影印出版（1987 影印版）'.",
         "date_or_period_original": "1987",
@@ -5609,6 +5963,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1942'; source_type='民国时期时政半月刊（同期原刊）'.",
         "date_or_period_original": "1942",
@@ -5635,6 +5991,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024'; source_type='民盟人物传记汇编条目（上海民盟内部资料，未公开出版）'.",
         "date_or_period_original": "2024",
@@ -5661,6 +6019,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024'; source_type='民盟人物传记汇编条目'.",
         "date_or_period_original": "2024",
@@ -5687,6 +6047,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024'; source_type='民盟人物传记汇编条目（1944-01 入盟）'.",
         "date_or_period_original": "2024",
@@ -5713,6 +6075,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024'; source_type='民盟人物传记汇编条目'.",
         "date_or_period_original": "2024",
@@ -5739,6 +6103,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024'; source_type='民盟人物传记汇编条目'.",
         "date_or_period_original": "2024",
@@ -5765,6 +6131,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024'; source_type='民盟人物传记汇编条目'.",
         "date_or_period_original": "2024",
@@ -5791,6 +6159,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024'; source_type='上海民主党派志验收稿·代表人士资料汇编（文化篇）'.",
         "date_or_period_original": "2024",
@@ -5817,6 +6187,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024'; source_type='上海民主党派志验收稿·代表人士资料汇编（科技篇）'.",
         "date_or_period_original": "2024",
@@ -5843,6 +6215,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "1949 年后官方机构或准官方渠道发布的历史回顾/盟史/组织史/纪念报道/文献汇编；权威但不是 1941—1949 同期形成的一手资料。 date_or_period='2024'; source_type='上海民主党派志验收稿·代表人士资料汇编（领导篇）'.",
         "date_or_period_original": "2024",
@@ -5869,6 +6243,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2012-10'; source_type='民盟中央正式出版物 / 盟历史文献丛书'.",
         "date_or_period_original": "2012-10",
@@ -5895,6 +6271,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2014-10'; source_type='民盟地方组织史（重庆 1941-2014）'.",
         "date_or_period_original": "2014-10",
@@ -5921,6 +6299,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2014-10'; source_type='民盟地方组织 50 年历史文献 + 照片画册'.",
         "date_or_period_original": "2014-10",
@@ -5947,6 +6327,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2002'; source_type='民盟地方组织史（重庆 / 早期文献）'.",
         "date_or_period_original": "2002",
@@ -5973,6 +6355,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2014'; source_type='民盟地方组织史（湖北 1946-2013）'.",
         "date_or_period_original": "2014",
@@ -5999,6 +6383,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2013'; source_type='民盟地方组织史（贵州 1950-2010）'.",
         "date_or_period_original": "2013",
@@ -6025,6 +6411,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2010'; source_type='民盟地方组织史（陕西）'.",
         "date_or_period_original": "2010",
@@ -6051,6 +6439,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2012'; source_type='民盟地方组织史（广东 / 含南方总支部）'.",
         "date_or_period_original": "2012",
@@ -6077,6 +6467,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2002-12'; source_type='省级民主党派志（民盟篇为第二篇）'.",
         "date_or_period_original": "2002-12",
@@ -6103,6 +6495,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2004'; source_type='民盟地方组织史（江苏 早期稿本）'.",
         "date_or_period_original": "2004",
@@ -6129,6 +6523,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2012'; source_type='民盟地方组织史（江苏 简史）'.",
         "date_or_period_original": "2012",
@@ -6155,6 +6551,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2018-12'; source_type='民盟地方组织史（福建 1946-2018 简史）'.",
         "date_or_period_original": "2018-12",
@@ -6181,6 +6579,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2013-05'; source_type='民盟地方组织志（市级 / 石家庄）'.",
         "date_or_period_original": "2013-05",
@@ -6207,6 +6607,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2020-10'; source_type='民盟地方组织人物传记（湖南）'.",
         "date_or_period_original": "2020-10",
@@ -6233,6 +6635,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2021-10'; source_type='民盟地方组织史（云南）'.",
         "date_or_period_original": "2021-10",
@@ -6259,6 +6663,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2020'; source_type='民盟地方组织史（四川）'.",
         "date_or_period_original": "2020",
@@ -6285,6 +6691,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2009-08'; source_type='省级民主党派史（民盟章节）'.",
         "date_or_period_original": "2009-08",
@@ -6311,6 +6719,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2016-06'; source_type='民盟地方组织纪念册（北京）'.",
         "date_or_period_original": "2016-06",
@@ -6337,6 +6747,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1937'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1937",
@@ -6362,6 +6774,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1941-1989'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1941-1989",
@@ -6388,6 +6802,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1941-03-19'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1941-03-19",
@@ -6414,6 +6830,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1946'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1946",
@@ -6440,6 +6858,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1946'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1946",
@@ -6466,6 +6886,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1945-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1945-1949",
@@ -6492,6 +6914,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1946-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1946-1949",
@@ -6518,6 +6942,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1946-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1946-1949",
@@ -6544,6 +6970,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1946-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1946-1949",
@@ -6570,6 +6998,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1946-1953'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1946-1953",
@@ -6596,6 +7026,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1941-1953'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1941-1953",
@@ -6622,6 +7054,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1942-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1942-1949",
@@ -6648,6 +7082,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1942-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1942-1949",
@@ -6674,6 +7110,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1944-1946'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1944-1946",
@@ -6700,6 +7138,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1946-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1946-1949",
@@ -6726,6 +7166,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1946-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1946-1949",
@@ -6752,6 +7194,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1942-2012'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1942-2012",
@@ -6778,6 +7222,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1942-2012'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1942-2012",
@@ -6804,6 +7250,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1942'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1942",
@@ -6830,6 +7278,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1942'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1942",
@@ -6856,6 +7306,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1945-2018'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1945-2018",
@@ -6882,6 +7334,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1939-1950'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1939-1950",
@@ -6907,6 +7361,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1942-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1942-1949",
@@ -6933,6 +7389,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1943'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1943",
@@ -6959,6 +7417,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1947-1949'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1947-1949",
@@ -6985,6 +7445,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1941-2014'; source_type='民盟历史文献数据库在线文献（公开浏览页 DDE_ 锚点）'.",
         "date_or_period_original": "1941-2014",
@@ -7011,6 +7473,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1991-03'; source_type='民盟中央正式出版档案文献汇编（1991）'.",
         "date_or_period_original": "1991-03",
@@ -7037,6 +7501,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1991-03'; source_type='民盟中央正式出版档案文献（1991）'.",
         "date_or_period_original": "1991-03",
@@ -7063,6 +7529,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='1991-08'; source_type='民盟中央正式出版纪念文集（1991）'.",
         "date_or_period_original": "1991-08",
@@ -7089,6 +7557,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2011-05'; source_type='民盟中央正式出版纪念文献汇编'.",
         "date_or_period_original": "2011-05",
@@ -7115,6 +7585,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2013'; source_type='民盟中央系列出版（民盟历史人物丛书）'.",
         "date_or_period_original": "2013",
@@ -7141,6 +7613,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2013'; source_type='民盟中央系列出版'.",
         "date_or_period_original": "2013",
@@ -7167,6 +7641,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2014'; source_type='民盟中央系列出版'.",
         "date_or_period_original": "2014",
@@ -7193,6 +7669,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2014'; source_type='民盟中央系列出版'.",
         "date_or_period_original": "2014",
@@ -7219,6 +7697,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "仅有 catalog_only 访问的官方/准官方盟史、组织史、文献汇编或纪念出版；对象性质为 1949 年后回顾性著作，不是档案目录本身，也不是同期一手。 date_or_period='2021'; source_type='民盟地方组织史（甘肃庆阳）'.",
         "date_or_period_original": "2021",
@@ -7245,6 +7725,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1941-1949' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1941-1949",
@@ -7271,6 +7753,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1945-10' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1945-10",
@@ -7297,6 +7781,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1945-10' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1945-10",
@@ -7323,6 +7809,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1948-01-05' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1948-01-05",
@@ -7349,6 +7837,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "题名/类型/核验说明显示为官方或媒体历史回顾/综述/转载，非同期原件。 date_or_period='1947-10-27' 可能为事件主题年而非文献形成年。",
         "date_or_period_original": "1947-10-27",
@@ -7375,6 +7865,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "北京民盟东城区委正式盟史页面，包含1944改组/代表会议史料",
         "institution_type": "BJDCMM",
@@ -7399,6 +7891,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "北京民盟东城区委正式盟史页面，包含1944改组/代表会议史料",
         "institution_type": "BJDCMM",
@@ -7423,6 +7917,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "高校学术机构收录的民盟/民主党派相关材料",
         "institution_type": "HKU",
@@ -7447,6 +7943,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "高校学术机构收录的民盟/民主党派相关材料",
         "institution_type": "HKU",
@@ -7471,6 +7969,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "民盟历史文献全媒体数据库公开浏览页：地方盟史/编年史/汇编/官方文件",
         "institution_type": "MM1941",
@@ -7495,6 +7995,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "民盟历史文献全媒体数据库公开浏览页：地方盟史/编年史/汇编/官方文件",
         "institution_type": "MM1941",
@@ -7519,6 +8021,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7543,6 +8047,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7567,6 +8073,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7591,6 +8099,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7615,6 +8125,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7639,6 +8151,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7663,6 +8177,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7687,6 +8203,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7711,6 +8229,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7735,6 +8255,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7759,6 +8281,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7783,6 +8307,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7807,6 +8333,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7831,6 +8359,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7855,6 +8385,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7879,6 +8411,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7903,6 +8437,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7927,6 +8463,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7951,6 +8489,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7975,6 +8515,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -7999,6 +8541,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -8023,6 +8567,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟原文与官方文件：成立宣言、纲领草案、抗议声明、政协发言、章程公告等",
         "institution_type": "MMHIST",
@@ -8047,6 +8593,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "民盟中央文史/研究专题：盟史叙述、会议史料、人物史料",
         "institution_type": "MMZY",
@@ -8071,6 +8619,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "MX",
@@ -8095,6 +8645,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "MX",
@@ -8119,6 +8671,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "RCL",
@@ -8143,6 +8697,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "RCL",
@@ -8167,6 +8723,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "RCL",
@@ -8191,6 +8749,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟发言（政协/反内战/时局谈话）",
         "institution_type": "SCU",
@@ -8215,6 +8775,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "正式汇编收录的民盟发言（政协/反内战/时局谈话）",
         "institution_type": "SCU",
@@ -8239,6 +8801,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "SHDPZ",
@@ -8263,6 +8827,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "SHDPZ",
@@ -8287,6 +8853,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "SHDPZ",
@@ -8311,6 +8879,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "SHDPZ",
@@ -8335,6 +8905,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "SHDPZ",
@@ -8359,6 +8931,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "SHDPZ",
@@ -8383,6 +8957,8 @@
       "review_status": "machine_accepted",
       "citation_ready": 0,
       "human_verified": 0,
+      "record_role": "OFFICIAL_RETROSPECTIVE",
+      "academic_crosswalk_eligible": true,
       "metadata": {
         "classification_reason": "文物/地方志/民主党派志/民盟汇编含民盟条目",
         "institution_type": "ZL1872",

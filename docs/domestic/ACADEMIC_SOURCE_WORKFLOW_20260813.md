@@ -107,3 +107,14 @@ python3 scripts/domestic/audit_academic_topic_crosswalk_20260813.py \
 - 增量清单见 `data/domestic/academic_metadata_additions_20260813.json`；应用脚本默认 dry-run，正式应用需显式 `--apply --backup`，不写 formal SQLite、不复制正文。
 
 交叉审计结果：9 个专题均有学术元数据候选，合计 159 条；其中 1945 年一大 6 条 A 级、1946 年拒绝国民大会 2 条 B 级直接书目匹配。`citation_ready=0` 和 `human_verified=0` 仍保持不变。
+
+## 2026-08-22 学术层角色清理
+
+本轮复核将 2 条“真实缺口说明”从学术研究记录中单独标为 `RESEARCH_GAP_NOTE`：
+
+- `GAR-220939F16F`：1942—1943 民主政团同盟组织扩展专文公开缺口说明。
+- `GAR-C36FE834C9`：章伯钧、胡愈之、邹韬奋民盟专论 CNKI 待补缺口说明。
+
+这两条记录保留在元数据索引中，用于追踪尚未取得的材料，但不计入学术专题交叉、全文取证队列或高质量文章展示。当前索引仍为 288 条，原始学术研究记录 155 条、文章 99 条、S/A 记录 120 条；全文取证队列仍为 24 条（P0 5、P1 13、P2 1、P3 5），交叉表仍为 9 个专题、159 条匹配。这样既不丢失缺口信息，也避免把“没有找到资料”的任务记录误当成学术成果。
+
+验收要求：`academic_crosswalk_eligible=false` 的记录不得出现在 `academic_topic_crosswalk.json` 的 `shown_record_ids`，不得进入 `academic_fulltext_priority_queue.json`，且应用检索页必须显示其为研究缺口说明，而不是可引用文章。`citation_ready=0`、`human_verified=0` 和 9 个国内一手缺口继续保持原状。

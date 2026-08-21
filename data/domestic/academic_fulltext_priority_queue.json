@@ -1,6 +1,6 @@
 {
   "schema_version": "domestic_academic_fulltext_priority_queue.v1",
-  "generated_at": "2026-08-21",
+  "generated_at": "2026-08-22",
   "source_index": "data/domestic/academic_layer_metadata.json",
   "source_scope": "tracked_metadata_only",
   "body_read": false,

@@ -66,6 +66,8 @@ def build(input_path: Path, output_path: Path) -> dict[str, Any]:
     for record in records:
         if not isinstance(record, dict):
             continue
+        if record.get("academic_crosswalk_eligible", True) is False:
+            continue
         if str(record.get("fulltext_status") or "") not in ALLOWED_STATUSES:
             continue
         item = safe_record(record)

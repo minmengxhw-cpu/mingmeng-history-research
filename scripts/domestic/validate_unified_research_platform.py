@@ -245,9 +245,13 @@ def academic_layer_check() -> dict[str, Any]:
         errors.append("academic layer has no research records or scholarly articles")
     if int(crosswalk.get("total_topic_matches") or 0) <= 0:
         errors.append("academic crosswalk has no topic matches")
+    crosswalk_serialized = json.dumps(crosswalk, ensure_ascii=False)
+    if any(marker in crosswalk_serialized for marker in ("/Users/", "/private/", '"local_path"', '"derived_text_path"')):
+        errors.append("academic crosswalk contains a local path marker")
     metadata_index_records = 0
     metadata_index_source = "missing"
     metadata_records: list[dict[str, Any]] = []
+    gap_note_ids: set[str] = set()
     if ACADEMIC_METADATA_INDEX_PATH.is_file():
         try:
             metadata_index = json.loads(ACADEMIC_METADATA_INDEX_PATH.read_text(encoding="utf-8"))
@@ -264,10 +268,33 @@ def academic_layer_check() -> dict[str, Any]:
             serialized = json.dumps(metadata_index, ensure_ascii=False)
             if any(marker in serialized for marker in ("/Users/", "/private/", '"local_path"', '"derived_text_path"')):
                 errors.append("academic metadata index contains a local path marker")
+            gap_note_ids = {
+                str(record.get("external_id") or "")
+                for record in metadata_records
+                if str(record.get("record_role") or "") == "RESEARCH_GAP_NOTE"
+            }
+            invalid_role_rows = [
+                str(record.get("external_id") or "")
+                for record in metadata_records
+                if str(record.get("record_role") or "") == "RESEARCH_GAP_NOTE"
+                and record.get("academic_crosswalk_eligible") is not False
+            ]
+            if invalid_role_rows:
+                errors.append("academic gap notes must be excluded from the academic crosswalk")
+            shown_crosswalk_ids = {
+                str(record_id)
+                for topic in crosswalk.get("topics", [])
+                if isinstance(topic, dict)
+                for record_id in topic.get("shown_record_ids", [])
+            }
+            leaked_gap_notes = sorted(gap_note_ids & shown_crosswalk_ids)
+            if leaked_gap_notes:
+                errors.append(f"academic crosswalk exposes research gap notes: {leaked_gap_notes}")
         except (OSError, json.JSONDecodeError, AttributeError, TypeError):
             errors.append("academic metadata index is unreadable")
     else:
         errors.append("academic metadata index is missing")
+        gap_note_ids = set()
     fulltext_priority_queue_records = 0
     fulltext_priority_queue_source = "missing"
     fulltext_priority_queue_classes: dict[str, int] = {}
@@ -295,6 +322,7 @@ def academic_layer_check() -> dict[str, Any]:
                 str(record.get("external_id"))
                 for record in metadata_records
                 if str(record.get("fulltext_status") or "") in expected_statuses
+                and record.get("academic_crosswalk_eligible", True) is not False
             }
             actual_queue_ids = {
                 str(record.get("external_id"))
@@ -330,6 +358,8 @@ def academic_layer_check() -> dict[str, Any]:
         "source": report_source,
         "metadata_index_source": metadata_index_source,
         "metadata_index_records": metadata_index_records,
+        "research_gap_note_records": len(gap_note_ids),
+        "academic_crosswalk_eligible_records": max(0, metadata_index_records - len(gap_note_ids)),
         "fulltext_priority_queue_source": fulltext_priority_queue_source,
         "fulltext_priority_queue_records": fulltext_priority_queue_records,
         "fulltext_priority_queue_classes": fulltext_priority_queue_classes,
