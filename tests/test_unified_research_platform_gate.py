@@ -328,6 +328,10 @@ def test_domestic_workbench_is_the_research_front_door():
         app._request.public_mode = previous
     assert "国内民盟史研究平台" in body
     assert "导航可用" in body
+    assert "可研究（带边界）" in body
+    assert "尚未 research_ready" in body
+    assert "严格页" in body
+    assert "学术匹配" in body
     assert "一手证据部分闭环" in body
     assert "P0 仍待原件" in body
     assert "授权原件接收状态" in body

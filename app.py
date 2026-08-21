@@ -7707,7 +7707,9 @@ def domestic_workbench_page() -> bytes:
     academic_stable = int(academic_readiness.get("stable_fulltext") or 0)
     academic_candidates = int(academic_readiness.get("fulltext_candidates") or 0)
     nav_ready = 0
+    bounded_research = 0
     primary_closed = 0
+    research_ready_count = 0
     open_targets = 0
     source_map_pages = 0
     retrieval_actions = _primary_retrieval_actions_by_event()
@@ -7721,20 +7723,36 @@ def domestic_workbench_page() -> bytes:
         chain = topic.get("evidence_chain_summary") or {}
         source_map = topic.get("event_source_map") or {}
         nav_ready += int(bool(readiness["navigation_ready"]))
+        bounded_research += int(bool(readiness["research_usable_with_boundaries"]))
         if primary.get("status") == "closed":
             primary_closed += 1
+        research_ready_count += int(bool(readiness["research_ready"]))
         open_targets += int(chain.get("open_targets") or 0)
         source_map_pages += int(source_map.get("page_record_count") or 0)
         gap = primary.get("gap") or "事件定义原件仍待补。"
         retrieval_action = retrieval_actions.get(event_id) or "回到一手证据缺口看板，确认该专题的下一条原件动作。"
+        bounded_badge = (
+            '<span class="pstatus ok">可研究（带边界）</span>'
+            if readiness["research_usable_with_boundaries"]
+            else '<span class="pstatus warn">研究路径待补</span>'
+        )
+        research_ready_badge = (
+            '<span class="pstatus ok">research_ready</span>'
+            if readiness["research_ready"]
+            else '<span class="pstatus warn">尚未 research_ready</span>'
+        )
         cards.append(
             f"""
 <article class="result compact-result"><div>
   <h3><a href="/research/{quote(event_id)}">{h(item.get("event_name"))}</a></h3>
   <div class="tagline">
     <span class="pstatus {'ok' if readiness['navigation_ready'] else 'warn'}">{'导航可用' if readiness['navigation_ready'] else '导航待补'}</span>
+    {bounded_badge}
+    {research_ready_badge}
     <span class="pstatus {primary['class']}">{h(primary['label'])}</span>
     <span class="tag">证据链 {h(chain.get('page_items', 0))} 页</span>
+    <span class="tag">严格页 {h(readiness['strict_pages'])}</span>
+    <span class="tag">学术匹配 {h(readiness['academic_total'])}</span>
     <span class="tag">来源地图 {h(source_map.get('page_record_count') or 0)} 页</span>
   </div>
   <div class="snippet"><strong>仍缺原件：</strong>{h(gap)}</div>
@@ -7803,7 +7821,9 @@ def domestic_workbench_page() -> bytes:
   <div class="hero-chips">
     <span><b>{len(topics)}</b> 个专题</span>
     <span><b>{nav_ready}</b> 个导航可用</span>
+    <span><b>{bounded_research}</b> 个带边界可研究</span>
     <span><b>{primary_closed}</b> 个一手闭环</span>
+    <span><b>{research_ready_count}</b> 个 research_ready</span>
     <span><b>{open_targets}</b> 个开放原件目标</span>
     <span><b>{source_map_pages}</b> 个来源地图页</span>
     <span><b>{academic_records}</b> 条学术研究记录</span>
