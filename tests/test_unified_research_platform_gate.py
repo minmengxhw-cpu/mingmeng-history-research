@@ -292,6 +292,17 @@ def test_academic_metadata_views_show_verified_bibliographic_fields():
     assert "中共中央党校（国家行政学院）中共党史教研部" in queue_body
 
 
+def test_academic_search_shows_explicit_bibliographic_locator():
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = False
+    try:
+        body = app.domestic_metadata_academic_search_page("制宪国大").decode("utf-8")
+    finally:
+        app._request.public_mode = previous
+    assert "《民国档案》2012年第1期，第134—139页" in body
+    assert "作者单位待核" in body
+
+
 def test_public_domestic_views_hide_relative_artifact_paths():
     pages = {
         "domestic": lambda: app.domestic_page({}),

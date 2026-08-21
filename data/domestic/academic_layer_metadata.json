@@ -158,7 +158,9 @@
         "places": [
           "南京"
         ],
-        "research_type": "SCHOLARLY_ARTICLE"
+        "research_type": "SCHOLARLY_ARTICLE",
+        "bibliographic_citation": "《民国档案》2012年第1期，第134—139页",
+        "bibliographic_verification": "公开期刊索引已核对题名、作者、刊名、年份、期次和页码；作者单位及全文仍待文章首页或正式期刊页核验"
       },
       "duplicate_group_id": "",
       "version_relation": "no_exact_title_duplicate_detected"

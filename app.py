@@ -4847,6 +4847,12 @@ def _academic_filter_summary(tier: str = "", availability: str = "") -> str:
     return " · ".join(parts) if parts else "无附加筛选"
 
 
+def _academic_bibliographic_label(record: dict[str, object]) -> str:
+    """Return an explicitly recorded bibliographic locator, if available."""
+    metadata = record.get("metadata") if isinstance(record.get("metadata"), dict) else {}
+    return str(metadata.get("bibliographic_citation") or "").strip()
+
+
 def _academic_filter_form(
     raw_q: str,
     phase: str,
@@ -4947,7 +4953,7 @@ def domestic_metadata_academic_search_page(
     result_html = "".join(
         f'''<article class="result"><div><h2>{h(record.get("title") or record.get("external_id"))}</h2>
         <div class="meta">{h(record.get("external_id"))} · {h(record.get("layer") or "研究资料")} · {h(record.get("research_type") or "未标注类型")} · 质量 {h(record.get("quality_tier") or "未分级")}</div>
-        <div class="snippet">作者：{h(record.get("author") or "作者未标注")} · {h(record.get("institution") or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(record.get("institution"))))} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{_academic_result_links(str(record.get("external_id") or ""), formal_academic, related_formal)}</div></article>'''
+        <div class="snippet">作者：{h(record.get("author") or "作者未标注")} · {h(record.get("institution") or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(record.get("institution"))))} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {f'书目定位：{h(_academic_bibliographic_label(record))} · ' if _academic_bibliographic_label(record) else ''}{h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{_academic_result_links(str(record.get("external_id") or ""), formal_academic, related_formal)}</div></article>'''
         for record in matched
     ) or '<div class="notice">版本化学术元数据索引中没有匹配结果。</div>'
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""
@@ -7490,6 +7496,7 @@ def _research_academic_matches(
                 "match_score": score,
                 "duplicate_group_id": duplicate_group_id,
                 "version_relation": version_relation,
+                "metadata": metadata,
             }
         )
     matches.sort(
@@ -8304,12 +8311,13 @@ def research_topic_page(event_id: str) -> bytes:
         search_href = f"/domestic/search?scope=research&amp;q={quote(str(academic.get('title') or academic.get('external_id') or ''))}"
         tier = str(academic.get("quality_tier") or "未分级")
         tier_class = "ok" if tier in {"S", "A"} else "warn"
+        bibliography = _academic_bibliographic_label(academic)
         academic_cards.append(f"""
 <article class="result compact-result"><div>
   <h3>{h(academic.get('title') or academic.get('external_id'))}</h3>
   <div class="meta">{h(academic.get('author') or '作者未标注')} · {h(academic.get('institution') or '机构未标注')} · {h(academic.get('publication_date') or '日期未标注')}</div>
   <div class="tagline"><span class="pstatus {tier_class}">学术 {h(tier)}</span><span class="tag">{h(academic.get('research_type') or '研究资料')}</span><span class="tag">命中：{h('、'.join(academic.get('matched_terms') or []))}</span></div>
-  <div class="snippet">全文状态：{h(academic.get('fulltext_status') or '未标注')} · citation_ready={h(academic.get('citation_ready'))} · 版本关系：{h(academic.get('version_relation') or '未建立同题名关系')} · 该条目只作为解释层候选，不自动替代国内一手页级证据。</div>
+  <div class="snippet">{f'书目定位：{h(bibliography)} · ' if bibliography else ''}全文状态：{h(academic.get('fulltext_status') or '未标注')} · citation_ready={h(academic.get('citation_ready'))} · 版本关系：{h(academic.get('version_relation') or '未建立同题名关系')} · 该条目只作为解释层候选，不自动替代国内一手页级证据。</div>
 </div><div class="cite"><a href="{search_href}">研究资料</a> · <a href="/domestic/events?event={quote(str(item.get('event_id')))}">一手对照</a>{f' · <a href="{h(source_url)}" target="_blank" rel="noreferrer">来源入口</a>' if source_url != '#' else ''}</div></article>""")
     academic_total = int(topic.get("academic_total", 0))
     academic_html = "".join(academic_cards) or f'<div class="notice">学术—专题交叉表已登记 {h(academic_total)} 条元数据匹配，但当前 checkout 没有对应的详情字段；这不代表学术资料不存在，也不代表已经读取正文。请从 <a href="/domestic/academic">学术研究层</a>继续筛选，再回到 <a href="/domestic/events?event={quote(str(item.get("event_id")))}">一手对照</a>。</div>'
