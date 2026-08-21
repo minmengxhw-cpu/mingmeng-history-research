@@ -4544,6 +4544,7 @@ def domestic_academic_page() -> bytes:
         queue_records = queue_payload.get("records") if isinstance(queue_payload, dict) else []
         if not isinstance(queue_records, list):
             queue_records = []
+        queue_topic_map = _academic_queue_topic_map(queue_records)
         queue_rank = {
             "P0_STABLE_FULLTEXT": 0,
             "P1_FULLTEXT_CANDIDATE": 1,
@@ -4573,12 +4574,18 @@ def domestic_academic_page() -> bytes:
                 if source_url.startswith(("http://", "https://"))
                 else '<span class="meta">暂无稳定网页入口</span>'
             )
+            topic_labels = queue_topic_map.get(external_id) or []
+            topic_html = " · ".join(
+                f'<a href="/research/{quote(str(topic.get("event_id") or ""), safe="")}">{h(topic.get("event_name") or topic.get("event_id"))}</a>'
+                for topic in topic_labels
+            ) or '<span class="meta">暂未回接专题（仅保留学术发现线索）</span>'
             search_href = f"/domestic/search?scope=research&amp;q={quote(title)}"
             queue_record_cards.append(
                 f'''<article class="result compact-result"><div>
   <h3>{h(title)}</h3>
   <div class="tagline"><span class="pstatus {'ok' if queue_class == 'P0_STABLE_FULLTEXT' else 'warn'}">{h(queue_label.get(queue_class, queue_class or '待分流'))}</span><span class="tag">{h(quality_tier)} 层</span><span class="tag">{h(fulltext_status)}</span><span class="tag">{h(external_id)}</span></div>
   <div class="meta">机构字段：{h(institution)}</div>
+  <div class="meta">专题回接：{topic_html}</div>
   <div class="snippet"><strong>下一动作：</strong>{h(compact(str(record.get("next_action") or "待登记"), 220))}</div>
 </div><div class="cite">{source_link}<br><a href="{search_href}">检索记录</a></div></article>'''
             )
@@ -7483,6 +7490,50 @@ def _research_academic_matches(
         else len(matches)
     )
     result["rows"] = matches[:limit]
+    return result
+
+
+def _academic_queue_topic_map(records: object) -> dict[str, list[dict[str, str]]]:
+    """Map priority-queue records back to topics using metadata only.
+
+    The committed crosswalk intentionally stores only a bounded list of record
+    IDs per topic.  Replaying the same structured-field matcher here fills the
+    display gap for queue items outside that bounded list without reading
+    academic bodies or treating a match as citation evidence.
+    """
+    queue_ids = {
+        str(record.get("external_id") or "").strip()
+        for record in records
+        if isinstance(record, dict) and str(record.get("external_id") or "").strip()
+    }
+    if not queue_ids:
+        return {}
+    result: dict[str, list[dict[str, str]]] = {}
+    comparison_cards = _load_topic_comparison_cards()
+    for item in _load_domestic_event_coverage():
+        if not isinstance(item, dict):
+            continue
+        event_id = str(item.get("event_id") or "").strip()
+        if not event_id:
+            continue
+        matches = _research_academic_matches(
+            item,
+            comparison_cards.get(event_id, {}),
+            limit=10000,
+        )
+        topic = {
+            "event_id": event_id,
+            "event_name": str(item.get("event_name") or event_id),
+        }
+        for row in matches.get("rows", []) if isinstance(matches, dict) else []:
+            if not isinstance(row, dict):
+                continue
+            external_id = str(row.get("external_id") or "").strip()
+            if external_id not in queue_ids:
+                continue
+            topics = result.setdefault(external_id, [])
+            if not any(existing.get("event_id") == event_id for existing in topics):
+                topics.append(topic)
     return result
 
 

@@ -337,6 +337,8 @@ def test_domestic_workbench_is_the_research_front_door():
     assert "中国民主同盟历史文献（1941—1949）" in academic
     assert "P0 稳定全文" in academic
     assert "正文未读取" in academic
+    assert "专题回接" in academic
+    assert "/research/domestic-1941-formation" in academic
     assert "一手证据部分闭环" in body
     assert "P0 仍待原件" in body
     assert "授权原件接收状态" in body
