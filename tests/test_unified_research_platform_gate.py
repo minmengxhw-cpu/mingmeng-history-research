@@ -35,6 +35,7 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
         "P2_STABLE_CONTEXT": 1,
         "P3_CANDIDATE_CONTEXT": 5,
     }
+    assert report["checks"]["academic_layer"]["errors"] == []
     assert report["checks"]["retrieval_queue"]["formal_candidate_count"] == 690
     content_tier = report["checks"]["content_tier_audit"]
     assert content_tier["status"] == "PASS"

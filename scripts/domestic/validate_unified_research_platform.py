@@ -356,6 +356,39 @@ def academic_layer_check() -> dict[str, Any]:
                 if str(record.get("fulltext_status") or "") not in expected_statuses:
                     errors.append("academic fulltext priority queue contains an unsupported status")
                     break
+            metadata_by_id = {
+                str(record.get("external_id") or ""): record
+                for record in metadata_records
+                if str(record.get("external_id") or "")
+            }
+            mirror_fields = (
+                "title",
+                "author",
+                "institution",
+                "publication_date",
+                "research_type",
+                "quality_tier",
+                "fulltext_status",
+                "source_url",
+                "layer",
+                "version_relation",
+                "citation_ready",
+                "human_verified",
+            )
+            for queue_record in queue_records or []:
+                external_id = str(queue_record.get("external_id") or "")
+                source_record = metadata_by_id.get(external_id)
+                if source_record is None:
+                    continue
+                for field in mirror_fields:
+                    expected_value = source_record.get(field)
+                    if field == "source_url" and not str(expected_value or "").startswith(("http://", "https://")):
+                        expected_value = ""
+                    if str(queue_record.get(field) or "") != str(expected_value or ""):
+                        errors.append(
+                            f"academic fulltext priority queue field drift: {external_id}.{field}"
+                        )
+                        break
             serialized = json.dumps(priority_queue, ensure_ascii=False)
             if any(marker in serialized for marker in ("/Users/", "/private/", '"local_path"', '"derived_text_path"')):
                 errors.append("academic fulltext priority queue contains a local path marker")
