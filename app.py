@@ -7701,6 +7701,11 @@ def research_parity_page() -> bytes:
 def domestic_workbench_page() -> bytes:
     """国内研究平台工作台：九专题路径、证据分层和仍开放的原件缺口。"""
     topics = _research_topic_rows()
+    academic_snapshot = _academic_layer_snapshot()
+    academic_readiness = academic_snapshot.get("fulltext_readiness") or {}
+    academic_records = int(academic_snapshot.get("academic_records") or 0)
+    academic_stable = int(academic_readiness.get("stable_fulltext") or 0)
+    academic_candidates = int(academic_readiness.get("fulltext_candidates") or 0)
     nav_ready = 0
     primary_closed = 0
     open_targets = 0
@@ -7782,6 +7787,14 @@ def domestic_workbench_page() -> bytes:
             '<a href="/domestic/intake">打开接收门禁</a>查看前置流程。</div>'
         )
 
+    academic_note = (
+        f'<div class="notice"><strong>学术资料层：</strong>{h(academic_records)} 条学术研究记录；'
+        f'{h(academic_stable)} 条稳定全文、{h(academic_candidates)} 条全文候选。'
+        '这些资料用于解释和专题对读，不替代国内一手原件；'
+        '<a href="/domestic/academic">查看分层与机构字段信号</a> · '
+        '<a href="/domestic/search?scope=research">进入学术检索</a>。</div>'
+    )
+
     body = breadcrumb_html([("/", "首页"), (None, "国内研究平台")]) + f"""
 <section class="hero hero-compact">
   <div class="hero-eyebrow">DOMESTIC RESEARCH PLATFORM</div>
@@ -7793,11 +7806,13 @@ def domestic_workbench_page() -> bytes:
     <span><b>{primary_closed}</b> 个一手闭环</span>
     <span><b>{open_targets}</b> 个开放原件目标</span>
     <span><b>{source_map_pages}</b> 个来源地图页</span>
+    <span><b>{academic_records}</b> 条学术研究记录</span>
   </div>
 </section>
 <div class="notice"><strong>使用方式：</strong>先检索或打开专题，再回到页级 provenance 和 <code>/cite/&lt;page_id&gt;</code>。汇编、会刊、报刊和学术文章分层显示，不能替代 1941 原刊、1947 政府公函/总部公告或完整会议档案。</div>
 {overnight_note}
 {intake_note}
+{academic_note}
 <form class="search" method="get" action="/search" role="search">
   <input type="hidden" name="platform" value="domestic">
   <input type="search" name="q" placeholder="在国内史料中检索人物、会议、报刊或档号">
