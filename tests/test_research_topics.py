@@ -151,6 +151,26 @@ def test_all_research_topics_have_nonempty_source_map_summary():
     )
 
 
+def test_topic_readiness_uses_research_path_metadata_not_card_count():
+    base = {
+        "item": {"primary_evidence_status": "partial"},
+        "evidence_chain_summary": {"layer_count": 4, "open_targets": 1},
+        "event_source_map": {"available": True, "page_record_count": 3},
+        "topic_event_domestic_pages": 2,
+        "topic_event_domestic_strict_pages": 1,
+        "foreign_pages": 4,
+        "academic_total": 2,
+    }
+    readiness = app._topic_readiness(base)
+    assert readiness["navigation_ready"] is True
+    assert readiness["strict_ready"] is True
+    assert readiness["research_usable_with_boundaries"] is True
+    assert readiness["research_ready"] is False
+
+    missing_route = {**base, "foreign_pages": 0}
+    assert app._topic_readiness(missing_route)["navigation_ready"] is False
+
+
 def test_research_topic_detail_smoke(live_server, db_missing_reason):
     if db_missing_reason:
         pytest.skip(f"数据库缺失,无法验证专题详情: {db_missing_reason}")

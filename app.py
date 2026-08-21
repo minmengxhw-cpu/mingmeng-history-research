@@ -7285,6 +7285,50 @@ def _research_topic_rows() -> list[dict[str, object]]:
     return result
 
 
+def _topic_readiness(topic: dict[str, object]) -> dict[str, object]:
+    """Return the shared metadata-only readiness states for one topic.
+
+    The domestic workbench and the parity dashboard must not infer readiness
+    from the number of cards rendered.  Keep the four states in one helper so
+    a future missing route cannot silently appear as "navigation ready".
+    This function reads only the already-computed topic metadata; it never
+    reads page bodies, writes SQLite, or promotes evidence.
+    """
+    item = topic.get("item") or {}
+    chain = topic.get("evidence_chain_summary") or {}
+    source_map = topic.get("event_source_map") or {}
+    domestic_pages = int(topic.get("topic_event_domestic_pages") or 0)
+    strict_pages = int(topic.get("topic_event_domestic_strict_pages") or 0)
+    foreign_pages = int(topic.get("foreign_pages") or 0)
+    academic_total = int(topic.get("academic_total") or 0)
+    layer_count = int(chain.get("layer_count") or 0)
+    source_map_pages = int(source_map.get("page_record_count") or 0)
+    source_map_ready = bool(source_map.get("available")) and source_map_pages > 0
+    primary_status = str(item.get("primary_evidence_status") or "unclassified")
+    navigation_ready = bool(
+        domestic_pages and foreign_pages and academic_total and layer_count == 4
+    )
+    strict_ready = strict_pages > 0
+    research_ready = navigation_ready and primary_status == "closed"
+    research_usable_with_boundaries = bool(
+        navigation_ready and strict_ready and layer_count == 4 and source_map_ready
+    )
+    return {
+        "domestic_pages": domestic_pages,
+        "strict_pages": strict_pages,
+        "foreign_pages": foreign_pages,
+        "academic_total": academic_total,
+        "layer_count": layer_count,
+        "source_map_pages": source_map_pages,
+        "source_map_ready": source_map_ready,
+        "primary_status": primary_status,
+        "navigation_ready": navigation_ready,
+        "strict_ready": strict_ready,
+        "research_ready": research_ready,
+        "research_usable_with_boundaries": research_usable_with_boundaries,
+    }
+
+
 def research_parity_page() -> bytes:
     """Domestic/foreign parity dashboard based on metadata-only topic state.
 
@@ -7314,38 +7358,29 @@ def research_parity_page() -> bytes:
         item = topic["item"]
         event_id = str(item.get("event_id") or "")
         chain = topic.get("evidence_chain_summary") or {}
-        domestic_pages = int(topic.get("topic_event_domestic_pages") or 0)
-        strict_pages = int(topic.get("topic_event_domestic_strict_pages") or 0)
-        foreign_pages = int(topic.get("foreign_pages") or 0)
-        academic_total = int(topic.get("academic_total") or 0)
-        layer_count = int(chain.get("layer_count") or 0)
+        readiness = _topic_readiness(topic)
+        domestic_pages = int(readiness["domestic_pages"])
+        strict_pages = int(readiness["strict_pages"])
+        foreign_pages = int(readiness["foreign_pages"])
+        academic_total = int(readiness["academic_total"])
+        layer_count = int(readiness["layer_count"])
         open_targets = int(chain.get("open_targets") or 0)
-        primary_status = str(item.get("primary_evidence_status") or "unclassified")
         source_map = topic.get("event_source_map") or {}
         source_map_pages = int(source_map.get("page_record_count") or 0)
         source_map_strict = int(source_map.get("strict_page_count") or 0)
         source_map_review = int(source_map.get("review_only_page_count") or 0)
         source_map_navigation = int(source_map.get("navigation_page_count") or 0)
         source_map_access = int(source_map.get("access_route_count") or 0)
-        source_map_ready = bool(source_map.get("available")) and source_map_pages > 0
-
-        navigation_ready = bool(
-            domestic_pages
-            and foreign_pages
-            and academic_total
-            and layer_count == 4
-        )
-        strict_ready = strict_pages > 0
-        research_ready = navigation_ready and primary_status == "closed"
+        navigation_ready = bool(readiness["navigation_ready"])
+        strict_ready = bool(readiness["strict_ready"])
+        research_ready = bool(readiness["research_ready"])
         research_usable_with_boundaries = bool(
-            navigation_ready
-            and strict_ready
-            and layer_count == 4
-            and source_map_ready
+            readiness["research_usable_with_boundaries"]
         )
+        source_map_ready = bool(readiness["source_map_ready"])
         navigation_count += int(navigation_ready)
         strict_count += int(strict_ready)
-        primary_closed_count += int(primary_status == "closed")
+        primary_closed_count += int(readiness["primary_status"] == "closed")
         research_ready_count += int(research_ready)
         bounded_research_count += int(research_usable_with_boundaries)
         open_target_count += open_targets
@@ -7450,10 +7485,11 @@ def domestic_workbench_page() -> bytes:
     for topic in topics:
         item = topic["item"]
         event_id = str(item.get("event_id") or "")
+        readiness = _topic_readiness(topic)
         primary = _primary_evidence_display(item)
         chain = topic.get("evidence_chain_summary") or {}
         source_map = topic.get("event_source_map") or {}
-        nav_ready += 1
+        nav_ready += int(bool(readiness["navigation_ready"]))
         if primary.get("status") == "closed":
             primary_closed += 1
         open_targets += int(chain.get("open_targets") or 0)
@@ -7465,7 +7501,7 @@ def domestic_workbench_page() -> bytes:
 <article class="result compact-result"><div>
   <h3><a href="/research/{quote(event_id)}">{h(item.get("event_name"))}</a></h3>
   <div class="tagline">
-    <span class="pstatus ok">导航可用</span>
+    <span class="pstatus {'ok' if readiness['navigation_ready'] else 'warn'}">{'导航可用' if readiness['navigation_ready'] else '导航待补'}</span>
     <span class="pstatus {primary['class']}">{h(primary['label'])}</span>
     <span class="tag">证据链 {h(chain.get('page_items', 0))} 页</span>
     <span class="tag">来源地图 {h(source_map.get('page_record_count') or 0)} 页</span>
