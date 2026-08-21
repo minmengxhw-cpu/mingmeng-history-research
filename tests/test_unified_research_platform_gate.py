@@ -43,8 +43,8 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert report["checks"]["research_question_benchmark"]["path_ready_count"] == 36
     fragments = report["checks"]["citation_fragment_ledger"]
     assert fragments["status"] == "PASS"
-    assert fragments["fragment_count"] == 9
-    assert fragments["fragment_citation_ready_count"] == 9
+    assert fragments["fragment_count"] == 10
+    assert fragments["fragment_citation_ready_count"] == 10
     assert fragments["page_citation_ready_count"] == 0
     assert fragments["formal_db_written_count"] == 0
 
@@ -84,6 +84,9 @@ def test_fragments_are_discoverable_from_unified_search_and_domestic_timeline():
     search_1945 = app.search("大会宣言", platform="domestic", year="1945").decode("utf-8")
     assert "1945临时全国代表大会宣言题名身份" in search_1945
     assert "PDF 第 73 页（印刷页 65）" in search_1945
+    search_1946 = app.search("李聞慘案前後", platform="domestic", year="1946").decode("utf-8")
+    assert "1946年《光明報》李闻惨案前后的昆明题名身份" in search_1946
+    assert "PDF 第 14 页（印刷页未登记）" in search_1946
     assert "1945（文件日期锚点；1946汇编）" in timeline
 
 

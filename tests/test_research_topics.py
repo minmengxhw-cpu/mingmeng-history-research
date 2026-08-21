@@ -474,7 +474,7 @@ def test_1948_third_plenum_packet_carries_press_and_archive_pages_without_body()
     packet = build_research_packet("domestic-1948-third-plenum-may-day")
     assert packet is not None
     assert packet["counts"]["event_source_map_count"] == 1
-    assert packet["counts"]["event_source_page_record_count"] == 9
+    assert packet["counts"]["event_source_page_record_count"] == 12
     source_map = packet["event_source_maps"][0]
     assert source_map["primary_evidence_closed"] is False
     assert source_map["body_text_included"] is False
@@ -681,9 +681,9 @@ def test_1946_li_wen_packet_separates_compiled_statements_from_press():
         for page in pages
         if page["page_id"] is not None
     } == {18936, 18945, 18948, 1768, 16367, 16380, 16381}
-    assert len(pages) == 9
+    assert len(pages) == 12
     assert sum(page["status"] == "strict_citation" for page in pages) == 5
-    assert sum(page["status"] == "review_only" for page in pages) == 2
+    assert sum(page["status"] == "review_only" for page in pages) == 5
     assert sum(page["status"] == "navigation_only" for page in pages) == 2
     assert all(
         page["status"] == "strict_citation" and page["citation_ready"] is True
@@ -702,10 +702,18 @@ def test_1946_li_wen_packet_separates_compiled_statements_from_press():
         for page in pages
         if page["status"] == "navigation_only"
     )
+    assert packet["counts"]["citation_fragment_count"] == 1
+    fragment = packet["citation_fragments"][0]
+    assert fragment["source_id"] == "nlc-guangmingbao-1946-v8-li-wen"
+    assert fragment["page_id"] == 16380
+    assert fragment["pdf_page"] == 14
+    assert fragment["printed_page"] is None
+    assert fragment["body_text_included"] is False
     assert validate_packet(packet, "domestic-1946-li-wen")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1946-li-wen").decode("utf-8")
     assert '"text"' not in raw
     assert "专题来源地图" in research_packet_page("domestic-1946-li-wen").decode("utf-8")
+    assert "1946年《光明報》李闻惨案前后的昆明题名身份" in research_packet_page("domestic-1946-li-wen").decode("utf-8")
 
 
 def test_1946_pcc_packet_separates_navigation_targets_from_strict_pages():

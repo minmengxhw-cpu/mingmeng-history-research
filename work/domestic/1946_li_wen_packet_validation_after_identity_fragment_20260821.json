@@ -1,0 +1,26 @@
+{
+  "event_id": "domestic-1946-li-wen",
+  "status": "PASS",
+  "errors": [],
+  "counts": {
+    "domestic_candidate_rows": 39,
+    "domestic_documents": 29,
+    "domestic_pages": 82,
+    "domestic_strict_pages": 0,
+    "topic_event_domestic_pages": 87,
+    "topic_event_domestic_file_backed_pages": 87,
+    "topic_event_domestic_strict_pages": 5,
+    "evidence_chain_page_items": 7,
+    "evidence_chain_resolved_page_items": 7,
+    "evidence_chain_strict_gate_passed": 4,
+    "topic_event_sample_rows": 24,
+    "academic_candidates": 53,
+    "foreign_machine_pages": 57,
+    "sourcebook_count": 0,
+    "sourcebook_target_count": 0,
+    "event_source_map_count": 1,
+    "event_source_page_record_count": 12,
+    "citation_fragment_count": 1
+  },
+  "database_sha256": "1250e6ee3d20cc670bbfb5f53bf5a4a8a1658f35826617035bdb04c5cb59d3a3"
+}
