@@ -77,6 +77,11 @@ def test_scoped_domestic_acquisition_smoke(live_server, db_missing_reason):
     assert "当前最小闭环目标" in body
     assert "取得1941-10-10《光明報》整期或正式复制件" in body
     assert "取得路由" in body or "下一步" in body
+    assert "已核实的公开/馆藏访问路线" in body
+    assert "岭南大学" in body
+    assert "香港大学" in body
+    assert "body_read=false" in body
+    assert "julac.hosted.exlibrisgroup.com" in body
     assert "/research/domestic-1941-formation/packet" in body
     assert "/domestic/workbench" in body
     assert "国内研究平台" in body
@@ -135,6 +140,14 @@ def test_all_research_topics_have_nonempty_source_map_summary():
     assert all(
         event_source_map_summary(topic["item"]["event_id"])["page_record_count"] > 0
         for topic in topics
+    )
+    formation = event_source_map_summary("domestic-1941-formation")
+    assert formation["access_audit"]["confirmed_route_count"] == 2
+    assert len(formation["access_audit"]["confirmed_routes"]) == 2
+    assert any("香港大学" in route for route in formation["access_audit"]["confirmed_routes"])
+    assert any(
+        route.get("official_url", "").startswith("https://lib.hku.hk/")
+        for route in formation["source_routes"]
     )
 
 

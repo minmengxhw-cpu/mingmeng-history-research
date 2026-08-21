@@ -122,11 +122,14 @@ def event_source_map_summary(event_id: str) -> dict[str, Any]:
             "source_url": str(source.get("source_url") or "")
             if str(source.get("source_url") or "").startswith(("http://", "https://"))
             else "",
+            "official_url": str(source.get("official_url") or "")
+            if str(source.get("official_url") or "").startswith(("http://", "https://"))
+            else "",
             "image_url": str(source.get("image_url") or "")
             if str(source.get("image_url") or "").startswith(("http://", "https://"))
             else "",
         }
-        if route["source_url"] or route["image_url"]:
+        if route["source_url"] or route["official_url"] or route["image_url"]:
             source_routes.append(route)
     statuses = [str(page.get("status") or "") for page in pages]
     raw_access_audit = payload.get("access_audit") if isinstance(payload, dict) else None
@@ -137,6 +140,13 @@ def event_source_map_summary(event_id: str) -> dict[str, Any]:
             "status": str(raw_access_audit.get("status") or ""),
             "metadata_reviewed_on": str(raw_access_audit.get("metadata_reviewed_on") or ""),
             "next_minimum_target": str(raw_access_audit.get("next_minimum_target") or ""),
+            "confirmed_routes": [
+                str(route).strip()
+                for route in (confirmed_routes or [])
+                if str(route).strip()
+            ]
+            if isinstance(confirmed_routes, list)
+            else [],
             "confirmed_route_count": len(confirmed_routes) if isinstance(confirmed_routes, list) else 0,
             "body_read": False,
         }

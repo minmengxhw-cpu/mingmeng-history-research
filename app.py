@@ -7509,10 +7509,46 @@ def domestic_acquisition_page(event_id: str = "") -> bytes:
             if focused_access_status
             else ""
         )
+        route_cards: list[str] = []
+        seen_route_urls: set[str] = set()
+        for route in focused_source_map.get("source_routes", []) if isinstance(focused_source_map, dict) else []:
+            if not isinstance(route, dict):
+                continue
+            links: list[str] = []
+            for label, key in (("公开入口", "source_url"), ("官方馆藏表", "official_url"), ("影像入口", "image_url")):
+                raw_url = str(route.get(key) or "").strip()
+                if not raw_url or raw_url in seen_route_urls:
+                    continue
+                seen_route_urls.add(raw_url)
+                links.append(
+                    f'<a href="{h(source_href(raw_url))}" target="_blank" rel="noreferrer">{h(label)}</a>'
+                )
+            if not links:
+                continue
+            route_cards.append(
+                f'''<article class="result compact-result"><div>
+  <h3>{h(route.get("title") or route.get("source_id") or "未命名来源")}</h3>
+  <div class="meta">{h(route.get("source_role") or "访问路线")} · {h(route.get("evidence_level") or "未分级")} · 已登记 {h(route.get("page_count") or 0)} 页</div>
+  <div class="snippet">此处是公开目录、索引或来源入口，不代表正文影像已经取得，也不改变当前证据等级。</div>
+</div><div class="cite">{' · '.join(links)}</div></article>'''
+            )
+        confirmed_routes = focused_access_audit.get("confirmed_routes") or []
+        confirmed_route_html = "".join(
+            f"<li>{h(route)}</li>"
+            for route in confirmed_routes
+            if str(route).strip()
+        )
+        access_routes_section = ""
+        if route_cards or confirmed_route_html:
+            access_routes_section = f'''
+<section class="section-head"><h2>已核实的公开/馆藏访问路线</h2><span class="meta">{h(focused_access_audit.get("confirmed_route_count") or 0)} 条审计路线 · body_read=false</span></section>
+<div class="notice">这些入口用于下一步查档和版本追索；“路线已确认”不等于“原刊影像已取得”。取得原件后仍必须回到页级 provenance、影像 SHA256 和人工复核门禁。</div>
+<ul>{confirmed_route_html or '<li>来源地图已登记入口，审计文字待补。</li>'}</ul>
+<section class="result-list">{"".join(route_cards) or '<div class="notice">当前专题没有可公开链接的访问入口。</div>'}</section>'''
         focused_section = f"""
 <section class="doc-head"><div><h2>专题原件目标：{h(focused_event_name)}</h2><div class="meta">从证据链直接回接的 {h(len(focused_gaps))} 个开放目标；本区只显示调档元数据，不提供正文。</div></div><div class="doc-tools"><a class="button" href="/domestic/workbench">国内研究平台</a><a class="button" href="/research/{quote(event_id, safe='')}">回到专题</a><a class="button" href="/research/{quote(event_id, safe='')}/packet">打开研究包</a></div></section>
 <div class="notice"><strong>证据边界：</strong>这些目标尚未达到一手闭环；候选、目录、汇编和后期回顾资料只能帮助定位，不能替代待取得原件。取得后仍需登记馆藏档号、版本关系、页级 provenance、文件 SHA256 和复核状态。</div>
-{minimum_target_html}{access_status_html}
+{minimum_target_html}{access_status_html}{access_routes_section}
 <section class="result-list">{"".join(focused_target_cards)}</section>"""
     elif event_id:
         focused_section = f"""
