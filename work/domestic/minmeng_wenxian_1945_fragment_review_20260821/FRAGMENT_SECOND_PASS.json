@@ -1,0 +1,54 @@
+{
+  "schema": "domestic_sourcebook_text_fragment_second_pass.v1",
+  "generated_at": "2026-08-21",
+  "purpose": "对1946年官方汇编中1945年临时全国代表大会宣言的题名和文件日期做视觉核对；只开放身份片段，不升级正文。",
+  "source_page_review_ref": "work/domestic/minmeng_wenxian_1945_fragment_review_20260821/PAGE20174_MANUAL_REVIEW.json",
+  "source": {
+    "source_id": "nlc-1946-minmeng-wenxian-1945-core-pages",
+    "source_sha256": "276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f",
+    "pdf_page": 73,
+    "source_page_no": 73,
+    "source_page_type": "pdf",
+    "printed_page": 65,
+    "page_locator": "PDF 第 73 页（印刷页 65）",
+    "page_image_300dpi": "work/domestic/minmeng_wenxian_1945_fragment_render_20260821/page300-073.jpg",
+    "page_image_300dpi_sha256": "bb59004254155a5e1060922723cadffa708b811c031a362ca0518dd8f7f3b44e",
+    "source_year": 1946,
+    "event_year": 1945,
+    "year_anchor_label": "1945（文件日期锚点；1946汇编）"
+  },
+  "review_passes": [
+    {
+      "pass_id": "second_visual_pass",
+      "method": "300dpi_local_rerender_manual_reading",
+      "scope": "title_and_document_date_identity",
+      "status": "completed",
+      "finding": "题名《中国民主同盟临时全国代表大会宣言》和日期‘中华民国三十四年十月十六日’在页图中可辨认；只登记为汇编身份片段。"
+    }
+  ],
+  "fragment": {
+    "target_id": "1945-first-congress-declaration-identity",
+    "title": "1945临时全国代表大会宣言题名身份",
+    "scope": "PDF第73页题名及其下方文件日期；不含题名下方连续正文。",
+    "text": "中國民主同盟臨時全國代表大會宣言",
+    "display_suffix": "",
+    "fragment_ends_mid_sentence": false,
+    "transcription_mode": "manual_visual_transcription_300dpi_identity_only",
+    "character_check": "confirmed",
+    "punctuation_check": "not_applicable_title_identity",
+    "ocr_crosscheck": "",
+    "quote_safe": true,
+    "search_safe": true,
+    "fragment_citation_ready": true
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "continuation_boundary_status": "第74页为同一宣言连续正文；正文未逐字校读，不开放正文片段。",
+    "promotion_scope": "引用时必须保留‘1946年官方汇编重刊’、PDF第73页、印刷页65、来源SHA和1945文件日期锚点；不得扩展为1945年大会原始底本或完整宣言。"
+  },
+  "status": "HUMAN_VERIFIED_IDENTITY_FRAGMENT_QUOTE_READY_PRIMARY_GAP_OPEN"
+}

@@ -2538,7 +2538,7 @@ def domestic_fragment_ledger_page(qs: dict[str, list[str]]) -> bytes:
         if not needle
         or needle in " ".join(
             str(row.get(key) or "")
-            for key in ("title", "text", "target_id", "source_id", "pdf_page", "source_page_no", "page_locator", "printed_page", "source_year")
+            for key in ("title", "text", "target_id", "source_id", "pdf_page", "source_page_no", "page_locator", "printed_page", "source_year", "event_year")
         ).casefold()
     ]
     manifest: dict[str, object] = {}
@@ -7944,7 +7944,7 @@ def _domestic_fragment_search_hits(
     for row in rows:
         raw_haystack = " ".join(
             str(row.get(key) or "")
-            for key in ("title", "text", "target_id", "source_id", "pdf_page", "source_page_no", "page_locator", "printed_page", "source_year")
+            for key in ("title", "text", "target_id", "source_id", "pdf_page", "source_page_no", "page_locator", "printed_page", "source_year", "event_year")
         )
         if str(row.get("source_id") or "").startswith("nlc-pcc"):
             raw_haystack += " 政协 旧政协 pcc"
@@ -7953,7 +7953,10 @@ def _domestic_fragment_search_hits(
             continue
         if person_key and person_key not in haystack:
             continue
-        if year.strip() and str(row.get("source_year") or "") != year.strip()[:4]:
+        if year.strip() and year.strip()[:4] not in {
+            str(row.get("source_year") or ""),
+            str(row.get("event_year") or ""),
+        }:
             continue
         hits.append(row)
     return hits[:24]

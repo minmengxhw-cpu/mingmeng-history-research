@@ -7,8 +7,9 @@
 - 1946 年《政協文獻》六个高价值目标页已完成标题/页码/相邻页边界核验，并各自形成 `FRAGMENT_SECOND_PASS.json`；六条短片段达到 `fragment_citation_ready=true`，但全部保持 `page_citation_ready=false`、`body_read=false`，不把汇编页冒充独立原件。
 - 1949 年《中國人民政治協商會議第一屆全體會議會刊》PDF 第 220 页（印刷页 220）的《宣言（草案）》开头句已完成 300dpi/600dpi 双重视觉核验，新增 1 条 `fragment_citation_ready=true` 片段；整页仍保持 `page_citation_ready=false`、`body_read=false`，不把单句当作完整宣言正文。
 - 1949 年国家档案局《共同纲领》官方影像第 2 图（印刷页 54）的第一条开头已完成来源页图与 2x 视觉复核，新增 1 条官方影像片段；它保留影像 URL、图号、印刷页和图像 SHA，`pdf_page=null`，整页仍保持 `page_citation_ready=false`、`body_read=false`。
+- 1945 年《民主同盟文獻》（1946 汇编）PDF 第 73 页（印刷页 65）的《临时全国代表大会宣言》题名和文件日期已完成 300dpi 视觉复核，新增 1 条身份片段；明确区分 `source_year=1946` 与 `event_year=1945`，不把汇编重刊当作大会原始底本。
 - 新增 [`citation_fragments.jsonl`](../../data/domestic/citation_fragments.jsonl) 和生成/校验脚本 [`build_citation_fragment_ledger.py`](../../scripts/domestic/build_citation_fragment_ledger.py)，统一保存短片段、PDF/印刷页、来源 SHA256、复核文件和边界。
-- 台账目前包含 8 条片段（1946 年 6 条、1949 年 2 条，来源覆盖 PDF 与官方独立影像），已接入国内工作台、专题入口、页级引用卡、统一搜索、国内年表和研究包；研究包只导出元数据和链接，不导出片段正文。
+- 台账目前包含 9 条片段（1945 年 1 条身份片段、1946 年 6 条、1949 年 2 条，来源覆盖 PDF 与官方独立影像），已接入国内工作台、专题入口、页级引用卡、统一搜索、国内年表和研究包；研究包只导出元数据和链接，不导出片段正文。
 - 当前统一门禁仍为 `PASS / OPEN_PRIMARY_GAPS`；下一阶段不是扩张 OCR，而是把片段证据扩展到更多独立来源，并继续关闭九个专题的一手原件缺口。
 
 ## 目标

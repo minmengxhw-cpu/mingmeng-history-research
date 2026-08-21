@@ -2,7 +2,7 @@
   "schema": "domestic_citation_fragment_ledger_manifest.v1",
   "generated_at": "2026-08-21",
   "ledger": "data/domestic/citation_fragments.jsonl",
-  "ledger_sha256": "71c3107cc0161d68158c5843acd7f64f55174cf56164dd1c55162ed2841569e3",
+  "ledger_sha256": "16ff493d4feb45d269b18420f0bf825862f2a0fa3b87598b665cb299a37ee4d0",
   "fragment_review_refs": [
     "work/domestic/pcc_1946_page23_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/pcc_1946_page52_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
@@ -11,12 +11,13 @@
     "work/domestic/pcc_1946_page125_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/pcc_1946_page206_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/nlc_1949_page220_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
-    "work/domestic/saac_1949_common_program_fragment_review_20260821/FRAGMENT_SECOND_PASS.json"
+    "work/domestic/saac_1949_common_program_fragment_review_20260821/FRAGMENT_SECOND_PASS.json",
+    "work/domestic/minmeng_wenxian_1945_fragment_review_20260821/FRAGMENT_SECOND_PASS.json"
   ],
-  "fragment_count": 8,
-  "fragment_citation_ready_count": 8,
+  "fragment_count": 9,
+  "fragment_citation_ready_count": 9,
   "page_citation_ready_count": 0,
   "formal_db_written_count": 0,
   "body_read_count": 0,
-  "scope": "eight manually verified short fragments from 1946 and 1949 PDF/official-image sources; not full-page body promotion"
+  "scope": "nine manually verified short fragments from 1945, 1946 and 1949 PDF/official-image sources; not full-page body promotion"
 }

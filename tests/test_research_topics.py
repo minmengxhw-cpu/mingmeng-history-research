@@ -529,10 +529,19 @@ def test_1945_first_congress_packet_separates_sourcebooks_from_original_gap():
     ]
     assert {page["page_id"] for page in pages} == {1443, 1444, 1445, 1446, 20149, 20173, 20174, 20179}
     assert all(page["status"] == "strict_citation" and page["citation_ready"] is True for page in pages)
+    assert packet["counts"]["citation_fragment_count"] == 1
+    fragment = packet["citation_fragments"][0]
+    assert fragment["source_id"] == "nlc-1946-minmeng-wenxian-1945-core-pages"
+    assert fragment["event_year"] == 1945
+    assert fragment["source_year"] == 1946
+    assert fragment["pdf_page"] == 73
+    assert fragment["page_locator"] == "PDF 第 73 页（印刷页 65）"
+    assert fragment["body_text_included"] is False
     assert validate_packet(packet, "domestic-1945-first-congress")["status"] == "PASS"
     raw = packet_json_bytes("domestic-1945-first-congress").decode("utf-8")
     assert '"text"' not in raw
     assert "专题来源地图" in research_packet_page("domestic-1945-first-congress").decode("utf-8")
+    assert "1945临时全国代表大会宣言题名身份" in research_packet_page("domestic-1945-first-congress").decode("utf-8")
 
 
 def test_1944_reorganization_packet_separates_compilation_and_periodical_locator():

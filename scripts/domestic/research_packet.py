@@ -162,6 +162,9 @@ def _citation_fragment_refs(event_id: str, public: bool) -> list[dict[str, Any]]
         "domestic-1946-pcc": {
             "nlc-pcc-1946-NLC416-01jh004019-12949",
         },
+        "domestic-1945-first-congress": {
+            "nlc-1946-minmeng-wenxian-1945-core-pages",
+        },
         "domestic-1949-new-pcc": {
             "nlc-1949-first-plenary-conference-journal",
             "saac-1949-pcc-common-program-p02",
@@ -193,6 +196,7 @@ def _citation_fragment_refs(event_id: str, public: bool) -> list[dict[str, Any]]
                 "source_page_type": str(row.get("source_page_type") or "pdf"),
                 "page_locator": str(row.get("page_locator") or ""),
                 "source_year": int(row["source_year"]) if row.get("source_year") not in (None, "") else None,
+                "event_year": int(row["event_year"]) if row.get("event_year") not in (None, "") else None,
                 "year_anchor_label": str(row.get("year_anchor_label") or ""),
                 "printed_page": int(row["printed_page"]) if row.get("printed_page") not in (None, "") else None,
                 "page_id": page_id,

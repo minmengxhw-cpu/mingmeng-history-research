@@ -27,6 +27,7 @@ FRAGMENT_REFS = [
     "work/domestic/pcc_1946_page206_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/nlc_1949_page220_manual_review_20260821/FRAGMENT_SECOND_PASS.json",
     "work/domestic/saac_1949_common_program_fragment_review_20260821/FRAGMENT_SECOND_PASS.json",
+    "work/domestic/minmeng_wenxian_1945_fragment_review_20260821/FRAGMENT_SECOND_PASS.json",
 ]
 DEFAULT_LEDGER = ROOT / "data" / "domestic" / "citation_fragments.jsonl"
 DEFAULT_MANIFEST = ROOT / "data" / "domestic" / "citation_fragments_manifest.json"
@@ -105,6 +106,8 @@ def build_row(relative_ref: str) -> dict[str, Any]:
     if raw_year in (None, ""):
         raw_year = next((year for year in (1941, 1944, 1945, 1946, 1947, 1948, 1949) if str(year) in source_id), None)
     source_year = int(raw_year) if raw_year not in (None, "") else None
+    raw_event_year = source.get("event_year")
+    event_year = int(raw_event_year) if raw_event_year not in (None, "") else None
     year_anchor_label = str(source.get("year_anchor_label") or "")
     if not year_anchor_label and source_year:
         year_anchor_label = (
@@ -148,6 +151,7 @@ def build_row(relative_ref: str) -> dict[str, Any]:
         "page_locator": page_locator,
         "printed_page": int(source["printed_page"]),
         "source_year": source_year,
+        "event_year": event_year,
         "year_anchor_label": year_anchor_label,
         "page_url": str(page_source.get("page_url") or ""),
         "page_review_ref": page_ref,
@@ -206,7 +210,7 @@ def build(ledger_path: Path, manifest_path: Path, report_path: Path) -> dict[str
         "page_citation_ready_count": sum(bool(row["page_citation_ready"]) for row in rows),
         "formal_db_written_count": sum(bool(row["formal_db_written"]) for row in rows),
         "body_read_count": sum(bool(row["body_read"]) for row in rows),
-        "scope": "eight manually verified short fragments from 1946 and 1949 PDF/official-image sources; not full-page body promotion",
+        "scope": "nine manually verified short fragments from 1945, 1946 and 1949 PDF/official-image sources; not full-page body promotion",
     }
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

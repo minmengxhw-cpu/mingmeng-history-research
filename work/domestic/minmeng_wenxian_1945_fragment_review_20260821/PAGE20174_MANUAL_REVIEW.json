@@ -1,0 +1,54 @@
+{
+  "schema": "domestic_sourcebook_page_manual_review.v1",
+  "review_id": "minmeng-wenxian-1945-page20174-manual-review-20260821",
+  "reviewer": "codex-visual-audit-20260821",
+  "reviewed_at": "2026-08-21",
+  "purpose": "对1946年官方汇编中1945年临时全国代表大会宣言的题名页、文件日期和页界做视觉复核；只开放题名/日期身份片段，不开放正文。",
+  "source": {
+    "source_id": "nlc-1946-minmeng-wenxian-1945-core-pages",
+    "source_file": "data/domestic/sourcebooks/NLC416-01jh004281-12557_民主同盟文獻_1946.pdf",
+    "source_sha256": "276a82242c445bd7d6ca468f9022090922e0c2c243054e0e5af4353a1456e43f",
+    "main_db_page_id": 20174,
+    "pdf_page": 73,
+    "source_page_no": 73,
+    "printed_page": 65,
+    "page_url": "https://commons.wikimedia.org/wiki/File:NLC416-01jh004281-12557_%E6%B0%91%E4%B8%BB%E5%90%8C%E7%9B%9F%E6%96%87%E7%8D%BB.pdf#page=73",
+    "source_year": 1946,
+    "event_year": 1945,
+    "page_type": "pdf",
+    "page_locator": "PDF 第 73 页（印刷页 65）",
+    "year_anchor_label": "1945（文件日期锚点；1946汇编）"
+  },
+  "page_identity": {
+    "title": "中國民主同盟臨時全國代表大會宣言",
+    "date": "中華民國三十四年十月十六日",
+    "page_label": "PDF第73页；印刷页65",
+    "identity_status": "human_verified",
+    "body_text_verified": false
+  },
+  "review_passes": [
+    {
+      "pass_id": "page73_page74_visual_review",
+      "method": "local_300dpi_render_manual_visual_review",
+      "scope": "title_date_page_identity_and_next_page_boundary",
+      "reference": "work/domestic/congress_1945_review_20260813/REVIEW_DECISIONS.json",
+      "status": "completed",
+      "finding": "PDF第73页右侧题名与中华民国三十四年十月十六日日期清晰可见；第74页为同一宣言的连续正文，不将正文自动升级为片段或整页引文。"
+    }
+  ],
+  "render_refs": {
+    "page_image_300dpi": "work/domestic/minmeng_wenxian_1945_fragment_render_20260821/page300-073.jpg",
+    "page_image_300dpi_sha256": "bb59004254155a5e1060922723cadffa708b811c031a362ca0518dd8f7f3b44e",
+    "next_page_image_300dpi": "work/domestic/minmeng_wenxian_1945_fragment_render_20260821/page300-074.jpg",
+    "next_page_image_300dpi_sha256": "cbb09ad2ffaff9dc8468d71a933615bfc5d0b549c1ef6a2e0ae9401eef56fc28"
+  },
+  "evidence_boundary": {
+    "page_identity_ready": true,
+    "fragment_identity_ready": true,
+    "page_citation_ready": false,
+    "formal_db_written": false,
+    "body_read": false,
+    "page_body_status": "整页正文未逐字校读；仅题名和文件日期达到身份片段门禁。",
+    "promotion_scope": "允许在带汇编PDF页码、印刷页、来源SHA和版本说明的身份证据卡中引用；不得将1946年汇编重刊当作1945年大会原始底本。"
+  }
+}
