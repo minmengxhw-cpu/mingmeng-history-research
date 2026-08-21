@@ -777,6 +777,84 @@ def event_source_map_coverage_check() -> dict[str, Any]:
     }
 
 
+def source_map_status_consistency_check(db_path: Path) -> dict[str, Any]:
+    """Prevent static source maps from overstating formal citation status.
+
+    Source maps are useful presentation and routing artifacts, but the formal
+    SQLite ``page_provenance`` row is authoritative for citation readiness.
+    This check only inspects page-level metadata: a map may claim
+    ``citation_ready=true`` or ``status=strict_citation`` only when the
+    corresponding formal row exists and is citation-ready.  It deliberately
+    does not read page bodies or promote an open primary-source target.
+    """
+    errors: list[str] = []
+    checked_page_count = 0
+    strict_claim_count = 0
+    citation_claim_count = 0
+    connection = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+    connection.row_factory = sqlite3.Row
+    try:
+        for source_map_path in sorted(SOURCE_MAP_DIR.glob("*_source_map.json")):
+            try:
+                payload = json.loads(source_map_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                errors.append(f"source map unreadable {source_map_path.name}: {exc}")
+                continue
+            if not isinstance(payload, dict):
+                errors.append(f"source map is not an object: {source_map_path.name}")
+                continue
+            for source in payload.get("sources") or []:
+                if not isinstance(source, dict):
+                    continue
+                source_id = str(source.get("source_id") or "")
+                for record in source.get("page_records") or []:
+                    if not isinstance(record, dict):
+                        continue
+                    claimed_citation = record.get("citation_ready") is True
+                    claimed_strict = record.get("status") == "strict_citation"
+                    if not claimed_citation and not claimed_strict:
+                        continue
+                    checked_page_count += 1
+                    strict_claim_count += int(claimed_strict)
+                    citation_claim_count += int(claimed_citation)
+                    if claimed_strict and not claimed_citation:
+                        errors.append(
+                            f"{source_map_path.name}:{source_id}: strict_citation without citation_ready=true"
+                        )
+                    value = record.get("page_id")
+                    page_id: int | None = None
+                    if isinstance(value, int) and not isinstance(value, bool) and value > 0:
+                        page_id = value
+                    elif isinstance(value, str) and value.isdigit() and int(value) > 0:
+                        page_id = int(value)
+                    if page_id is None:
+                        errors.append(
+                            f"{source_map_path.name}:{source_id}: cited page has invalid page_id {value!r}"
+                        )
+                        continue
+                    row = connection.execute(
+                        "SELECT citation_ready FROM page_provenance WHERE page_id=?",
+                        (page_id,),
+                    ).fetchone()
+                    if row is None:
+                        errors.append(
+                            f"{source_map_path.name}:{source_id}: page {page_id} is absent from formal page_provenance"
+                        )
+                    elif int(row["citation_ready"] or 0) != 1:
+                        errors.append(
+                            f"{source_map_path.name}:{source_id}: page {page_id} claims citation-ready but formal row is not"
+                        )
+    finally:
+        connection.close()
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "checked_page_count": checked_page_count,
+        "strict_claim_count": strict_claim_count,
+        "citation_claim_count": citation_claim_count,
+        "errors": errors,
+    }
+
+
 def primary_subtarget_support_check(db_path: Path) -> dict[str, Any]:
     """Validate bounded primary subunits without reading or promoting bodies.
 
@@ -1023,6 +1101,7 @@ def build_report() -> dict[str, Any]:
         "missing_provenance": missing_provenance_check(db_path),
         "research_packets": packet_check(),
         "event_source_map_coverage": event_source_map_coverage_check(),
+        "source_map_status_consistency": source_map_status_consistency_check(db_path),
         "primary_subtarget_support": primary_subtarget_support_check(db_path),
         "drnh_preview_event_map": drnh_preview_event_map_check(db_path),
         "comparison_cards": validate_cards(COVERAGE_PATH, CARDS_PATH),
