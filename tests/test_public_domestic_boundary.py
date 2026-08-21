@@ -59,6 +59,28 @@ def test_public_mode_hides_internal_domestic_workbench_routes():
     assert "/research/gaps" in app.PUBLIC_HIDDEN_PATHS
 
 
+def test_public_research_question_pages_do_not_expose_private_page_links():
+    matrices = app._load_topic_research_matrix()
+    page_ids = set()
+    for matrix in matrices.values():
+        for question in matrix.get("questions", []):
+            for key in ("evidence_page_ids", "negative_page_ids"):
+                page_ids.update(int(value) for value in question.get(key, []) if str(value).isdigit())
+
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = True
+    try:
+        hidden_ids = page_ids - app._public_visible_topic_page_ids(page_ids)
+        assert hidden_ids
+        topic_body = app.research_topic_page("domestic-1941-formation").decode("utf-8")
+        questions_body = app.research_questions_page().decode("utf-8")
+        for page_id in hidden_ids:
+            assert f"/cite/{page_id}" not in topic_body
+            assert f"/cite/{page_id}" not in questions_body
+    finally:
+        app._request.public_mode = previous
+
+
 def test_public_shared_entry_points_do_not_render_private_domestic_title():
     with sqlite3.connect(DB_PATH) as connection:
         private_title = connection.execute(

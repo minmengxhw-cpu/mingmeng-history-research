@@ -1088,6 +1088,7 @@ NAV_GROUPS = [
         ("/domestic", "国内史料库"),
         ("/domestic/workbench", "国内研究平台"),
         ("/research", "多源专题研究"),
+        ("/research/questions", "研究问题入口"),
         ("/domestic/library", "国内核心可阅"),
         ("/domestic/events", "国内事件墙"),
         ("/domestic/sources", "国内来源"),
@@ -5516,6 +5517,12 @@ def _primary_subtarget_support_html(event_id: str) -> str:
     cards: list[str] = []
     for row in rows:
         page_ids = [str(value) for value in row.get("page_ids", []) if value]
+        if getattr(_request, "public_mode", False):
+            try:
+                visible_ids = _public_visible_topic_page_ids({int(value) for value in page_ids})
+                page_ids = [value for value in page_ids if int(value) in visible_ids]
+            except (TypeError, ValueError):
+                page_ids = []
         page_links = " · ".join(
             f'<a href="/cite/{quote(page_id)}">页级门禁 #{h(page_id)}</a>'
             for page_id in page_ids
@@ -7555,6 +7562,7 @@ def domestic_workbench_page() -> bytes:
 </form>
 <section class="doc-tools" style="margin:16px 0;">
   <a class="button" href="/research">九专题总览</a>
+  <a class="button" href="/research/questions">研究问题入口</a>
   <a class="button" href="/research/gaps">一手证据缺口</a>
   <a class="button" href="/research/packets">研究包</a>
   <a class="button" href="/domestic/intake">授权原件接收</a>
@@ -7709,6 +7717,7 @@ def research_topics_page() -> bytes:
     body += """
 <section class="doc-tools" style="margin-top:20px;justify-content:center;">
   <a class="button" href="/domestic/workbench">国内研究平台</a>
+  <a class="button" href="/research/questions">研究问题入口</a>
   <a class="button" href="/research/parity">国内—海外对齐仪表盘</a>
   <a class="button" href="/align">多源对位视图</a>
   <a class="button" href="/research/gaps">一手证据收口看板</a>
@@ -7719,6 +7728,92 @@ def research_topics_page() -> bytes:
 </section>
 """
     return layout("多源专题研究", body, active_path="/research")
+
+
+def research_questions_page() -> bytes:
+    """Question-first domestic research entry based on the tracked matrix."""
+    topics = _research_topic_rows()
+    cards: list[str] = []
+    question_count = 0
+    evidence_link_count = 0
+    open_gap_count = 0
+    for topic in topics:
+        item = topic.get("item") or {}
+        event_id = str(item.get("event_id") or "")
+        matrix = topic.get("research_matrix") or {}
+        questions = matrix.get("questions") if isinstance(matrix, dict) else []
+        if not isinstance(questions, list):
+            continue
+        crosswalk = topic.get("foreign_crosswalk") or {}
+        for question in questions:
+            if not isinstance(question, dict):
+                continue
+            question_count += 1
+            status = str(question.get("status") or "partial")
+            status_label, status_class = {
+                "ready": ("当前可回答", "ok"),
+                "partial": ("部分可回答", "warn"),
+                "open_gap": ("开放缺口", "warn"),
+            }.get(status, ("待核", "warn"))
+            evidence_ids = question.get("evidence_page_ids") or []
+            negative_ids = question.get("negative_page_ids") or []
+            page_links: list[str] = []
+            for value in list(evidence_ids) + list(negative_ids):
+                try:
+                    page_id = int(value)
+                except (TypeError, ValueError):
+                    continue
+                label = "负向核查" if value in negative_ids else "证据页"
+                page_links.append(
+                    f'<a class="tag" href="/cite/{page_id}">{h(label)} #{page_id}</a>'
+                )
+            if page_links:
+                evidence_link_count += len(page_links)
+            if status == "open_gap":
+                open_gap_count += 1
+            crosswalk_item = crosswalk.get(str(question.get("id") or ""))
+            if not isinstance(crosswalk_item, dict):
+                crosswalk_item = {}
+            route_links = []
+            for route in crosswalk_item.get("routes") or []:
+                if not isinstance(route, dict):
+                    continue
+                entry = str(route.get("entry") or "")
+                if entry:
+                    route_links.append(
+                        f'<a class="tag" href="{h(entry)}">境外：{h(route.get("name") or entry)}</a>'
+                    )
+            cards.append(
+                f"""
+<article class="result compact-result evidence-matrix-item">
+  <div>
+    <h3>{h(question.get('question') or question.get('id') or '未命名研究问题')}</h3>
+    <div class="meta">专题：<a href="/research/{quote(event_id)}">{h(item.get('event_name') or event_id)}</a> · {h(question.get('id') or '')}</div>
+    <div class="tagline"><span class="pstatus {status_class}">{h(status_label)}</span><span class="tag">国内研究路径已登记</span></div>
+    <div class="snippet"><strong>当前证据能支持到：</strong>{h(question.get('evidence_scope') or '未标注')}</div>
+    <div class="snippet"><strong>边界：</strong>{h(question.get('caveat') or '未标注')}</div>
+    <div class="snippet"><strong>下一步：</strong>{h(question.get('next_action') or '未标注')}</div>
+    <div class="tagline">{' '.join(page_links) or '<span class="meta">暂无页级证据入口</span>'} {' '.join(route_links)}</div>
+  </div>
+  <div class="cite"><a href="/research/{quote(event_id)}">专题</a><br><a href="/research/{quote(event_id)}/packet">研究包</a></div>
+</article>"""
+            )
+    body = breadcrumb_html([("/", "首页"), ("/domestic/workbench", "国内研究平台"), ("/research", "多源专题研究"), (None, "研究问题入口")]) + f"""
+<section class="hero hero-compact">
+  <div class="hero-eyebrow">QUESTION-FIRST RESEARCH</div>
+  <h1>研究问题入口</h1>
+  <p class="hero-sub">从真实研究问题进入国内专题、页级证据、境外对读和研究包；问题状态、证据边界和下一步动作均来自版本化研究矩阵。</p>
+  <div class="hero-chips"><span><b>{h(question_count)}</b> 个问题</span><span><b>{h(len(topics))}</b> 个专题</span><span><b>{h(evidence_link_count)}</b> 个页级入口</span><span><b>{h(open_gap_count)}</b> 个开放缺口问题</span></div>
+</section>
+<div class="notice"><strong>使用规则：</strong>本页只读取研究矩阵和页级元数据，不复制正文、OCR 或逐字引文；“当前可回答”表示现有证据范围足够回答该问题，不等于所有专题主原件已经闭环。正式引用仍回到原文页和 citation gate。</div>
+<section class="result-list">{"".join(cards) or '<div class="notice">暂无研究问题矩阵。</div>'}</section>
+<section class="doc-tools" style="margin-top:20px;justify-content:center;">
+  <a class="button" href="/research">专题索引</a>
+  <a class="button" href="/research/parity">国内—海外对齐</a>
+  <a class="button secondary" href="/domestic/workbench">国内研究平台</a>
+</section>
+"""
+    return layout("研究问题入口", body, active_path="/research")
 
 
 def research_packets_page() -> bytes:
@@ -13062,6 +13157,8 @@ class Handler(BaseHTTPRequestHandler):
             payload = domestic_events_page(qs)
         elif parsed.path == "/research":
             payload = research_topics_page()
+        elif parsed.path == "/research/questions":
+            payload = research_questions_page()
         elif parsed.path == "/research/parity":
             payload = research_parity_page()
         elif parsed.path == "/research/gaps":

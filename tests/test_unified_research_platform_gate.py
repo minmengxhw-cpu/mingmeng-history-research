@@ -48,10 +48,10 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert source_map_consistency["citation_claim_count"] > 0
     subtargets = report["checks"]["primary_subtarget_support"]
     assert subtargets["status"] == "PASS"
-    assert subtargets["topic_count"] == 5
-    assert subtargets["unit_count"] == 16
-    assert subtargets["page_count"] == 63
-    assert subtargets["unique_page_count"] == 63
+    assert subtargets["topic_count"] == 9
+    assert subtargets["unit_count"] == 22
+    assert subtargets["page_count"] == 85
+    assert subtargets["unique_page_count"] == 85
     previews = report["checks"]["drnh_preview_event_map"]
     assert previews["status"] == "PASS"
     assert previews["event_count"] == 4
@@ -64,6 +64,20 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert fragments["fragment_citation_ready_count"] == 14
     assert fragments["page_citation_ready_count"] == 0
     assert fragments["formal_db_written_count"] == 0
+
+
+def test_question_first_research_entry_covers_all_declared_questions():
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = False
+    try:
+        body = app.research_questions_page().decode("utf-8")
+    finally:
+        app._request.public_mode = previous
+    assert "研究问题入口" in body
+    assert "<b>36</b> 个问题" in body
+    assert body.count("evidence-matrix-item") == 36
+    assert "1941年前后是否已经形成可识别的组织与成立表达" in body
+    assert "/research/domestic-1941-formation/packet" in body
 
 
 def test_domestic_fragment_ledger_and_page_panel_keep_page_gate_separate():
