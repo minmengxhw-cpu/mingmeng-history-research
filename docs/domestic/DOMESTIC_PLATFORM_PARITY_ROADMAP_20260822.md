@@ -154,3 +154,17 @@ python3 scripts/domestic/build_domestic_foreign_parity_acceptance.py \
 - `research_content_status=OPEN_PRIMARY_GAPS`：事件定义原件仍未全部闭环。
 
 因此，路径回归通过可以证明国内平台已经能像海外平台一样“进入问题、找到来源、回到页级证据”，但不能把它解释成国内一手史料已经收齐。
+
+## 8. 当前资料分流基线
+
+2026-08-22 使用现有覆盖表和页链对账结果重算资料准入队列：
+
+| 项目 | 数量 | 处理含义 |
+|---|---:|---|
+| 来源记录 | 61 | 当前纳入质量分流的来源元数据 |
+| 完整页链、无需重复 OCR | 58 | 转入目标页人工引用复核 |
+| 定向复核 | 2 | 使用现有 OCR 定位，只核目标页 |
+| 仅导航保留 | 1 | 保留馆藏/目录入口，不作为正文证据 |
+| 同 SHA 重复组 | 0 | 当前未发现需要合并审计的同哈希组 |
+
+分流报告位于 `work/domestic/source_admission_current_20260822/`。它再次确认：电子文本不重复 OCR，完整页链不整本重导，目录不升级为正文，所有分流均保持 `auto_delete=false`、`formal_db_written=false`。
