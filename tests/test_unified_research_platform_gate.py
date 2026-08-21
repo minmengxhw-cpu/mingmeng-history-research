@@ -334,6 +334,8 @@ def test_domestic_workbench_is_the_research_front_door():
     assert "incoming 文件 0" in body
     assert "/domestic/intake" in body
     assert "/research/gaps" in body
+    assert "/domestic/academic" in body
+    assert "/domestic/search?scope=research" in body
     assert "/search" in body
     assert "platform" in body and "domestic" in body
     assert "1941年中国民主政团同盟成立" in body

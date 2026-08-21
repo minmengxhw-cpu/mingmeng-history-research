@@ -7714,6 +7714,8 @@ def domestic_workbench_page() -> bytes:
   <a class="button" href="/domestic/citations/fragments">片段证据台账</a>
   <a class="button secondary" href="/research/parity">国内外对齐</a>
   <a class="button secondary" href="/domestic/library">核心可阅库</a>
+  <a class="button secondary" href="/domestic/academic">学术研究层</a>
+  <a class="button secondary" href="/domestic/search?scope=research">学术检索</a>
   <a class="button secondary" href="/timeline?platform=domestic">国内年表</a>
 </section>
 <div class="section-head"><h2>P0 仍待原件</h2><span class="section-meta">通宵任务优先队列</span></div>
