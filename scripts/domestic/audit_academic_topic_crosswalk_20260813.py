@@ -21,6 +21,52 @@ import app  # noqa: E402
 DEFAULT_DB = ROOT / "work/domestic/staging_20260730/domestic_staging.sqlite"
 DEFAULT_COVERAGE = ROOT / "data/domestic/event_coverage.json"
 DEFAULT_CARDS = ROOT / "data/domestic/topic_comparison_cards.json"
+DEFAULT_CROSSWALK = ROOT / "data/domestic/academic_topic_crosswalk.json"
+
+
+def load_tracked_crosswalk(path: Path, db_path: Path) -> dict:
+    """Replay the tracked metadata crosswalk when private staging is absent."""
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {
+            "db_path": str(db_path),
+            "body_read": False,
+            "source": "tracked_metadata_crosswalk",
+            "snapshot_only": True,
+            "status": "BLOCKED",
+            "reason": f"tracked academic crosswalk unreadable: {exc}",
+        }
+    if not isinstance(payload, dict):
+        return {
+            "db_path": str(db_path),
+            "body_read": False,
+            "source": "tracked_metadata_crosswalk",
+            "snapshot_only": True,
+            "status": "BLOCKED",
+            "reason": "tracked academic crosswalk is not an object",
+        }
+    topics = payload.get("topics")
+    if payload.get("status") != "PASS" or payload.get("body_read") is not False or not isinstance(topics, list):
+        return {
+            "db_path": str(db_path),
+            "body_read": False,
+            "source": "tracked_metadata_crosswalk",
+            "snapshot_only": True,
+            "status": "BLOCKED",
+            "reason": "tracked academic crosswalk is not a PASS/body_read=false snapshot",
+        }
+    report = dict(payload)
+    report.update(
+        {
+            "db_path": str(db_path),
+            "source": "tracked_metadata_crosswalk",
+            "snapshot_only": True,
+            "audit_mode": "metadata_crosswalk_replay",
+            "warning": "staging SQLite is absent; topic matches are replayed from tracked metadata and contain no academic正文",
+        }
+    )
+    return report
 
 
 def main() -> int:
@@ -28,8 +74,16 @@ def main() -> int:
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     parser.add_argument("--coverage", type=Path, default=DEFAULT_COVERAGE)
     parser.add_argument("--cards", type=Path, default=DEFAULT_CARDS)
+    parser.add_argument("--crosswalk", type=Path, default=DEFAULT_CROSSWALK)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
+    if not args.db.is_file():
+        report = load_tracked_crosswalk(args.crosswalk, args.db)
+        if args.output:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+        return 0 if report.get("status") in {"PASS", "BLOCKED"} else 1
     app.DOMESTIC_STAGING_DB_PATH = args.db
     coverage = json.loads(args.coverage.read_text(encoding="utf-8"))
     cards = {
@@ -58,6 +112,9 @@ def main() -> int:
         "matching_basis": "structured metadata fields plus title/author/institution; not body semantics",
         "topics": topics,
         "total_topic_matches": sum(int(topic["matched_records"]) for topic in topics),
+        "source": "staging_sqlite",
+        "snapshot_only": False,
+        "audit_mode": "per_record_metadata_crosswalk",
         "status": "PASS" if args.db.is_file() else "BLOCKED",
     }
     if args.output:
