@@ -45,3 +45,6 @@ def test_parity_dashboard_renders_last_acceptance_snapshot(tmp_path, monkeypatch
     assert "最近一次双侧研究路径回归" in body
     assert "国内问题路径 36/36" in body
     assert "内容状态 <code>OPEN_PRIMARY_GAPS</code>" in body
+    assert "下一步执行" in body
+    assert "香港大学目录已确认" in body
+    assert "/domestic/acquisition?event=domestic-1941-formation" in body

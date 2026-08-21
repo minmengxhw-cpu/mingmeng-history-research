@@ -6258,6 +6258,38 @@ def _load_primary_retrieval_queue() -> dict[str, object]:
     return payload if isinstance(payload, dict) else {}
 
 
+def _primary_retrieval_actions_by_event() -> dict[str, str]:
+    """Return the first explicit retrieval action for each domestic topic.
+
+    The queue is metadata-only and is already the authoritative hand-off for
+    unresolved primary targets. Exposing its action at the parity/workbench
+    entry point keeps the researcher on the same task contract instead of
+    showing only a generic evidence gap.
+    """
+    payload = _load_primary_retrieval_queue()
+    topics = payload.get("topics") if isinstance(payload, dict) else []
+    if not isinstance(topics, list):
+        return {}
+    actions: dict[str, str] = {}
+    for topic in topics:
+        if not isinstance(topic, dict):
+            continue
+        event_id = str(topic.get("event_id") or "").strip()
+        if not event_id:
+            continue
+        targets = topic.get("missing_primary")
+        if not isinstance(targets, list):
+            continue
+        for target in targets:
+            if not isinstance(target, dict):
+                continue
+            action = str(target.get("next_action") or "").strip()
+            if action:
+                actions[event_id] = action
+                break
+    return actions
+
+
 def _academic_layer_snapshot() -> dict[str, object]:
     """读取 staging 学术资料的元数据统计，不读取正文、不写数据库。"""
     snapshot: dict[str, object] = {
@@ -7099,6 +7131,7 @@ def research_parity_page() -> bytes:
     source_map_count = 0
     source_map_page_count = 0
     acceptance_report = _load_domestic_foreign_parity_acceptance_report()
+    retrieval_actions = _primary_retrieval_actions_by_event()
 
     for topic in topics:
         item = topic["item"]
@@ -7169,6 +7202,7 @@ def research_parity_page() -> bytes:
             if source_map_ready
             else '<span class="pstatus warn">来源地图待补</span>'
         )
+        retrieval_action = retrieval_actions.get(event_id) or "回到一手证据缺口看板，确认该专题的下一条原件动作。"
         rows.append(
             f"""
 <article class="result">
@@ -7178,8 +7212,9 @@ def research_parity_page() -> bytes:
     <div class="tagline">{navigation_badge}{strict_badge}{source_map_badge}{bounded_badge}<span class="pstatus {primary['class']}">{h(primary['label'])}</span>{final_badge}</div>
     <div class="snippet"><strong>研究问题：</strong>{h((topic.get('comparison') or {}).get('research_question') or '未登记')}</div>
     <div class="snippet"><strong>当前边界：</strong>{h(primary['gap'])}</div>
+    <div class="snippet"><strong>下一步执行：</strong>{h(retrieval_action)}</div>
   </div>
-  <div class="cite"><a href="/research/{quote(event_id)}">专题</a><br><a href="/research/{quote(event_id)}/packet">研究包</a></div>
+  <div class="cite"><a href="/research/{quote(event_id)}">专题</a><br><a href="/research/{quote(event_id)}/packet">研究包</a><br><a href="/domestic/acquisition?event={quote(event_id)}">调档任务</a></div>
 </article>"""
         )
 
@@ -7232,6 +7267,7 @@ def domestic_workbench_page() -> bytes:
     primary_closed = 0
     open_targets = 0
     source_map_pages = 0
+    retrieval_actions = _primary_retrieval_actions_by_event()
     cards: list[str] = []
     p0_rows: list[str] = []
     for topic in topics:
@@ -7246,6 +7282,7 @@ def domestic_workbench_page() -> bytes:
         open_targets += int(chain.get("open_targets") or 0)
         source_map_pages += int(source_map.get("page_record_count") or 0)
         gap = primary.get("gap") or "事件定义原件仍待补。"
+        retrieval_action = retrieval_actions.get(event_id) or "回到一手证据缺口看板，确认该专题的下一条原件动作。"
         cards.append(
             f"""
 <article class="result compact-result"><div>
@@ -7257,6 +7294,7 @@ def domestic_workbench_page() -> bytes:
     <span class="tag">来源地图 {h(source_map.get('page_record_count') or 0)} 页</span>
   </div>
   <div class="snippet"><strong>仍缺原件：</strong>{h(gap)}</div>
+  <div class="snippet"><strong>下一步执行：</strong>{h(retrieval_action)}</div>
 </div>
 <div class="cite">
   <a href="/research/{quote(event_id)}">专题</a><br>
