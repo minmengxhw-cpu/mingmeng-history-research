@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 
-from scripts.domestic.build_primary_retrieval_queue import build_queue, read_formal_page_scopes
+from pathlib import Path
+
+from scripts.domestic.build_primary_retrieval_queue import (
+    build_queue,
+    read_action_overrides,
+    read_formal_page_scopes,
+)
 
 
 def test_retrieval_queue_keeps_locked_viewer_open():
@@ -102,6 +108,17 @@ def test_retrieval_queue_uses_explicit_metadata_action_override():
         action_overrides={("e", "目标"): "按已确认馆藏路线取得影像并记录哈希"},
     )
     assert result["topics"][0]["missing_primary"][0]["next_action"] == "按已确认馆藏路线取得影像并记录哈希"
+
+
+def test_default_action_overrides_cover_all_open_topics_without_writing():
+    overrides = read_action_overrides(
+        Path(__file__).resolve().parents[1] / "data/domestic/primary_retrieval_action_overrides.json"
+    )
+    assert len(overrides) == 9
+    assert ("domestic-1944-reorganization", "1944年改组会议记录、改名决定和同期原刊的独立原版") in overrides
+    assert all(len(action) > 50 for action in overrides.values())
+    assert "主证据缺口" in overrides[("domestic-1944-reorganization", "1944年改组会议记录、改名决定和同期原刊的独立原版")]
+    assert "复制权利" in overrides[("domestic-1949-new-pcc", "1949年新政协筹备会议记录、民盟代表发言、完整代表名册及第一届全体会议完整档案")]
 
 
 def test_retrieval_queue_keeps_audited_route_when_many_public_candidates_exist():

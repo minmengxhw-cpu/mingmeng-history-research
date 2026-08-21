@@ -746,7 +746,7 @@
           "why_it_matters": "要把“改组/更名”从后来的汇编叙述还原为可定位的会议或同期刊物证据。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "先核对正式库页18780（扫描PDF第56页、书内第26页）与《纲领草案》的题名和页界；不重复下载或OCR。随后追索1944-09-19特园全国代表会议记录、改名决定及1944年《民憲》原刊；取得独立原件前不关闭主证据缺口。",
           "candidate_route_count": 13,
           "formal_page_count": 29,
           "formal_strict_citation_page_count": 3
@@ -1570,7 +1570,7 @@
           "why_it_matters": "现有页级材料已能支撑部分文本，但不能据此宣称大会档案链完整。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "先复核正式库中1945大会宣言与政治报告的连续页链和缺页边界；不要重复OCR或把汇编页当大会档案。再追索1945年大会会议记录、宣言/政治报告底本及馆藏档号，取得前保持主证据缺口开放。",
           "candidate_route_count": 12,
           "formal_page_count": 63,
           "formal_strict_citation_page_count": 31
@@ -2723,7 +2723,7 @@
           "why_it_matters": "只有正式会议档案才能把报刊表达与会议程序、代表身份和具体日期逐条对位。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有专题导航关联的严格页（6页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "先用正式库页18869、18871—18889核对民盟发言题名、页界和汇编范围；这些页是有边界的后出汇编，不是政协原始记录，不重复OCR。随后追索1946年政协正式会议记录、民盟代表发言/提案原件及完整日期轴，取得前不关闭主证据缺口。",
           "candidate_route_count": 19,
           "formal_page_count": 24,
           "formal_strict_citation_page_count": 0
@@ -3870,7 +3870,7 @@
           "why_it_matters": "要区分1946年形成的独立原件、后期汇编重刊、机关报评论和政协相关背景文件。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有专题导航关联的严格页（7页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "先复核正式库页19000的1946-11-14《紧急通告》身份，并对照页18884—18888的旧政协汇编范围；不把汇编重刊当独立通告原件，也不重复OCR。随后追民盟中央底本、张澜/罗隆基等函电和1946-11-14同期报刊原版，取得前不关闭主证据缺口。",
           "candidate_route_count": 15,
           "formal_page_count": 19,
           "formal_strict_citation_page_count": 0
@@ -4770,7 +4770,7 @@
           "why_it_matters": "要把遇害事实、民盟反应、社会舆论和后续纪念分别落到可核验的原始来源。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有专题导航关联的严格页（5页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "先核对正式库中1946年民盟声明页和《光明報》同期入口的来源边界；不重复OCR，不把汇编声明当地方支部原件。随后优先追1946年7月《民主周刊》原版、民盟抗议文件及司法/行政档案页级链，取得前保持主证据缺口开放。",
           "candidate_route_count": 14,
           "formal_page_count": 32,
           "formal_strict_citation_page_count": 0
@@ -5686,7 +5686,7 @@
           "why_it_matters": "这是把“同期报道”提升为“行政决定/组织正式公告”所必需的事件定义原件。",
           "status": "open",
           "retrieval_class": "AUTHORIZED_VIEWER_REQUIRED",
-          "next_action": "由有权限账户取得允许保存的官方影像；记录授权范围、文件 SHA256、页码和人工复核。现有正式库页只能作同期交叉材料，不能替代该权限路径所指向的原件。",
+          "next_action": "先把同期《大公報》《观察》和1983年汇编页作为交叉/版本追索层使用；不把报刊或汇编替代行政原件。随后沿已授权民盟数据库、上海档案馆上档6-5-1216/Q6-5-947和国史馆记录取得原件，记录档号、SHA256、页界与许可后再申请关闭缺口。",
           "candidate_route_count": 15,
           "formal_page_count": 19,
           "formal_strict_citation_page_count": 3
@@ -6698,7 +6698,7 @@
           "why_it_matters": "需要把机关报报道、中央档案和民盟内部会议拆成不同证据单元，避免一篇报道承担全部结论。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "先核对正式库中央档案馆公开专题页20665—20671及同期《光明報》页的各自证据范围；不把公开扫描替身或机关报当完整会议档案，也不重复OCR。随后按三中全会、五一口号、香港传播三条证据线补档号、原页和复制权利。",
           "candidate_route_count": 12,
           "formal_page_count": 18,
           "formal_strict_citation_page_count": 2
@@ -7456,7 +7456,7 @@
           "why_it_matters": "只有正式会议记录和代表档案才能核对人物、程序、日期和民盟角色。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "先核对正式库1949年中央档案馆页组和《光明報》入口的页界、日期与来源类型；不把公开档案替身或报刊报道扩写为完整会议记录，也不重复OCR。随后追筹备会记录、民盟发言、代表名册及第一届全体会议完整档案和复制权利。",
           "candidate_route_count": 12,
           "formal_page_count": 30,
           "formal_strict_citation_page_count": 22
