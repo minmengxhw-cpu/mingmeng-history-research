@@ -1,0 +1,14 @@
+{
+  "schema": "domestic_primary_retrieval_action_overrides.v1",
+  "body_read": false,
+  "formal_db_written": false,
+  "policy": "只覆盖可执行的元数据动作，不改变来源等级、页级复核或主证据闭环状态。",
+  "overrides": [
+    {
+      "event_id": "domestic-1941-formation",
+      "target": "1941年成立宣言或成立会议的独立原件影像、馆藏档号和版本关系",
+      "next_action": "香港大学目录已确认1941-09-18至12-12《光明報》微缩胶卷且无缺期；优先申请1941-10-10，并记录call number、载体、影像SHA256、页码和复制许可。目录不是原刊影像；取得前不要重复OCR或关闭主证据缺口。",
+      "rationale": "香港大学目录路线已完成题名级二次核验；下一动作是取得原刊影像，不是重复 OCR。"
+    }
+  ]
+}

@@ -28,6 +28,7 @@ DEFAULT_DB = ROOT / "data/research_index.sqlite"
 DEFAULT_EVENT_LINKS = ROOT / "data/domestic/citation_event_links.json"
 DEFAULT_OUTPUT = ROOT / "data/domestic/primary_retrieval_queue.json"
 DEFAULT_FORMAL_PAGE_SCOPES = ROOT / "data/domestic/formal_page_scopes.json"
+DEFAULT_ACTION_OVERRIDES = ROOT / "data/domestic/primary_retrieval_action_overrides.json"
 
 ITEM_EVIDENCE_TYPES = {"digital_image", "official_document"}
 CATALOGUE_EVIDENCE_TYPES = {"catalogue", "official_description", "printed_finding_aid"}
@@ -97,6 +98,32 @@ def read_formal_page_scopes(path: Path) -> dict[str, dict[str, Any]]:
             "rationale": str(row.get("rationale") or ""),
         }
     return scopes
+
+
+def read_action_overrides(path: Path) -> dict[tuple[str, str], str]:
+    """Read explicit metadata-only actions for exceptional acquisition routes."""
+    if not path.is_file():
+        return {}
+    payload = read_json(path)
+    if payload.get("schema") != "domestic_primary_retrieval_action_overrides.v1":
+        raise ValueError(f"unexpected retrieval action override schema: {path}")
+    for key in ("body_read", "formal_db_written"):
+        if payload.get(key) is not False:
+            raise ValueError(f"retrieval action overrides {key} must be false")
+    overrides: dict[tuple[str, str], str] = {}
+    for row in payload.get("overrides", []):
+        if not isinstance(row, dict):
+            raise ValueError("retrieval action override row must be an object")
+        event_id = str(row.get("event_id") or "").strip()
+        target = str(row.get("target") or "").strip()
+        action = str(row.get("next_action") or "").strip()
+        if not event_id or not target or not action:
+            raise ValueError("retrieval action override requires event_id, target and next_action")
+        key = (event_id, target)
+        if key in overrides:
+            raise ValueError(f"duplicate retrieval action override: {event_id} / {target}")
+        overrides[key] = action
+    return overrides
 
 
 def formal_page_record(row: sqlite3.Row) -> dict[str, Any]:
@@ -633,6 +660,7 @@ def build_queue(
     formal_index_available: bool = False,
     event_link_pages: dict[str, list[dict[str, Any]]] | None = None,
     event_link_index_available: bool = False,
+    action_overrides: dict[tuple[str, str], str] | None = None,
 ) -> dict[str, Any]:
     topics: list[dict[str, Any]] = []
     route_counts: Counter[str] = Counter()
@@ -706,8 +734,11 @@ def build_queue(
                     "why_it_matters": str(target.get("why_it_matters") or ""),
                     "status": str(target.get("status") or "open"),
                     "retrieval_class": retrieval_class,
-                    "next_action": next_action_with_formal_overlay(
-                        retrieval_class, route_rows, topic_event_link_pages
+                    "next_action": (
+                        (action_overrides or {}).get((event_id, target_text))
+                        or next_action_with_formal_overlay(
+                            retrieval_class, route_rows, topic_event_link_pages
+                        )
                     ),
                     "candidate_route_count": len(route_rows),
                     "formal_page_count": sum(int(row.get("formal_page_count") or 0) for row in route_rows),
@@ -778,6 +809,7 @@ def main() -> int:
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     parser.add_argument("--event-links", type=Path, default=DEFAULT_EVENT_LINKS)
     parser.add_argument("--formal-page-scopes", type=Path, default=DEFAULT_FORMAL_PAGE_SCOPES)
+    parser.add_argument("--action-overrides", type=Path, default=DEFAULT_ACTION_OVERRIDES)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
     coverage = read_json(args.coverage)
@@ -790,6 +822,7 @@ def main() -> int:
         if isinstance(row, dict) and row.get("candidate_id")
     }
     formal_page_scopes = read_formal_page_scopes(args.formal_page_scopes)
+    action_overrides = read_action_overrides(args.action_overrides)
     formal_index, formal_index_available = read_formal_index(args.db, formal_page_scopes)
     event_link_pages, event_link_index_available = read_event_link_pages(args.event_links, args.db)
     result = build_queue(
@@ -801,6 +834,7 @@ def main() -> int:
         formal_index_available=formal_index_available,
         event_link_pages=event_link_pages,
         event_link_index_available=event_link_index_available,
+        action_overrides=action_overrides,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

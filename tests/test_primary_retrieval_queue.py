@@ -93,6 +93,17 @@ def test_retrieval_queue_does_not_fail_when_candidate_is_missing():
     assert result["topics"][0]["missing_primary"][0]["retrieval_class"] == "ORIGINAL_ROUTE_UNRESOLVED"
 
 
+def test_retrieval_queue_uses_explicit_metadata_action_override():
+    result = build_queue(
+        [{"event_id": "e", "event_name": "事件", "primary_evidence_status": "partial"}],
+        {"e": {"layers": {"missing_primary": [{"target": "目标", "status": "open"}]} }},
+        {},
+        {},
+        action_overrides={("e", "目标"): "按已确认馆藏路线取得影像并记录哈希"},
+    )
+    assert result["topics"][0]["missing_primary"][0]["next_action"] == "按已确认馆藏路线取得影像并记录哈希"
+
+
 def test_retrieval_queue_keeps_audited_route_when_many_public_candidates_exist():
     candidate_ids = [f"public-{index}" for index in range(13)] + ["locked"]
     coverage = [{"event_id": "e", "event_name": "事件", "primary_evidence_status": "partial", "domestic_candidate_ids": candidate_ids}]

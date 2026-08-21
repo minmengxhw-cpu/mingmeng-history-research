@@ -1,6 +1,6 @@
 {
   "schema": "domestic_primary_retrieval_queue.v3",
-  "generated_at": "2026-08-15",
+  "generated_at": "2026-08-22",
   "scope": "九个国内专题的开放主证据目标",
   "policy": "候选路由只用于追索；不把目录、转录、后期叙述或锁定查看器升级为原件闭环。",
   "topic_count": 9,
@@ -27,7 +27,7 @@
     "body_read": false,
     "formal_db_written": false,
     "event_count": 9,
-    "page_count": 81
+    "page_count": 130
   },
   "body_read": false,
   "formal_db_written": false,
@@ -748,7 +748,7 @@
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
           "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 13,
-          "formal_page_count": 28,
+          "formal_page_count": 29,
           "formal_strict_citation_page_count": 3
         }
       ],
@@ -1529,16 +1529,33 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 1,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 18780,
+              "page_label": "56",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18780
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1944改组纲领草案起始页（正式汇编）",
+            "page_ids": [
+              18780
+            ],
+            "rationale": "正式汇编扫描 PDF 第56页对应书内第26页，题名和‘一九四四年九月十九日全国代表会议通过’可定位；只登记起始页，不把汇编重刊升级为1944会议原件。"
+          }
         }
       ],
       "body_read": false
@@ -2708,7 +2725,7 @@
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
           "next_action": "已有专题导航关联的严格页（6页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 19,
-          "formal_page_count": 12,
+          "formal_page_count": 24,
           "formal_strict_citation_page_count": 0
         }
       ],
@@ -3329,16 +3346,51 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 3,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 3,
+          "formal_anchored_page_count": 3,
+          "formal_pages": [
+            {
+              "page_id": 18871,
+              "page_label": "147",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 18872,
+              "page_label": "148",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 18873,
+              "page_label": "149",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18871,
+            18872,
+            18873
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协张澜开幕式讲话页组（正式汇编）",
+            "page_ids": [
+              18871,
+              18872,
+              18873
+            ],
+            "rationale": "正式汇编扫描 PDF 第147—149页对应书内第117页及连续页，题名页和连续页已在正式库中；这是汇编重刊页组，不是政协会议原始记录。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:huang-yan-pei-common-program-1946-01-16",
@@ -3369,16 +3421,33 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 1,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 18882,
+              "page_label": "158",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18882
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协黄炎培共同纲领发言起始页（正式汇编）",
+            "page_ids": [
+              18882
+            ],
+            "rationale": "正式汇编扫描 PDF 第158页对应书内第128页，题名页级入口清晰；不把后期汇编等同于会议原始记录。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:league-military-proposal-1946-01-16",
@@ -3409,16 +3478,33 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 1,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 18877,
+              "page_label": "153",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18877
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协民盟军事提案起始页（正式汇编）",
+            "page_ids": [
+              18877
+            ],
+            "rationale": "正式汇编扫描 PDF 第153页对应书内第123页，登记题名页级入口；后续说明页不在本次候选范围内。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:lo-lung-chi-common-program-1946-01-16",
@@ -3449,16 +3535,33 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 1,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 18883,
+              "page_label": "159",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18883
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协罗隆基共同纲领发言起始页（正式汇编）",
+            "page_ids": [
+              18883
+            ],
+            "rationale": "正式汇编扫描 PDF 第159页对应书内第129页，题名页级入口清晰；不把后期汇编等同于会议原始记录。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:lo-lung-chi-government-reorganization-1946-01-14",
@@ -3489,16 +3592,42 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 2,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 18875,
+              "page_label": "151",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 18876,
+              "page_label": "152",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18875,
+            18876
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协罗隆基改组政府发言页组（正式汇编）",
+            "page_ids": [
+              18875,
+              18876
+            ],
+            "rationale": "正式汇编扫描 PDF 第151—152页对应书内第121页及连续页；保留汇编版本边界，不宣称完整会议记录或原始发言底本已取得。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:situation-talk-1946-01-02",
@@ -3529,16 +3658,33 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 1,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 18869,
+              "page_label": "145",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18869
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946-01-02民盟时局谈话起始页（正式汇编）",
+            "page_ids": [
+              18869
+            ],
+            "rationale": "正式汇编扫描 PDF 第145页对应书内第115页，登记题名页级入口；不推断完整篇幅或同期原始发表载体。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:zhang-bo-jun-common-program-1946-01-16",
@@ -3569,16 +3715,33 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 1,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 18881,
+              "page_label": "157",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18881
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协章伯钧共同纲领发言起始页（正式汇编）",
+            "page_ids": [
+              18881
+            ],
+            "rationale": "正式汇编扫描 PDF 第157页对应书内第127页，题名页级入口清晰；不把后期汇编等同于会议原始记录。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:chang-dong-sun-freedom-1946-01-14",
@@ -3609,16 +3772,33 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 1,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 18874,
+              "page_label": "150",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18874
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协张东荪自由权利发言起始页（正式汇编）",
+            "page_ids": [
+              18874
+            ],
+            "rationale": "正式汇编扫描 PDF 第150页对应书内第120页，登记题名页级入口；不把汇编页升级为正式会议记录。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:huang-yan-pei-constitution-draft-1946-01-19",
@@ -3649,16 +3829,33 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 1,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 1,
+          "formal_anchored_page_count": 1,
+          "formal_pages": [
+            {
+              "page_id": 18889,
+              "page_label": "165",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18889
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协黄炎培宪草发言起始页（正式汇编）",
+            "page_ids": [
+              18889
+            ],
+            "rationale": "正式汇编扫描 PDF 第165页对应书内第135页，题名页级入口清晰；不把后期汇编等同于会议原始记录。"
+          }
         }
       ],
       "body_read": false
@@ -3675,7 +3872,7 @@
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
           "next_action": "已有专题导航关联的严格页（7页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 15,
-          "formal_page_count": 14,
+          "formal_page_count": 19,
           "formal_strict_citation_page_count": 0
         }
       ],
@@ -4410,16 +4607,51 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 3,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 3,
+          "formal_anchored_page_count": 3,
+          "formal_pages": [
+            {
+              "page_id": 18886,
+              "page_label": "162",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 18887,
+              "page_label": "163",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 18888,
+              "page_label": "164",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18886,
+            18887,
+            18888
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协章伯钧国民大会主张页组（正式汇编）",
+            "page_ids": [
+              18886,
+              18887,
+              18888
+            ],
+            "rationale": "正式汇编扫描 PDF 第162—164页对应书内第132页及连续页；这是民盟立场的汇编页组，不是独立函电或会议原始记录。"
+          }
         },
         {
           "candidate_id": "domestic:MMHIST:emergency-notice-national-assembly-1946-11-14",
@@ -4488,16 +4720,42 @@
           ],
           "access_audit_status": "",
           "body_read": false,
-          "formal_ingested_document_id": null,
-          "formal_doc_key": "",
-          "formal_page_count": 0,
+          "formal_ingested_document_id": 1291,
+          "formal_doc_key": "domestic-page/SRC-257bb7be70",
+          "formal_page_count": 2,
           "formal_strict_citation_page_count": 0,
-          "formal_provenance_page_count": 0,
-          "formal_anchored_page_count": 0,
-          "formal_pages": [],
-          "formal_page_ids": [],
+          "formal_provenance_page_count": 2,
+          "formal_anchored_page_count": 2,
+          "formal_pages": [
+            {
+              "page_id": 18884,
+              "page_label": "160",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            },
+            {
+              "page_id": 18885,
+              "page_label": "161",
+              "provenance_present": true,
+              "source_anchored": true,
+              "strict_citation": false
+            }
+          ],
+          "formal_page_ids": [
+            18884,
+            18885
+          ],
           "formal_strict_page_ids": [],
-          "formal_ingest_status": "NOT_INGESTED"
+          "formal_ingest_status": "FORMAL_PAGES_REVIEW_ONLY",
+          "formal_page_scope": {
+            "scope_label": "1946旧政协罗隆基国民大会发言页组（正式汇编）",
+            "page_ids": [
+              18884,
+              18885
+            ],
+            "rationale": "正式汇编扫描 PDF 第160—161页对应书内第130页及连续页；只登记汇编页级范围，不关闭拒参国大专题原件缺口。"
+          }
         }
       ],
       "body_read": false
@@ -4512,7 +4770,7 @@
           "why_it_matters": "要把遇害事实、民盟反应、社会舆论和后续纪念分别落到可核验的原始来源。",
           "status": "open",
           "retrieval_class": "PUBLIC_ITEM_VERIFICATION",
-          "next_action": "已有专题导航关联的严格页（4页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
+          "next_action": "已有专题导航关联的严格页（5页）：先核对这些页与开放目标的版本/原件关系；严格页不自动关闭主证据缺口，不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 14,
           "formal_page_count": 32,
           "formal_strict_citation_page_count": 0
@@ -4529,6 +4787,17 @@
           "status": "strict_citation",
           "navigation_title": "1947年《光明報》李公朴、闻一多纪念专题首版",
           "rationale": "原PDF首版明确标出李公朴、闻一多烈士纪念专题；这是事件发生后的同期报刊纪念页，用于专题进入点，不单独断言案件经过或责任归属。"
+        },
+        {
+          "page_id": 16367,
+          "page_label": "1",
+          "doc_key": "domestic-page/NLC404-01J000514-10429",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1946年《光明報》新八號首版（李闻专题同期报刊入口）",
+          "rationale": "新八號首版已视觉确认刊期和日期；作为李闻专题的同期机关报入口，不把该页社论当作李闻案件原件。"
         },
         {
           "page_id": 18936,
@@ -4564,7 +4833,7 @@
           "rationale": "官方历史文献汇编公开扫描第224页视觉核验可见题名、日期和页界；这是民盟组织声明的汇编重刊导航锚点，不把汇编页扩写为独立原件或司法行政事实闭环。"
         }
       ],
-      "event_link_strict_page_count": 4,
+      "event_link_strict_page_count": 5,
       "candidate_routes": [
         {
           "candidate_id": "domestic:NLC:guangmingbao-1946-issue10-guangdong-kmt-protest-editorial",
@@ -7190,7 +7459,7 @@
           "next_action": "已有正式库严格引用页（严格门禁只表示页级来源可复核，不等于独立原件）：先核对这些页与开放目标的版本/原件关系；不要重复下载或 OCR，未闭环部分继续追索原件。",
           "candidate_route_count": 12,
           "formal_page_count": 30,
-          "formal_strict_citation_page_count": 7
+          "formal_strict_citation_page_count": 22
         }
       ],
       "event_link_pages": [
@@ -7327,6 +7596,171 @@
           "rationale": "本地页图显示政协一届全体会议单位及代表名单的连续第7页；作为代表名册页级入口，不核定姓名全文或宣称完整名单已经逐页复核。"
         },
         {
+          "page_id": 20740,
+          "page_label": "page-08",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页8",
+          "rationale": "本地页图显示民主建国会分栏题名和印页号七（二）；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20741,
+          "page_label": "page-09",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页9",
+          "rationale": "同一代表名单的连续页级入口，印页号八（二）；只确认页序和范围，不核定候补代表姓名。"
+        },
+        {
+          "page_id": 20742,
+          "page_label": "page-10",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页10",
+          "rationale": "本地页图显示无党派民主人士分栏题名和印页号九（二）；只作为名单页级入口，不宣称完整代表识别已闭合。"
+        },
+        {
+          "page_id": 20743,
+          "page_label": "page-11",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页11",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20744,
+          "page_label": "page-12",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页12",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20745,
+          "page_label": "page-13",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页13",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20746,
+          "page_label": "page-14",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页14",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20747,
+          "page_label": "page-15",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页15",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20748,
+          "page_label": "page-16",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页16",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20749,
+          "page_label": "page-17",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页17",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20750,
+          "page_label": "page-18",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页18",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20751,
+          "page_label": "page-19",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页19",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20752,
+          "page_label": "page-20",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页20",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20753,
+          "page_label": "page-21",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页21",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
+          "page_id": 20754,
+          "page_label": "page-22",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：政协一届全体会议代表名单连续页22",
+          "rationale": "本地页图显示同一代表名单连续页的分栏题名或连续页序；只作为名单页级入口，不转录姓名或职务。"
+        },
+        {
           "page_id": 20755,
           "page_label": "page-01",
           "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde03-i3",
@@ -7413,9 +7847,372 @@
           "status": "strict_citation",
           "navigation_title": "中央档案馆专题扫描：政协一届全体会议主席团名单页",
           "rationale": "本地页图清晰显示中国人民政治协商会议第一届全体会议主席团名单题名及名单版面；作为会议组织结构的页级入口，不替代完整会议档案或姓名逐字校勘。"
+        },
+        {
+          "page_id": 20772,
+          "page_label": "page-02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde07-i3",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：主席团名单连续页2",
+          "rationale": "可见合计八十九名的连续名单页；不核定姓名全文。"
+        },
+        {
+          "page_id": 20773,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde01-f1",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：第一次会议通知",
+          "rationale": "可辨十月一日、怀仁堂；不转录通知正文。"
+        },
+        {
+          "page_id": 20774,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde02-f1",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "会刊第十一期题名/闭幕页",
+          "rationale": "可辨会刊第十一期和大会胜利闭幕；不转录正文。"
+        },
+        {
+          "page_id": 20775,
+          "page_label": "page-02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde02-f1",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "会刊第十一期全国委员会名单页",
+          "rationale": "会刊连续页；不核定委员姓名。"
+        },
+        {
+          "page_id": 20776,
+          "page_label": "page-03",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde02-f1",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "会刊第十一期第八天大会经过页",
+          "rationale": "会刊连续页；不转录大会经过。"
+        },
+        {
+          "page_id": 20781,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde04-f1",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "第一次会议议程页",
+          "rationale": "可辨议程题名；不转录条目正文。"
+        },
+        {
+          "page_id": 20782,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde05-f1",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "第一次会议记录封面",
+          "rationale": "可辨会议纪录题名；不转录记录正文。"
+        },
+        {
+          "page_id": 20786,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde06-f1",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "任命周恩来通知书",
+          "rationale": "可辨任命事项和一九四九年十月；不把署款当作笔迹鉴定。"
+        },
+        {
+          "page_id": 20802,
+          "page_label": "page-01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p06-dde09-f1",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央人民政府公告",
+          "rationale": "可辨公告题名、毛泽东署款和十月一日；不转录公告正文。"
+        },
+        {
+          "page_id": 20916,
+          "page_label": "image-01 / 官方扫描图 01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：主席团第一次会议纪要首页",
+          "rationale": "本地页图可辨主席团第一次会议题名和1949-09-21日期；只确认页身份，不转录决议正文。"
+        },
+        {
+          "page_id": 20917,
+          "page_label": "image-02 / 官方扫描图 02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：主席团第一次会议纪要连续页",
+          "rationale": "同一份会议纪要的连续手写页；只确认页序，不转录决议正文。"
+        },
+        {
+          "page_id": 20918,
+          "page_label": "image-03 / 官方扫描图 03",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-21-07",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：主席团第一次会议纪要末页",
+          "rationale": "同一份会议纪要的连续末页；只确认结束范围，不转录执行主席姓名。"
+        },
+        {
+          "page_id": 20919,
+          "page_label": "image-01 / 官方扫描图 01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-01",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：筹备会第二小组工作报告首页",
+          "rationale": "本地页图可辨谭平山第二小组工作报告题名；只确认页身份，不转录正文。"
+        },
+        {
+          "page_id": 20920,
+          "page_label": "image-02 / 官方扫描图 02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-01",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：筹备会第二小组工作报告连续页",
+          "rationale": "同一份报告的连续印刷页；只确认页序，不转录正文。"
+        },
+        {
+          "page_id": 20921,
+          "page_label": "image-01 / 官方扫描图 01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：周恩来共同纲领报告首页",
+          "rationale": "原图横置，可辨周恩来共同纲领报告题名；只确认页身份，不转录正文。"
+        },
+        {
+          "page_id": 20922,
+          "page_label": "image-02 / 官方扫描图 02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：周恩来共同纲领报告连续页",
+          "rationale": "原图横置的连续印刷页；只确认页序，不转录正文。"
+        },
+        {
+          "page_id": 20923,
+          "page_label": "image-03 / 官方扫描图 03",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-22-02",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：周恩来共同纲领报告末页",
+          "rationale": "原图横置的连续印刷末页；只确认结束范围，不转录正文。"
+        },
+        {
+          "page_id": 20924,
+          "page_label": "image-01 / 官方扫描图 01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c15",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：主席团常委会第一次会议记录首页",
+          "rationale": "本地页图可辨常委会第一次会议记录题名和1949-09-22日期；只确认页身份，不转录出席名单。"
+        },
+        {
+          "page_id": 20925,
+          "page_label": "image-02 / 官方扫描图 02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c15",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：主席团常委会第一次会议记录连续页",
+          "rationale": "同一份常委会记录的连续手写页；只确认页序，不转录决议正文。"
+        },
+        {
+          "page_id": 20926,
+          "page_label": "image-01 / 官方扫描图 01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c17",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：一届全体会议会刊第二期首页",
+          "rationale": "本地页图可辨会刊第二期题名和1949-09-22出版信息；只确认期次身份，不转录会刊正文。"
+        },
+        {
+          "page_id": 20927,
+          "page_label": "image-02 / 官方扫描图 02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-index-c17",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：一届全体会议会刊第二期连续页",
+          "rationale": "会刊第二期连续页，可见第一次大会程序题名；只确认页身份，不转录程序正文。"
+        },
+        {
+          "page_id": 20928,
+          "page_label": "image-01 / 官方扫描图 01",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：第三天会议记录首页",
+          "rationale": "本地页图可辨第三天会议记录题名和1949-09-23日期；只确认页身份，不转录人数或发言名单。"
+        },
+        {
+          "page_id": 20929,
+          "page_label": "image-02 / 官方扫描图 02",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：第三天会议记录连续页",
+          "rationale": "同一份第三天会议记录的连续手写页；只确认页序，不转录附注正文。"
+        },
+        {
+          "page_id": 20930,
+          "page_label": "image-03 / 官方扫描图 03",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-23-01",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "中央档案馆专题扫描：第三天会议记录发言次序页",
+          "rationale": "同一份第三天会议记录的连续发言次序页；只确认页身份，不转录发言人名单。"
+        },
+        {
+          "page_id": 20932,
+          "page_label": "pdf-001 / 会刊封面",
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1949年政协一届全体会议会刊封面",
+          "rationale": "本地PDF封面页标明1949年及第一期至第十二期合刊范围；只作正式会议会刊身份入口，不宣称全套会议档案完整。"
+        },
+        {
+          "page_id": 20933,
+          "page_label": "pdf-017 / 开幕式程序",
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1949-09-21第一届全体会议开幕式程序页",
+          "rationale": "本地PDF第17页为开幕式程序页并可见1949-09-21日期；只确认程序页身份和日期，不逐字引用程序正文。"
+        },
+        {
+          "page_id": 20934,
+          "page_label": "pdf-030 / 主席团名单",
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1949年第一届全体会议主席团名单会刊页",
+          "rationale": "本地PDF第30页为会刊中的主席团名单页；只作名册页定位和可见姓名锚点，不完成逐人校勘或代表资格认定。"
+        },
+        {
+          "page_id": 20935,
+          "page_label": "pdf-031 / 议事规则-1",
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1949年第一届全体会议议事规则页1",
+          "rationale": "本地PDF第31页为正式议事规则首页；只确认规则页身份，不逐字引用规则正文。"
+        },
+        {
+          "page_id": 20936,
+          "page_label": "pdf-032 / 议事规则-2",
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1949年第一届全体会议议事规则页2",
+          "rationale": "本地PDF第32页为正式议事规则连续页；只确认规则页身份和连续范围，不逐字引用规则正文。"
+        },
+        {
+          "page_id": 20937,
+          "page_label": "pdf-220 / 宣言草案",
+          "doc_key": "domestic-nlc/NLC:1949-first-plenary-conference-journal",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "1949-09-30第一届全体会议宣言草案会刊页",
+          "rationale": "本地PDF第220页题名为中国人民政治协商会议第一届全体会议宣言（草案），日期一九四九年九月三十日；只作页级身份和日期入口，不逐字引用草案正文。"
+        },
+        {
+          "page_id": 20940,
+          "page_label": "image-01 / 共同纲领题名页",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "共同纲领题名页",
+          "rationale": "可辨共同纲领题名和一九四九年九月二十九日；三页不是全件。"
+        },
+        {
+          "page_id": 20941,
+          "page_label": "image-02 / 共同纲领序言与总纲页",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "共同纲领第54页",
+          "rationale": "可见序言与第一条；不补中间缺页。"
+        },
+        {
+          "page_id": 20942,
+          "page_label": "image-03 / 共同纲领第六十条页",
+          "doc_key": "domestic-ocr/SAAC:domestic:SAAC:1949-09-29-01",
+          "provenance_present": true,
+          "source_anchored": true,
+          "strict_citation": true,
+          "status": "strict_citation",
+          "navigation_title": "共同纲领第64页",
+          "rationale": "可见第六十条；不把末页当成全件。"
         }
       ],
-      "event_link_strict_page_count": 20,
+      "event_link_strict_page_count": 68,
       "candidate_routes": [
         {
           "candidate_id": "domestic:NLC:guangmingbao-1948-1949-v2n1",
@@ -7678,7 +8475,7 @@
           "formal_ingested_document_id": 1538,
           "formal_doc_key": "domestic-ocr/SAAC:domestic:SAAC:51koukou-p05-dde02",
           "formal_page_count": 22,
-          "formal_strict_citation_page_count": 7,
+          "formal_strict_citation_page_count": 22,
           "formal_provenance_page_count": 22,
           "formal_anchored_page_count": 22,
           "formal_pages": [
@@ -7736,105 +8533,105 @@
               "page_label": "page-08",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20741,
               "page_label": "page-09",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20742,
               "page_label": "page-10",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20743,
               "page_label": "page-11",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20744,
               "page_label": "page-12",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20745,
               "page_label": "page-13",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20746,
               "page_label": "page-14",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20747,
               "page_label": "page-15",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20748,
               "page_label": "page-16",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20749,
               "page_label": "page-17",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20750,
               "page_label": "page-18",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20751,
               "page_label": "page-19",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20752,
               "page_label": "page-20",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20753,
               "page_label": "page-21",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             },
             {
               "page_id": 20754,
               "page_label": "page-22",
               "provenance_present": true,
               "source_anchored": true,
-              "strict_citation": false
+              "strict_citation": true
             }
           ],
           "formal_page_ids": [
@@ -7868,7 +8665,22 @@
             20736,
             20737,
             20738,
-            20739
+            20739,
+            20740,
+            20741,
+            20742,
+            20743,
+            20744,
+            20745,
+            20746,
+            20747,
+            20748,
+            20749,
+            20750,
+            20751,
+            20752,
+            20753,
+            20754
           ],
           "formal_ingest_status": "FORMAL_STRICT_PAGES_PRESENT"
         },

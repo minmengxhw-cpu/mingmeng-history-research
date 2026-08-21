@@ -17,6 +17,90 @@
       "page_ids": [1476, 1477],
       "scope_label": "1941对时局主张纲领（汇编重刊）",
       "rationale": "同一合并页组中的第12—13页属于成立宣言之后的早期政治主张，单独作为该候选的页级范围。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:program-draft-1944-09-19",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18780],
+      "scope_label": "1944改组纲领草案起始页（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第56页对应书内第26页，题名和‘一九四四年九月十九日全国代表会议通过’可定位；只登记起始页，不把汇编重刊升级为1944会议原件。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:situation-talk-1946-01-02",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18869],
+      "scope_label": "1946-01-02民盟时局谈话起始页（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第145页对应书内第115页，登记题名页级入口；不推断完整篇幅或同期原始发表载体。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:chang-lan-pcc-opening-1946-01-10",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18871, 18872, 18873],
+      "scope_label": "1946旧政协张澜开幕式讲话页组（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第147—149页对应书内第117页及连续页，题名页和连续页已在正式库中；这是汇编重刊页组，不是政协会议原始记录。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:chang-dong-sun-freedom-1946-01-14",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18874],
+      "scope_label": "1946旧政协张东荪自由权利发言起始页（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第150页对应书内第120页，登记题名页级入口；不把汇编页升级为正式会议记录。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:lo-lung-chi-government-reorganization-1946-01-14",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18875, 18876],
+      "scope_label": "1946旧政协罗隆基改组政府发言页组（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第151—152页对应书内第121页及连续页；保留汇编版本边界，不宣称完整会议记录或原始发言底本已取得。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:league-military-proposal-1946-01-16",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18877],
+      "scope_label": "1946旧政协民盟军事提案起始页（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第153页对应书内第123页，登记题名页级入口；后续说明页不在本次候选范围内。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:zhang-bo-jun-common-program-1946-01-16",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18881],
+      "scope_label": "1946旧政协章伯钧共同纲领发言起始页（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第157页对应书内第127页，题名页级入口清晰；不把后期汇编等同于会议原始记录。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:huang-yan-pei-common-program-1946-01-16",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18882],
+      "scope_label": "1946旧政协黄炎培共同纲领发言起始页（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第158页对应书内第128页，题名页级入口清晰；不把后期汇编等同于会议原始记录。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:lo-lung-chi-common-program-1946-01-16",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18883],
+      "scope_label": "1946旧政协罗隆基共同纲领发言起始页（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第159页对应书内第129页，题名页级入口清晰；不把后期汇编等同于会议原始记录。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:lo-lung-chi-national-assembly-1946-01-17",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18884, 18885],
+      "scope_label": "1946旧政协罗隆基国民大会发言页组（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第160—161页对应书内第130页及连续页；只登记汇编页级范围，不关闭拒参国大专题原件缺口。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:chang-po-chun-national-assembly-1946-01-17",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18886, 18887, 18888],
+      "scope_label": "1946旧政协章伯钧国民大会主张页组（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第162—164页对应书内第132页及连续页；这是民盟立场的汇编页组，不是独立函电或会议原始记录。"
+    },
+    {
+      "candidate_id": "domestic:MMHIST:huang-yan-pei-constitution-draft-1946-01-19",
+      "doc_key": "domestic-page/SRC-257bb7be70",
+      "page_ids": [18889],
+      "scope_label": "1946旧政协黄炎培宪草发言起始页（正式汇编）",
+      "rationale": "正式汇编扫描 PDF 第165页对应书内第135页，题名页级入口清晰；不把后期汇编等同于会议原始记录。"
     }
   ]
 }
