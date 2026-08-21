@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import datetime
 import csv
+import hashlib
 import html
 import sys
 import json
@@ -782,6 +783,17 @@ def domestic_provenance_summary(row: sqlite3.Row) -> str:
         else str(row["page_image_path"] or "未绑定")
     )
     source_url = source_href(row["page_url"] or row["doc_url"] or "")
+    verified_page_image = None
+    if not public and row["page_image_path"]:
+        try:
+            verified_page_image = domestic_page_image_file(int(row["page_id"]))
+        except (TypeError, ValueError):
+            verified_page_image = None
+    local_image_link = (
+        f'<a href="/domestic/page-image/{h(row["page_id"])}" target="_blank" rel="noreferrer">打开本机页图</a>'
+        if verified_page_image is not None
+        else ""
+    )
     pdf_page_display = (
         str(row["pdf_page_no"])
         if row["pdf_page_no"]
@@ -797,11 +809,75 @@ def domestic_provenance_summary(row: sqlite3.Row) -> str:
     <span><strong>来源 SHA256</strong> {h(row["source_sha256"] or "未绑定")}</span>
   </div>
   <div class="snippet"><strong>来源文件：</strong>{h(source_file)}</div>
-  <div class="snippet"><strong>页图入口：</strong>{h(image_path)}</div>
+  <div class="snippet"><strong>页图入口：</strong>{h(image_path)} {local_image_link}</div>
   <div class="snippet"><strong>页级 URL：</strong><a href="{h(source_url)}" target="_blank" rel="noreferrer">{h(source_url)}</a></div>
   <div class="snippet"><strong>人工复核：</strong>{h(row["human_review_note"] or "未标注")}</div>
 </section>
 """
+
+
+def domestic_page_image_file(page_id: int) -> tuple[Path, str] | None:
+    """Resolve a strictly verified domestic page image for the private UI.
+
+    The path comes from formal page provenance, must remain relative to the
+    external research checkout, and is served only after its stored SHA256 is
+    recomputed. Public-mode access is blocked by the route guard.
+    """
+    if page_id <= 0:
+        return None
+    try:
+        with conn() as c:
+            row = c.execute(
+                """
+                SELECT pp.page_image_path, pp.page_image_sha256,
+                       pp.citation_ready, pp.needs_human_review,
+                       pp.review_status, d.source_platform
+                FROM page_provenance pp
+                JOIN documents d ON d.id=pp.document_id
+                WHERE pp.page_id=?
+                """,
+                (page_id,),
+            ).fetchone()
+    except sqlite3.Error:
+        return None
+    if not row or row["source_platform"] != "domestic":
+        return None
+    citation_ready = int(row["citation_ready"]) if row["citation_ready"] is not None else 0
+    needs_human_review = int(row["needs_human_review"]) if row["needs_human_review"] is not None else 1
+    if citation_ready != 1 or needs_human_review != 0:
+        return None
+    if str(row["review_status"] or "") != "human_verified":
+        return None
+    raw_path = str(row["page_image_path"] or "").strip()
+    expected_sha = str(row["page_image_sha256"] or "").strip().lower()
+    path = Path(raw_path)
+    if not raw_path or path.is_absolute() or ".." in path.parts or not re.fullmatch(r"[0-9a-f]{64}", expected_sha):
+        return None
+    source_root = DB_PATH.resolve().parent.parent
+    try:
+        resolved = (source_root / path).resolve()
+        resolved.relative_to(source_root)
+    except (OSError, ValueError):
+        return None
+    if not resolved.is_file() or resolved.suffix.lower() not in {".png", ".jpg", ".jpeg", ".tif", ".tiff"}:
+        return None
+    digest = hashlib.sha256()
+    try:
+        with resolved.open("rb") as handle:
+            for block in iter(lambda: handle.read(1 << 20), b""):
+                digest.update(block)
+    except OSError:
+        return None
+    if digest.hexdigest() != expected_sha:
+        return None
+    content_type = {
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".tif": "image/tiff",
+        ".tiff": "image/tiff",
+    }[resolved.suffix.lower()]
+    return resolved, content_type
 
 
 # 民盟相关度分级 → 前台统一标签（CSS 类 + 显示名）
@@ -995,7 +1071,8 @@ PUBLIC_HIDDEN_PATHS = {"/tasks", "/quality", "/drnh-review", "/external-acquisit
                         "/domestic/evidence-review", "/domestic/search", "/domestic/document",
                         "/domestic/quality", "/domestic/acquisition", "/domestic/academic",
                         "/domestic/intake",
-                        "/domestic/sourcebook", "/domestic/citations", "/research/gaps"}
+                        "/domestic/sourcebook", "/domestic/citations", "/domestic/page-image",
+                        "/research/gaps"}
 
 PUBLIC_DOMESTIC_LEVELS = {"L0", "L1", "L2", "L3"}
 
@@ -12764,6 +12841,31 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Content-Type", "application/pdf")
             self.send_header("Content-Length", str(len(data)))
             self.send_header("Content-Disposition", "inline; filename*=UTF-8''%E6%94%BF%E5%8D%94%E6%96%87%E7%8D%BB_1946.pdf")
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            self.wfile.write(data)
+            return
+        elif parsed.path.startswith("/domestic/page-image/"):
+            try:
+                page_id = int(parsed.path.rsplit("/", 1)[-1])
+            except ValueError:
+                page_id = 0
+            matched = domestic_page_image_file(page_id)
+            if matched is None:
+                self.send_response(404)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return
+            image_path, content_type = matched
+            data = image_path.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header(
+                "Content-Disposition",
+                f"inline; filename=page-{page_id}{image_path.suffix.lower()}",
+            )
             self.send_header("Cache-Control", "no-store")
             self.end_headers()
             self.wfile.write(data)

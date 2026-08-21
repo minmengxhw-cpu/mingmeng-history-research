@@ -82,6 +82,26 @@ def test_domestic_fragment_ledger_and_page_panel_keep_page_gate_separate():
     assert "整页正文仍未逐字校读" in citation
 
 
+def test_verified_domestic_page_image_is_hash_bound_and_private():
+    matched = app.domestic_page_image_file(1473)
+    assert matched is not None
+    image_path, content_type = matched
+    assert image_path.is_file()
+    assert content_type == "image/png"
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = False
+    try:
+        private_body = app.citation_page(1473).decode("utf-8")
+        assert "/domestic/page-image/1473" in private_body
+        assert "打开本机页图" in private_body
+        app._request.public_mode = True
+        public_body = app.citation_page(1473).decode("utf-8")
+        assert "/domestic/page-image/1473" not in public_body
+        assert "公开模式不可用" in public_body
+    finally:
+        app._request.public_mode = previous
+
+
 def test_fragments_are_discoverable_from_unified_search_and_domestic_timeline():
     previous = getattr(app._request, "public_mode", False)
     app._request.public_mode = False
