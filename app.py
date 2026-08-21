@@ -4535,6 +4535,59 @@ def domestic_academic_page() -> bytes:
         queue_section = f'''<div class="section-head"><h2><svg class="ico"><use href="#i-arrow-right"/></svg>全文取证优先队列</h2><span class="meta">{h(priority_queue.get("total", 0))} 条</span></div>
 <section class="stats">{queue_cards}</section>
 <div class="notice">该队列只从版本化学术元数据中生成，优先安排 S/A 记录；它不读取正文、不包含本地路径、不写正式库。P0/P1 是下一轮获取稳定全文和页码的工作入口，完成页级取证后仍需 SHA-256、版本关系和复核，citation-ready 不会由队列自动改变。<br><a href="/domestic/search?scope=research&amp;availability=fulltext">查看稳定全文候选</a> · <a href="/domestic/search?scope=research&amp;availability=candidate">查看全文候选</a></div>'''
+
+        # The display snapshot intentionally keeps only queue counts.  Read the
+        # same validated, body-free queue payload for the individual cards so
+        # the page can show titles and next actions without exposing paths or
+        # reading any document body.
+        queue_payload = _load_academic_fulltext_priority_queue()
+        queue_records = queue_payload.get("records") if isinstance(queue_payload, dict) else []
+        if not isinstance(queue_records, list):
+            queue_records = []
+        queue_rank = {
+            "P0_STABLE_FULLTEXT": 0,
+            "P1_FULLTEXT_CANDIDATE": 1,
+            "P2_STABLE_CONTEXT": 2,
+            "P3_CANDIDATE_CONTEXT": 3,
+        }
+        queue_label = dict(queue_class_labels)
+        queue_record_cards: list[str] = []
+        for record in sorted(
+            (row for row in queue_records if isinstance(row, dict)),
+            key=lambda row: (
+                queue_rank.get(str(row.get("queue_class") or ""), 9),
+                str(row.get("quality_tier") or "Z"),
+                int(row.get("priority_rank") or 99),
+                str(row.get("external_id") or ""),
+            ),
+        ):
+            title = str(record.get("title") or record.get("external_id") or "未命名学术记录")
+            external_id = str(record.get("external_id") or "")
+            quality_tier = str(record.get("quality_tier") or "未分级")
+            queue_class = str(record.get("queue_class") or "")
+            fulltext_status = str(record.get("fulltext_status") or "状态待核")
+            institution = str(record.get("institution") or "机构待核")
+            source_url = source_href(record.get("source_url") or "")
+            source_link = (
+                f'<a href="{h(source_url)}" target="_blank" rel="noreferrer">来源入口</a>'
+                if source_url.startswith(("http://", "https://"))
+                else '<span class="meta">暂无稳定网页入口</span>'
+            )
+            search_href = f"/domestic/search?scope=research&amp;q={quote(title)}"
+            queue_record_cards.append(
+                f'''<article class="result compact-result"><div>
+  <h3>{h(title)}</h3>
+  <div class="tagline"><span class="pstatus {'ok' if queue_class == 'P0_STABLE_FULLTEXT' else 'warn'}">{h(queue_label.get(queue_class, queue_class or '待分流'))}</span><span class="tag">{h(quality_tier)} 层</span><span class="tag">{h(fulltext_status)}</span><span class="tag">{h(external_id)}</span></div>
+  <div class="meta">机构字段：{h(institution)}</div>
+  <div class="snippet"><strong>下一动作：</strong>{h(compact(str(record.get("next_action") or "待登记"), 220))}</div>
+</div><div class="cite">{source_link}<br><a href="{search_href}">检索记录</a></div></article>'''
+            )
+        queue_list_section = (
+            f'''<div class="section-head"><h2><svg class="ico"><use href="#i-list"/></svg>高价值全文清单</h2><span class="meta">显示 {h(len(queue_record_cards))} 条 · 正文未读取</span></div>
+<div class="notice">这是取证工作清单，不是已核验引文清单。稳定全文也必须继续核对版本、作者/机构、页码、哈希和人工复核状态；候选全文只能作为发现路线。</div>
+<section class="result-list">{"".join(queue_record_cards) or '<div class="notice">当前没有可展示的队列记录。</div>'}</section>'''
+        )
+        queue_section += queue_list_section
     else:
         queue_section = '<div class="section-head"><h2><svg class="ico"><use href="#i-arrow-right"/></svg>全文取证优先队列</h2></div><div class="notice">当前 checkout 尚未生成版本化全文取证队列；学术元数据仍可用于发现和专题交叉索引。</div>'
     gap_note_count = sum(1 for record in metadata_records if _academic_record_is_gap_note(record))

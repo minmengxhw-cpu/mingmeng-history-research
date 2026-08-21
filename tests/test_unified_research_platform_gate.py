@@ -332,6 +332,11 @@ def test_domestic_workbench_is_the_research_front_door():
     assert "尚未 research_ready" in body
     assert "严格页" in body
     assert "学术匹配" in body
+    academic = app.domestic_academic_page().decode("utf-8")
+    assert "高价值全文清单" in academic
+    assert "中国民主同盟历史文献（1941—1949）" in academic
+    assert "P0 稳定全文" in academic
+    assert "正文未读取" in academic
     assert "一手证据部分闭环" in body
     assert "P0 仍待原件" in body
     assert "授权原件接收状态" in body
