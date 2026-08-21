@@ -174,6 +174,42 @@
         "scope": "可支持同期机关报刊期和拒参舆论背景的页级定位。",
         "caveat": "同期报刊背景不替代民盟正式声明、函电或独立原始刊本。"
       }
+    ],
+    "domestic-1941-formation": [
+      {
+        "unit_id": "1941-formation-declaration-reprint-boundary",
+        "label": "1941 成立宣言的1946汇编重刊页界",
+        "status": "bounded_unit_ready",
+        "source_ids": ["nlc-minmeng-wenxian-1946-formation"],
+        "page_ids": [1473, 1474, 1475],
+        "scope": "可支持1946年正式汇编中《成立宣言》重刊文本的连续页界、版本入口和引用定位。",
+        "caveat": "这是后出汇编重刊，不等同于1941年《光明報》原刊、成立会议底本或独立原始印本；1941原刊目标仍开放。"
+      }
+    ],
+    "domestic-1947-illegal-dissolution": [
+      {
+        "unit_id": "1947-dissolution-contemporary-press-reports",
+        "label": "1947-11-04至11-06 同期报刊对民盟解散的公开报道",
+        "status": "bounded_unit_ready",
+        "source_ids": [
+          "nlc-dagangbao-hankow-1947-11-04",
+          "nlc-dagangbao-hankow-1947-11-06",
+          "nlc-dagongbao-shanghai-1947-11-06-page2",
+          "nlc-dagongbao-tianjin-1947-11-06-page2"
+        ],
+        "page_ids": [20305, 20307, 20309, 1773, 1774],
+        "scope": "可支持解散前交涉、11月6日公开报道、版别差异和停止政治活动等有限问题的同期报刊页级对读。",
+        "caveat": "报刊报道不是1947-10-27政府公函，也不是1947-11-06民盟总部公告原件；该子单元不关闭1947专题主证据缺口。"
+      },
+      {
+        "unit_id": "1947-dissolution-sourcebook-reprint-boundary",
+        "label": "1947 解散公告与非法化文本的1983汇编重刊页界",
+        "status": "bounded_unit_ready",
+        "source_ids": ["mmhist-1983-dissolution-sourcebook-pages"],
+        "page_ids": [19109, 19110, 19114],
+        "scope": "可支持1983公开历史文献汇编中解散公告、政府宣布非法团体文本的题名、页界和版本定位。",
+        "caveat": "汇编重刊可以用于版本对读和线索追索，但不等同于1947年民盟总部公告或政府公函原件。"
+      }
     ]
   }
 }
