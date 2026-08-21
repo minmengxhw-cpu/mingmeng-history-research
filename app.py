@@ -4583,6 +4583,8 @@ def domestic_academic_page() -> bytes:
             quality_tier = str(record.get("quality_tier") or "未分级")
             queue_class = str(record.get("queue_class") or "")
             fulltext_status = str(record.get("fulltext_status") or "状态待核")
+            author = str(record.get("author") or "作者待核")
+            publication_date = str(record.get("publication_date") or "未标注")
             institution = str(record.get("institution") or "机构待核")
             source_url = source_href(record.get("source_url") or "")
             source_link = (
@@ -4600,7 +4602,7 @@ def domestic_academic_page() -> bytes:
                 f'''<article class="result compact-result"><div>
   <h3>{h(title)}</h3>
   <div class="tagline"><span class="pstatus {'ok' if queue_class == 'P0_STABLE_FULLTEXT' else 'warn'}">{h(queue_label.get(queue_class, queue_class or '待分流'))}</span><span class="tag">{h(quality_tier)} 层</span><span class="tag">{h(fulltext_status)}</span><span class="tag">{h(external_id)}</span></div>
-  <div class="meta">机构字段：{h(institution)}</div>
+  <div class="meta">作者：{h(author)} · 机构字段：{h(institution)} · 发表/出版：{h(publication_date)}</div>
   <div class="meta">专题回接：{topic_html}</div>
   <div class="snippet"><strong>下一动作：</strong>{h(compact(str(record.get("next_action") or "待登记"), 220))}</div>
 </div><div class="cite">{source_link}<br><a href="{search_href}">检索记录</a></div></article>'''
@@ -4945,7 +4947,7 @@ def domestic_metadata_academic_search_page(
     result_html = "".join(
         f'''<article class="result"><div><h2>{h(record.get("title") or record.get("external_id"))}</h2>
         <div class="meta">{h(record.get("external_id"))} · {h(record.get("layer") or "研究资料")} · {h(record.get("research_type") or "未标注类型")} · 质量 {h(record.get("quality_tier") or "未分级")}</div>
-        <div class="snippet">{h(record.get("institution") or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(record.get("institution"))))} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{_academic_result_links(str(record.get("external_id") or ""), formal_academic, related_formal)}</div></article>'''
+        <div class="snippet">作者：{h(record.get("author") or "作者未标注")} · {h(record.get("institution") or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(record.get("institution"))))} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{_academic_result_links(str(record.get("external_id") or ""), formal_academic, related_formal)}</div></article>'''
         for record in matched
     ) or '<div class="notice">版本化学术元数据索引中没有匹配结果。</div>'
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""

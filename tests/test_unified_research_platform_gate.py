@@ -277,6 +277,21 @@ def test_public_domestic_intake_hides_local_paths_and_internal_field_names():
     assert "授权原件文件" in body
 
 
+def test_academic_metadata_views_show_verified_bibliographic_fields():
+    previous = getattr(app._request, "public_mode", False)
+    app._request.public_mode = False
+    try:
+        search_body = app.domestic_metadata_academic_search_page("陈仪深").decode("utf-8")
+        queue_body = app.domestic_academic_page().decode("utf-8")
+    finally:
+        app._request.public_mode = previous
+    assert "国共斗争下的自由主义（1941—1949）" in search_body
+    assert "作者：陈仪深" in search_body
+    assert "中央研究院近代史研究所" in search_body
+    assert "作者：马皓若、王毅" in queue_body
+    assert "中共中央党校（国家行政学院）中共党史教研部" in queue_body
+
+
 def test_public_domestic_views_hide_relative_artifact_paths():
     pages = {
         "domestic": lambda: app.domestic_page({}),
