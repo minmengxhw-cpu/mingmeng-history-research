@@ -4853,6 +4853,26 @@ def _academic_bibliographic_label(record: dict[str, object]) -> str:
     return str(metadata.get("bibliographic_citation") or "").strip()
 
 
+def _academic_metadata_verification_label(record: dict[str, object]) -> str:
+    """Describe which metadata fields have an explicit verification note.
+
+    This is deliberately narrower than ``human_verified``: it describes
+    bibliographic/affiliation provenance only and never promotes an academic
+    record to a page-level citation or primary source.
+    """
+    metadata = record.get("metadata") if isinstance(record.get("metadata"), dict) else {}
+    verified_fields: list[str] = []
+    if metadata.get("institution_verification_sources"):
+        verified_fields.append("机构字段")
+    if str(metadata.get("bibliographic_verification") or "").strip():
+        verified_fields.append("书目字段")
+    if verified_fields:
+        return "、".join(verified_fields) + "来源内核验"
+    if str(record.get("review_status") or "").strip() == "machine_metadata_accepted":
+        return "仅机器元数据接受"
+    return "未标注来源内核验"
+
+
 def _academic_filter_form(
     raw_q: str,
     phase: str,
@@ -4953,7 +4973,7 @@ def domestic_metadata_academic_search_page(
     result_html = "".join(
         f'''<article class="result"><div><h2>{h(record.get("title") or record.get("external_id"))}</h2>
         <div class="meta">{h(record.get("external_id"))} · {h(record.get("layer") or "研究资料")} · {h(record.get("research_type") or "未标注类型")} · 质量 {h(record.get("quality_tier") or "未分级")}</div>
-        <div class="snippet">作者：{h(record.get("author") or "作者未标注")} · {h(record.get("institution") or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(record.get("institution"))))} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {f'书目定位：{h(_academic_bibliographic_label(record))} · ' if _academic_bibliographic_label(record) else ''}{h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{_academic_result_links(str(record.get("external_id") or ""), formal_academic, related_formal)}</div></article>'''
+        <div class="snippet">作者：{h(record.get("author") or "作者未标注")} · {h(record.get("institution") or "机构未标注")} · 机构字段信号：{h(_academic_institution_signal_label(_academic_institution_signal_value(record.get("institution"))))} · 出版/发表 {h(record.get("publication_date") or "未标注")} · {f'书目定位：{h(_academic_bibliographic_label(record))} · ' if _academic_bibliographic_label(record) else ''}元数据核验：{h(_academic_metadata_verification_label(record))} · {h(record.get("fulltext_status") or "未标注")} · citation_ready={h(record.get("citation_ready", 0))} · human_verified={h(record.get("human_verified", 0))} · 版本关系：{h(record.get("version_relation") or "未建立同题名关系")}</div></div><div class="cite"><a href="{h(source_href(record.get("source_url") or "#"))}">来源入口</a>{_academic_result_links(str(record.get("external_id") or ""), formal_academic, related_formal)}</div></article>'''
         for record in matched
     ) or '<div class="notice">版本化学术元数据索引中没有匹配结果。</div>'
     body = breadcrumb_html([("/domestic", "国内史料"), (None, "国内检索")]) + f"""

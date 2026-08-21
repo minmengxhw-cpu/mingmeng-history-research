@@ -294,6 +294,7 @@ def test_academic_metadata_views_show_verified_bibliographic_fields():
     he_body = app.domestic_metadata_academic_search_page("情报、人员和物资").decode("utf-8")
     assert "中山大学新闻系副教授（PDF文末署名）" in he_body
     assert "《二十一世纪》2018年10月号，总第169期，起始页62" in he_body
+    assert "元数据核验：机构字段、书目字段来源内核验" in he_body
 
 
 def test_academic_search_shows_explicit_bibliographic_locator():
