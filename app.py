@@ -126,6 +126,7 @@ DRNH_PREVIEW_EVENT_MAP_PATH = DATA_ROOT / "domestic" / "drnh_preview_event_map.j
 AUTHORIZED_ORIGINAL_INTAKE_REPORT_PATH = WORK_ROOT / "domestic" / "authorized_original_intake_20260821" / "REPORT.json"
 AUTHORIZED_ORIGINAL_INTAKE_MANIFEST_PATH = WORK_ROOT / "domestic" / "authorized_original_intake_20260821" / "INTAKE_MANIFEST.jsonl"
 DOMESTIC_FOREIGN_PARITY_ACCEPTANCE_REPORT_PATH = WORK_ROOT / "domestic" / "domestic_foreign_parity_acceptance_current_20260822" / "REPORT.json"
+CONTENT_TIER_AUDIT_REPORT_PATH = WORK_ROOT / "domestic" / "content_tier_audit_current_20260822" / "REPORT.json"
 PCC_1946_SOURCEBOOK_MAP_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_targets.json"
 PCC_1946_RENDER_MANIFEST_PATH = DATA_ROOT / "domestic" / "pcc_1946_sourcebook_render_manifest.json"
 PCC_1946_SOURCEBOOK_PATH = DATA_ROOT / "domestic" / "sourcebooks" / "NLC416-01jh004019-12949_政協文獻_1946.pdf"
@@ -187,6 +188,45 @@ def _load_domestic_foreign_parity_acceptance_report() -> dict[str, object]:
     except (OSError, json.JSONDecodeError):
         return {}
     return payload if isinstance(payload, dict) else {}
+
+
+def _load_content_tier_audit_report() -> dict[str, object]:
+    """Load the last local content-layer audit without reading page bodies."""
+    if not CONTENT_TIER_AUDIT_REPORT_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(CONTENT_TIER_AUDIT_REPORT_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _content_tier_audit_html(report: dict[str, object]) -> str:
+    """Render the metadata-only content-layer audit for the internal quality page."""
+    if not report:
+        return '''<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>正式库资料分层</h2></div>
+<div class="notice">尚未生成资料分层审计。运行 <code>python3 scripts/domestic/build_content_tier_audit.py --output work/domestic/content_tier_audit_current_20260822/REPORT.json</code> 后，这里会显示正式检索层、OCR 试验层、导航层、学术层和海外对读层的分离统计。</div>'''
+    layers = report.get("layers") or []
+    cards = "".join(
+        f'''<article class="result compact-result"><div><h3>{h(row.get("label") or row.get("code"))}</h3>
+<div class="meta">文献 {h(row.get("documents", 0))} 个 · 页 {h(row.get("pages", 0))} 个 · 来源类型 {h(len(row.get("source_types") or []))} 类</div>
+<div class="snippet">{h(row.get("use") or "")}</div></div></article>'''
+        for row in layers
+        if isinstance(row, dict)
+    ) or '<div class="notice">报告中没有可展示的资料层。</div>'
+    formal = report.get("formal_db") or {}
+    academic = report.get("academic_snapshot") or {}
+    status = str(report.get("status") or "未标注")
+    status_class = "ok" if status == "PASS" else "warn"
+    return f'''<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>正式库资料分层</h2><span class="meta">{h(status)}</span></div>
+<section class="stats">
+  <div class="stat"><strong>{h(formal.get("domestic_documents", 0))}</strong><span>国内正式文献</span></div>
+  <div class="stat"><strong>{h(formal.get("domestic_pages", 0))}</strong><span>国内正式页</span></div>
+  <div class="stat"><strong>{h(formal.get("candidate_total", 0))}</strong><span>候选资料</span></div>
+  <div class="stat"><strong>{h(academic.get("records", 0))}</strong><span>学术元数据</span></div>
+</section>
+<div class="notice"><span class="pstatus {status_class}">{h(status)}</span> 该报告只读元数据，不读取正文、不写正式 SQLite、不改变 citation-ready、不删除文件。层级是平台工作角色，不是历史真实性等级；未映射来源类型必须先补角色。</div>
+<section class="result-list">{cards}</section>'''
 
 
 def compact(text: str, limit: int = 260) -> str:
@@ -3942,6 +3982,7 @@ def domestic_quality_page() -> bytes:
     """展示 canonical 国内 staging 层的可信规模和质量警告。"""
     if not DOMESTIC_STAGING_DB_PATH.exists():
         policy = _load_source_admission_policy()
+        content_tier_section = _content_tier_audit_html(_load_content_tier_audit_report())
         rules = policy.get("status_rules", []) if isinstance(policy, dict) else []
         rule_html = "".join(
             f'<article class="result compact-result"><div><h3>{h(rule.get("status"))} → {h(rule.get("admission_class"))}</h3>'
@@ -3952,6 +3993,7 @@ def domestic_quality_page() -> bytes:
         body = breadcrumb_html([("/domestic", "国内史料"), (None, "质量底座")]) + f"""
 <section class="doc-head"><div><h1>国内资料质量底座</h1><div class="meta">staging 尚未挂载，但资料准入和 OCR 分流规则仍可查看</div></div></section>
 <div class="notice">国内 staging 数据库尚未建立。请先运行 Phase 0 reconciliation 与 staging 构建；当前页面不把缺失 staging 误报为资料为空。</div>
+{content_tier_section}
 <div class="section-head"><h2><svg class="ico"><use href="#i-check"/></svg>资料准入与 OCR 分流</h2><span class="meta">只读策略，不自动删除或升级证据</span></div>
 <div class="notice">已有可靠电子文本不重复 OCR；已有完整页链转入引用复核；页数异常先对账；索引和目录只作为导航。</div>
 <section class="result-list">{rule_html}</section>
@@ -3962,6 +4004,7 @@ def domestic_quality_page() -> bytes:
             active_path="/domestic/quality",
         )
     source_admission_policy = _load_source_admission_policy()
+    content_tier_section = _content_tier_audit_html(_load_content_tier_audit_report())
     phase2_report: dict = {}
     if PHASE2_INVENTORY_REPORT_PATH.exists():
         try:
@@ -4415,6 +4458,7 @@ def domestic_quality_page() -> bytes:
   <div class="stat"><strong>{h(counts['flags'])}</strong><span>质量警告</span></div>
 </section>
 <div class="notice">这是独立 staging 层，不等同于正式 SQLite。正式库状态：{h(formal_status)}。页图数量不会被当作文献数量；目录、网页快照、未核验 OCR、机器语义信号和 locator-only evidence unit 不会自动成为 citation-ready。“1942/43 一手候选（未核原件）”只是机器筛选线索，不代表已取得原件；claim 卡片数包含同页/同文本的 provenance 候选，精确唯一估计与重复组单独显示。</div>
+{content_tier_section}
 <div class="section-head"><h2><svg class="ico"><use href="#i-check"/></svg>资料准入与 OCR 分流</h2><span class="meta">只读策略，不自动删除或升级证据</span></div>
 <div class="notice">已有可靠电子文本不重复 OCR；已有完整页链转入引用复核；页数异常先对账；索引和目录只作为导航。完整分流清单由 <code>scripts/domestic/build_source_admission_queue.py</code> 生成。</div>
 <section class="result-list">{admission_rule_html}</section>

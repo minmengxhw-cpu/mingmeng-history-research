@@ -36,6 +36,12 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
         "P3_CANDIDATE_CONTEXT": 5,
     }
     assert report["checks"]["retrieval_queue"]["formal_candidate_count"] == 690
+    content_tier = report["checks"]["content_tier_audit"]
+    assert content_tier["status"] == "PASS"
+    assert content_tier["layer_count"] == 5
+    assert content_tier["unmapped_source_type_count"] == 0
+    assert content_tier["domestic_documents"] == 554
+    assert content_tier["academic_records"] == 288
     assert report["checks"]["pcc_1946_sourcebook_map"]["target_count"] == 6
     assert report["checks"]["pcc_1946_sourcebook_render_manifest"]["page_count"] == 9
     assert report["checks"]["pcc_1946_sourcebook_render_manifest"]["review_status"] == "page_identity_and_boundary_human_verified_body_ocr_pending"

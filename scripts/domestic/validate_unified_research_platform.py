@@ -32,6 +32,9 @@ from scripts.closeout.verify_research_index_manifest import audit_source_files  
 from scripts.domestic.build_research_question_benchmark_20260814 import (  # noqa: E402
     build_report as build_benchmark_report,
 )
+from scripts.domestic.build_content_tier_audit import (  # noqa: E402
+    build_report as build_content_tier_report,
+)
 from scripts.domestic.research_packet import build_research_packet  # noqa: E402
 from scripts.domestic.validate_research_packet import validate_packet  # noqa: E402
 from scripts.domestic.validate_topic_comparison_cards import validate as validate_cards  # noqa: E402
@@ -1200,6 +1203,45 @@ def public_surface_check() -> dict[str, Any]:
     }
 
 
+def content_tier_audit_check(db_path: Path) -> dict[str, Any]:
+    """Ensure every formal source type has an explicit platform role."""
+    report = build_content_tier_report(db_path, ACADEMIC_METADATA_INDEX_PATH)
+    unmapped = next(
+        (
+            row
+            for row in report.get("layers", [])
+            if isinstance(row, dict) and row.get("code") == "UNMAPPED_SOURCE_TYPES"
+        ),
+        None,
+    )
+    errors = list(report.get("errors") or [])
+    if report.get("status") != "PASS":
+        errors.append("content tier audit did not pass")
+    if unmapped and unmapped.get("source_types"):
+        errors.append(f"unmapped source types: {unmapped['source_types']}")
+    for key in ("body_read", "page_bodies_read", "formal_db_written", "auto_delete"):
+        if report.get(key) is not False:
+            errors.append(f"content tier audit {key} must be false")
+    formal = report.get("formal_db") or {}
+    academic = report.get("academic_snapshot") or {}
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "layer_count": sum(
+            1
+            for row in report.get("layers", [])
+            if isinstance(row, dict) and row.get("code") != "UNMAPPED_SOURCE_TYPES"
+        ),
+        "unmapped_source_type_count": len(unmapped.get("source_types") or []) if unmapped else 0,
+        "domestic_documents": int(formal.get("domestic_documents") or 0),
+        "domestic_pages": int(formal.get("domestic_pages") or 0),
+        "academic_records": int(academic.get("records") or 0),
+        "errors": errors,
+        "body_read": False,
+        "formal_db_written": False,
+        "auto_delete": False,
+    }
+
+
 def build_report() -> dict[str, Any]:
     db_path = Path(app.DB_PATH).resolve()
     candidate_check = candidate_alignment_check(db_path)
@@ -1222,6 +1264,7 @@ def build_report() -> dict[str, Any]:
         "drnh_preview_event_map": drnh_preview_event_map_check(db_path),
         "comparison_cards": validate_cards(COVERAGE_PATH, CARDS_PATH),
         "public_surface": public_surface_check(),
+        "content_tier_audit": content_tier_audit_check(db_path),
     }
     benchmark = build_benchmark_report()
     checks["research_question_benchmark"] = {

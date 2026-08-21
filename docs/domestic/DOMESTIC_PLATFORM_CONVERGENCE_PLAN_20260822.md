@@ -120,3 +120,22 @@
 6. 再进入下一个目标，不用“文件数增长”代替完成度。
 
 本规划的收口条件是：国内资料可以像海外资料一样支持带出处的研究判断；不是把所有国内文件都 OCR 完，也不是把所有目录都标成已完成。
+
+## 八、资料分层审计命令
+
+为避免“正式检索层、OCR 试验层、网页导航层、学术解释层”混在同一个数量里，平台增加只读分层审计：
+
+```bash
+python3 scripts/domestic/build_content_tier_audit.py \
+  --output work/domestic/content_tier_audit_current_20260822/REPORT.json
+```
+
+该命令只读取 SQLite 的表结构和计数、候选状态以及版本化学术元数据，不读取 `pages.text`，不写正式 SQLite，不改变 `citation_ready`，不复制本地正文，也不删除文件。报告中的层级是平台工作角色，不是历史真实性等级：
+
+- `DOMESTIC_SEARCH_LAYER`：可进入国内检索，但仍须以页级门禁决定能否引用；
+- `DOMESTIC_OCR_STAGING`：只用于定位和定向视觉复核；
+- `DOMESTIC_NAVIGATION_LAYER`：只作发现、背景和版本对读；
+- `DOMESTIC_ACADEMIC_LAYER`：只作解释和原件线索；
+- `FOREIGN_RESEARCH_LAYER`：用于国内外专题对读。
+
+发现未映射的来源类型时，报告保持 `UNMAPPED_SOURCE_TYPES`，要求先补来源角色，不自动升级证据状态。该审计与双侧 parity 门禁配套使用：前者回答“资料在平台中扮演什么角色”，后者回答“研究者能否走通国内—海外研究路径”。
