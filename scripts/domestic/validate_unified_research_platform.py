@@ -56,6 +56,7 @@ PCC_1946_RENDER_MANIFEST_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourceboo
 CITATION_FRAGMENT_LEDGER_PATH = ROOT / "data" / "domestic" / "citation_fragments.jsonl"
 CITATION_FRAGMENT_MANIFEST_PATH = ROOT / "data" / "domestic" / "citation_fragments_manifest.json"
 PRIMARY_SUBTARGET_SUPPORT_PATH = ROOT / "data" / "domestic" / "primary_subtarget_support.json"
+DRNH_PREVIEW_EVENT_MAP_PATH = ROOT / "data" / "domestic" / "drnh_preview_event_map.json"
 
 
 def sha256(path: Path) -> str:
@@ -928,6 +929,83 @@ def primary_subtarget_support_check(db_path: Path) -> dict[str, Any]:
     }
 
 
+def drnh_preview_event_map_check(db_path: Path) -> dict[str, Any]:
+    """Validate DRNH visitor-preview routing as a non-promoting metadata layer."""
+    errors: list[str] = []
+    try:
+        payload = json.loads(DRNH_PREVIEW_EVENT_MAP_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return {"status": "FAIL", "event_count": 0, "document_count": 0, "preview_page_count": 0, "errors": [f"drnh preview map unreadable: {exc}"]}
+    if not isinstance(payload, dict):
+        return {"status": "FAIL", "event_count": 0, "document_count": 0, "preview_page_count": 0, "errors": ["drnh preview map is not an object"]}
+    if payload.get("schema_version") != "domestic_drnh_visitor_preview_event_map.v1":
+        errors.append("unexpected drnh preview map schema")
+    for key in ("body_read", "formal_db_written", "local_paths_included", "citation_ready_written"):
+        if payload.get(key) is not False:
+            errors.append(f"drnh preview map {key} must be false")
+    events = payload.get("events")
+    if not isinstance(events, dict):
+        events = {}
+        errors.append("drnh preview map events must be an object")
+    expected_events = {
+        str(topic["item"].get("event_id") or "")
+        for topic in app._research_topic_rows()
+        if isinstance(topic, dict) and isinstance(topic.get("item"), dict)
+    }
+    unknown_events = sorted(set(map(str, events)) - expected_events)
+    if unknown_events:
+        errors.append(f"drnh preview map has unknown event ids: {unknown_events}")
+    doc_keys: list[str] = []
+    for event_id, event in events.items():
+        if not isinstance(event, dict):
+            errors.append(f"drnh preview event is not an object: {event_id}")
+            continue
+        for key in ("scope", "caveat"):
+            if not str(event.get(key) or "").strip():
+                errors.append(f"drnh preview event {key} is missing: {event_id}")
+        keys = event.get("doc_keys")
+        if not isinstance(keys, list) or not keys:
+            errors.append(f"drnh preview event doc_keys are missing: {event_id}")
+            continue
+        doc_keys.extend(str(value) for value in keys if str(value).strip())
+    if len(doc_keys) != len(set(doc_keys)):
+        errors.append("drnh preview doc_keys are duplicated")
+    document_count = 0
+    preview_page_count = 0
+    connection = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
+    has_images = connection.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name='drnh_images'"
+    ).fetchone() is not None
+    for doc_key in doc_keys:
+        row = connection.execute(
+            "SELECT id FROM documents WHERE doc_key=? AND source_platform='drnh'",
+            (doc_key,),
+        ).fetchone()
+        if row is None:
+            errors.append(f"drnh preview document is absent from formal database: {doc_key}")
+            continue
+        document_count += 1
+        if has_images:
+            preview_page_count += int(
+                connection.execute(
+                    "SELECT count(*) FROM drnh_images WHERE document_id=?", (int(row[0]),)
+                ).fetchone()[0]
+            )
+    connection.close()
+    serialized = json.dumps(payload, ensure_ascii=False)
+    for marker in ("/Users/", "/private/", '"local_path"', '"file_path"'):
+        if marker in serialized:
+            errors.append(f"drnh preview map contains forbidden marker: {marker}")
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "event_count": len(events),
+        "document_count": document_count,
+        "preview_page_count": preview_page_count,
+        "drnh_images_table_available": has_images,
+        "errors": errors,
+    }
+
+
 def build_report() -> dict[str, Any]:
     db_path = Path(app.DB_PATH).resolve()
     candidate_check = candidate_alignment_check(db_path)
@@ -946,6 +1024,7 @@ def build_report() -> dict[str, Any]:
         "research_packets": packet_check(),
         "event_source_map_coverage": event_source_map_coverage_check(),
         "primary_subtarget_support": primary_subtarget_support_check(db_path),
+        "drnh_preview_event_map": drnh_preview_event_map_check(db_path),
         "comparison_cards": validate_cards(COVERAGE_PATH, CARDS_PATH),
     }
     benchmark = build_benchmark_report()

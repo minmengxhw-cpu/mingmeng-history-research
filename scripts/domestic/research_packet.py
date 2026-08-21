@@ -337,6 +337,39 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
                 "body_text_included": False,
             }
         )
+    preview_loader = getattr(app, "_domestic_drnh_preview_assets", None)
+    visitor_preview_assets = (
+        preview_loader(str(event_id))
+        if callable(preview_loader)
+        else []
+    )
+    visitor_preview_assets = [
+        {
+            key: value
+            for key, value in asset.items()
+            if key
+            in {
+                "doc_key",
+                "title",
+                "date_guess",
+                "source_url",
+                "viewer_page_count",
+                "preview_page_count",
+                "preview_page_numbers",
+                "preview_status",
+                "preview_role",
+                "clean_original_present",
+                "citation_ready",
+                "body_text_included",
+                "local_paths_included",
+                "document_url",
+                "scope",
+                "caveat",
+            }
+        }
+        for asset in visitor_preview_assets
+        if isinstance(asset, dict)
+    ]
     sourcebooks: list[dict[str, Any]] = []
     if event_id == "domestic-1946-pcc" and hasattr(app, "_load_pcc_1946_sourcebook_map"):
         sourcebook = app._load_pcc_1946_sourcebook_map()
@@ -648,10 +681,16 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             "primary_subtarget_page_count": sum(
                 len(row["page_ids"]) for row in primary_subtarget_support
             ),
+            "drnh_preview_document_count": len(visitor_preview_assets),
+            "drnh_preview_page_count": sum(
+                int(row.get("preview_page_count") or 0)
+                for row in visitor_preview_assets
+            ),
         },
         "sourcebooks": sourcebooks,
         "citation_fragments": citation_fragments,
         "primary_subtarget_support": primary_subtarget_support,
+        "visitor_preview_assets": visitor_preview_assets,
         "event_source_maps": event_source_maps,
         "evidence_chain": evidence_chain,
         "research_matrix": {
@@ -715,6 +754,8 @@ def build_research_packet(event_id: str) -> dict[str, Any] | None:
             ),
             "citation_fragment_count": len(citation_fragments),
             "citation_fragment_text_included": False,
+            "visitor_preview_assets_body_text_included": False,
+            "visitor_preview_assets_local_paths_included": False,
             "source_sha256_exported": True,
             "citation_policy": "正式引文仍须打开 /cite/<page_id>，并遵守该页明确的 review_scope。",
         },
@@ -948,6 +989,32 @@ def research_packet_page(event_id: str) -> bytes:
         f'<section class="result-list">{subtarget_body}</section>'
     )
 
+    preview_cards = []
+    for asset in packet.get("visitor_preview_assets", []):
+        if not isinstance(asset, dict):
+            continue
+        preview_available = asset.get("preview_status") == "local_visitor_preview"
+        preview_label = "本地可查看预览" if preview_available else "仅目录入口"
+        preview_class = "warn"
+        document_url = str(asset.get("document_url") or "")
+        link = f'<a href="{esc(document_url)}">打开档案卡片与预览</a>' if document_url else ""
+        preview_cards.append(
+            f'''<article class="result compact-result"><div>
+  <h3>{esc(asset.get("title") or asset.get("doc_key"))}</h3>
+  <div class="meta">{esc(asset.get("date_guess") or "日期未标注")} · {esc(asset.get("doc_key"))} · 预览 {esc(asset.get("preview_page_count"))}/{esc(asset.get("viewer_page_count"))} 页</div>
+  <div class="tagline"><span class="pstatus {preview_class}">{esc(preview_label)}</span><span class="tag">官方水印预览</span><span class="tag">clean_original_present=false</span><span class="tag">citation_ready=false</span></div>
+  <div class="snippet">{esc(asset.get("scope") or "")}</div>
+  <div class="snippet"><strong>边界：</strong>{esc(asset.get("caveat") or "")}</div>
+</div><div class="cite">{link}</div></article>'''
+        )
+    preview_body = "".join(preview_cards) or '<div class="notice">当前挂载环境没有可发现的国史馆访客预览；目录路线仍保留在调档清单。</div>'
+    preview_html = (
+        '<div class="section-head"><h2>国史馆官方访客预览</h2>'
+        f'<span class="meta">{len(preview_cards)} 个档案 · 不替代清洁原件</span></div>'
+        '<div class="notice">预览图只用于档号、页数和页面结构核对，含水印/登入锁定时不代表取得原始字节；不复制正文、不改变一手证据状态，正式引用仍需独立原件和人工门禁。</div>'
+        f'<section class="result-list">{preview_body}</section>'
+    )
+
     topic_event_cards = "".join(
         f'''<article class="result compact-result"><div>
   <h3>{esc(row.get("event_title") or row.get("title") or row.get("doc_key"))}</h3>
@@ -978,6 +1045,7 @@ def research_packet_page(event_id: str) -> bytes:
 {fragment_html}
 {source_map_html}
 {subtarget_html}
+{preview_html}
 {"".join(sections)}
 <div class="section-head"><h2>仍待补原件</h2><span class="meta">{len(packet['open_primary_targets'])} 项</span></div><section class="result-list">{targets}</section>
 <div class="section-head"><h2>学术研究（解释层）</h2><span class="meta">不替代一手证据</span></div><section class="result-list">{academic}</section>

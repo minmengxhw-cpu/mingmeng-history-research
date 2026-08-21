@@ -46,6 +46,11 @@ def test_unified_platform_gate_passes_without_claiming_content_closure():
     assert subtargets["unit_count"] == 16
     assert subtargets["page_count"] == 63
     assert subtargets["unique_page_count"] == 63
+    previews = report["checks"]["drnh_preview_event_map"]
+    assert previews["status"] == "PASS"
+    assert previews["event_count"] == 4
+    assert previews["document_count"] == 11
+    assert previews["preview_page_count"] == 21
     assert report["checks"]["research_question_benchmark"]["path_ready_count"] == 36
     fragments = report["checks"]["citation_fragment_ledger"]
     assert fragments["status"] == "PASS"

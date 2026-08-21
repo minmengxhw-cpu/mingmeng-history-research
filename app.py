@@ -108,6 +108,7 @@ ACADEMIC_FULLTEXT_QUEUE_PATH = DATA_ROOT / "domestic" / "academic_fulltext_prior
 SOURCE_ADMISSION_POLICY_PATH = DATA_ROOT / "domestic" / "source_admission_policy.json"
 PRIMARY_RETRIEVAL_QUEUE_PATH = DATA_ROOT / "domestic" / "primary_retrieval_queue.json"
 AUTHORIZED_ORIGINAL_INTAKE_TARGETS_PATH = DATA_ROOT / "domestic" / "authorized_original_intake_targets_20260821.json"
+DRNH_PREVIEW_EVENT_MAP_PATH = DATA_ROOT / "domestic" / "drnh_preview_event_map.json"
 AUTHORIZED_ORIGINAL_INTAKE_REPORT_PATH = WORK_ROOT / "domestic" / "authorized_original_intake_20260821" / "REPORT.json"
 AUTHORIZED_ORIGINAL_INTAKE_MANIFEST_PATH = WORK_ROOT / "domestic" / "authorized_original_intake_20260821" / "INTAKE_MANIFEST.jsonl"
 DOMESTIC_FOREIGN_PARITY_ACCEPTANCE_REPORT_PATH = WORK_ROOT / "domestic" / "domestic_foreign_parity_acceptance_current_20260822" / "REPORT.json"
@@ -5148,6 +5149,142 @@ def _load_primary_evidence_access_audit() -> dict[str, dict[str, object]]:
     }
 
 
+def _load_drnh_preview_event_map() -> dict[str, dict[str, object]]:
+    """Load the metadata-only map for locally mounted DRNH visitor previews."""
+    if not DRNH_PREVIEW_EVENT_MAP_PATH.is_file():
+        return {}
+    try:
+        payload = json.loads(DRNH_PREVIEW_EVENT_MAP_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    events = payload.get("events") if isinstance(payload, dict) else None
+    if not isinstance(events, dict):
+        return {}
+    return {
+        str(event_id): value
+        for event_id, value in events.items()
+        if isinstance(value, dict)
+    }
+
+
+def _drnh_preview_file_exists(doc_key: str, filename: str) -> bool:
+    """Check a mounted preview by basename without returning a local path."""
+    if not filename or "/" in filename or "\\" in filename or ".." in filename:
+        return False
+    folder_names = [doc_key.replace(":", "__").replace("/", "_")]
+    if folder_names[0].startswith("drnh__"):
+        folder_names.append(folder_names[0].removeprefix("drnh__"))
+    for root in drnh_image_roots():
+        for folder_name in folder_names:
+            candidate = (root / folder_name / filename).resolve()
+            try:
+                if root.resolve() in candidate.parents and candidate.is_file():
+                    return True
+            except OSError:
+                continue
+    return False
+
+
+def _domestic_drnh_preview_assets(event_id: str) -> list[dict[str, object]]:
+    """Expose mounted DRNH visitor previews as a non-promoting research layer.
+
+    The returned objects contain document identity, page counts, and stable
+    local reader links only.  They do not expose local paths, image bytes,
+    catalogue-body text, or citation-ready status.  A missing local mount is
+    represented as ``catalogue_only`` so a clean checkout remains usable.
+    """
+    event = _load_drnh_preview_event_map().get(str(event_id))
+    doc_keys = event.get("doc_keys") if isinstance(event, dict) else None
+    if not isinstance(doc_keys, list) or not doc_keys:
+        return []
+    try:
+        with conn() as connection:
+            has_table = connection.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='drnh_images'"
+            ).fetchone()
+            results: list[dict[str, object]] = []
+            for raw_doc_key in doc_keys:
+                doc_key = str(raw_doc_key or "").strip()
+                if not doc_key:
+                    continue
+                document = connection.execute(
+                    """SELECT doc_key, title, date_guess, url
+                       FROM documents WHERE doc_key=? AND source_platform='drnh'""",
+                    (doc_key,),
+                ).fetchone()
+                if document is None:
+                    continue
+                image_rows = []
+                if has_table:
+                    image_rows = connection.execute(
+                        """SELECT page_num, file_path FROM drnh_images
+                           WHERE document_id=(SELECT id FROM documents WHERE doc_key=? LIMIT 1)
+                           ORDER BY page_num""",
+                        (doc_key,),
+                    ).fetchall()
+                page_numbers = [
+                    int(row[0]) for row in image_rows
+                    if isinstance(row[0], int) and row[0] > 0
+                ]
+                available_page_numbers = [
+                    int(row[0])
+                    for row in image_rows
+                    if isinstance(row[0], int)
+                    and row[0] > 0
+                    and _drnh_preview_file_exists(doc_key, Path(str(row[1] or "")).name)
+                ]
+                preview_available = bool(available_page_numbers)
+                results.append(
+                    {
+                        "doc_key": doc_key,
+                        "title": str(document[1] or ""),
+                        "date_guess": str(document[2] or ""),
+                        "source_url": str(document[3] or ""),
+                        "viewer_page_count": len(page_numbers),
+                        "preview_page_count": len(available_page_numbers),
+                        "preview_page_numbers": available_page_numbers,
+                        "preview_status": "local_visitor_preview" if preview_available else "catalogue_only",
+                        "preview_role": "official_watermarked_visitor_preview",
+                        "clean_original_present": False,
+                        "citation_ready": False,
+                        "body_text_included": False,
+                        "local_paths_included": False,
+                        "document_url": f"/doc/{quote(doc_key, safe='')}" if preview_available else "",
+                        "scope": str(event.get("scope") or ""),
+                        "caveat": str(event.get("caveat") or ""),
+                    }
+                )
+            return results
+    except sqlite3.Error:
+        return []
+
+
+def _domestic_drnh_preview_html(event_id: str) -> str:
+    """Render mounted DRNH preview cards without promoting their evidence."""
+    assets = _domestic_drnh_preview_assets(event_id)
+    if not assets:
+        return ""
+    cards = []
+    for asset in assets:
+        available = asset.get("preview_status") == "local_visitor_preview"
+        status_label = "本地可查看预览" if available else "仅目录入口"
+        status_class = "warn"
+        href = str(asset.get("document_url") or "")
+        links = f'<a href="{h(href)}">打开档案卡片与预览</a>' if href else ""
+        cards.append(
+            f'''<article class="result compact-result"><div>
+  <h3>{h(asset.get("title") or asset.get("doc_key"))}</h3>
+  <div class="meta">{h(asset.get("date_guess") or "日期未标注")} · 档号 {h(asset.get("doc_key"))} · 预览 {h(asset.get("preview_page_count"))}/{h(asset.get("viewer_page_count"))} 页</div>
+  <div class="tagline"><span class="pstatus {status_class}">{h(status_label)}</span><span class="tag">官方水印预览</span><span class="tag">citation_ready=false</span></div>
+  <div class="snippet">{h(asset.get("scope") or "")}</div>
+  <div class="snippet"><strong>边界：</strong>{h(asset.get("caveat") or "")}</div>
+</div><div class="cite">{links or ""}</div></article>'''
+        )
+    return f'''<div class="section-head"><h2><svg class="ico"><use href="#i-archive"/></svg>国史馆官方访客预览</h2><span class="meta">可查看但不等于清洁原件</span></div>
+<div class="notice">以下条目来自正式数据库已登记的国史馆访客预览。水印/登入锁定预览只用于档号、页数和页面结构核对；不读取或复制正文，不改变 `primary_evidence_status`，正式引用仍需独立原件和人工门禁。</div>
+<section class="result-list">{"".join(cards)}</section>'''
+
+
 PRIMARY_EVIDENCE_STATUS_META = {
     "closed": ("一手证据已闭环", "ok"),
     "partial": ("一手证据部分闭环", "warn"),
@@ -7481,6 +7618,7 @@ def research_topic_page(event_id: str) -> bytes:
 """
     evidence_chain_html = _topic_evidence_chain_html(evidence_chain)
     primary_subtarget_support_html = _primary_subtarget_support_html(event_id)
+    drnh_preview_html = _domestic_drnh_preview_html(event_id)
     research_matrix_html = _topic_research_matrix_html(research_matrix, evidence_chain)
     foreign_crosswalk_html = _topic_foreign_crosswalk_html(foreign_crosswalk)
 
@@ -7562,6 +7700,7 @@ def research_topic_page(event_id: str) -> bytes:
 {foreign_crosswalk_html}
 {evidence_chain_html}
 {primary_subtarget_support_html}
+{drnh_preview_html}
 <div class="section-head"><h2><svg class="ico"><use href="#i-book"/></svg>学术研究资料（解释层）</h2><span class="meta">{h(academic_total)} 条机器主题候选</span></div>
 <div class="notice">学术材料用于解释、争议定位和检索扩展；只有全文/页码/哈希/复核齐全后才可能进入正式引用。下方命中依据是书目元数据和结构化主题字段，不是正文语义确认。</div>
 <section class="result-list">{academic_html}</section>
