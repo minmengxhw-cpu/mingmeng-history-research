@@ -2422,7 +2422,7 @@
       "layer": "SCHOLARLY_RESEARCH",
       "title": "情报、人员和物资的枢纽：1930至1940年代香港与中国共产革命",
       "author": "贺碧霄",
-      "institution": "待从PDF文首核验",
+      "institution": "中山大学新闻系副教授（PDF文末署名）",
       "publication_date": "2018-10",
       "research_type": "SCHOLARLY_ARTICLE",
       "quality_tier": "A",
@@ -2445,7 +2445,12 @@
         "places": [
           "香港"
         ],
-        "research_type": "SCHOLARLY_ARTICLE"
+        "research_type": "SCHOLARLY_ARTICLE",
+        "bibliographic_citation": "《二十一世纪》2018年10月号，总第169期，起始页62（全文 PDF 16 页）",
+        "bibliographic_verification": "PDF首页核对题名、作者、刊物、期次和起始页；PDF文末署名核对作者机构与职称；未进行逐页人工引文复核",
+        "institution_verification_sources": [
+          "https://www.cuhk.edu.hk/ics/21c/media/articles/c169-201711013.pdf"
+        ]
       },
       "duplicate_group_id": "",
       "version_relation": "no_exact_title_duplicate_detected"

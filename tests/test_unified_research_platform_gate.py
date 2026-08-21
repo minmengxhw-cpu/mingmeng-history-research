@@ -291,6 +291,10 @@ def test_academic_metadata_views_show_verified_bibliographic_fields():
     assert "作者：马皓若、王毅" in queue_body
     assert "中共中央党校（国家行政学院）中共党史教研部" in queue_body
 
+    he_body = app.domestic_metadata_academic_search_page("情报、人员和物资").decode("utf-8")
+    assert "中山大学新闻系副教授（PDF文末署名）" in he_body
+    assert "《二十一世纪》2018年10月号，总第169期，起始页62" in he_body
+
 
 def test_academic_search_shows_explicit_bibliographic_locator():
     previous = getattr(app._request, "public_mode", False)
