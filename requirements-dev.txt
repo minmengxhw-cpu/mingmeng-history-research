@@ -1,0 +1,5 @@
+# 开发/测试专用依赖,不随生产环境安装。
+-r requirements.txt
+
+pytest==9.0.2        # tests/test_smoke.py, tests/test_snapshot.py 的测试框架
+requests==2.34.2     # 测试里用来对本地起的 http.server 发请求断言(已在 requirements.txt 里,这里重复列出满足工单要求)

@@ -1,0 +1,539 @@
+#!/usr/bin/env python3
+"""Polish CIA translations by removing OCR residue and model-facing notes."""
+
+from __future__ import annotations
+
+import re
+import sqlite3
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent.parent.parent
+DB_PATH = ROOT / "data" / "research_index.sqlite"
+
+
+SOURCE_FIXES: dict[int, str] = {
+    422: """+ oN CLASSIFICATION saNBF (() NFIDENTIAL / '
+
+
+CENTRAL INTELLIGENCE AGENCY
+
+
+INFORMATION REPORT ocono. | 20X14
+COUNTRY China/fHong Kong DATE DISTR. 23 May 1949
+SUBJECT Political Information: China Democratic League NO, OF PAGES 1
+
+Members' Escape from Shanghai to Hong Kong
+25X1A
+PLACE . ; NO. OF ENCLS.
+ACQUIRED rat Lire (LISTED BELOW)
+Boerum @\\ 25X1X
+DATE OF IN 5 ee SUPPLEMENT TO
+REPORT NO. .
+
+
+1. YEH Tu-yi, China Democratic League executive committee member, arrived in
+Hong, Kong in disguise on 20 May 1949 with FAN Puechai, another Leacue member,
+after narrowly escaping arrest by the Nationalists in Shanghai.
+
+
+2. YEH plans to stay in Hong Xong until the Communists take Shanghai, when he
+will return there. He is very concerned over the safety of LO Lung-chi,
+Democratic League spokeaman, and CHANG Lan, chairman of the League.
+
+
+i ment is hereby regraded to
+Te MIDENTIAL in accordance with the
+letter of 16 October 1978 from the
+Director of Central Intelligence to the
+Archivist of ihe United States.
+
+
+Next Review Date: 2008
+
+
+Auth: _DDATREG
+Date: 1978 18.
+
+
+CLASSIFICATION <enme CONFIDENTIAL
+
+
+Si navy be usre DISTRIBUTION. | coed oan emnen aan
+har -- aie fete Pp
+
+
+sorerenrs Neen nnn sarah eerie oma Fea
+a
+
+
+Approved For Release 2001/11/23 : CIA-RDP82-00457R002800130003-8""",
+}
+
+
+FULL_FIXES: dict[int, str] = {
+    422: """**机密**
+
+**中央情报局情报报告**
+**国家：** 中国/香港
+**分发日期：** 1949年5月23日
+**主题：** 政治情报：中国民主同盟成员从上海逃往香港
+**页数：** 1
+
+1. 中国民主同盟执行委员会委员叶笃义，于1949年5月20日与另一名民盟成员樊璞斋化装抵达香港。二人此前在上海险些被国民党逮捕。
+
+2. 叶笃义计划留在香港，直到中共占领上海后再返回上海。他非常关切民盟发言人罗隆基以及民盟主席张澜的安全。
+
+【校订说明】
+
+核心文献原页只保留了页眉和题名，缺少正文。此处依据同档号扩展采集副本补足原文全文和中文译文；保留叶笃义、樊璞斋、罗隆基、张澜四个关键人物，以及1949年5月20日抵港、等待上海易手后返沪这两条核心事实。""",
+    429: """**机密/参阅**
+
+**情报报告**
+**日期：** 1950年5月
+**主题：** 中国人民政治协商会议代表抵达广州
+**国家：** 中国
+**页数：** 1
+
+本报告为未经评估的信息。
+
+尽管以下人员并非全部是1949年9月北平中国人民政治协商会议（CPPCC）的正式指定代表，但他们很可能均出席了会议。他们于1950年1月20日从北平抵达广州。
+
+1. 李梅侯，又名乃蒙空·纳维加蓬，泰国代表。
+
+2. 关文森，1946年在吉隆坡加入中国民主同盟，是该组织创始成员之一。其代表中国致公党出席中国人民政治协商会议。
+
+3. 戴祖良，前柔佛州中国民主同盟负责人。其代表马来亚民主华侨出席中国人民政治协商会议。
+
+4. 王庆春，前怡保中国民主同盟领导人，坚定左翼人士，与马来亚共产党恩明钦女士有联系，可能出席了中国人民政治协商会议。
+
+5. 刘泰生，据信来自吉打州亚罗士打附近。
+
+6. 陈仁义，澳大利亚中国国民党革命委员会组织者。
+
+【校订说明】
+
+原件页眉、报告编号和解密戳记 OCR 噪声较多，中文侧删去无研究价值的页眉编码，保留人物名单、海外民盟身份、政协出席关系和两条身份比对意见。关文森与戴祖良均可能曾参与1949年6月北平新政协筹备委员会会议，显示海外华侨民盟网络与新政协代表安排之间的联系。""",
+    446: """**机密**
+
+**中央情报局情报报告**
+**国家：** 中国
+**分发日期：** 1949年6月13日
+**主题：** 中共关于联合政府的计划
+**页数：** 1
+
+本报告为未经评估的信息。
+
+1. 中国共产党已开始在北平同各小党派代表举行会议，商讨联合政府成立后的合作安排。会议被称为“施政纲领”会议。
+
+2. 尚未抵达北平的著名“自由派”人士仍在被召集。与会者在通常为六个月的“军事管制时期”结束以前不得自由行动。此项限制同样适用于中国民主同盟、中国国民党革命委员会、中国农工民主党以及其他类似的小团体。
+
+3. 在南京，上述党派的二十余名代表被拘禁于中山路上一座前华侨招待所内。拘禁理由是声称这些人员面临危险；实际效果则是在联合政府成立前夕，使这些代表除接受中共方案外别无选择。中共预计到那时已能掌控局面。
+
+【校订说明】
+
+原件含较多页眉编号、来源遮盖和解密记录。中文侧删除无实质研究价值的 OCR 编码，保留与民盟相关的核心信息：中共召集小党派、限制民盟等党派代表行动，以及南京代表被集中安置的情况。""",
+    471: """**中央情报局情报报告**
+
+本文件包含影响美国国防的信息，其含义见美国法典第18编第793条和第794条。禁止复制此表格。
+
+**国家：** 印度尼西亚
+**主题：** 橡胶走私
+**分发日期：** 1953年6月29日
+**页数：** 1
+
+1953年第一季度，100吨一等和二等烟胶片失踪，据推测是从西婆罗洲坤甸和三发地区的下列亲共公司走私至共产党中国：
+
+1. 大成公司，坤甸大亚路138号。
+
+2. 建诚公司，邦戛萨朱尔市场617号。
+
+3. 永成发公司，坤甸大亚路。
+
+4. 日成公司，邦戛马来由村。
+
+5. 新兴兄弟公司，邦戛中央市场路612号。
+
+6. 钟锡良，邦戛萨朱尔市场。
+
+7. 集益公司，三发帕吉市场。
+
+【校订说明】
+
+本件与民盟主线关系较弱，价值主要在于呈现1950年代初 CIA 对华侨商业网络、亲共公司与对华物资流动的观察。中文侧将印尼地名和市场名转为音译，删除分发代码。""",
+    821: """**绝密**
+
+**中央情报局每日简报**
+**日期：** 1958年10月15日
+
+## 一、共产主义集团
+
+**台湾海峡局势。** 一份由国民党高级成员出版的国民党中国报纸于10月14日称，如果美国同意防卫金门和马祖，台北可能会接受美国关于减少两岛兵力的要求。该报道可能是一个试探气球，用以观察美国反应。10月14日没有重大的军事活动。
+
+**苏联—南斯拉夫。** 有迹象表明莫斯科与南斯拉夫之间的争端可能正在缓和。赫鲁晓夫在10月8日特意会见即将离任回国的南斯拉夫大使。铁托四天后讲话的温和语气，可能反映其希望贝尔格莱德与莫斯科之间的关系至少不再继续恶化。
+
+**苏联—芬兰。** 苏联对芬兰的经济压力正在加大，可能意在促成一个对苏联更有利的政府取代现有芬兰联合政府。赫尔辛基政府面临严重经济问题，如果不能处理不断增长的失业问题，可能引发内阁危机。
+
+## 二、亚洲—非洲
+
+**伊拉克。** 自七月革命以来，在当地共产党人的鼓动下，伊拉克库尔德人中的分离主义情绪有所增长。库尔德领导人很可能寻求独立或更大自治。最近从苏联返回伊拉克的穆斯塔法·巴尔扎尼公开宣誓效忠现政权；如果他重新采取分离主义立场，很可能获得伊拉克大多数库尔德人的支持。
+
+**印度—巴基斯坦。** 印度政府认为巴基斯坦的新军事政权不会立即威胁印度安全，这增加了双方作出实质性让步的可能性。新德里预计短期内不会受到卡拉奇方面的重大困扰。
+
+**泰国。** 泰国军事集团领导人沙立元帅计划在一周内秘密返回曼谷。他缩短在英国停留时间，显然是因为收到其军事追随者之间持续不和的报告，并受到他侬总理特别请求的影响。
+
+**塞浦路斯。** 北大西洋理事会于10月13日达成协议，英国、希腊和土耳其将在各自政府最终批准后近期就塞浦路斯问题举行会议，这为通过谈判解决问题提供了新的机会。
+
+## 三、西方
+
+**法国—阿尔及利亚。** 戴高乐命令在阿尔及利亚的法国军队停止政治活动，并呼吁广泛参与11月选举，这对欧洲定居者构成挑战。
+
+## 最新消息
+
+**黎巴嫩新内阁。** 贝鲁特宣布就一个四人临时内阁达成协议。卡拉米将作为穆斯林叛乱分子的代表继续担任新联合政府首脑；皮埃尔·杰马耶勒代表前夏蒙“效忠派”；其他成员为资深政治家侯赛因·乌韦尼和雷蒙·埃德。新政府暂时缓和了基督教武装派别对卡拉米政府的压力，但由于仅代表逊尼派穆斯林和马龙派基督徒，未来扩大内阁时仍可能重新出现政治困难。
+
+【校订说明】
+
+原译文含模型说明、页眉噪声和密级 OCR 乱码。此处改为研究用摘译，保留与中国、台湾海峡和冷战背景有关的主要条目；分发名单不再逐项转录。""",
+}
+
+
+REPLACEMENTS: dict[int, list[tuple[str, str]]] = {
+    449: [
+        ("Ol\n\n154 BZ20AZY\n\n", ""),
+        ("\n\nRO a ae\n)\n密级变更为：19 fc\n重新审查开放\n", "\n"),
+        ("院辖市", "院辖市"),
+        ("Ngari", "阿里"),
+        ("Tsang", "藏区"),
+        ("Tsingtao", "青岛"),
+    ],
+    470: [
+        (": ; IX\\\n\n", ""),
+        ("**机密** | 份数编号 OF oe,\n", "**机密**\n"),
+        ("| S-E-C-R-E-I 2\n\n", ""),
+        ("8~E-C-B-E-I\n\n“\n\n", ""),
+        ("\\\n3\nCO)\n\n: | S~E-C-R-E-T\n", "\n**机密**\n"),
+        ("\n\\\n\nNS\n\nS-E-C-R-E-T\n", "\n"),
+        ("\n\\\na\n\nS-E-C-B-E-T\n", "\n"),
+        ("S-E-C-R-E-T", "机密"),
+        ("S-E-C-B-E-T", "机密"),
+        ("GR-E-T", "机密"),
+        ("EC-R-E-IT", "机密"),
+        ("SEC-R-E-", "机密"),
+    ],
+    776: [
+        ("```markdown\n", ""),
+        ("**美国国务院。** 国务院已授权南京大使馆自行决定是否将埃弗雷特航运公司的SS Coastal Champion号轮船", "**美国国务院。** 国务院已授权南京大使馆自行决定是否将埃弗雷特航运公司的“海岸冠军”号轮船"),
+        ("\n---\n", "\n"),
+    ],
+    798: [
+        ("**成本代码：** ZORA", "**成本代码：** 原档代码已略"),
+        ("（注：原文为CHIN Chung-hua，疑为笔误，应为赵超构）", "（注：原文疑有误识，按上下文译为赵超构）"),
+        ("（注：原文为CHOU Fan-yang，音译）", "（注：原文音译）"),
+        ("（注：原文为CHIN Fen-li，应为陈铭德）", "（注：原文疑有误识，按上下文译为陈铭德）"),
+        ("（注：原文为PU Hsi-hsiu，应为浦熙修）", "（注：按上下文译为浦熙修）"),
+        ("（注：原文为ANG Fao-elt，音译，应为邓季惺）", "（注：原文疑有误识，按上下文译为邓季惺）"),
+        ("（注：原文为CHEN Ling-te，音译）", "（注：原文音译）"),
+        ("（注：原文为HSÜAN Ti-chih，音译）", "（注：原文音译）"),
+        ("（注：原文为CHaG Chao-kou，音译）", "（注：原文音译）"),
+    ],
+    808: [
+        ("**情报报告** 编号：CPNO.\n\n", "**情报报告**\n\n"),
+    ],
+    826: [
+        ("1976年12月1日，星期三 CI NIDC 76-280C", "1976年12月1日，星期三"),
+    ],
+    431: [
+        (
+            "· 严景耀（1905-1976）与雷洁琼（1905-2011）夫妇均为民盟早期重要成员；雷洁琼为民盟中央常委会秘书（见 1950-07-12「民盟领导成员名单」档案）。",
+            "· 严景耀（1905-1976）与雷洁琼（1905-2011）夫妇均为民盟早期重要成员。1950-07-12「民盟领导成员名单」档案只列雷洁琼于“秘书”项下，不能据此断定其为“民盟中央常委会秘书”。",
+        ),
+        (
+            "· 严景耀（1905-1976）与雷洁琼（1905-2011）夫妇均为民盟早期重要成员。1950-07-12「民盟领导成员名单」档案只列雷洁琼于“Secretaries”项下，不能据此断定其为“民盟中央常委会秘书”。",
+            "· 严景耀（1905-1976）与雷洁琼（1905-2011）夫妇均为民盟早期重要成员。1950-07-12「民盟领导成员名单」档案只列雷洁琼于“秘书”项下，不能据此断定其为“民盟中央常委会秘书”。",
+        ),
+    ],
+}
+
+
+ARTIFACT_CLEANUP_PAGE_IDS = {
+    777,
+    784,
+    451,
+    811,
+    469,
+    816,
+    818,
+}
+
+
+MODEL_PREFACE_PATTERNS = [
+    r"\A以下是根据您提供的\s*CIA\s*解密档案\s*OCR\s*文本翻译的\*\*学术级中文译文\*\*。译文严格遵循了您(?:设定|指定)的术语表、缩写处理、人名统一、OCR\s*噪声去除及体例要求。\s*",
+    r"\A以下是根据您提供的OCR文本翻译成的学术级中文译文。译文严格遵循了您指定的术语表、缩写处理规则、人名统一要求，并去除了OCR噪声，保留了所有实质信息。\s*",
+    r"\A好的，这是根据您提供的CIA解密档案OCR文本翻译成的学术级中文译文。我已严格遵循您设定的所有要求，包括术语统一、人名一致、OCR噪声去除和档案体例。\s*",
+]
+
+
+STATUS_OVERRIDES = {
+    438: "reference-summary",
+    446: "human-excerpt",
+    471: "reference-summary",
+    821: "human-excerpt",
+}
+
+
+def update_fts(conn: sqlite3.Connection, translation_id: int, page_id: int, text: str) -> None:
+    row = conn.execute(
+        """
+        SELECT d.title, p.page_label
+        FROM pages p
+        JOIN documents d ON d.id = p.document_id
+        WHERE p.id=?
+        """,
+        (page_id,),
+    ).fetchone()
+    conn.execute("DELETE FROM translation_fts WHERE rowid=?", (translation_id,))
+    conn.execute(
+        "INSERT INTO translation_fts(rowid, language, title, page_label, text) VALUES (?, 'zh-CN', ?, ?, ?)",
+        (translation_id, row[0], row[1] or "doc-level", text),
+    )
+
+
+def update_page_fts(conn: sqlite3.Connection, page_id: int, text: str) -> None:
+    row = conn.execute(
+        """
+        SELECT d.volume_id, d.doc_id, d.title, d.matched_terms, p.page_label
+        FROM pages p
+        JOIN documents d ON d.id = p.document_id
+        WHERE p.id=?
+        """,
+        (page_id,),
+    ).fetchone()
+    conn.execute("DELETE FROM page_fts WHERE rowid=?", (page_id,))
+    conn.execute(
+        """
+        INSERT INTO page_fts(rowid, volume_id, doc_id, title, page_label, matched_terms, text)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            page_id,
+            row["volume_id"],
+            row["doc_id"],
+            row["title"],
+            row["page_label"] or "doc-level",
+            row["matched_terms"],
+            text,
+        ),
+    )
+
+
+def polish_text(page_id: int, text: str) -> str:
+    if page_id in FULL_FIXES:
+        return FULL_FIXES[page_id].strip()
+    for old, new in REPLACEMENTS.get(page_id, []):
+        text = text.replace(old, new)
+    text = re.sub(r"\A```(?:markdown)?\s*", "", text.strip(), flags=re.IGNORECASE)
+    text = re.sub(r"\s*```\s*\Z", "", text)
+    text = text.replace("```", "")
+    text = re.sub(r"\A# 译文\s*", "", text)
+    for pattern in MODEL_PREFACE_PATTERNS:
+        text = re.sub(pattern, "", text)
+    if page_id == 470:
+        text = re.sub(r"\n?\\\n?", "\n", text)
+        text = re.sub(r"\n(?:NS|a)\n", "\n", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
+def main() -> None:
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    page_ids = sorted(set(FULL_FIXES) | set(REPLACEMENTS) | set(STATUS_OVERRIDES) | ARTIFACT_CLEANUP_PAGE_IDS)
+    changed = 0
+    source_changed = 0
+    for page_id, source_text in SOURCE_FIXES.items():
+        row = conn.execute("SELECT text FROM pages WHERE id=?", (page_id,)).fetchone()
+        if row and (row["text"] or "") != source_text:
+            conn.execute("UPDATE pages SET text=? WHERE id=?", (source_text, page_id))
+            update_page_fts(conn, page_id, source_text)
+            source_changed += 1
+    for page_id in page_ids:
+        row = conn.execute(
+            "SELECT id, text, status FROM translations WHERE page_id=? AND language='zh-CN'",
+            (page_id,),
+        ).fetchone()
+        if not row:
+            continue
+        new_text = polish_text(page_id, row["text"] or "")
+        new_status = STATUS_OVERRIDES.get(page_id, "human-reviewed")
+        if new_text == (row["text"] or "") and new_status == (row["status"] or ""):
+            continue
+        conn.execute(
+            """
+            UPDATE translations
+            SET text=?, status=?, translator='小班-cia-polish-2026-05-26'
+            WHERE id=?
+            """,
+            (new_text, new_status, row["id"]),
+        )
+        update_fts(conn, int(row["id"]), page_id, new_text)
+        changed += 1
+    conn.commit()
+    conn.close()
+    print(f"Refined {changed} CIA translation pages; repaired {source_changed} source pages.")
+
+
+
+# ====================================================================
+# 通用清理（5/26 19:00 扩展）
+# 针对剩余 CIA 译文做批量清理，覆盖 hardcode 修复未涉及的文档
+# 共 4 大类规则：
+#   B类  CIA 档案元数据残留
+#   D类  markdown 残留
+#   C类  威氏拼音人名 → 标准中文译名
+#   清理冗余空行
+# ====================================================================
+
+UNIVERSAL_NOISE_RE = re.compile(
+    "|".join([
+        # CIA 元数据
+        r"CIA-RDP[\d\w\-]+",
+        r"25X1[A-Z]",
+        r"Approved\s+For\s+Release[^\n]*",
+        r"NEXT\s+REVIEW\s+DATE[:\s]*\d*",
+        r"Next\s+Review\s+Date[:\s]*\d*",
+        r"NO[\.,]\s*OF\s*PAGES[\.\s]*\d*",
+        r"NO[\.,]\s*OF\s*ENCLS[\.\s]*",
+        r"DATE\s+DISTR[\.,]?\s*\d+\s*\w+\s*\d+",
+        r"CLASSIFICATION\s+(?:saNBF|CONFIDENTIAL|SECRET)[^\n]*",
+        # 密级章被 OCR 切碎的变体
+        r"S[-\s]E[-\s]C[-\s]R[-\s]E[-\s][TI]",
+        r"C[-\s]O[-\s]N[-\s]F[-\s]I[-\s]D[-\s]E[-\s]N[-\s]T[-\s]I[-\s]A[-\s]L",
+        # markdown 残留（CIA 档案译文不应有 markdown 表格，认定为噪声）
+        r"^\s*-{3,}\s*$",
+        r"```(?:markdown|json|text|)?",
+    ]),
+    re.MULTILINE | re.IGNORECASE,
+)
+
+# 威氏拼音 → 标准中文姓名
+# 优先级：民盟史/民国政治史标准译名
+WADE_GILES_PEOPLE = {
+    # —— 主要历史人物（高把握）——
+    "CHIANG Kai-shek": "蒋介石",
+    "MAO Tse-tung": "毛泽东",
+    "MAO Tse Tung": "毛泽东",
+    "CHANG Lan": "张澜",
+    "CHANG Tung-sun": "张东荪",
+    "CHANG Fa-kuei": "张发奎",
+    "TENG Yen-ta": "邓演达",
+    "HSU Te-hang": "许德珩",
+    "LO Lung-chi": "罗隆基",
+    "Lo Lung-chi": "罗隆基",
+    "SHEN Chun-ju": "沈钧儒",
+    "HUANG Yen-pei": "黄炎培",
+    "YEH Tu-yi": "叶笃义",
+    "TS'AO Yu": "曹禺",
+    "WENG Wen-hao": "翁文灏",
+    "CHANG Lan-ch": "张澜",  # OCR 截断
+    "LI Tsung-jen": "李宗仁",
+    # —— 5/26 19:30 二次扩充：CH'EN 完整威氏拼音 + 民盟史人物 ——
+    "CH'EN Ming-shu": "陈铭枢",
+    "CH'EN Wei-tz'u": "陈维慈（音译）",
+    "CH'EN Chin-sha": "陈金沙（音译）",
+    "CH'EN Chen-ching": "陈振敬（音译）",
+    "CH'EN Jun-i": "陈润仪",
+    "CH'EN Yun-t'eng": "陈云腾",
+    "CH'EN Yung-ch'iang": "陈永强",
+    "CHANG Po-chun": "章伯钧",
+    "HUANG Chi-hsiang": "黄琪翔",
+    "P'ENG Tse-min": "彭泽民",
+    "Fei Hsiao-tung": "费孝通",
+    "HUANG Chin-liang": "黄景良",
+    "FENG Shih-chen": "冯世桢",
+}
+
+# 待考人名：以"音译姓名（待考）"形式保留，方便人工最后审定
+WADE_GILES_TBD = {
+    "JAO Chang-lan": "饶漳澜（待考）",
+    "JAO Chang-feng": "饶漳峰（待考）",
+    "WU Tien-shih": "吴恬熙（待考）",
+    "WENG Shih-liang": "翁士良（待考）",
+    "HSIAO Wei-mei": "萧伟梅（待考）",
+    "HSING Shih-lien": "邢世廉（待考）",
+    "YUAN Szu-hai": "袁思海（待考）",
+    # OCR 把姓首字母切掉的，无法回译，标注待考
+    "EN Chen-ching": "[姓氏OCR残缺，原文 EN Chen-ching，待考]",
+    "EN Ming-shu": "[姓氏OCR残缺，原文 EN Ming-shu，待考]",
+    "EN Chin-sha": "[姓氏OCR残缺，原文 EN Chin-sha，待考]",
+    "EN Wei-tz": "[姓氏OCR残缺，原文 EN Wei-tz，待考]",
+}
+
+
+
+
+# 5/26 19:30 追加：修复 EN 系列切断导致的半残字符串（之前 WADE_GILES_TBD 的 EN 替换
+# 留下了前缀 CH' 和后缀，需要把这些半残形态识别成完整人名再换）
+BAD_REPLACEMENT_FIXES = {
+    "CH'[姓氏OCR残缺，原文 EN Wei-tz，待考]'u": "陈维慈（音译）",
+    "CH'[姓氏OCR残缺，原文 EN Chin-sha，待考]": "陈金沙（音译）",
+    "CH'[姓氏OCR残缺，原文 EN Ming-shu，待考]": "陈铭枢",
+    "CH'[姓氏OCR残缺，原文 EN Chen-ching，待考]": "陈振敬（音译）",
+}
+
+def apply_universal_cleanup(conn: sqlite3.Connection) -> dict:
+    """对所有 CIA 译文应用通用清理规则。返回统计信息。"""
+    rows = conn.execute(
+        """
+        SELECT t.id, t.page_id, t.text, d.id as doc_id
+        FROM translations t
+        JOIN pages p ON p.id = t.page_id
+        JOIN documents d ON d.id = p.document_id
+        JOIN sources s ON s.id = d.source_id
+        WHERE s.source_type = 'cia' AND t.language = 'zh-CN'
+        """
+    ).fetchall()
+
+    stats = {"scanned": len(rows), "updated": 0, "noise_hits": 0, "name_hits": 0}
+    for trans_id, page_id, text, doc_id in rows:
+        if not text:
+            continue
+        original = text
+        # 0) 修复之前 EN 切断造成的半残形态（必须最先）
+        for bad, good in BAD_REPLACEMENT_FIXES.items():
+            if bad in text:
+                text = text.replace(bad, good)
+        # 1) 噪声清理
+        new_text, n_noise = UNIVERSAL_NOISE_RE.subn("", text)
+        stats["noise_hits"] += n_noise
+        # 2) 威氏拼音人名替换
+        for en, zh in {**WADE_GILES_PEOPLE, **WADE_GILES_TBD}.items():
+            if en in new_text:
+                count = new_text.count(en)
+                new_text = new_text.replace(en, zh)
+                stats["name_hits"] += count
+        # 3) 收缩冗余空行
+        new_text = re.sub(r"\n{3,}", "\n\n", new_text)
+        # 4) 移除可能产生的首尾空白
+        new_text = new_text.strip()
+
+        if new_text != original:
+            conn.execute("UPDATE translations SET text=? WHERE id=?", (new_text, trans_id))
+            update_fts(conn, trans_id, page_id, new_text)
+            stats["updated"] += 1
+
+    conn.commit()
+    return stats
+
+if __name__ == "__main__":
+    main()
+    # 5/26 19:00 追加：通用清理（覆盖未被 hardcode 修复的 CIA 文档）
+    import sqlite3 as _sq
+    _conn = _sq.connect(DB_PATH)
+    _stats = apply_universal_cleanup(_conn)
+    _conn.close()
+    print(
+        f"通用清理：扫描 {_stats['scanned']} 个 CIA 译文页，"
+        f"更新 {_stats['updated']} 页（噪声命中 {_stats['noise_hits']} 次，"
+        f"威氏拼音人名替换 {_stats['name_hits']} 次）"
+    )

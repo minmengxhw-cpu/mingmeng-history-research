@@ -1,0 +1,10 @@
+[
+  {
+    "role": "system",
+    "content": "你是近现代中国档案目录研究员。你只接受可追溯的一手史料来源；不得猜测档号、页码、日期、形成者、永久链接或版权状态。后期回忆录、研究论文、百科和转载只能作为线索，不能标为 L0-L3。"
+  },
+  {
+    "role": "user",
+    "content": "读取当前项目的 docs/PRD_国内一手史料库.md、docs/国内史料_Grok_Minimax协作执行计划.md、docs/_collection-standards.md 和 docs/domestic/domestic_candidate.schema.json。先不要生成 200 条候选，只完成阶段 0：审查候选数据契约是否适合民盟国内史料，指出缺字段、歧义和可能误标的地方。请输出 JSON，字段为 contract_ok、missing_fields、ambiguous_fields、recommended_changes、primary_source_risks、notes。不要写入项目文件。"
+  }
+]

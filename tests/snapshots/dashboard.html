@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>研究进度仪表盘 · 民盟历史文献研究库</title>
+  <link rel="stylesheet" href="/static/fonts.css?v=NORMALIZED">
+  <link rel="stylesheet" href="/static/style.css?v=NORMALIZED">
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="5" rx="1"/><path d="M5 8v11a1 1 0 001 1h12a1 1 0 001-1V8M10 12h4"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20a5.5 5.5 0 0111 0M16 11a3 3 0 100-6M21 20a4.5 4.5 0 00-7.5-3.4"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12.5L12.5 20a2 2 0 01-2.8 0L3 13.3V4h9.3L20 11.7a.6.6 0 010 .8z"/><circle cx="8" cy="9" r="1.4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-checks" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 13 7 18 13 8"/><polyline points="11 13 16 18 22 8"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 113 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-4 3 3 5-7"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 016.5 2H20v17H6.5A2.5 2.5 0 014 21.5v-17z"/><path d="M4 19.5h16"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M3 21h18M9 12h6M9 16h6M9 21v-5h6v5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h13l-3 4 3 4H5"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l4-2 4 2 4-2 4 2v16M4 21h16M9 7v14M15 7v14"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h4v4a4 4 0 01-4 4M14 7h4v4a4 4 0 01-4 4"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
+  
+  <header class="topbar">
+    <a class="brand" href="/">
+      <span>民盟历史文献研究库</span>
+      <span class="brand-sub">FRUS · CIA · Wilson · Hoover · HathiTrust · DRNH · NewspaperSG · 国内史料</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="打开导航" aria-controls="mainnav" aria-expanded="false" onclick="(function(b){var n=document.getElementById('mainnav');var o=n.classList.toggle('is-open');b.setAttribute('aria-expanded',o);b.classList.toggle('is-open',o);})(this)">
+      <svg class="ico ico-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <form class="search" method="get" action="/search" role="search">
+      <input name="q" value="" placeholder="搜索英文原文或中文译文，例如「罗隆基」「Marshall」「政协」">
+      <button type="submit"><svg class="ico"><use href="#i-search"/></svg>搜索</button>
+    </form>
+    <nav class="mainnav" id="mainnav">
+      
+        <div class="nav-group">
+          <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#i-library"/></svg>资料库<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="nav-flyout"><a class="nav-sub" href="/">首页</a><a class="nav-sub" href="/about">项目介绍</a><a class="nav-sub" href="/docs">全部文档</a><a class="nav-sub" href="/domestic">国内史料库</a><a class="nav-sub" href="/domestic/workbench">国内研究平台</a><a class="nav-sub" href="/research">多源专题研究</a><a class="nav-sub" href="/domestic/library">国内核心可阅</a><a class="nav-sub" href="/domestic/events">国内事件墙</a><a class="nav-sub" href="/domestic/sources">国内来源</a><a class="nav-sub" href="/domestic/academic">国内学术研究</a><a class="nav-sub" href="/papers">研究论文</a><a class="nav-sub" href="/sourcebooks">史料长编</a><a class="nav-sub" href="/standards">收录标准</a><a class="nav-sub" href="/timeline">年表</a><a class="nav-sub" href="/glossary">术语表</a></div>
+        </div>
+        <div class="nav-group active">
+          <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#i-edit"/></svg>研究工作台<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="nav-flyout"><a class="nav-sub" href="/domestic?layer=background">国内背景线索</a><a class="nav-sub" href="/domestic/search">国内 staging 检索</a><a class="nav-sub" href="/domestic/quality">国内质量底座</a><a class="nav-sub" href="/domestic/acquisition">国内调档清单</a><a class="nav-sub" href="/domestic/review">国内复核</a><a class="nav-sub" href="/align">多源对位</a><a class="nav-sub" href="/cards">证据卡片库</a><a class="nav-sub" href="/tasks">校订任务</a><a class="nav-sub" href="/quality">质量检查</a><a class="nav-sub" href="/drnh-review">DRNH校订</a><a class="nav-sub" href="/first-person">第一人称史料</a><a class="nav-sub" href="/hk-press">香港报刊源</a><a class="nav-sub" href="/l1-board">L1升级看板</a><a class="nav-sub" href="/external-acquisition">外部调档</a><a class="nav-sub" href="/open-sources">开放资料源</a><a class="nav-sub current" href="/dashboard">进度仪表盘</a></div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-main" type="button" onclick="this.closest('.nav-group').classList.toggle('is-open')"><svg class="ico"><use href="#i-people"/></svg>人物索引<svg class="ico nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="nav-flyout"><a class="nav-sub" href="/people">人物</a><a class="nav-sub" href="/places">地点</a><a class="nav-sub" href="/organizations">机构</a></div>
+        </div>
+    </nav>
+  </header>
+  <main><nav class="breadcrumb"><a href="/">首页</a><span class="sep">›</span><a href="/tasks">研究工作台</a><span class="sep">›</span><span class="current">进度仪表盘</span></nav>
+<section class="doc-head">
+  <div>
+    <h1>研究进度仪表盘</h1>
+    <div class="meta">汇总资料库规模、译文覆盖、事件索引、质量提示和最近导出卡片。</div>
+  </div>
+  <div class="doc-tools">
+    <a class="button" href="/tasks?queue=core">核心校订</a>
+    <a class="button" href="/quality?severity=2">质量检查</a>
+    <a class="button" href="/events">事件线索</a>
+    <a class="button" href="/focus">首页清单</a>
+    <a class="button" href="/drnh-review">DRNH校订</a>
+    <a class="button" href="/external-acquisition">外部调档</a>
+    <a class="button" href="/open-sources">开放资料源</a>
+    <a class="button" href="/sourcebooks">史料长编</a>
+  </div>
+</section>
+<section class="stats">
+  <div class="stat"><strong>1415</strong><span>文档</span></div>
+  <div class="stat"><strong>6277</strong><span>页/片段</span></div>
+  <div class="stat"><strong>1070</strong><span>中文译文</span></div>
+  <div class="stat"><strong>2556</strong><span>事件节点</span></div>
+  <div class="stat"><strong>2012</strong><span>带地点事件</span></div>
+  <div class="stat"><strong>1843</strong><span>带机构事件</span></div>
+  <div class="stat"><strong>111</strong><span>高优先级质量页</span></div>
+  <div class="stat"><strong>0</strong><span>Markdown 导出</span></div>
+  <div class="stat"><strong>0</strong><span>长编 PDF</span></div>
+</section>
+<section class="result-list">
+  <article class="result">
+    <div>
+      <h2>文档等级</h2>
+      <div class="tagline">
+        <span class="tag">核心文献 267</span>
+        <span class="tag">相关文献 227</span>
+        <span class="tag">人物关联 30</span>
+        <span class="tag">背景材料 11</span>
+      </div>
+    </div>
+    <div class="cite"><a href="/docs?grade=核心文献">核心文献</a><br><a href="/docs">全部文档</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2>译文质量</h2>
+      <div class="meta">111 个提示 · 111 个片段 · 高优先级 111 页 · 严重 0</div>
+    </div>
+    <div class="cite"><a href="/quality">质量检查</a><br><a href="/tasks">校订任务</a></div>
+  </article>
+</section>
+<h2 style="font-size:18px;margin:18px 0 8px;">今日建议校订</h2>
+<section class="result-list">
+
+  <article class="result">
+    <div>
+      <h2><a href="/review/17506">《中国民主同盟言论集》</a></h2>
+      <div class="meta">#1 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032016010761-42571 ·  · p. 1 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17506">校订</a><br><a href="/doc/domestic-page/NLC511-027032016010761-42571?page_id=17506">并排阅读</a><br><a href="/cite/17506">摘录卡片</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/review/17507">《中国民主同盟言论集》</a></h2>
+      <div class="meta">#2 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032016010761-42571 ·  · p. 2 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17507">校订</a><br><a href="/doc/domestic-page/NLC511-027032016010761-42571?page_id=17507">并排阅读</a><br><a href="/cite/17507">摘录卡片</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/review/17610">《中国民主同盟言论集》</a></h2>
+      <div class="meta">#3 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032016010761-42571 ·  · p. 105 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17610">校订</a><br><a href="/doc/domestic-page/NLC511-027032016010761-42571?page_id=17610">并排阅读</a><br><a href="/cite/17610">摘录卡片</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/review/17611">《中国民主同盟言论集》</a></h2>
+      <div class="meta">#4 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032016010761-42571 ·  · p. 106 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17611">校订</a><br><a href="/doc/domestic-page/NLC511-027032016010761-42571?page_id=17611">并排阅读</a><br><a href="/cite/17611">摘录卡片</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/review/17612">《中国民主同盟言论集》</a></h2>
+      <div class="meta">#5 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032016010761-42571 ·  · p. 107 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17612">校订</a><br><a href="/doc/domestic-page/NLC511-027032016010761-42571?page_id=17612">并排阅读</a><br><a href="/cite/17612">摘录卡片</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/review/17789">《民主同盟文獻》另一扫描本</a></h2>
+      <div class="meta">#6 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032013012333-19131 ·  · p. 1 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17789">校订</a><br><a href="/doc/domestic-page/NLC511-027032013012333-19131?page_id=17789">并排阅读</a><br><a href="/cite/17789">摘录卡片</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/review/17790">《民主同盟文獻》另一扫描本</a></h2>
+      <div class="meta">#7 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032013012333-19131 ·  · p. 2 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17790">校订</a><br><a href="/doc/domestic-page/NLC511-027032013012333-19131?page_id=17790">并排阅读</a><br><a href="/cite/17790">摘录卡片</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/review/17791">《民主同盟文獻》另一扫描本</a></h2>
+      <div class="meta">#8 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032013012333-19131 ·  · p. 3 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17791">校订</a><br><a href="/doc/domestic-page/NLC511-027032013012333-19131?page_id=17791">并排阅读</a><br><a href="/cite/17791">摘录卡片</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/review/17965">《民主同盟文獻》另一扫描本</a></h2>
+      <div class="meta">#9 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032013012333-19131 ·  · p. 177 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17965">校订</a><br><a href="/doc/domestic-page/NLC511-027032013012333-19131?page_id=17965">并排阅读</a><br><a href="/cite/17965">摘录卡片</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/review/17966">《民主同盟文獻》另一扫描本</a></h2>
+      <div class="meta">#10 · 优先级 210 · DOMESTIC-PAGE/NLC511-027032013012333-19131 ·  · p. 178 </div>
+      <div class="zh"></div>
+      <div class="tagline"><span class="issue">incomplete_ocr</span><span class="tag">1 个提示</span></div>
+    </div>
+    <div class="cite"><a href="/review/17966">校订</a><br><a href="/doc/domestic-page/NLC511-027032013012333-19131?page_id=17966">并排阅读</a><br><a href="/cite/17966">摘录卡片</a></div>
+  </article>
+</section>
+<h2 style="font-size:18px;margin:18px 0 8px;">事件范围</h2>
+<section class="result-list">
+
+  <article class="result">
+    <div>
+      <h2><a href="/events?topic=pcc-1946">1946 年政治协商会议</a></h2>
+      <div class="meta">452 个事件节点 · 452 个资料片段</div>
+    </div>
+    <div class="cite"><a href="/events?topic=pcc-1946">查看事件</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/events?topic=peiping-1949">1949 年北平接触</a></h2>
+      <div class="meta">353 个事件节点 · 353 个资料片段</div>
+    </div>
+    <div class="cite"><a href="/events?topic=peiping-1949">查看事件</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/events?topic=marshall-mediation">马歇尔调处与民盟</a></h2>
+      <div class="meta">302 个事件节点 · 302 个资料片段</div>
+    </div>
+    <div class="cite"><a href="/events?topic=marshall-mediation">查看事件</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/events?person=chou-en-lai">周恩来</a></h2>
+      <div class="meta">208 个事件节点 · 208 个资料片段</div>
+    </div>
+    <div class="cite"><a href="/events?person=chou-en-lai">查看事件</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/events?topic=domestic-1945-first-congress">1945年民盟第一次全国代表大会</a></h2>
+      <div class="meta">188 个事件节点 · 188 个资料片段</div>
+    </div>
+    <div class="cite"><a href="/events?topic=domestic-1945-first-congress">查看事件</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/events?topic=domestic-1947-illegal-dissolution">1947年民盟被宣布非法与组织解散</a></h2>
+      <div class="meta">130 个事件节点 · 130 个资料片段</div>
+    </div>
+    <div class="cite"><a href="/events?topic=domestic-1947-illegal-dissolution">查看事件</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/events?person=lo-lung-chi">罗隆基</a></h2>
+      <div class="meta">123 个事件节点 · 123 个资料片段</div>
+    </div>
+    <div class="cite"><a href="/events?person=lo-lung-chi">查看事件</a></div>
+  </article>
+  <article class="result">
+    <div>
+      <h2><a href="/events?topic=third-force">第三方面与中间路线</a></h2>
+      <div class="meta">123 个事件节点 · 123 个资料片段</div>
+    </div>
+    <div class="cite"><a href="/events?topic=third-force">查看事件</a></div>
+  </article></section><h2 style="font-size:18px;margin:18px 0 8px;">最近导出</h2><section class="result-list"><div class="notice">暂无导出文件。</div></section></main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-title">民盟历史文献研究库</span>
+          <span class="footer-desc">系统整理 1941—1950 年中国民主同盟境外档案与国内史料 · 分层证据与多源互证体系</span>
+        </div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/docs">全部文档</a>
+          <a href="/people">人物索引</a>
+          <a href="/timeline">文献年表</a>
+          <a href="/dashboard">研究仪表盘</a>
+          <a href="/sourcebooks">史料长编</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        数据来源：FRUS · CIA FOIA · Wilson Center · Hoover Institution · HathiTrust · 台北档案史料 (DRNH) · NewspaperSG · 国内史料层<br>
+        本站为学术研究工具，所有档案均保留原始出处引用
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,104 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.swp
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# ===== 编辑器 =====
+.DS_Store
+.*.swp
+.*.swo
+.vscode/
+.idea/
+
+# ===== 翻译/OCR 临时日志（一律忽略，需要时单独保留）=====
+*.log
+*.stdout
+retranslate*.log
+retranslate*.stdout
+translate_*.log
+translate_*.stdout
+
+# ===== 大数据 / 临时数据 =====
+output/
+exports/
+data/ocr_smoke_test/
+data/frus_epub_tmp/
+data/hoover_recon/
+data/drnh_probe/sample_images/
+data/drnh_probe/drnh_cookies.txt
+data/drnh_images/
+data/newspapersg/images/
+
+# ===== 部署密钥（如有）=====
+*.pem
+*.key
+.env
+.env.local
+
+# workspace/ 临时工作产物（白皮书草稿、数据集 JSON 等）
+workspace/*
+!workspace/.gitkeep
+
+# 新增本机代理/收口工作产物默认不入公开仓库；已经被 Git 跟踪的历史元数据仍保持跟踪。
+# 需要有意发布某个工作产物时，使用 git add -f 并先做来源与路径审计。
+work/*
+!work/.gitkeep
+
+# scripts/ 下误建的本地工作目录（含空 sqlite / drnh_images 软链等）
+scripts/data/
+
+# notion-drive-worker/ 独立子项目（含 node_modules）；如需入仓应用 git submodule 引入
+# 这里临时让顶层仓库忽略它的 node_modules 等编译产物（由子项目自己的 .gitignore 兜底）
+notion-drive-worker/node_modules/
+notion-drive-worker/dist/
+notion-drive-worker/.env*
+
+# DB 不入仓（68MB+ 二进制，备份在 data/backups/）
+data/research_index.sqlite
+data/research_index.sqlite-journal
+data/research_index.sqlite-wal
+data/research_index.sqlite-shm
+data/backups/
+data/research_index.sqlite.*.pre.bak
+data/research_index.sqlite.*.bak
+data/research_index.sqlite.bak/
+
+# 大体量原始史料影像（数百 MB～GB 级，单独备份/上传 drive，不入仓）
+data/domestic/press_scans/
+data/domestic/sourcebooks/
+data/domestic/academic_public_20260730/
+data/domestic/gazette_scans/
+data/domestic/drnh_images/
+data/domestic/raw/
+
+# 工作流产物中的原始页影像（OCR/对比用，本地留存，不入仓）
+work/domestic/sprint38_phase1/
+work/domestic/yanlunji_1945_pages/
+work/domestic/continue_pages/
+work/domestic/phase1_sprint38_probe/
+work/domestic/hard_gap_probe_20260719/
+work/domestic/minmeng_wenxian_1946/
+work/domestic/guangmingbao_1946_phase2_pages/
+work/domestic/ocr_guangmingbao_1946/
+work/domestic/guangmingbao_1948_1949/
+work/domestic/dagongbao_nlc_7604_7606/
+work/domestic/ocr_collection_phase4/
+work/domestic/claude_ocr_batches_20260726/
+
+# work/domestic/ 下的 page 影像 / 扫描 PNG 一律不入仓（保留为本地工作产物）
+work/domestic/**/page-*.png
+work/domestic/**/*.png
+!work/domestic/**/*.svg
+
+# 临时 / 备份 / 归档
+data/domestic/candidates.jsonl.bak.*
+data/mingmeng_corpus_data_*.tar.gz
+data/domestic/*.bak
+
+# unrelated local prototype, not part of the research platform
+Pulse/

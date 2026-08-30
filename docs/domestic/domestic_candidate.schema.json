@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Domestic primary-source candidate v3 (date-role audit)",
+  "description": "v3 在 v2 基础上新增可选的 document_date_role / event_context_date / event_context_date_precision 字段，用于区分文献日期与事件语境日期；全部 optional, 现有数据向后兼容.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_id",
+    "title",
+    "repository_code",
+    "repository_name",
+    "access_mode",
+    "rights_status",
+    "authenticity_level_proposed",
+    "relevance_grade_proposed",
+    "evidence_note",
+    "uncertainty_note",
+    "checked_at",
+    "checked_by",
+    "review_status"
+  ],
+  "properties": {
+    "candidate_id": {"type": "string", "minLength": 3},
+    "title": {"type": "string", "minLength": 1},
+    "creator": {"type": "string"},
+    "recipient": {"type": "string"},
+    "document_date": {"type": "string"},
+    "document_date_precision": {"enum": ["day", "month", "year", "approximate", "range", "unknown", "exact"]},
+    "document_date_role": {
+      "enum": ["source_document", "publication", "catalogue_record", "unknown"],
+      "description": "document_date 的语义；不得把事件语境日期伪装成文献日期"
+    },
+    "event_context_date": {
+      "type": "string",
+      "description": "与候选文献相关但不等同于文献日期的事件节点日期"
+    },
+    "event_context_date_precision": {
+      "enum": ["day", "month", "year", "approximate", "range", "unknown", "exact"]
+    },
+    "document_type": {"type": "string"},
+    "repository_code": {"type": "string", "minLength": 2},
+    "repository_name": {"type": "string", "minLength": 1},
+    "collection_name": {"type": "string"},
+    "archive_fonds": {"type": "string"},
+    "archive_series": {"type": "string"},
+    "archive_file": {"type": "string"},
+    "archive_item": {"type": "string"},
+    "catalog_reference": {"type": "string", "minLength": 1},
+    "catalog_reference_status": {"enum": ["verified", "unpublished", "not_found", "pending", "unknown"]},
+    "source_url": {"type": "string", "format": "uri", "minLength": 1},
+    "source_url_role": {"enum": ["item_digital", "item_surrogate", "finding_aid", "bibliography", "institution_home", "none", "unknown"]},
+    "access_note": {"type": "string"},
+    "access_mode": {"enum": ["open", "login", "reading_room", "offline", "unknown"]},
+    "medium": {"enum": ["physical", "digital", "hybrid", "unknown"]},
+    "online_availability": {"enum": ["full_item_online", "surrogate_online", "catalogue_only_online", "not_online", "unknown"]},
+    "rights_status": {"enum": ["public", "internal", "restricted", "unknown"]},
+    "reuse_rights": {"enum": ["public_domain", "open_license", "citation_only", "no_republication", "unknown"]},
+    "rights_basis": {"type": "string"},
+    "copy_allowed": {"enum": ["yes", "no", "unknown"]},
+    "authenticity_level_proposed": {"enum": ["L0", "L1", "L2", "L3", "L4", "LX"]},
+    "relevance_grade_proposed": {"enum": ["core", "related", "person", "background", "exclude", "unknown"]},
+    "event_tags": {"type": "array", "items": {"type": "string"}},
+    "person_tags": {"type": "array", "items": {"type": "string"}},
+    "place_tags": {"type": "array", "items": {"type": "string"}},
+    "evidence_note": {"type": "string", "minLength": 1},
+    "evidence_type": {"enum": ["catalogue", "official_description", "digital_image", "printed_finding_aid", "secondary_lead", "unknown"]},
+    "evidence_locator": {"type": "string"},
+    "uncertainty_note": {"type": "string"},
+    "checked_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "checked_by": {"enum": ["minimax", "grok", "codex", "human", "claude-code"]},
+    "review_status": {"enum": ["candidate", "needs_human_review", "accepted", "rejected", "duplicate"]},
+    "review_note": {"type": "string"},
+    "reviewed_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "reviewed_by": {"enum": ["minimax", "grok", "codex", "human", "claude-code"]},
+    "check_outcome": {"enum": ["pass", "fail", "needs_info", "deferred", "unknown"]},
+    "authenticity_level_accepted": {"enum": ["L0", "L1", "L2", "L3", "L4", "LX", null]},
+    "relevance_grade_accepted": {"enum": ["core", "related", "person", "background", "exclude", "unknown", null]},
+    "_v2_added_fields": {
+      "description": "v2 新增 5 个可选字段 (2026-07-22 schema 升级)",
+      "properties": {
+        "transcription_status": {
+          "enum": ["none", "partial", "full", "validated"],
+          "description": "全文转录状态: none=未转录, partial=部分, full=全文, validated=人工校对 + 二次 OCR 比对"
+        },
+        "transcription_text_path": {
+          "type": "string",
+          "description": "转录文本本地文件路径 (相对 repo root). 例: data/domestic/transcriptions/mm1947-gmbao-iss13.txt"
+        },
+        "transcription_confidence": {
+          "enum": ["high", "medium", "low"],
+          "description": "转录置信度 (OCR 工具 + 人工校对综合)"
+        },
+        "access_audit_date": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "description": "最近一次 URL 可达性审计日期 (webfetch)"
+        },
+        "access_audit_status": {
+          "enum": ["ok", "redirect", "paywall", "archived", "failed", "unknown"],
+          "description": "最近审计结果"
+        },
+        "citation_key": {
+          "type": "string",
+          "pattern": "^[a-z0-9_-]{4,80}$",
+          "description": "BibTeX citation key, 全局唯一. 格式: <event>-<source>-<date>-<n>. 例: mm1947-gmbao-iss13-04"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"access_mode": {"enum": ["offline", "reading_room"]}}, "required": ["access_mode"]},
+      "then": {"required": ["catalog_reference", "catalog_reference_status", "access_note"]}
+    },
+    {
+      "if": {"properties": {"online_availability": {"enum": ["full_item_online", "surrogate_online"]}}, "required": ["online_availability"]},
+      "then": {"required": ["source_url", "source_url_role"]}
+    },
+    {
+      "if": {"properties": {"authenticity_level_proposed": {"const": "L0"}}, "required": ["authenticity_level_proposed"]},
+      "then": {"required": ["catalog_reference", "catalog_reference_status", "evidence_type", "evidence_locator"]}
+    },
+    {
+      "if": {"properties": {"review_status": {"const": "accepted"}}, "required": ["review_status"]},
+      "then": {"required": ["check_outcome", "authenticity_level_accepted", "relevance_grade_accepted", "reviewed_at", "reviewed_by"]}
+    },
+    {
+      "if": {"properties": {"review_status": {"enum": ["rejected", "duplicate"]}}, "required": ["review_status"]},
+      "then": {"required": ["review_note"]}
+    },
+    {
+      "if": {"properties": {"transcription_status": {"enum": ["partial", "full", "validated"]}}, "required": ["transcription_status"]},
+      "then": {"required": ["transcription_text_path"]}
+    },
+    {
+      "if": {"properties": {"transcription_status": {"const": "validated"}}, "required": ["transcription_status"]},
+      "then": {"required": ["access_audit_date", "access_audit_status"]}
+    }
+  ]
+}

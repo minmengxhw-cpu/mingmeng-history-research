@@ -1,0 +1,21 @@
+# 民盟史料研究平台 - 运行时依赖
+# 本文件由全仓 `import` 语句扫描核实生成(2026-08-01),不是凭 README 猜的。
+# app.py(站点主程序)本身只依赖标准库 + zhconv;其余包均被 scripts/ 下的
+# 数据采集/构建/翻译/导出脚本实际引用,具体来源见下方注释。
+#
+# 版本号取自本地已验证可运行环境的实测版本(非凭空指定)。
+
+# --- app.py 直接依赖 ---
+zhconv==1.4.3                # app.py: 繁体转简体(台北国史馆等繁体来源展示)
+
+# --- scripts/build/, scripts/ingest/ 等数据处理脚本依赖 ---
+beautifulsoup4==4.14.3        # scripts/build/build_research_index.py, scripts/ingest/*.py: 解析抓取到的 HTML
+requests==2.34.2              # scripts/build/summarize_*_for_paper.py, refine_cia_translations_llm.py 等: 调外部接口/下载
+python-docx==1.2.0            # scripts/build/build_research_package.py, scripts/lib/gov_docx.py 等: 生成/解析 Word 文档
+openpyxl==3.1.5               # scripts/build/build_sinica_request.py, scripts/lib/classify_drnh_hits.py: 读写 Excel
+weasyprint==68.1              # scripts/oneshot/gen_sourcebook.py, scripts/export/render_paper_pdf.py: HTML 转 PDF
+pypdf==6.10.2                 # scripts/ingest/ocr_paddle_chunked.py: PDF 分页/文本抽取
+
+# --- 重型/小范围依赖(仅单个采集脚本用到,体积大,按需装) ---
+argostranslate==1.11.0        # scripts/translate/translate_missing_pages_argos.py: 离线机器翻译
+paddleocr==3.7.0              # scripts/ingest/ocr_paddle_local.py: 本地 OCR 识别(依赖 paddlepaddle,体积较大)
