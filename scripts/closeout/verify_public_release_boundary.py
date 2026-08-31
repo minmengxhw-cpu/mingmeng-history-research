@@ -20,7 +20,7 @@ FORBIDDEN_SUFFIXES = (".sqlite", ".db", ".pdf", ".docx", ".jpg", ".jpeg", ".png"
 FORBIDDEN_TEXT_PATTERNS = (
     ("absolute_user_path", re.compile(r"/Users/cheer(?:/|$)")),
     ("private_temp_path", re.compile(r"/private/tmp/mingmeng(?:/|$)")),
-    ("local_checkout_path", re.compile(r"Documents/mm agent")),
+    ("local_checkout_path", re.compile(r"Documents/[^\s/]+\s+agent")),
     ("private_key", re.compile(r"BEGIN (?:RSA|OPENSSH|EC|DSA) PRIVATE KEY")),
     ("github_token", re.compile(r"(?:ghp_|github_pat_)[A-Za-z0-9_]+")),
 )
