@@ -26,6 +26,8 @@ translate_*.stdout
 # ===== 大数据 / 临时数据 =====
 output/
 exports/
+data/*
+!data/.gitkeep
 data/ocr_smoke_test/
 data/frus_epub_tmp/
 data/hoover_recon/
@@ -43,6 +45,13 @@ data/newspapersg/images/
 # workspace/ 临时工作产物（白皮书草稿、数据集 JSON 等）
 workspace/*
 !workspace/.gitkeep
+
+# 本机任务记录不进入公开发布树
+.tasks/*
+!.tasks/.gitkeep
+
+# 正文样例只留在本机数据包，不随公开代码发布
+docs/cia-refine-samples/
 
 # 新增本机代理/收口工作产物默认不入公开仓库；已经被 Git 跟踪的历史元数据仍保持跟踪。
 # 需要有意发布某个工作产物时，使用 git add -f 并先做来源与路径审计。

@@ -6,7 +6,7 @@
 
 - 术语/残留清理：5 条
 - 常规复核：1 条
-- CSV：`/Users/cheer/Documents/New project/data/hathitrust_quality_triage.csv`
+- CSV：`<local-user>/Documents/New project/data/hathitrust_quality_triage.csv`
 
 ## 优先处理清单
 

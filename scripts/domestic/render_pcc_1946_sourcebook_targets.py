@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[2]
 MAP_PATH = ROOT / "data" / "domestic" / "pcc_1946_sourcebook_targets.json"
 DEFAULT_OUTPUT = ROOT / "work" / "domestic" / "pcc_1946_sourcebook_render_20260814"
 PDFFTOPPM_OVERRIDE = Path(
-    "/Users/cheer/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/pdftoppm"
+    "<local-user>/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/pdftoppm"
 )
 
 

@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 
 
-RAW_BASE = "/Users/cheer/民盟/研究室文件/党派分志20200708/民盟代表人士资料汇编"
+RAW_BASE = "<local-user>/民盟/研究室文件/党派分志20200708/民盟代表人士资料汇编"
 TODAY = "2026-07-20"
 
 NEW_RECORDS = [

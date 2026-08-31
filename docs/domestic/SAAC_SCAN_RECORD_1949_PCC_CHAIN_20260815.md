@@ -40,7 +40,7 @@ OCR 由本地 CPU 上的 PaddleOCR 3.7.0（`PP-OCRv6_medium_det + PP-OCRv6_mediu
 ## 机器记录
 
 - 批次：`saac-scan-chain-20260815`
-- 备份（入库前）：`/Users/cheer/Documents/mm agent/formal-db-backups/research_index.sqlite.saac-chain-20260815.pre.bak`
-- 备份（导航追加前）：`/Users/cheer/Documents/mm agent/formal-db-backups/research_index.sqlite.saac-chain-events-20260815.pre.bak`
+- 备份（入库前）：`<local-user>/<local-checkout>/formal-db-backups/research_index.sqlite.saac-chain-20260815.pre.bak`
+- 备份（导航追加前）：`<local-user>/<local-checkout>/formal-db-backups/research_index.sqlite.saac-chain-events-20260815.pre.bak`
 - 入库后正式库 SHA-256：`7ea39b1ae62ceb8daae8c434224215382fe0b85dba57906606a75e42ebe7271a`
 - 自动校验：SQLite integrity check 通过；外键违规 0；新增页面缺 FTS 0；新增 provenance 8；citation-ready 页面 0。

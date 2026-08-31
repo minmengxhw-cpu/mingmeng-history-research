@@ -6,7 +6,7 @@
 
 ## 一、当前环境状态
 
-- Grok CLI 已安装，命令：`/Users/cheer/.local/bin/grok`。
+- Grok CLI 已安装，命令：`<local-user>/.local/bin/grok`。
 - Grok 支持单次任务、结构化输出、自检和独立 Git worktree。
 - MiniMax 官方 CLI 已安装，命令名是 `mmx`，当前版本为 `1.0.18`，认证状态已验证。
 - Grok / MiniMax 的外部调用使用公开脱敏任务包；两个 CLI 不进入项目仓库，不读取项目文档、SQLite、扫描件、PDF、图片、OCR 缓存或压缩包。

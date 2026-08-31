@@ -15,7 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DB = ROOT / "work/domestic/staging_20260730/domestic_staging.sqlite"
-SOURCE = Path("/Users/cheer/Documents/民盟/knowledge_base/data/staging/extracted/raw_inbox_研究室文件_2017年工作U盘_一届三中_给凯地__c0726897bf85/1、目录/2、中国民主同盟一届三中全会政治报告.doc")
+SOURCE = Path("<local-user>/Documents/民盟/knowledge_base/data/staging/extracted/raw_inbox_研究室文件_2017年工作U盘_一届三中_给凯地__c0726897bf85/1、目录/2、中国民主同盟一届三中全会政治报告.doc")
 DERIVED = ROOT / "work/domestic/local_private_ocr_metadata_20260730/historical_primary_audit/related_text/2、中国民主同盟一届三中全会政治报告.txt"
 OUT = ROOT / "work/domestic/local_private_ocr_metadata_20260730/historical_primary_audit"
 

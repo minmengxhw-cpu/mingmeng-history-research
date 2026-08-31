@@ -39,7 +39,7 @@ OCR 草稿位于：
 ## 机器记录
 
 - 批次：`saac-scan-chain2-20260815`
-- 入库前数据库备份：`/Users/cheer/Documents/mm agent/formal-db-backups/research_index.sqlite.saac-chain2-20260815.pre.bak`
-- 导航追加前数据库备份：`/Users/cheer/Documents/mm agent/formal-db-backups/research_index.sqlite.saac-chain2-events-20260815.pre.bak`
+- 入库前数据库备份：`<local-user>/<local-checkout>/formal-db-backups/research_index.sqlite.saac-chain2-20260815.pre.bak`
+- 导航追加前数据库备份：`<local-user>/<local-checkout>/formal-db-backups/research_index.sqlite.saac-chain2-events-20260815.pre.bak`
 - 入库和导航完成后正式库 SHA-256：`3fea4b32b10bde60f0017fb19918e3f90bb4220872932df3beafd5bfc0b1e8f8`
 - 自动校验：SQLite integrity check 通过；外键违规 0；新增页面缺 FTS 0；新增 provenance 7；新增 citation-ready 页面 0。

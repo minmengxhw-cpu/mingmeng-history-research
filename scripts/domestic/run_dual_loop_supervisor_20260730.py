@@ -273,7 +273,7 @@ def invoke_small_agent(reasons: list[str], current: dict) -> int:
         handle.flush()
         result = subprocess.run(
             [
-                "/Users/cheer/.local/bin/codex",
+                "<local-user>/.local/bin/codex",
                 "-a",
                 "never",
                 "--disable",
@@ -358,7 +358,7 @@ def dispatch_action() -> str:
     if provider == "grok":
         probe = subprocess.run(
             [
-                "/Users/cheer/.local/bin/grok",
+                "<local-user>/.local/bin/grok",
                 "--cwd",
                 str(ROOT),
                 "--model",
@@ -384,7 +384,7 @@ def dispatch_action() -> str:
             "screen",
             "-dmS",
             session_name,
-            "/Users/cheer/.local/bin/grok",
+            "<local-user>/.local/bin/grok",
             "--cwd",
             str(ROOT),
             "--model",

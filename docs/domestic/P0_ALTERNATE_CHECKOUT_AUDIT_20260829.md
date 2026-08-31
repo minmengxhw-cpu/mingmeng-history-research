@@ -3,7 +3,7 @@
 ## 复核目的
 
 当前正式 checkout 的授权原件接收目录为空。为排除“原件已经放在另一份本地数据 checkout、但未被接收门禁发现”的可能性，对 sibling checkout
-`/Users/cheer/Documents/mm agent/mingmeng-history-research/data/domestic/gazette_scans/`
+`<local-user>/<local-checkout>/mingmeng-history-research/data/domestic/gazette_scans/`
 进行了文件名级和文件元数据级核对。
 
 ## 发现的文件

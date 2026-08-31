@@ -138,7 +138,7 @@ NEW_RECORDS = [
             "公开浏览 http://www.minmeng1941.cn/outline?ChannelID=9317&resultid=2767 ；"
             "帮助页 http://www.minmeng1941.cn/web/help.html ；"
             "主 JS http://www.minmeng1941.cn/web/static/js/main.js （41195 字符，含 16 个 API 端点）；"
-            "下载脚本 /Users/cheer/民盟/研究室文件/tools/minmeng1941_cn_user_downloader_20260720.py"
+            "下载脚本 <local-user>/民盟/研究室文件/tools/minmeng1941_cn_user_downloader_20260720.py"
         ),
         "uncertainty_note": (
             "主办单位（猜测：中国民主同盟中央，需 cheer 核实）；"

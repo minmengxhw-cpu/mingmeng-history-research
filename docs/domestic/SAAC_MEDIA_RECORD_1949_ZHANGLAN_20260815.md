@@ -22,7 +22,7 @@
 - 正式页 ID：`20912`
 - 正式库记录：`domestic-media/SAAC:domestic:SAAC:1949-09-21-05`
 - 入库后正式库 SHA256：`06ff37956dcdb2bccc0831045a9055fb0d023dedd6122c83c5564fe63692ae6b`
-- 入库前备份：`/Users/cheer/Documents/mm agent/formal-db-backups/research_index.sqlite.saac-media-20260815.pre.bak`
+- 入库前备份：`<local-user>/<local-checkout>/formal-db-backups/research_index.sqlite.saac-media-20260815.pre.bak`
 
 候选与文档已双向关联，页级 FTS 与 `page_provenance` 已建立。媒体页保持 `review_only`、`citation_ready=0`、`needs_human_review=1`，并明确标注 `transcript_status=not_acquired`。
 

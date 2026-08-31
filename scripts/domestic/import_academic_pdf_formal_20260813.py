@@ -39,7 +39,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_FORMAL_DB = ROOT / "data/research_index.sqlite"
 DEFAULT_STAGING_DB = ROOT / "work/domestic/staging_20260730/domestic_staging.sqlite"
 DEFAULT_PDFTOTEXT = Path(
-    "/Users/cheer/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/poppler/bin/pdftotext"
+    "<local-user>/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/poppler/bin/pdftotext"
 )
 BATCH_ID = "academic-pdf-formal-20260813"
 TIERS = {"S", "A"}

@@ -22,7 +22,7 @@ import json
 from pathlib import Path
 
 
-RAW_PDF = "/Users/cheer/民盟/研究室文件/党派分志20200708/印刷厂 党派分志验收稿正文20200701.pdf"
+RAW_PDF = "<local-user>/民盟/研究室文件/党派分志20200708/印刷厂 党派分志验收稿正文20200701.pdf"
 TODAY = "2026-07-19"
 
 NEW_RECORDS = [

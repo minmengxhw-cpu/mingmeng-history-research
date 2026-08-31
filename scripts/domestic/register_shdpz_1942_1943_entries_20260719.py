@@ -6,7 +6,7 @@ concrete 1942 / 1943 民盟-相关 biographical entries found in the Shanghai
 Democratic Parties Gazetteer manuscript (党派分志验收稿 资料长编).
 
 Raw layer path (read-only):
-    /Users/cheer/民盟/研究室文件/党派分志20200708/资料长编/
+    <local-user>/民盟/研究室文件/党派分志20200708/资料长编/
         民盟 第五章 20201018.doc   (史良)
         民盟 人物 20201018.doc      (尚丁, 刘思慕)
 
@@ -32,7 +32,7 @@ import json
 from pathlib import Path
 
 
-RAW_BASE = "/Users/cheer/民盟/研究室文件/党派分志20200708/资料长编"
+RAW_BASE = "<local-user>/民盟/研究室文件/党派分志20200708/资料长编"
 TXT_BASE = "/tmp"
 TODAY = "2026-07-19"
 

@@ -20,7 +20,7 @@ from datetime import datetime
 from pathlib import Path
 
 
-VENV_PY = "/Users/cheer/Documents/民盟/knowledge_base/.venv-ocr/bin/python"
+VENV_PY = "<local-user>/Documents/民盟/knowledge_base/.venv-ocr/bin/python"
 OCR_SCRIPT = Path(__file__).resolve().parent / "ocr_paddle_local.py"
 
 

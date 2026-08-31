@@ -125,7 +125,7 @@
 
 ## 六、Mac 批量下载脚本
 
-把下面这段保存为 `/Users/cheer/Documents/New\ project/scripts/fetch_wilson.sh`，
+把下面这段保存为 `<local-user>/Documents/New\ project/scripts/fetch_wilson.sh`，
 在 Mac 上 `chmod +x` 后 `./scripts/fetch_wilson.sh` 跑：
 
 ```bash

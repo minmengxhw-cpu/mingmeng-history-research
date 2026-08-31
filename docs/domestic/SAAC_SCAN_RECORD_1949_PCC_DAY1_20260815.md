@@ -35,7 +35,7 @@
 - 复核范围：题名/日期线索、手写记录格式、物理页序、连续页关系和页面边界；不转录手写正文、人名或数字。
 - 批次文件：[BATCH.json](../../work/domestic/saac_1949_pcc_day1_visual_review_20260815/BATCH.json)
 - 复核决定：[REVIEW_DECISIONS.json](../../work/domestic/saac_1949_pcc_day1_visual_review_20260815/REVIEW_DECISIONS.json)
-- 入库备份：`/Users/cheer/Documents/mm agent/formal-db-backups/research_index.sqlite.saac-1949-day1-visual-20260815.pre.bak`
+- 入库备份：`<local-user>/<local-checkout>/formal-db-backups/research_index.sqlite.saac-1949-day1-visual-20260815.pre.bak`
 - 复核后数据库 SHA-256：`a2e845460552ffaf09219709030375ad753661a7004378cbeb63e263dd7172e7`
 
 ## 研究边界

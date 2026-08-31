@@ -539,7 +539,7 @@ def test_1949_new_pcc_research_packet_carries_verified_archive_pages_without_bod
     assert '"text"' not in raw
     assert "data/domestic/raw" not in raw
     assert "data/domestic/metadata_snapshots" not in raw
-    assert "/Users/cheer/" not in raw
+    assert "<local-user>/" not in raw
     html = research_packet_page("domestic-1949-new-pcc").decode("utf-8")
     assert "专题来源地图" in html
     assert "官方图像" in html

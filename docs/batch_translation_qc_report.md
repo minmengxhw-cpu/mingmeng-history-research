@@ -5,7 +5,7 @@
 - 自动通过：0
 - 批量候选：0
 - 保留人工精校：220
-- 明细 CSV：`/Users/cheer/Documents/New project/data/batch_translation_qc.csv`
+- 明细 CSV：`<local-user>/Documents/New project/data/batch_translation_qc.csv`
 
 ## 前 40 条分诊
 

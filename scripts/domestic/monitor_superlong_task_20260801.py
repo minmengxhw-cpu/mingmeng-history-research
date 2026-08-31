@@ -133,7 +133,7 @@ def invoke_small_agent(reasons: list[str], current: dict) -> int:
         handle.flush()
         result = subprocess.run(
             [
-                "/Users/cheer/.local/bin/codex", "-a", "never",
+                "<local-user>/.local/bin/codex", "-a", "never",
                 "--disable", "plugins", "--disable", "apps",
                 "--disable", "memories", "--disable", "computer_use",
                 "--disable", "browser_use", "--disable", "image_generation",

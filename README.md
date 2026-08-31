@@ -2,6 +2,8 @@
 
 > 1941—1950 民盟境外档案与国内史料的分层整理、OCR、引用复核与多源交叉印证。
 
+> **公开发布边界**：本仓库只发布应用代码、测试、流程说明和不含正文的公开文档。正式 SQLite、原始扫描、OCR 正文、下载缓存、研究工作记录和本机元数据均不随 Git 发布，需在本机通过外部数据根目录挂载。
+
 ## 一、项目简介
 
 本平台是「民盟历史文献研究」项目组维护的内部研究工作台，聚焦中国民主同盟筹建、参政与重大转折时期的境外档案，以及国内同期报刊、公开扫描、民盟目录和官方来源。
@@ -32,18 +34,18 @@ P0 原件跨 checkout 的排除性复核见 [`docs/domestic/P0_ALTERNATE_CHECKOU
 1947 年解散前后新增的一页 NAA-TW 官方原件影像交叉路线见 [`docs/domestic/NAA_1947_ILLEGAL_LEAGUE_REACTION_ROUTE_20260830.md`](docs/domestic/NAA_1947_ILLEGAL_LEAGUE_REACTION_ROUTE_20260830.md)；它是元数据准入线索，不关闭两个 P0 原件缺口。
 1947 年解散前新增的《人民日报》1947-11-04 同期报刊公开镜像路线见 [`docs/domestic/RENMIN_1947_11_04_CROSS_SOURCE_ROUTE_20260830.md`](docs/domestic/RENMIN_1947_11_04_CROSS_SOURCE_ROUTE_20260830.md)；它是交叉检索入口，不替代两个 P0 原件。
 解散前组织史扩展与 1947 年二中全会线索见 [`docs/domestic/PRE_DISSOLUTION_HISTORY_EXTENSION_20260829.md`](docs/domestic/PRE_DISSOLUTION_HISTORY_EXTENSION_20260829.md)。
-解散前研究轨道的声明式索引与验收规则见 [`data/domestic/research_tracks.json`](data/domestic/research_tracks.json) 和 [`scripts/domestic/validate_research_tracks.py`](scripts/domestic/validate_research_tracks.py)。
+解散前研究轨道的声明式索引与验收规则见 `scripts/domestic/validate_research_tracks.py`；轨道 JSON 由本机数据包提供，不随公开代码发布。公开发布边界见 [`docs/PUBLIC_RELEASE_BOUNDARY.md`](docs/PUBLIC_RELEASE_BOUNDARY.md)。
 国内资料存储、备份和可重建派生层的价值分层审计见 [`docs/domestic/STORAGE_VALUE_AUDIT_20260829.md`](docs/domestic/STORAGE_VALUE_AUDIT_20260829.md) 和 [`scripts/domestic/audit_storage_layers.py`](scripts/domestic/audit_storage_layers.py)。
 正式库与恢复快照的结构化元数据对账见 [`scripts/domestic/compare_sqlite_snapshot_metadata.py`](scripts/domestic/compare_sqlite_snapshot_metadata.py)；它排除正文和全文索引，只用于判断快照是否存在真实批次差异。
 国内学术资料的质量分层、全文队列和机构资格待核边界见 [`docs/domestic/ACADEMIC_LAYER_QUALITY_AUDIT_20260829.md`](docs/domestic/ACADEMIC_LAYER_QUALITY_AUDIT_20260829.md) 和 [`scripts/domestic/validate_academic_layer.py`](scripts/domestic/validate_academic_layer.py)。
 另一份本地采集 checkout 的元数据、重复、来源身份和准入分流见 [`docs/domestic/SIBLING_COLLECTION_ADMISSION_AUDIT_20260830.md`](docs/domestic/SIBLING_COLLECTION_ADMISSION_AUDIT_20260830.md) 和 [`scripts/domestic/audit_sibling_collection_admission.py`](scripts/domestic/audit_sibling_collection_admission.py)。
-该审计生成的 355 条未匹配元数据待准入队列见 [`data/domestic/sibling_collection_intake_queue.json`](data/domestic/sibling_collection_intake_queue.json)，安全校验见 [`scripts/domestic/validate_sibling_collection_intake.py`](scripts/domestic/validate_sibling_collection_intake.py)；它不包含本地路径、正文、OCR 或 SQLite 写入。
+该审计生成的未匹配元数据待准入队列由本机数据包提供，安全校验见 `scripts/domestic/validate_sibling_collection_intake.py`；它不包含本地路径、正文、OCR 或 SQLite 写入。
 学术全文队列与正式 SQLite 覆盖关系的只读审计见 [`scripts/domestic/audit_academic_formal_coverage.py`](scripts/domestic/audit_academic_formal_coverage.py)。
-已有页级 OCR 与学术队列的同 SHA 复用审计见 [`data/domestic/academic_formal_reuse_map.json`](data/domestic/academic_formal_reuse_map.json) 和 [`scripts/domestic/audit_academic_source_reuse.py`](scripts/domestic/audit_academic_source_reuse.py)；它只做复用核验，不复制正文、不重复 OCR，也不改变 `citation_ready`。
-学术候选入口的错误绑定/转载页对账见 [`docs/domestic/ACADEMIC_ACQUISITION_RECONCILIATION_20260830.md`](docs/domestic/ACADEMIC_ACQUISITION_RECONCILIATION_20260830.md)、[`data/domestic/academic_acquisition_reconciliation.json`](data/domestic/academic_acquisition_reconciliation.json) 和 [`scripts/domestic/validate_academic_acquisition_reconciliation.py`](scripts/domestic/validate_academic_acquisition_reconciliation.py)；它会把错误页面留在发现层，不把转载页当成目标正文。
-GAR-639 汇编的页码身份候选映射见 [`data/domestic/academic_gar639_page_identity_candidate.json`](data/domestic/academic_gar639_page_identity_candidate.json) 和 [`scripts/domestic/validate_academic_gar639_page_identity_candidate.py`](scripts/domestic/validate_academic_gar639_page_identity_candidate.py)；候选规则暂不写入 `page_provenance.printed_page`，不改变引用门禁。
+已有页级 OCR 与学术队列的同 SHA 复用审计见 `scripts/domestic/audit_academic_source_reuse.py`；它只做复用核验，不复制正文、不重复 OCR，也不改变 `citation_ready`。
+学术候选入口的错误绑定/转载页对账见 [`docs/domestic/ACADEMIC_ACQUISITION_RECONCILIATION_20260830.md`](docs/domestic/ACADEMIC_ACQUISITION_RECONCILIATION_20260830.md) 和 `scripts/domestic/validate_academic_acquisition_reconciliation.py`；机器报告由本机数据包提供，它会把错误页面留在发现层，不把转载页当成目标正文。
+GAR-639 汇编的页码身份候选映射见 `scripts/domestic/validate_academic_gar639_page_identity_candidate.py`；候选规则暂不写入 `page_provenance.printed_page`，不改变引用门禁。
 
-各源精读入库篇数随研究进度变化，前台栏目页、首页、`/dashboard` 与 `/sourcebooks` 均按 `data/research_index.sqlite` 实时计算，不在 README 内静态写死。可在浏览器打开 `/dashboard` 查看当前数字。
+各源精读入库篇数随研究进度变化，前台栏目页、首页、`/dashboard` 与 `/sourcebooks` 均按外部挂载的 `research_index.sqlite` 实时计算，不在 README 内静态写死。可在浏览器打开 `/dashboard` 查看当前数字。
 
 ## 二、收录原则
 
@@ -57,7 +59,7 @@ GAR-639 汇编的页码身份候选映射见 [`data/domestic/academic_gar639_pag
 - `citation_ready=false`：默认状态；`machine_verified` 只表示机器核验可阅。只有 `human_verified`、`needs_human_review=0` 且存在人工复核说明时，才可设置为正式引文。
 
 收录边界与误收防线：
-- "China Democratic League / 中国民主同盟" 在 NewspaperSG / HathiTrust 等公开报刊源中容易与 **马来亚民主同盟（Malayan Democratic Union/League）**、**台湾民主自治同盟**、**Korean Democratic League**、**Indo-British Democratic League** 等同名／近名组织混淆。本平台 NewspaperSG 卷设置二次复核脚本（`scripts/build/review_newspapersg_exclusions.py`）逐篇判断 "是否真涉中国民盟"，输出 `data/newspapersg/exclusions.csv` 误收清单。
+- "China Democratic League / 中国民主同盟" 在 NewspaperSG / HathiTrust 等公开报刊源中容易与 **马来亚民主同盟（Malayan Democratic Union/League）**、**台湾民主自治同盟**、**Korean Democratic League**、**Indo-British Democratic League** 等同名／近名组织混淆。本平台 NewspaperSG 卷设置二次复核脚本（`scripts/build/review_newspapersg_exclusions.py`）逐篇判断 "是否真涉中国民盟"，误收清单由本机数据包提供。
 - 复核口径：China Democratic League 的新加坡／马来亚分部 → 保留；马来亚民主同盟独立政党 → 剔除或降级隐藏；只笼统提及 "Democratic League" 但上下文与中国民盟无关 → 剔除。
 
 ## 三、快速上手（Mac 本地运行）
@@ -79,7 +81,7 @@ pip3 install --user pypdf pillow openpyxl
 
 ### 3. 恢复正式研究数据库
 
-`data/research_index.sqlite` 和原始/OCR 资料不进入 Git。GitHub 代码库本身不能重建完整正式库；请从项目数据包恢复数据库，并用受版本控制的 `data/research_index.manifest.json` 校验 SHA256。
+`research_index.sqlite` 和原始/OCR 资料不进入 Git。GitHub 代码库本身不能重建完整正式库；请从项目数据包恢复数据库，并使用同一数据包提供的 manifest 校验 SHA256。
 
 ```bash
 python3 scripts/closeout/verify_research_index_manifest.py \
@@ -88,23 +90,23 @@ python3 scripts/closeout/verify_research_index_manifest.py \
 
 校验器不只比对数据库 SHA256 和行数，也会逐个读取国内史料来源文件，验证登记哈希、缺失文件、绝对路径和项目目录逃逸。通过校验只表示“数据库可复现且文字能回到登记原件”，不表示 OCR／转录已经人工核对。
 
-如需一次查看平台结构门禁、学术层、sibling 队列、研究轨道、主证据访问、资料分层和 P0 原件接收状态，可运行只读收口快照：
+如需一次查看平台结构门禁、学术层、sibling 队列、研究轨道、主证据访问、资料分层和 P0 原件接收状态，可在挂载外部数据后运行只读收口快照：
 
 ```bash
 python3 -B scripts/closeout/build_closeout_snapshot.py \
-  --output work/domestic/closeout_snapshot_current/REPORT.json
+  --output /path/to/closeout_snapshot.json
 ```
 
 快照会明确区分 `status=PASS`（平台机制通过）与 `research_content_status=OPEN_PRIMARY_GAPS`（仍有一手原件缺口），不读取正文、不写正式 SQLite、不下载或删除文件。
 其中 `p0_intake.target_statuses` 只输出每个 P0 目标的 ID、接收状态和归一化缺项（例如 `file_mapping`），不会输出本地路径、正文或影像字段。
 
-如果只是做低消耗监控，不要重复运行完整门禁，可直接读取现有快照：
+如果只是做低消耗监控，可直接读取外部快照：
 
 ```bash
 python3 -B scripts/closeout/read_closeout_status.py
 ```
 
-该命令只读一个 JSON 快照，输出平台状态、P0 目标级状态和安全标志，不访问 SQLite、正文或原始文件。
+该命令只读一个外部 JSON 快照，输出平台状态、P0 目标级状态和安全标志，不访问 SQLite、正文或原始文件。
 默认超过 1 小时的快照会标为 `STALE_SNAPSHOT`（退出码 2）；此时先重新运行完整收口快照，再继续监控。
 
 如果要形成低消耗循环，可使用按需刷新入口：
@@ -121,24 +123,24 @@ python3 -B scripts/closeout/refresh_closeout_if_stale.py
 python3 -B scripts/closeout/reconcile_local_formal_hashes.py \
   --inventory /path/to/LOCAL_FILES_METADATA_ONLY.jsonl \
   --db /path/to/research_index.sqlite \
-  --output /path/to/work/domestic/local_formal_hash_reconciliation_current
+  --output /path/to/local_formal_hash_reconciliation_current
 ```
 
-该工具只读取文件字节计算 SHA256，并以聚合计数和安全元数据队列输出结果；不解析正文、不做 OCR、不写 SQLite、不复制/移动或删除文件。精确路径或字节哈希只能证明文件身份，不能证明来源、权利或史料价值。`work/` 下的本机报告不要提交到公开仓库。
+该工具只读取文件字节计算 SHA256，并以聚合计数和安全元数据队列输出结果；不解析正文、不做 OCR、不写 SQLite、不复制/移动或删除文件。精确路径或字节哈希只能证明文件身份，不能证明来源、权利或史料价值。报告应保存在公开仓库之外。
 
-可以把数据库放入默认位置 `data/research_index.sqlite`，也可以保留在外部数据盘并通过环境变量启动：
+可以把数据库放在外部数据盘，并通过环境变量启动：
 
 ```bash
 MINGMENG_RESEARCH_DB=/absolute/path/research_index.sqlite python3 app.py
 ```
 
-国内 staging 资料库默认位于 `work/domestic/staging_20260730/domestic_staging.sqlite`，它包含学术元数据、OCR provenance 和机器复核队列，通常不随 Git 发布。若资料放在外部数据盘，可同时指定：
+国内 staging 资料库位于外部工作根目录，它包含学术元数据、OCR provenance 和机器复核队列，不随 Git 发布。若资料放在外部数据盘，可同时指定：
 
 ```bash
 MINGMENG_RESEARCH_DB=/path/data/research_index.sqlite \
 MINGMENG_DATA_ROOT=/path/data \
 MINGMENG_WORK_ROOT=/path/work \
-MINGMENG_STAGING_DB=/path/work/domestic/staging_20260730/domestic_staging.sqlite \
+MINGMENG_STAGING_DB=/path/to/work/domestic/staging_20260730/domestic_staging.sqlite \
 python3 app.py
 ```
 

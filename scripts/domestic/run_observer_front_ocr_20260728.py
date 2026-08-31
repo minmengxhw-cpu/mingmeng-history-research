@@ -15,8 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "work/domestic/OBSERVER_V3_ISSUE_MANIFEST_20260728.jsonl"
-PADDLE_PYTHON = Path("/Users/cheer/Documents/民盟/knowledge_base/.venv-ocr/bin/python")
-PDftoppm = Path("/Users/cheer/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/pdftoppm")
+PADDLE_PYTHON = Path("<local-user>/Documents/民盟/knowledge_base/.venv-ocr/bin/python")
+PDftoppm = Path("<local-user>/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/override/pdftoppm")
 OCR_MODULE = ROOT / "scripts/ingest/ocr_paddle_local.py"
 
 

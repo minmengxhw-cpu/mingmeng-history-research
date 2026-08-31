@@ -31,7 +31,7 @@
 - apply：`work/domestic/saac_candidate_links_20260815/APPLY.json`，`integrity_check=ok`、外键违规 0、页/FTS 对齐；
 - apply 前数据库 SHA256：`ea2e0e5d4f329621f2e4baec7c531818f53428cd5457752cc20bddfb42e62b0b`；
 - apply 后数据库 SHA256：`29182122722f2b8ee64f78e266fb79d89fab6e640498d8a1590e25681c848f26`；
-- 备份：`/Users/cheer/Documents/mm agent/formal-db-backups/research_index.sqlite.saac-links-20260815.pre.bak`；
+- 备份：`<local-user>/<local-checkout>/formal-db-backups/research_index.sqlite.saac-links-20260815.pre.bak`；
 - manifest 校验：`scripts/closeout/verify_research_index_manifest.py` PASS；
 - 全平台门禁：`work/domestic/unified_platform_gate_after_saac_links_20260815/REPORT.json` PASS，9/9 研究包通过，36/36 问题路径可达，研究内容状态仍为 `OPEN_PRIMARY_GAPS`。
 

@@ -8,7 +8,7 @@ specific US Embassy/Consulate dispatch about 中国民主政团同盟 / 民主�
 activities in 1943–1944, with a stable URL to the original FRUS page.
 
 Raw layer (read-only):
-    /Users/cheer/民盟/研究室文件/研究平台史料长编/民盟史料长编_美国对外关系文件集_上卷_frus.pdf
+    <local-user>/民盟/研究室文件/研究平台史料长编/民盟史料长编_美国对外关系文件集_上卷_frus.pdf
 
 Original FRUS digital archive URLs (for cross-verification):
     1943: https://history.state.gov/historicaldocuments/frus1943China/d272
@@ -26,7 +26,7 @@ import json
 from pathlib import Path
 
 
-RAW_PDF = "/Users/cheer/民盟/研究室文件/研究平台史料长编/民盟史料长编_美国对外关系文件集_上卷_frus.pdf"
+RAW_PDF = "<local-user>/民盟/研究室文件/研究平台史料长编/民盟史料长编_美国对外关系文件集_上卷_frus.pdf"
 TODAY = "2026-07-19"
 
 NEW_RECORDS = [

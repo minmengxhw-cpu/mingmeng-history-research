@@ -2,7 +2,7 @@
 """Run the locally installed PaddleOCR engine without touching the formal DB.
 
 The runtime is intentionally supplied by the caller, for example:
-  /Users/cheer/Documents/民盟/knowledge_base/.venv-ocr/bin/python \
+  <local-user>/Documents/民盟/knowledge_base/.venv-ocr/bin/python \
     scripts/ingest/ocr_paddle_local.py -i image.png -o work/domestic/ocr_pilot
 
 This stage writes only auditable Markdown drafts. SQLite ingestion is a separate

@@ -15,7 +15,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE_DIR = Path("/Users/cheer/Documents/民盟/knowledge_base/data/processed/ocr_markdown_overnight_2026-07-10")
+SOURCE_DIR = Path("<local-user>/Documents/民盟/knowledge_base/data/processed/ocr_markdown_overnight_2026-07-10")
 OUT = ROOT / "work/domestic/local_private_ocr_metadata_20260730"
 KEYWORDS = ("陕西民盟史", "沪盟通讯", "民主同盟", "陕西", "民盟")
 

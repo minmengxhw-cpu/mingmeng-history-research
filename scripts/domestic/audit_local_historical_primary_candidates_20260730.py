@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 OBJECTS = ROOT / "work/domestic/local_private_ocr_metadata_20260730/LOCAL_DOCUMENT_OBJECTS.jsonl"
-KNOWLEDGE_BASE = Path("/Users/cheer/Documents/民盟/knowledge_base")
+KNOWLEDGE_BASE = Path("<local-user>/Documents/民盟/knowledge_base")
 OUT = ROOT / "work/domestic/local_private_ocr_metadata_20260730/historical_primary_audit"
 TARGET_IDS = ("J067-001-001-105", "J067-001-001-108")
 
