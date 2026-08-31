@@ -28,9 +28,7 @@ python3 app.py
 公开发布前至少执行：
 
 ```bash
-git ls-files | rg '^(data/|work/|\.tasks/|workspace/)' \
-  | rg -v '^(data/\.gitkeep|work/\.gitkeep|\.tasks/\.gitkeep|workspace/\.gitkeep)$'
-git grep -n -I -E '/Users/|/private/tmp/|BEGIN (RSA|OPENSSH|EC|DSA) PRIVATE KEY|ghp_|github_pat_|xox[baprs]-'
+python3 scripts/closeout/verify_public_release_boundary.py
 ```
 
-第一条命令应无输出；第二条命令只能在确认是文档中的占位示例后保留结果。
+输出中的 `status` 必须为 `PASS`、`violation_count` 必须为 `0`。该脚本只扫描 Git 已追踪文件，不读取外部数据库或研究正文。

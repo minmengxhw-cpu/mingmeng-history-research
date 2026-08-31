@@ -17,5 +17,8 @@ jobs:
       - name: 安装依赖
         run: pip install -r requirements-dev.txt
 
+      - name: 检查公开发布边界
+        run: python3 scripts/closeout/verify_public_release_boundary.py
+
       - name: 运行 pytest
         run: pytest -v
