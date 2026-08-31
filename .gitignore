@@ -52,6 +52,9 @@ workspace/*
 
 # 正文样例只留在本机数据包，不随公开代码发布
 docs/cia-refine-samples/
+docs/**/*.pdf
+docs/**/*.docx
+docs/**/*.png
 
 # 新增本机代理/收口工作产物默认不入公开仓库；已经被 Git 跟踪的历史元数据仍保持跟踪。
 # 需要有意发布某个工作产物时，使用 git add -f 并先做来源与路径审计。
