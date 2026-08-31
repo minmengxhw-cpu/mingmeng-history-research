@@ -40,6 +40,26 @@ DB_PATH = REPO_ROOT / "data" / "research_index.sqlite"
 # 都足以解释"连接被重置"这个现象。清单来自对 app.py 全文 grep 校验,不是猜的。
 CORE_TABLES = {"documents", "pages", "translations"}
 
+# 公开代码仓库不携带研究 corpus。以下模块验证的是挂载数据后的真实
+# 国内研究层；在 data/research_index.sqlite 不存在时，必须明确 skip，
+# 不能把“未挂载”误报为代码失败。带数据运行 CI 时不触发这些 skip。
+CORPUS_DEPENDENT_MODULES = frozenset(
+    {
+        "test_academic_crosswalk_snapshot.py",
+        "test_academic_metadata_fallback.py",
+        "test_authorized_original_intake.py",
+        "test_domestic_foreign_parity_acceptance.py",
+        "test_primary_subtarget_support.py",
+        "test_public_domestic_boundary.py",
+        "test_research_topics.py",
+        "test_research_topics_issue8_11.py",
+        "test_sibling_collection_intake.py",
+        "test_source_admission.py",
+        "test_source_admission_queue.py",
+        "test_unified_research_platform_gate.py",
+    }
+)
+
 
 def _db_missing_reason() -> str | None:
     """返回“数据库缺失/缺核心表”的原因说明;数据库健全则返回 None。"""
@@ -66,6 +86,24 @@ def _db_missing_reason() -> str | None:
 def db_missing_reason() -> str | None:
     """None = 数据库健全;否则是可读的缺失原因,供测试 skip 时打印。"""
     return _db_missing_reason()
+
+
+def pytest_collection_modifyitems(config, items):
+    """Skip corpus assertions only when the external corpus is not mounted.
+
+    The public checkout deliberately contains code and synthetic fixtures, not
+    the private research database or metadata snapshots.  This keeps a clean
+    clone's CI honest while preserving the full test suite for a data-mounted
+    research checkout.
+    """
+    reason = _db_missing_reason()
+    if not reason:
+        return
+    marker = pytest.mark.skip(reason=f"外部研究 corpus 未挂载：{reason}")
+    for item in items:
+        module_name = Path(str(item.fspath)).name
+        if module_name in CORPUS_DEPENDENT_MODULES:
+            item.add_marker(marker)
 
 
 def _free_port_hint() -> int:

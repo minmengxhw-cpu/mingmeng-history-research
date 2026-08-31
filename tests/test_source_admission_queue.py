@@ -8,11 +8,16 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from scripts.domestic.build_source_admission_queue import build_rows, load_policy
 
 
 ROOT = Path(__file__).resolve().parents[1]
-POLICY = load_policy(ROOT / "data/domestic/source_admission_policy.json")
+POLICY_PATH = ROOT / "data/domestic/source_admission_policy.json"
+if not POLICY_PATH.exists():
+    pytest.skip("外部研究 corpus 未挂载：缺少 source_admission_policy.json", allow_module_level=True)
+POLICY = load_policy(POLICY_PATH)
 
 
 def row(**overrides: str) -> dict[str, str]:
